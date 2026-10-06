@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Español 3: Soy estudiante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F0FF;--surface:#FFFFFF;--ink:#1F1640;--muted:#6A6290;
+  --violet:#6C3BFF;--violet-soft:#E6DEFF;--pink:#FF4F8B;--sun:#FFC83D;
+  --mint:#10A877;--mint-soft:#D7F6EA;--coral:#E2482F;--coral-soft:#FFE1DA;
+  --line:#DDD6F5;--on-violet:#FFFFFF;--tv:#2A1F63;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#151032;--surface:#221A4C;--ink:#F1EEFF;--muted:#B0A8D8;
+  --violet:#9C7BFF;--violet-soft:#33296B;--pink:#FF77A6;--sun:#FFD465;
+  --mint:#3CD8A4;--mint-soft:#15433A;--coral:#FF7E68;--coral-soft:#4A221C;
+  --line:#3A3170;--on-violet:#151032;--tv:#0E0A26;}}
+:root[data-theme="dark"]{
+  --bg:#151032;--surface:#221A4C;--ink:#F1EEFF;--muted:#B0A8D8;
+  --violet:#9C7BFF;--violet-soft:#33296B;--pink:#FF77A6;--sun:#FFD465;
+  --mint:#3CD8A4;--mint-soft:#15433A;--coral:#FF7E68;--coral-soft:#4A221C;
+  --line:#3A3170;--on-violet:#151032;--tv:#0E0A26;}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:700 18px/1.45 Nunito,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+input{-webkit-user-select:text;user-select:text}
+h1,h2,h3{font-family:"Bricolage Grotesque",Georgia,serif;line-height:1.1;margin:0;font-weight:800}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+[hidden]{display:none!important}
+.wrap{max-width:560px;margin:0 auto;padding:16px 18px 120px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:16px;padding:15px 22px;background:var(--violet);color:var(--on-violet);font-weight:800;font-size:1.05rem;box-shadow:0 4px 0 rgba(0,0,0,.22);transition:transform .08s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn:disabled{opacity:.4;box-shadow:none}
+.btn.ghost{background:var(--surface);color:var(--violet);box-shadow:0 4px 0 var(--line);border:2px solid var(--line)}
+.btn.wide{width:100%}
+.btn-row{display:flex;gap:12px;margin-top:22px}
+.btn-row .btn{flex:1}
+.btn-row .btn.back{flex:0 0 58px;padding:15px 0}
+
+/* Gate */
+#gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--bg);z-index:60}
+#gate .box{max-width:380px;width:100%;text-align:center}
+#gate .emo{font-size:72px}
+#gate h1{font-size:2.2rem;margin:8px 0}
+#gate p{color:var(--muted);margin:0 0 20px;font-weight:500}
+#gate input{width:100%;padding:15px;border:3px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);font:800 1.15rem Nunito,sans-serif;text-align:center;text-transform:uppercase;letter-spacing:.06em}
+#gate .btn{margin-top:12px}
+#gate .err{color:var(--coral);min-height:1.5em;margin-top:10px;font-size:.95rem}
+
+/* Map */
+.map-head{display:flex;align-items:center;gap:10px;margin:8px 0 6px}
+.map-head h1{font-size:2rem;flex:1}
+.chip{background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.95rem;white-space:nowrap}
+.icon-btn{background:var(--surface);border:2px solid var(--line);border-radius:50%;width:44px;height:44px;font-size:20px}
+.map-sub{color:var(--muted);margin:0 0 20px;font-weight:500}
+.path{list-style:none;margin:0;padding:0;position:relative}
+.node{display:flex;align-items:center;gap:14px;width:100%;background:none;border:0;padding:8px 0;text-align:left}
+.ch-head{font:800 1.25rem "Bricolage Grotesque",serif;margin:26px 0 8px;padding:8px 14px;background:var(--surface);border:2px solid var(--line);border-radius:14px}
+.path .ch-head:first-child{margin-top:0}
+.bubble{position:relative;flex:0 0 72px;height:72px;border-radius:50%;background:var(--violet-soft);display:flex;align-items:center;justify-content:center;font-size:34px;box-shadow:0 5px 0 var(--line)}
+.node.done .bubble{background:var(--sun);box-shadow:0 5px 0 rgba(0,0,0,.18)}
+.node.done .bubble::after{content:"⭐";position:absolute;right:-6px;top:-6px;font-size:22px}
+.node.next .bubble{background:var(--violet);box-shadow:0 5px 0 rgba(0,0,0,.25);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.07)}}
+.node .t{display:block;font-size:1.08rem}
+.node .s{display:block;color:var(--muted);font-weight:500;font-size:.9rem}
+.map-foot{margin-top:28px;color:var(--muted);font-size:.8rem;font-weight:500}
+
+/* Play */
+#play{min-height:100%}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--bg);display:flex;align-items:center;gap:12px;padding:12px 18px;max-width:560px;margin:0 auto}
+.top .icon-btn{flex:0 0 44px}
+.bar{flex:1;height:16px;background:var(--line);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--pink));border-radius:999px;transition:width .35s}
+#combo{min-width:52px;text-align:right;color:var(--pink)}
+#stage{max-width:560px;margin:0 auto;padding:10px 18px 190px}
+.q-title{font-size:1.55rem;margin:6px 0 16px}
+.q-hint{color:var(--muted);font-weight:500;margin:-8px 0 16px}
+.big-emo{font-size:96px;text-align:center;line-height:1.2;margin:4px 0 14px}
+.sent{font-size:1.4rem;text-align:center;margin:0 0 18px}
+.slot{display:inline-block;min-width:3.5em;border-bottom:4px solid var(--violet);color:var(--violet);padding:0 6px}
+.slot.ok{color:var(--mint);border-color:var(--mint)} .slot.bad{color:var(--coral);border-color:var(--coral)}
+.opts{display:grid;gap:12px}
+.opt{width:100%;text-align:left;background:var(--surface);border:3px solid var(--line);border-radius:16px;padding:15px 18px;font-weight:800;font-size:1.08rem;box-shadow:0 4px 0 var(--line)}
+.opt.ok{border-color:var(--mint);background:var(--mint-soft);box-shadow:0 4px 0 var(--mint)}
+.opt.bad{border-color:var(--coral);background:var(--coral-soft);box-shadow:0 4px 0 var(--coral)}
+.opts.chips{grid-template-columns:repeat(3,1fr)} .opts.chips .opt{text-align:center;padding:14px 6px}
+.opts.tiles{grid-template-columns:repeat(3,1fr)} .opts.tiles .opt{text-align:center;font-size:52px;padding:14px 0;line-height:1.1}
+.opts.tf{grid-template-columns:1fr 1fr} .opts.tf .opt{text-align:center;font-size:1.15rem}
+
+/* Scene (mini cartoon) */
+.tv{position:relative;background:var(--tv);border-radius:22px;padding:34px 14px 18px;text-align:center;overflow:hidden;box-shadow:0 6px 0 rgba(0,0,0,.25)}
+.tv::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(156,123,255,.45),transparent 60%)}
+.tv-tag{position:absolute;left:14px;top:10px;color:#FFD465;font-size:.85rem}
+.tv-tag::before{content:"● ";color:#FF4F8B}
+.actor{position:relative;font-size:104px;line-height:1.15}
+.cap{position:relative;display:inline-block;margin-top:8px;background:rgba(0,0,0,.45);color:#fff;border-radius:12px;padding:8px 14px;font-size:1.25rem}
+.ru{color:var(--muted);text-align:center;font-weight:500;margin:12px 0 0}
+.a-wiggle{animation:wiggle .9s ease-in-out infinite}
+.a-bounce{animation:bounce .8s ease-in-out infinite}
+.a-float{animation:float 2.2s ease-in-out infinite}
+.a-swim{animation:swim 1.8s ease-in-out infinite}
+.a-shake{animation:shake .5s ease-in-out infinite}
+@keyframes wiggle{25%{transform:rotate(-9deg)}75%{transform:rotate(9deg)}}
+@keyframes bounce{50%{transform:translateY(-16px)}}
+@keyframes float{50%{transform:translateY(-8px) scale(1.03)}}
+@keyframes swim{25%{transform:translateX(-22px)}75%{transform:translateX(22px)}}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+/* Rule cards */
+.rule{background:var(--surface);border:3px solid var(--line);border-radius:22px;padding:22px;text-align:center}
+.rule .emo{font-size:60px}
+.rule h2{font-size:1.5rem;margin:8px 0 12px}
+.rule .body{font-weight:500;font-size:1.05rem}
+.rule .body b{color:var(--violet)}
+.formula{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+.formula span{background:var(--violet-soft);border-radius:12px;padding:8px 12px;font-weight:800;color:var(--violet)}
+.formula .plus{background:none;color:var(--pink);font-size:1.5rem}
+.mini{display:grid;grid-template-columns:auto auto;gap:4px 18px;justify-content:center;text-align:left}
+
+/* Flip card */
+.flip{display:block;width:100%;height:280px;border:0;background:none;padding:0;perspective:1000px}
+.flip .inner{position:relative;display:block;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border-radius:22px;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:3px solid var(--line);background:var(--surface);box-shadow:0 6px 0 var(--line)}
+.face.back{transform:rotateY(180deg);background:var(--violet);color:var(--on-violet);border-color:var(--violet)}
+.face .big{font-size:80px;line-height:1.1}
+.face b{font-size:2rem;font-family:"Bricolage Grotesque",serif}
+.face small{font-weight:500;opacity:.8;font-size:.95rem}
+
+/* Build (words / letters) */
+.answer-line{min-height:64px;border-bottom:3px dashed var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;padding:8px 0;margin-bottom:22px}
+.answer-line.ok{border-color:var(--mint)} .answer-line.bad{border-color:var(--coral)}
+.pool{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.tok{background:var(--surface);border:3px solid var(--line);border-radius:14px;padding:10px 14px;font-weight:800;font-size:1.1rem;box-shadow:0 4px 0 var(--line)}
+.tok.letter{width:50px;height:54px;padding:0;font-size:1.4rem}
+.tok:disabled{opacity:.15;box-shadow:none}
+.tok.in{background:var(--violet-soft);border-color:var(--violet)}
+
+/* Memory */
+.mem{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (min-width:480px){.mem{grid-template-columns:repeat(4,1fr)}}
+.card{height:86px;border-radius:16px;border:3px solid var(--line);background:var(--violet);color:var(--on-violet);font-weight:800;font-size:1.05rem;box-shadow:0 4px 0 rgba(0,0,0,.2)}
+.card.open{background:var(--surface);color:var(--ink)}
+.card.got{background:var(--mint-soft);border-color:var(--mint);color:var(--ink);box-shadow:none}
+.card.miss{background:var(--coral-soft);border-color:var(--coral);color:var(--ink)}
+
+.match2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mcol{display:grid;gap:12px}
+.mbtn{height:62px;border-radius:16px;border:3px solid var(--line);background:var(--surface);font-weight:800;font-size:1.05rem;box-shadow:0 4px 0 var(--line)}
+.mbtn.sel{border-color:var(--violet);background:var(--violet-soft);box-shadow:0 4px 0 var(--violet)}
+.mbtn.got{border-color:var(--mint);background:var(--mint-soft);box-shadow:none;opacity:.75}
+.mbtn.miss{border-color:var(--coral);background:var(--coral-soft);box-shadow:0 4px 0 var(--coral)}
+/* Morph animation */
+.morph{background:var(--surface);border:3px solid var(--line);border-radius:22px;padding:20px 16px;text-align:center}
+.m-emo{font-size:52px}
+.m-word{position:relative;display:flex;justify-content:center;align-items:baseline;font:800 clamp(2.6rem,13vw,3.6rem)/1.2 "Bricolage Grotesque",serif;min-height:1.4em;margin:6px 0 10px}
+.end{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:baseline;transition:max-width .6s,opacity .6s,transform .7s,background .3s}
+.old{max-width:2.2em;color:var(--ink);border-radius:10px}
+.neu{max-width:0;opacity:0;color:var(--mint)}
+.scis{position:absolute;top:-.55em;left:50%;font-size:.55em;opacity:0;transition:opacity .3s,transform .6s}
+.morph.s1 .old{color:var(--coral);background:var(--coral-soft)}
+.morph.s1 .scis{opacity:1;transform:translateX(.6em)}
+.morph.s2 .scis{opacity:0;transform:translateX(1.6em) rotate(-30deg)}
+.morph.s2 .old,.morph.s3 .old{max-width:0;opacity:0;transform:translateY(.8em) rotate(25deg)}
+.morph.s3 .neu{max-width:4.5em;opacity:1}
+.morph.s3 .m-word{animation:pop .4s}
+@keyframes pop{50%{transform:scale(1.08)}}
+.m-steps{list-style:none;padding:0;margin:0 auto 14px;max-width:320px;text-align:left;font-weight:500}
+.m-steps li{padding:6px 10px;border-radius:10px;opacity:.35;transition:opacity .3s,background .3s}
+.m-steps li.on{opacity:1}
+.morph.s1 li[data-s="1"],.morph.s2 li[data-s="2"],.morph.s3 li[data-s="3"]{background:var(--violet-soft)}
+.m-rule{display:inline-block;background:var(--sun);color:#1F1640;border-radius:12px;padding:8px 16px;font-weight:800;font-size:1.2rem}
+.tr-ru{font-size:1.5rem}
+.tr-hint{text-align:center;margin:0 0 16px}
+.big-rule{font-size:2rem;font-family:"Bricolage Grotesque",serif;color:var(--violet)}
+@media (prefers-reduced-motion:reduce){.end,.scis{transition:none}.morph.s3 .m-word{animation:none}}
+/* Talk */
+.chat{display:flex;flex-direction:column;gap:12px;margin-bottom:10px}
+.bub{max-width:88%;padding:12px 14px;border-radius:20px;font-size:1.15rem}
+.bub.bot{align-self:flex-start;background:var(--surface);border:3px solid var(--line);display:flex;gap:10px;align-items:center;border-bottom-left-radius:6px}
+.bub.bot small{display:block;color:var(--muted);font-weight:500;font-size:.9rem}
+.bub.bot .round-play{width:46px;height:46px;font-size:20px}
+.bot-ava{font-size:40px;line-height:1}
+.bub.me{align-self:flex-end;background:var(--violet);color:var(--on-violet);border-bottom-right-radius:6px}
+.talk-pic{font-size:80px;margin:0}
+.mic{display:flex;align-items:center;justify-content:center;margin:8px auto 6px;width:112px;height:112px;border-radius:50%;border:0;background:var(--pink);color:#fff;font-size:48px;box-shadow:0 6px 0 rgba(0,0,0,.22)}
+.mic:disabled{opacity:.35;box-shadow:none}
+.mic.rec{background:var(--coral);animation:pulse 1s ease-in-out infinite}
+.mic-hint{text-align:center;color:var(--muted);font-weight:500;margin:0}
+.live{text-align:center;min-height:1.6em;margin:10px 0}
+.talk-ctrl{display:flex;gap:10px}
+.talk-ctrl .btn{flex:1;padding:12px 10px;font-size:.95rem}
+.type-box{margin-top:14px}
+.privacy{color:var(--muted);font-weight:500;font-size:.78rem;text-align:center;margin-top:16px}
+@media (prefers-reduced-motion:reduce){.mic.rec{animation:none}}
+/* Link box */
+.link-box{background:var(--surface);border:3px solid var(--sun);border-radius:18px;padding:14px 16px;margin:6px 0 4px}
+.link-step{font-weight:500;margin:4px 0 10px}
+.link-url{background:var(--bg);border:2px dashed var(--line);border-radius:12px;padding:10px 12px;font-size:.9rem;word-break:break-all;margin-bottom:12px;-webkit-user-select:all;user-select:all}
+.m-ru{margin-top:12px;font-weight:700;font-size:1.1rem;color:var(--violet);opacity:0;transition:opacity .4s}
+.morph.s3 .m-ru{opacity:1}
+.mini3{display:grid;grid-template-columns:auto auto auto;gap:6px 12px;justify-content:center;text-align:left;font-size:.95rem}
+.mini3 i{font-style:normal;color:var(--muted);font-weight:500}
+.vocab{margin-top:28px;background:var(--surface);border:2px dashed var(--line);border-radius:16px;padding:10px 14px;font-weight:500;font-size:.92rem}
+.vocab summary{font-weight:800;cursor:pointer;color:var(--violet)}
+.vocab ul{list-style:none;margin:8px 0 0;padding:0}
+.vocab li{padding:4px 0;border-top:1px solid var(--line)}
+.vocab li b{color:var(--ink)}
+.dlg{display:grid;gap:10px}
+.dl-line{display:flex;gap:10px;align-items:center;background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:10px 12px}
+.dl-body{flex:1}
+.dl-who{display:block;font-size:.8rem;color:var(--muted);font-weight:800}
+.dl-text{font-weight:600;font-size:1.05rem}
+.dl-text b{color:var(--pink)}
+.dl-line .round-play{width:44px;height:44px;font-size:20px;flex:0 0 44px}
+.dlg-tr{margin-top:16px;background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:10px 14px;font-weight:500}
+.dlg-tr summary{font-weight:800;color:var(--violet);cursor:pointer}
+.dlg-tr ul{list-style:none;padding:0;margin:8px 0 0}
+.dlg-tr li{padding:6px 0;border-top:1px solid var(--line)}
+.dlg-tr li u{text-decoration:none;color:var(--pink);font-weight:800}
+.tr-banner{background:var(--violet-soft);color:var(--ink);border-radius:14px;padding:10px 14px;margin:-4px 0 14px;font-weight:700;font-size:1rem}
+.eh{font-style:normal;color:var(--pink)}
+.btn.skip{padding:11px 16px;font-size:.95rem;margin:0 0 16px;box-shadow:none}
+.prep-ru{display:block;margin-top:2px;color:var(--muted);font-weight:600;font-size:.92rem}
+.dl-trbtn{display:inline-block;margin-top:6px;border:0;background:var(--violet-soft);color:var(--violet);border-radius:999px;padding:4px 12px;font-size:.85rem;font-weight:800}
+.dl-ru{display:block;margin-top:5px;color:var(--muted);font-weight:600;font-size:.95rem}
+/* Logs */
+.log-sum{background:var(--surface);border:3px solid var(--violet);border-radius:18px;padding:16px;margin-bottom:22px}
+.log-sum h2,.log-h{font-size:1.4rem;margin-bottom:10px}
+.sum-total{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.sum-total span{border-radius:12px;padding:8px 14px;font-size:1.15rem}
+.s-ok{background:var(--mint-soft);color:var(--mint)} .s-bad{background:var(--coral-soft);color:var(--coral)} .s-pct{background:var(--violet-soft);color:var(--violet)}
+.sum-table{width:100%;border-collapse:collapse;font-size:.95rem}
+.sum-table th{text-align:left;color:var(--muted);font-weight:700;padding:6px 4px;border-bottom:2px solid var(--line)}
+.sum-table th:not(:first-child),.sum-table td:not(:first-child){text-align:center;width:3em}
+.sum-table td{padding:7px 4px;border-bottom:1px solid var(--line)}
+.n-ok{color:var(--mint)} .n-bad{color:var(--muted)} .n-bad.hot{color:var(--coral);font-weight:800}
+.log-lvl{background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:14px}
+.log-lvl h3{font-size:1.15rem}
+.log-meta{color:var(--muted);font-weight:500;font-size:.88rem;margin:2px 0 8px}
+.log-list{list-style:none;margin:0;padding:0}
+.log-list li{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:.95rem}
+.log-ic{flex:0 0 auto}
+.log-q{display:block}
+.log-a{display:block;color:var(--muted);font-weight:500}
+.log-list li.bad .log-a{color:var(--coral)}
+/* Timer */
+.timer{height:10px;background:var(--line);border-radius:999px;overflow:hidden;margin:0 0 18px}
+.timer i{display:block;height:100%;width:100%;background:var(--sun)}
+
+/* Listen */
+.big-play{display:flex;align-items:center;justify-content:center;margin:6px auto 22px;width:120px;height:120px;border-radius:50%;border:0;background:var(--pink);color:#fff;font-size:52px;box-shadow:0 6px 0 rgba(0,0,0,.22)}
+.round-play{flex:0 0 auto;width:54px;height:54px;border-radius:50%;border:3px solid var(--line);background:var(--surface);font-size:24px;box-shadow:0 4px 0 var(--line)}
+
+.type-in{width:100%;padding:15px;border:3px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);font:800 1.3rem Nunito,sans-serif;text-align:center}
+
+/* Feedback sheet */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:18px 18px calc(52px + env(safe-area-inset-bottom,0px));transform:translateY(110%);transition:transform .25s}
+.sheet.show{transform:none}
+.sheet.ok{background:var(--mint-soft)} .sheet.bad{background:var(--coral-soft)}
+.sheet .in{max-width:560px;margin:0 auto}
+.sheet .msg{font-size:1.2rem;margin-bottom:12px}
+.sheet.ok .msg{color:var(--mint)} .sheet.bad .msg{color:var(--coral)}
+.sheet .msg small{display:block;color:var(--ink);font-weight:500;font-size:1rem;margin-top:4px}
+.sheet.ok .btn{background:var(--mint)} .sheet.bad .btn{background:var(--coral)}
+
+/* Done */
+#done{position:fixed;inset:0;z-index:40;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+#done .emo{font-size:90px}
+#done h2{font-size:2.1rem;margin:6px 0}
+#done .stars{font-size:44px;letter-spacing:6px;margin:6px 0}
+#done p{color:var(--muted);font-weight:500;margin:0 0 22px}
+#done .btn{width:100%;margin-top:12px}
+.confetti{position:fixed;top:-20px;width:10px;height:14px;border-radius:3px;z-index:45;pointer-events:none;animation:fall 1.8s ease-in forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.6}}
+
+/* Watermark */
+#wm-bar{position:fixed;left:0;right:0;bottom:0;z-index:35;background:var(--surface);border-top:1px solid var(--line);padding:6px 12px calc(6px + env(safe-area-inset-bottom,0px));font:500 .75rem Nunito,sans-serif;color:var(--muted);text-align:center}
+#wm-bg{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.045;overflow:hidden}
+#wm-bg div{position:absolute;inset:-50%;transform:rotate(-24deg);font:800 17px Nunito,sans-serif;color:var(--ink);line-height:5;word-spacing:3em}
+
+@media (prefers-reduced-motion:reduce){
+  .a-wiggle,.a-bounce,.a-float,.a-swim,.a-shake,.node.next .bubble{animation:none}
+  .flip .inner,.sheet,.bar i{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div id="gate" role="dialog" aria-labelledby="gate-title">
+  <div class="box">
+    <div class="emo" aria-hidden="true">🎮</div>
+    <h1 id="gate-title">Español 3: Soy estudiante</h1>
+    <p>Введи личный код от преподавателя</p>
+    <input id="code" type="text" autocomplete="off" placeholder="Код доступа" aria-label="Код доступа">
+    <button class="btn wide" id="enter">Начать</button>
+    <div class="err" id="gate-err" role="alert"></div>
+  </div>
+</div>
+
+<div id="map" hidden><div class="wrap" id="map-in"></div></div>
+<div id="logs" hidden><div class="wrap" id="logs-in"></div></div>
+
+<div id="play" hidden>
+  <div class="top">
+    <button class="icon-btn" id="quit" aria-label="Выйти на карту">✕</button>
+    <div class="bar" role="progressbar" aria-label="Прогресс уровня"><i id="bar-fill"></i></div>
+    <span id="combo" aria-live="polite"></span>
+  </div>
+  <div id="stage"></div>
+</div>
+
+<div class="sheet" id="sheet" role="status" aria-live="polite">
+  <div class="in"><div class="msg" id="sheet-msg"></div><button class="btn wide" id="sheet-next">Дальше</button></div>
+</div>
+
+<div id="done" hidden>
+  <div class="box" style="max-width:380px;width:100%">
+    <div class="emo" aria-hidden="true">🎉</div>
+    <h2>Уровень пройден!</h2>
+    <div class="stars" id="done-stars"></div>
+    <p id="done-text"></p>
+    <button class="btn" id="done-next">Следующий уровень</button>
+    <button class="btn ghost" id="done-map">На карту</button>
+  </div>
+</div>
+
+<div id="wm-bg" aria-hidden="true" hidden><div id="wm-bg-text"></div></div>
+<div id="wm-bar" hidden></div>
+
+<script>
+/* ===== Коды доступа: один код = один ученик ===== */
+
+
+/* ===== Адрес урока на хостинге (вставить после загрузки) ===== */
+const LESSON_URL = "";
+
+/* ===== Уровни ===== */
+const VAULT = [{"s": "Hfg32gwtdezW44MmFZRHQg==", "iv": "r4P/oknhhGf6dPcv", "c": "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"}, {"s": "c6t55HXS3qGNzgoxEEQ5cg==", "iv": "47wglKjAngOf/E8u", "c": "zD+0P03TdXLjwoVgCRGj8ltI3A/sSmFWTucNHacmVLYNmy9rCvrn2ajeSSKh/PHz83xDnkNvLDQpOpWKu/ftSZPfYPlbcBI7LZHbsTZoq5CEnMq44nsg9DEyn+SNQyAUTCtb+HrH7PmmDZ4Nx+huAQ7c7Fa5MLKbfgfSzcWMujXKFlIr9WN6s2TeueAnwNUkkJIvETiLTH3WDaiJh4Hxeu+Uud3/uw7Q69o74x2AYpcSVgt/tP53GGIikcCQKp3pRxe7Hw6creLwoLWBHuU1bf8cRiqFYOgkQnZdXlcHSuIohIvEaU7mYrTsH5dQOtIfA7BC+p0GN/Xs5RCh9i4WFJIsuD/5fPc8HaEi5p0ZnUUiyVaDAqrNCgHCFqEERmALAKpdAGN5LJW9n2ZitmR2ot/4A8upwWSIUQiwc9E0lpZUhUVnpQRIY1pun6vbkElZ+TbPAVLRTKkbjPZvtHeXGPM5TztJPzJlWEM3a/e7gOk0jl/4/CoPWnwjsoHtA4/ClS7ZTb9Q4Zz2YRzb4bDsF9d912Ey9CwuAKf92WzEU0oZoWMPL5HW/4wW4o89qRh/X+D6P3EHW0wnGTVuFiwbse2ArpTxSZRudh6l2W8Tg70HJ+OzcRZSWJ4tfN5mN9ezUXALD6WQbH6lU6Aw3v6ZeHHVRfZIzS7AOIAR3U6dY0UKJN4hBER0D4t6s4JfV+04vETe66hMWw2qFp+pZA/y9appAFPYTn6jTf51nYtim9c7KBoipcB/+fsGS9I6O78+0g49VCzvX5OIIsEtxLm2+F8a7rzCjBnH0XmnOrtgA4D4I6spc9SKwqbFUien/lNo+pmmhnwrSA3IVK8by0087+MwRR7TbSV/mEWEcZ312vubGQX3vZ0yGarVjSvFhkHoINNfPUNY/HFpWEY7N7UxNZfUeduQokDnPXxKLYlrRdFC1s1TFgyr+Cuql1ZUdpi4qP3OTiW7dtR4lnus3EJWEiJmszU1kym49uV0JgJT+B0AsIeBPZLHrbwiKCKx0HTismnfHnZ9Yb2ZeK68cxwAO0QoF3qYsK2masQQ01H7/HW7mkkO+LYqU7SiJQQeJk8EuQzZ8o723G9YSQziiwW+v0H9LlhF9SYgzNPFCtnDWcD4mN0ta6oUAmAiuigu5Ywp2UZ4rtDVC3f1GQMhTDLUqU000/l6HmIfnYBw3c3XUo3lCAr1ZYVIZoZHMYNtLwgx8Zl8K85aCpqFPaGrcJR2MK55hB9s8UCvAHKhMsUn6SmdkYpc97BBcPojW9UMkfDOlOt16VAIGUmlkF7eMTpAQTXjNiuhTA5E64f7s3JRVSUnynWOaVNA4TLIgIUCpMMdxPHN8KqlUZIcRX1s7ybISb0A1mnxGl8zI/P845I+jofj7gxAuL8IEB4PoqRnkH6IRH5KE0gvRLHHTrESEYTA/H8BgTgRTz8N2m+gV83Nmfon/2vTaNHJbnk6DylLORLhaPcXPppnCgCbwMegX5mr2flAalTTDlPNg1kQpKYxRaYf6S/vwH864wZz41la3rWcq7uqmTaqe3gLYPxG8A+aMbLmliaaJqHRblneopLturoc8YgOK4DmjgO7bfznnXOMFS+p1H6oFLJHyKQXWlScoE2tZzh2VkVh8CBXOpZ2YcBvOKD5Z+q8cmAP22KUM+FTKPA5IQ1Gy1Cnl1mj5MfwSlnOFcc+c1atLhnBHecCdIPWMl9TNxn+sCnvBj19ANIMzbEhcmsfI+u5+7DSbt0lZGML9YmwY5BLgazh3VROV3/XqLTZ74GT4HRkrJjL4/soUwvT/rJb+sXG2dGtJMTgJg7onCE8wtW+W6VMd1x2hzp5MZRtjIaaEr1vGcC0O0HzaEhwtNKFdJjs6RTWAY3befgaST7lfNujhu1fY5KnfKUXpj+mGEXgv1fxXJgFADbz480OQy2T8AxdnYKc5uRtHpGeXPmH332L9cWr4ChNfxY6bTLHJQFSA/dl8NHlIxGc7BopWWKaUbLibOrdwr+ViFGYcj54tkW7P3DGJ4MOf8QAQlQcZAXLmOXEA2EEvDq5uFm+gtkCmV/HMdlnICpUFPbnWCDfDRKPe/xuVrbO5RJYTIAjmkNr7GRoj2y52CuhxNfkPwB5sixQyemwd+VYIfKt+N2Bkv/OhPquBBauiOraouKA/lTNMgy1THVpwXl9pJn8m85WPxA4Tyfnr36MCft41F7BoDZYm3Yzamhd5Y4xg5y7VJWYhd0+RXBIAqrU1MtwSnIZHsPj4WSyKrqzfizWufrCTDzpgqBXA/JpM9Euk6m2GzP290R0rjrWie3gEe3C/XgXi0Qusby3qqUc8Xfwr2/7WyhwbCN48v3iSmfMgtg6SXOMFGVY0hKBc5qX1icVTbO34dc7JTyV21aUtG02uoM0iiUFOKzpNHaUoQF5MZMNhsxru/eYmHfG+ac+Vima+01Rv6KZJ6UwgisxNWXkdMtX/fNkIuYXs8IxKd3B/dhWWOfYMti1u/C7fJ54fr2CKEofl2xd3v6aeUoA4ohrhIGS1UZQEQsb9CldGRabA8ZRBLRynbjtGN1sjC6uf7+Pt6YnoggT2YFy7nz3lPr3CdaoFkOzbHfH8a1udqzN+KmfuB+XLIEVlrlYBSu7z3twuRJeItUb57Cp+juk/LnwIRKyqhyeukiiC5tTmYlI0uV9Dh63YL+J+TLsFYw0cXKP/xGXQzQo325jFKxRkEHUIoEtvfe4LQO7s7qmPDeoENV52+DLcmBDmL+hYjMY/GASE5EoFaXKgCCJ6wFJuhTBrrhBTStreZMUVj3Pugx7nsom47sTLEJUExkR0QlITEpk5TbX5cJBoNo7SPtHZD2nEar4ShvXX98Wg5WXErrGS58NOn0Bae66aWk5S70iTyNDGZep7CJ0RkAtwQGkVF+e5T2TNfRQq27BOMwJwsUF6NesUHKpkZSvomhsez2Yy8d6Myy7lchVgg2JlDDNFo2nSKaDswoxEIi6fcxMn3y5EtRpwL3h7r3j05B7Bt8NfbKRJ71Nk8O+0x4wpXTQ5XgjHgRCQPhxtznNjHWmmBUmVlyq8gAKaOmZjGnewcO5/yz4e0RNv933VK+awITLEe63fFdi1Yxa9C0ytVTDLFKLpk041rkmjviyfzTghDF9j0JxD48pn6GOiceBeI5UiQfR/9FNqJFRcB4IhRTGBcE7pPDEPYHIdSY48m4q75r5iFqpduCCZLHOwjncwuYTQeiCPQM4eR9egWkWUtlG0jMX7NkK7Df4dEx60akZaKZ9300GyY5e0r+pieB1TN1gawBbeChkUaoKTVPVx0amTBtq21ab3IwZ0StgRQtm8CJWRyOG0ZA3uOULiZ9yUOiQnG2g4z5QjJDBLo385jatXYvuW99D0xTeHfjOsLX6Amy8tHHjQcKsDTPWBr/NzEaoCPLK8yLb9MVAdUGiXkb2AGeNgmpSTcgTkHZpsKWVr0/UUFXR+Xu3ze39SyxJ+FbP2MHJ8fwSkRoLf49QHG5/6GTw4MMorpks7NE3yo4C1sk+sehq2cq0HNQNotRP4Ctry54NOpCERu3uNrubRqXkSu1Fm06xfz3YChME7b/D0rYtDFqUAt0EaQp4EsY7QDi1zCdZYhJjIhbVbhPrKkWK3fDlDfRA5SwjZaw7OvAc3H5O83I1Dm9AiNtblzAULwWXXfgwAJbCBoMM/eVfWMsjiQ0DbdkV8jWSmJAT+bKvbPfnT9ogj3HP9oTak/dcY8Yux9FUVaUnwAiCQThVQjrp3CWEEabos9TnUkkylKQ1ND/QXWxbcid2kEZWDlgVYAS/akhhrf6BzOUXXqXl4yYViuehcFeXfQNS+pU94VQLnO45in2+OEEXF3gZc2RoDXatKyhFotzbgMeGgdI8SwvLoUL+MElvYGinAvyCh3PJ5WqAXXUydMlQWv+RMiqsFAdd+rjgnRiuEZdBte4JWWQBTv0b7Lr1sdn0Qgar1CgnB5ID4VFnmUOA4lVDuEE1xK+HkEWTa7MapLQEo5cYeDtL/gqJpDRtE+cXLf7PszoudNvBz93hVjeNwI1Of6ifaRDkPcq4kxseKbcqkT3iMbHB3DE+qspRTQmBH3eMuf63RO6651GeijnPTyKCv5OFdySSoPC0FqhjGx1RkZ9hcJJP8/ioHDySEDk+X0YGHY2EPJTlYXBBtsRWfeRXvn4LvxG5TipfNpDwaT37Xt55qqIRVlyiiySfaITwyle9l+jlBnzM0f9/bzQ3PleahA2x+WDh7O1KIWl5LuPGi4ulNxO8LRHQa3lJ2Ud2pUsBt64kan/1tzAEnIPuGYUPtS+soEjumsxPrLekAdf/C6DfaU/59eAkse2YP2+f8uz8d1gyE9rFgsPL9cdZJakQb7jK/GO6AhD4GBDQ4VOApIkZ7JBzf1fLoMU7mkMa74K3H1BEsvtr5JROzPlOs6Ns0xVfWgqMMMHkc8ZIyH4s8AQFhdRxR7PShIc0HZsdmWhWijHFPgW7QqY+cvhhHJwjh06Q7NxJCutSEMdA2OsW6v+hhV0hvEQOToRfI5vxPRASfMKu2vsvTsp2gQzK0bKuSuufPWQvcFSljoAgFRBCeMRhplYug/xUsM5t6ywA5M9m1MyfcFLnNMTdpwzudEg8UpxJulE0MhI+hx0D8XYeANBVU8nRLBg0BwV6fXA3GDJKm6EbgoRHb8j8urGBLR1lETJkHJ76cM2KoQQZrEQOHOtlrqapsoqGm6TjQ46sJnkyK2AlYJVP0ickZmduBMFM2Md0Am+YrwrmvcRgYO+NBM9qfixO4YM2W9msXZfKUn8qUbH10JQke67Q+Lvvxrr2V5Vj34to4wManFfyBY82/Li/p9m3xiWntedvSffmM3o8/si5n/LrlGVYRfOSBcW9MPXnUybfEnKppGh4GG45fLC3RZTCsVw8V4FOWxq+d2LOJVtECAK9jp2736iHLmtlQXmMxeTmOBlCDwbhTDAqxDDr7ZSaVyoQRQ2c26tWyTm4rOruvxeLm+CdtpVSBji++dKHlaZUtriy2MXNR8nYlpFVWViGhiugkmoEKFbPALuCPwpMm9/dJFicqA6AWBhYTHJjHHQWM2RHjl4MMLOd94rfQPsLruhBShewDOEC+4WC/Hxu9RcUoce3Gnqn8CcnS0r9b4ulOCt57Kwp0+GUMYHgDpHbxOuS0UY2VGShKpIPOJx29L0Cha3E1Zvk2RFXFgrogT2+ZtAujMzjqk+umbPYufj4y5vvMHflmxVAH7HWoOQpD8aQ6KeltbDJ9omQSNrkkHnQR9CaLitZ8dG7muOr74jkob1TWTDIAO6bpgP8bs/KMdZMHqY8aWo+/ff6gy4D5o7vOlHUzeld30Qy32ZUuuRcxUScqW0peJC0f/Ow77DQrzGZzdE1FejNSC4AupYtzUrV4e+icPHlZ18wkQubD2b2DwRVxBXQWl2R3izeaYIqvG+GHNWv3n5rawOpnPLBYVHASYgd6OTTLB4M39iolWvbFiiDgxn97HZE1kU1Scs6MvqdZL8sobiPqQlnUJV3jmgQSSrj6F9vP09MBxC08bspV5gKw28O/qYNE6VeBX7iL8S1V+95IAirw7U/8LN2xTVe6eRkcG/h7n6l5bn4m0EP7ONC9Q+DOPzNcJMrFNO1AtU5T6oZnPKSbWEpz97qaE4OgCO46TI+WCycQniqdF0CTDju05Hj/P/ONxwQqdmw6Qsxs8g4WBk1gh5d/kycGC61PdmgUVdsgsl9kNVM8d9GbbzYUqT4mHjrf03DHEjfw+l8gwTTWf9S+lIBijM3vABM1DufJr8fMRNtxlPSndUU+PF4BseJB3FmbnXAinr62uOaqwlChqd4b5KVEOWbZfEVQq23qQmSaEZpNzvpcKmQAOEZZyYK4K0gm3S7lfu/Zt6/VYH8uzAeVy49C3R735eiYUCfllSjU1xB1HraLPDioXZ1szAAIfZ+Fe7PskeuuvSaAZLVQ2Fdon6u6NvproGKVyak9GEDvGGZjY+cb2iTb2nfNiBZ2ZsFbrnjujUPjsO5kvZ82iSH6t0bWzzTCNsf48iTQVu/QUx1wJVQtWvRNtLw5ifUIiEd1uEaFYFOVTuICoCSUV+CMQOCXvAOvoQPTYgWIthKOQkgroYUsgP2sHtoUbwwGHvUls4DnNhk/pEjSbzvOetb88oiiy8X42RdFjyBD3/KuD9x9FeKR4fP1cNJy1rXO/Rkm1aJ8Xh3LNdzHf67LMbZZ001x0pJp7r5GutH1SGdcFUNstWMNt+h5ndHbnV9ZK2PGGpKgRaWp05EbVXge5GBESZvx0GnDX8R+IDwbY7pWlDvP2HGsC33cjR9BObtJwCu4q+o910WeDLVFI0UdWD7QHX/njVhbpXZFAlB0CjqfG+6/G81fa+QEK+CJ9KTh7ja2Z7p+Oq1eGBN8eZPY3QT2Es7NjPPBcqra6z9oGFhC1V2tTi0KoT0DJS1VGIo/fA0RdvECKu64NsKJTKO3JGAuzRtJ5cxhIR6EtXqefdC+AT16+Nko3p6uLYpKXYjl4uuEQgIOZGRZjyHne+FMzOkvNdi7WyYyZ3+EVuIRfFg1/zuabpDCU/79PXaIaSuKNlWaEnBM3G+loCbjFBBIBKkjcHBAaZgiIbi4WgnYi7KQR35JyEj2dFpXULkqaOeXqpuNmne6VzWjSYmfb4UJWDRcNOped9cTB7ItmgTKH9DlQJpABcl3WTyl+0V/JjnBk64TSIJVJvehmRCV/JnXhBIDMNibLMptlHqb7UMp0qO9E6fgWalqFFstojphiIfVWR1nGfVmOCOBCuj0Dfolf4gbrR4lXopdOM6uTeA3jrq4gr59L0YHJYftDTbFL7QSgV0NjcgSRm5YOHEE1Wu05iH30cBSGyIUVFODV/K/lJtgc4jCT1ChRXhkGE8snG611dEaQs8CQNvy/65CWTUv5rJAXdK+jwd7DYCfs4klBNyk0O+mDbJnqw/Bfau8z5goNn74TS9W5SanzxJR9AuMs2HWX4P0aHaI+leSdO3/xS/mA70HJzKjFCWWhO1NnbyTncSO95qclxMFWlWpNL7Hmpd5NXx27JvTVmZ5hlde/asLDYRu6HFKiKJoOCCCq6OnNKtayPH7bmuJ+PDoWI3ZHDN3mhbFY1MnT/7rQD0asBMzbfXw0n9dNozE0ZSj6ofB/OyJUqDuLYg1Zk0MOH2OOXNJ4ebyTzZTLK9YWFFj8ow8L+xw75FZdPglo6SIrKM4IzvL4NRs7hIdTg9XlVPntXAk8UshKhEY/muzuAaLWGwqvPTVzeaKOpiJUtQCyGowuzZVSMuwV8sg9cQHGQY5mW1H0TmDFpZ6Vs2Ie6jJcMvxD4qj68gOJhE/t2xWjS10EHKtv6ajGMa0+dEae08EOxNKdr+Z5zQn99o4m2AdUcK8isz83EHLTnpSTZvnIQJ0ibfqTrNVZwePX92Zomxd+tIeYIoGKWnUmdgRF6XTt1/K5FUJexlj26yDfF8x4LIHZqSjNOus2SLIO7q14w0lSS2vKZLBJZqEcZnfandtBPKyc36BIJvxHZRFWAxd3NFiBzKx1XqnDf1HdUogWZiUwsjAdIF7IZjydXRuECHUhiRxs5QhOWMP2DPfFf0mOj7GFA+uDC9rp2wa2Qs6njomamdEubSed7EFuAiY+3Qmun6B9Em//6C6FxTvmMRA/J6ZGWikMxXQMWEx8JE6fQUrm962kDyy1E3zh+2oosKpOlDwb9sro1Z+XSGfPhrTIaoWtmmywYwHBhu/nmxj7P9Vaj4QuogGCw736mINwt7nb3dYTd8BXaKeMWZSpot7PT/tovkDCatBEfqxxjpuW8iGXI2yetxONMT4kYzibZygHbhelgls/u4H9v81fg/VKmlk8X7qPgu7XV5sgRu/OzyWErKDxk4KKAp8aqyYiKKj8hY5yYvXfXrrIgNqI9QQzEzy0atAPTIrW15e05Peq5MF0ACPAouXEfk8xzX9QwMN0akO6jVrMN/J1m9bvZ94NMAaCm0V1Qa02DX+iE1f3vAm7ExwhBJCmnSyIQt5wMwi+8Lh86nZsNYN9a24HVcRyCLIIJp0tQSuO1sBsi3ZrsqKF20aguaFUfJbUoLJMVJ2Zouu5Of2LwHhD1jwZjzbMmKiH+h8we7xCqtRnq0gLI6j3JdlIAsa9YDpuCMe8BcDV5DVMa7e6EUR7a3X8gw4juSc7JjRU5ljLejHEedcs/Zh8MmbaYlI9LqcqqNrt9tXkFLjD6DsVD6I7QSmmJghoei/PR4O2Eh5YnXAWo8jMJcjkNyGpMuBHGUh3NEw1yVe8A7yKWx9SyRWboOWqCnyCmc8BGadXMhe0Oz09myrKPvpf7Sn81R7flskByivXh15GyeLEOEfxM2DeKy8JeWBFmyEAyT6aZY6eCF+aAqfA2RHXEwA/jKzo9Z36zROsdCSOx97lzlsogzWlGJWxAP+Sdvupyh1SuxLm0/90H/hH60tz1+O23a3HlqR8tdm/AO4Cd24vm3Zfk0u51emWUQZYhJsEom1kbUUyfLnQkx3DdlRy9LXKU4NWGrb7MbGAXUq1bLFVuzP9o2eXvvdhdH9DNmpIqTlDnZIEQkDKTcqBkwKMUjssyj+u9SsL5aySMBjPDFRhhaYMTFivVepmSWc7uI5VKlt+3MO11VWe1m1QLi2pSFEnXD+33Z4EjJGf4s/Cr8mO9G/YXaju9LhUAtnVWSNVrsufQnOxkm/p6Bxu68+s0M/7yG0+gfU6RoZ/d23X9ciJ7lNnuVLKF8xr9wOtIXuhxjQDssdaSIkvjVxarrt4WyOMBblHEacXVy8HtbVTuwFKbR/ie3uubiLIpliNBhQgje8PImsVr/yRQz+J5qX2PdlQgsYdPW7akS6Y6A7kOEj2Ul/KILrhuvBpXnsDErlBW66msbvNJIJ3XBqOKhXzRnQ4umcrNLUgBZpPnxs4T4klxKjJ7z1bdcs85qofePdUrBwvSusL5ILm46/YYjx19kPA1/HrsNDFNr2AlTkYEX9L9r9AJDqWhGHmd9nljU0T6swyzGazJWb53tSLYjjtJkrWxfV+wgH4QmSvMGt54YB/BBBO2RrK/3VBDoaiQhaGRkNEyMeX/ibt1joT7z3Gd/HDrD/8uaEDLR/e+vAb/shPNtjx6t/soIVZC+pua0AEIgZ7o8xlKTZ90uxRo/2U63MolKxBSB0V47zrCoMwcq/X0/vDVC7bGSrWwodOD/OhN0sH5XWGgd4YZ7vLcvKHGtmoi0EC0bn78IOA9RLr1SkNzaZRcs03YYd7FzVcNLXd0G3wfSnBULlw1FH7303GN1rp1lzM3u+EOWmCPK/apqQWr7lr8rCDgx52pBg7BVa6BJuvQrcwgFOlfPc/NfVeqzKKd+QhXlQRKDMn5auLxq1AZbQKphxAwTycZO0TZ94jFotO4fS6xQUsjm3hn1pva9Qr1pG57d6qS3yU9PqiR8Y2ckKPIZ5D8hcIPoJfx2RYrcZBO7qgqVMvpGCDBMQ6nnGhVgzxZ9zDrHVLQ+/nnxyEjDRD2Rr8JrWbvvqVMmSfqMoIuGMjCjRP0dHUoek97k2pxwWQk0Fvss/t5f/XLZAyZNGAEPDtVQwdPaK4+/yovhsgCxTwYcMcy2G5Ij3BirES8XuybED5LG8irYy6XTIlEgyxaAF+bhnyKkSF0wXU290q5pOolCh/1FmCkcfOw3tMs2UnKlOGfQqh8EIren/2aaJMOG5vQUBgmNASOw22EzbM3GbMXUx3RW+1vxmOReAqfpmgo5k+R9+lHbPaZqjZweZExt1ovQ5K2MPSCZ8wwRARwJKi6OicnzZJ/EN+il0zHYtSrLAoLPjAY5F7CRD8mSjfCVRpRrCEnUpinBnxMDKM93inQWH4r4Z049T5ZfojAuin+JfEy6UJfSCFQRc93tBWd+W5B/3IJolO4tgcoAT4iaPZnuvfBMYPRDbXjUKa+6hM7RH6hb6+ZktThCY4rzOHY5LdU3ARNVru8AK1w8kr1uBJOo/3Q23qKh01KRak58hnP8WUI5rnUaUclaGKlSlggabnjd4KRFLu75kMPqTcM04lmcqoKpKazInZEa463e5zvH6918oaO4Ynm6loIVrnrtV7QB609XZj55S2Kmp8jdMo/xk+LdGI8Nwg356cV0MmoQlPa1YMPhUDREAMxrbB6esl1KzJLihVhjIvuahRb/6B8FvEMrKryYGZ/Dwz9krvTfahBKJSypRUyQ4yi5npp1FXEIxR/A9HsABcCfOPpJvST6Ev16KuV98i5w4qFl9+O4ZaoSfXAwpUiobUVjmj32GHgFuSsHJSPNf85bgxzoHr8eAqxq+3+CIkO5y6DQAtzxcA2q4zsET7XN/Q3RCXi0qNfbFRYjrmFGlVJ2RosWsePaTPcFHqgg3brLvUnIkSH+e2Dp/bXvzYUnvon/Gko+dYpUmIWOf9aX9Ra/pavaAjmtWz97Ht6ZTZe7S1AlT306urhfOjjhB6tE6xi/K2kdYf7/ylcLbr0KRuy9PxfczWpLf3FIIGUNao5uQV0GMkK6YTkFabRin2pLcWfpj/ISdEKSQeXmp+KuP0nYoxvHGRZM5j2eEPD1qx3uul4PW8odiPYfnGCSIQutUWGKas05vb8JAAtPjdYsQ/651loie4xirJTCm3SqEnkGW5Fp8PmzgbUh5z1PP6mX6M1FjGjKKOVHeZQXbX8X4s1SZY6N/nUfkttVaYvQ9c3L6FawMIHdzEuRFwpRbc7M5PULCAaPMuwq0Or/ivo2B60VRn1XOcMiTvLjyqlCHvktIWyd6wt+V9Lj8+0Luaz19QbtDntpEV14swV8QCaCYX6IruFFajg1B7TboOYzRGDWtXqg8VY5T1WMILetM9t962c8UXJSl0IA3uz1PHlWwLZDQDEFytmDCBS4bHUAcwO3jOWEG5tPEviyfPX9nhnYAVDstQXEQx7g63lT1vnHhbghoUt5Nd18WO9WAN67BagMfpZ9d8D6IwP7MjDdlZl4wrCa5w7mDQ93Nz2d/vtGPCTlgyqVDODQ1tV8BaLn9TLflAuPwMPZXiEQqVbFFPfqjyPvfiAF4GEdPPhBsRzkA1vN1sz6TmvCftAFZ2OD6jFw9MKMBXB0x4fy6ixReQDz9TDkP0LY8yTHf5yfORQm9jNu4PQlG+vprQlpz1CL8MTwTQ6Dt6ApQyFhLE823cdPvz4WlgcZ0SMNNLzxpx0nJGeQbYDWRI/G3IdQIPIfmNTMG2KF+SAUvA7v68c/R1RM6K8rxn7VRVH289lqIWeXPYwFk+w3wH42M/OaZtylZZsssGHYSSFqFkgLwcKqpFrrrNbruFydn43JzeSwGwRcxcz6p9uf3FGV2/twVotNYHIwSV0zWHUupGeK4X66eDBdQHAKlwpiLJNupeiKV8lzsiE99r439EnOVBJX1J3A4EHsqo4kDB5AD5IgeFLgiV+8vtyWEL4Y8zqXQ2lzf4EUC6Y+DlaB5zU8xZDUkEethLN1WLyjR+8K+anHCOOesUFpExrzo1nrjozT0HTL8zJGfHPkfgmTGt3dHq7+J3nlxEsLWNYXy9HG+12cXUV7bUUc7NBC62pzwXsZh3T5p7ZCjG5L+lbX4koRFW+YDqA9jWzbEOEOAszG5Pq+Owvjnebl8gJaETWgLcHLqyLt9sluofLpsOGutrW+4IKYpiYc1gurzgiAmn6J8wqcPN/ceJ9sDpLr41rJydUixMV8FCQsHVcW4SATXyNvRUOpHzeB7E+X8Caw6VaBVpCSjO0BqQrfCuukgWUPWyJqA+9FXFsp+GQ/3TPXv66X61VbFZ4wWCxsDLDjwADjgstbDZM5WeGyHHvTtKUf/C32ztzOejc5LKtnIyovLrAGis2XlydJj5gVE+VdcrtFH4IF/ckw+wndmWCdUsSgOPmpxVWxLWOtn9maWvYsM7jAxuxvaWuZhlm3oFt55vW/jcZK/33EZKJ2v4P4uPAm1sRdn6BBaCgjxy2m2S7vXMuphAJvP7Erp84wqOGBip3b2oi6Eynf9hL7QtX9cQ0825u8+XwbqsMHvVLmP6D7mkNWrRH7W352ogmQ9MglDWWFWhEn+Lp6rUWnast8JRpCz9XnRaTQd7HfOR6Cu6eywysbhSyDXpAruNcssnD0baVt1ME/T7WJNMorKXlKQi/85F6ljPgRAtT/awsgGwOLVcuagEPUguCo57a0Ub46Fb8WI4NTNxvrOarqIYcv4Ggk6b7PAOzMUsxEOlDfzX2ZymTsJ6vX1v6+/F6+bXB2qANqE+IoJXRemMf1nqboH5uxOYKvD4ek2I5FxauvK1USQd6MqLRbw/KYd9kAatQe3l8xT4dpgMlSoKQkf3wKH0Z+FHc8OQ1Imxw9gaKtgOPFpfF8FHOBl3T03So/gBcZjwCRlftsSgbYW2umQkAcHLbYfDAuKesmzFkYaUoz7zZMAT/x5VxP5jue+gR9aSM5HumTwCAsqpv9EoNNzKn6xRo7MWqdNxEWip29mxUF+4ssBryW0ourEmHWQdN+9GYM8R+BPCZHzApcwOH5A+2EEmN+YFN9zZah4X4MZuLG7RX1iA0Ten88z9Vy+DcRg/dm/yAyD91tMyH0EApJ0WtX22Pu3pK6yYaEOTDLH3MW4VEyO7EPBp4RWimHL7AJNgV4pDCjslXkh1vUPU8zwUV+Lm8Fp2UFNjwFtAy4UrLymyyJDez8TGV68cpB9iZn3ZLvsbjMPnKFvqE2lzLBTnI3nvXlFXi36BYqK/qJ+XyRjiXyi1ALpt4LhlEcSMsB60NUjFiyBVezZPWL91xc9IlKpe/+RrjZFf++HJRLwPQ1auxrx1sW5g1Z/3JFJTjkcXtoj7PFycr4XAB46XScDaeGe6WehmKj5cM85zbywtUM8tnOcf57HxgSMNNoh3kFyuxLhIxd/k36zCOCiCKHmHCC1hY+pevJcj2TNMOXAH79eHitsit85bmM2DBvoKCS9b9dZKlFe5kE9PpBiffafdhOpJnIqe+8kwLgksf8uHer96wa1ZKGSljFnk0vxIFgqbZQzz/HGVErppMeOAF8IHWhRBj+oBAxZ72ooP9nl+h2YEreBJMtTaaFs9LPRJVFVcVKlDBLR38Aj8lwxwhTRsAlFviIg6UEo+isMwRDnF3RQj2QXV/hey3dspRfk+zwXI+n11Cy715DOOUv9Y2TmkHq7XG3OlvnnuGeWqDbqnVO3Ar88UNeso0lL2dn3rbGx463E7NrVWG6KinhfVAF3h/RiepaiuNBLlRvG/ijWoMHp8RuAR0tEo3+Eeir7zwNlP3qbcFmjueBTQBM9jGvXH19Rr097TGAVQv4v9zNOP7sTJab1kUEcLoLIUhqPLbedykvPb1EVSk4nDEp0tn4Jv+Z3hZ7e/1mXuiblt1TqTOGUFDvW1DlLBgWtwjh58ukQTPPBYLaG5ymGkSNjpEFYMIEjJWTSZMgds2DnHj69Oc+OIL6O57E4pV3KikGoDNtSEInjJ9OzeuBKO2TGtzhf0KKEud5f9MDxl+9QypZrMu19fXJM2f4egf/JU9/p636MHyZSO7iuUOgcMU6XA54VxuXg1FDFSIvv0ndJzkOfwVTG7d5RehPe0wO2GDq3OQhpVnB9uQqnIUsvpJyyqGpqN37qe6iwqocwuLpXuSDu/BJqBmSzVHsdmRjIr8LQfUqHt6zt+hl4IfSw86bcSTIPjwKsI5oHoevLWHp1gIXNH9iCiXjmM+GsqmkbvVaogsIgOReYpYZF73u2L9ZRaiwMkYSMgHLcxQfzUsoUWuJHU90fq0EWMPpfYmN0QiAFjrNDDCH51N0TxBanJeb0agx6mDt4uPYligMpwglcrY30nBDKsAzwgRF9eByZPLVNp/Qb8O3gKXD+oc8Drt66X253+RNYxBvj2NF9bTKR4amzNrFck5TgOYRopK2tpil4fenpHUvBpxR8er3t5t+Xl/qQgiprRzl6MS2WKk7maICxsA9tStxpHYaQ5rlTzv9gOn98qOql0orpFhzT85Hxv29K5y5xJbVfqQpMYneOJysNc4q7hiIXzhwq2zAKx8mo81Wr49XJIqoTvmsn/Eczogw+zLSdm2l0eYMUmKfg67zK5frOWHjc1Z6FaacYnFA9zbsX2VfFsUcD+4EU2v8IFwnAjUnbXr6Le5jEqecO8tT1Vnkb5fkEAER90IBueJRsgxhnZxtfWd3udsIFvSl+2PPbMORPdpuo0uZO5yPYg+s/X0M/aojfEG89XnhaSeLMD0pWu6xCT8k8lasB2TEwd1G0CyUCNxKvy4hb9DkYeG/bK66MpL/XHfIloc6BWeOKnS67XbMVrYdGbUDfeex6vzo6SR7tccu7jjBTR0C6JkW2P2r5MslpzH23c63j6NM60763zTJrcMBbBhY0EBh2ykiY3UCtqJ9nKYPyBf+DFJS8rJH/pr5Mn2Ixjze3zZwO2gm9Xz6sOX6WNQUktwFhAueqsSrkDO+qQWKfoWUO+Xiw5RtXcbNBd0/jO/PBPuc6pKOMd/IzaJP3qTTLz6ygCXRnFqRJX0C/yC8TjibC5P8fMh4C7SF1RVLuBeQK8zKkNP00nVWxVYqJN6YkeRATh3k7cKI4PFW7W/Q2FuXQsk7TQ2+mmg7/GoUuxLNDfA6SRHxjsd4RKuvyhuQ7087xmFrDtiZ3tkZhEHXwTscfNxCGQecL8KVH4HINpI8yaaLhOL8xHoi1LYevUKK2A13ZwBcxa7xXinY8RxBhNq2sW3CkHWqjrOANCOOvM8stZN3/S5P+Q0TN+J4omjfWd2TSJBkrB7tw40J3PRW9C47QQmkS3iyFNUUYdt2mSz6A5sNT7ZvxtY9bUO6ly0JSbSktBBVPdTaueMK8b5vrE6HvZuvEPUmtPvIu0FY/dOZiyPUB8PIx0iul/Q1P4FZho4F/qgxiZOCyzqCaNtT6yQkd3ErctCMcIiJNMlnMlJqHyO87d1wcn2bbc+fUbTQjrnUWpXCZXyD2KZ/0UafC6eK+QLxQ52Csj12nnbPLD4hy2zB1XcLkEqKvyvUreZE3A48wPBT0aWuiEeYNy4CVsTt6EXCoKbdvlocR3px/baJ+CgjiTZZAKfCKZoA+pTeQbY5I4sdfstJ9DMXsUOSiOmZbvLZHLMhwjyAPYgFgaiy16skABtQ1E86mUpIDOZbStABThPjpzUcqkHmd2umYSMCYAN6icOWNY/TE1JoD+NL36pbkbMayTaRtWBEKyeEdDursxym+u75ufbUKEyQrpzWii3dPWuS9xFMWrbFt+juslBjU7Hud87hLwKAIltdYpZzpsvAOBcmHJ2/fsTS5uYU/7zC5vKoPpS7aysk2zrqVN8QOdytgFs23fHhG7aalMNUZp9LmSLU2tBIxSY1lMWoPieB40pDpv6SVmVkGJ5dRXuptccE93CDflLqRGhb9M+F1MLPq8v/XbZHtfueaz0K5eic3AW0qLL1R42h/xCa1Kon+wh61C1kuT0ERlndGg5RyLx1iwQVrODKPzvrgNS8DHPYCaSvZ9bsnL8/4ypYPNowwi2g5FCr0ZrM3x6KyngTP+ICbil0iVHubia72aC0DuDMcVbXt4YOnfUn1MLWie6j7wAMQPouD9IibVmuTGx7reu2w0ovv80+ZZM69aoMPlUYdkAvlix/GduRwemIigsipxU8wjlQM2lKDf3maqU4lQv9zKOWy2I6cBvPFN4GmXdroQSdyduQ7R/HPoBa4YgmJALV1MbMaNjcsUmC2A5Un6ZX2883dDI0FeYW9KgxJTwhSvpsUBOVYY4932OdHghocHMHGEufUKtQKqmugFg1ZjTKcnyAJ0ANBBBz90Oc9oc1qvZbFJTk0EvRdK4FYXluLZ1jMJhlHgiuOujVjp7IxwAmsMKBE3LnQyRCzMpDdr7w75eUesq77TEstodpGILQzGF/JmOpxxvi/Se1RhPLMaseN4+/pasjJaFwmkYlZj4a0zKcu2AhD6VQk2vP5ug1ijNRH4HmzCCnupQ26R/OH6aUCWnQWoDalUy2987QigNiD4RGrHPjQpVrCfjvgbhCF2pwMRaAqXYhaCIhjnhSijN7nKu+HBSxegd4V75tUOzFAIxMKeDLNWQz7HunidvQahfJnYqBS3Ax8wTWDCnFmTKwgixR5qt0qSSDE7g3n1dFyg8TV8i+p16RrA1EJv5A80bW0w5P80AuNW9YK0Tf4er6ejqfAYiOwODgEMhk9pDPpb1g/yldowlFZPGgH26Xj1fxhVf1jZhYLjOcveUsQfN5Lt1GuUCc5F5uXTDR1pQo3OOm/Oj2i5ML/t1LsQhB0pQgepr18O4aBJPVx5nYxLpsDpQxactlwbuOIvFJ70YOkczayAGxAaaK5lfMlf1IDEAldF91EE+6zZeLLdfJoonsujZaDse1C+WA1LJh6uI6/9tMCjfOcKPdcwOfO84PIDb5vFJE/CmMYgwWwjxTd7K5e2i887ZTscEQyn5WDHgpvOvkXFfI1ZFI8HmT6wPIPqPm4hFny4luAVQmSr4wi0x9dYnzP41WzrKUXFZb/Yd+/WvsSwkXBziWI48Jjwt610bq8CxZI1Z+8mND9qczsAy3AubTna3iQEEsaz+2DPVI3UCV7LCj6Sz/OSvX4Yk9xJUuMwaXIlvpGn85+lb2l7SxiQVKMqOSnzwPrX1L71MPhr+QbsMd+1ywdkX4iGTVdLIvgMej3tv8GGbDlI+Yfkt/MjvM/0SrVEjkbM1DNicUDYAvgCrAt69uhmA9CO0HXVCplFkliNZp+qmVj2rsFIP0EW+s/U5QdwiWH4g015MecOVsPhv9YjGhEADEc/7U4Yy2WHbvvExWj+9/MOLtvkWtoTnJ2LPpPVWXwmIqlNdTZEVBYvYC29ieLp2BTSnVhycRT+Nuur80EqvZdpJAJ9gsIw4/jSicxQH7jsq1LnVx1/GFDroyLkeuTwvOkvxKTesVlc+Cvpa4x1VKqA8F1t/qGsa2JjRYQEqOQs5XKA2wbGZasQoZKFvIRNuimZY0XtUZHjmD7NbfB69klYjjem24rOGymKaCQPmS6X0HTAalLJUu0U/tQXx3e05M50KVaFa/fOFP76KaTYmFExZmpsmLwPh+wt/z5BaXXDfCSaytK+DwgxRiBtIUyrm8ZiUrNC+8Ah2AOr3+0yae4mGOvMAaBk6hTBct7X8djX9AP4IrEKYHymEx7CoSAom9TH/FOtWs0RlwEGaBx5950Dfy3lJtC6svILGYejqQuLfNV95m0qaHu/W+96hWUp7/Fa5qMAg5Y5slgsbim9Fz3NNBOwoxLzM8pnnHfbcMyJvSVGUq6mHBugVgp2l8mEAendKic8HzUcMalOMZNLwUIltrdqz5lWLAwBENlVw8eqnBC5HLOOeQxPlIuv/dFB+Xtsuwu2HunNnUNszdQ2tWSBfdEgaZOvPVYBhdRG8regfhqhuZT1dOCWjclLRGLbIeBGVK4iXEhkKNedZKxorF6tchlNAwHYm3lfGpXDew3YX6Qv0zpF4ebGg4huV/k8DiQBJVpJozeCQbVW1HHjRhg4/Ki7gczIX0MEuMWYtCgVnzuEdoqpr0gZFfJk9O10uq/LaSTFi073FENg16swgYbmezdStl6iHZ+aw6aEJHJhJvrF1RU8SKCF45O7kdzWZVh0Y3jklf5duvmK9Bh3QbKt6KNWXr2txSEUS3f5m0FYncG8uX6YBv8IIpHsSeJmHuIpvJ3hPLtHDajEyJfABCqILwz0gOKp00sdytO64zzmqBTopmTDD2v4GvTq12mMX+Db962EApHZYLo2OrAYExS7MRxJdygQo7sbDXGdTwZmRM2lfM5UBgezD/HfLRAmANvBWq2m798fAesMVMHnEyGNr0kYgUkZstQvr5C/E7I3xqic8B91CiBpW2lrkqKbxqST6+QAbZ3rzaKJ9ArllCIIEVJB1MwnG/ObAozA+iBnICCFJOv8mDe1v0M/0I+QSy3DM0Nb91d32hOC+A+2WOnYuQoi2Bmi0J8E565aRpggWYZMfyGxDrsA16n+6l0YC/WVmoIQBhRC2qW/XKifKSvQtwQURkW3iayllFCD5ZPFn+mhhp01UxKYLECu8wbdBJjBQkq+S/weofAA6+P/5s8Wtan4Na5nnsNLpxdpEcOgFul+Ys8p99wb9izExYobPVyx/CzulAyfXn8K1GbiLrUt80dSCwaojiFceUZFitoALl9JxC4llFIqAQDubEai9ljtwNSMLN7nqT23eGBU8LyW3MEqPZc4hBMgh4sfL5lkwEE40F93OGj8BG43/CaL6AnpN4xSz0+IHEgehZBdB7vR6qLW36/f9A/DVlaGbcd3TdxGwZb91Pymw7rb8UuRsufW8Ze7nR1NGhQAPXGP94czyO6CtauCEEooZwR4y2B3UM6h/ILI9VRXkKgxPbPbcDcqTfjoseGexTMXz8j0VoCRO690QFSCVfa5JBJpTqrwE3mtfzQdEPk80z1U5P0wtW6CKY02VqYiWvpIvUlswSfWSiAImodc4gZvN0AOrZRqbQfyiPCYSR3zo74e7jekMXBNITFZAiSPJUKR7QVBosv7+SCemIrPb+G3xIKQAEHzNhxZSTpL202TeMLzyn0csS7NwGZNVbJ5oK24lLKomF3hEfRW2ZYKU/VtTcj19DooNdPu1yhg4W4IdMm0RQzzzBxd6i62UOgO485/9VoAKTVCdHiknTgSGZRtyLFFyO9vqWrplcLSry8w1AH4dM37hAhihT8X4Vjjbg/G/NJbXrMzTXCcG3DREx6An/g1NG79+Pj+GnIYXoovAc5x5t6noSf9LXN8wTT5BiBfkbJMSmW6web6vynadhowvxbz4wyxnkUbIO02kzZjKGcwbKa9+I60rM12W/78snGTnhAMhqHjXZJ2YGdjnLVs6oPKDHgNTrdRYPIaY8/u5SrEY/jIvfyeR7pdeGMDFxWbPnI8sTEcAZJf3jxIysc7PNeGsescCodfPzDDCmBM0b0rdewjXdfJu/AUZOgEjV9EHj8HCLNj9YgrAFCXOMi/awsQZdre2biIOFZBMY1icOP9RRYk+y/D/Q2U17VicmuGxdPVmSN1dmhksK16q8Dx+VJdmXENnNi5ZzXG0Hqteilbecii+uY2JxywIBICtvczqoWw8goL+gdrXfAQuKLLRLvNau/ZUyAH6mLCBqP/sTE3kKYFBixutEjdHEnjhg9sTlZKyc1/LEKtze9UTpNT5DTAiqmgtCjO29iHXGEwcDLY43RCbzz8HMtj2SA7L5cGBZG/ORkY/TzgqTaQDKlSdiYSjJ/WBVvTBdpNiQGAkog/xoeThDPOu4q7UfaxLjkKMppX3iOGXwwUgyGEc8a5/qatm3vmuYG51x5bCHJHf2vp00OgKATpcXYnHFcVtnjheS/+FHWS86QSZKptF6UN0BZqpgxAfJynrEh03q/nUSEUHsVfUxFUu6/m3WZWtp0nyL9DMqbIgKcDZaIM/NDV/ifz6aiZY7AzzDl+4/eoOEL0oyWmHk8CR8B4qjDd9V9ediYZ0VQHbhwRgKmOgsAn5FFJSMP7/YNF5uKIUR8F+EVYlH3l9ZmRB/cDVzoadBXKBAT+X4BqKi1jtehDCGtSqjOCUa+8f7E+gP+kto6momUtRrJ03WOq3VVUQk24bqZZzwsNbv+TgDmGNmpuqGePR18Txwf/4voymzXEleOzkam7+044cB1I3sSjpQSpG0E4g9lPUOKMN2qytRGHoLn69czfYo/xCwnefsqAnDJVXXfld0B9pQda+Pvhm3+l2C73DxEXdff6MZc+8kcXlpI7zFfIO1rqptzzgyM1p7HM16rt5g7AyfSvuf/tGHpLe1nvH6u9kc9ubMIF/NSNbruIAR0PmvUHu+l6pFNExfm+Yjdou8U8ER7prrbtJC/i3PjGvlv0QiTQIzkxpWFLQAVJ4lhB+kbGzrfaZIDt6F9BSpQTaRjWkcsXs1wjAOjwz3gnH02GXXkpswmx+Ycvp3dccethnFB7p8CEmhggrtNn49XU2NsJGT+vwmbFNjI3bhbLcUhPIEqy/9sm4ST9ddpeKxP5PLUUJKt1Kk8V3FRBnqK0WEfYEBmXTZVuAdBwyGwiZWU4qtaVRWcBu5Ryr5VOPIT4FtgqfXuv2VBNQQv9BSzxzLxOEKrAsdEX1zC4qE0hOAi45NcDuJbNh7ZUyhIr97vXEQYX66XXoWcHMT8lupzttKIEMHBD2cFFsiYJNJPkBRANoKTO189DqJb+XU14KgBalnhrfN13s2aVnQiYWyZCUhADlBU8O6c3YuqtPvVA1C78vV+DEeuGczzg7hk98z1HoDPPoXoDZolzPa4bqkN4wclqq44NzLjUxDg1jaThb8Sc+PJzz/GkISPDAX2szgrPhQfiKqvW6GiSP6VYr5SsRgKwYkFxt3RPFxd3bn8DREp+9CxtqBkdaNM/ho6WobF0T9zYnbKdxwAJTM2R/KuBZ0UbFSrnixSOISEua28d/di91bVVbsnfLTvVkDhsrdGGEBwNyZaPGasRwgC4CMgB0ThiWyuSTPGcojXCY8m5tI5SBgoA+SevUSCSraGqavNuAwVm3S2tws0SKbbgQ547tb+vKAD0TpRGyzYkrfHSsyn2Wskesz9Rf1lnZGVYozHvrc+B/TOmXW6EVU77vAwiT435ADziKfFenKxdVC1FnWStTNWGNofrPV6D6P2UlvzSTumbynhlUNsDxbBE5XY8c54IA8yRU5Mw42WBDMX2aA6ujEp0qJ/Iy53I5iizneFzHpP6y5S2wwxOSIh405YymgS/mNfWXQV16sTyjvMVYW1KMiYDAofFbvqnxt4OXdd3R9mbV0I70bbKVbrRYZx6MrsquVDtgc3w8iTDeVU4sAu6U5feDWER3flPHZctB/f4eGBv0UfR6M2Oaibdd/U4aB8sbRWH4slohq3nBKiD4Ex69zuZ30WLUC+t8aTYrM5yXYjUivPpd1WQpLauIfwYWjOeYXvpKHcYAky99BmOz7IFYEfZHFo5escx4+1R/+cVS1b43PTo5VAL5ixXdi3H41RG4Ro6GC581pVKQ+gF035xe17KZq25YmtQtd2GAHzM2LOMapbYD7k20iv84ZMcgDnkzozoMsvp9LqyLSpada7o75NubkCpkQqOtlEaxk2IVY5JmpIVRtheJdqPfMeCn8AhBZ6gqGqWTQu8ujzoVYbaukdqcSXEUfoRM5Cb5RPh/OsI7qCqzCOYb1sGMd6tatumXFmPMDCV6j+SC7QuUF65LatYIJ/+brgwzXg/XKJ4OU+ZKMdt9ZzYUxyyRnzPe/ePISBNPvMHHx6eVRDP3k8PhA8Fixb50pxZNel6/Gw0SECbTiTNkhTCR+6QsXeYpK4WVl//+U8+VL+62wpQ8F6vIywsP2yRTTp9ubVaViqaoOw/YMacigkaI61SY25zb7IPm93S+nfJg+IAFaiuKcOVjGUOW7LLEyfQJtu3FNcOP1NYo6F4RruEKgErjiyhI0euZOH3ol0YfQK7W0iDUil8otxVPVvQCPgYdI0wUJ++pcyLq6XhKpVPNfLfIa8HnEZu9AhukVD1xPI0oT0q1KgADa8xRlm7pFEWhcUXAkp62Gv2AFZdQIvD+Ju+8ctu9HlaWJKxVTPtlobQHYUYyj/DXg03xmY5+r7rYFRliSoBM05Ob4LZcDi8PkiU0RCpyknHVAODXUBngYA3H5pT3gJKrxviI/oZm+A9aU6LegEufZZvptt44/fzhsX7HgR7J9e2G7VVyqJ9eb6WKPi1Syxnw8TjtCC9dUh3arBjA2M9IlIBoimpPirtIygK5JzjcRVRk0runf5G4RIBT7C9rsdRLvWEvHoziaR5TN/AdX5fFcldF0ORGrYDw2qW/0GKVZRAVuz0JKttmuxacco9I++gOm1xlhT/1PjVo8yqodqRexzO0zJ1t9d6zAL56DbDx0HZP1tn2BSViMYnYDyvfnsofxyLayJL3yUHMEsdQGi+3YzQVwr+iFo4PQ6Hxq2uT3KfJQwO1uQYGxQwBe2C6unXHA8INRKgvz2WXpJTegTZE7OYnVOP/jQMpqL8Q03rVWmjQ86hXTMmfeV+z07H7q7JLcJ+Q7IefP5q336k97ycaedm8eAaP0JBxgoqEVHRFtFaT9dhWSnx1OCSfApcHLKnI8rOVPhLCAZn7ZyDkxuwdVGPY6w+MAUB/2MH8s34/TUtkKfBmCahmsdZWLdnNl37QsvkwcvlvZ458jg2N9m7Cp+nGNYFN/ow/XeBV0B5ipVovdI/mNukRQ5s0Kjo4Kp59RKZcS5YIbY8x48Tk8NBMhhYdp6gpzKvwz0LR656g1/adbsrh8qLc6Z/oXjxYZqWflu4ud1F8D3qh1FvsHhHAxhA44H7cHP2H0Jm9Uz3/Y499YA38DLHjTUAWK7OKEitXQu/cutu4pFYVTy64Y+O3YGjvo9wuH07gXz04Jm82B4kRartnYHjoDtyOZfOb+XjS80RgWXSSYZFugKwynjtaEUC4lpJa5pVtnxEXv7YfJHSZQP7gLC0BPOD3Yht+qxk1KQ/vBFsLtF4vCDLIN0BxOoBQiPSfY0P4n4suaC0rxEsBwECTT1Kp6gtA+l4p7L+GYhB6IXrRWqGVA6ZD/bQNGvgQ0/7NlDPQHda+kN5OTIPaR+mTPy5gXh5mcEmFA2aFwRCazUFVQRm4SEC2U+Q2pX/8SXnbftgW0PPbyNDUzG90qALkdTysXzlY5wNRBxK5AocczoeZGo05joR8P0Au6WFNE0CSEABmSRck83c4PE89oCjhC4qfQpv7nDczq5erkLeYOmgeNRiLdeoahWVkv4fejqRLOG0JYqDog2bzTuqLCF68IYeWCtJAI6EvBVC8MKU20TZ1s+1zeFrXvSgMQf65ZvWXot3kEVfYE99aqcu9PSCjd1f5JtuJIRkPtsQviOOA4dyEb1aQ5WOX6xlfGLh9EX/3/Hj2GO1gDQ3ozdGEAB0YXikjw0jbN6xoFLiDziikeM8wCrns4MX+xYWssCLXSDh+iTsJBbB+DkisL/5HILPXaqxRWz4TJc197pb6jAuCd/F0iL7lUfqZBclRy+rG3XNNBi5kU8ZsmqDnF1xIO4JSCv1/2HFWrGYQRQp7Mf0jAitG493aXgjaREw4Y1paHskpk44TqqjIH1HFIFLAMx1nsAgZP0+B47N/VltL145HBrbK97uIe3Jgh25wEKkgt9sc3ifIp8X7MUaWTk8ApCCuRUKt0dApkQ2K1gLt8ly8PYlmEQL5avYj6b3+ZOAUu6R+B/gy+SbDW2vw62aync+Spl2kOrq7ebQnKl8vXxwdiDPJplXaP+ozV5zch30MnlWP1tZ/d5XiMw6v6jzdPObtwB0GS5B0Ex+5xlkEfQPR/Nx0Nxd0mnLsKgfuUb94EAbBVF2Fdc/ovNtva4O+p8zjGz4EfaIEws0S6gKU3Eu9upsNiTWO2uLxOIfaFHJE8fpaOxawhHv176X0hofxS3BdJn69wqfnynNbYNkgrj46RLZ508r/v0GomCxWcxW6kUxlddYtND3550WRkBh+/gdZ5PgqIFd+jd5UTUsIRxv1kDhWnUx8+IK+BCQIkN4N1Ik6hxxfyEhbCby5AGJPEpocU0SpSHzPvHDOUBe/Fd6v5DbD9GJ4pXi/JBrO3MhkidVIr9jaj4SrKsrHPtSN6C83R9azRl3QJlCMmFHZdSTDnZ5imBtqQaPg+NYDwFps8jHgyGPO3w8Vmp02cvuvTEwYKGJ/sCJtVVTimT6heuOeR1Di89kT67uISQql5/KuS3hPqVxctbWxfTTsuh4t/liwmj4qne/73bMyMHVG0HVaYhLvX7dLgoYp+d1ar/IN8G6BKKqVM2oxq2e8lVTOaJACBZJ4Wu43y9teVXPUHmqTc4pvnMsPYsvcqNJ+IUg+86E6Ycnfe4Egc2Grf3xNFYw645GwWhZ0EZlMQ9UfbXgL6xONO0pjXK9YBoNaN3Qps27ArlwwObjpjelYmKlgDUVgSiHFZcNeN52Hs39YKrcogcOBk/uG3okQpGgpgZEYnYYr7JIGWR3iDEV0K1XDFLLjd2dUI8mi5KikaD23qdLHRkCyBuyCzVZ6iyqld2eoD6TaWWSkfUqhC+uPlWo4sA//gFDJjoK3v8mkDCA7mzhMpWV1YfIZd4hyJBLKV7LKTmgoUdKM3NbVRvTKtQ99pFDJFiLZLR1v9nAJYuiKl0pejQdcJtW7PLjht9+BPjNPIURrDBpWhvd/PlJEy40Uts7MdhFMoV+s5qdcUKi8+kOQPGNdwYH45C2oa/QMt9jurhfDj8VXBZIX8/M8Gp6G3n/Fi+4LSss0yvwhRJI7fbzXQawPiXlooO68f5wJdxzJqsB2q4KTqktUkB2fXczjQAmLuUgyI3uCK0vKU4lkvSwEZ3txDk8gqmQ1JxKM5QHONmGP+Cdn3qg3MBWSQyOseOaTiWytAW536AV5AfnAb16/5GAKpmeYsGTTTm6IGax0zAy1kXPMIzSrX9y7LX2My+maivx1hQm7ou6pJh9ITPtOQiJeGTjr2ejOY1fcN4H2QlABRqkOuQ6QqmzmK0dH99c2mxKPzIVhxNd+Yci/StHlr1xK7tNQz7KR7FphYF01kdf5soUTvZnJA1ZBJnMkch8OGttgoKKOF/93KBH/b+WaoPvKaLtQU721IKfgZS2YyAogOl6y7aU7ze7cUggzF6QkdWHWcu4NISrwFXDgECLOjVTLZo0sO5ijMc4Y7HaOpES8Aj4XzWHuWHxLaZWJEYNXab5iPBWSUBBs2MOYHJZjoJIrvgh+MLpw7JSOHfCyV5pjiPpi5Ce39QyFkEJIhumBEQn+bh0NgQmoMmA6QvVqoSdTl5cTUlBlZjIz5L8vdMQGKCeeNOKa1lGIzeVX5IiPxyhimpW1IYH/+SjcA0GuIVrQfJU0a/aWdVCaHji4FGItsThPGDxSI+ykBTEI4M62mIX73gBXhWs6UlJigqhQ15GxcrBX9EpP5Lb2NXCy4yzAng6OkC38/D1gHJPYEhafAcdSHJ83lExUgyASxG3HQysaLj/lXeXbjc1S31cPe8O8sbhgB8UuZEwF2WVfF6waYiQOxBu9V0QFX7jPsNQcqgDXmfT1suL3Rj8KE7PFC2hWqS90d42J7QOD0/73QY9JxR6xxMk5O7qNG5Z6Z0G/KdpceM63etyjRuuJ1o8jZ9uIMn4lyql5aW9tRWMzTzE177UOvNwcuTwAeRoCqSE/fhd5YENNRZGOURNv+I4JN8UYWUsGSqhyGYMjBDS6tKqDXt9oxd2+2G/VxF1kqQOYdc3SD4VtmDXGDoKOU4MPgO/zihUCYNR0GZ4wf7iZRZbqZCoxsLIFzgx63piIQ4J07mGijeIvNlhVRUI6ym07V8ZyxVXAmuZ9eNwS+3zDN7E4HkExCwmrZ+j9agQ6wF3dedYPGF1WK4hTRAX6sahh9cbi058ivfHJaHU3OusSnTibmrvaBcVlYX2MCvj68JZn/3VBVRHmeaMe4hYlgHwGmuDWVQzss7h4J4k3AaB8rYq3zZmkTDCJqdmD8mKpMrYIEjL+PVcmHqBqPUtxQ8CBhuQsfxuj3pMFbxlMxMu95ulYi9aAFgK+JwkhvFnSOFysxIJnp1wK8Esa4wk79GG1jmrj80GeevGL1MPCDKE7oiT83okCnmB4nmhN+GcNdH/Hb1IJ4IIhBm9mEzEoCAwQZyRsMmElpU4aYBOp4308iuv88lxMNJPzbVW2Ib7w4bXK8tXJQQYkZr4+W9hEryq9cZtZkMZb2w8vWlYDN8vn3/p5mxcxD072wSs3CGH0mBAm0/8MLXYye9BsDOtM42SAxshTg7u7FOf6jpLbKj+5AGQuW3a1injvmzBk3XhUuhwaPeFpkn7H/6d43A6BLAbKB1KeIslfhPeTZ+XlKDdW9HwX5Bol9HYmnRhcoak9r4UU/AYG0S8iaXkH68YF4nP9EmHM17KqB72QjDXqoFn37e77U7myi6Xz7+EfWgKmMRvZftkNP0PXxqaS5k39JjkNDWcticvsqiT/m3grE07hHisK1zIQpZNtINd3eXzWB9hDEhG9CneenZt2AOnTLHaETIpF9qC06SmoMVKpJERGGn+n7KgZ01xKWMtVJ581vVj920LJFEgId2J7q8ej5b0kT2ZpCjJJtALG51XpvTVcAxyjXFuiWCHpAew8sGy/vOSk9mmNF4gYn6I4T6M5ew/2s9tA4E8wcGoyz/Z+qUcCpMVlnYVJdSW8e+jmDiqEX3dA48i8M4DmnYjzCBgJL5T2S/rgTdWZzmxvuVXz9Fy6bTifJYkHyVMZgjx2jTYZ86neiwtVGsjFIhhp0uSYE6S2mwohDdYqYzm9uFURvIRuxmSxOj2OGDss2W3dSTn4Hg3q40xE5Z8II7kcJNE3S14G8N5VJDaNExAd0WY+BoppNOF9qdDi0KG4P0UnTicPOblfEziGhEUu79MOUPejLolVG/cszRJOve5iniLfH8WvGDtvVfq6qfXapVqcZwT1j7rzi9X8KldHpUfK9C5uwJjLPWUfgshsaSwthHhiWDRJREb3Bd7uhY7DdyYKRJjs30YMiUUO0PynyReYYAwhOm/kD5cSLeinWM2mBdRuIL5MFWMIzhzwSK/9HHYyXohA/VijRHOTb3IaZC9IB+xGVL8RyqRHefhHM6bmrJG8jjUBjZ8u+H7rz5eXOwvOS4aUgTb1ftXsKTQHBGBdh6c5C6AjNbLUMUunA8CVfzaXbUtIkDQjq6LH6lBr/C6d2Z0HPs5GFIzsXxeA6jYyVMlHWpn/V4CVQjIQgZG+CyBB0Qotzt/GGmYMQxokwyymh3/jxr+EuA5LWKzDh3+GxZO2XOnJA4PiE+wVj5zJJUQV0Pi0Ni2XizRWGwXswxJuUkfMSBFqgeCPA07H0DVp+lx5seHr+5OI7BVl0Rn+tvSXW01j4iUlLnTvCRAwmxCY01O7WPR6YtjAuPYTT84l60P3Lhx2RbSkMMEwS3c0EilM1+frUwFqRoWfsLHYRdsAB5afsoWgXCMRFskyU8aIJCdu7QiOy7mI7jE5Fe9yk6LyXc4SZc3ASKycr9ZpNF7kfmA4jilee7l1ggwtrJoEhGIN6+2YcskQ43nBzuUgZFN9PL8ewB8JVzq/0Jn1Z0C6wQIoBU9HllBCEuvitST6vH/vjEnGZR1XtMXMfiiOn6Ux4tNurEKrW9oA5q38s1ulHq7lY51kd9jwfa0zCrwqc7sVE6SqZ+Qox5JB1ORSaoOQoXwy9TU3CB+BNzke9K3doKefXwfzGR/UFe/ohh/hLJauBJj8XxW3LqFJL0F0osGVz7GY2mHYNrnQD64ctdSAu7seozoUG3IiCC+qhtbKTg4jLi30yhKiuMVM5KaRnPdX5DAqGRe005yaYMXgIkVw4pYr1yFrwqn52YNiC/KCEjk58cLPjeEuRTjuF5/Uf/NHVjD/aUgyQlcxJRpHb/ZnPLmodOr0xym0NH7WHgg96RuEv5MTEaMuMB3onGDczNeXJTvMqzozfSDXilbyIKJwxpLNyEajgmyfft/lj5rn62y3WiDAEksz/be6htPIPhONZ22HbYxJPC298Fl6lmM2FcJUWhpSVH4IOF/mambDnw3okIqmUa01z29bLICe6aexEXBRfddFGMmS8U9ocubU88tUtlaYl4f5E8FBgXBPQ4bbzxW+26KZT+tohOFLoqxv4lK7y+3ef2mzD7C+P0FvEueXc18IY37c5rX08KU1sUIeq9jLw+2gVkvo3wVO4Dr50sAT5CM/dR1jjxOGRMadlk3uAaDOgiqm+c//LUonWm/lmnyw0L3nV6vLHOuPq5yxctYbBwKqC0rm+OvzxeJO+vpnYJa7j06YD/5cldlKwGbwhhWX0e9iz0PG99rOY7igSjYirJSg8swuHCyRjbj1KtiQZ8weGANZpFcYQ8lSj+WavDkxNOEZuvEPoiMHbSfu0tzkQgOHmUdQoWAL6WXN8ZIc4g698P12lGq3dZsn97DYLaf5SieF5BmpMcfeTfKC2rkgIQaWY2ZYGLa9PY49fNKFHNBKCjXgj2u+HHTL7WRmTTcTO2Rd8jt+afbH7NIMPz8AtRoojT6g71GTsaLeUGbvWoftgjlFrwck40ZRi4m5WFC7y5DmMJ5gp2Br/jSaU80n7caS9iqAorL7Q4hUG3JP4fwqVtp+ja7LjMs90qayipBZ+HH/phM06W8zwjW4ttrtwTnQ0ATkHDs1/MqJocB4XJoluikInC2V78eUmXRzXqmIcJtiR1qYxm2HuIbO3EqNKXx+tCo/cmoNoOFItPPrh75eSeibGPLHqhIyjvWKo+/rZsLrJLPZaPEVl0Fh78Dqy5p3LEyj6LLhiHvWRDqjBeLW5Sm2h3XAvYJofYsR4cexlLnTyBldgwHBnR67TH5dOgQqRZVnc332APd7rjwqWOrGUevka4yc3RvboEnSpnL7wDP1rrnTsT7INOZIVGAnf+yCaj6XelG0Prcn/dN4f4oJ0NcAyl/Ins/BoNlzPRgzcLIdsHGQp8a1M7v3/t52DQhKRnMp6EWK0HSN1imAcKUQBtRI/2UIeiIbeQKoxX7aIQMZ7I+ytWTk2gu+r+SI+d0LdkLT6yEhDQkMBVlz1vsS0xvdG5MYUAWeeuivh7c6eIaFJy+rjIqb570sGMq2Av8Q6u7oQ6WHyPapr/ReVQq9No0t0RoppoQJIOLCDcrUVbpZLtFPjIIoOnTdXD6BbpwI3bHi8t731o9JJDuZhdTKrAirzwy51k1unqKwdgN2MEM9i+JZAs8skHSh82m/O/oQsc7Cu42L1VHh1JoDjAgT24V0GM6k4wCqszNRUtcKJY/PwQaaRIx5gz+yiTaIBdpA8l9bm4d1T14V1TH9dEf5JEF+y4Lq8cdesNjy0uehy6NHlwc9iRWExk9yI4sdKT19PEvBYg19W3LMOyS1GMVWFV7SR+rFdvMbzebQrpx1YD1Wlwj2L3KkyE+QvcasMvQcQNC475aq9FItSDmVKHb6iYidtJ5DFgPghYAS12Neh7ysr8lqBp51+rLtZbYTJMCyZxWAX/EBq3ImVHR03e7evJwb5WpyVyPv0tG58MoPCexe3ge74LPamHwOh8FyDVIHyPBoYOX+yrUquXxRycgtRayySq+hVpsp+aYgd7oKt7wlRSaPd/LMC2n4LtK243HZZfr43jILIjEhX7uFHoqjFxL9GiBLV9BbkanT38pImYfWlt6JhfV9vNSLKvZRdxB8vpKm9TG6FtwG50nwTOytZuVwUq05v178Vn5pHZ0yi6JTfXp8QBmeSYq9qfWMVoij03SNUBDcY3S65P2TlkPRHwVZ9+SVZqQCmAOsvCgbdCQOe8N0/2EKT5I0IJLM1WYX9uAAh+i4kZt0obr4NPlfNuUnFI8K3Rpg8fFUxQY1cwJN7h8hJH8U1cBbhkg5upn6Z2x4bzOg3PqnHjqiDxnRMtkUlPQW5VGf74XKDk9tpJifLL7hSb3UuAXIngJfoY8CjuQMV/KZ3UWtSDsGxXuIiMCPlJzFAiQlj5p3a/YGfODs1BaIxRo2iKwTdip2BqQ5MZQRb/uIwumMbY/LndTy/ez3SDEHUy/mOQuAqgit6RkvldBRVMkUohwDoC4mKJzoE5AiTtoXqtZAwx48fINiayQ0tvhEVZllqxGfTNOhlz5EAwAq5BQIn+5pFwhHNrqc1Rr4WAEeAXEPaGtgNqdkz/SqArlXW93JMw40d3lyEWg2m/Adr+z6+IWnfSChJkNFy0ZdgYcHhM6L28lesLiM+uAHCixSuknj3n8BzhRsmMFDlxHh6XUrFPxIo9fX1NFq7gegM8ZS4N71ijSH+1CTZ4fnesI+CBs/jJkMO+ZawCPV2K9gEPSRsdOiZwsaQIRkrk16J+9YGhb1F0K5yzcIT2L6fKld0uMsjXtiz5kgZGoDx7Zy/ViFqQGbIsveXkmMdYoDsdybo/sCBfUXXGsohgTwd/3+F7Id9wtNnIdQSRilpSdgYbnQBW/WbtVN5j02ETgHK+0ph8FyQlbw//kJxSsQalVxXux4RgaDIyqNGX8Uv+zuCwuV4heb1VLOgiuyDxU3I6uMZlvE//FJm6AmuyLpUl4vaHqE4JzjJjstt5fHYXKzWNPZzrrB7LWmFuihhditnYmDEE2zFWZq7Tx2BM0Sqkv6QKys4/mONiCfsJyNpXf1CB6DNVCfoohJambJf2Y52nrxOO3EBLhC3qHRZa/v34znWFJCprVUzbYeM/YHDc7gnVGyBiZEnL8JkVRUA3UhDoBLPIr3LWYpCMzExYw+wVcLnJ9ZaVDpBdplZsqLu/rl4B+WpjrrhDGpB4AfddP6ewxvqbCnzG8yAhXw7LnnlX5ZgYRTdHRBf873/J9psV30X9PUWCVabBUcIkv8dlVxCjycm9qhCDRwLgM8vgOHop9BKr2mt8OYd4ZZ31RG9OGHTCPS3DDviv9Fv34dRCLOHkdkL/FWMVeIVNw=="}];
+let LEVELS = null;
+const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function openVault(code){
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(code), "PBKDF2", false, ["deriveKey"]);
+  for(const v of VAULT){
+    try{
+      const key = await crypto.subtle.deriveKey({name: "PBKDF2", salt: b64d(v.s), iterations: 100000, hash: "SHA-256"}, base, {name: "AES-GCM", length: 256}, false, ["decrypt"]);
+      const pt = await crypto.subtle.decrypt({name: "AES-GCM", iv: b64d(v.iv)}, key, b64d(v.c));
+      return JSON.parse(new TextDecoder().decode(pt));
+    }catch(e){}
+  }
+  return null;
+}
+
+/* ===== Хранилище прогресса ===== */
+let P = {done:{}, xp:0, mute:false, code:"", logs:{}};
+try{ const s = JSON.parse(localStorage.getItem("es_a1_3") || "null"); if(s) P = Object.assign(P, s); }catch(e){}
+function save(){ try{ localStorage.setItem("es_a1_3", JSON.stringify(P)); }catch(e){} }
+
+const $ = s => document.querySelector(s);
+const el = (tag, cls, html) => { const e = document.createElement(tag); if(cls) e.className = cls; if(html != null) e.innerHTML = html; return e; };
+const shuffle = a => { a = a.slice(); for(let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ===== Вход по коду ===== */
+async function unlock(code){
+  if(!(window.crypto && crypto.subtle)){ $("#gate-err").textContent = "Открой урок по ссылке, которая начинается с https://"; return false; }
+  const d = await openVault(code); if(!d) return false;
+  LEVELS = d.L; TRMAP = d.T; const name = d.N;
+  $("#gate").remove();
+  P.code = code; save();
+  const bar = $("#wm-bar"); bar.hidden = false;
+  bar.textContent = "Личный доступ: " + name + ". Передача запрещена.";
+  $("#wm-bg-text").textContent = (name + "   ").repeat(400);
+  $("#wm-bg").hidden = false;
+  showMap(); return true;
+}
+const normCode = x => x.replace(/[\s\-–—]/g, "").toUpperCase().replace(/Ё/g, "Е");
+async function tryEnter(){
+  const btn = $("#enter"); btn.disabled = true; const old = btn.textContent; btn.textContent = "Проверяю…";
+  const ok = await unlock(normCode($("#code").value));
+  if(!ok){ btn.disabled = false; btn.textContent = old; if(!$("#gate-err").textContent.startsWith("Открой")) $("#gate-err").textContent = "Такого кода нет. Проверь написание или напиши преподавателю."; }
+}
+$("#enter").onclick = tryEnter;
+$("#code").addEventListener("keydown", e => { if(e.key === "Enter") tryEnter(); });
+
+/* ===== Звук ===== */
+let esVoice = null;
+function pickVoice(){ if(!("speechSynthesis" in window)) return; const v = speechSynthesis.getVoices(); esVoice = v.find(x => x.lang === "es-ES") || v.find(x => x.lang && x.lang.startsWith("es")) || null; }
+if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(t, done){
+  if(!("speechSynthesis" in window)){ if(done) done(); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(t); u.lang = "es-ES"; u.rate = .85; if(esVoice) u.voice = esVoice;
+  if(done){ let fired = false, sto = null; const fin = () => { if(fired) return; fired = true; clearTimeout(sto); done(); }; u.onend = fin; u.onerror = fin; sto = setTimeout(fin, Math.min(12000, 1500 + t.length * 110)); }
+  speechSynthesis.speak(u);
+}
+let actx;
+function tones(notes, type, vol, step){
+  if(P.mute) return;
+  try{
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const t0 = actx.currentTime;
+    notes.forEach((f, i) => {
+      const o = actx.createOscillator(), g = actx.createGain(), t = t0 + i * step;
+      o.type = type; o.frequency.value = f;
+      g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + step + .08);
+      o.connect(g).connect(actx.destination); o.start(t); o.stop(t + step + .1);
+    });
+  }catch(e){}
+}
+const sfxOk = () => tones([660, 990], "triangle", .18, .1);
+const sfxBad = () => tones([200, 160], "square", .05, .12);
+const sfxWin = () => tones([523, 659, 784, 1047], "triangle", .18, .12);
+function soundBtn(text){ const b = el("button", "round-play", "🔊"); b.setAttribute("aria-label", "Прослушать"); b.onclick = () => speak(text); return b; }
+
+let TRMAP = {};
+/* ===== Словарь под заданием ===== */
+const GLOSS = {"abrir": "abrir — открывать", "abro": "abrir — открывать", "abres": "abrir — открывать", "abre": "abrir — открывать", "abrimos": "abrir — открывать", "abrís": "abrir — открывать", "abren": "abrir — открывать", "abriendo": "abrir — открывать", "abra": "abrir — открывать", "abras": "abrir — открывать", "abramos": "abrir — открывать", "abráis": "abrir — открывать", "abran": "abrir — открывать", "admitir": "admitir — признавать", "admito": "admitir — признавать", "admites": "admitir — признавать", "admite": "admitir — признавать", "admitimos": "admitir — признавать", "admitís": "admitir — признавать", "admiten": "admitir — признавать", "admitiendo": "admitir — признавать", "admita": "admitir — признавать", "admitas": "admitir — признавать", "admitamos": "admitir — признавать", "admitáis": "admitir — признавать", "admitan": "admitir — признавать", "ahorrar": "ahorrar — экономить", "ahorro": "ahorrar — экономить", "ahorras": "ahorrar — экономить", "ahorra": "ahorrar — экономить", "ahorramos": "ahorrar — экономить", "ahorráis": "ahorrar — экономить", "ahorran": "ahorrar — экономить", "ahorrando": "ahorrar — экономить", "ahorre": "ahorrar — экономить", "ahorres": "ahorrar — экономить", "ahorremos": "ahorrar — экономить", "ahorréis": "ahorrar — экономить", "ahorren": "ahorrar — экономить", "alquilar": "alquilar — снимать, арендовать", "alquilo": "alquilar — снимать, арендовать", "alquilas": "alquilar — снимать, арендовать", "alquila": "alquilar — снимать, арендовать", "alquilamos": "alquilar — снимать, арендовать", "alquiláis": "alquilar — снимать, арендовать", "alquilan": "alquilar — снимать, арендовать", "alquilando": "alquilar — снимать, арендовать", "alquile": "alquilar — снимать, арендовать", "alquiles": "alquilar — снимать, арендовать", "alquilemos": "alquilar — снимать, арендовать", "alquiléis": "alquilar — снимать, арендовать", "alquilen": "alquilar — снимать, арендовать", "aplaudir": "aplaudir — аплодировать", "aplaudo": "aplaudir — аплодировать", "aplaudes": "aplaudir — аплодировать", "aplaude": "aplaudir — аплодировать", "aplaudimos": "aplaudir — аплодировать", "aplaudís": "aplaudir — аплодировать", "aplauden": "aplaudir — аплодировать", "aplaudiendo": "aplaudir — аплодировать", "aplauda": "aplaudir — аплодировать", "aplaudas": "aplaudir — аплодировать", "aplaudamos": "aplaudir — аплодировать", "aplaudáis": "aplaudir — аплодировать", "aplaudan": "aplaudir — аплодировать", "aprender": "aprender — учить, изучать", "aprendo": "aprender — учить, изучать", "aprendes": "aprender — учить, изучать", "aprende": "aprender — учить, изучать", "aprendemos": "aprender — учить, изучать", "aprendéis": "aprender — учить, изучать", "aprenden": "aprender — учить, изучать", "aprendiendo": "aprender — учить, изучать", "aprenda": "aprender — учить, изучать", "aprendas": "aprender — учить, изучать", "aprendamos": "aprender — учить, изучать", "aprendáis": "aprender — учить, изучать", "aprendan": "aprender — учить, изучать", "arreglar": "arreglar — чинить", "arreglo": "arreglar — чинить", "arreglas": "arreglar — чинить", "arregla": "arreglar — чинить", "arreglamos": "arreglar — чинить", "arregláis": "arreglar — чинить", "arreglan": "arreglar — чинить", "arreglando": "arreglar — чинить", "arregle": "arreglar — чинить", "arregles": "arreglar — чинить", "arreglemos": "arreglar — чинить", "arregléis": "arreglar — чинить", "arreglen": "arreglar — чинить", "asistir": "asistir — посещать, присутствовать", "asisto": "asistir — посещать, присутствовать", "asistes": "asistir — посещать, присутствовать", "asiste": "asistir — посещать, присутствовать", "asistimos": "asistir — посещать, присутствовать", "asistís": "asistir — посещать, присутствовать", "asisten": "asistir — посещать, присутствовать", "asistiendo": "asistir — посещать, присутствовать", "asista": "asistir — посещать, присутствовать", "asistas": "asistir — посещать, присутствовать", "asistamos": "asistir — посещать, присутствовать", "asistáis": "asistir — посещать, присутствовать", "asistan": "asistir — посещать, присутствовать", "ayudar": "ayudar — помогать", "ayudo": "ayudar — помогать", "ayudas": "ayudar — помогать", "ayuda": "ayudar — помогать", "ayudamos": "ayudar — помогать", "ayudáis": "ayudar — помогать", "ayudan": "ayudar — помогать", "ayudando": "ayudar — помогать", "ayude": "ayudar — помогать", "ayudes": "ayudar — помогать", "ayudemos": "ayudar — помогать", "ayudéis": "ayudar — помогать", "ayuden": "ayudar — помогать", "añadir": "añadir — добавлять", "añado": "añadir — добавлять", "añades": "añadir — добавлять", "añade": "añadir — добавлять", "añadimos": "añadir — добавлять", "añadís": "añadir — добавлять", "añaden": "añadir — добавлять", "añadiendo": "añadir — добавлять", "añada": "añadir — добавлять", "añadas": "añadir — добавлять", "añadamos": "añadir — добавлять", "añadáis": "añadir — добавлять", "añadan": "añadir — добавлять", "bailar": "bailar — танцевать", "bailo": "bailar — танцевать", "bailas": "bailar — танцевать", "baila": "bailar — танцевать", "bailamos": "bailar — танцевать", "bailáis": "bailar — танцевать", "bailan": "bailar — танцевать", "bailando": "bailar — танцевать", "baile": "bailar — танцевать", "bailes": "bailar — танцевать", "bailemos": "bailar — танцевать", "bailéis": "bailar — танцевать", "bailen": "bailar — танцевать", "barrer": "barrer — подметать", "barro": "barrer — подметать", "barres": "barrer — подметать", "barre": "barrer — подметать", "barremos": "barrer — подметать", "barréis": "barrer — подметать", "barren": "barrer — подметать", "barriendo": "barrer — подметать", "barra": "barrer — подметать", "barras": "barrer — подметать", "barramos": "barrer — подметать", "barráis": "barrer — подметать", "barran": "barrer — подметать", "beber": "beber — пить", "bebo": "beber — пить", "bebes": "beber — пить", "bebe": "beber — пить", "bebemos": "beber — пить", "bebéis": "beber — пить", "beben": "beber — пить", "bebiendo": "beber — пить", "beba": "beber — пить", "bebas": "beber — пить", "bebamos": "beber — пить", "bebáis": "beber — пить", "beban": "beber — пить", "cambiar": "cambiar — менять", "cambio": "cambiar — менять", "cambias": "cambiar — менять", "cambia": "cambiar — менять", "cambiamos": "cambiar — менять", "cambiáis": "cambiar — менять", "cambian": "cambiar — менять", "cambiando": "cambiar — менять", "cambie": "cambiar — менять", "cambies": "cambiar — менять", "cambiemos": "cambiar — менять", "cambiéis": "cambiar — менять", "cambien": "cambiar — менять", "caminar": "caminar — ходить пешком, гулять", "camino": "caminar — ходить пешком, гулять", "caminas": "caminar — ходить пешком, гулять", "camina": "caminar — ходить пешком, гулять", "caminamos": "caminar — ходить пешком, гулять", "camináis": "caminar — ходить пешком, гулять", "caminan": "caminar — ходить пешком, гулять", "caminando": "caminar — ходить пешком, гулять", "camine": "caminar — ходить пешком, гулять", "camines": "caminar — ходить пешком, гулять", "caminemos": "caminar — ходить пешком, гулять", "caminéis": "caminar — ходить пешком, гулять", "caminen": "caminar — ходить пешком, гулять", "cantar": "cantar — петь", "canto": "cantar — петь", "cantas": "cantar — петь", "canta": "cantar — петь", "cantamos": "cantar — петь", "cantáis": "cantar — петь", "cantan": "cantar — петь", "cantando": "cantar — петь", "cante": "cantar — петь", "cantes": "cantar — петь", "cantemos": "cantar — петь", "cantéis": "cantar — петь", "canten": "cantar — петь", "cepillar": "cepillar — расчёсывать", "cepillo": "cepillar — расчёсывать", "cepillas": "cepillar — расчёсывать", "cepilla": "cepillar — расчёсывать", "cepillamos": "cepillar — расчёсывать", "cepilláis": "cepillar — расчёсывать", "cepillan": "cepillar — расчёсывать", "cepillando": "cepillar — расчёсывать", "cepille": "cepillar — расчёсывать", "cepilles": "cepillar — расчёсывать", "cepillemos": "cepillar — расчёсывать", "cepilléis": "cepillar — расчёсывать", "cepillen": "cepillar — расчёсывать", "cocinar": "cocinar — готовить (еду)", "cocino": "cocinar — готовить (еду)", "cocinas": "cocinar — готовить (еду)", "cocina": "cocinar — готовить (еду)", "cocinamos": "cocinar — готовить (еду)", "cocináis": "cocinar — готовить (еду)", "cocinan": "cocinar — готовить (еду)", "cocinando": "cocinar — готовить (еду)", "cocine": "cocinar — готовить (еду)", "cocines": "cocinar — готовить (еду)", "cocinemos": "cocinar — готовить (еду)", "cocinéis": "cocinar — готовить (еду)", "cocinen": "cocinar — готовить (еду)", "comer": "comer — есть", "como": "comer — есть", "comes": "comer — есть", "come": "comer — есть", "comemos": "comer — есть", "coméis": "comer — есть", "comen": "comer — есть", "comiendo": "comer — есть", "coma": "comer — есть", "comas": "comer — есть", "comamos": "comer — есть", "comáis": "comer — есть", "coman": "comer — есть", "compartir": "compartir — делить(ся), жить вместе", "comparto": "compartir — делить(ся), жить вместе", "compartes": "compartir — делить(ся), жить вместе", "comparte": "compartir — делить(ся), жить вместе", "compartimos": "compartir — делить(ся), жить вместе", "compartís": "compartir — делить(ся), жить вместе", "comparten": "compartir — делить(ся), жить вместе", "compartiendo": "compartir — делить(ся), жить вместе", "comparta": "compartir — делить(ся), жить вместе", "compartas": "compartir — делить(ся), жить вместе", "compartamos": "compartir — делить(ся), жить вместе", "compartáis": "compartir — делить(ся), жить вместе", "compartan": "compartir — делить(ся), жить вместе", "comprar": "comprar — покупать", "compro": "comprar — покупать", "compras": "comprar — покупать", "compra": "comprar — покупать", "compramos": "comprar — покупать", "compráis": "comprar — покупать", "compran": "comprar — покупать", "comprando": "comprar — покупать", "compre": "comprar — покупать", "compres": "comprar — покупать", "compremos": "comprar — покупать", "compréis": "comprar — покупать", "compren": "comprar — покупать", "comprender": "comprender — понимать", "comprendo": "comprender — понимать", "comprendes": "comprender — понимать", "comprende": "comprender — понимать", "comprendemos": "comprender — понимать", "comprendéis": "comprender — понимать", "comprenden": "comprender — понимать", "comprendiendo": "comprender — понимать", "comprenda": "comprender — понимать", "comprendas": "comprender — понимать", "comprendamos": "comprender — понимать", "comprendáis": "comprender — понимать", "comprendan": "comprender — понимать", "conducir": "conducir — водить", "conduco": "conducir — водить (машину)", "conduces": "conducir — водить (машину)", "conduce": "conducir — водить (машину)", "conducimos": "conducir — водить (машину)", "conducís": "conducir — водить (машину)", "conducen": "conducir — водить (машину)", "conduciendo": "conducir — водить (машину)", "conduca": "conducir — водить (машину)", "conducas": "conducir — водить (машину)", "conducamos": "conducir — водить (машину)", "conducáis": "conducir — водить (машину)", "conducan": "conducir — водить (машину)", "contestar": "contestar — отвечать", "contesto": "contestar — отвечать", "contestas": "contestar — отвечать", "contesta": "contestar — отвечать", "contestamos": "contestar — отвечать", "contestáis": "contestar — отвечать", "contestan": "contestar — отвечать", "contestando": "contestar — отвечать", "conteste": "contestar — отвечать", "contestes": "contestar — отвечать", "contestemos": "contestar — отвечать", "contestéis": "contestar — отвечать", "contesten": "contestar — отвечать", "correr": "correr — бегать", "corro": "correr — бегать", "corres": "correr — бегать", "corre": "correr — бегать", "corremos": "correr — бегать", "corréis": "correr — бегать", "corren": "correr — бегать", "corriendo": "correr — бегать", "corra": "correr — бегать", "corras": "correr — бегать", "corramos": "correr — бегать", "corráis": "correr — бегать", "corran": "correr — бегать", "cortar": "cortar — стричь, резать", "corto": "cortar — стричь, резать", "cortas": "cortar — стричь, резать", "corta": "cortar — стричь, резать", "cortamos": "cortar — стричь, резать", "cortáis": "cortar — стричь, резать", "cortan": "cortar — стричь, резать", "cortando": "cortar — стричь, резать", "corte": "cortar — стричь, резать", "cortes": "cortar — стричь, резать", "cortemos": "cortar — стричь, резать", "cortéis": "cortar — стричь, резать", "corten": "cortar — стричь, резать", "coser": "coser — шить", "coso": "coser — шить", "coses": "coser — шить", "cose": "coser — шить", "cosemos": "coser — шить", "coséis": "coser — шить", "cosen": "coser — шить", "cosiendo": "coser — шить", "cosa": "coser — шить", "cosas": "coser — шить", "cosamos": "coser — шить", "cosáis": "coser — шить", "cosan": "coser — шить", "creer": "creer — верить, считать", "creo": "creer — верить, считать", "crees": "creer — верить, считать", "cree": "creer — верить, считать", "creemos": "creer — верить, считать", "creéis": "creer — верить, считать", "creen": "creer — верить, считать", "creiendo": "creer — верить, считать", "crea": "creer — верить, считать", "creas": "creer — верить, считать", "creamos": "creer — верить, считать", "creáis": "creer — верить, считать", "crean": "creer — верить, считать", "cubrir": "cubrir — покрывать, закрашивать", "cubro": "cubrir — покрывать, закрашивать", "cubres": "cubrir — покрывать, закрашивать", "cubre": "cubrir — покрывать, закрашивать", "cubrimos": "cubrir — покрывать, закрашивать", "cubrís": "cubrir — покрывать, закрашивать", "cubren": "cubrir — покрывать, закрашивать", "cubriendo": "cubrir — покрывать, закрашивать", "cubra": "cubrir — покрывать, закрашивать", "cubras": "cubrir — покрывать, закрашивать", "cubramos": "cubrir — покрывать, закрашивать", "cubráis": "cubrir — покрывать, закрашивать", "cubran": "cubrir — покрывать, закрашивать", "cuidar": "cuidar — заботиться, присматривать", "cuido": "cuidar — заботиться, присматривать", "cuidas": "cuidar — заботиться, присматривать", "cuida": "cuidar — заботиться, присматривать", "cuidamos": "cuidar — заботиться, присматривать", "cuidáis": "cuidar — заботиться, присматривать", "cuidan": "cuidar — заботиться, присматривать", "cuidando": "cuidar — заботиться, присматривать", "cuide": "cuidar — заботиться, присматривать", "cuides": "cuidar — заботиться, присматривать", "cuidemos": "cuidar — заботиться, присматривать", "cuidéis": "cuidar — заботиться, присматривать", "cuiden": "cuidar — заботиться, присматривать", "deber": "deber — быть должным, задолжать", "debo": "deber — быть должным, задолжать", "debes": "deber — быть должным, задолжать", "debe": "deber — быть должным, задолжать", "debemos": "deber — быть должным, задолжать", "debéis": "deber — быть должным, задолжать", "deben": "deber — быть должным, задолжать", "debiendo": "deber — быть должным, задолжать", "deba": "deber — быть должным, задолжать", "debas": "deber — быть должным, задолжать", "debamos": "deber — быть должным, задолжать", "debáis": "deber — быть должным, задолжать", "deban": "deber — быть должным, задолжать", "decidir": "decidir — решать", "decido": "decidir — решать", "decides": "decidir — решать", "decide": "decidir — решать", "decidimos": "decidir — решать", "decidís": "decidir — решать", "deciden": "decidir — решать", "decidiendo": "decidir — решать", "decida": "decidir — решать", "decidas": "decidir — решать", "decidamos": "decidir — решать", "decidáis": "decidir — решать", "decidan": "decidir — решать", "desayunar": "desayunar — завтракать", "desayuno": "desayuno — завтрак; desayunar — завтракать", "desayunas": "desayunar — завтракать", "desayuna": "desayunar — завтракать", "desayunamos": "desayunar — завтракать", "desayunáis": "desayunar — завтракать", "desayunan": "desayunar — завтракать", "desayunando": "desayunar — завтракать", "desayune": "desayunar — завтракать", "desayunes": "desayunar — завтракать", "desayunemos": "desayunar — завтракать", "desayunéis": "desayunar — завтракать", "desayunen": "desayunar — завтракать", "descansar": "descansar — отдыхать", "descanso": "descansar — отдыхать", "descansas": "descansar — отдыхать", "descansa": "descansar — отдыхать", "descansamos": "descansar — отдыхать", "descansáis": "descansar — отдыхать", "descansan": "descansar — отдыхать", "descansando": "descansar — отдыхать", "descanse": "descansar — отдыхать", "descanses": "descansar — отдыхать", "descansemos": "descansar — отдыхать", "descanséis": "descansar — отдыхать", "descansen": "descansar — отдыхать", "describir": "describir — описывать", "describo": "describir — описывать", "describes": "describir — описывать", "describe": "describir — описывать", "describimos": "describir — описывать", "describís": "describir — описывать", "describen": "describir — описывать", "describiendo": "describir — описывать", "describa": "describir — описывать", "describas": "describir — описывать", "describamos": "describir — описывать", "describáis": "describir — описывать", "describan": "describir — описывать", "dibujar": "dibujar — рисовать", "dibujo": "dibujar — рисовать", "dibujas": "dibujar — рисовать", "dibuja": "dibujar — рисовать", "dibujamos": "dibujar — рисовать", "dibujáis": "dibujar — рисовать", "dibujan": "dibujar — рисовать", "dibujando": "dibujar — рисовать", "dibuje": "dibujar — рисовать", "dibujes": "dibujar — рисовать", "dibujemos": "dibujar — рисовать", "dibujéis": "dibujar — рисовать", "dibujen": "dibujar — рисовать", "discutir": "discutir — обсуждать, спорить", "discuto": "discutir — обсуждать, спорить", "discutes": "discutir — обсуждать, спорить", "discute": "discutir — обсуждать, спорить", "discutimos": "discutir — обсуждать, спорить", "discutís": "discutir — обсуждать, спорить", "discuten": "discutir — обсуждать, спорить", "discutiendo": "discutir — обсуждать, спорить", "discuta": "discutir — обсуждать, спорить", "discutas": "discutir — обсуждать, спорить", "discutamos": "discutir — обсуждать, спорить", "discutáis": "discutir — обсуждать, спорить", "discutan": "discutir — обсуждать, спорить", "dormir": "dormir — спать", "dormo": "dormir — спать", "dormes": "dormir — спать", "dorme": "dormir — спать", "dormimos": "dormir — спать", "dormís": "dormir — спать", "dormen": "dormir — спать", "dormiendo": "dormir — спать", "dorma": "dormir — спать", "dormas": "dormir — спать", "dormamos": "dormir — спать", "dormáis": "dormir — спать", "dorman": "dormir — спать", "enseñar": "enseñar — преподавать, учить", "enseño": "enseñar — преподавать, учить", "enseñas": "enseñar — преподавать, учить", "enseña": "enseñar — преподавать, учить", "enseñamos": "enseñar — преподавать, учить", "enseñáis": "enseñar — преподавать, учить", "enseñan": "enseñar — преподавать, учить", "enseñando": "enseñar — преподавать, учить", "enseñe": "enseñar — преподавать, учить", "enseñes": "enseñar — преподавать, учить", "enseñemos": "enseñar — преподавать, учить", "enseñéis": "enseñar — преподавать, учить", "enseñen": "enseñar — преподавать, учить", "esconder": "esconder — прятать", "escondo": "esconder — прятать", "escondes": "esconder — прятать", "esconde": "esconder — прятать", "escondemos": "esconder — прятать", "escondéis": "esconder — прятать", "esconden": "esconder — прятать", "escondiendo": "esconder — прятать", "esconda": "esconder — прятать", "escondas": "esconder — прятать", "escondamos": "esconder — прятать", "escondáis": "esconder — прятать", "escondan": "esconder — прятать", "escribir": "escribir — писать", "escribo": "escribir — писать", "escribes": "escribir — писать", "escribe": "escribir — писать", "escribimos": "escribir — писать", "escribís": "escribir — писать", "escriben": "escribir — писать", "escribiendo": "escribir — писать", "escriba": "escribir — писать", "escribas": "escribir — писать", "escribamos": "escribir — писать", "escribáis": "escribir — писать", "escriban": "escribir — писать", "escuchar": "escuchar — слушать", "escucho": "escuchar — слушать", "escuchas": "escuchar — слушать", "escucha": "escuchar — слушать", "escuchamos": "escuchar — слушать", "escucháis": "escuchar — слушать", "escuchan": "escuchar — слушать", "escuchando": "escuchar — слушать", "escuche": "escuchar — слушать", "escuches": "escuchar — слушать", "escuchemos": "escuchar — слушать", "escuchéis": "escuchar — слушать", "escuchen": "escuchar — слушать", "esperar": "esperar — ждать", "espero": "esperar — ждать", "esperas": "esperar — ждать", "espera": "esperar — ждать", "esperamos": "esperar — ждать", "esperáis": "esperar — ждать", "esperan": "esperar — ждать", "esperando": "esperar — ждать", "espere": "esperar — ждать", "esperes": "esperar — ждать", "esperemos": "esperar — ждать", "esperéis": "esperar — ждать", "esperen": "esperar — ждать", "explicar": "explicar — объяснять", "explico": "explicar — объяснять", "explicas": "explicar — объяснять", "explica": "explicar — объяснять", "explicamos": "explicar — объяснять", "explicáis": "explicar — объяснять", "explican": "explicar — объяснять", "explicando": "explicar — объяснять", "explice": "explicar — объяснять", "explices": "explicar — объяснять", "explicemos": "explicar — объяснять", "explicéis": "explicar — объяснять", "explicen": "explicar — объяснять", "firmar": "firmar — подписывать", "firmo": "firmar — подписывать", "firmas": "firmar — подписывать", "firma": "firmar — подписывать", "firmamos": "firmar — подписывать", "firmáis": "firmar — подписывать", "firman": "firmar — подписывать", "firmando": "firmar — подписывать", "firme": "firmar — подписывать", "firmes": "firmar — подписывать", "firmemos": "firmar — подписывать", "firméis": "firmar — подписывать", "firmen": "firmar — подписывать", "ganar": "ganar — выигрывать, зарабатывать", "gano": "ganar — выигрывать, зарабатывать", "ganas": "ganar — выигрывать, зарабатывать", "gana": "ganar — выигрывать, зарабатывать", "ganamos": "ganar — выигрывать, зарабатывать", "ganáis": "ganar — выигрывать, зарабатывать", "ganan": "ganar — выигрывать, зарабатывать", "ganando": "ganar — выигрывать, зарабатывать", "gane": "ganar — выигрывать, зарабатывать", "ganes": "ganar — выигрывать, зарабатывать", "ganemos": "ganar — выигрывать, зарабатывать", "ganéis": "ganar — выигрывать, зарабатывать", "ganen": "ganar — выигрывать, зарабатывать", "gastar": "gastar — тратить", "gasto": "gastar — тратить", "gastas": "gastar — тратить", "gasta": "gastar — тратить", "gastamos": "gastar — тратить", "gastáis": "gastar — тратить", "gastan": "gastar — тратить", "gastando": "gastar — тратить", "gaste": "gastar — тратить", "gastes": "gastar — тратить", "gastemos": "gastar — тратить", "gastéis": "gastar — тратить", "gasten": "gastar — тратить", "gritar": "gritar — кричать", "grito": "gritar — кричать", "gritas": "gritar — кричать", "grita": "gritar — кричать", "gritamos": "gritar — кричать", "gritáis": "gritar — кричать", "gritan": "gritar — кричать", "gritando": "gritar — кричать", "grite": "gritar — кричать", "grites": "gritar — кричать", "gritemos": "gritar — кричать", "gritéis": "gritar — кричать", "griten": "gritar — кричать", "hablar": "hablar — говорить", "hablo": "hablar — говорить", "hablas": "hablar — говорить", "habla": "hablar — говорить", "hablamos": "hablar — говорить", "habláis": "hablar — говорить", "hablan": "hablar — говорить", "hablando": "hablar — говорить", "hable": "hablar — говорить", "hables": "hablar — говорить", "hablemos": "hablar — говорить", "habléis": "hablar — говорить", "hablen": "hablar — говорить", "hacer": "hacer — делать", "haco": "hacer — делать", "haces": "hacer — делать", "hace": "hacer — делать", "hacemos": "hacer — делать", "hacéis": "hacer — делать", "hacen": "hacer — делать", "haciendo": "hacer — делать", "haca": "hacer — делать", "hacas": "hacer — делать", "hacamos": "hacer — делать", "hacáis": "hacer — делать", "hacan": "hacer — делать", "hojear": "hojear — листать", "hojeo": "hojear — листать", "hojeas": "hojear — листать", "hojea": "hojear — листать", "hojeamos": "hojear — листать", "hojeáis": "hojear — листать", "hojean": "hojear — листать", "hojeando": "hojear — листать", "hojee": "hojear — листать", "hojees": "hojear — листать", "hojeemos": "hojear — листать", "hojeéis": "hojear — листать", "hojeen": "hojear — листать", "imprimir": "imprimir — печатать", "imprimo": "imprimir — печатать", "imprimes": "imprimir — печатать", "imprime": "imprimir — печатать", "imprimimos": "imprimir — печатать", "imprimís": "imprimir — печатать", "imprimen": "imprimir — печатать", "imprimiendo": "imprimir — печатать", "imprima": "imprimir — печатать", "imprimas": "imprimir — печатать", "imprimamos": "imprimir — печатать", "imprimáis": "imprimir — печатать", "impriman": "imprimir — печатать", "insistir": "insistir — настаивать", "insisto": "insistir — настаивать", "insistes": "insistir — настаивать", "insiste": "insistir — настаивать", "insistimos": "insistir — настаивать", "insistís": "insistir — настаивать", "insisten": "insistir — настаивать", "insistiendo": "insistir — настаивать", "insista": "insistir — настаивать", "insistas": "insistir — настаивать", "insistamos": "insistir — настаивать", "insistáis": "insistir — настаивать", "insistan": "insistir — настаивать", "invitar": "invitar — приглашать", "invito": "invitar — приглашать", "invitas": "invitar — приглашать", "invita": "invitar — приглашать", "invitamos": "invitar — приглашать", "invitáis": "invitar — приглашать", "invitan": "invitar — приглашать", "invitando": "invitar — приглашать", "invite": "invitar — приглашать", "invites": "invitar — приглашать", "invitemos": "invitar — приглашать", "invitéis": "invitar — приглашать", "inviten": "invitar — приглашать", "jugar": "jugar — играть", "jugo": "jugar — играть", "jugas": "jugar — играть", "juga": "jugar — играть", "jugamos": "jugar — играть", "jugáis": "jugar — играть", "jugan": "jugar — играть", "jugando": "jugar — играть", "juge": "jugar — играть", "juges": "jugar — играть", "jugemos": "jugar — играть", "jugéis": "jugar — играть", "jugen": "jugar — играть", "lavar": "lavar — мыть", "lavo": "lavar — мыть", "lavas": "lavar — мыть", "lava": "lavar — мыть", "lavamos": "lavar — мыть", "laváis": "lavar — мыть", "lavan": "lavar — мыть", "lavando": "lavar — мыть", "lave": "lavar — мыть", "laves": "lavar — мыть", "lavemos": "lavar — мыть", "lavéis": "lavar — мыть", "laven": "lavar — мыть", "leer": "leer — читать", "leo": "leer — читать", "lees": "leer — читать", "lee": "leer — читать", "leemos": "leer — читать", "leéis": "leer — читать", "leen": "leer — читать", "leiendo": "leer — читать", "lea": "leer — читать", "leas": "leer — читать", "leamos": "leer — читать", "leáis": "leer — читать", "lean": "leer — читать", "limpiar": "limpiar — убирать, чистить", "limpio": "limpiar — убирать, чистить", "limpias": "limpiar — убирать, чистить", "limpia": "limpiar — убирать, чистить", "limpiamos": "limpiar — убирать, чистить", "limpiáis": "limpiar — убирать, чистить", "limpian": "limpiar — убирать, чистить", "limpiando": "limpiar — убирать, чистить", "limpie": "limpiar — убирать, чистить", "limpies": "limpiar — убирать, чистить", "limpiemos": "limpiar — убирать, чистить", "limpiéis": "limpiar — убирать, чистить", "limpien": "limpiar — убирать, чистить", "llamar": "llamar — звонить, звать", "llamo": "llamar — звонить, звать", "llamas": "llamar — звонить, звать", "llama": "llamar — звонить, звать", "llamamos": "llamar — звонить, звать", "llamáis": "llamar — звонить, звать", "llaman": "llamar — звонить, звать", "llamando": "llamar — звонить, звать", "llame": "llamar — звонить, звать", "llames": "llamar — звонить, звать", "llamemos": "llamar — звонить, звать", "llaméis": "llamar — звонить, звать", "llamen": "llamar — звонить, звать", "llevar": "llevar — нести, носить", "llevo": "llevar — нести, носить", "llevas": "llevar — нести, носить", "lleva": "llevar — нести, носить", "llevamos": "llevar — нести, носить", "lleváis": "llevar — нести, носить", "llevan": "llevar — нести, носить", "llevando": "llevar — нести, носить", "lleve": "llevar — нести, носить", "lleves": "llevar — нести, носить", "llevemos": "llevar — нести, носить", "llevéis": "llevar — нести, носить", "lleven": "llevar — нести, носить", "maquillar": "maquillar — делать макияж", "maquillo": "maquillar — делать макияж", "maquillas": "maquillar — делать макияж", "maquilla": "maquillar — делать макияж", "maquillamos": "maquillar — делать макияж", "maquilláis": "maquillar — делать макияж", "maquillan": "maquillar — делать макияж", "maquillando": "maquillar — делать макияж", "maquille": "maquillar — делать макияж", "maquilles": "maquillar — делать макияж", "maquillemos": "maquillar — делать макияж", "maquilléis": "maquillar — делать макияж", "maquillen": "maquillar — делать макияж", "mirar": "mirar — смотреть", "miro": "mirar — смотреть", "miras": "mirar — смотреть", "mira": "mirar — смотреть", "miramos": "mirar — смотреть", "miráis": "mirar — смотреть", "miran": "mirar — смотреть", "mirando": "mirar — смотреть", "mire": "mirar — смотреть", "mires": "mirar — смотреть", "miremos": "mirar — смотреть", "miréis": "mirar — смотреть", "miren": "mirar — смотреть", "nadar": "nadar — плавать", "nado": "nadar — плавать", "nadas": "nadar — плавать", "nada": "nadar — плавать", "nadamos": "nadar — плавать", "nadáis": "nadar — плавать", "nadan": "nadar — плавать", "nadando": "nadar — плавать", "nade": "nadar — плавать", "nades": "nadar — плавать", "nademos": "nadar — плавать", "nadéis": "nadar — плавать", "naden": "nadar — плавать", "necesitar": "necesitar — нуждаться", "necesito": "necesitar — нуждаться", "necesitas": "necesitar — нуждаться", "necesita": "necesitar — нуждаться", "necesitamos": "necesitar — нуждаться", "necesitáis": "necesitar — нуждаться", "necesitan": "necesitar — нуждаться", "necesitando": "necesitar — нуждаться", "necesite": "necesitar — нуждаться", "necesites": "necesitar — нуждаться", "necesitemos": "necesitar — нуждаться", "necesitéis": "necesitar — нуждаться", "necesiten": "necesitar — нуждаться", "ordenar": "ordenar — наводить порядок", "ordeno": "ordenar — наводить порядок", "ordenas": "ordenar — наводить порядок", "ordena": "ordenar — наводить порядок", "ordenamos": "ordenar — наводить порядок", "ordenáis": "ordenar — наводить порядок", "ordenan": "ordenar — наводить порядок", "ordenando": "ordenar — наводить порядок", "ordene": "ordenar — наводить порядок", "ordenes": "ordenar — наводить порядок", "ordenemos": "ordenar — наводить порядок", "ordenéis": "ordenar — наводить порядок", "ordenen": "ordenar — наводить порядок", "organizar": "organizar — организовывать", "organizo": "organizar — организовывать", "organizas": "organizar — организовывать", "organiza": "organizar — организовывать", "organizamos": "organizar — организовывать", "organizáis": "organizar — организовывать", "organizan": "organizar — организовывать", "organizando": "organizar — организовывать", "organize": "organizar — организовывать", "organizes": "organizar — организовывать", "organizemos": "organizar — организовывать", "organizéis": "organizar — организовывать", "organizen": "organizar — организовывать", "pagar": "pagar — платить", "pago": "pagar — платить", "pagas": "pagar — платить", "paga": "pagar — платить", "pagamos": "pagar — платить", "pagáis": "pagar — платить", "pagan": "pagar — платить", "pagando": "pagar — платить", "page": "pagar — платить", "pages": "pagar — платить", "pagemos": "pagar — платить", "pagéis": "pagar — платить", "pagen": "pagar — платить", "partir": "partir — делить, резать", "parto": "partir — делить, резать", "partes": "partir — делить, резать", "parte": "partir — делить, резать", "partimos": "partir — делить, резать", "partís": "partir — делить, резать", "parten": "partir — делить, резать", "partiendo": "partir — делить, резать", "parta": "partir — делить, резать", "partas": "partir — делить, резать", "partamos": "partir — делить, резать", "partáis": "partir — делить, резать", "partan": "partir — делить, резать", "pasear": "pasear — гулять", "paseo": "pasear — гулять", "paseas": "pasear — гулять", "pasea": "pasear — гулять", "paseamos": "pasear — гулять", "paseáis": "pasear — гулять", "pasean": "pasear — гулять", "paseando": "pasear — гулять", "pasee": "pasear — гулять", "pasees": "pasear — гулять", "paseemos": "pasear — гулять", "paseéis": "pasear — гулять", "paseen": "pasear — гулять", "pedir": "pedir — просить, заказывать", "pedo": "pedir — просить, заказывать", "pedes": "pedir — просить, заказывать", "pede": "pedir — просить, заказывать", "pedimos": "pedir — просить, заказывать", "pedís": "pedir — просить, заказывать", "peden": "pedir — просить, заказывать", "pediendo": "pedir — просить, заказывать", "peda": "pedir — просить, заказывать", "pedas": "pedir — просить, заказывать", "pedamos": "pedir — просить, заказывать", "pedáis": "pedir — просить, заказывать", "pedan": "pedir — просить, заказывать", "peinar": "peinar — причёсывать", "peino": "peinar — причёсывать", "peinas": "peinar — причёсывать", "peina": "peinar — причёсывать", "peinamos": "peinar — причёсывать", "peináis": "peinar — причёсывать", "peinan": "peinar — причёсывать", "peinando": "peinar — причёсывать", "peine": "peinar — причёсывать", "peines": "peinar — причёсывать", "peinemos": "peinar — причёсывать", "peinéis": "peinar — причёсывать", "peinen": "peinar — причёсывать", "permitir": "permitir — разрешать", "permito": "permitir — разрешать", "permites": "permitir — разрешать", "permite": "permitir — разрешать", "permitimos": "permitir — разрешать", "permitís": "permitir — разрешать", "permiten": "permitir — разрешать", "permitiendo": "permitir — разрешать", "permita": "permitir — разрешать", "permitas": "permitir — разрешать", "permitamos": "permitir — разрешать", "permitáis": "permitir — разрешать", "permitan": "permitir — разрешать", "pintar": "pintar — красить, рисовать", "pinto": "pintar — красить, рисовать", "pintas": "pintar — красить, рисовать", "pinta": "pintar — красить, рисовать", "pintamos": "pintar — красить, рисовать", "pintáis": "pintar — красить, рисовать", "pintan": "pintar — красить, рисовать", "pintando": "pintar — красить, рисовать", "pinte": "pintar — красить, рисовать", "pintes": "pintar — красить, рисовать", "pintemos": "pintar — красить, рисовать", "pintéis": "pintar — красить, рисовать", "pinten": "pintar — красить, рисовать", "practicar": "practicar — практиковать, заниматься", "practico": "practicar — практиковать, заниматься", "practicas": "practicar — практиковать, заниматься", "practica": "practicar — практиковать, заниматься", "practicamos": "practicar — практиковать, заниматься", "practicáis": "practicar — практиковать, заниматься", "practican": "practicar — практиковать, заниматься", "practicando": "practicar — практиковать, заниматься", "practice": "practicar — практиковать, заниматься", "practices": "practicar — практиковать, заниматься", "practicemos": "practicar — практиковать, заниматься", "practicéis": "practicar — практиковать, заниматься", "practicen": "practicar — практиковать, заниматься", "preguntar": "preguntar — спрашивать", "pregunto": "preguntar — спрашивать", "preguntas": "pregunta — вопрос; preguntar — спрашивать", "pregunta": "pregunta — вопрос; preguntar — спрашивать", "preguntamos": "preguntar — спрашивать", "preguntáis": "preguntar — спрашивать", "preguntan": "preguntar — спрашивать", "preguntando": "preguntar — спрашивать", "pregunte": "preguntar — спрашивать", "preguntes": "preguntar — спрашивать", "preguntemos": "preguntar — спрашивать", "preguntéis": "preguntar — спрашивать", "pregunten": "preguntar — спрашивать", "cenar": "cenar — ужинать", "ceno": "cenar — ужинать", "cenas": "cenar — ужинать", "cena": "cenar — ужинать", "cenamos": "cenar — ужинать", "cenáis": "cenar — ужинать", "cenan": "cenar — ужинать", "cenando": "cenar — ужинать", "cene": "cenar — ужинать", "cenes": "cenar — ужинать", "cenemos": "cenar — ужинать", "cenéis": "cenar — ужинать", "cenen": "cenar — ужинать", "llegar": "llegar — приходить, прибывать", "llego": "llegar — приходить, прибывать", "llegas": "llegar — приходить, прибывать", "llega": "llegar — приходить, прибывать", "llegamos": "llegar — приходить, прибывать", "llegáis": "llegar — приходить, прибывать", "llegan": "llegar — приходить, прибывать", "llegando": "llegar — приходить, прибывать", "llege": "llegar — приходить, прибывать", "lleges": "llegar — приходить, прибывать", "llegemos": "llegar — приходить, прибывать", "llegéis": "llegar — приходить, прибывать", "llegen": "llegar — приходить, прибывать", "funcionar": "funcionar — работать (о технике)", "funciono": "funcionar — работать (о технике)", "funcionas": "funcionar — работать (о технике)", "funciona": "funcionar — работать (о технике)", "funcionamos": "funcionar — работать (о технике)", "funcionáis": "funcionar — работать (о технике)", "funcionan": "funcionar — работать (о технике)", "funcionando": "funcionar — работать (о технике)", "funcione": "funcionar — работать (о технике)", "funciones": "funcionar — работать (о технике)", "funcionemos": "funcionar — работать (о технике)", "funcionéis": "funcionar — работать (о технике)", "funcionen": "funcionar — работать (о технике)", "pasar": "pasar — проводить (время), проходить", "paso": "pasar — проводить (время), проходить", "pasas": "pasar — проводить (время), проходить", "pasa": "pasar — проводить (время), проходить", "pasamos": "pasar — проводить (время), проходить", "pasáis": "pasar — проводить (время), проходить", "pasan": "pasar — проводить (время), проходить", "pasando": "pasar — проводить (время), проходить", "pase": "pasar — проводить (время), проходить", "pases": "pasar — проводить (время), проходить", "pasemos": "pasar — проводить (время), проходить", "paséis": "pasar — проводить (время), проходить", "pasen": "pasar — проводить (время), проходить", "desear": "desear — желать", "deseo": "desear — желать", "deseas": "desear — желать", "desea": "desear — желать", "deseamos": "desear — желать", "deseáis": "desear — желать", "desean": "desear — желать", "deseando": "desear — желать", "desee": "desear — желать", "desees": "desear — желать", "deseemos": "desear — желать", "deseéis": "desear — желать", "deseen": "desear — желать", "preparar": "preparar — готовить", "preparo": "preparar — готовить", "preparas": "preparar — готовить", "prepara": "preparar — готовить", "preparamos": "preparar — готовить", "preparáis": "preparar — готовить", "preparan": "preparar — готовить", "preparando": "preparar — готовить", "prepare": "preparar — готовить", "prepares": "preparar — готовить", "preparemos": "preparar — готовить", "preparéis": "preparar — готовить", "preparen": "preparar — готовить", "prometer": "prometer — обещать", "prometo": "prometer — обещать", "prometes": "prometer — обещать", "promete": "prometer — обещать", "prometemos": "prometer — обещать", "prometéis": "prometer — обещать", "prometen": "prometer — обещать", "prometiendo": "prometer — обещать", "prometa": "prometer — обещать", "prometas": "prometer — обещать", "prometamos": "prometer — обещать", "prometáis": "prometer — обещать", "prometan": "prometer — обещать", "recibir": "recibir — получать, принимать", "recibo": "recibir — получать, принимать", "recibes": "recibir — получать, принимать", "recibe": "recibir — получать, принимать", "recibimos": "recibir — получать, принимать", "recibís": "recibir — получать, принимать", "reciben": "recibir — получать, принимать", "recibiendo": "recibir — получать, принимать", "reciba": "recibir — получать, принимать", "recibas": "recibir — получать, принимать", "recibamos": "recibir — получать, принимать", "recibáis": "recibir — получать, принимать", "reciban": "recibir — получать, принимать", "regar": "regar — поливать", "rego": "regar — поливать", "regas": "regar — поливать", "rega": "regar — поливать", "regamos": "regar — поливать", "regáis": "regar — поливать", "regan": "regar — поливать", "regando": "regar — поливать", "rege": "regar — поливать", "reges": "regar — поливать", "regemos": "regar — поливать", "regéis": "regar — поливать", "regen": "regar — поливать", "regresar": "regresar — возвращаться", "regreso": "regresar — возвращаться", "regresas": "regresar — возвращаться", "regresa": "regresar — возвращаться", "regresamos": "regresar — возвращаться", "regresáis": "regresar — возвращаться", "regresan": "regresar — возвращаться", "regresando": "regresar — возвращаться", "regrese": "regresar — возвращаться", "regreses": "regresar — возвращаться", "regresemos": "regresar — возвращаться", "regreséis": "regresar — возвращаться", "regresen": "regresar — возвращаться", "repartir": "repartir — раздавать, распределять", "reparto": "repartir — раздавать, распределять", "repartes": "repartir — раздавать, распределять", "reparte": "repartir — раздавать, распределять", "repartimos": "repartir — раздавать, распределять", "repartís": "repartir — раздавать, распределять", "reparten": "repartir — раздавать, распределять", "repartiendo": "repartir — раздавать, распределять", "reparta": "repartir — раздавать, распределять", "repartas": "repartir — раздавать, распределять", "repartamos": "repartir — раздавать, распределять", "repartáis": "repartir — раздавать, распределять", "repartan": "repartir — раздавать, распределять", "reservar": "reservar — бронировать", "reservo": "reservar — бронировать", "reservas": "reservar — бронировать", "reserva": "reservar — бронировать", "reservamos": "reservar — бронировать", "reserváis": "reservar — бронировать", "reservan": "reservar — бронировать", "reservando": "reservar — бронировать", "reserve": "reservar — бронировать", "reserves": "reservar — бронировать", "reservemos": "reservar — бронировать", "reservéis": "reservar — бронировать", "reserven": "reservar — бронировать", "responder": "responder — отвечать", "respondo": "responder — отвечать", "respondes": "responder — отвечать", "responde": "responder — отвечать", "respondemos": "responder — отвечать", "respondéis": "responder — отвечать", "responden": "responder — отвечать", "respondiendo": "responder — отвечать", "responda": "responder — отвечать", "respondas": "responder — отвечать", "respondamos": "responder — отвечать", "respondáis": "responder — отвечать", "respondan": "responder — отвечать", "revisar": "revisar — проверять", "reviso": "revisar — проверять", "revisas": "revisar — проверять", "revisa": "revisar — проверять", "revisamos": "revisar — проверять", "revisáis": "revisar — проверять", "revisan": "revisar — проверять", "revisando": "revisar — проверять", "revise": "revisar — проверять", "revises": "revisar — проверять", "revisemos": "revisar — проверять", "reviséis": "revisar — проверять", "revisen": "revisar — проверять", "romper": "romper — разбивать, ломать", "rompo": "romper — разбивать, ломать", "rompes": "romper — разбивать, ломать", "rompe": "romper — разбивать, ломать", "rompemos": "romper — разбивать, ломать", "rompéis": "romper — разбивать, ломать", "rompen": "romper — разбивать, ломать", "rompiendo": "romper — разбивать, ломать", "rompa": "romper — разбивать, ломать", "rompas": "romper — разбивать, ломать", "rompamos": "romper — разбивать, ломать", "rompáis": "romper — разбивать, ломать", "rompan": "romper — разбивать, ломать", "saludar": "saludar — здороваться", "saludo": "saludar — здороваться", "saludas": "saludar — здороваться", "saluda": "saludar — здороваться", "saludamos": "saludar — здороваться", "saludáis": "saludar — здороваться", "saludan": "saludar — здороваться", "saludando": "saludar — здороваться", "salude": "saludar — здороваться", "saludes": "saludar — здороваться", "saludemos": "saludar — здороваться", "saludéis": "saludar — здороваться", "saluden": "saludar — здороваться", "secar": "secar — сушить", "seco": "secar — сушить", "secas": "secar — сушить", "seca": "secar — сушить", "secamos": "secar — сушить", "secáis": "secar — сушить", "secan": "secar — сушить", "secando": "secar — сушить", "sece": "secar — сушить", "seces": "secar — сушить", "secemos": "secar — сушить", "secéis": "secar — сушить", "secen": "secar — сушить", "subir": "subir — подниматься", "subo": "subir — подниматься", "subes": "subir — подниматься", "sube": "subir — подниматься", "subimos": "subir — подниматься", "subís": "subir — подниматься", "suben": "subir — подниматься", "subiendo": "subir — подниматься", "suba": "subir — подниматься", "subas": "subir — подниматься", "subamos": "subir — подниматься", "subáis": "subir — подниматься", "suban": "subir — подниматься", "sufrir": "sufrir — страдать", "sufro": "sufrir — страдать", "sufres": "sufrir — страдать", "sufre": "sufrir — страдать", "sufrimos": "sufrir — страдать", "sufrís": "sufrir — страдать", "sufren": "sufrir — страдать", "sufriendo": "sufrir — страдать", "sufra": "sufrir — страдать", "sufras": "sufrir — страдать", "suframos": "sufrir — страдать", "sufráis": "sufrir — страдать", "sufran": "sufrir — страдать", "tejer": "tejer — вязать", "tejo": "tejer — вязать", "tejes": "tejer — вязать", "teje": "tejer — вязать", "tejemos": "tejer — вязать", "tejéis": "tejer — вязать", "tejen": "tejer — вязать", "tejiendo": "tejer — вязать", "teja": "tejer — вязать", "tejas": "tejer — вязать", "tejamos": "tejer — вязать", "tejáis": "tejer — вязать", "tejan": "tejer — вязать", "temer": "temer — бояться", "temo": "temer — бояться", "temes": "temer — бояться", "teme": "temer — бояться", "tememos": "temer — бояться", "teméis": "temer — бояться", "temen": "temer — бояться", "temiendo": "temer — бояться", "tema": "temer — бояться", "temas": "temer — бояться", "temamos": "temer — бояться", "temáis": "temer — бояться", "teman": "temer — бояться", "tener": "tener — иметь", "teno": "tener — иметь", "tenes": "tener — иметь", "tene": "tener — иметь", "tenemos": "tener — иметь", "tenéis": "tener — иметь", "tenen": "tener — иметь", "teniendo": "tener — иметь (tener una reunión — проводить совещание)", "tena": "tener — иметь", "tenas": "tener — иметь", "tenamos": "tener — иметь", "tenáis": "tener — иметь", "tenan": "tener — иметь", "terminar": "terminar — заканчивать", "termino": "terminar — заканчивать", "terminas": "terminar — заканчивать", "termina": "terminar — заканчивать", "terminamos": "terminar — заканчивать", "termináis": "terminar — заканчивать", "terminan": "terminar — заканчивать", "terminando": "terminar — заканчивать", "termine": "terminar — заканчивать", "termines": "terminar — заканчивать", "terminemos": "terminar — заканчивать", "terminéis": "terminar — заканчивать", "terminen": "terminar — заканчивать", "teñir": "teñir — красить (волосы)", "teño": "teñir — красить (волосы)", "teñes": "teñir — красить (волосы)", "teñe": "teñir — красить (волосы)", "teñimos": "teñir — красить (волосы)", "teñís": "teñir — красить (волосы)", "teñen": "teñir — красить (волосы)", "teñiendo": "teñir — красить (волосы)", "teña": "teñir — красить (волосы)", "teñas": "teñir — красить (волосы)", "teñamos": "teñir — красить (волосы)", "teñáis": "teñir — красить (волосы)", "teñan": "teñir — красить (волосы)", "tocar": "tocar — играть (на инструменте), трогать", "toco": "tocar — играть (на инструменте), трогать", "tocas": "tocar — играть (на инструменте), трогать", "toca": "tocar — играть (на инструменте), трогать", "tocamos": "tocar — играть (на инструменте), трогать", "tocáis": "tocar — играть (на инструменте), трогать", "tocan": "tocar — играть (на инструменте), трогать", "tocando": "tocar — играть (на инструменте), трогать", "toce": "tocar — играть (на инструменте), трогать", "toces": "tocar — играть (на инструменте), трогать", "tocemos": "tocar — играть (на инструменте), трогать", "tocéis": "tocar — играть (на инструменте), трогать", "tocen": "tocar — играть (на инструменте), трогать", "tomar": "tomar — брать, пить", "tomo": "tomar — брать, пить", "tomas": "tomar — брать, пить", "toma": "tomar — брать, пить", "tomamos": "tomar — брать, пить", "tomáis": "tomar — брать, пить", "toman": "tomar — брать, пить", "tomando": "tomar — брать, пить", "tome": "tomar — брать, пить", "tomes": "tomar — брать, пить", "tomemos": "tomar — брать, пить", "toméis": "tomar — брать, пить", "tomen": "tomar — брать, пить", "trabajar": "trabajar — работать", "trabajo": "trabajar — работать", "trabajas": "trabajar — работать", "trabaja": "trabajar — работать", "trabajamos": "trabajar — работать", "trabajáis": "trabajar — работать", "trabajan": "trabajar — работать", "trabajando": "trabajar — работать", "trabaje": "trabajar — работать", "trabajes": "trabajar — работать", "trabajemos": "trabajar — работать", "trabajéis": "trabajar — работать", "trabajen": "trabajar — работать", "unir": "unir — объединять", "uno": "unir — объединять", "unes": "unir — объединять", "une": "unir — объединять", "unimos": "unir — объединять", "unís": "unir — объединять", "unen": "unir — объединять", "uniendo": "unir — объединять", "una": "un — (артикль), один (una — одна)", "unas": "un — (артикль) один (unos / unas — несколько, артикль мн.)", "unamos": "unir — объединять", "unáis": "unir — объединять", "unan": "unir — объединять", "usar": "usar — использовать", "uso": "usar — использовать", "usas": "usar — использовать", "usa": "usar — использовать", "usamos": "usar — использовать", "usáis": "usar — использовать", "usan": "usar — использовать", "usando": "usar — использовать", "use": "usar — использовать", "uses": "usar — использовать", "usemos": "usar — использовать", "uséis": "usar — использовать", "usen": "usar — использовать", "vender": "vender — продавать", "vendo": "vender — продавать", "vendes": "vender — продавать", "vende": "vender — продавать", "vendemos": "vender — продавать", "vendéis": "vender — продавать", "venden": "vender — продавать", "vendiendo": "vender — продавать", "venda": "vender — продавать", "vendas": "vender — продавать", "vendamos": "vender — продавать", "vendáis": "vender — продавать", "vendan": "vender — продавать", "venir": "venir — приходить", "veno": "venir — приходить", "venes": "venir — приходить", "vene": "venir — приходить", "venimos": "venir — приходить", "venís": "venir — приходить", "venen": "venir — приходить", "veniendo": "venir — приходить", "vena": "venir — приходить", "venas": "venir — приходить", "venamos": "venir — приходить", "venáis": "venir — приходить", "venan": "venir — приходить", "ver": "ver — видеть, смотреть", "vo": "ver — видеть, смотреть", "ves": "ver — видеть, смотреть", "ve": "ver — видеть, смотреть", "vemos": "ver — видеть, смотреть", "véis": "ver — видеть, смотреть", "ven": "ver — видеть, смотреть", "viendo": "ver — видеть, смотреть", "va": "ver — видеть, смотреть", "vas": "ver — видеть, смотреть", "vamos": "ver — видеть, смотреть", "váis": "ver — видеть, смотреть", "van": "ver — видеть, смотреть", "viajar": "viajar — путешествовать", "viajo": "viajar — путешествовать", "viajas": "viajar — путешествовать", "viaja": "viajar — путешествовать", "viajamos": "viajar — путешествовать", "viajáis": "viajar — путешествовать", "viajan": "viajar — путешествовать", "viajando": "viajar — путешествовать", "viaje": "viajar — путешествовать", "viajes": "viajar — путешествовать", "viajemos": "viajar — путешествовать", "viajéis": "viajar — путешествовать", "viajen": "viajar — путешествовать", "visitar": "visitar — посещать", "visito": "visitar — посещать", "visitas": "visitar — посещать", "visita": "visitar — посещать", "visitamos": "visitar — посещать", "visitáis": "visitar — посещать", "visitan": "visitar — посещать", "visitando": "visitar — посещать", "visite": "visitar — посещать", "visites": "visitar — посещать", "visitemos": "visitar — посещать", "visitéis": "visitar — посещать", "visiten": "visitar — посещать", "vivir": "vivir — жить", "vivo": "vivir — жить", "vives": "vivir — жить", "vive": "vivir — жить", "vivimos": "vivir — жить", "vivís": "vivir — жить", "viven": "vivir — жить", "viviendo": "vivir — жить", "viva": "vivir — жить", "vivas": "vivir — жить", "vivamos": "vivir — жить", "viváis": "vivir — жить", "vivan": "vivir — жить", "volver": "volver — возвращаться", "volvo": "volver — возвращаться", "volves": "volver — возвращаться", "volve": "volver — возвращаться", "volvemos": "volver — возвращаться", "volvéis": "volver — возвращаться", "volven": "volver — возвращаться", "volviendo": "volver — возвращаться", "volva": "volver — возвращаться", "volvas": "volver — возвращаться", "volvamos": "volver — возвращаться", "volváis": "volver — возвращаться", "volvan": "volver — возвращаться", "estoy": "estar — быть, находиться", "estás": "estar — быть, находиться", "está": "estar — быть, находиться", "estamos": "estar — быть, находиться", "estáis": "estar — быть, находиться", "están": "estar — быть, находиться", "estar": "estar — быть, находиться", "ir": "ir — идти, ехать", "yendo": "ir — идти, ехать", "leyendo": "leer — читать", "durmiendo": "dormir — спать", "pidiendo": "pedir — просить", "decir": "decir — говорить, сказать", "diciendo": "decir — говорить, сказать", "deciendo": "decir — говорить, сказать", "tiñendo": "teñir — красить (волосы)", "a": "a — к, в, на", "al": "al — = a + el", "o": "o — или", "y": "y — и", "abuela": "abuela — бабушка", "abuelos": "abuelos — бабушка и дедушка", "agua": "agua — вода", "ahora": "ahora — сейчас", "alguien": "alguien — кто-то", "amigo": "amigo — друг (amiga — подруга)", "amiga": "amigo — друг (amiga — подруга)", "amigos": "amigo — друг (amiga — подруга)", "ascensor": "ascensor — лифт", "autobús": "autobús — автобус", "avión": "avión — самолёт", "azúcar": "azúcar — сахар", "banco": "banco — банк", "bicicleta": "bicicleta — велосипед", "bien": "bien — хорошо", "boda": "boda — свадьба", "cada": "cada — каждый", "café": "café — кофе", "caja": "caja — коробка", "calle": "calle — улица", "calor": "calor — жара", "camisa": "camisa — рубашка", "canas": "canas — седина", "cartas": "carta — письмо", "casa": "casa — дом", "cejas": "ceja — бровь", "champú": "champú — шампунь", "chaqueta": "chaqueta — куртка", "chocolate": "chocolate — шоколад", "cinco": "cinco — пять", "ciudad": "ciudad — город", "clase": "clase — занятие, урок", "clases": "clase — занятие, урок", "clienta": "cliente — клиент (clienta — клиентка)", "clientas": "cliente — клиент (clienta — клиентка)", "cliente": "cliente — клиент (clienta — клиентка)", "clientes": "cliente — клиент (clienta — клиентка)", "coche": "coche — машина", "colegas": "colega — коллега", "colorista": "colorista — колорист", "compañera": "compañero — коллега", "compañeros": "compañero — коллега", "con": "con — с", "concierto": "concierto — концерт", "conferencia": "conferencia — конференция", "contrato": "contrato — договор", "correo": "correo — письмо, e-mail", "correos": "correo — письмо, e-mail", "cremas": "crema — крем", "curso": "curso — курс", "de": "de — из, от, (родительный падеж)", "día": "día — день", "diez": "diez — десять", "dinero": "dinero — деньги", "directora": "director — директор", "directores": "director — директор", "documento": "documento — документ", "documentos": "documento — документ", "domingos": "domingo — воскресенье", "el": "el — (артикль м. р.)", "él": "él — он", "ella": "ella — она", "ellos": "ellos — они (ellas — они, ж.)", "ellas": "ellos — они (ellas — они, ж.)", "en": "en — в, на", "error": "error — ошибка", "escalera": "escalera — лестница", "españa": "España — Испания", "español": "español — испанский (язык)", "espectadores": "espectador — зритель", "esto": "esto — это", "fiesta": "fiesta — праздник, вечеринка", "flequillo": "flequillo — чёлка", "flores": "flor — цветок", "folletos": "folleto — буклет, листовка", "formulario": "formulario — анкета, бланк", "fruta": "fruta — фрукты", "fútbol": "fútbol — футбол", "galletas": "galleta — печенье", "gatos": "gato — кот, кошка", "gerundio": "gerundio — герундий", "guitarra": "guitarra — гитара", "hermano": "hermano — брат (hermana — сестра)", "hermana": "hermano — брат (hermana — сестра)", "hijos": "hijo — сын (hijos — дети)", "hora": "hora — час", "hoy": "hoy — сегодня", "huevos": "huevo — яйцо", "impresora": "impresora — принтер", "informe": "informe — отчёт", "inglés": "inglés — английский (язык)", "jefe": "jefe — начальник (jefa — начальница)", "jefa": "jefe — начальник (jefa — начальница)", "juguetes": "juguete — игрушка", "juntos": "juntos — вместе", "la": "la — (артикль ж. р.)", "las": "las — (артикль ж. р., мн.)", "los": "los — (артикль м. р., мн.)", "largo": "largo — длинный", "lección": "lección — урок", "leche": "leche — молоко", "limonada": "limonada — лимонад", "llamadas": "llamada — звонок", "llaves": "llave — ключ", "madre": "madre — мать, мама", "manicuristas": "manicurista — мастер маникюра", "mañana": "mañana — утро; завтра", "me": "me — мне, меня", "mecánicos": "mecánico — механик", "mensaje": "mensaje — сообщение", "mercado": "mercado — рынок", "mesa": "mesa — стол", "mi": "mi — мой, моя (mis — мои)", "mis": "mi — мой, моя (mis — мои)", "milagros": "milagro — чудо", "móvil": "móvil — мобильный телефон", "mucho": "mucho — много", "muchos": "mucho — много", "muchas": "mucho — много", "muy": "muy — очень", "más": "más — больше, ещё", "música": "música — музыка", "naranja": "naranja — апельсин", "niños": "niño — ребёнок (niños — дети)", "noche": "noche — ночь, вечер", "nosotros": "nosotros — мы", "nosotras": "nosotros — мы", "novia": "novia — невеста", "nueve": "nueve — девять", "nuevos": "nuevo — новый", "ocho": "ocho — восемь", "oficina": "oficina — офис", "padres": "padres — родители", "pan": "pan — хлеб", "paquete": "paquete — посылка", "pared": "pared — стена", "parque": "parque — парк", "partido": "partido — матч", "patio": "patio — двор", "peinado": "peinado — причёска", "pelo": "pelo — волосы", "peluquera": "peluquero — парикмахер", "peluqueros": "peluquero — парикмахер", "pequeño": "pequeño — маленький", "perro": "perro — собака", "piso": "piso — квартира; этаж", "plantas": "planta — растение", "plato": "plato — тарелка", "poco": "poco — мало (un poco — немного)", "por": "por — по, через, за (por qué — почему)", "postre": "postre — десерт", "precio": "precio — цена", "premio": "premio — приз", "presentación": "presentación — презентация", "presupuesto": "presupuesto — бюджет", "primos": "primo — двоюродный брат", "problema": "problema — проблема", "pronto": "pronto — скоро", "puerta": "puerta — дверь", "quinto": "quinto — пятый", "quién": "quién — кто", "qué": "qué — что", "regalo": "regalo — подарок", "regalos": "regalo — подарок", "reglas": "regla — правило", "reunión": "reunión — совещание", "revista": "revista — журнал", "ropa": "ropa — одежда", "rubio": "rubio — светлый (о волосах), блонд", "ruido": "ruido — шум", "rápido": "rápido — быстро", "sal": "sal — соль", "salario": "salario — зарплата", "salón": "salón — салон", "secador": "secador — фен", "secretaria": "secretaria — секретарь", "serie": "serie — сериал", "siete": "siete — семь", "sobrino": "sobrino — племянник", "sol": "sol — солнце (tomar el sol — загорать)", "sopa": "sopa — суп", "suegra": "suegra — свекровь, тёща", "supermercado": "supermercado — супермаркет", "sus": "su — его, её, их (sus — мн.)", "sí": "sí — да", "tarde": "tarde — день (после полудня); поздно", "tarta": "tarta — торт", "taxi": "taxi — такси", "taza": "taza — чашка", "teletrabajo": "teletrabajo — удалённая работа", "teléfono": "teléfono — телефон", "ti": "ti — тебя, тебе", "tienda": "tienda — магазин", "tinte": "tinte — краска для волос", "tren": "tren — поезд", "tu": "tu — твой, твоя (tus — твои)", "tus": "tu — твой, твоя (tus — твои)", "turistas": "turista — турист", "té": "té — чай", "tíos": "tío — дядя (tíos — дядя и тётя)", "tú": "tú — ты", "un": "un — (артикль), один (una — одна)", "usted": "usted — Вы (вежливо)", "ustedes": "ustedes — Вы, вы (мн.)", "uñas": "uña — ноготь", "vaso": "vaso — стакан", "vecina": "vecino — сосед (vecina — соседка)", "vecinos": "vecino — сосед (vecina — соседка)", "ventana": "ventana — окно", "verde": "verde — зелёный", "vestido": "vestido — платье", "vosotros": "vosotros — вы", "vosotras": "vosotros — вы", "yo": "yo — я", "yoga": "yoga — йога", "zapatos": "zapato — туфля, ботинок", "zumo": "zumo — сок", "estilista": "estilista — стилист", "museo": "museo — музей", "empresas": "empresa — компания", "madrid": "Madrid — Мадрид", "lucía": "Lucía — Лусия (имя)", "ana": "Ana — Ана (имя)", "marta": "Marta — Марта (имя)", "trabajiendo": "trabajar — работать", "trabajarndo": "trabajar — работать", "compartemos": "compartir — делить(ся), жить вместе", "subéis": "subir — подниматься", "repartemos": "repartir — раздавать, распределять", "recibéis": "recibir — получать, принимать", "hola": "hola — привет", "pablo": "Pablo — Пабло (имя)", "sofía": "Sofía — София (имя)", "sevilla": "Sevilla — Севилья", "maleta": "maleta — чемодан", "sofá": "sofá — диван", "siempre": "siempre — всегда", "igual": "igual — одинаковый (siempre igual — как всегда)", "ja": "ja — ха (смех)", "restaurante": "restaurante — ресторан", "porque": "porque — потому что", "del": "del — = de + el", "gimnasio": "gimnasio — спортзал", "ah": "ah — ах, о", "ya": "ya — уже", "hasta": "hasta — до (hasta luego — пока)", "luego": "luego — потом (hasta luego — пока)", "buenos": "bueno — хороший (buenos días — добрый день)", "buenas": "bueno — хороший (buenos días — добрый день)", "buen": "bueno — хороший (buenos días — добрый день)", "días": "día — день", "habitación": "habitación — номер, комната", "internet": "internet — интернет", "pero": "pero — но", "página": "página — страница, сайт", "hay": "haber — иметься (hay — есть, имеется)", "cuántas": "cuánto — сколько", "noches": "noche — ночь, вечер", "aquí": "aquí — здесь", "tres": "tres — три", "marido": "marido — муж", "primera": "primero — первый (por primera vez — впервые)", "vez": "vez — раз", "estupendo": "estupendo — отличный", "favor": "favor — одолжение (por favor — пожалуйста)", "tarjeta": "tarjeta — карта (банковская)", "efectivo": "efectivo — наличные", "bicicletas": "bicicleta — велосипед", "también": "también — тоже, также", "mapas": "mapa — карта (географическая)", "para": "para — для", "perfecto": "perfecto — отлично, идеальный", "gracias": "gracias — спасибо", "gas": "gas — газ (agua con gas — газированная вода)", "vino": "vino — вино (vino tinto — красное вино)", "tinto": "tinto — красный (о вине)", "menú": "menú — меню", "normalmente": "normalmente — обычно", "casi": "casi — почти", "todos": "todo — весь (todos — все)", "piden": "pedir — просить, заказывать", "paella": "paella — паэлья", "desde": "desde — с, начиная с", "entonces": "entonces — тогда, значит", "probarla": "probar — пробовать (probarla — попробовать её)", "excelente": "excelente — отличный", "sábado": "sábado — суббота", "sábados": "sábado — суббота", "chef": "chef — шеф-повар", "interesante": "interesante — интересный", "que": "que — что (союз)", "provecho": "provecho — польза (¡buen provecho! — приятного аппетита!)", "tercer": "tercero — третий", "ayer": "ayer — вчера", "bienvenido": "bienvenido — добро пожаловать", "artículos": "artículo — статья", "esa": "ese — этот, тот (esa — эта, та)", "mes": "mes — месяц", "verdad": "verdad — правда (¿de verdad? — правда?)", "oye": "oír — слышать (¡oye! — слушай!)", "tiendas": "tienda — магазин", "problemas": "problema — проблема", "edificio": "edificio — здание, дом", "claro": "claro — конечно", "después": "después — потом, после", "terraza": "terraza — терраса", "genial": "genial — отлично, классно", "no": "no — нет, не", "limón": "limón — лимон", "te": "te — тебе, тебя", "novela": "novela — роман", "divertida": "divertido — весёлый, смешной", "hijo": "hijo — сын", "tableta": "tableta — планшет", "lado": "lado — сторона (a mi lado — рядом со мной)", "afuera": "afuera — снаружи, на улице", "nevando": "nevar — идти (о снеге)", "beso": "beso — поцелуй (¡un beso! — целую!)", "raúl": "Raúl — Рауль (имя)", "acuerdo": "acuerdo — согласие (de acuerdo — договорились)", "tardes": "tarde — день (buenas tardes — добрый день)", "busca": "buscar — искать", "busco": "buscar — искать", "libro": "libro — книга", "este": "este — этот", "esta": "este — этот", "aventuras": "aventura — приключение", "se": "se — себя; (se vende — продаётся)", "aceptan": "aceptar — принимать", "le": "le — вам, ему, ей", "regalamos": "regalar — дарить", "marcapáginas": "marcapáginas — закладка", "fin": "fin — конец (por fin — наконец-то)", "centro": "centro — центр", "novio": "novio — парень, жених", "cajas": "caja — коробка", "dónde": "dónde — где", "nos": "nos — нам, нас", "traen": "traer — приносить", "ser": "ser — быть (soy — я, eres — ты, es — он/она, somos — мы, sois — вы, son — они)", "soy": "ser — быть (soy — я, eres — ты, es — он/она, somos — мы, sois — вы, son — они)", "eres": "ser — быть (soy — я, eres — ты, es — он/она, somos — мы, sois — вы, son — они)", "es": "ser — быть (soy — я, eres — ты, es — он/она, somos — мы, sois — вы, son — они)", "somos": "ser — быть (soy — я, eres — ты, es — он/она, somos — мы, sois — вы, son — они)", "sois": "ser — быть (soy — я, eres — ты, es — он/она, somos — мы, sois — вы, son — они)", "son": "ser — быть (soy — я, eres — ты, es — он/она, somos — мы, sois — вы, son — они)", "sela": "Sela — Села (имя)", "tal": "qué tal — как дела", "cómo": "cómo — как (¿cómo te llamas? — как тебя зовут?)", "diego": "Diego — Диего (имя)", "queso": "queso — сыр", "vale": "vale — хорошо, ладно", "adiós": "adiós — пока, до свидания", "regular": "regular — так себе", "rusia": "Rusia — Россия", "gusto": "gusto — удовольствие (mucho gusto — очень приятно)", "encantada": "encantado — очень приятно (encantada — говорит девушка)", "encantado": "encantado — очень приятно (encantada — говорит девушка)", "perdón": "perdón — извини", "estudiante": "estudiante — студент, студентка", "estudiantes": "estudiante — студент, студентка", "universidad": "universidad — университет", "bienvenida": "bienvenido — добро пожаловать (bienvenida — к девушке)", "aproveche": "aprovechar — (¡que aproveche! — приятного аппетита!)", "mucha": "mucho — много, большой (mucha suerte — удачи)", "suerte": "suerte — удача", "mejores": "mejorarse — поправляться (¡que te mejores! — выздоравливай!)", "marina": "Marina — Марина (имя)", "quedamos": "quedar — встречаться, договориться (¿quedamos? — встретимся?)", "cafetería": "cafetería — кафе", "abrazo": "abrazo — объятие (un abrazo — обнимаю)", "nueva": "nuevo — новый (nueva — новая)", "nuevo": "nuevo — новый (nueva — новая)", "lucas": "Lucas — Лукас (имя)", "valencia": "Valencia — Валенсия", "gusta": "gustar — нравиться (¿te gusta? — тебе нравится?)", "difícil": "difícil — сложный", "bonito": "bonito — красивый (bonita — красивая)", "bonita": "bonito — красивый (bonita — красивая)", "maría": "María — Мария (имя)", "mamá": "mamá — мама", "feliz": "feliz — счастливый (¡feliz cumpleaños! — с днём рождения!)", "cumpleaños": "cumpleaños — день рождения", "moscú": "Moscú — Москва", "gata": "gato — кот (gata — кошка)", "gatas": "gato — кот (gata — кошка)", "libros": "libro — книга", "libroes": "libro — книга", "libres": "libro — книга", "auriculares": "auriculares — наушники", "mapa": "mapa — карта", "mano": "mano — рука", "ciudades": "ciudad — город", "ciudads": "ciudad — город", "ciudadas": "ciudad — город", "pez": "pez — рыба (peces — рыбы)", "peces": "pez — рыба (peces — рыбы)", "mesas": "mesa — стол", "meses": "mesa — стол", "mesaes": "mesa — стол", "chico": "chico — парень (chica — девушка)", "chicos": "chico — парень (chica — девушка)", "chica": "chico — парень (chica — девушка)", "chicas": "chico — парень (chica — девушка)", "casas": "casa — дом", "coches": "coche — машина", "bolso": "bolso — сумка", "bolígrafo": "bolígrafo — ручка", "bolígrafos": "bolígrafo — ручка", "bolígrafoes": "bolígrafo — ручка", "cuaderno": "cuaderno — тетрадь", "gafas": "gafas — очки", "llave": "llave — ключ", "juego": "juego — игра", "mochila": "mochila — рюкзак", "perros": "perro — собака", "reloj": "reloj — часы", "relojes": "reloj — часы", "silla": "silla — стул", "zapatillas": "zapatillas — кроссовки", "ordenador": "ordenador — компьютер", "ordenadores": "ordenador — компьютер", "pelota": "pelota — мяч", "grande": "grande — большой", "grandes": "grande — большой", "dos": "dos — два", "rojos": "rojo — красный", "baratos": "barato — дешёвый", "cuánto": "cuánto — сколько", "cuántos": "cuánto — сколько", "todo": "todo — всё", "cuatro": "cuatro — четыре", "euros": "euro — евро", "amigas": "amigo — друг (amiga — подруга)", "simpática": "simpático — милый, приятный (simpática — милая)", "simpáticas": "simpático — милый, приятный (simpática — милая)", "simpático": "simpático — милый, приятный (simpática — милая)", "simpáticos": "simpático — милый, приятный (simpática — милая)", "azules": "azul — синий", "tengo": "tener — иметь (tengo — у меня есть; tienes — у тебя есть)", "tienes": "tener — иметь (tengo — у меня есть; tienes — у тебя есть)", "tan": "tan — такой, так", "esos": "ese — тот (esos — те)", "útiles": "útil — полезный", "foto": "foto — фото", "joven": "joven — молодой (de joven — в молодости)", "jóvenes": "joven — молодой (de joven — в молодости)", "guapa": "guapo — красивый (guapa — красивая)", "solo": "solo — только", "móviles": "móvil — мобильный телефон", "quiénes": "quién — кто (quiénes — кто, мн.)", "estrellas": "estrella — звезда", "estrellaes": "estrella — звезда", "estrella": "estrella — звезда", "flor": "flor — цветок", "camarera": "camarero — официант (camarera — официантка)", "camarero": "camarero — официант (camarera — официантка)", "músico": "músico — музыкант", "profesora": "profesor — преподаватель (profesora — преподавательница)", "profesor": "profesor — преподаватель (profesora — преподавательница)", "profesores": "profesor — преподаватель (profesora — преподавательница)", "inteligente": "inteligente — умный, умная", "alto": "alto — высокий (alta — высокая)", "alta": "alto — высокий (alta — высокая)", "altos": "alto — высокий (alta — высокая)", "altas": "alto — высокий (alta — высокая)", "rusa": "ruso — русский (rusa — русская)", "enfermera": "enfermero — медбрат (enfermera — медсестра)", "médica": "médico — врач (médica — врач-женщина)", "médico": "médico — врач (médica — врач-женщина)", "médicos": "médico — врач (médica — врач-женщина)", "cocinero": "cocinero — повар (cocinera — повариха)", "cocinera": "cocinero — повар (cocinera — повариха)", "universitarios": "universitario — университетский", "guitarrista": "guitarrista — гитарист", "hermanos": "hermano — брат (hermanos — братья, брат и сестра)", "miguel": "Miguel — Мигель (имя)", "vuestro": "vuestro — ваш", "puntual": "puntual — пунктуальный", "grupo": "grupo — группа", "veinte": "veinte — двадцать", "lunes": "lunes — понедельник", "jueves": "jueves — четверг", "buena": "bueno — хороший (buena — хорошая)", "diecinueve": "diecinueve — девятнадцать", "años": "año — год (tengo 19 años — мне 19 лет)", "economía": "economía — экономика", "persona": "persona — человек", "responsable": "responsable — ответственный", "turnos": "turno — смена", "ideal": "ideal — идеальный", "mí": "mí — меня, мне (para mí — для меня)", "españoles": "español — испанец, испанский (españoles — испанцы)", "policía": "policía — полицейский", "fuerte": "fuerte — сильный, сильная", "fuerta": "fuerte — сильный, сильная", "fuertes": "fuerte — сильный, сильная", "unos": "un — (артикль) один (unos / unas — несколько, артикль мн.)", "eso": "eso — это, то", "cuadernos": "cuaderno — тетрадь"};
+const GLOSS_ONE = new Set(["a","o","y"]);
+const glow = x => x.toLowerCase();
+function vocabFor(it){
+  const T = [];
+  const add = x => { if(typeof x === "string") T.push(x.replace(/<\/?i[^>]*>/g, "").replace(/<[^>]+>/g, " ").replace(/\([^)]*\)/g, " ")); };
+  const addAll = a => (a || []).forEach(add);
+  switch(it.t){
+    case "scene": add(it.es); break;
+    case "morph": add(it.stem + it.old); add(it.stem + it.neu); break;
+    case "choice": add(it.q); add(it.big); addAll(it.opts); break;
+    case "rule": add(it.h); add(it.body); break;
+    case "flash": add(it.inf); add(it.ger); break;
+    case "pic": addAll(it.opts); break;
+    case "match": (it.pairs || []).forEach(addAll); break;
+    case "listen": add(it.say); break;
+    case "order": addAll(it.words); break;
+    case "tf": add(it.s); break;
+    case "chips": add(it.s); addAll(it.opts); break;
+    case "letters": add(it.inf); break;
+    case "type": add(it.q); break;
+    case "talk": add(it.q); break;
+    case "translate": add(it.a[0]); break;
+    case "dialog": it.lines.forEach(l => add(l[1].replace(/\*\*/g, ""))); break;
+    case "dq": add(it.q); addAll(it.opts); break;
+    case "audio": it.lines.forEach(l => add(l[1])); break;
+    case "aq": add(it.q); addAll(it.opts); break;
+    case "prep": it.rows.forEach(r => add(r[0])); break;
+  }
+  const out = [], seen = new Set();
+  T.forEach(t => {
+    const re = /[A-Za-zÁÉÍÓÚÑÜáéíóúñüÇĞİÖŞçğıöş]+/g; let m;
+    while((m = re.exec(t))){
+      const prev = t[m.index - 1] || " ", nx = t[m.index + m[0].length] || " ";
+      if(prev === "-" || nx === "_" || nx === "-") continue;
+      const w = glow(m[0]);
+      if(w.length < 2 && !GLOSS_ONE.has(w)) continue;
+      const e = GLOSS[w];
+      if(e && !seen.has(e)){ seen.add(e); out.push(e); }
+    }
+  });
+  return out;
+}
+function appendVocab(it){
+  const list = vocabFor(it); if(!list.length) return;
+  const d = el("details", "vocab"); if(!["listen","audio","aq"].includes(it.t)) d.open = true;
+  d.append(el("summary", "", "📖 Словарь (" + list.length + ")"));
+  const ul = el("ul");
+  list.forEach(e => { const i = e.indexOf(" — "); const li = el("li"); const b = el("b"); b.textContent = e.slice(0, i); li.append(b, " — " + e.slice(i + 3)); ul.append(li); });
+  d.append(ul); stage.append(d);
+}
+
+/* ===== Журнал ответов ===== */
+function descQ(it){
+  switch(it.t){
+    case "pic": return "Картинка " + it.pic + ": что делает?";
+    case "choice": return it.q;
+    case "chips": case "tf": return it.s;
+    case "listen": return "Аудио: «" + it.say + "»";
+    case "order": return "Собери фразу: " + it.ru;
+    case "letters": return "Собери слово: " + it.inf + " → ?";
+    case "type": return it.q;
+    case "talk": return it.q;
+    case "translate": return "Переведи: " + it.ru;
+    case "match": return "Соедини пары";
+    case "dq": return "Диалог: " + it.q;
+    case "aq": return "Аудирование: " + it.q;
+    default: return "";
+  }
+}
+function descA(it){
+  switch(it.t){
+    case "tf": return it.ok ? "Верно" : "Неверно";
+    case "order": return it.words.join(" ");
+    case "letters": return it.word;
+    case "talk": return "пример: " + it.ex;
+    case "translate": return it.a[0];
+    case "match": return "";
+    default: return it.a || "";
+  }
+}
+function logSummary(){
+  const rows = []; let ok = 0, all = 0;
+  LEVELS.forEach((L, i) => {
+    const g = P.logs && P.logs[i]; if(!g || !g.entries.length) return;
+    const r = g.entries.filter(e => e.ok).length, n = g.entries.length;
+    rows.push({title: g.title, ok: r, bad: n - r, done: g.done}); ok += r; all += n;
+  });
+  return {rows, ok, bad: all - ok, all};
+}
+function logText(){
+  const sm = logSummary();
+  const lines = ["Испанский, Урок 3: Soy estudiante: ответы ученика", "", "РЕЗЮМЕ", "Всего: ✅ " + sm.ok + "  ❌ " + sm.bad + " (" + (sm.all ? Math.round(sm.ok / sm.all * 100) : 0) + "% верно)"];
+  sm.rows.forEach(r => lines.push(r.title + ": ✅ " + r.ok + "  ❌ " + r.bad + (r.done ? "" : " (не закончен)")));
+  lines.push("", "ДЕТАЛИ", "");
+  LEVELS.forEach((L, i) => {
+    const g = P.logs && P.logs[i]; if(!g || !g.entries.length) return;
+    lines.push(g.title + " (" + g.date + ")" + (g.done ? "" : " — не закончен") + ": верно " + g.right + " из " + g.scored);
+    g.entries.forEach(e => lines.push((e.ok ? "✅ " : "❌ ") + e.q + " → " + e.a + (e.ok || !e.c ? "" : " (правильно: " + e.c + ")")));
+    lines.push("");
+  });
+  return lines.join("\n");
+}
+function showLog(){
+  $("#map").hidden = true;
+  const v = $("#logs"); v.hidden = false; const w = $("#logs-in"); w.innerHTML = "";
+  const head = el("div", "map-head", "<h1>Мои ответы</h1>");
+  const back = el("button", "icon-btn", "✕"); back.setAttribute("aria-label", "Назад к карте");
+  back.onclick = () => { v.hidden = true; showMap(); };
+  head.append(back); w.append(head);
+  w.append(el("p", "map-sub", "Здесь последняя попытка каждого уровня. При повторном прохождении уровень перезаписывается."));
+  const sm = logSummary();
+  if(sm.all){
+    const box = el("div", "log-sum");
+    const pct = Math.round(sm.ok / sm.all * 100);
+    box.append(el("h2", "", "Резюме"));
+    box.append(el("div", "sum-total", '<span class="s-ok">✅ ' + sm.ok + '</span><span class="s-bad">❌ ' + sm.bad + '</span><span class="s-pct">' + pct + '% верно</span>'));
+    const tb = el("div", "table-wrap"); const table = el("table", "sum-table");
+    table.innerHTML = "<thead><tr><th>Задание</th><th>✅</th><th>❌</th></tr></thead>";
+    const body = el("tbody");
+    sm.rows.forEach(r => {
+      const tr = el("tr"); const td = el("td"); td.textContent = r.title + (r.done ? "" : " (не закончен)");
+      tr.append(td, el("td", "n-ok", String(r.ok)), el("td", "n-bad" + (r.bad ? " hot" : ""), String(r.bad))); body.append(tr);
+    });
+    table.append(body); tb.append(table); box.append(tb); w.append(box);
+    w.append(el("h2", "log-h", "Детали"));
+  }
+  let any = false;
+  LEVELS.forEach((L, i) => {
+    const g = P.logs && P.logs[i]; if(!g || !g.entries.length) return; any = true;
+    const box = el("div", "log-lvl");
+    box.append(el("h3", "", g.title));
+    box.append(el("p", "log-meta", g.date + (g.done ? "" : ", не закончен") + ". Верно " + g.right + " из " + g.scored));
+    const ul = el("ul", "log-list");
+    g.entries.forEach(e => {
+      const li = el("li", e.ok ? "ok" : "bad");
+      li.append(el("span", "log-ic", e.ok ? "✅" : "❌"));
+      const t = el("span"); const q = el("span", "log-q"); q.textContent = e.q; const a = el("span", "log-a");
+      a.textContent = "Ответ: " + e.a + (e.ok || !e.c ? "" : "  (правильно: " + e.c + ")");
+      t.append(q, a); li.append(t); ul.append(li);
+    });
+    box.append(ul); w.append(box);
+  });
+  if(!any){ w.append(el("p", "map-sub", "Пока пусто. Пройди любой уровень с заданиями, и ответы появятся здесь.")); return; }
+  const cp = el("button", "btn wide", "📋 Скопировать всё");
+  cp.onclick = () => {
+    const txt = logText();
+    const done = () => { cp.textContent = "Скопировано ✅"; setTimeout(() => cp.textContent = "📋 Скопировать всё", 1800); };
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, () => fallback(txt, done));
+    else fallback(txt, done);
+  };
+  const clr = el("button", "btn ghost wide", "🗑️ Очистить журнал"); clr.style.marginTop = "12px";
+  clr.onclick = () => { if(confirm("Удалить все записанные ответы?")){ P.logs = {}; save(); showLog(); } };
+  w.append(cp, clr);
+  window.scrollTo(0, 0);
+}
+function fallback(txt, done){
+  const ta = el("textarea"); ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.append(ta);
+  ta.select(); try{ document.execCommand("copy"); done(); }catch(e){} ta.remove();
+}
+
+/* ===== Карта ===== */
+function showMap(){
+  $("#play").hidden = true; $("#done").hidden = true; $("#map").hidden = false;
+  const doneCount = Object.keys(P.done).length;
+  const nextIdx = LEVELS.findIndex((_, i) => !P.done[i]);
+  const m = $("#map-in"); m.innerHTML = "";
+  const head = el("div", "map-head", '<h1>Español 3: Soy estudiante</h1>');
+  head.append(el("span", "chip", "⚡ " + P.xp));
+  const mute = el("button", "icon-btn", P.mute ? "🔇" : "🔊"); mute.setAttribute("aria-label", "Звуки вкл/выкл");
+  mute.onclick = () => { P.mute = !P.mute; save(); mute.textContent = P.mute ? "🔇" : "🔊"; };
+  head.append(mute); m.append(head);
+  m.append(el("p", "map-sub", "Испанский A2. Пройдено " + doneCount + " из " + LEVELS.length + " уровней"));
+  const ul = el("ul", "path");
+  LEVELS.forEach((L, i) => {
+    if(L.ch) ul.append(el("li", "ch-head", L.ch));
+    const li = el("li");
+    const b = el("button", "node" + (P.done[i] ? " done" : "") + (i === nextIdx ? " next" : ""));
+    b.innerHTML = '<span class="bubble" aria-hidden="true">' + L.icon + '</span><span><span class="t">' + L.title + '</span><span class="s">' + L.sub + '</span></span>';
+    b.style.paddingLeft = [0, 44, 88, 44][i % 4] + "px";
+    b.onclick = () => startLevel(i);
+    li.append(b); ul.append(li);
+  });
+  m.append(ul);
+  const lb = el("button", "btn ghost wide", "📋 Мои ответы"); lb.style.marginTop = "28px"; lb.onclick = showLog; m.append(lb);
+  m.append(el("p", "map-foot", "© 2026 Daria Botina. Только для личного обучения владельца кода. Копирование и передача доступа запрещены."));
+  window.scrollTo(0, 0);
+}
+
+/* ===== Движок уровня ===== */
+let LI, L, idx, right, scored, combo, answered, timer, curIt, curQ = "", curA = "—";
+const stage = $("#stage");
+function startLevel(i){
+  LI = i; L = LEVELS[i]; idx = 0; right = 0; scored = 0; combo = 0;
+  if(!P.logs) P.logs = {};
+  P.logs[i] = {title: L.icon + " " + L.title, date: new Date().toLocaleString("ru-RU"), done: false, right: 0, scored: 0, entries: []}; save();
+  $("#map").hidden = true; $("#play").hidden = false; $("#combo").textContent = "";
+  render();
+}
+$("#quit").onclick = () => { clearTimer(); hideSheet(); if(window.speechSynthesis) speechSynthesis.cancel(); showMap(); };
+let morphTO = [];
+function clearTimer(){ if(timer){ clearInterval(timer); timer = null; } morphTO.forEach(clearTimeout); morphTO = []; }
+function hideSheet(){ $("#sheet").className = "sheet"; }
+function render(){
+  clearTimer(); hideSheet(); answered = false;
+  $("#bar-fill").style.width = (idx / L.items.length * 100) + "%";
+  stage.innerHTML = ""; window.scrollTo(0, 0);
+  const it = L.items[idx]; curIt = it; curQ = descQ(it); curA = "—"; R[it.t](it); appendVocab(it);
+}
+function playLines(a){
+  let i = 0; const cur = L.items[idx];
+  const go = () => { if(i >= a.lines.length || L.items[idx] !== cur) return; speak(a.lines[i++][1], () => setTimeout(go, 450)); };
+  go();
+}
+function backBtn(){
+  const b = el("button", "btn ghost back", "◀"); b.setAttribute("aria-label", "Назад");
+  b.disabled = idx === 0;
+  b.onclick = () => { if(idx > 0){ idx--; render(); } };
+  return b;
+}
+function next(){ idx++; if(idx >= L.items.length) finish(); else render(); }
+const PRAISE = ["¡Muy bien!", "¡Genial!", "¡Perfecto!", "¡Eso es!", "¡Increíble!"];
+function trKey(it){
+  if(!it) return null;
+  switch(it.t){
+    case "pic": return it.a;
+    case "listen": return it.say;
+    case "chips": return it.s.replace("___", it.a).replace(/\s*\(.*?\)/, "");
+    case "tf": return it.s;
+    case "choice": return it.big || it.q;
+    case "dq": return it.a;
+    case "aq": return it.a;
+  }
+  return null;
+}
+function showTr(){
+  const k = trKey(curIt), ru = k && TRMAP[k]; if(!ru) return;
+  const b = el("div", "tr-banner"); b.textContent = "🇷🇺 " + ru;
+  const h = stage.querySelector(".q-title");
+  if(h && h.nextSibling) stage.insertBefore(b, h.nextSibling); else stage.prepend(b);
+}
+function answer(ok, wrongMsg, sayAfter){
+  if(answered) return; answered = true; clearTimer(); scored++;
+  showTr();
+  const lg = P.logs[LI]; if(lg){ lg.entries.push({q: curQ, a: curA, ok: ok, c: descA(curIt)}); lg.right = right + (ok ? 1 : 0); lg.scored = scored; }
+  const sh = $("#sheet");
+  if(ok){ right++; combo++; P.xp += 10; sfxOk(); $("#sheet-msg").innerHTML = PRAISE[Math.floor(Math.random() * PRAISE.length)] + " +10 ⚡"; sh.className = "sheet show ok"; }
+  else { combo = 0; sfxBad(); $("#sheet-msg").innerHTML = "Почти!<small>" + wrongMsg + "</small>"; sh.className = "sheet show bad"; }
+  $("#combo").textContent = combo >= 2 ? "🔥" + combo : "";
+  const nbtn = $("#sheet-next");
+  if(sayAfter && window.speechSynthesis){
+    nbtn.disabled = true; nbtn.textContent = "🔊 Слушаем…";
+    setTimeout(() => speak(sayAfter, () => { nbtn.disabled = false; nbtn.textContent = "Дальше"; nbtn.focus(); }), 350);
+  } else { nbtn.disabled = false; nbtn.textContent = "Дальше"; }
+  save(); $("#sheet-next").focus();
+}
+$("#sheet-next").onclick = () => { hideSheet(); next(); };
+function finish(){
+  $("#bar-fill").style.width = "100%";
+  P.done[LI] = true; P.xp += 20; if(P.logs[LI]) P.logs[LI].done = true; save(); sfxWin();
+  const pct = scored ? right / scored : 1;
+  const stars = pct >= .9 ? 3 : pct >= .6 ? 2 : 1;
+  $("#done-stars").textContent = "⭐".repeat(stars) + "☆".repeat(3 - stars);
+  $("#done-text").textContent = (scored ? "Верно " + right + " из " + scored + ". " : "") + "+20 ⚡ за уровень";
+  const nb = $("#done-next"); nb.hidden = LI >= LEVELS.length - 1;
+  $("#done").hidden = false; confetti();
+}
+$("#done-next").onclick = () => { $("#done").hidden = true; startLevel(LI + 1); };
+$("#done-map").onclick = showMap;
+function confetti(){
+  if(reduced) return;
+  const cols = ["#6C3BFF", "#FF4F8B", "#FFC83D", "#10A877", "#4FC3FF"];
+  for(let i = 0; i < 40; i++){
+    const c = el("span", "confetti");
+    c.style.left = Math.random() * 100 + "vw"; c.style.background = cols[i % cols.length];
+    c.style.animationDelay = Math.random() * .5 + "s";
+    document.body.append(c); setTimeout(() => c.remove(), 2600);
+  }
+}
+
+/* helper: варианты ответа */
+function options(list, correct, cls, sayAfter, onPick){
+  const box = el("div", "opts" + (cls ? " " + cls : ""));
+  shuffle(list).forEach(o => {
+    const b = el("button", "opt"); b.textContent = o;
+    b.onclick = () => {
+      if(answered) return;
+      const ok = o === correct; curA = o;
+      b.classList.add(ok ? "ok" : "bad");
+      if(!ok) [...box.children].forEach(x => { if(x.textContent === correct) x.classList.add("ok"); });
+      if(onPick) onPick(o, ok);
+      answer(ok, "Правильно: <b>" + correct + "</b>", sayAfter);
+    };
+    box.append(b);
+  });
+  return box;
+}
+
+/* ===== Типы заданий ===== */
+const R = {
+  audio(it){
+    stage.append(el("h2", "q-title", "🎙️ " + it.title));
+    stage.append(el("p", "q-hint", "Текст пока скрыт. Послушай разговор, потом будут вопросы. Можно слушать сколько угодно раз."));
+    const p = el("button", "big-play", "▶"); p.setAttribute("aria-label", "Слушать разговор");
+    p.onclick = () => playLines(it);
+    stage.append(p);
+    const nb = el("button", "btn", "К вопросам ▶"); nb.onclick = next;
+    const row = el("div", "btn-row"); row.append(backBtn(), nb); stage.append(row);
+  },
+  aq(it){
+    const a = L.items.find(x => x.t === "audio");
+    const rp = el("button", "btn ghost wide", "🔊 Прослушать разговор ещё раз"); rp.style.marginBottom = "14px";
+    rp.onclick = () => playLines(a); stage.append(rp);
+    stage.append(el("h2", "q-title", it.q));
+    if(it.ru) stage.append(el("p", "q-hint", it.ru));
+    stage.append(options(it.opts, it.a, "", null, () => {
+      const t = el("details", "dlg-tr"); t.append(el("summary", "", "📜 Показать текст разговора"));
+      const ul = el("ul"); a.lines.forEach(l => { const li = el("li"); li.innerHTML = "<b>" + l[0] + ":</b> "; li.append(l[1]); ul.append(li); });
+      t.append(ul);
+      const tr = el("details", "dlg-tr"); tr.append(el("summary", "", "🇷🇺 Показать перевод"));
+      const ul2 = el("ul"); a.lines.forEach(l => { const li = el("li"); li.innerHTML = "<b>" + l[0] + ":</b> "; li.append(l[2]); ul2.append(li); });
+      tr.append(ul2);
+      const v = stage.querySelector(".vocab"); if(v){ stage.insertBefore(t, v); stage.insertBefore(tr, v); } else stage.append(t, tr);
+    }));
+  },
+  prep(it){
+    stage.append(el("h2", "q-title", "📖 Подготовка"));
+    stage.append(el("p", "q-hint", "Прочитай, послушай и повтори вслух. Если ты это уже знаешь, можно пропустить."));
+    const sk = el("button", "btn ghost wide skip", P.done[LI] ? "⏭ Пропустить (уровень уже пройден)" : "⏭ Пропустить подготовку");
+    sk.onclick = next; stage.append(sk);
+    const box = el("div", "dlg");
+    it.rows.forEach(r => {
+      const row = el("div", "dl-line"); const body = el("div", "dl-body");
+      if(r[0]){ const t = el("span", "dl-text"); t.textContent = r[0]; body.append(t); }
+      const ru = el("span", "prep-ru"); ru.textContent = r[1]; body.append(ru);
+      row.append(body); if(r[0]) row.append(soundBtn(r[0])); box.append(row);
+    });
+    stage.append(box);
+    const said = it.rows.filter(r => r[0]);
+    if(said.length){
+      const all = el("button", "btn ghost wide", "▶ Прослушать всё"); all.style.marginTop = "14px";
+      all.onclick = () => { let i = 0; const go = () => { if(i >= said.length || L.items[idx] !== it) return; speak(said[i++][0], () => setTimeout(go, 400)); }; go(); };
+      stage.append(all);
+    }
+    const nb = el("button", "btn", "Начать упражнение ▶"); nb.onclick = next;
+    const row = el("div", "btn-row"); row.append(backBtn(), nb); stage.append(row);
+  },
+  dialog(it){
+    const bold = x => x.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+    const plainT = x => x.replace(/\*\*/g, "");
+    stage.append(el("h2", "q-title", "💬 " + it.title));
+    stage.append(el("p", "q-hint", "Прочитай и послушай. Формы по теме урока выделены жирным."));
+    const box = el("div", "dlg");
+    it.lines.forEach(l => {
+      const row = el("div", "dl-line");
+      const body = el("div", "dl-body"); const w = el("span", "dl-who"); w.textContent = l[0];
+      const t = el("span", "dl-text"); t.innerHTML = bold(l[1]); body.append(w, t);
+      const tr = el("span", "dl-ru"); tr.textContent = l[2]; tr.hidden = true;
+      const tb = el("button", "dl-trbtn", "👁 Перевод");
+      tb.onclick = () => { tr.hidden = !tr.hidden; tb.textContent = tr.hidden ? "👁 Перевод" : "🙈 Скрыть"; };
+      body.append(tb, tr);
+      row.append(body, soundBtn(plainT(l[1]))); box.append(row);
+    });
+    stage.append(box);
+    const all = el("button", "btn ghost wide", "▶ Прослушать весь диалог"); all.style.marginTop = "14px";
+    all.onclick = () => { let i = 0; const go = () => { if(i >= it.lines.length || L.items[idx] !== it) return; speak(plainT(it.lines[i++][1]), () => setTimeout(go, 350)); }; go(); };
+    stage.append(all);
+    const tr = el("details", "dlg-tr"); tr.append(el("summary", "", "🇷🇺 Перевод диалога"));
+    const ul = el("ul");
+    it.lines.forEach(l => { const li = el("li"); const b = el("b"); b.textContent = l[0] + ": "; li.append(b, l[2]); ul.append(li); });
+    tr.append(ul); stage.append(tr);
+    const nb = el("button", "btn", "К вопросам ▶"); nb.onclick = next;
+    const row = el("div", "btn-row"); row.append(backBtn(), nb); stage.append(row);
+  },
+  dq(it){
+    stage.append(el("h2", "q-title", it.q));
+    if(it.ru) stage.append(el("p", "q-hint", it.ru));
+    stage.append(options(it.opts, it.a, "", null));
+    const d = L.items.find(x => x.t === "dialog");
+    if(d){
+      const det = el("details", "dlg-tr"); det.append(el("summary", "", "📜 Текст диалога"));
+      const ul = el("ul");
+      d.lines.forEach(l => { const li = el("li"); li.innerHTML = "<b>" + l[0] + ":</b> " + l[1].replace(/\*\*(.+?)\*\*/g, "<u>$1</u>"); ul.append(li); });
+      det.append(ul); stage.append(det);
+    }
+  },
+  micperm(it){
+    const linkBox = () => {
+      const url = /^https?:/.test(location.href) ? location.href.split("#")[0] : LESSON_URL;
+      const w = el("div", "link-box");
+      if(!url){ w.append(el("p", "link-step", "Попроси у преподавателя ссылку на урок и открой её в <b>Chrome</b> или <b>Safari</b>.")); return w; }
+      const u = el("div", "link-url"); u.textContent = url;
+      const cp = el("button", "btn wide", "📋 Скопировать ссылку");
+      cp.onclick = () => {
+        const done = () => { cp.textContent = "✅ Ссылка скопирована"; };
+        if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, () => fallback(url, done));
+        else fallback(url, done);
+      };
+      w.append(el("p", "link-step", "1. Скопируй ссылку на урок:"), u, cp);
+      if(/android/i.test(navigator.userAgent) && location.protocol === "https:"){
+        const ch = el("a", "btn ghost wide", "Открыть в Chrome");
+        ch.href = "intent://" + url.replace(/^https:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
+        ch.style.marginTop = "10px"; ch.style.textDecoration = "none"; w.append(ch);
+      }
+      w.append(el("p", "link-step", "2. Открой <b>Chrome</b> или <b>Safari</b>, нажми на строку адреса вверху и вставь ссылку. Ответы и прогресс там начнутся заново, это нормально."));
+      return w;
+    };
+    let shown = false;
+    const showLink = () => { if(shown) return; shown = true; skip.before(linkBox()); };
+    const box = el("div", "rule");
+    box.innerHTML = '<div class="emo">🎤</div><h2>Включим микрофон</h2><div class="body">В этом уровне ты отвечаешь голосом. Нажми кнопку ниже, а потом в окошке нажми <b>«Разрешить»</b>.</div>';
+    const msg = el("p", "live", "");
+    const go = el("button", "btn wide", "🎤 Разрешить микрофон"); go.style.marginTop = "20px";
+    const skip = el("button", "btn ghost wide", "Отвечать текстом"); skip.style.marginTop = "12px"; skip.onclick = next;
+    stage.append(box, go, msg, skip);
+    const ok = () => { P.micOk = true; save(); go.disabled = true; go.textContent = "✅ Микрофон включён"; msg.textContent = ""; tones([660, 990], "triangle", .12, .09); setTimeout(next, 900); };
+    if(P.micOk && navigator.permissions && navigator.permissions.query){
+      navigator.permissions.query({name: "microphone"}).then(r => { if(r.state === "granted" && !answered && L.items[idx] === it) ok(); }).catch(() => {});
+    }
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+      go.disabled = true;
+      msg.innerHTML = "Здесь микрофон недоступен. Открой урок в <b>Chrome</b> или <b>Safari</b> (не внутри WhatsApp) или отвечай текстом.";
+      showLink(); return;
+    }
+    go.onclick = () => {
+      msg.textContent = "Смотри, сейчас появится окошко…";
+      navigator.mediaDevices.getUserMedia({audio: true}).then(stream => {
+        stream.getTracks().forEach(t => t.stop()); ok();
+      }).catch(err => {
+        go.textContent = "🎤 Попробовать ещё раз";
+        if(err && (err.name === "NotAllowedError" || err.name === "SecurityError"))
+          { msg.innerHTML = "Микрофон не разрешён. Если окошко не появилось, открой урок в <b>Chrome</b> или <b>Safari</b>, а не внутри WhatsApp. Или нажми «Отвечать текстом»."; showLink(); }
+        else msg.textContent = "Микрофон не найден. Можно отвечать текстом.";
+      });
+    };
+  },
+  translate(it){
+    const norm = x => (" " + x.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[¿?¡!.,;:]/g, " ") + " ")
+      .replace(/ (yo|nosotros|nosotras|ahora|mismo) /g, " ").replace(/ (yo|nosotros|nosotras|ahora|mismo) /g, " ").replace(/\s+/g, " ").trim();
+    stage.append(el("h2", "q-title", "Переведи на испанский"));
+    stage.append(el("p", "sent tr-ru", it.ru));
+    stage.append(el("p", "q-hint tr-hint", "Подсказка: <b>" + it.hint + "</b>. Ударения можно не ставить."));
+    const inp = el("input", "type-in"); inp.type = "text"; inp.autocomplete = "off"; inp.setAttribute("autocapitalize", "sentences"); inp.setAttribute("spellcheck", "false"); inp.setAttribute("aria-label", "Перевод на испанский"); inp.placeholder = "Escribe en español…";
+    const nb = el("button", "btn wide", "Проверить"); nb.style.marginTop = "16px";
+    const check = () => {
+      if(answered || !inp.value.trim()) return;
+      curA = inp.value.trim();
+      const ok = it.a.some(v => norm(v) === norm(inp.value));
+      inp.style.borderColor = ok ? "var(--mint)" : "var(--coral)";
+      answer(ok, "Правильно: <b>" + it.a[0] + "</b>", it.a[0]);
+    };
+    nb.onclick = check; inp.addEventListener("keydown", e => { if(e.key === "Enter") check(); });
+    stage.append(inp, nb);
+  },
+  talk(it){
+    const SR = null; // только письменные ответы
+    const plain = x => x.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[¿?¡!.,]/g, " ").replace(/\s+/g, " ").trim();
+    stage.append(el("h2", "q-title", "Ответь письменно"));
+    const chat = el("div", "chat");
+    const bot = el("div", "bub bot", '<span class="bot-ava" aria-hidden="true">🦜</span><span><span class="q-es">' + it.q + '</span><small>' + it.ru + '</small></span>');
+    bot.append(soundBtn(it.q)); chat.append(bot);
+    if(it.pic) chat.append(el("div", "big-emo talk-pic", it.pic));
+    stage.append(chat);
+    const live = el("p", "live", ""); const ctrl = el("div", "talk-ctrl");
+    const hint = el("button", "btn ghost", "💡 Подсказка");
+    hint.onclick = () => { live.innerHTML = "Используй форму: <b>" + it.need[0] + "</b>"; };
+    const typeBtn = el("button", "btn ghost", "⌨️ Написать");
+    const typeBox = el("div", "type-box");
+    const inp = el("input", "type-in"); inp.type = "text"; inp.autocomplete = "off"; inp.setAttribute("autocapitalize", "off"); inp.setAttribute("aria-label", "Твой ответ"); inp.placeholder = "Escribe aquí…";
+    const send = el("button", "btn wide", "Отправить"); send.style.marginTop = "12px";
+    typeBox.append(inp, send);
+    typeBtn.onclick = () => { typeBox.hidden = false; inp.focus(); };
+
+    const judge = text => {
+      if(answered) return;
+      const t = text.trim();
+      if(!t){ live.textContent = "Я ничего не услышал. Нажми на микрофон и скажи ещё раз."; return; }
+      chat.append(el("div", "bub me", "")); chat.lastChild.textContent = t; curA = t;
+      const p = plain(t);
+      const ok = it.need.some(w => new RegExp("(^| )" + plain(w) + "( |$)").test(p));
+      answer(ok, "Нужна форма <b>" + it.need[0] + "</b>. Например: <b>" + it.ex + "</b>", ok ? null : it.ex);
+      mic.disabled = true;
+    };
+    send.onclick = () => judge(inp.value);
+    inp.addEventListener("keydown", e => { if(e.key === "Enter") judge(inp.value); });
+
+    const mic = el("button", "mic", "🎤"); mic.setAttribute("aria-label", "Нажми и скажи ответ");
+    let rec = null;
+    if(!SR){
+      typeBox.hidden = false;
+    } else {
+      mic.onclick = () => {
+        if(answered) return;
+        if(rec){ rec.stop(); return; }
+        if(window.speechSynthesis) speechSynthesis.cancel();
+        rec = new SR(); rec.lang = "es-ES"; rec.interimResults = true; rec.maxAlternatives = 1;
+        let said = "";
+        rec.onresult = e => { said = ""; for(let i = 0; i < e.results.length; i++) said += e.results[i][0].transcript; live.textContent = "🎙️ " + said; };
+        rec.onerror = e => {
+          if(e.error === "not-allowed" || e.error === "service-not-allowed"){ live.textContent = "Нет доступа к микрофону. Разреши микрофон или напиши ответ."; typeBox.hidden = false; }
+          else if(e.error === "no-speech") live.textContent = "Я ничего не услышал. Попробуй ещё раз, погромче.";
+          else live.textContent = "Микрофон не сработал. Попробуй ещё раз или напиши ответ.";
+        };
+        rec.onend = () => { mic.classList.remove("rec"); mic.textContent = "🎤"; const t = said; rec = null; if(t) judge(t); };
+        mic.classList.add("rec"); mic.textContent = "⏹️"; live.textContent = "Слушаю… Говори по-испански";
+        try{ rec.start(); }catch(err){ rec = null; mic.classList.remove("rec"); mic.textContent = "🎤"; }
+      };
+    }
+    hint.style.width = "100%"; hint.style.marginBottom = "4px";
+    stage.append(hint, live, typeBox);
+    speak(it.q);
+  },
+  morph(it){
+    const inf = it.stem + it.old, ger = it.stem + it.neu;
+    stage.append(el("h2", "q-title", "Смотри, как это работает"));
+    const m = el("div", "morph");
+    m.innerHTML = '<div class="m-emo">' + it.emo + '</div>' +
+      '<div class="m-word"><span class="stem">' + it.stem + '</span><span class="end old">' + it.old + '</span><span class="end neu">' + it.neu + '</span><span class="scis" aria-hidden="true">✂️</span></div>' +
+      '<ol class="m-steps"><li data-s="1">Берём глагол: <b>' + inf + '</b></li><li data-s="2">Отрезаем <b>-' + it.old + '</b> ✂️</li><li data-s="3">Добавляем <b>-' + it.neu + '</b> → <b>' + ger + '</b></li></ol>' +
+      '<div class="m-rule">' + it.rule + '</div>' + (it.ru ? '<div class="m-ru">' + it.ru + '</div>' : '');
+    stage.append(m);
+    const setStep = n => {
+      m.className = "morph s" + n;
+      m.querySelectorAll("li").forEach(li => li.classList.toggle("on", +li.dataset.s <= n));
+    };
+    const run = () => {
+      clearTimer(); setStep(0);
+      if(reduced){ setStep(3); speak(inf + ". " + ger); return; }
+      speak(inf);
+      morphTO.push(setTimeout(() => setStep(1), 400));
+      morphTO.push(setTimeout(() => { setStep(2); tones([520], "triangle", .1, .1); }, 1600));
+      morphTO.push(setTimeout(() => { setStep(3); tones([660, 990], "triangle", .12, .09); }, 2800));
+      morphTO.push(setTimeout(() => speak(ger), 3300));
+    };
+    const row = el("div", "btn-row");
+    const rep = el("button", "btn ghost", "🔁 Ещё раз"); rep.onclick = run;
+    const nb = el("button", "btn", "Дальше"); nb.onclick = next;
+    row.append(backBtn(), rep, nb); stage.append(row);
+    run();
+  },
+  choice(it){
+    stage.append(el("h2", "q-title", it.q));
+    if(it.big) stage.append(el("p", "sent big-rule", it.big));
+    stage.append(options(it.opts, it.a, it.cls || "", it.say));
+  },
+  scene(it){
+    const tv = el("div", "tv", '<span class="tv-tag">Мини-мультик ' + (idx + 1) + '/' + L.items.length + '</span><div class="actor a-' + it.anim + '">' + it.pic + '</div><div class="cap">' + it.es + '</div>');
+    stage.append(tv, el("p", "ru", it.ru));
+    const row = el("div", "btn-row"); const rep = el("button", "btn ghost", "🔊 Ещё раз"); rep.onclick = () => speak(it.es);
+    const nb = el("button", "btn", "Дальше"); nb.onclick = next; row.append(backBtn(), rep, nb); stage.append(row);
+    speak(it.es);
+  },
+  rule(it){
+    stage.append(el("div", "rule", '<div class="emo">' + it.emo + '</div><h2>' + it.h + '</h2><div class="body">' + it.body + '</div>'));
+    const nb = el("button", "btn", "Понятно 👍"); nb.onclick = next; const row = el("div", "btn-row"); row.append(backBtn(), nb); stage.append(row);
+  },
+  flash(it){
+    stage.append(el("h2", "q-title", "Нажми на карточку"));
+    const card = el("button", "flip", '<span class="inner"><span class="face front"><span class="big">' + it.emo + '</span><b>' + it.inf + '</b><small>нажми, чтобы перевернуть</small></span><span class="face back"><span class="big">' + it.emo + '</span><b>' + it.ger + '</b><small>' + it.ru + '</small></span></span>');
+    card.setAttribute("aria-label", "Карточка " + it.inf + ", нажми, чтобы перевернуть");
+    const nb = el("button", "btn", "Дальше"); nb.disabled = true; nb.onclick = next; const frow = el("div", "btn-row");
+    card.onclick = () => { card.classList.toggle("on"); if(card.classList.contains("on")){ speak(it.ger); nb.disabled = false; } };
+    frow.append(backBtn(), nb); stage.append(card, frow);
+  },
+  pic(it){
+    stage.append(el("h2", "q-title", it.q || "¿Qué hace?"), el("div", "big-emo", it.pic), options(it.opts, it.a, "", it.a));
+  },
+  chips(it){
+    const parts = it.s.split("___");
+    const sent = el("p", "sent"); const slot = el("span", "slot", "?");
+    sent.append(parts[0], slot, parts[1]);
+    stage.append(el("h2", "q-title", "Выбери правильный вариант"), sent,
+      options(it.opts, it.a, "chips", it.s.replace("___", it.a), (o, ok) => { slot.textContent = o; slot.classList.add(ok ? "ok" : "bad"); }));
+  },
+  tf(it){
+    stage.append(el("h2", "q-title", "Верно или нет?"));
+    const tm = el("div", "timer", "<i></i>"); stage.append(tm);
+    if(it.pic) stage.append(el("div", "big-emo", it.pic));
+    stage.append(el("p", "sent", it.s));
+    const right = it.ok ? "Верно ✅" : "Неверно ❌";
+    const msg = "Правильный ответ: <b>" + right + "</b>" + (it.why ? " " + it.why : "");
+    const box = el("div", "opts tf");
+    [["Верно ✅", true], ["Неверно ❌", false]].forEach(([label, v]) => {
+      const b = el("button", "opt", label);
+      b.onclick = () => { if(answered) return; curA = label; const ok = v === it.ok; b.classList.add(ok ? "ok" : "bad"); answer(ok, msg); };
+      box.append(b);
+    });
+    stage.append(box);
+    const T = 8000, t0 = Date.now(), fill = tm.firstChild;
+    timer = setInterval(() => {
+      const left = 1 - (Date.now() - t0) / T; fill.style.width = Math.max(0, left * 100) + "%";
+      if(left <= 0){ clearTimer(); curA = "⏰ время вышло"; answer(false, "Время вышло ⏰ " + msg); }
+    }, 80);
+  },
+  listen(it){
+    stage.append(el("h2", "q-title", "Что ты слышишь?"));
+    const p = el("button", "big-play", "🔊"); p.setAttribute("aria-label", "Прослушать фразу"); p.onclick = () => speak(it.say);
+    stage.append(p, options(it.opts, it.a, "tiles", it.say));
+    speak(it.say);
+  },
+  order(it){
+    stage.append(el("h2", "q-title", "Собери фразу"), el("p", "q-hint", it.ru));
+    const line = el("div", "answer-line"), pool = el("div", "pool");
+    const target = it.words.join(" "); const picked = [];
+    let order = shuffle(it.words); if(order.join(" ") === target) order = order.reverse();
+    order.forEach(w => {
+      const b = el("button", "tok"); b.textContent = w;
+      b.onclick = () => {
+        if(answered) return;
+        b.disabled = true; const c = el("button", "tok in"); c.textContent = w; picked.push(w);
+        c.onclick = () => { if(answered) return; c.remove(); b.disabled = false; picked.splice(picked.indexOf(w), 1); };
+        line.append(c);
+        if(picked.length === it.words.length){
+          curA = [...line.children].map(x => x.textContent).join(" "); const ok = curA === target;
+          line.classList.add(ok ? "ok" : "bad");
+          answer(ok, "Правильно: <b>" + target + "</b>", target);
+        }
+      };
+      pool.append(b);
+    });
+    stage.append(line, pool);
+  },
+  letters(it){
+    stage.append(el("h2", "q-title", "Собери слово"), el("div", "big-emo", it.emo), el("p", "sent", it.inf + " → ?"));
+    const line = el("div", "answer-line"), pool = el("div", "pool");
+    let letters = shuffle(it.word.split("")); if(letters.join("") === it.word) letters = letters.reverse();
+    const used = [];
+    letters.forEach(ch => {
+      const b = el("button", "tok letter"); b.textContent = ch;
+      b.onclick = () => {
+        if(answered) return;
+        b.disabled = true; used.push(b);
+        const c = el("span", "tok letter in"); c.style.display = "inline-flex"; c.style.alignItems = "center"; c.style.justifyContent = "center"; c.textContent = ch; line.append(c);
+        if(used.length === it.word.length){
+          const got = used.map(x => x.textContent).join(""); curA = got; const ok = got === it.word;
+          line.classList.add(ok ? "ok" : "bad");
+          answer(ok, "Правильно: <b>" + it.word + "</b>", it.word);
+        }
+      };
+      pool.append(b);
+    });
+    const undo = el("button", "btn ghost wide", "⌫ Стереть букву"); undo.style.marginTop = "20px";
+    undo.onclick = () => { if(answered || !used.length) return; used.pop().disabled = false; line.lastChild.remove(); };
+    stage.append(line, pool, undo);
+  },
+  match(it){
+    stage.append(el("h2", "q-title", "Соедини пары"), el("p", "q-hint", "Нажми слово слева, потом его пару справа"));
+    const grid = el("div", "match2"), colL = el("div", "mcol"), colR = el("div", "mcol");
+    let sel = {L:null, R:null}, found = 0, miss = 0, lock = false;
+    const mk = (txt, k, side) => {
+      const b = el("button", "mbtn"); b.textContent = txt;
+      b.onclick = () => {
+        if(lock || b.classList.contains("got")) return;
+        if(sel[side]) sel[side].b.classList.remove("sel");
+        sel[side] = {b, k}; b.classList.add("sel"); if(side === "L") speak(txt);
+        if(sel.L && sel.R){
+          const a = sel.L, c = sel.R; sel = {L:null, R:null};
+          if(a.k === c.k){
+            [a.b, c.b].forEach(x => { x.classList.remove("sel"); x.classList.add("got"); x.disabled = true; });
+            found++; tones([700, 1050], "triangle", .12, .08);
+            if(found === it.pairs.length) setTimeout(() => { curA = "все пары, ошибок: " + miss; answer(miss <= 2, "Все пары найдены! В следующий раз постарайся с меньшим числом ошибок."); }, 400);
+          } else {
+            miss++; lock = true; sfxBad();
+            [a.b, c.b].forEach(x => { x.classList.remove("sel"); x.classList.add("miss"); });
+            setTimeout(() => { [a.b, c.b].forEach(x => x.classList.remove("miss")); lock = false; }, 650);
+          }
+        }
+      };
+      return b;
+    };
+    shuffle(it.pairs.map((p, i) => [p[0], i])).forEach(([t, k]) => colL.append(mk(t, k, "L")));
+    shuffle(it.pairs.map((p, i) => [p[1], i])).forEach(([t, k]) => colR.append(mk(t, k, "R")));
+    grid.append(colL, colR); stage.append(grid);
+  },
+  type(it){
+    stage.append(el("h2", "q-title", "Напиши по-испански"), el("div", "big-emo", it.emo), el("p", "sent", it.q));
+    const inp = el("input", "type-in"); inp.type = "text"; inp.autocomplete = "off"; inp.setAttribute("autocapitalize", "off"); inp.setAttribute("aria-label", "Ответ");
+    const nb = el("button", "btn wide", "Проверить"); nb.style.marginTop = "16px";
+    const plain = s => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    const check = () => { if(answered || !inp.value.trim()) return; curA = inp.value.trim(); answer(plain(inp.value) === plain(it.a), "Правильно: <b>" + it.a + "</b>", it.a); };
+    nb.onclick = check; inp.addEventListener("keydown", e => { if(e.key === "Enter") check(); });
+    stage.append(inp, nb);
+  }
+};
+
+if(P.code) unlock(P.code);
+</script>
+</body>
+</html>
