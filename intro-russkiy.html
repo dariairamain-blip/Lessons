@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ders 0: Rusça neden ve nasıl öğrenilir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F0FF;--surface:#fff;--ink:#1F1640;--muted:#6A6290;--violet:#6C3BFF;--violet-soft:#E6DEFF;--pink:#FF4F8B;--sun:#FFC83D;--mint:#10A877;--mint-soft:#D7F6EA;--coral:#E2482F;--coral-soft:#FFE1DA;--line:#DDD6F5;--on-violet:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151032;--surface:#221A4C;--ink:#F1EEFF;--muted:#B0A8D8;--violet:#9C7BFF;--violet-soft:#33296B;--pink:#FF77A6;--sun:#FFD465;--mint:#3CD8A4;--mint-soft:#15433A;--coral:#FF7E68;--coral-soft:#4A221C;--line:#3A3170;--on-violet:#151032}}
+:root[data-theme="dark"]{--bg:#151032;--surface:#221A4C;--ink:#F1EEFF;--muted:#B0A8D8;--violet:#9C7BFF;--violet-soft:#33296B;--pink:#FF77A6;--sun:#FFD465;--mint:#3CD8A4;--mint-soft:#15433A;--coral:#FF7E68;--coral-soft:#4A221C;--line:#3A3170;--on-violet:#151032}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:700 18px/1.5 Nunito,system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",Georgia,serif;line-height:1.1;margin:0}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+[hidden]{display:none!important}
+.wrap{max-width:560px;margin:0 auto;padding:18px 18px 60px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:16px;padding:15px 22px;background:var(--violet);color:var(--on-violet);font-weight:800;font-size:1.05rem;box-shadow:0 4px 0 rgba(0,0,0,.22);cursor:pointer;width:100%}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.ghost{background:var(--surface);color:var(--violet);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.row{display:flex;gap:12px;margin-top:18px}.row .btn{flex:1}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bar{flex:1;height:14px;background:var(--line);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--pink));transition:width .35s}
+.lang{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-weight:800;cursor:pointer}
+.hero{text-align:center;padding:30px 0 10px}
+.hero .emo{font-size:84px;line-height:1.1}
+.hero h1{font-size:2.1rem;margin:10px 0}
+.hero p{color:var(--muted);font-weight:600;margin:0 0 24px}
+.card{background:var(--surface);border:3px solid var(--line);border-radius:22px;padding:22px 20px;box-shadow:0 6px 0 var(--line)}
+.card .emo{font-size:62px;text-align:center;line-height:1.1}
+.card h2{font-size:1.5rem;text-align:center;margin:8px 0 12px}
+.card p{font-weight:600;margin:0 0 10px}
+.tip{background:var(--violet-soft);border-radius:14px;padding:10px 14px;font-weight:700;margin-top:12px}
+.src{display:inline-block;margin-top:12px;font-size:.82rem;color:var(--muted);font-weight:700}
+.q{font-size:1.25rem;text-align:center;margin:6px 0 18px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{background:var(--surface);border:3px solid var(--line);border-radius:16px;padding:15px;font-weight:800;box-shadow:0 4px 0 var(--line);cursor:pointer}
+.opt.ok{border-color:var(--mint);background:var(--mint-soft)}.opt.bad{border-color:var(--coral);background:var(--coral-soft)}
+.fb{margin-top:14px;font-weight:600;min-height:1.5em}
+label.fl{display:block;font-weight:800;margin:16px 0 8px}
+textarea,input[type=text]{width:100%;border:3px solid var(--line);border-radius:14px;padding:12px;background:var(--bg);font-weight:600;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:800;cursor:pointer}
+.chip.on{background:var(--violet);border-color:var(--violet);color:var(--on-violet)}
+.promise{background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff;border-radius:22px;padding:22px;margin-top:6px}
+.promise h2{font-size:1.5rem;margin-bottom:10px}
+.promise p{margin:6px 0;font-weight:700}
+.note{color:var(--muted);font-weight:600;font-size:.88rem;text-align:center;margin-top:14px}
+.foot{color:var(--muted);font-weight:500;font-size:.8rem;text-align:center;margin-top:26px}
+
+.words{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.wcard{border:3px solid var(--line);background:var(--bg);border-radius:16px;padding:12px 8px;text-align:center;cursor:pointer;min-height:84px;font-weight:800}
+.wcard .f{font-size:1.15rem;color:var(--violet)}
+.wcard .n{font-size:.95rem;color:var(--ink);margin-top:4px}
+.wcard .x{font-size:.75rem;color:var(--muted);font-weight:600}
+.flag{font-size:56px;text-align:center}
+.part{display:inline-block;background:var(--violet-soft);color:var(--violet);border-radius:999px;padding:4px 12px;font-size:.8rem;font-weight:800;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const B = {"title": "Ders 0: Bir dil nasıl öğrenilir ve bırakılmaz", "sub": "Psikologlardan, dilbilimcilerden ve poliglotlardan 9 tavsiye. 10 dakika — ve kendi planın hazır.", "start": "Başla ▶", "next": "Devam ▶", "back": "◀", "lang": "Русский", "tips": [["🎯", "Kendi «neden»ini bul", "Hedef senin ve somut olunca motivasyon daha uzun sürer: «Rusça öğrenmek» değil, «3 ay sonra otelde Rus misafirlerle rahatça konuşmak».", "Hedefini yaz ve ona ulaştığını hayal et.", "Psikologlar: öz-belirleme kuramı"], ["⏱️", "Her gün biraz", "Her gün 15 dakika, haftada bir 2 saatten daha iyi çalışır. Beyin sık ve kısa tekrarlarla hatırlar.", "Bugün 10 dakika, «bir gün mükemmel bir saatten» iyidir.", "Hafıza ve alışkanlık araştırmaları"], ["🔗", "Bir alışkanlığa bağla", "Yeni bir şeyi, zaten her gün yaptığın bir şeyin hemen ardından yaparsan daha kolay alışırsın.", "«Sabah kahvesinden sonra — dersten bir seviye».", "Alışkanlık psikolojisi"], ["🔁", "Aralıklarla tekrar et", "Yeni bilgiyi çok çabuk unuturuz. 1 gün, 3 gün ve bir hafta sonra tekrar etmek, kelimeleri uzun süreli hafızaya taşır.", "Bitirdiğin derse bir gün ve bir hafta sonra tekrar dön.", "Ebbinghaus'un unutma eğrisi"], ["🗣️", "İlk günden konuş", "Poliglotlar bir konuda hemfikir: en baştan, tek tek kelimelerle bile olsa sesli konuşmak gerekir. Konuşmacıyı tekrar et — buna «gölgeleme» denir.", "Dersteki her cümleyi sesli söyle.", "Poliglotların deneyimi"], ["🌱", "Hata = gelişim", "Hata yapmayan konuşmaz. Beyin tam da hatalardan öğrenir. Mükemmel söylemesen de seni anlarlar.", "Hata mı yaptın? Harika — şu an öğreniyorsun.", "Psikoloji: gelişim zihniyeti"], ["🧩", "Kelime değil, cümle öğren", "Hazır kalıplar daha kolay akılda kalır ve hemen işe yarar. «Nasılsın?» üç ayrı kelimeden daha faydalıdır.", "Kalıpları bütün olarak öğren: «Benim adım…», «…'denim».", "Dilbilimciler: kalıplarla öğrenme"], ["🎧", "Sevdiğin şeyleri dinle", "Anladığın ve ilgini çeken içerik — şarkılar, videolar, diziler — dili zahmetsizce «emmeye» yardım eder.", "Her gün en az 5 dakika o dili dinle.", "Dilbilim: anlaşılır girdi kuramı"], ["📈", "Durgunluk normaldir", "Bazı günler ilerleme yokmuş gibi gelir. Bu öğrenmenin normal bir parçasıdır: beyin kendini yeniden düzenliyor. Önemli olan durmamak.", "Küçük zaferlerini not et ve kendini öv.", "Psikologlar ve poliglotlar"]], "quizTitle": "Kendini dene: efsane mi, gerçek mi?", "myth": "Efsane", "truth": "Gerçek", "quiz": [["Yetişkinler artık yeni bir dil öğrenemez.", false, "Efsane! Yetişkinler çok iyi öğrenir: mantıkları, anlam hafızaları ve deneyimleri daha güçlüdür."], ["Her gün 15 dakika, haftada bir 2 saatten iyidir.", true, "Gerçek! Sık ve kısa dersler daha iyi akılda kalır."], ["Ancak hatasız bildiğinde konuşabilirsin.", false, "Efsane! İlk günden konuşmak gerekir — böyle daha hızlı öğrenilir."], ["Aralıklarla tekrar, uzun süre hatırlamaya yardım eder.", true, "Gerçek! Buna aralıklı tekrar denir."], ["Uzun kelime listeleri ezberlemek en iyi yöntemdir.", false, "Efsane! Cümleleri ve kelimeleri bağlam içinde öğrenmek daha iyidir."]], "planTitle": "Benim planım", "why": "Bu dili neden öğreniyorum?", "whyPh": "Örneğin: arkadaşlarla konuşmak, iş, seyahat için…", "minutes": "Günde kaç dakika çalışacağım?", "when": "Ne zaman çalışacağım?", "whenOpts": ["sabah kahvesinden sonra", "yolda", "öğle arasında", "yatmadan önce"], "goal": "İlk küçük hedefim", "goalPh": "Örneğin: bir haftada ilk dersi bitirmek", "make": "Sözümü oluştur ✨", "promiseTitle": "🤝 Benim sözüm", "pWhy": "Bu dili öğreniyorum çünkü", "pDaily": "Her gün", "pMin": "dakika çalışıyorum,", "pGoal": "İlk hedefim:", "copy": "📋 Sözümü kopyala", "copied": "Kopyalandı ✅", "shot": "Ekran görüntüsü al ve duvar kâğıdı yap — böylece hedefini unutmazsın.", "endTitle": "Hazırsın! 🚀", "endText": "En büyük sır yetenek değil, düzenliliktir. İlk dersi aç ve bugün en az bir seviyeyi bitir.", "again": "🔁 Tekrar geç", "quizRes": "Doğru: ", "foot": "© 2026 Daria Botina"};
+const C = {"id": "ru_tr", "lang": "tr", "tts": "ru-RU", "flag": "🇷🇺", "title": "Ders 0: Rusça neden ve nasıl öğrenilir", "sub": "Rus dili ve kültürü hakkında biraz bilgi ve kolayca öğrenip bırakmamak için 9 tavsiye.", "partCulture": "Rus dili ve kültürü", "wordsTitle": "Rusçada bildiğin kelimeler var!", "wordsSub": "Bu kelimeler Türkçeden ya da ortak bir kökten geliyor. Dokun — Rusça nasıl söylendiğini duy.", "why": "Rusçayı neden öğreniyorum?", "pWhy": "Rusça öğreniyorum çünkü", "endText": "En büyük sır düzenliliktir. İlk dersi aç ve bugün en az bir seviyeyi bitir. Удачи! (Bol şans!)", "firstUrl": "https://dariairamain-blip.github.io/Lessons/russkiy-1.html", "culture": [["🌍", "Dünyanın büyük dillerinden biri", "Rusçayı yaklaşık <b>250 milyon</b> kişi konuşuyor. Birleşmiş Milletler'in 6 resmî dilinden biri ve uzayda konuşulan ilk dil: Yuri Gagarin 1961'de «Поехали!» (Haydi gidelim!) dedi."], ["🔤", "Kiril alfabesi korkutucu değil", "Rus alfabesinde 33 harf var ve birçoğu tanıdık: А, К, М, О, Т neredeyse Latin harfleri gibi okunur. Ш = ş, Ч = ç, Ж = j — Türkçedeki seslerin çoğu Rusçada da var!"], ["🏖️", "Türkiye'de çok işe yarar", "Her yıl milyonlarca Rus turist Türkiye'ye geliyor. Turizmde, otelde, mağazada ya da klinikte birkaç Rusça cümle bile büyük fark yaratır."], ["🎭", "Büyük kültür", "Tolstoy, Dostoyevski, Puşkin, Çehov; Çaykovski'nin «Kuğu Gölü» balesi; matruşka bebekler — hepsini orijinal dilinde tanıyabilirsin."], ["🤝", "Türkçe ile ortak kelimeler", "Rusça ile Türkçe yüzyıllardır komşu, bu yüzden birçok ortak kelime var. Bir sonraki ekranda kendin gör!"]], "words": [["чай", "çay", ""], ["диван", "divan", ""], ["сундук", "sandık", ""], ["утюг", "ütü", ""], ["карандаш", "kurşun kalem", "«kara taş»tan geliyor"], ["базар", "pazar", ""], ["изюм", "kuru üzüm", "«üzüm» kelimesinden"], ["казан", "kazan", ""]], "cquiz": [["Uzaya giden ilk insan kimdi?", ["Yuri Gagarin", "Neil Armstrong", "Lev Tolstoy"], 0, "Yuri Gagarin, 1961."], ["Rus alfabesinde kaç harf var?", ["33", "29", "26"], 0, "33 harf."], ["Rusça «чай» ne demek?", ["Çay", "Kahve", "Su"], 0, "Aynen: чай [çay] = çay!"]], "partHow": "Nasıl öğrenilir", "cquizTitle": "Tahmin et", "bridgeTitle": "Şimdi — nasıl öğrenilir", "bridgeText": "Artık bu dili neden seveceğini biliyorsun. Sırada psikologlardan, dilbilimcilerden ve poliglotlardan 9 tavsiye var: kolayca öğrenmek ve yarı yolda bırakmamak için.", "firstLabel": "İlk derse geç ▶"};
+let step = 0, score = 0, cscore = 0, plan = {why: "", min: 15, when: 0, goal: ""};
+const KEY = "intro_" + C.id;
+try{ const s = JSON.parse(localStorage.getItem(KEY) || "null"); if(s) plan = Object.assign(plan, s); }catch(e){}
+const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(plan)); }catch(e){} };
+const $ = s => document.querySelector(s);
+const el = (t, c, h) => { const e = document.createElement(t); if(c) e.className = c; if(h != null) e.innerHTML = h; return e; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let voice = null;
+function pick(){ if(!("speechSynthesis" in window)) return; const v = speechSynthesis.getVoices(); voice = v.find(x => x.lang === C.tts) || v.find(x => x.lang && x.lang.toLowerCase().startsWith(C.tts.slice(0, 2))) || null; }
+if("speechSynthesis" in window){ pick(); speechSynthesis.onvoiceschanged = pick; }
+function say(t){ if(!("speechSynthesis" in window)) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = C.tts; u.rate = .75; if(voice) u.voice = voice; speechSynthesis.speak(u); }
+const S = [];
+S.push({k: "hero"});
+C.culture.forEach((c, i) => S.push({k: "cult", i}));
+S.push({k: "words"});
+C.cquiz.forEach((c, i) => S.push({k: "cq", i}));
+S.push({k: "bridge"});
+B.tips.forEach((c, i) => S.push({k: "tip", i}));
+B.quiz.forEach((c, i) => S.push({k: "q", i}));
+S.push({k: "plan"}); S.push({k: "promise"});
+function nav(nextLabel, disabled){
+  const row = el("div", "row");
+  const bb = el("button", "btn ghost", B.back); bb.style.flex = "0 0 64px"; bb.onclick = () => go(step - 1);
+  const nb = el("button", "btn", nextLabel || B.next); nb.disabled = !!disabled; nb.onclick = () => go(step + 1);
+  row.append(bb, nb); return [row, nb];
+}
+function quizCard(title, q, opts, correct, fbt, onOk){
+  const c = el("div", "card");
+  c.append(el("h2", "", title), el("p", "q", esc(q)));
+  const o = el("div", "opts"), fb = el("div", "fb"); let done = false;
+  const [row, nb] = nav(null, true);
+  opts.forEach((lab, idx) => {
+    const b = el("button", "opt", esc(lab));
+    b.onclick = () => { if(done) return; done = true; const ok = idx === correct; if(ok) onOk(); b.classList.add(ok ? "ok" : "bad"); if(!ok) o.children[correct].classList.add("ok"); fb.textContent = (ok ? "✅ " : "❌ ") + fbt; nb.disabled = false; };
+    o.append(b);
+  });
+  if(opts.length > 2) o.style.gridTemplateColumns = "1fr";
+  c.append(o, fb);
+  return [c, row];
+}
+function render(){
+  const app = $("#app"); app.innerHTML = "";
+  const top = el("div", "top"); const bar = el("div", "bar", "<i></i>"); bar.firstChild.style.width = Math.round(step / (S.length - 1) * 100) + "%"; top.append(bar); app.append(top);
+  const st = S[step];
+  if(st.k === "hero"){
+    const h = el("div", "hero"); h.append(el("div", "emo", C.flag), el("h1", "", esc(C.title)), el("p", "", esc(C.sub)));
+    const b = el("button", "btn", B.start); b.onclick = () => go(1); h.append(b); app.append(h);
+  } else if(st.k === "cult"){
+    const [e, h2, p] = C.culture[st.i];
+    const c = el("div", "card"); c.append(el("div", "part", esc(C.partCulture)), el("div", "emo", e), el("h2", "", esc(h2)), el("p", "", p));
+    app.append(c); app.append(nav()[0]);
+  } else if(st.k === "words"){
+    const c = el("div", "card"); c.append(el("div", "part", esc(C.partCulture)), el("div", "emo", "🔤"), el("h2", "", esc(C.wordsTitle)), el("p", "", esc(C.wordsSub)));
+    const g = el("div", "words");
+    C.words.forEach(([f, n, x]) => {
+      const w = el("button", "wcard"); w.innerHTML = '<div class="f">' + esc(f) + '</div><div class="n">❓</div>';
+      w.onclick = () => { w.innerHTML = '<div class="f">' + esc(f) + '</div><div class="n">' + esc(n) + '</div>' + (x ? '<div class="x">' + esc(x) + '</div>' : ""); say(f); };
+      g.append(w);
+    });
+    c.append(g); app.append(c); app.append(nav()[0]);
+  } else if(st.k === "cq"){
+    if(st.i === 0) cscore = 0;
+    const [q, opts, cor, fbt] = C.cquiz[st.i];
+    const [c, row] = quizCard("🎲 " + esc(C.cquizTitle) + " (" + (st.i + 1) + "/" + C.cquiz.length + ")", q, opts, cor, fbt, () => cscore++);
+    app.append(c, row);
+  } else if(st.k === "bridge"){
+    const c = el("div", "card"); c.append(el("div", "emo", "🧠"), el("h2", "", esc(C.bridgeTitle)), el("p", "", esc(C.bridgeText)));
+    app.append(c); app.append(nav()[0]);
+  } else if(st.k === "tip"){
+    const [e, h2, p, tip, src] = B.tips[st.i];
+    const c = el("div", "card");
+    c.append(el("div", "part", esc(C.partHow)), el("div", "emo", e), el("h2", "", (st.i + 1) + ". " + esc(h2)), el("p", "", esc(p)), el("div", "tip", "💡 " + esc(tip)), el("div", "src", "📚 " + esc(src)));
+    app.append(c); app.append(nav()[0]);
+  } else if(st.k === "q"){
+    if(st.i === 0) score = 0;
+    const [q, ans, fbt] = B.quiz[st.i];
+    const [c, row] = quizCard("🧠 " + esc(B.quizTitle) + " (" + (st.i + 1) + "/" + B.quiz.length + ")", q, [B.truth, B.myth], ans ? 0 : 1, fbt, () => score++);
+    app.append(c, row);
+  } else if(st.k === "plan"){
+    const c = el("div", "card");
+    c.append(el("div", "emo", "📝"), el("h2", "", esc(B.planTitle)));
+    c.append(el("label", "fl", esc(C.why)));
+    const w = el("textarea"); w.rows = 2; w.placeholder = B.whyPh; w.value = plan.why; w.oninput = () => { plan.why = w.value; save(); }; c.append(w);
+    c.append(el("label", "fl", esc(B.minutes)));
+    const ch = el("div", "chips");
+    [5, 10, 15, 20, 30].forEach(m => { const b = el("button", "chip" + (plan.min === m ? " on" : ""), m + " min"); b.onclick = () => { plan.min = m; save(); [...ch.children].forEach(x => x.classList.toggle("on", x === b)); }; ch.append(b); });
+    c.append(ch, el("label", "fl", esc(B.when)));
+    const ch2 = el("div", "chips");
+    B.whenOpts.forEach((wo, i) => { const b = el("button", "chip" + (plan.when === i ? " on" : ""), esc(wo)); b.onclick = () => { plan.when = i; save(); [...ch2.children].forEach(x => x.classList.toggle("on", x === b)); }; ch2.append(b); });
+    c.append(ch2, el("label", "fl", esc(B.goal)));
+    const g = el("input"); g.type = "text"; g.placeholder = B.goalPh; g.value = plan.goal; g.oninput = () => { plan.goal = g.value; save(); }; c.append(g);
+    app.append(c); app.append(nav(B.make)[0]);
+  } else {
+    const pr = el("div", "promise");
+    const whyTxt = plan.why.trim() || "…", goalTxt = plan.goal.trim() || "…";
+    pr.append(el("h2", "", esc(B.promiseTitle)),
+      el("p", "", esc(C.pWhy) + " <b>" + esc(whyTxt) + "</b>."),
+      el("p", "", esc(B.pDaily) + " <b>" + plan.min + "</b> " + esc(B.pMin) + " <b>" + esc(B.whenOpts[plan.when]) + "</b>."),
+      el("p", "", esc(B.pGoal) + " <b>" + esc(goalTxt) + "</b>."));
+    app.append(pr);
+    const txt = B.promiseTitle + "\n" + C.pWhy + " " + whyTxt + ".\n" + B.pDaily + " " + plan.min + " " + B.pMin + " " + B.whenOpts[plan.when] + ".\n" + B.pGoal + " " + goalTxt + ".";
+    const cp = el("button", "btn ghost", B.copy); cp.style.marginTop = "16px";
+    cp.onclick = () => { const ok = () => cp.textContent = B.copied; if(navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, ok); else ok(); };
+    app.append(cp, el("p", "note", esc(B.shot)));
+    const end = el("div", "card"); end.style.marginTop = "18px";
+    end.append(el("div", "emo", "🏁"), el("h2", "", esc(B.endTitle)), el("p", "", esc(C.endText)));
+    if(C.firstUrl){ const a = el("a", "btn", esc(C.firstLabel)); a.href = C.firstUrl; a.style.textDecoration = "none"; a.style.marginTop = "14px"; end.append(a); }
+    app.append(end);
+    const ag = el("button", "btn ghost", B.again); ag.style.marginTop = "16px"; ag.onclick = () => go(0); app.append(ag);
+  }
+  if(step < S.length - 1){ const sk = el("button", "btn ghost", C.lang === "tr" ? "⏭ Bu sayfayı geç" : "⏭ Пропустить эту страницу"); sk.style.marginTop = "18px"; sk.style.boxShadow = "none"; sk.style.color = "var(--muted)"; sk.onclick = () => go(step + 1); app.append(sk); }
+  app.append(el("p", "foot", B.foot));
+  window.scrollTo(0, 0);
+}
+function go(n){ step = Math.max(0, Math.min(S.length - 1, n)); render(); }
+render();
+</script>
+</body>
+</html>

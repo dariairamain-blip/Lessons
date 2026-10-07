@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Урок 0: Как выучить язык и не бросить · Dil nasıl öğrenilir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F0FF;--surface:#fff;--ink:#1F1640;--muted:#6A6290;--violet:#6C3BFF;--violet-soft:#E6DEFF;--pink:#FF4F8B;--sun:#FFC83D;--mint:#10A877;--mint-soft:#D7F6EA;--coral:#E2482F;--coral-soft:#FFE1DA;--line:#DDD6F5;--on-violet:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151032;--surface:#221A4C;--ink:#F1EEFF;--muted:#B0A8D8;--violet:#9C7BFF;--violet-soft:#33296B;--pink:#FF77A6;--sun:#FFD465;--mint:#3CD8A4;--mint-soft:#15433A;--coral:#FF7E68;--coral-soft:#4A221C;--line:#3A3170;--on-violet:#151032}}
+:root[data-theme="dark"]{--bg:#151032;--surface:#221A4C;--ink:#F1EEFF;--muted:#B0A8D8;--violet:#9C7BFF;--violet-soft:#33296B;--pink:#FF77A6;--sun:#FFD465;--mint:#3CD8A4;--mint-soft:#15433A;--coral:#FF7E68;--coral-soft:#4A221C;--line:#3A3170;--on-violet:#151032}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:700 18px/1.5 Nunito,system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",Georgia,serif;line-height:1.1;margin:0}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+[hidden]{display:none!important}
+.wrap{max-width:560px;margin:0 auto;padding:18px 18px 60px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:16px;padding:15px 22px;background:var(--violet);color:var(--on-violet);font-weight:800;font-size:1.05rem;box-shadow:0 4px 0 rgba(0,0,0,.22);cursor:pointer;width:100%}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.ghost{background:var(--surface);color:var(--violet);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.row{display:flex;gap:12px;margin-top:18px}.row .btn{flex:1}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bar{flex:1;height:14px;background:var(--line);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--pink));transition:width .35s}
+.lang{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-weight:800;cursor:pointer}
+.hero{text-align:center;padding:30px 0 10px}
+.hero .emo{font-size:84px;line-height:1.1}
+.hero h1{font-size:2.1rem;margin:10px 0}
+.hero p{color:var(--muted);font-weight:600;margin:0 0 24px}
+.card{background:var(--surface);border:3px solid var(--line);border-radius:22px;padding:22px 20px;box-shadow:0 6px 0 var(--line)}
+.card .emo{font-size:62px;text-align:center;line-height:1.1}
+.card h2{font-size:1.5rem;text-align:center;margin:8px 0 12px}
+.card p{font-weight:600;margin:0 0 10px}
+.tip{background:var(--violet-soft);border-radius:14px;padding:10px 14px;font-weight:700;margin-top:12px}
+.src{display:inline-block;margin-top:12px;font-size:.82rem;color:var(--muted);font-weight:700}
+.q{font-size:1.25rem;text-align:center;margin:6px 0 18px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{background:var(--surface);border:3px solid var(--line);border-radius:16px;padding:15px;font-weight:800;box-shadow:0 4px 0 var(--line);cursor:pointer}
+.opt.ok{border-color:var(--mint);background:var(--mint-soft)}.opt.bad{border-color:var(--coral);background:var(--coral-soft)}
+.fb{margin-top:14px;font-weight:600;min-height:1.5em}
+label.fl{display:block;font-weight:800;margin:16px 0 8px}
+textarea,input[type=text]{width:100%;border:3px solid var(--line);border-radius:14px;padding:12px;background:var(--bg);font-weight:600;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:800;cursor:pointer}
+.chip.on{background:var(--violet);border-color:var(--violet);color:var(--on-violet)}
+.promise{background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff;border-radius:22px;padding:22px;margin-top:6px}
+.promise h2{font-size:1.5rem;margin-bottom:10px}
+.promise p{margin:6px 0;font-weight:700}
+.note{color:var(--muted);font-weight:600;font-size:.88rem;text-align:center;margin-top:14px}
+.foot{color:var(--muted);font-weight:500;font-size:.8rem;text-align:center;margin-top:26px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const T = {
+ru: {
+  title: "Урок 0: как выучить язык и не бросить",
+  sub: "9 советов от психологов, лингвистов и полиглотов. 10 минут — и у тебя будет свой план.",
+  start: "Начать ▶", next: "Дальше ▶", back: "◀", lang: "Türkçe",
+  tips: [
+    ["🎯","Найди своё «зачем»","Мотивация держится дольше, когда цель твоя собственная и конкретная: не «выучить испанский», а «через 3 месяца спокойно заказать еду в кафе в Мадриде».","Запиши цель и представь, как ты её достигаешь.","Психологи: теория самодетерминации"],
+    ["⏱️","Каждый день понемногу","15 минут каждый день работают лучше, чем 2 часа раз в неделю. Мозг запоминает через частые короткие повторения.","Лучше 10 минут сегодня, чем «идеальный час» когда-нибудь.","Исследования памяти и привычек"],
+    ["🔗","Привяжи к привычке","Новое дело легче закрепить, если делать его сразу после того, что ты и так делаешь каждый день.","«После утреннего кофе — один уровень урока».","Психология привычек"],
+    ["🔁","Повторяй с паузами","Мы забываем новое очень быстро. Повторение через 1 день, 3 дня и неделю переносит слова в долгую память.","Возвращайся к пройденному уроку через день и через неделю.","Кривая забывания Эббингауза"],
+    ["🗣️","Говори с первого дня","Полиглоты сходятся в одном: говорить вслух нужно с самого начала, даже по одному слову. Повторяй за диктором — это называется «шэдоуинг».","Проговаривай вслух каждую фразу урока.","Опыт полиглотов"],
+    ["🌱","Ошибки — это рост","Кто не ошибается, тот не говорит. Мозг учится именно на ошибках. Тебя поймут, даже если ты скажешь не идеально.","Ошибся? Отлично — ты сейчас учишься.","Психология: мышление роста"],
+    ["🧩","Учи фразы, а не слова","Готовые фразы запоминаются легче и сразу пригодятся в жизни. «Как дела?» полезнее, чем три отдельных слова.","Запоминай кусочки целиком: «Меня зовут…», «Я из…».","Лингвисты: обучение «блоками»"],
+    ["🎧","Слушай то, что нравится","Понятный и интересный тебе материал — песни, видео, сериалы — помогает «впитывать» язык без усилий.","Каждый день хотя бы 5 минут слушай язык.","Лингвистика: теория понятного ввода"],
+    ["📈","Плато — это нормально","Бывают дни, когда кажется, что прогресса нет. Это нормальная часть обучения: мозг перестраивается. Главное — не останавливаться.","Отмечай маленькие победы и хвали себя.","Психологи и полиглоты"]
+  ],
+  quizTitle: "Проверь себя: миф или правда?",
+  myth: "Миф", truth: "Правда",
+  quiz: [
+    ["Взрослые уже не могут выучить новый язык.", false, "Миф! Взрослые учатся отлично: у них лучше логика, память на смысл и опыт."],
+    ["15 минут каждый день лучше, чем 2 часа раз в неделю.", true, "Правда! Частые короткие занятия запоминаются лучше."],
+    ["Говорить можно, только когда знаешь язык без ошибок.", false, "Миф! Говорить нужно с первого дня — так учатся быстрее."],
+    ["Повторение через паузы помогает запомнить надолго.", true, "Правда! Это интервальное повторение."],
+    ["Учить длинные списки отдельных слов — лучший способ.", false, "Миф! Лучше учить фразы и слова в контексте."]
+  ],
+  planTitle: "Мой план",
+  why: "Зачем мне этот язык?", whyPh: "Например: чтобы говорить с друзьями, для работы, для путешествий…",
+  minutes: "Сколько минут в день я буду заниматься?",
+  when: "Когда я буду заниматься?",
+  whenOpts: ["после утреннего кофе","в дороге","в обед","перед сном"],
+  goal: "Моя первая маленькая цель", goalPh: "Например: за неделю пройти первый урок",
+  make: "Создать моё обещание ✨",
+  promiseTitle: "🤝 Моё обещание",
+  pWhy: "Я учу язык, потому что", pDaily: "Я занимаюсь", pMin: "минут каждый день,", pGoal: "Моя первая цель:",
+  copy: "📋 Скопировать обещание", copied: "Скопировано ✅",
+  shot: "Сделай скриншот и поставь на заставку — так ты будешь помнить о цели.",
+  endTitle: "Ты готов(а)! 🚀", endText: "Главный секрет — не талант, а регулярность. Открой первый урок и пройди хотя бы один уровень прямо сегодня.",
+  again: "🔁 Пройти ещё раз", quizRes: "Правильно: ",
+  foot: "© 2026 Daria Botina"
+},
+tr: {
+  title: "Ders 0: Bir dil nasıl öğrenilir ve bırakılmaz",
+  sub: "Psikologlardan, dilbilimcilerden ve poliglotlardan 9 tavsiye. 10 dakika — ve kendi planın hazır.",
+  start: "Başla ▶", next: "Devam ▶", back: "◀", lang: "Русский",
+  tips: [
+    ["🎯","Kendi «neden»ini bul","Hedef senin ve somut olunca motivasyon daha uzun sürer: «İspanyolca öğrenmek» değil, «3 ay sonra Madrid'de kafede rahatça sipariş vermek».","Hedefini yaz ve ona ulaştığını hayal et.","Psikologlar: öz-belirleme kuramı"],
+    ["⏱️","Her gün biraz","Her gün 15 dakika, haftada bir 2 saatten daha iyi çalışır. Beyin sık ve kısa tekrarlarla hatırlar.","Bugün 10 dakika, «bir gün mükemmel bir saatten» iyidir.","Hafıza ve alışkanlık araştırmaları"],
+    ["🔗","Bir alışkanlığa bağla","Yeni bir şeyi, zaten her gün yaptığın bir şeyin hemen ardından yaparsan daha kolay alışırsın.","«Sabah kahvesinden sonra — dersten bir seviye».","Alışkanlık psikolojisi"],
+    ["🔁","Aralıklarla tekrar et","Yeni bilgiyi çok çabuk unuturuz. 1 gün, 3 gün ve bir hafta sonra tekrar etmek, kelimeleri uzun süreli hafızaya taşır.","Bitirdiğin derse bir gün ve bir hafta sonra tekrar dön.","Ebbinghaus'un unutma eğrisi"],
+    ["🗣️","İlk günden konuş","Poliglotlar bir konuda hemfikir: en baştan, tek tek kelimelerle bile olsa sesli konuşmak gerekir. Konuşmacıyı tekrar et — buna «gölgeleme» denir.","Dersteki her cümleyi sesli söyle.","Poliglotların deneyimi"],
+    ["🌱","Hata = gelişim","Hata yapmayan konuşmaz. Beyin tam da hatalardan öğrenir. Mükemmel söylemesen de seni anlarlar.","Hata mı yaptın? Harika — şu an öğreniyorsun.","Psikoloji: gelişim zihniyeti"],
+    ["🧩","Kelime değil, cümle öğren","Hazır kalıplar daha kolay akılda kalır ve hemen işe yarar. «Nasılsın?» üç ayrı kelimeden daha faydalıdır.","Kalıpları bütün olarak öğren: «Benim adım…», «…'denim».","Dilbilimciler: kalıplarla öğrenme"],
+    ["🎧","Sevdiğin şeyleri dinle","Anladığın ve ilgini çeken içerik — şarkılar, videolar, diziler — dili zahmetsizce «emmeye» yardım eder.","Her gün en az 5 dakika o dili dinle.","Dilbilim: anlaşılır girdi kuramı"],
+    ["📈","Durgunluk normaldir","Bazı günler ilerleme yokmuş gibi gelir. Bu öğrenmenin normal bir parçasıdır: beyin kendini yeniden düzenliyor. Önemli olan durmamak.","Küçük zaferlerini not et ve kendini öv.","Psikologlar ve poliglotlar"]
+  ],
+  quizTitle: "Kendini dene: efsane mi, gerçek mi?",
+  myth: "Efsane", truth: "Gerçek",
+  quiz: [
+    ["Yetişkinler artık yeni bir dil öğrenemez.", false, "Efsane! Yetişkinler çok iyi öğrenir: mantıkları, anlam hafızaları ve deneyimleri daha güçlüdür."],
+    ["Her gün 15 dakika, haftada bir 2 saatten iyidir.", true, "Gerçek! Sık ve kısa dersler daha iyi akılda kalır."],
+    ["Ancak hatasız bildiğinde konuşabilirsin.", false, "Efsane! İlk günden konuşmak gerekir — böyle daha hızlı öğrenilir."],
+    ["Aralıklarla tekrar, uzun süre hatırlamaya yardım eder.", true, "Gerçek! Buna aralıklı tekrar denir."],
+    ["Uzun kelime listeleri ezberlemek en iyi yöntemdir.", false, "Efsane! Cümleleri ve kelimeleri bağlam içinde öğrenmek daha iyidir."]
+  ],
+  planTitle: "Benim planım",
+  why: "Bu dili neden öğreniyorum?", whyPh: "Örneğin: arkadaşlarla konuşmak, iş, seyahat için…",
+  minutes: "Günde kaç dakika çalışacağım?",
+  when: "Ne zaman çalışacağım?",
+  whenOpts: ["sabah kahvesinden sonra","yolda","öğle arasında","yatmadan önce"],
+  goal: "İlk küçük hedefim", goalPh: "Örneğin: bir haftada ilk dersi bitirmek",
+  make: "Sözümü oluştur ✨",
+  promiseTitle: "🤝 Benim sözüm",
+  pWhy: "Bu dili öğreniyorum çünkü", pDaily: "Her gün", pMin: "dakika çalışıyorum,", pGoal: "İlk hedefim:",
+  copy: "📋 Sözümü kopyala", copied: "Kopyalandı ✅",
+  shot: "Ekran görüntüsü al ve duvar kâğıdı yap — böylece hedefini unutmazsın.",
+  endTitle: "Hazırsın! 🚀", endText: "En büyük sır yetenek değil, düzenliliktir. İlk dersi aç ve bugün en az bir seviyeyi bitir.",
+  again: "🔁 Tekrar geç", quizRes: "Doğru: ",
+  foot: "© 2026 Daria Botina"
+}
+};
+let LANG = "ru", step = 0, score = 0, plan = {why: "", min: 15, when: 0, goal: ""};
+try{ const s = JSON.parse(localStorage.getItem("motiv") || "null"); if(s){ LANG = s.lang || LANG; plan = Object.assign(plan, s.plan || {}); } }catch(e){}
+try{ if(!localStorage.getItem("motiv") && /^tr/i.test(navigator.language || "")) LANG = "tr"; }catch(e){}
+const save = () => { try{ localStorage.setItem("motiv", JSON.stringify({lang: LANG, plan})); }catch(e){} };
+const $ = s => document.querySelector(s);
+const el = (t, c, h) => { const e = document.createElement(t); if(c) e.className = c; if(h != null) e.innerHTML = h; return e; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function L(){ return T[LANG]; }
+function total(){ return 1 + L().tips.length + L().quiz.length + 2; }
+function render(){
+  document.documentElement.lang = LANG;
+  const t = L(), app = $("#app"); app.innerHTML = "";
+  const top = el("div", "top");
+  const bar = el("div", "bar", "<i></i>"); bar.firstChild.style.width = Math.round(step / (total() - 1) * 100) + "%";
+  const lg = el("button", "lang", "🌐 " + t.lang); lg.onclick = () => { LANG = LANG === "ru" ? "tr" : "ru"; save(); render(); };
+  top.append(bar, lg); app.append(top);
+  const nTips = t.tips.length, nQ = t.quiz.length;
+  if(step === 0){
+    const h = el("div", "hero"); h.append(el("div", "emo", "🚀"), el("h1", "", esc(t.title)), el("p", "", esc(t.sub)));
+    const b = el("button", "btn", t.start); b.onclick = () => go(1); h.append(b); app.append(h);
+  } else if(step <= nTips){
+    const [e, h2, p, tip, src] = t.tips[step - 1];
+    const c = el("div", "card");
+    c.append(el("div", "emo", e), el("h2", "", (step) + ". " + esc(h2)), el("p", "", esc(p)), el("div", "tip", "💡 " + esc(tip)), el("div", "src", "📚 " + esc(src)));
+    app.append(c); app.append(nav());
+  } else if(step <= nTips + nQ){
+    const qi = step - nTips - 1, [q, ans, fbt] = t.quiz[qi];
+    if(qi === 0) score = 0;
+    const c = el("div", "card");
+    c.append(el("h2", "", "🧠 " + esc(t.quizTitle) + " (" + (qi + 1) + "/" + nQ + ")"), el("p", "q", esc(q)));
+    const o = el("div", "opts"), fb = el("div", "fb");
+    let done = false;
+    [[t.truth, true], [t.myth, false]].forEach(([lab, v]) => {
+      const b = el("button", "opt", lab);
+      b.onclick = () => { if(done) return; done = true; const ok = v === ans; if(ok) score++; b.classList.add(ok ? "ok" : "bad"); [...o.children].forEach(x => { if(x !== b && !ok) x.classList.add("ok"); }); fb.textContent = (ok ? "✅ " : "❌ ") + fbt; nb.disabled = false; };
+      o.append(b);
+    });
+    c.append(o, fb); app.append(c);
+    const row = el("div", "row"); const bb = el("button", "btn ghost", t.back); bb.style.flex = "0 0 64px"; bb.onclick = () => go(step - 1);
+    const nb = el("button", "btn", t.next); nb.disabled = true; nb.onclick = () => go(step + 1); row.append(bb, nb); app.append(row);
+  } else if(step === nTips + nQ + 1){
+    const c = el("div", "card");
+    c.append(el("div", "emo", "📝"), el("h2", "", esc(t.planTitle)));
+    if(score) c.append(el("p", "note", t.quizRes + score + " / " + nQ));
+    c.append(el("label", "fl", esc(t.why)));
+    const w = el("textarea"); w.rows = 2; w.placeholder = t.whyPh; w.value = plan.why; w.oninput = () => { plan.why = w.value; save(); }; c.append(w);
+    c.append(el("label", "fl", esc(t.minutes)));
+    const ch = el("div", "chips");
+    [5, 10, 15, 20, 30].forEach(m => { const b = el("button", "chip" + (plan.min === m ? " on" : ""), m + " min"); b.onclick = () => { plan.min = m; save(); [...ch.children].forEach(x => x.classList.toggle("on", x === b)); }; ch.append(b); });
+    c.append(ch);
+    c.append(el("label", "fl", esc(t.when)));
+    const ch2 = el("div", "chips");
+    t.whenOpts.forEach((wo, i) => { const b = el("button", "chip" + (plan.when === i ? " on" : ""), esc(wo)); b.onclick = () => { plan.when = i; save(); [...ch2.children].forEach(x => x.classList.toggle("on", x === b)); }; ch2.append(b); });
+    c.append(ch2);
+    c.append(el("label", "fl", esc(t.goal)));
+    const g = el("input"); g.type = "text"; g.placeholder = t.goalPh; g.value = plan.goal; g.oninput = () => { plan.goal = g.value; save(); }; c.append(g);
+    app.append(c);
+    const row = el("div", "row"); const bb = el("button", "btn ghost", t.back); bb.style.flex = "0 0 64px"; bb.onclick = () => go(step - 1);
+    const nb = el("button", "btn", t.make); nb.onclick = () => go(step + 1); row.append(bb, nb); app.append(row);
+  } else {
+    const pr = el("div", "promise");
+    const whyTxt = plan.why.trim() || "…", goalTxt = plan.goal.trim() || "…";
+    pr.append(el("h2", "", esc(t.promiseTitle)),
+      el("p", "", esc(t.pWhy) + " <b>" + esc(whyTxt) + "</b>."),
+      el("p", "", esc(t.pDaily) + " <b>" + plan.min + "</b> " + esc(t.pMin) + " <b>" + esc(t.whenOpts[plan.when]) + "</b>."),
+      el("p", "", esc(t.pGoal) + " <b>" + esc(goalTxt) + "</b>."));
+    app.append(pr);
+    const txt = t.promiseTitle + "\n" + t.pWhy + " " + whyTxt + ".\n" + t.pDaily + " " + plan.min + " " + t.pMin + " " + t.whenOpts[plan.when] + ".\n" + t.pGoal + " " + goalTxt + ".";
+    const cp = el("button", "btn ghost", t.copy); cp.style.marginTop = "16px";
+    cp.onclick = () => { const ok = () => cp.textContent = t.copied; if(navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, ok); else ok(); };
+    app.append(cp, el("p", "note", esc(t.shot)));
+    const end = el("div", "card"); end.style.marginTop = "18px";
+    end.append(el("div", "emo", "🏁"), el("h2", "", esc(t.endTitle)), el("p", "", esc(t.endText)));
+    app.append(end);
+    const ag = el("button", "btn ghost", t.again); ag.style.marginTop = "16px"; ag.onclick = () => go(0); app.append(ag);
+  }
+  if(step < total() - 1){ const sk = el("button", "btn ghost", LANG === "tr" ? "⏭ Bu sayfayı geç" : "⏭ Пропустить эту страницу"); sk.style.marginTop = "18px"; sk.style.boxShadow = "none"; sk.style.color = "var(--muted)"; sk.onclick = () => go(step + 1); app.append(sk); }
+  app.append(el("p", "foot", t.foot));
+  window.scrollTo(0, 0);
+}
+function nav(){
+  const t = L(), row = el("div", "row");
+  const bb = el("button", "btn ghost", t.back); bb.style.flex = "0 0 64px"; bb.onclick = () => go(step - 1);
+  const nb = el("button", "btn", t.next); nb.onclick = () => go(step + 1);
+  row.append(bb, nb); return row;
+}
+function go(n){ step = Math.max(0, Math.min(total() - 1, n)); render(); }
+render();
+</script>
+</body>
+</html>
