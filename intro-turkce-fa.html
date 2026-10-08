@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>درس ۰: چرا ترکی؟</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Nunito:wght@500;700;800&family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F0FF;--surface:#fff;--ink:#1F1640;--muted:#6A6290;--violet:#6C3BFF;--violet-soft:#E6DEFF;--pink:#FF4F8B;--sun:#FFC83D;--mint:#10A877;--mint-soft:#D7F6EA;--coral:#E2482F;--coral-soft:#FFE1DA;--line:#DDD6F5;--on-violet:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151032;--surface:#221A4C;--ink:#F1EEFF;--muted:#B0A8D8;--violet:#9C7BFF;--violet-soft:#33296B;--pink:#FF77A6;--sun:#FFD465;--mint:#3CD8A4;--mint-soft:#15433A;--coral:#FF7E68;--coral-soft:#4A221C;--line:#3A3170;--on-violet:#151032}}
+:root[data-theme="dark"]{--bg:#151032;--surface:#221A4C;--ink:#F1EEFF;--muted:#B0A8D8;--violet:#9C7BFF;--violet-soft:#33296B;--pink:#FF77A6;--sun:#FFD465;--mint:#3CD8A4;--mint-soft:#15433A;--coral:#FF7E68;--coral-soft:#4A221C;--line:#3A3170;--on-violet:#151032}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:700 18px/1.7 Nunito,Vazirmatn,system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",Vazirmatn,Georgia,serif;line-height:1.4;margin:0}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+[hidden]{display:none!important}
+.wrap{max-width:560px;margin:0 auto;padding:18px 18px 60px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:16px;padding:15px 22px;background:var(--violet);color:var(--on-violet);font-weight:800;font-size:1.05rem;box-shadow:0 4px 0 rgba(0,0,0,.22);cursor:pointer;width:100%}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22)}
+.btn.ghost{background:var(--surface);color:var(--violet);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.row{display:flex;gap:12px;margin-top:18px}.row .btn{flex:1}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bar{flex:1;height:14px;background:var(--line);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(270deg,var(--violet),var(--pink));transition:width .35s}
+.lang{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-weight:800;cursor:pointer}
+.hero{text-align:center;padding:30px 0 10px}
+.hero .emo{font-size:84px;line-height:1.1}
+.hero h1{font-size:2.1rem;margin:10px 0}
+.hero p{color:var(--muted);font-weight:600;margin:0 0 24px}
+.card{background:var(--surface);border:3px solid var(--line);border-radius:22px;padding:22px 20px;box-shadow:0 6px 0 var(--line)}
+.card .emo{font-size:62px;text-align:center;line-height:1.1}
+.card h2{font-size:1.5rem;text-align:center;margin:8px 0 12px}
+.card p{font-weight:600;margin:0 0 10px}
+.tip{background:var(--violet-soft);border-radius:14px;padding:10px 14px;font-weight:700;margin-top:12px}
+.src{display:inline-block;margin-top:12px;font-size:.82rem;color:var(--muted);font-weight:700}
+.q{font-size:1.25rem;text-align:center;margin:6px 0 18px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{background:var(--surface);border:3px solid var(--line);border-radius:16px;padding:15px;font-weight:800;box-shadow:0 4px 0 var(--line);cursor:pointer}
+.opt.ok{border-color:var(--mint);background:var(--mint-soft)}.opt.bad{border-color:var(--coral);background:var(--coral-soft)}
+.fb{margin-top:14px;font-weight:600;min-height:1.5em}
+label.fl{display:block;font-weight:800;margin:16px 0 8px}
+textarea,input[type=text]{width:100%;border:3px solid var(--line);border-radius:14px;padding:12px;background:var(--bg);font-weight:600;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:800;cursor:pointer}
+.chip.on{background:var(--violet);border-color:var(--violet);color:var(--on-violet)}
+.promise{background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff;border-radius:22px;padding:22px;margin-top:6px}
+.promise h2{font-size:1.5rem;margin-bottom:10px}
+.promise p{margin:6px 0;font-weight:700}
+.note{color:var(--muted);font-weight:600;font-size:.88rem;text-align:center;margin-top:14px}
+.foot{color:var(--muted);font-weight:500;font-size:.8rem;text-align:center;margin-top:26px}
+
+.words{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.wcard{border:3px solid var(--line);background:var(--bg);border-radius:16px;padding:12px 8px;text-align:center;cursor:pointer;min-height:84px;font-weight:800}
+.wcard .f{font-size:1.15rem;color:var(--violet)}
+.wcard .n{font-size:.95rem;color:var(--ink);margin-top:4px}
+.wcard .x{font-size:.75rem;color:var(--muted);font-weight:600}
+.flag{font-size:56px;text-align:center}
+.foot{direction:ltr}
+.wcard .f{direction:ltr;unicode-bidi:isolate}
+[dir=ltr]{unicode-bidi:isolate}
+.opt{unicode-bidi:plaintext}
+.part{display:inline-block;background:var(--violet-soft);color:var(--violet);border-radius:999px;padding:4px 12px;font-size:.8rem;font-weight:800;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const B = {"title": "درس ۰: چطور یک زبان را یاد بگیری و وسط راه ول نکنی", "sub": "۹ توصیه از روان‌شناس‌ها، زبان‌شناس‌ها و چندزبانه‌ها. ۱۰ دقیقه وقت بگذار تا برنامهٔ خودت را داشته باشی.", "start": "شروع کن ◀", "next": "بعدی ◀", "back": "▶", "lang": "Türkçe", "tips": [["🎯", "«چرا»ی خودت را پیدا کن", "انگیزه وقتی بیشتر دوام می‌آورد که هدف مال خودت و مشخص باشد: نه «ترکی یاد بگیرم»، بلکه «تا ۳ ماه دیگر، در سفرم به استانبول خودم غذا سفارش بدهم و با فروشنده‌ها راحت حرف بزنم».", "هدفت را بنویس و تصور کن که به آن رسیده‌ای.", "روان‌شناسی: نظریهٔ خودتعیین‌گری"], ["⏱️", "هر روز کمی", "روزی ۱۵ دقیقه بهتر از هفته‌ای یک بار ۲ ساعت جواب می‌دهد. مغز با تکرارهای کوتاه و پشت‌سرهم به خاطر می‌سپارد.", "۱۰ دقیقهٔ امروز بهتر از «یک ساعت عالی» در آینده است.", "پژوهش‌های حافظه و عادت"], ["🔗", "به یک عادت وصلش کن", "کار تازه وقتی راحت‌تر جا می‌افتد که آن را درست بعد از کاری انجام بدهی که همین حالا هم هر روز انجام می‌دهی.", "«بعد از چای صبح — یک مرحله از درس».", "روان‌شناسی عادت‌ها"], ["🔁", "با فاصله مرور کن", "چیزهای تازه را خیلی زود فراموش می‌کنیم. مرور بعد از ۱ روز، ۳ روز و یک هفته کلمه‌ها را به حافظهٔ بلندمدت می‌برد.", "یک روز و یک هفته بعد، دوباره سراغ درسی که خوانده‌ای برو.", "منحنی فراموشی ابینگهاوس"], ["🗣️", "از روز اول حرف بزن", "چندزبانه‌ها روی یک چیز توافق دارند: باید از همان اول بلند حرف زد، حتی اگر فقط یک کلمه باشد. هم‌زمان با گوینده تکرار کن — به این می‌گویند «شدوئینگ».", "هر جملهٔ درس را بلند تکرار کن.", "تجربهٔ چندزبانه‌ها"], ["🌱", "اشتباه یعنی رشد", "کسی که اشتباه نمی‌کند، حرف هم نمی‌زند. مغز دقیقاً از اشتباه‌ها یاد می‌گیرد. حتی اگر بی‌نقص نگویی، حرفت را می‌فهمند.", "اشتباه کردی؟ عالی است — یعنی داری یاد می‌گیری.", "روان‌شناسی: ذهنیت رشد"], ["🧩", "جمله یاد بگیر، نه کلمه", "جمله‌های آماده راحت‌تر در ذهن می‌مانند و فوراً به کار می‌آیند. «حالت چطوره؟» از سه کلمهٔ جدا مفیدتر است.", "تکه‌ها را کامل حفظ کن: «اسم من … است»، «من اهل … هستم».", "زبان‌شناسی: یادگیری «تکه‌ای»"], ["🎧", "چیزی گوش بده که دوستش داری", "مطلبی که برایت قابل‌فهم و جذاب است — آهنگ، ویدیو، سریال — کمک می‌کند زبان را بی‌زحمت «جذب» کنی.", "هر روز دست‌کم ۵ دقیقه به ترکی گوش بده.", "زبان‌شناسی: نظریهٔ درون‌داد قابل‌فهم"], ["📈", "درجا زدن طبیعی است", "روزهایی هست که حس می‌کنی هیچ پیشرفتی نداری. این بخشی عادی از یادگیری است: مغز دارد خودش را بازسازی می‌کند. مهم این است که نایستی.", "پیروزی‌های کوچکت را یادداشت کن و به خودت آفرین بگو.", "روان‌شناس‌ها و چندزبانه‌ها"]], "quizTitle": "خودت را بسنج: افسانه یا واقعیت؟", "myth": "افسانه", "truth": "واقعیت", "quiz": [["بزرگسال‌ها دیگر نمی‌توانند زبان جدید یاد بگیرند.", false, "افسانه! بزرگسال‌ها خیلی خوب یاد می‌گیرند: منطق، حافظهٔ معنایی و تجربهٔ بیشتری دارند."], ["روزی ۱۵ دقیقه بهتر از هفته‌ای یک بار ۲ ساعت است.", true, "واقعیت! جلسه‌های کوتاه و مکرر بهتر در ذهن می‌مانند."], ["فقط وقتی می‌شود حرف زد که زبان را بی‌غلط بلد باشی.", false, "افسانه! باید از روز اول حرف زد — این‌طوری سریع‌تر یاد می‌گیری."], ["مرور با فاصله کمک می‌کند چیزها را برای مدت طولانی به خاطر بسپاری.", true, "واقعیت! به این می‌گویند مرور فاصله‌دار."], ["حفظ کردن فهرست‌های بلند کلمه‌های جدا بهترین روش است.", false, "افسانه! بهتر است جمله‌ها و کلمه‌ها را در بافت یاد بگیری."]], "planTitle": "برنامهٔ من", "why": "چرا این زبان را یاد می‌گیرم؟", "whyPh": "مثلاً: برای حرف زدن با دوستانم، برای کار، برای سفر…", "minutes": "روزی چند دقیقه تمرین می‌کنم؟", "when": "کِی تمرین می‌کنم؟", "whenOpts": ["بعد از چای صبح", "در راه", "سر ناهار", "قبل از خواب"], "goal": "اولین هدف کوچکم", "goalPh": "مثلاً: تا یک هفته درس اول را تمام کنم", "make": "قول من را بساز ✨", "promiseTitle": "🤝 قول من", "pWhy": "من این زبان را یاد می‌گیرم، چون", "pDaily": "هر روز", "pMin": "دقیقه تمرین می‌کنم،", "pGoal": "اولین هدفم:", "copy": "📋 کپی کردن قول", "copied": "کپی شد ✅", "shot": "از این صفحه اسکرین‌شات بگیر و بگذارش روی صفحهٔ گوشی‌ات — این‌طوری هدفت یادت می‌ماند.", "endTitle": "آماده‌ای! 🚀", "endText": "راز اصلی استعداد نیست، نظم است. درس اول را باز کن و همین امروز دست‌کم یک مرحله‌اش را برو.", "again": "🔁 دوباره از اول", "quizRes": "درست: ", "foot": "© 2026 Daria Botina"};
+const C = {"id": "tr_fa", "lang": "fa", "tts": "tr-TR", "flag": "🇹🇷", "title": "درس ۰: چرا و چطور ترکی یاد بگیریم", "sub": "کمی دربارهٔ زبان و فرهنگ ترکی و ۹ توصیه برای این‌که آسان یاد بگیری و وسط راه ول نکنی.", "partCulture": "زبان و فرهنگ ترکی", "wordsTitle": "تو همین حالا هم کلمه‌های ترکی بلدی!", "wordsSub": "ترکی در دورهٔ عثمانی هزاران کلمه از فارسی و عربی گرفته است. روی هر کارت بزن تا بشنوی به ترکی چطور تلفظ می‌شود.", "why": "چرا ترکی یاد می‌گیرم؟", "pWhy": "من ترکی یاد می‌گیرم، چون", "endText": "راز اصلی نظم است. درس اول را باز کن و همین امروز دست‌کم یک مرحله‌اش را برو. ⁦Kolay gelsin!⁩", "firstUrl": "https://dariairamain-blip.github.io/Lessons/turkce-fa-1.html", "culture": [["🌍", "زبان دو قاره", "ترکی زبان مادری حدود <b>۸۰ میلیون</b> نفر است و از خانوادهٔ زبان‌های ترکی است. همراه با زبان‌های خویشاوندش (آذربایجانی، قزاقی، ازبکی، ترکمنی…) بیش از <b>۲۰۰ میلیون</b> نفر به آن‌ها حرف می‌زنند. میلیون‌ها ایرانی هم ترکی آذربایجانی حرف می‌زنند — اگر دوست یا هم‌کلاسی آذری‌زبان داری، کلی کلمه و جمله برایت آشنا خواهد بود!"], ["🔤", "الفبای لاتین و خواندن همان‌طور که نوشته می‌شود", "ترکی عثمانی با الفبای عربی‌ـ‌فارسی نوشته می‌شد، اما از سال ۱۹۲۸ ترکی با الفبای لاتین و از چپ به راست نوشته می‌شود. هر حرف یک صدا دارد و همه‌چیز همان‌طور که نوشته شده خوانده می‌شود. حرف‌های خاص کم‌اند: <b dir=\"ltr\">ç, ş, ğ, ı, ö, ü</b>."], ["🧱", "زبانِ لِگویی", "ترکی مثل لگو سرهم می‌شود: به کلمه تکه‌هایی اضافه می‌کنی. <b dir=\"ltr\">ev</b> — خانه، <b dir=\"ltr\">evler</b> — خانه‌ها، <b dir=\"ltr\">evlerimiz</b> — خانه‌هایمان، <b dir=\"ltr\">evlerimizde</b> — در خانه‌هایمان. واکه‌ها با هم هماهنگ می‌شوند: <b dir=\"ltr\">evler</b> ولی <b dir=\"ltr\">kitaplar</b>. یک خبر خوب: مثل فارسی، فعل آخر جمله می‌آید — <b dir=\"ltr\">Ben çay içiyorum</b> = من چای می‌نوشم."], ["☕", "چای، قهوه و مهمان‌نوازی", "ترک‌ها هم مثل ما ایرانی‌ها روزی چند بار چای می‌نوشند، در استکان‌های کمرباریکِ «لاله‌ای». قهوهٔ ترک هم در فهرست میراث فرهنگی ناملموس یونسکو ثبت شده است. دعوت کردن مهمان به <b dir=\"ltr\">çay</b> نشانهٔ دوستی است."], ["💬", "عبارت‌هایی که برای ما آشنا هستند", "<b dir=\"ltr\">Kolay gelsin</b> — «آسان باشد»؛ به کسی که کار می‌کند می‌گویند، درست مثل «خسته نباشی» خودمان. <b dir=\"ltr\">Geçmiş olsun</b> — «بگذرد»؛ به آدم بیمار، مثل «بلا دور باشه». <b dir=\"ltr\">Afiyet olsun</b> — «نوش جان». با این‌ها زود دل همه را به دست می‌آوری!"]], "words": [["kitap", "کتاب", ""], ["pencere", "پنجره", ""], ["dost", "دوست", ""], ["şehir", "شهر", ""], ["hava", "هوا", "هم «هوا» و هم «آب‌وهوا»"], ["renk", "رنگ", ""], ["çay", "چای", ""], ["pazar", "بازار", "و هم «یکشنبه»"]], "cquiz": [["ترکی از چه سالی با الفبای لاتین نوشته می‌شود؟", ["از ۱۹۲۸", "از ۱۴۵۳", "از ۲۰۰۰"], 0, "از سال ۱۹۲۸ — بعد از اصلاح الفبا."], ["به کسی که دارد کار می‌کند چه می‌گویند؟", ["Kolay gelsin!", "Afiyet olsun!", "İyi geceler!"], 0, "⁦Kolay gelsin⁩ — «آسان باشد»، مثل «خسته نباشی» خودمان."], ["کلمهٔ ⁦pencere⁩ در ترکی یعنی چه؟", ["پنجره", "در", "دیوار"], 0, "⁦Pencere⁩ — پنجره. این کلمه از فارسی به ترکی رفته است!"]], "partHow": "چطور یاد بگیریم", "cquizTitle": "حدس بزن", "bridgeTitle": "و حالا — چطور یاد بگیریم", "bridgeText": "حالا می‌دانی چرا می‌شود عاشق این زبان شد. بعدی‌ها ۹ توصیه از روان‌شناس‌ها، زبان‌شناس‌ها و چندزبانه‌هاست: چطور آسان یاد بگیری و وسط راه ول نکنی.", "firstLabel": "برو به درس اول ◀"};
+let step = 0, score = 0, cscore = 0, plan = {why: "", min: 15, when: 0, goal: ""};
+const KEY = "intro_" + C.id;
+try{ const s = JSON.parse(localStorage.getItem(KEY) || "null"); if(s) plan = Object.assign(plan, s); }catch(e){}
+const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(plan)); }catch(e){} };
+const fa = n => String(n).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+const $ = s => document.querySelector(s);
+const el = (t, c, h) => { const e = document.createElement(t); if(c) e.className = c; if(h != null) e.innerHTML = h; return e; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let voice = null;
+function pick(){ if(!("speechSynthesis" in window)) return; const v = speechSynthesis.getVoices(); voice = v.find(x => x.lang === C.tts) || v.find(x => x.lang && x.lang.toLowerCase().startsWith(C.tts.slice(0, 2))) || null; }
+if("speechSynthesis" in window){ pick(); speechSynthesis.onvoiceschanged = pick; }
+function say(t){ if(!("speechSynthesis" in window)) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = C.tts; u.rate = .75; if(voice) u.voice = voice; speechSynthesis.speak(u); }
+const S = [];
+S.push({k: "hero"});
+C.culture.forEach((c, i) => S.push({k: "cult", i}));
+S.push({k: "words"});
+C.cquiz.forEach((c, i) => S.push({k: "cq", i}));
+S.push({k: "bridge"});
+B.tips.forEach((c, i) => S.push({k: "tip", i}));
+B.quiz.forEach((c, i) => S.push({k: "q", i}));
+S.push({k: "plan"}); S.push({k: "promise"});
+function nav(nextLabel, disabled){
+  const row = el("div", "row");
+  const bb = el("button", "btn ghost", B.back); bb.style.flex = "0 0 64px"; bb.onclick = () => go(step - 1);
+  const nb = el("button", "btn", nextLabel || B.next); nb.disabled = !!disabled; nb.onclick = () => go(step + 1);
+  row.append(bb, nb); return [row, nb];
+}
+function quizCard(title, q, opts, correct, fbt, onOk){
+  const c = el("div", "card");
+  c.append(el("h2", "", title), el("p", "q", esc(q)));
+  const o = el("div", "opts"), fb = el("div", "fb"); let done = false;
+  const [row, nb] = nav(null, true);
+  opts.forEach((lab, idx) => {
+    const b = el("button", "opt", esc(lab));
+    b.onclick = () => { if(done) return; done = true; const ok = idx === correct; if(ok) onOk(); b.classList.add(ok ? "ok" : "bad"); if(!ok) o.children[correct].classList.add("ok"); fb.textContent = (ok ? "✅ " : "❌ ") + fbt; nb.disabled = false; };
+    o.append(b);
+  });
+  if(opts.length > 2) o.style.gridTemplateColumns = "1fr";
+  c.append(o, fb);
+  return [c, row];
+}
+function render(){
+  const app = $("#app"); app.innerHTML = "";
+  const top = el("div", "top"); const bar = el("div", "bar", "<i></i>"); bar.firstChild.style.width = Math.round(step / (S.length - 1) * 100) + "%"; top.append(bar); app.append(top);
+  const st = S[step];
+  if(st.k === "hero"){
+    const h = el("div", "hero"); h.append(el("div", "emo", C.flag), el("h1", "", esc(C.title)), el("p", "", esc(C.sub)));
+    const b = el("button", "btn", B.start); b.onclick = () => go(1); h.append(b); app.append(h);
+  } else if(st.k === "cult"){
+    const [e, h2, p] = C.culture[st.i];
+    const c = el("div", "card"); c.append(el("div", "part", esc(C.partCulture)), el("div", "emo", e), el("h2", "", esc(h2)), el("p", "", p));
+    app.append(c); app.append(nav()[0]);
+  } else if(st.k === "words"){
+    const c = el("div", "card"); c.append(el("div", "part", esc(C.partCulture)), el("div", "emo", "🔤"), el("h2", "", esc(C.wordsTitle)), el("p", "", esc(C.wordsSub)));
+    const g = el("div", "words");
+    C.words.forEach(([f, n, x]) => {
+      const w = el("button", "wcard"); w.innerHTML = '<div class="f">' + esc(f) + '</div><div class="n">❓</div>';
+      w.onclick = () => { w.innerHTML = '<div class="f">' + esc(f) + '</div><div class="n">' + esc(n) + '</div>' + (x ? '<div class="x">' + esc(x) + '</div>' : ""); say(f); };
+      g.append(w);
+    });
+    c.append(g); app.append(c); app.append(nav()[0]);
+  } else if(st.k === "cq"){
+    if(st.i === 0) cscore = 0;
+    const [q, opts, cor, fbt] = C.cquiz[st.i];
+    const [c, row] = quizCard("🎲 " + esc(C.cquizTitle) + " (" + fa(st.i + 1) + "/" + fa(C.cquiz.length) + ")", q, opts, cor, fbt, () => cscore++);
+    app.append(c, row);
+  } else if(st.k === "bridge"){
+    const c = el("div", "card"); c.append(el("div", "emo", "🧠"), el("h2", "", esc(C.bridgeTitle)), el("p", "", esc(C.bridgeText)));
+    app.append(c); app.append(nav()[0]);
+  } else if(st.k === "tip"){
+    const [e, h2, p, tip, src] = B.tips[st.i];
+    const c = el("div", "card");
+    c.append(el("div", "part", esc(C.partHow)), el("div", "emo", e), el("h2", "", fa(st.i + 1) + ". " + esc(h2)), el("p", "", esc(p)), el("div", "tip", "💡 " + esc(tip)), el("div", "src", "📚 " + esc(src)));
+    app.append(c); app.append(nav()[0]);
+  } else if(st.k === "q"){
+    if(st.i === 0) score = 0;
+    const [q, ans, fbt] = B.quiz[st.i];
+    const [c, row] = quizCard("🧠 " + esc(B.quizTitle) + " (" + fa(st.i + 1) + "/" + fa(B.quiz.length) + ")", q, [B.truth, B.myth], ans ? 0 : 1, fbt, () => score++);
+    app.append(c, row);
+  } else if(st.k === "plan"){
+    const c = el("div", "card");
+    c.append(el("div", "emo", "📝"), el("h2", "", esc(B.planTitle)));
+    c.append(el("label", "fl", esc(C.why)));
+    const w = el("textarea"); w.rows = 2; w.placeholder = B.whyPh; w.value = plan.why; w.oninput = () => { plan.why = w.value; save(); }; c.append(w);
+    c.append(el("label", "fl", esc(B.minutes)));
+    const ch = el("div", "chips");
+    [5, 10, 15, 20, 30].forEach(m => { const b = el("button", "chip" + (plan.min === m ? " on" : ""), fa(m) + " دقیقه"); b.onclick = () => { plan.min = m; save(); [...ch.children].forEach(x => x.classList.toggle("on", x === b)); }; ch.append(b); });
+    c.append(ch, el("label", "fl", esc(B.when)));
+    const ch2 = el("div", "chips");
+    B.whenOpts.forEach((wo, i) => { const b = el("button", "chip" + (plan.when === i ? " on" : ""), esc(wo)); b.onclick = () => { plan.when = i; save(); [...ch2.children].forEach(x => x.classList.toggle("on", x === b)); }; ch2.append(b); });
+    c.append(ch2, el("label", "fl", esc(B.goal)));
+    const g = el("input"); g.type = "text"; g.placeholder = B.goalPh; g.value = plan.goal; g.oninput = () => { plan.goal = g.value; save(); }; c.append(g);
+    app.append(c); app.append(nav(B.make)[0]);
+  } else {
+    const pr = el("div", "promise");
+    const whyTxt = plan.why.trim() || "…", goalTxt = plan.goal.trim() || "…";
+    pr.append(el("h2", "", esc(B.promiseTitle)),
+      el("p", "", esc(C.pWhy) + " <b>" + esc(whyTxt) + "</b>."),
+      el("p", "", esc(B.pDaily) + " <b>" + fa(plan.min) + "</b> " + esc(B.pMin) + " <b>" + esc(B.whenOpts[plan.when]) + "</b>."),
+      el("p", "", esc(B.pGoal) + " <b>" + esc(goalTxt) + "</b>."));
+    app.append(pr);
+    const txt = B.promiseTitle + "\n" + C.pWhy + " " + whyTxt + ".\n" + B.pDaily + " " + fa(plan.min) + " " + B.pMin + " " + B.whenOpts[plan.when] + ".\n" + B.pGoal + " " + goalTxt + ".";
+    const cp = el("button", "btn ghost", B.copy); cp.style.marginTop = "16px";
+    cp.onclick = () => { const ok = () => cp.textContent = B.copied; if(navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, ok); else ok(); };
+    app.append(cp, el("p", "note", esc(B.shot)));
+    const end = el("div", "card"); end.style.marginTop = "18px";
+    end.append(el("div", "emo", "🏁"), el("h2", "", esc(B.endTitle)), el("p", "", esc(C.endText)));
+    if(C.firstUrl){ const a = el("a", "btn", esc(C.firstLabel)); a.href = C.firstUrl; a.style.textDecoration = "none"; a.style.marginTop = "14px"; end.append(a); }
+    app.append(end);
+    const ag = el("button", "btn ghost", B.again); ag.style.marginTop = "16px"; ag.onclick = () => go(0); app.append(ag);
+  }
+  if(step < S.length - 1){ const sk = el("button", "btn ghost", "⏭ رد شدن از این صفحه"); sk.style.marginTop = "18px"; sk.style.boxShadow = "none"; sk.style.color = "var(--muted)"; sk.onclick = () => go(step + 1); app.append(sk); }
+  app.append(el("p", "foot", B.foot));
+  window.scrollTo(0, 0);
+}
+function go(n){ step = Math.max(0, Math.min(S.length - 1, n)); render(); }
+render();
+</script>
+</body>
+</html>
