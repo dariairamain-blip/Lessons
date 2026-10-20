@@ -58,7 +58,7 @@ p{margin:0;line-height:1.45}
 .fb{border-radius:12px;padding:10px 12px;line-height:1.45}
 .fb.ok{background:var(--okbg);color:var(--ink)}
 .fb.bad{background:var(--badbg);color:var(--ink)}
-.fb b{display:block;margin-bottom:2px}
+.fb>b:first-child{display:block;margin-bottom:2px}
 .row{display:flex;gap:8px;flex-wrap:wrap}
 .btn{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:800;font-size:15px;cursor:pointer}
 .btn.pri{background:var(--sea);color:var(--card)}
@@ -127,6 +127,10 @@ p{margin:0;line-height:1.45}
 @keyframes fall{to{transform:translateY(110px) rotate(40deg);opacity:0}}
 @media (prefers-reduced-motion:reduce){.nw,.sc,.fall,.pop,.pop2{animation:none}}
 .ttr{color:var(--muted);font-size:16px;font-weight:600}
+.stick{position:sticky;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:5;background:var(--bg);padding-block:6px;box-shadow:0 -6px 12px -8px rgba(0,0,0,.25);border-radius:12px;flex-wrap:nowrap}
+.stick .btn{flex:1;padding:11px 8px;font-size:14px;white-space:nowrap}
+.lg{border-radius:12px;padding:8px 10px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:2px;font-size:14px}
+.lg.ok{border-left:4px solid var(--ok)}.lg.bad{border-left:4px solid var(--bad)}.lq{font-weight:700}
 .own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
 .modal{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;padding:16px;z-index:20}
 .modal .card{max-width:420px;display:flex;flex-direction:column;gap:8px}
@@ -166,7 +170,7 @@ const VERBS=[["👀","mirar","bakmak"],["📷","sacar fotos","fotoğraf çekmek"
 const VT=(t,place,verb,root,tail,pics,tr,extra)=>Object.assign({k:"toon",t,place,verb,root,tail,pics,tr},extra||{});
 const WHO=[["👨 Fatih (yo)",null],["👩 Daria (tú)",null],["👨👩 İkisi (nosotros)",null]];
 const LH="Son eke bak: -o = ben, -as = sen, -amos = biz.";
-const toonA={k:"toon",t:"🎬 Adım A: yo · tú · nosotros",steps:[
+const toonA={k:"toon",t:"🎬 yo · tú · nosotros",steps:[
   {h:`<div class="big pop">👨</div><div class="tw pop2">yo</div>`,tr:"ben",say:"yo",c:"1 / 3 · Fatih kendinden bahsediyor"},
   {h:`<div class="big pop">👨</div><div class="tw2 pop2">Yo, Fatih.</div>`,tr:"Ben, Fatih.",say:"Yo, Fatih.",c:"1 / 3"},
   {h:`<div class="big pop">👩</div><div class="tw pop2">tú</div>`,tr:"sen",say:"tú",c:"2 / 3 · Fatih, Daria ile konuşuyor"},
@@ -174,35 +178,35 @@ const toonA={k:"toon",t:"🎬 Adım A: yo · tú · nosotros",steps:[
   {h:`<div class="big pop">👨👩</div><div class="tw pop2">nosotros</div>`,tr:"biz",say:"nosotros",c:"3 / 3 · İkisi birlikte"},
   {h:`<div class="big pop">👨👩</div><div class="tw2 pop2">Nosotros, juntos.</div>`,tr:"Biz, birlikte.",say:"Nosotros, juntos.",c:"3 / 3"}],
   fin:[["👨","Yo, Fatih.","Ben, Fatih."],["👩","Tú, Daria.","Sen, Daria."],["👨👩","Nosotros, juntos.","Biz, birlikte."]]};
-const toonB=VT("🎬 Adım B: -o · -as · -amos",null,["🗣️","hablar","konuşmak"],"habl","español",["👨🗣️","👩🗣️","👨👩🗣️"],
+const toonB=VT("🎬 hablar: -o · -as · -amos",null,["🗣️","hablar","konuşmak"],"habl","español",["👨🗣️","👩🗣️","👨👩🗣️"],
   ["Ben İspanyolca konuşuyorum.","Sen İspanyolca konuşuyorsun.","Biz İspanyolca konuşuyoruz."],{schema:true});
 const C3=[["🎧","escuchar","escuch","dinlemek","dinliyorum · dinliyorsun · dinliyoruz"],["☕","tomar","tom","içmek","içiyorum · içiyorsun · içiyoruz"],["🚶","caminar","camin","yürümek","yürüyorum · yürüyorsun · yürüyoruz"]];
-const toonC={k:"toon",t:"🎬 Adım C: escuchar · tomar · caminar",steps:C3.flatMap(([e,v,r,t,f],i)=>[
+const toonC={k:"toon",t:"🎬 escuchar · tomar · caminar",steps:C3.flatMap(([e,v,r,t,f],i)=>[
   {h:`<div class="big pop">${e}</div><div class="tw pop2">${v}</div>`,tr:t,say:v,c:`Yeni fiil ${i+1} / 3`},
   {h:`<div class="cutw"><span>${r}</span><span class="sc">✂️</span><span class="end fall">ar</span></div>`,w:2400,c:"✂️ -ar'ı kes"},
   {h:`<div class="big pop">${e}</div><div class="tw2 pop2">${r}<b class="nw">o</b> · ${r}<b class="nw">as</b> · ${r}<b class="nw">amos</b></div>`,tr:f,say:`yo ${r}o, tú ${r}as, nosotros ${r}amos`,c:"yo -o · tú -as · nosotros -amos"}]),
   fin:C3.map(([e,v,r,t,f])=>[e,`${v}: ${r}o · ${r}as · ${r}amos`,`${t}: ${f}`])};
 
 const MODS=[
- {n:"Adım A: yo · tú · nosotros",e:"👫",s:"3 yeni kelime + alıştırma",pages:[toonA,
+ {n:"yo · tú · nosotros",e:"👫",s:"ben · sen · biz",pages:[toonA,
   {k:"ch",pic:"👨☝️",q:"Fatih kendinden bahsediyor. Hangi kelime?",opts:[["yo","ben"],["tú","sen"],["nosotros","biz"]],a:0,why:"Kendinden bahsederken <b>yo</b> = ben.",hint:"„Ben Fatih.“"},
   {k:"ch",pic:"👨➡️👩",q:"Fatih, Daria ile konuşuyor. Daria için hangi kelime?",opts:[["nosotros","biz"],["tú","sen"],["yo","ben"]],a:1,why:"Konuştuğun kişi: <b>tú</b> = sen.",hint:"Karşındaki kişi = sen."},
   {k:"ch",pic:"👨👩",q:"Fatih ve Daria birlikte. Hangi kelime?",opts:[["yo","ben"],["tú","sen"],["nosotros","biz"]],a:2,why:"Ben + sen = <b>nosotros</b> = biz.",hint:"İkisi birlikte."},
   {k:"ch",pic:"🎧",q:"Dinle ve resmi seç.",listen:"Tú, Daria.",opts:[["👨",null],["👩",null],["👨👩",null]],a:1,why:"„<b>Tú</b>, Daria.“ → sen, Daria.",hint:"tú = sen."}]},
- {n:"Adım B: -o · -as · -amos",e:"✂️",s:"3 son ek + A ile birlikte",pages:[toonB,
+ {n:"hablar: -o · -as · -amos",e:"✂️",s:"konuşmak fiili",pages:[toonB,
   {k:"ch",pic:"👨🗣️",q:"Doğru fiili seç.",es:"Yo ___ español.",tr:"Ben İspanyolca konuşuyorum.",opts:[["hablo","konuşuyorum"],["hablas","konuşuyorsun"],["hablamos","konuşuyoruz"]],a:0,why:"<b>yo</b> → -o: habl<b>o</b>.",hint:"yo → -o"},
   {k:"ch",pic:"👩🗣️",q:"Doğru fiili seç.",es:"Tú ___ inglés.",tr:"Sen İngilizce konuşuyorsun.",opts:[["hablamos","konuşuyoruz"],["hablas","konuşuyorsun"],["hablo","konuşuyorum"]],a:1,why:"<b>tú</b> → -as: habl<b>as</b>.",hint:"tú → -as"},
   {k:"ch",pic:"👨👩🗣️",q:"Doğru fiili seç.",es:"Nosotros ___ turco.",tr:"Biz Türkçe konuşuyoruz.",opts:[["hablas","konuşuyorsun"],["hablo","konuşuyorum"],["hablamos","konuşuyoruz"]],a:2,why:"<b>nosotros</b> → -amos: habl<b>amos</b>.",hint:"nosotros → -amos"},
   {k:"ch",pic:"🧩",q:"Hangi kelime eksik?",es:"___ hablamos turco.",tr:"Biz Türkçe konuşuyoruz.",opts:[["Yo","Ben"],["Tú","Sen"],["Nosotros","Biz"]],a:2,why:"habl<b>amos</b> → -amos = <b>nosotros</b>.",hint:"Son eke bak: -amos."},
   {k:"ch",pic:"🎧",q:"Dinle: kim konuşuyor?",listen:"Hablas español.",opts:WHO,a:1,why:"„Habl<b>as</b> español.“ → -as = sen (Daria).",hint:LH}]},
- {n:"Adım C: escuchar · tomar · caminar",e:"🎧",s:"3 yeni fiil + hepsi birlikte",pages:[toonC,
+ {n:"escuchar · tomar · caminar",e:"🎧",s:"dinlemek · içmek · yürümek",pages:[toonC,
   {k:"ch",pic:"👨🎧",q:"Doğru fiili seç (escuchar).",es:"Yo ___ música.",tr:"Ben müzik dinliyorum.",opts:[["escuchamos","dinliyoruz"],["escucho","dinliyorum"],["escuchas","dinliyorsun"]],a:1,why:"<b>yo</b> → escuch<b>o</b>.",hint:"yo → -o"},
   {k:"ch",pic:"👩☕",q:"Doğru fiili seç (tomar).",es:"Tú ___ café.",tr:"Sen kahve içiyorsun.",opts:[["tomas","içiyorsun"],["tomo","içiyorum"],["tomamos","içiyoruz"]],a:0,why:"<b>tú</b> → tom<b>as</b>.",hint:"tú → -as"},
   {k:"ch",pic:"🚶‍♂️🚶‍♀️🏖️",q:"Doğru fiili seç (caminar).",es:"Nosotros ___ por la playa.",tr:"Biz sahilde yürüyoruz.",opts:[["camino","yürüyorum"],["caminas","yürüyorsun"],["caminamos","yürüyoruz"]],a:2,why:"<b>nosotros</b> → camin<b>amos</b>.",hint:"nosotros → -amos"},
   {k:"ch",pic:"👩🎧",q:"Fatih, Daria'ya söylüyor. Resme uygun cümle hangisi?",opts:[["Yo escucho música.","Ben müzik dinliyorum."],["Tú escuchas música.","Sen müzik dinliyorsun."],["Nosotros escuchamos música.","Biz müzik dinliyoruz."]],a:1,why:"Daria'ya „sen“ → <b>tú escuchas</b>.",hint:"Karşındaki = tú → -as"},
   {k:"ch",pic:"👨☕🗣️",q:"Fatih kendinden bahsediyor. Doğru cümle hangisi?",opts:[["Yo tomo café y hablo.","Ben kahve içiyorum ve konuşuyorum."],["Yo tomas café y hablas.",null],["Yo tomamos café y hablamos.",null]],a:0,why:"İki fiil de <b>yo</b> ile: tom<b>o</b>, habl<b>o</b>.",hint:"yo → iki fiilde de -o"},
   {k:"ch",pic:"🎧",q:"Dinle: kim yapıyor?",listen:"Caminamos y hablamos.",opts:WHO,a:2,why:"„Camin<b>amos</b> y habl<b>amos</b>.“ → biz.",hint:LH}]},
- {n:"Final: mesaj + cümle kur",e:"🏁",s:"her şey birlikte",pages:[{k:"read"},
+ {n:"Mesaj + cümle kur",e:"🏁",s:"Daria'dan mesaj",pages:[{k:"read"},
   {k:"ch",pic:"🏠",q:"Daria evde ne içiyor?",opts:[["Kahve",null],["Çay",null],["Limonata",null]],a:0,why:"„Hoy yo tomo café en casa.“ → kahve.",hint:"İkinci satır."},
   {k:"ch",pic:"🏖️",q:"Fatih nerede yürüyor?",opts:[["Evde",null],["Sahilde",null],["Kafede",null]],a:1,why:"„Tú caminas por la playa.“ → sahilde.",hint:"„playa“ = sahil."},
   {k:"ch",pic:"🌇",q:"Öğleden sonra birlikte ne yapıyorlar?",opts:[["Çay içip konuşuyorlar",null],["Sahilde yürüyorlar",null],["İspanya'ya gidiyorlar",null]],a:0,why:"„Por la tarde nosotros tomamos té y hablamos.“",hint:"„Por la tarde“ = öğleden sonra."},
@@ -271,7 +275,7 @@ function plStep(i,id){if(id!==qid)return;const n=PL.items.length;clearHl();
   PL.i=i;plBar();
   if(PL.mode==="toon"){const st=PL.items[i];$("#stage").innerHTML=`<div class="frame">${st.h}${st.tr?`<div class="ttr pop2">🇹🇷 ${st.tr}</div>`:""}</div>`;$("#tcap").textContent=st.c||"";
     if(st.say)setTimeout(()=>{if(id===qid)utter(st.say,()=>setTimeout(()=>plStep(i+1,id),800))},450);else setTimeout(()=>plStep(i+1,id),st.w||1800)}
-  else{const el=PL.items[i];if(!el.isConnected){plStep(i+1,id);return}hlEl(el).classList.add("speaking");
+  else{const el=PL.items[i];if(!el.isConnected){plStep(i+1,id);return}hlEl(el).classList.add("speaking");/* followRead */{const he=hlEl(el),r=he.getBoundingClientRect();if(r.top<70||r.bottom>innerHeight-90){try{he.scrollIntoView({block:"center",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})}catch(e){he.scrollIntoView()}}}
     utter(el.dataset.say||el.dataset.es,()=>setTimeout(()=>plStep(i+1,id),350))}}
 function plPlay(i){stopAll();PL.playing=true;plStep(Math.max(0,i),qid)}
 function plPause(){stopAll();PL.playing=false;plBar()}
@@ -284,13 +288,15 @@ const esLineT=(es,tr)=>`<div><div class="esl"><span class="es">${esc(es)}</span>
 const esLine=(es,tr,cls="es",pic)=>`<div><div class="esl"><span class="${cls}">${esc(es)}</span><button type="button" class="ic" data-say="${esc(es)}" aria-label="Dinle">🔊</button>${tr?`<button type="button" class="ic" data-tr aria-label="Çeviri">🌐</button>`:""}</div>${pic?`<div class="pics">${pic}</div>`:""}${tr?`<div class="trv" hidden>${esc(tr)}</div>`:""}</div>`;
 
 /* ---------- screens ---------- */
-function render(){
+function render(){const k0=S.v+"|"+S.m+"|"+S.p;
+  {const kk=S.v+"|"+S.m+"|"+S.p;if(S.ok&&S.v==="mod"&&kk!==lastKey){const P=MODS[S.m].pages[S.p];if(P&&(P.k==="ch"||P.k==="bd")){delete S.ans[S.m+"-"+S.p];delete P.sh;save()}}} /* freshTask */
   const pg=$("#page");let h="";
-  $("#nav").hidden=!S.ok||S.v==="menu";
+  $("#nav").hidden=!S.ok||S.v==="menu"||S.v==="log";
   $("#mbtn").hidden=!S.ok;
   let pct=0;
   if(!S.ok){h=gate()}
   else if(S.v==="intro"){h=intro()}
+  else if(S.v==="log"){h=logView()}
   else if(S.v==="menu"){h=menu();pct=Object.keys(S.done).length/MODS.length*100}
   else if(S.v==="mdone"){h=mdone();pct=100}
   else{const M=MODS[S.m],P=M.pages[S.p];pct=(S.p)/M.pages.length*100;
@@ -299,11 +305,11 @@ function render(){
   pg.innerHTML=`<div class="scr">${h}</div>`;
   $("#back").textContent=S.v==="intro"?"☰ Menü":"← Geri";
   $("#next").textContent=S.v==="intro"?"Başla →":S.v==="mdone"?(S.m<MODS.length-1?"Sonraki bölüm →":"☰ Menü"):"İleri →";
-  const tb=$("#tbar"),topb=$("#abar");topb.innerHTML="";const ab=tb||topb;topb.hidden=!!tb||!S.ok||S.v==="menu"||S.v==="intro";
+  const tb=$("#tbar"),topb=$("#abar");topb.innerHTML="";const ab=tb||topb;topb.hidden=!!tb||!S.ok||S.v==="menu"||S.v==="intro"||S.v==="log";
   ab.innerHTML=`<span class="lb">🔊 <span id="pcnt">–</span></span><button type="button" id="pprev" aria-label="Önceki">⏮</button><button type="button" id="ptog" class="big2">▶</button><button type="button" id="pnext" aria-label="Sonraki">⏭</button><button type="button" id="prst" aria-label="Baştan">↺</button><button type="button" id="aauto" class="${S.auto?"":"off"}">Oto: ${S.auto?"Açık":"Kapalı"}</button>`;
   $("#pprev").onclick=plPrev;$("#ptog").onclick=plToggle;$("#pnext").onclick=plNext;$("#prst").onclick=playAll;
   $("#aauto").onclick=()=>{S.auto=!S.auto;save();if(!S.auto)plPause();const b=$("#aauto");b.textContent="Oto: "+(S.auto?"Açık":"Kapalı");b.className=S.auto?"":"off"};
-  wire();window.scrollTo(0,0);
+  wire();if(window.__lastTop!==k0){window.scrollTo(0,0);window.__lastTop=k0}else{const fb=document.querySelector("#page .fb");if(fb)fb.scrollIntoView({block:"nearest"})}
   const k=S.v+"|"+S.m+"|"+S.p;
   stopAll();plBuild();if(k!==lastKey){lastKey=k;if(S.ok&&S.auto&&!ab.hidden)playAll()}
 }
@@ -311,12 +317,12 @@ function gate(){return `<div class="gate scr"><div class="pic">🇪🇸🔑</div
  <p class="sub">Daria'nın sana gönderdiği kodu yaz. Kodu sadece bir kez yazman yeterli.</p>
  <input id="code" type="text" autocomplete="off" placeholder="Kod">
  <button class="btn pri" id="go" type="button">Giriş →</button><div class="err" id="err" aria-live="polite"></div></div>`}
-function intro(){return `<div class="pic">🇪🇸👋</div><div class="eyebrow">İspanyolca · Ders 3</div><h1>¡Hola, Fatih! Adım adım</h1>
- <p>Bu derste her seferinde sadece <b>3 yeni şey</b> öğreniyorsun, hemen alıştırma yapıyorsun. Sonra 3 yeni şey daha, öncekilerle birlikte. Kolaydan zora.</p>
- <div class="card"><p>👫 <b>Adım A:</b> yo · tú · nosotros<br>✂️ <b>Adım B:</b> -o · -as · -amos (hablar)<br>🎧 <b>Adım C:</b> escuchar · tomar · caminar<br>🏁 <b>Final:</b> Daria'dan mesaj + cümle kur</p></div>
+function intro(){return `<div class="pic">🇪🇸👋</div><div class="eyebrow">İspanyolca · Ders 3</div><h1>¡Hola, Fatih! Ben, sen, biz</h1>
+ <p>Bu derste neler var:</p>
+ <div class="card"><p>👫 <b>1. Bölüm:</b> yo · tú · nosotros — ben, sen, biz<br>✂️ <b>2. Bölüm:</b> hablar fiili: -o · -as · -amos<br>🎧 <b>3. Bölüm:</b> escuchar · tomar · caminar<br>🏁 <b>4. Bölüm:</b> Daria'dan mesaj + cümle kur</p></div>
  <p class="sub">Yaklaşık 15 dakika. 🔊 dinlemek için, 🌐 Türkçe çeviri için. Her bölümü istediğin zaman tekrar yapabilirsin.</p>`}
 function menu(){return `<h1>Ders 3 · Bölümler</h1><p class="sub">Sırayla git ya da istediğin bölümü seç.</p><div class="menu">`+
- MODS.map((M,i)=>`<button type="button" class="mi${S.done[i]?" done":""}" data-mod="${i}"><span class="e">${M.e}</span><span class="n">${i+1}. ${esc(M.n)}<br><span class="s">${esc(M.s)}</span></span>${S.done[i]?"✅":"▶"}</button>`).join("")+`</div>`}
+ MODS.map((M,i)=>`<button type="button" class="mi${S.done[i]?" done":""}" data-mod="${i}"><span class="e">${M.e}</span><span class="n">${i+1}. ${esc(M.n)}<br><span class="s">${esc(M.s)}</span></span>${S.done[i]?"✅":"▶"}</button>`).join("")+`</div><button type="button" class="btn sec" data-log>📋 Cevaplarım</button>`}
 function mdone(){const last=S.m===MODS.length-1;return `<div class="pic">${last?"🏆":"🎉"}</div><h1>${last?"¡Bravo, Fatih! Ders 3 bitti":"¡Muy bien! Bölüm bitti"}</h1>`+
  (last?`<div class="card"><table class="tbl"><tr><td>👨 yo</td><td>habl<span class="end">o</span></td><td class="tr">konuşuyorum</td></tr><tr><td>👩 tú</td><td>habl<span class="end">as</span></td><td class="tr">konuşuyorsun</td></tr><tr><td>👨👩 nosotros</td><td>habl<span class="end">amos</span></td><td class="tr">konuşuyoruz</td></tr></table></div>
  <p>Artık şunu söyleyebilirsin:</p>${esLine("Caminamos, tomamos café y hablamos español.","Yürüyoruz, kahve içiyoruz ve İspanyolca konuşuyoruz.","es","🚶‍♂️🚶‍♀️☕🗣️")}`
@@ -344,15 +350,17 @@ function page(P){
   if(P.k==="bd")return build(P);
 }
 const key=()=>S.m+"-"+S.p;
+const LTR={"Caminamos y hablamos.": "Yürüyoruz ve konuşuyoruz.", "Hablas español.": "İspanyolca konuşuyorsun.", "Tú, Daria.": "Sen, Daria."},OTR={};
 function choice(P){const a=S.ans[key()];
   let h=`<div class="pic">${P.pic}</div><p><b>${esc(P.q)}</b></p>`;
   if(P.es)h+=`<div class="card">${esLine(P.es,P.tr)}</div>`;
-  if(P.listen)h+=`<div class="card" style="text-align:center"><button type="button" class="btn pri" data-say="${esc(P.listen)}">🔊 Dinle</button></div>`;
+  if(P.listen){const lt=P.ltr||LTR[P.listen];h+=`<div class="card" style="text-align:center"><div class="esl" style="justify-content:center"><button type="button" class="btn pri" data-say="${esc(P.listen)}">🔊 Dinle</button>${lt?`<button type="button" class="ic" data-tr aria-label="🌐">🌐</button>`:""}</div>${lt?`<div class="trv" hidden><b>${esc(P.listen)}</b> — ${esc(lt)}</div>`:""}</div>`}
+  const trFor=o=>o[1]||OTR[o[0]]||null,anyT=P.opts.some(o=>trFor(o)),trF=o=>trFor(o)||(anyT?trFor(P.opts[P.a]):null);
   h+=`<div class="opts">`+P.opts.map((o,i)=>{let c="";if(a!=null){if(i===P.a)c=" ok";else if(i===a)c=" bad"}
-    return `<div class="opt"><button type="button" class="ob${c}" data-o="${i}"${o[1]?` data-es="${esc(o[0])}"`:""}${a!=null?" disabled":""}>${esc(o[0])}</button>${o[1]?`<button type="button" class="ic sm" data-tr aria-label="Çeviri">🌐</button><div class="trv" hidden>${esc(o[1])}</div>`:""}</div>`}).join("")+`</div>`;
+    return `<div class="opt"><button type="button" class="ob${c}" data-o="${i}"${anyT?` data-es="${esc(o[0])}"`:""}${a!=null?" disabled":""}>${esc(o[0])}</button>${trF(o)?`<button type="button" class="ic sm" data-tr aria-label="Çeviri">🌐</button><div class="trv" hidden>${esc(trF(o))}</div>`:""}</div>`}).join("")+`</div>`;
   if(a==null)h+=`<button type="button" class="skip" data-hint style="text-decoration:none">💡 İpucu</button><p class="hint" id="hint" hidden>${P.hint}</p>`;
-  else if(a===P.a)h+=`<div class="fb ok"><b>✅ ¡Muy bien!</b>${P.why}</div><button type="button" class="btn pri" data-next>Sonraki görev →</button>`;
-  else h+=`<div class="fb bad"><b>❌ Doğru cevap: ${esc(P.opts[P.a][0])}</b>${P.why}</div><div class="row"><button type="button" class="btn sec" data-retry>🔁 Tekrar dene</button><button type="button" class="btn pri" data-next>Sonraki görev →</button></div>`;
+  else if(a===P.a)h+=`<div class="fb ok"><b>✅ ¡Muy bien!</b>${P.why}</div><div class="row stick"><button type="button" class="btn pri" data-next>Sonraki görev →</button></div>`;
+  else h+=`<div class="fb bad"><b>❌ Doğru cevap: ${esc(P.opts[P.a][0])}</b>${P.why}</div><div class="row stick"><button type="button" class="btn sec" data-retry>🔁 Tekrar dene</button><button type="button" class="btn pri" data-next>Sonraki görev →</button></div>`;
   return h}
 function build(P){const st=S.ans[key()]||{pick:[],res:null};
   const shuffled=P.sh||(P.sh=P.w.map((w,i)=>i).sort(()=>Math.random()-.5));
@@ -361,26 +369,43 @@ function build(P){const st=S.ans[key()]||{pick:[],res:null};
    <div class="chips">${shuffled.map(wi=>`<button type="button" class="chip" data-pk="${wi}"${st.pick.includes(wi)||st.res!=null?" disabled":""}>${esc(P.w[wi])}</button>`).join("")}</div>`;
   const full=P.w.join(" ");
   if(st.res==null)h+=`<div class="row"><button type="button" class="btn pri" data-chk${st.pick.length<P.w.length?" disabled":""}>Kontrol et</button></div><button type="button" class="skip" data-hint style="text-decoration:none">💡 İpucu</button><p class="hint" id="hint" hidden>İlk kelime büyük harfle başlar, son kelimede nokta var.</p>`;
-  else if(st.res)h+=`<div class="fb ok"><b>✅ ¡Perfecto!</b>${P.why}</div>${esLine(full,P.q)}<button type="button" class="btn pri" data-next>Sonraki görev →</button>`;
-  else h+=`<div class="fb bad"><b>❌ Doğrusu: ${esc(full)}</b>${P.why}</div><div class="row"><button type="button" class="btn sec" data-retry>🔁 Tekrar dene</button><button type="button" class="btn pri" data-next>Sonraki görev →</button></div>`;
+  else if(st.res)h+=`<div class="fb ok"><b>✅ ¡Perfecto!</b>${P.why}</div>${esLine(full,P.q)}<div class="row stick"><button type="button" class="btn pri" data-next>Sonraki görev →</button></div>`;
+  else h+=`<div class="fb bad"><b>❌ Doğrusu: ${esc(full)}</b>${P.why}</div><div class="row stick"><button type="button" class="btn sec" data-retry>🔁 Tekrar dene</button><button type="button" class="btn pri" data-next>Sonraki görev →</button></div>`;
   return h}
 
 /* ---------- events ---------- */
 function wireIn(root){
   root.querySelectorAll("[data-say]").forEach(b=>b.onclick=()=>say(b.dataset.say));
   root.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>{const t=b.closest(".opt,.vc,div:not(.esl)").querySelector(".trv");if(t)t.hidden=!t.hidden});}
+function logIt(e){S.log=S.log||{};S.log[key()]=Object.assign({m:S.m,p:S.p,t:Date.now()},e);save()}
+function logView(){const L=S.log||{};const ks=Object.keys(L).sort((a,b)=>{const[x1,y1]=a.split("-").map(Number),[x2,y2]=b.split("-").map(Number);return x1-x2||y1-y2});
+  const ok=ks.filter(k=>L[k].ok).length;let h=`<h1>📋 Cevaplarım</h1><p class="sub">Görevi tekrar yaparsan cevabın güncellenir.</p>`;
+  if(!ks.length)return h+`<p>Henüz cevap yok. Görevleri yap, her cevabın burada görünecek.</p><button type="button" class="btn sec" data-tomenu>← Menüye</button>`;
+  h+=`<div class="card"><b>${"✅ {ok} · ❌ {bad}".replace("{ok}",ok).replace("{bad}",ks.length-ok)}</b></div>`;let cur=-1;
+  ks.forEach(k=>{const e=L[k];if(e.m!==cur){cur=e.m;h+=`<h2>Bölüm ${e.m+1}. ${esc(MODS[e.m]?MODS[e.m].n:"")}</h2>`}
+    h+=`<div class="lg ${e.ok?"ok":"bad"}"><div class="lq">${e.ok?"✅":"❌"} ${esc(e.q)}</div><div>Senin cevabın: <b>${esc(e.your)}</b></div>${e.ok?"":`<div>Doğrusu: <b>${esc(e.right)}</b></div>`}</div>`});
+  return h+`<button type="button" class="btn sec" data-tomenu>← Menüye</button>`}
+function afterBuild(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
+  if(!S.auto){afterAnswer(ok,txt,lang);return}
+  if(ok){stopAll();let done=false;const go=()=>{if(done)return;done=true;setTimeout(()=>{if(same())next()},600)};
+    setTimeout(()=>{if(same())utter(txt,go,lang);else done=true},250);setTimeout(go,7000)}
+  else setTimeout(()=>{if(same())say(txt,lang)},700)}
+function afterAnswer(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
+  if(ok)setTimeout(()=>{if(same())next()},1100);else if(txt)setTimeout(()=>{if(same())say(txt,lang)},1000)}
 function wire(){
   const pg=$("#page");
   wireIn(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
   pg.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{const t=$("#hint");t.hidden=!t.hidden});
   pg.querySelectorAll("[data-skip],[data-next]").forEach(b=>b.onclick=next);
+  pg.querySelectorAll("[data-log]").forEach(b=>b.onclick=()=>{S.v="log";save();render()});
+  pg.querySelectorAll("[data-tomenu]").forEach(b=>b.onclick=()=>{S.v="menu";save();render()});
   pg.querySelectorAll("[data-mod]").forEach(b=>b.onclick=()=>{S.v="mod";S.m=+b.dataset.mod;S.p=0;save();render()});
-  pg.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{S.ans[key()]=+b.dataset.o;save();render()});
+  pg.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{const P=MODS[S.m].pages[S.p],o=+b.dataset.o;S.ans[key()]=o;logIt({q:P.q+(P.es?" — "+P.es:"")+(P.listen?" 🎧 "+P.listen:""),your:P.opts[o][0],right:P.opts[P.a][0],ok:o===P.a});save();render();afterAnswer(o===P.a,P.opts[P.a][1]?P.opts[P.a][0]:null,P.lang)});
   pg.querySelectorAll("[data-retry]").forEach(b=>b.onclick=()=>{delete S.ans[key()];const P=MODS[S.m].pages[S.p];delete P.sh;save();render()});
   const bd=()=>S.ans[key()]||(S.ans[key()]={pick:[],res:null});
   pg.querySelectorAll("[data-pk]").forEach(b=>b.onclick=()=>{bd().pick.push(+b.dataset.pk);save();render()});
   pg.querySelectorAll("[data-un]").forEach(b=>b.onclick=()=>{bd().pick.splice(+b.dataset.un,1);save();render()});
-  pg.querySelectorAll("[data-chk]").forEach(b=>b.onclick=()=>{const s=bd(),P=MODS[S.m].pages[S.p];s.res=s.pick.every((w,i)=>w===i)&&s.pick.length===P.w.length;save();render()});
+  pg.querySelectorAll("[data-chk]").forEach(b=>b.onclick=()=>{const s=bd(),P=MODS[S.m].pages[S.p];s.res=s.pick.every((w,i)=>w===i)&&s.pick.length===P.w.length;logIt({q:P.q,your:s.pick.map(i=>P.w[i]).join(" "),right:P.w.join(" "),ok:s.res});save();render();afterBuild(s.res,P.w.join(" "),P.lang)});
   const go=$("#go");if(go){const tryc=()=>{if(CODES.includes(norm($("#code").value))){S.ok=true;save();render()}else $("#err").textContent="Kod yanlış. Daria'nın gönderdiği kodu tekrar yaz."};
     go.onclick=tryc;$("#code").onkeydown=e=>{if(e.key==="Enter")tryc()}}
 }
