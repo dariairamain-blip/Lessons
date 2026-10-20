@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Fatih'in Dünyası</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: one phone-sized card per page, emoji tiles in a grid, sticky nav at the bottom */
+:root{
+  --bg:#eef3f7; --card:#ffffff; --ink:#14233a; --muted:#5c6b80;
+  --sea:#1f5fa8; --sun:#f2b632; --sel:#e3eefb; --line:#d5dfea;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Nunito Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd;
+  --sea:#6ea8ef; --sun:#f2b632; --sel:#1d3657; --line:#2a3b55; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd;
+  --sea:#6ea8ef; --sun:#f2b632; --sel:#1d3657; --line:#2a3b55; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:520px;margin:0 auto;padding-block:12px 96px;display:flex;flex-direction:column;gap:10px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:15px}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--sea);color:#fff;display:grid;place-items:center;font-size:13px;letter-spacing:.5px}
+.prog{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden;max-width:160px}
+.prog i{display:block;height:100%;background:var(--sun);transition:width .3s}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--sea);font-weight:700}
+h1{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.15;margin:2px 0 0;text-wrap:balance}
+.sub{color:var(--muted);margin:2px 0 0;line-height:1.4}
+.grp{font-weight:700;margin:6px 0 0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.grid.g4{grid-template-columns:repeat(4,1fr)}
+.tile{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:7px 4px 6px;
+  display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;font:inherit;color:inherit;
+  font-size:12.5px;line-height:1.2;text-align:center;position:relative;min-width:0}
+.tile .e{font-size:28px;line-height:1.1}
+.g4 .tile .e{font-size:24px}
+.g4 .tile{font-size:11.5px}
+.tile[aria-pressed="true"]{border-color:var(--sea);background:var(--sel)}
+.tile[aria-pressed="true"]::after{content:"✓";position:absolute;top:3px;right:5px;width:17px;height:17px;border-radius:50%;
+  background:var(--sea);color:var(--card);font-size:11px;display:grid;place-items:center;font-weight:700}
+.tile:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+input[type=text],textarea{width:100%;box-sizing:border-box;border:2px solid var(--line);border-radius:10px;
+  background:var(--card);color:var(--ink);font:inherit;padding:9px 11px}
+textarea{min-height:90px;resize:vertical}
+.skip{align-self:flex-start;background:none;border:0;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:2px 0;text-decoration:underline}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.nav div{max-width:520px;margin:0 auto;display:flex;gap:10px}
+.btn{flex:1;border:0;border-radius:12px;padding:13px;font:inherit;font-weight:700;font-size:16px;cursor:pointer}
+.btn.pri{background:var(--sea);color:var(--card)}
+.btn.sec{background:var(--card);color:var(--ink);border:2px solid var(--line);flex:0 0 32%}
+.hero{background:var(--card);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;border:1px solid var(--line)}
+.hero .big{font-size:46px}
+.steps{display:flex;flex-wrap:wrap;gap:6px}
+.steps span{background:var(--sel);border-radius:999px;padding:5px 10px;font-size:13px}
+.res{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;font-size:13px;line-height:1.45;max-height:46vh;overflow:auto}
+.copied{color:var(--sea);font-weight:700;min-height:1.2em}
+.own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
+@media (prefers-reduced-motion:reduce){.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="logo">DB</span>Daria Botina</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+  </div>
+  <main id="page"></main>
+  <div class="own">© Собственность Daria Botina</div>
+</div>
+<nav class="nav"><div>
+  <button class="btn sec" id="back" type="button">← Geri</button>
+  <button class="btn pri" id="next" type="button">İleri →</button>
+</div></nav>
+
+<script>
+const PAGES=[
+ {intro:true},
+ {lvl:"1 · Çevre",t:"Nerede yaşıyorsun?",s:"Uygun olanların hepsini işaretle.",groups:[
+   {q:"Evin",items:[["🏢","Apartman dairesi"],["🏡","Müstakil ev"],["🏘️","Site"],["🌆","Şehir merkezi"],["🌊","Denize yakın"],["🌳","Bahçeli"]]},
+   {q:"Kiminle?",items:[["❤️","Sevgilimle"],["👨‍👩‍👧","Ailemle"],["🙋‍♂️","Yalnız"],["🐱","Kedi"],["🐶","Köpek"],["🪴","Bitkiler"]]}]},
+ {lvl:"1 · Çevre",t:"Evde en çok neyi kullanıyorsun?",s:"Sadece en sevdiklerin — çok seçmene gerek yok.",groups:[
+   {items:[["🛋️","Kanepe"],["📺","Televizyon"],["☕","Kahve makinesi"],["💻","Bilgisayar"],["🎮","Oyun konsolu"],["🌇","Balkon"],["🍳","Mutfak"],["🔥","Mangal"],["🚗","Araba"],["🛏️","Yatak"],["📚","Kitaplar"],["🎧","Kulaklık"]]}]},
+ {lvl:"2 · Davranış",t:"Mesleğin ne?",s:"İşini seç ya da aşağıya kendin yaz.",groups:[
+   {items:[["✈️","Havacılık"],["👨‍✈️","Pilot"],["🧳","Kabin ekibi"],["🛄","Yer hizmetleri"],["🔧","Teknik / bakım"],["🗓️","Operasyon / planlama"],["🗂️","Ofis / yönetim"],["📈","Satış / pazarlama"],["💡","IT / teknoloji"],["🏨","Turizm / otel"],["🎓","Eğitim"],["🏪","Kendi işim"]]}],
+  text:"Pozisyonun / ünvanın…"},
+ {lvl:"2 · Davranış",t:"İşte günün nasıl geçiyor?",s:"İşte sık yaptığın şeyler.",groups:[
+   {items:[["🛫","Uçuş / seyahat"],["🗣️","Müşterilerle konuşma"],["📞","Telefon"],["📧","E-posta"],["👥","Toplantı"],["🤝","Ekip çalışması"],["🌙","Vardiya"],["🏢","Havalimanı"],["📊","Rapor / tablo"],["🧩","Sorun çözme"],["🌍","Yabancılarla İngilizce"],["⏱️","Acil durumlar"]]}],
+  text:"İşinde en sevdiğin şey ne?"},
+ {lvl:"2 · Davranış",t:"Boş zamanında ne yapmayı seversin?",s:"İşte asıl eğlenceli kısım! 😄",cols4:true,groups:[
+   {items:[["⚽","Futbol"],["🏋️","Spor salonu"],["🏊","Yüzme / deniz"],["🥾","Doğa yürüyüşü"],["🚴","Bisiklet"],["🎣","Balık tutma"],["👨‍🍳","Yemek yapmak"],["🎬","Film / dizi"],["🎮","Video oyun"],["🎵","Müzik"],["📖","Kitap"],["📷","Fotoğraf"],["🏍️","Araba / motor"],["🎲","Tavla / okey"],["⛺","Kamp"],["💃","Dans"]]}],
+  text:"Başka bir hobin var mı?"},
+ {lvl:"2 · Davranış",t:"Hafta sonu nasıl geçer?",s:"Tipik bir hafta sonun.",groups:[
+   {items:[["🥐","Uzun kahvaltı"],["😴","Geç uyanmak"],["☕","Kafede oturmak"],["🍽️","Restoran"],["👫","Arkadaşlarla buluşma"],["👵","Aile ziyareti"],["🏖️","Plaj"],["🛍️","Alışveriş"],["🏟️","Maç izlemek"],["🚙","Kısa gezi"],["🧹","Ev işleri"],["🎤","Konser / etkinlik"]]}]},
+ {lvl:"1 · Çevre",t:"Ne yemeyi, içmeyi seversin?",s:"Diyaloglarımızda bunlar sipariş edilecek 😉",groups:[
+   {items:[["🫖","Çay"],["☕","Türk kahvesi"],["🥛","Latte / filtre"],["🍳","Kahvaltı"],["🥙","Kebap / döner"],["🐟","Balık"],["🍕","Pizza"],["🍔","Burger"],["🥗","Salata"],["🍰","Tatlı"],["🍉","Meyve"],["🥘","Paella (merak ediyorum!)"]]}]},
+ {lvl:"Motivasyon",t:"Neden İspanyolca?",s:"Seni en çok ne motive ediyor?",groups:[
+   {items:[["🇪🇸","İspanya'da tatil"],["🌎","Latin Amerika"],["✈️","İşte yolcularla"],["📺","Dizi / film"],["🎶","Müzik"],["⚽","La Liga"],["🗨️","Yeni insanlar"],["🧠","Beyin sporu"],["💼","Kariyer"]]}],
+  text:"Başka bir sebep…"},
+ {lvl:"Son adım",t:"Kendini birkaç cümleyle anlat",s:"Türkçe yaz. Ne yazarsan derslerin konusu olur — ne kadar kişisel, o kadar eğlenceli!",
+  area:"Örnek: Antalya'da yaşıyorum, havalimanında çalışıyorum, hafta sonları denize gidiyorum…"},
+ {final:true}
+];
+let ans={},i=0;
+try{ans=JSON.parse(localStorage.getItem("fatih-anket")||"{}");i=+localStorage.getItem("fatih-anket-i")||0}catch(e){}
+if(i>=PAGES.length)i=0;
+const $=s=>document.querySelector(s);
+function save(){try{localStorage.setItem("fatih-anket",JSON.stringify(ans));localStorage.setItem("fatih-anket-i",i)}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function summary(){
+  let out="📝 Fatih — İspanyolca anketi\n";
+  PAGES.forEach((p,pi)=>{
+    if(!p.t)return;
+    const a=ans[pi]||{};const sel=(a.sel||[]);const txt=(a.txt||"").trim();
+    if(!sel.length&&!txt)return;
+    out+="\n▸ "+p.t+"\n";
+    if(sel.length)out+=sel.join(", ")+"\n";
+    if(txt)out+="✍️ "+txt+"\n";
+  });
+  return out;
+}
+
+function render(){
+  const p=PAGES[i];
+  $("#bar").style.width=(i/(PAGES.length-1)*100)+"%";
+  $("#back").hidden=i===0;
+  $("#next").textContent=p.intro?"Başlayalım →":p.final?"Baştan bak ↺":"İleri →";
+  let h="";
+  if(p.intro){
+    h=`<div class="hero"><div class="big">👋🇪🇸</div>
+      <h1>Merhaba Fatih!</h1>
+      <p class="sub">İspanyolcayı ders kitabındaki gibi değil, <b>senin hayatınla</b> öğreneceksin: senin evin, senin işin, senin hobilerin.</p>
+      <p class="sub">Bunun için önce seni tanımak istiyoruz. Sadece resimlere dokun ve işaretle — yaklaşık 5 dakika.</p>
+      <div class="steps"><span>🏠 Ev</span><span>💼 İş</span><span>🎣 Hobiler</span><span>🍽️ Yemek</span><span>🇪🇸 Motivasyon</span></div>
+      <p class="sub">Doğru ya da yanlış cevap yok. Sonunda sonuçları kopyalayıp Daria'ya gönderiyorsun.</p></div>`;
+  }else if(p.final){
+    const s=summary();
+    h=`<div class="eyebrow">Bitti 🎉</div><h1>Teşekkürler, Fatih!</h1>
+      <p class="sub">Şimdi bu sonuçları kopyala ve WhatsApp'tan Daria'ya gönder. Senin kelimelerinle ilk derslerin hazırlanacak.</p>
+      <div class="res" id="res">${esc(s)}</div>
+      <button class="btn pri" id="copy" type="button">📋 Sonuçları kopyala</button>
+      <div class="copied" id="copied" aria-live="polite"></div>`;
+  }else{
+    const a=ans[i]||(ans[i]={sel:[],txt:""});
+    h=`<div class="eyebrow">Seviye ${p.lvl}</div><h1>${p.t}</h1><p class="sub">${p.s}</p>`;
+    (p.groups||[]).forEach(g=>{
+      if(g.q)h+=`<p class="grp">${g.q}</p>`;
+      h+=`<div class="grid${p.cols4?" g4":""}">`+g.items.map(([e,l])=>{
+        const k=(g.q?g.q+": ":"")+l;
+        return `<button type="button" class="tile" data-k="${esc(k)}" aria-pressed="${a.sel.includes(k)}"><span class="e">${e}</span>${esc(l)}</button>`}).join("")+`</div>`;
+    });
+    if(p.text)h+=`<input type="text" id="t${i}" placeholder="${esc(p.text)}" value="${esc(a.txt)}">`;
+    if(p.area)h+=`<textarea id="t${i}" placeholder="${esc(p.area)}">${esc(a.txt)}</textarea>`;
+    h+=`<button type="button" class="skip" id="skip">⏭ Bu sayfayı geç</button>`;
+  }
+  const m=$("#page");m.innerHTML=`<div style="display:flex;flex-direction:column;gap:9px">${h}</div>`;
+  m.querySelectorAll(".tile").forEach(b=>b.onclick=()=>{
+    const a=ans[i],k=b.dataset.k,on=a.sel.includes(k);
+    a.sel=on?a.sel.filter(x=>x!==k):[...a.sel,k];b.setAttribute("aria-pressed",!on);save();
+  });
+  const t=$("#t"+i);if(t)t.oninput=()=>{ans[i].txt=t.value;save()};
+  const sk=$("#skip");if(sk)sk.onclick=()=>go(1);
+  const c=$("#copy");if(c)c.onclick=()=>{
+    const s=summary();
+    const done=()=>{$("#copied").textContent="✅ Kopyalandı! Şimdi WhatsApp'a yapıştır."};
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents($("#res"));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);
+      $("#copied").textContent="Metin seçildi — basılı tut ve “Kopyala”ya dokun."};
+    try{navigator.clipboard.writeText(s).then(done,fallback)}catch(e){fallback()}
+  };
+  window.scrollTo(0,0);
+}
+function go(d){i=Math.max(0,Math.min(PAGES.length-1,i+d));save();render()}
+$("#next").onclick=()=>{if(PAGES[i].final){i=0;save();render()}else go(1)};
+$("#back").onclick=()=>go(-1);
+render();
+</script>
+
+</body>
+</html>
