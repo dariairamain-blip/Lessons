@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Fatih Español 2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: one phone-sized screen at a time; header with logo + menu, fixed bottom nav */
+:root{
+  --bg:#eef3f7; --card:#ffffff; --ink:#14233a; --muted:#5c6b80;
+  --sea:#1f5fa8; --sun:#f2b632; --sel:#e3eefb; --line:#d5dfea;
+  --ok:#1e8a4c; --okbg:#e2f5ea; --bad:#c2412d; --badbg:#fbe7e3;
+  --chat:#dff3e8; --chatbg:linear-gradient(160deg,#cfe6f7,#f7e6c4);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Nunito Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd; --sea:#6ea8ef; --sel:#1d3657; --line:#2a3b55;
+  --ok:#5fd28f; --okbg:#173a2a; --bad:#f08a78; --badbg:#3e1f1b; --chat:#1f3a2e; --chatbg:linear-gradient(160deg,#16324d,#3a2f1a); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd; --sea:#6ea8ef; --sel:#1d3657; --line:#2a3b55;
+  --ok:#5fd28f; --okbg:#173a2a; --bad:#f08a78; --badbg:#3e1f1b; --chat:#1f3a2e; --chatbg:linear-gradient(160deg,#16324d,#3a2f1a); color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:520px;margin:0 auto;padding-block:10px 24px;display:flex;flex-direction:column;gap:8px}
+.top{display:flex;align-items:center;gap:8px}
+.brand{display:flex;align-items:center;gap:7px;font-family:var(--display);font-weight:800;font-size:14px;flex:1;min-width:0}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--sea);color:var(--card);display:grid;place-items:center;font-size:12px;flex:none}
+.hb{background:var(--card);border:1.5px solid var(--line);color:var(--ink);border-radius:10px;padding:6px 9px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.prog{height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--sun);transition:width .3s}
+.scr{display:flex;flex-direction:column;gap:9px}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--sea);font-weight:800}
+h1{font-family:var(--display);font-weight:800;font-size:23px;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:800;font-size:19px;margin:0}
+p{margin:0;line-height:1.45}
+.sub{color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.pic{font-size:54px;text-align:center;line-height:1.1}
+.es{font-weight:800;font-size:19px;color:var(--ink)}
+.esl{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ic{background:var(--sel);border:0;border-radius:8px;padding:3px 7px;font-size:15px;cursor:pointer;line-height:1.2}
+.ic.sm{font-size:11px;padding:1px 5px;border-radius:6px}
+.trv{color:var(--muted);font-size:13.5px;font-style:italic}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.ob{width:100%;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:11px 12px;
+  font:inherit;font-weight:700;font-size:16px;color:var(--ink);cursor:pointer}
+.ob.ok{border-color:var(--ok);background:var(--okbg)}
+.ob.bad{border-color:var(--bad);background:var(--badbg)}
+.ob:disabled{cursor:default}
+.fb{border-radius:12px;padding:10px 12px;line-height:1.45}
+.fb.ok{background:var(--okbg);color:var(--ink)}
+.fb.bad{background:var(--badbg);color:var(--ink)}
+.fb b{display:block;margin-bottom:2px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:800;font-size:15px;cursor:pointer}
+.btn.pri{background:var(--sea);color:var(--card)}
+.btn.sec{background:var(--card);color:var(--ink);border:2px solid var(--line)}
+.skip{align-self:flex-start;background:none;border:0;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:2px 0;text-decoration:underline}
+.hint{color:var(--muted);font-size:14px}
+.nav{padding-top:6px}
+.nav div{max-width:520px;margin:0 auto;display:flex;gap:10px}
+.nav .btn{flex:1;font-size:16px}
+.nav .btn.sec{flex:0 0 32%}
+.pron{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 4px;text-align:center;display:flex;flex-direction:column;gap:3px;align-items:center}
+.pc .e{font-size:34px}
+.pc .w{font-family:var(--display);font-weight:800;font-size:19px;color:var(--sea)}
+.cut{display:flex;justify-content:center;align-items:baseline;gap:2px;font-family:var(--display);font-weight:800;font-size:40px}
+.cut .x{color:var(--bad);text-decoration:line-through;text-decoration-thickness:3px}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl td{padding:7px 6px;border-bottom:1px solid var(--line)}
+.tbl .end{color:var(--sea);font-weight:800}
+.tbl .tr{color:var(--muted);font-size:13px}
+.vg{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.vc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 9px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.vc .t{display:flex;align-items:center;gap:6px}
+.vc .e{font-size:24px}
+.vc .w{font-weight:800;font-size:16px;flex:1;min-width:0}
+.menu{display:flex;flex-direction:column;gap:7px}
+.mi{display:flex;align-items:center;gap:10px;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 12px;cursor:pointer;font:inherit;color:var(--ink);text-align:left}
+.mi .e{font-size:26px}
+.mi .n{flex:1;font-weight:800}
+.mi .s{font-size:13px;color:var(--muted);font-weight:600}
+.mi.done{border-color:var(--ok)}
+.chatbox{background:var(--chatbg);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:7px}
+.bub{background:var(--chat);border-radius:14px 14px 14px 4px;padding:8px 10px;font-size:16.5px;line-height:1.4;max-width:92%}
+.who{font-size:12px;font-weight:800;color:var(--sea)}
+.ans{min-height:46px;border:2px dashed var(--line);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;background:var(--card)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--sel);border:0;border-radius:10px;padding:9px 12px;font:inherit;font-weight:800;font-size:16px;color:var(--ink);cursor:pointer}
+.chip:disabled{opacity:.25;cursor:default}
+.gate input{width:100%;box-sizing:border-box;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:17px;padding:12px}
+.err{color:var(--bad);font-weight:700;min-height:1.2em}
+.abar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 8px}
+.abar .lb{font-size:13px;font-weight:800;color:var(--sea);margin-right:auto}
+.abar button{background:var(--sel);border:0;border-radius:8px;padding:6px 9px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}
+.abar button.off{opacity:.6}
+.abar button{min-width:40px;font-size:16px}.abar #aauto{font-size:12px;min-width:0}.abar .big2{background:var(--sea);color:var(--card)}
+.speaking{outline:3px solid var(--sun);outline-offset:2px;border-radius:8px}
+.pics{font-size:22px;line-height:1.2;margin-top:2px}
+.stage{background:var(--card);border:1px solid var(--line);border-radius:16px;min-height:230px;padding:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.frame{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.fin{display:flex;flex-direction:column;gap:7px;width:100%}
+.fl{display:flex;align-items:flex-start;gap:8px}.fl .fp{font-size:24px;min-width:44px;text-align:center}.fl>div{min-width:0}
+.big{font-size:70px;line-height:1.1}
+.tw{font-family:var(--display);font-weight:800;font-size:32px}
+.tw2{font-weight:800;font-size:19px}
+.cutw{font-family:var(--display);font-weight:800;font-size:46px;display:flex;align-items:baseline}
+.cutw.sm{font-size:30px}.cutw .pr{color:var(--muted)}
+.cutw .end{color:var(--bad)}
+.nw{color:var(--sea);display:inline-block;animation:pop .6s .2s both}
+.tcap{text-align:center;font-weight:800;color:var(--sea);min-height:1.3em}
+.sc{display:inline-block;font-size:34px;animation:snip 1.1s both}
+.fall{display:inline-block;animation:fall 1s 1.1s both}
+.pop{animation:pop .5s ease-out both}.pop2{animation:fadeup .5s .25s both}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes snip{0%{transform:translateY(-70px);opacity:0}45%{transform:translateY(0) rotate(0);opacity:1}65%{transform:rotate(-25deg)}85%{transform:rotate(15deg)}100%{transform:rotate(0)}}
+@keyframes fall{to{transform:translateY(110px) rotate(40deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){.nw,.sc,.fall,.pop,.pop2{animation:none}}
+.ttr{color:var(--muted);font-size:16px;font-weight:600}
+.own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
+.modal{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;padding:16px;z-index:20}
+.modal .card{max-width:420px;display:flex;flex-direction:column;gap:8px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="logo">DB</span><span>Daria Botina</span></div>
+    <button class="hb" id="home" type="button">📲 Ekrana ekle</button>
+    <button class="hb" id="mbtn" type="button">☰ Menü</button>
+  </div>
+  <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+  <div class="abar" id="abar" hidden></div>
+  <main id="page"></main>
+  <nav class="nav" id="nav"><div>
+  <button class="btn sec" id="back" type="button">← Geri</button>
+  <button class="btn pri" id="next" type="button">İleri →</button>
+</div></nav>
+  <div class="own">© Собственность Daria Botina</div>
+</div>
+<div class="modal" id="hm" hidden><div class="card">
+  <h2>📲 Ana ekrana ekle</h2>
+  <p><b>iPhone (Safari):</b> alttaki Paylaş ⬆️ düğmesi → „Ana Ekrana Ekle“.</p>
+  <p><b>Android (Chrome):</b> sağ üstteki ⋮ → „Ana ekrana ekle“.</p>
+  <p class="sub">Böylece ders telefonunda uygulama gibi açılır.</p>
+  <button class="btn pri" id="hmc" type="button">Tamam</button>
+</div></div>
+
+<script>
+/* ---------- content ---------- */
+const PRON=[["👨","yo","ben","Yo, Fatih."],["👩","tú","sen","Tú, Daria."],["👫","nosotros","biz","Nosotros, juntos."]];
+const VERBS=[["👀","mirar","bakmak"],["📷","sacar fotos","fotoğraf çekmek"],["📍","llegar","varmak"],["💃","bailar","dans etmek"],["💶","pagar","ödemek"],["🚶","caminar","yürümek"],["☕","tomar","içmek"],["🎧","escuchar","dinlemek"]];
+
+/* toon = little animated scene before tasks */
+const VT=(t,place,verb,root,tail,pics,tr,extra)=>Object.assign({k:"toon",t,place,verb,root,tail,pics,tr},extra||{});
+const STORY=[["🚶‍♂️🚶‍♀️🏖️","Nosotros caminamos por la playa.","Biz sahilde yürüyoruz."],
+ ["👨📷🌊","Yo saco fotos del mar.","Ben denizin fotoğraflarını çekiyorum."],
+ ["👩⛵","Tú miras los barcos.","Sen teknelere bakıyorsun."],
+ ["🚶‍♂️🚶‍♀️☕","Nosotros llegamos a un café.","Biz bir kafeye varıyoruz."],
+ ["👨☕","Yo tomo un café turco.","Ben bir Türk kahvesi içiyorum."],
+ ["👩🫖","Tú tomas un té.","Sen bir çay içiyorsun."],
+ ["👨👩🎶","Nosotros escuchamos música.","Biz müzik dinliyoruz."],
+ ["🕺💃","Nosotros bailamos un poco.","Biz biraz dans ediyoruz."],
+ ["👨💶","Yo pago la cuenta.","Ben hesabı ödüyorum."],
+ ["🌙🚶‍♂️🚶‍♀️","Nosotros caminamos a casa.","Biz eve yürüyoruz."]];
+const toonStory={k:"toon",t:"🎬 Bizim cumartesi",steps:STORY.map(([p,es],i)=>({h:`<div class="big pop">${p}</div><div class="tw2 pop2">${es}</div>`,say:es,c:`Sahne ${i+1} / ${STORY.length}`})),fin:STORY};
+const toonBailar=VT("🎬 Yeni fiil: bailar",["🎉","la fiesta","parti"],["💃","bailar","dans etmek"],"bail","en la fiesta",["🕺","💃","🕺💃"],
+  ["Ben partide dans ediyorum.","Sen partide dans ediyorsun.","Biz partide dans ediyoruz."]);
+const toonNoPron={k:"toon",t:"🎬 Zamir yok, son ek söyler!",steps:[
+  {h:`<div class="big pop">🕺</div><div class="tw pop2">Bail<b class="nw">o</b>.</div>`,say:"Bailo.",c:"-o → yo"},
+  {h:`<div class="big pop">💃</div><div class="tw pop2">Bail<b class="nw">as</b>.</div>`,say:"Bailas.",c:"-as → tú"},
+  {h:`<div class="big pop">🕺💃</div><div class="tw pop2">Bail<b class="nw">amos</b>.</div>`,say:"Bailamos.",c:"-amos → nosotros"}],
+  fin:[["🕺","Bailo.","Dans ediyorum."],["💃","Bailas.","Dans ediyorsun."],["🕺💃","Bailamos.","Dans ediyoruz."]]};
+const toonRecap={k:"toon",t:"🎬 Hatırla: -o / -as / -amos",steps:[
+  {h:`<div class="big pop">👨🎧</div><div class="tw pop2">Yo escuch<b class="nw">o</b>.</div>`,say:"Yo escucho.",c:"yo → -o"},
+  {h:`<div class="big pop">👩🎧</div><div class="tw pop2">Tú escuch<b class="nw">as</b>.</div>`,say:"Tú escuchas.",c:"tú → -as"},
+  {h:`<div class="big pop">👨👩🎧</div><div class="tw pop2">Nosotros escuch<b class="nw">amos</b>.</div>`,say:"Nosotros escuchamos.",c:"nosotros → -amos"}],
+  fin:[["👨🎧","Yo escucho.","Ben dinliyorum."],["👩🎧","Tú escuchas.","Sen dinliyorsun."],["👨👩🎧","Nosotros escuchamos.","Biz dinliyoruz."]]};
+const WHO=[["🕺 Fatih (yo)",null],["💃 Daria (tú)",null],["🕺💃 İkisi (nosotros)",null]];
+const LH="Son eke bak: -o = ben, -as = sen, -amos = biz.";
+
+const MODS=[
+ {n:"Bizim cumartesi",e:"🎬",s:"çizgi film: izle ve dinle",pages:[toonStory]},
+ {n:"Yeni fiiller",e:"✨",s:"çizgi film + 5 yeni fiil",pages:[toonBailar,{k:"vocab"}]},
+ {n:"Fiil çekimi",e:"🧩",s:"çizgi film + doğru sonek",pages:[
+  VT("🎬 mirar",["⛵","los barcos","tekneler"],["👀","mirar","bakmak"],"mir","los barcos",["👨⛵","👩⛵","👨👩⛵"],
+   ["Ben teknelere bakıyorum.","Sen teknelere bakıyorsun.","Biz teknelere bakıyoruz."]),
+  {k:"ch",pic:"👩⛵",q:"Doğru fiili seç (mirar = bakmak).",es:"Tú ___ los barcos.",tr:"Sen teknelere bakıyorsun.",
+   opts:[["miramos","bakıyoruz"],["miras","bakıyorsun"],["miro","bakıyorum"]],a:1,why:"<b>tú</b> → <b>-as</b>: mir<b>as</b>.",hint:"tú → -as"},
+  VT("🎬 sacar fotos",["🌊","el mar","deniz"],["📷","sacar fotos","fotoğraf çekmek"],"sac","fotos del mar",["👨📷","👩📷","👨👩📷"],
+   ["Ben denizin fotoğraflarını çekiyorum.","Sen denizin fotoğraflarını çekiyorsun.","Biz denizin fotoğraflarını çekiyoruz."]),
+  {k:"ch",pic:"👨📷🌊",q:"Doğru fiili seç (sacar fotos = fotoğraf çekmek).",es:"Yo ___ fotos del mar.",tr:"Ben denizin fotoğraflarını çekiyorum.",
+   opts:[["saco","çekiyorum"],["sacas","çekiyorsun"],["sacamos","çekiyoruz"]],a:0,why:"<b>yo</b> → <b>-o</b>: sac<b>o</b>.",hint:"yo → -o"},
+  VT("🎬 llegar",["☕","el café","kafe"],["📍","llegar","varmak"],"lleg","al café",["🚶‍♂️☕","🚶‍♀️☕","🚶‍♂️🚶‍♀️☕"],
+   ["Ben kafeye varıyorum.","Sen kafeye varıyorsun.","Biz kafeye varıyoruz."]),
+  {k:"ch",pic:"🚶‍♂️🚶‍♀️☕",q:"Doğru fiili seç (llegar = varmak).",es:"Nosotros ___ al café.",tr:"Biz kafeye varıyoruz.",
+   opts:[["llegas","varıyorsun"],["llego","varıyorum"],["llegamos","varıyoruz"]],a:2,why:"<b>nosotros</b> → <b>-amos</b>: lleg<b>amos</b>.",hint:"nosotros → -amos"},
+  VT("🎬 pagar",["🧾","la cuenta","hesap"],["💶","pagar","ödemek"],"pag","la cuenta",["👨💶","👩💶","👨👩💶"],
+   ["Ben hesabı ödüyorum.","Sen hesabı ödüyorsun.","Biz hesabı ödüyoruz."]),
+  {k:"ch",pic:"👨💶",q:"Doğru fiili seç (pagar = ödemek).",es:"Yo ___ la cuenta.",tr:"Ben hesabı ödüyorum.",
+   opts:[["pagamos","ödüyoruz"],["pago","ödüyorum"],["pagas","ödüyorsun"]],a:1,why:"<b>yo</b> → <b>-o</b>: pag<b>o</b>.",hint:"yo → -o"},
+  VT("🎬 tomar",["🫖","el té","çay"],["☕","tomar","içmek"],"tom","un té",["👨🫖","👩🫖","👨👩🫖"],
+   ["Ben bir çay içiyorum.","Sen bir çay içiyorsun.","Biz bir çay içiyoruz."]),
+  {k:"ch",pic:"👩🫖",q:"Doğru fiili seç (tomar = içmek).",es:"Tú ___ un té.",tr:"Sen bir çay içiyorsun.",
+   opts:[["tomas","içiyorsun"],["tomamos","içiyoruz"],["tomo","içiyorum"]],a:0,why:"<b>tú</b> → <b>-as</b>: tom<b>as</b>.",hint:"tú → -as"}]},
+ {n:"Dinle ve bul",e:"👂",s:"çizgi film + kim yapıyor?",pages:[toonNoPron,
+  {k:"ch",pic:"🎧",q:"Dinle: kim yapıyor?",listen:"Bailamos en la fiesta.",opts:WHO,a:2,why:"„<b>Bailamos</b> en la fiesta.“ → -amos = biz.",hint:LH},
+  {k:"ch",pic:"🎧",q:"Dinle: kim yapıyor?",listen:"Saco fotos del mar.",opts:WHO,a:0,why:"„<b>Saco</b> fotos del mar.“ → -o = ben.",hint:LH},
+  {k:"ch",pic:"🎧",q:"Dinle: kim yapıyor?",listen:"Miras los barcos.",opts:WHO,a:1,why:"„<b>Miras</b> los barcos.“ → -as = sen.",hint:LH},
+  {k:"ch",pic:"🎧",q:"Dinle: kim yapıyor?",listen:"Pago la cuenta.",opts:WHO,a:0,why:"„<b>Pago</b> la cuenta.“ → -o = ben.",hint:LH},
+  {k:"ch",pic:"🎧",q:"Dinle: kim yapıyor?",listen:"Tomamos limonada.",opts:WHO,a:2,why:"„<b>Tomamos</b> limonada.“ → -amos = biz.",hint:LH}]},
+ {n:"Plaj partisi ilanı",e:"📢",s:"oku ve anla",pages:[{k:"read"},
+  {k:"ch",pic:"🍹",q:"Partide ne içiliyor?",opts:[["Limonata ve buzlu kahve",null],["Türk kahvesi ve çay",null],["Sadece su",null]],a:0,
+   why:"„Tomamos limonada y café helado.“",hint:"Dördüncü satıra bak."},
+  {k:"ch",pic:"🕖",q:"Parti saat kaçta başlıyor?",opts:[["Saat beşte",null],["Saat yedide",null],["Saat dokuzda",null]],a:1,
+   why:"„Llegas a las siete…“ → saat yedide. 5 euro fiyat.",hint:"„siete“ = yedi."},
+  {k:"ch",pic:"📷",q:"Fotoğraf çekersen ne oluyor?",opts:[["Bir ödül kazanıyorsun",null],["Ücretsiz salsa dersi alıyorsun",null],["5 euro indirim alıyorsun",null]],a:0,
+   why:"„¿Tú sacas fotos? ¡Ganas un premio!“ → ödül. Salsa dersi dans etmeyenler için.",hint:"„premio“ = ödül."}]},
+ {n:"Cümle kur",e:"🧱",s:"çizgi film + kelimeleri sırala",pages:[toonRecap,
+  {k:"bd",pic:"🚶‍♂️🚶‍♀️🏖️",q:"Biz sahilde yürüyoruz.",w:["Nosotros","caminamos","por","la","playa."],why:"nosotros → camin<b>amos</b>."},
+  {k:"bd",pic:"👩⛵",q:"Sen teknelere bakıyorsun.",w:["Tú","miras","los","barcos."],why:"tú → mir<b>as</b>."},
+  {k:"bd",pic:"👨💶",q:"Ben hesabı ödüyorum.",w:["Yo","pago","la","cuenta."],why:"yo → pag<b>o</b>."}]}
+];
+const READ=[["🎶","¡Sábado en la playa!","Plajda cumartesi!"],
+ ["🎉","Nosotros organizamos una fiesta.","Biz bir parti düzenliyoruz."],
+ ["🎸💃","Escuchamos música en vivo y bailamos salsa.","Canlı müzik dinliyoruz ve salsa yapıyoruz."],
+ ["🍋🧊","Tomamos limonada y café helado.","Limonata ve buzlu kahve içiyoruz."],
+ ["🕺❓","¿Tú no bailas? ¡No hay problema! Nosotros enseñamos.","Dans etmiyor musun? Sorun yok! Biz öğretiyoruz."],
+ ["📷🏆","¿Tú sacas fotos? ¡Ganas un premio!","Fotoğraf mı çekiyorsun? Bir ödül kazanıyorsun!"],
+ ["🕖💶","Llegas a las siete y pagas solo 5 euros.","Saat yedide geliyorsun ve sadece 5 euro ödüyorsun."]];
+
+const PRONS=["yo","tú","nosotros"],ENDS=["o","as","amos"],CAP=s=>s[0].toUpperCase()+s.slice(1);
+function toonSteps(P){
+  if(P.steps){if(P.fin&&P.fin.length===P.steps.length)P.steps.forEach((x,i)=>{if(x.say&&!x.tr)x.tr=P.fin[i][2]});return P.steps}
+  const st=[];
+  if(P.place)st.push({h:`<div class="big pop">${P.place[0]}</div><div class="tw pop2">${P.place[1]}</div>`,tr:P.place[2],say:P.place[1],c:"📍 Yer"});
+  st.push({h:`<div class="big pop">${P.verb[0]}</div><div class="tw pop2">${P.verb[1]}</div>`,tr:P.verb[2],say:P.verb[1],c:"🎬 Fiil"});
+  st.push({h:`<div class="cutw"><span>${P.root}</span><span class="sc">✂️</span><span class="end fall">ar</span></div>`,w:2600,c:"✂️ -ar'ı kesiyoruz → "+P.root+"-"});
+  PRONS.forEach((p,i)=>st.push({h:`<div class="big pop">${P.pics[i]}</div><div class="cutw sm"><span class="pr">${p}</span>&nbsp;<span>${P.root}</span><span class="nw">${ENDS[i]}</span></div><div class="tw2 pop2">${CAP(p)} ${P.root}${ENDS[i]} ${P.tail}.</div>`,
+     tr:P.tr[i],say:`${CAP(p)} ${P.root}${ENDS[i]} ${P.tail}.`,c:`${p} → -${ENDS[i]}`}));
+  if(P.schema)st.push({h:`<div class="cutw sm"><span>${P.root}</span> + <span class="nw">o / as / amos</span></div>`,w:2200,c:"Kural: kes ✂️ + yeni son ek"});
+  return st;
+}
+function toonFin(P){
+  if(P.fin)return P.fin.map(([pic,es,tr])=>`<div class="fl"><span class="fp">${pic}</span>${esLineT(es,tr)}</div>`).join("");
+  let h="";
+  if(P.place)h+=`<div class="fl"><span class="fp">${P.place[0]}</span>${esLineT(P.place[1],P.place[2])}</div>`;
+  h+=`<div class="fl"><span class="fp">${P.verb[0]}</span>${esLineT(P.verb[1],P.verb[2])}</div>`;
+  PRONS.forEach((p,i)=>{h+=`<div class="fl"><span class="fp">${P.pics[i]}</span>${esLineT(`${CAP(p)} ${P.root}${ENDS[i]} ${P.tail}.`,P.tr[i])}</div>`});
+  return h;
+}
+
+/* ---------- state ---------- */
+const KEY="fatih-es2",CODES=["fatih2026","dariab2"];
+let S={auto:true,ok:false,done:{},ans:{},v:"intro",m:0,p:0};
+try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+if(S.ver!==2){S.ans={};S.done={};S.v="intro";S.m=0;S.p=0;S.ver=2}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=q=>document.querySelector(q);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>s.replace(/İ/g,"i").replace(/I/g,"i").toLowerCase().replace(/ı/g,"i").replace(/\s+/g,"");
+const clean=t=>t.replace(/___/g,"…").replace(/[^\p{L}\p{P}\s]/gu,"");
+let qid=0,lastKey="";
+function clearHl(){document.querySelectorAll(".speaking").forEach(e=>e.classList.remove("speaking"))}
+function stopAll(){qid++;try{speechSynthesis.cancel()}catch(e){}clearHl()}
+let ESV=null;
+function pickVoice(){try{const vs=speechSynthesis.getVoices();if(!vs.length)return;
+  const sc=v=>{const l=(v.lang||"").toLowerCase().replace("_","-");let n=0;if(l.startsWith("es"))n+=10;if(l==="es-es")n+=5;if(/google|monica|jorge|paulina|lucia|enrique|helena|laura|pablo|alvaro|elvira/i.test(v.name))n+=2;return n};
+  const b=vs.slice().sort((a,c)=>sc(c)-sc(a))[0];ESV=sc(b)>=10?b:null}catch(e){}}
+try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
+function utter(t,end){try{if(!ESV)pickVoice();const u=new SpeechSynthesisUtterance(clean(t));u.lang=ESV?ESV.lang:"es-ES";if(ESV)u.voice=ESV;u.rate=.85;if(end){u.onend=end;u.onerror=end}speechSynthesis.speak(u)}catch(e){if(end)end()}}
+function say(t){stopAll();PL.playing=false;plBar();utter(t)}
+function hlEl(el){return el.dataset.es?el:(el.closest(".esl,.pc,.vc,td")||el)}
+/* one player for cartoons and page phrases: ⏮ ⏯ ⏭ ↺ */
+const PL={mode:"",items:[],i:0,playing:false,P:null};
+function plBuild(){if($("#stage")){PL.mode="toon";PL.P=MODS[S.m].pages[S.p];PL.items=toonSteps(PL.P)}
+  else{PL.mode="ph";PL.items=[...document.querySelectorAll("#page [data-say],#page [data-es]")]}PL.i=0;PL.playing=false;plBar()}
+function plBar(){const c=$("#pcnt"),t=$("#ptog");if(!c)return;const n=PL.items.length;
+  c.textContent=n?`${Math.min(PL.i+1,n)}/${n}`:"–";t.textContent=PL.playing?"⏸":"▶";t.setAttribute("aria-label",PL.playing?"Duraklat":"Oynat")}
+function plFin(){const stg=$("#stage"),cap=$("#tcap");if(!stg)return;stg.innerHTML=`<div class="fin pop2">${toonFin(PL.P)}</div>`;cap.textContent="✅ Bitti! Şimdi alıştırma →";wireIn(stg)}
+function plStep(i,id){if(id!==qid)return;const n=PL.items.length;clearHl();
+  if(i>=n){PL.playing=false;PL.i=n;if(PL.mode==="toon")plFin();plBar();return}
+  PL.i=i;plBar();
+  if(PL.mode==="toon"){const st=PL.items[i];$("#stage").innerHTML=`<div class="frame">${st.h}${st.tr?`<div class="ttr pop2">🇹🇷 ${st.tr}</div>`:""}</div>`;$("#tcap").textContent=st.c||"";
+    if(st.say)setTimeout(()=>{if(id===qid)utter(st.say,()=>setTimeout(()=>plStep(i+1,id),800))},450);else setTimeout(()=>plStep(i+1,id),st.w||1800)}
+  else{const el=PL.items[i];if(!el.isConnected){plStep(i+1,id);return}hlEl(el).classList.add("speaking");
+    utter(el.dataset.say||el.dataset.es,()=>setTimeout(()=>plStep(i+1,id),350))}}
+function plPlay(i){stopAll();PL.playing=true;plStep(Math.max(0,i),qid)}
+function plPause(){stopAll();PL.playing=false;plBar()}
+function plToggle(){if(PL.playing)plPause();else plPlay(PL.i>=PL.items.length?0:PL.i)}
+function plPrev(){plPlay(PL.i-1)}
+function plNext(){plPlay(PL.i+1)}
+function playAll(){plPlay(0)}
+const playToon=playAll;
+const esLineT=(es,tr)=>`<div><div class="esl"><span class="es">${esc(es)}</span><button type="button" class="ic" data-say="${esc(es)}" aria-label="Dinle">🔊</button></div><div class="ttr">🇹🇷 ${esc(tr)}</div></div>`;
+const esLine=(es,tr,cls="es",pic)=>`<div><div class="esl"><span class="${cls}">${esc(es)}</span><button type="button" class="ic" data-say="${esc(es)}" aria-label="Dinle">🔊</button>${tr?`<button type="button" class="ic" data-tr aria-label="Çeviri">🌐</button>`:""}</div>${pic?`<div class="pics">${pic}</div>`:""}${tr?`<div class="trv" hidden>${esc(tr)}</div>`:""}</div>`;
+
+/* ---------- screens ---------- */
+function render(){
+  const pg=$("#page");let h="";
+  $("#nav").hidden=!S.ok||S.v==="menu";
+  $("#mbtn").hidden=!S.ok;
+  let pct=0;
+  if(!S.ok){h=gate()}
+  else if(S.v==="intro"){h=intro()}
+  else if(S.v==="menu"){h=menu();pct=Object.keys(S.done).length/MODS.length*100}
+  else if(S.v==="mdone"){h=mdone();pct=100}
+  else{const M=MODS[S.m],P=M.pages[S.p];pct=(S.p)/M.pages.length*100;
+    h=`<div class="eyebrow">Ders 1 · ${S.m+1}. ${esc(M.n)} · ${S.p+1}/${M.pages.length}</div>`+page(P)+`<button type="button" class="skip" data-skip>⏭ Bu sayfayı geç</button>`}
+  $("#bar").style.width=pct+"%";
+  pg.innerHTML=`<div class="scr">${h}</div>`;
+  $("#back").textContent=S.v==="intro"?"☰ Menü":"← Geri";
+  $("#next").textContent=S.v==="intro"?"Başla →":S.v==="mdone"?(S.m<MODS.length-1?"Sonraki bölüm →":"☰ Menü"):"İleri →";
+  const tb=$("#tbar"),topb=$("#abar");topb.innerHTML="";const ab=tb||topb;topb.hidden=!!tb||!S.ok||S.v==="menu"||S.v==="intro";
+  ab.innerHTML=`<span class="lb">🔊 <span id="pcnt">–</span></span><button type="button" id="pprev" aria-label="Önceki">⏮</button><button type="button" id="ptog" class="big2">▶</button><button type="button" id="pnext" aria-label="Sonraki">⏭</button><button type="button" id="prst" aria-label="Baştan">↺</button><button type="button" id="aauto" class="${S.auto?"":"off"}">Oto: ${S.auto?"Açık":"Kapalı"}</button>`;
+  $("#pprev").onclick=plPrev;$("#ptog").onclick=plToggle;$("#pnext").onclick=plNext;$("#prst").onclick=playAll;
+  $("#aauto").onclick=()=>{S.auto=!S.auto;save();if(!S.auto)plPause();const b=$("#aauto");b.textContent="Oto: "+(S.auto?"Açık":"Kapalı");b.className=S.auto?"":"off"};
+  wire();window.scrollTo(0,0);
+  const k=S.v+"|"+S.m+"|"+S.p;
+  stopAll();plBuild();if(k!==lastKey){lastKey=k;if(S.ok&&S.auto&&!ab.hidden)playAll()}
+}
+function gate(){return `<div class="gate scr"><div class="pic">🇪🇸🔑</div><h1>Hoş geldin, Fatih!</h1>
+ <p class="sub">Daria'nın sana gönderdiği kodu yaz. Kodu sadece bir kez yazman yeterli.</p>
+ <input id="code" type="text" autocomplete="off" placeholder="Kod">
+ <button class="btn pri" id="go" type="button">Giriş →</button><div class="err" id="err" aria-live="polite"></div></div>`}
+function intro(){return `<div class="pic">🇪🇸👋</div><div class="eyebrow">İspanyolca · Ders 2</div><h1>¡Hola, Fatih! Bizim cumartesi</h1>
+ <p>Çocuklar dili nasıl öğrenir? Annesi etrafta ne oluyorsa anlatır. Bugün sen de böyle öğreneceksin: önce izle ve dinle, sonra kendin söyle.</p>
+ <div class="card"><p>🎬 Fatih ve Daria'nın plajda bir cumartesi günü<br>✨ <b>5 yeni -AR fiili</b>: mirar, sacar fotos, llegar, bailar, pagar<br>👂 Zamir olmadan anlamak: son ek kimi söylüyor?<br>📢 Gerçek bir plaj partisi ilanı</p></div>
+ <p class="sub">Yaklaşık 15 dakika. 🔊 dinlemek için, 🌐 Türkçe çeviri için. Her bölümü istediğin zaman tekrar yapabilirsin.</p>`}
+function menu(){return `<h1>Ders 2 · Bölümler</h1><p class="sub">Sırayla git ya da istediğin bölümü seç.</p><div class="menu">`+
+ MODS.map((M,i)=>`<button type="button" class="mi${S.done[i]?" done":""}" data-mod="${i}"><span class="e">${M.e}</span><span class="n">${i+1}. ${esc(M.n)}<br><span class="s">${esc(M.s)}</span></span>${S.done[i]?"✅":"▶"}</button>`).join("")+`</div>`}
+function mdone(){const last=S.m===MODS.length-1;return `<div class="pic">${last?"🏆":"🎉"}</div><h1>${last?"¡Bravo, Fatih! Ders 2 bitti":"¡Muy bien! Bölüm bitti"}</h1>`+
+ (last?`<div class="card"><table class="tbl"><tr><td>🕺 yo</td><td>bail<span class="end">o</span></td><td class="tr">dans ediyorum</td></tr><tr><td>💃 tú</td><td>bail<span class="end">as</span></td><td class="tr">dans ediyorsun</td></tr><tr><td>🕺💃 nosotros</td><td>bail<span class="end">amos</span></td><td class="tr">dans ediyoruz</td></tr></table></div>
+ <p>Artık şunu söyleyebilirsin:</p>${esLine("Caminamos por la playa, tomamos café y bailamos.","Sahilde yürüyoruz, kahve içiyoruz ve dans ediyoruz.","es","🚶‍♂️🚶‍♀️☕🕺💃")}`
+ :`<p class="sub">${S.m+1}. bölüm tamam. Şimdi sıradaki: <b>${esc(MODS[S.m+1].n)}</b> ${MODS[S.m+1].e}</p>`)}
+
+function page(P){
+  if(P.k==="pron")return `<h1>Ben, sen, biz</h1><p class="sub">İspanyolcada üç önemli kelime ile başlıyoruz:</p>
+   <div class="pron">${PRON.map(([e,w,t])=>`<div class="pc"><span class="e">${e}</span><span class="w">${w}</span><span class="sub">${t}</span><button type="button" class="ic" data-say="${w}">🔊</button></div>`).join("")}</div>
+   <div class="card scr">${PRON.map(p=>esLine(p[3],p[2]==="biz"?"Biz, birlikte.":(p[2]==="ben"?"Ben, Fatih.":"Sen, Daria."),"es",p[0])).join("")}</div>
+   <p class="sub">Okunuş: yo = „yo“, tú = „tu“, nosotros = „nosotros“.</p>`;
+  if(P.k==="toon")return `<h1>${P.t}</h1><div class="stage" id="stage"><div class="fin">${toonFin(P)}</div></div><div class="abar" id="tbar"></div><div class="tcap" id="tcap">🎬 İzlemek için ▶ bas · ⏮ ⏭ ile sahne değiştir</div><div class="row"><button type="button" class="btn sec" id="treplay">▶ Tekrar izle</button><button type="button" class="btn pri" data-next>Alıştırmaya geç →</button></div>`;
+  if(P.k==="table")return `<h1>Son ek kimi gösterir</h1>
+   <div class="card"><table class="tbl">
+   <tr><td>👨 yo</td><td>habl<span class="end">o</span> <button type="button" class="ic sm" data-say="yo hablo">🔊</button></td><td class="tr">konuş<b>uyorum</b></td></tr>
+   <tr><td>👩 tú</td><td>habl<span class="end">as</span> <button type="button" class="ic sm" data-say="tú hablas">🔊</button></td><td class="tr">konuş<b>uyorsun</b></td></tr>
+   <tr><td>👨👩 nosotros</td><td>habl<span class="end">amos</span> <button type="button" class="ic sm" data-say="nosotros hablamos">🔊</button></td><td class="tr">konuş<b>uyoruz</b></td></tr></table></div>
+   <p>Türkçedeki gibi! Türkçede de son ek kişiyi söyler: konuşuyor<b>um</b>, konuşuyor<b>sun</b>, konuşuyor<b>uz</b>.</p>
+   <p class="sub">Bu yüzden İspanyollar „yo, tú, nosotros“ kelimesini çoğu zaman söylemez:</p>
+   ${esLine("Hablo inglés.","İngilizce konuşuyorum.","es","👨‍💼🇬🇧")}`;
+  if(P.k==="vocab")return `<h1>Fiiller: 5 yeni + 3 tanıdık</h1><p class="sub">İlk 5'i yeni. Hepsi -ar ile biter, aynı kurala uyar. 🔊 dinle, 🌐 anlamını gör.</p>
+   <div class="vg">${VERBS.map(([e,w,t])=>`<div class="vc"><div class="t"><span class="e">${e}</span><span class="w">${w}</span><button type="button" class="ic sm" data-say="${w}">🔊</button><button type="button" class="ic sm" data-tr>🌐</button></div><div class="trv" hidden>${t}</div></div>`).join("")}</div>`;
+  if(P.k==="read")return `<h1>Plaj partisi ilanı 📢</h1><p class="sub">Sessizce oku. Anlamadığın cümlede 🌐'ye bas. Sonra 3 soru var.</p>
+   <div class="chatbox"><span class="who">📢 FIESTA EN LA PLAYA</span>${READ.map(r=>`<div class="bub">${esLine(r[1],r[2],"",r[0])}</div>`).join("")}</div>`;
+  if(P.k==="ch")return choice(P);
+  if(P.k==="bd")return build(P);
+}
+const key=()=>S.m+"-"+S.p;
+function choice(P){const a=S.ans[key()];
+  let h=`<div class="pic">${P.pic}</div><p><b>${esc(P.q)}</b></p>`;
+  if(P.es)h+=`<div class="card">${esLine(P.es,P.tr)}</div>`;
+  if(P.listen)h+=`<div class="card" style="text-align:center"><button type="button" class="btn pri" data-say="${esc(P.listen)}">🔊 Dinle</button></div>`;
+  h+=`<div class="opts">`+P.opts.map((o,i)=>{let c="";if(a!=null){if(i===P.a)c=" ok";else if(i===a)c=" bad"}
+    return `<div class="opt"><button type="button" class="ob${c}" data-o="${i}"${o[1]?` data-es="${esc(o[0])}"`:""}${a!=null?" disabled":""}>${esc(o[0])}</button>${o[1]?`<button type="button" class="ic sm" data-tr aria-label="Çeviri">🌐</button><div class="trv" hidden>${esc(o[1])}</div>`:""}</div>`}).join("")+`</div>`;
+  if(a==null)h+=`<button type="button" class="skip" data-hint style="text-decoration:none">💡 İpucu</button><p class="hint" id="hint" hidden>${P.hint}</p>`;
+  else if(a===P.a)h+=`<div class="fb ok"><b>✅ ¡Muy bien!</b>${P.why}</div><button type="button" class="btn pri" data-next>Sonraki görev →</button>`;
+  else h+=`<div class="fb bad"><b>❌ Doğru cevap: ${esc(P.opts[P.a][0])}</b>${P.why}</div><div class="row"><button type="button" class="btn sec" data-retry>🔁 Tekrar dene</button><button type="button" class="btn pri" data-next>Sonraki görev →</button></div>`;
+  return h}
+function build(P){const st=S.ans[key()]||{pick:[],res:null};
+  const shuffled=P.sh||(P.sh=P.w.map((w,i)=>i).sort(()=>Math.random()-.5));
+  let h=`<div class="pic">${P.pic}</div><p class="sub">İspanyolca cümleyi kur:</p><p><b>„${esc(P.q)}“</b></p>
+   <div class="ans">${st.pick.map((wi,j)=>`<button type="button" class="chip" data-un="${j}"${st.res!=null?" disabled":""}>${esc(P.w[wi])}</button>`).join("")}</div>
+   <div class="chips">${shuffled.map(wi=>`<button type="button" class="chip" data-pk="${wi}"${st.pick.includes(wi)||st.res!=null?" disabled":""}>${esc(P.w[wi])}</button>`).join("")}</div>`;
+  const full=P.w.join(" ");
+  if(st.res==null)h+=`<div class="row"><button type="button" class="btn pri" data-chk${st.pick.length<P.w.length?" disabled":""}>Kontrol et</button></div><button type="button" class="skip" data-hint style="text-decoration:none">💡 İpucu</button><p class="hint" id="hint" hidden>İlk kelime büyük harfle başlar, son kelimede nokta var.</p>`;
+  else if(st.res)h+=`<div class="fb ok"><b>✅ ¡Perfecto!</b>${P.why}</div>${esLine(full,P.q)}<button type="button" class="btn pri" data-next>Sonraki görev →</button>`;
+  else h+=`<div class="fb bad"><b>❌ Doğrusu: ${esc(full)}</b>${P.why}</div><div class="row"><button type="button" class="btn sec" data-retry>🔁 Tekrar dene</button><button type="button" class="btn pri" data-next>Sonraki görev →</button></div>`;
+  return h}
+
+/* ---------- events ---------- */
+function wireIn(root){
+  root.querySelectorAll("[data-say]").forEach(b=>b.onclick=()=>say(b.dataset.say));
+  root.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>{const t=b.closest(".opt,.vc,div:not(.esl)").querySelector(".trv");if(t)t.hidden=!t.hidden});}
+function wire(){
+  const pg=$("#page");
+  wireIn(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
+  pg.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{const t=$("#hint");t.hidden=!t.hidden});
+  pg.querySelectorAll("[data-skip],[data-next]").forEach(b=>b.onclick=next);
+  pg.querySelectorAll("[data-mod]").forEach(b=>b.onclick=()=>{S.v="mod";S.m=+b.dataset.mod;S.p=0;save();render()});
+  pg.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{S.ans[key()]=+b.dataset.o;save();render()});
+  pg.querySelectorAll("[data-retry]").forEach(b=>b.onclick=()=>{delete S.ans[key()];const P=MODS[S.m].pages[S.p];delete P.sh;save();render()});
+  const bd=()=>S.ans[key()]||(S.ans[key()]={pick:[],res:null});
+  pg.querySelectorAll("[data-pk]").forEach(b=>b.onclick=()=>{bd().pick.push(+b.dataset.pk);save();render()});
+  pg.querySelectorAll("[data-un]").forEach(b=>b.onclick=()=>{bd().pick.splice(+b.dataset.un,1);save();render()});
+  pg.querySelectorAll("[data-chk]").forEach(b=>b.onclick=()=>{const s=bd(),P=MODS[S.m].pages[S.p];s.res=s.pick.every((w,i)=>w===i)&&s.pick.length===P.w.length;save();render()});
+  const go=$("#go");if(go){const tryc=()=>{if(CODES.includes(norm($("#code").value))){S.ok=true;save();render()}else $("#err").textContent="Kod yanlış. Daria'nın gönderdiği kodu tekrar yaz."};
+    go.onclick=tryc;$("#code").onkeydown=e=>{if(e.key==="Enter")tryc()}}
+}
+function next(){
+  if(S.v==="intro"){S.v="mod";S.m=0;S.p=0}
+  else if(S.v==="mdone"){if(S.m<MODS.length-1){S.m++;S.p=0;S.v="mod"}else S.v="menu"}
+  else{const M=MODS[S.m];if(S.p<M.pages.length-1)S.p++;else{S.done[S.m]=true;S.v="mdone"}}
+  save();render()}
+function back(){
+  if(S.v==="intro"){S.v="menu"}
+  else if(S.v==="mdone"){S.v="mod";S.p=MODS[S.m].pages.length-1}
+  else if(S.p>0)S.p--;else S.v=S.m===0?"intro":"menu";
+  save();render()}
+$("#next").onclick=next;$("#back").onclick=back;
+$("#mbtn").onclick=()=>{S.v="menu";save();render()};
+$("#home").onclick=()=>{$("#hm").hidden=false};$("#hmc").onclick=()=>{$("#hm").hidden=true};
+render();
+</script>
+
+</body>
+</html>

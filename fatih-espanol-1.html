@@ -28,7 +28,7 @@
 html,body{height:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.wrap{max-width:520px;margin:0 auto;padding-block:10px 92px;display:flex;flex-direction:column;gap:8px}
+.wrap{max-width:520px;margin:0 auto;padding-block:10px 24px;display:flex;flex-direction:column;gap:8px}
 .top{display:flex;align-items:center;gap:8px}
 .brand{display:flex;align-items:center;gap:7px;font-family:var(--display);font-weight:800;font-size:14px;flex:1;min-width:0}
 .logo{width:30px;height:30px;border-radius:50%;background:var(--sea);color:var(--card);display:grid;place-items:center;font-size:12px;flex:none}
@@ -65,8 +65,7 @@ p{margin:0;line-height:1.45}
 .btn.sec{background:var(--card);color:var(--ink);border:2px solid var(--line)}
 .skip{align-self:flex-start;background:none;border:0;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:2px 0;text-decoration:underline}
 .hint{color:var(--muted);font-size:14px}
-.nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);
-  padding:9px max(16px,env(safe-area-inset-right,0px)) calc(9px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.nav{padding-top:6px}
 .nav div{max-width:520px;margin:0 auto;display:flex;gap:10px}
 .nav .btn{flex:1;font-size:16px}
 .nav .btn.sec{flex:0 0 32%}
@@ -104,6 +103,7 @@ p{margin:0;line-height:1.45}
 .abar .lb{font-size:13px;font-weight:800;color:var(--sea);margin-right:auto}
 .abar button{background:var(--sel);border:0;border-radius:8px;padding:6px 9px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}
 .abar button.off{opacity:.6}
+.abar button{min-width:40px;font-size:16px}.abar #aauto{font-size:12px;min-width:0}.abar .big2{background:var(--sea);color:var(--card)}
 .speaking{outline:3px solid var(--sun);outline-offset:2px;border-radius:8px}
 .pics{font-size:22px;line-height:1.2;margin-top:2px}
 .stage{background:var(--card);border:1px solid var(--line);border-radius:16px;min-height:230px;padding:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -126,6 +126,7 @@ p{margin:0;line-height:1.45}
 @keyframes snip{0%{transform:translateY(-70px);opacity:0}45%{transform:translateY(0) rotate(0);opacity:1}65%{transform:rotate(-25deg)}85%{transform:rotate(15deg)}100%{transform:rotate(0)}}
 @keyframes fall{to{transform:translateY(110px) rotate(40deg);opacity:0}}
 @media (prefers-reduced-motion:reduce){.nw,.sc,.fall,.pop,.pop2{animation:none}}
+.ttr{color:var(--muted);font-size:16px;font-weight:600}
 .own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
 .modal{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;padding:16px;z-index:20}
 .modal .card{max-width:420px;display:flex;flex-direction:column;gap:8px}
@@ -142,12 +143,12 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-of
   <div class="prog" aria-hidden="true"><i id="bar"></i></div>
   <div class="abar" id="abar" hidden></div>
   <main id="page"></main>
-  <div class="own">© Собственность Daria Botina</div>
-</div>
-<nav class="nav" id="nav"><div>
+  <nav class="nav" id="nav"><div>
   <button class="btn sec" id="back" type="button">← Geri</button>
   <button class="btn pri" id="next" type="button">İleri →</button>
 </div></nav>
+  <div class="own">© Собственность Daria Botina</div>
+</div>
 <div class="modal" id="hm" hidden><div class="card">
   <h2>📲 Ana ekrana ekle</h2>
   <p><b>iPhone (Safari):</b> alttaki Paylaş ⬆️ düğmesi → „Ana Ekrana Ekle“.</p>
@@ -259,22 +260,22 @@ const READ=[["👋","¡Hola, Fatih!","Merhaba Fatih!"],
  ["💛","¡Un beso! Daria","Öpücükler! Daria"]];
 const PRONS=["yo","tú","nosotros"],ENDS=["o","as","amos"],CAP=s=>s[0].toUpperCase()+s.slice(1);
 function toonSteps(P){
-  if(P.steps)return P.steps;
+  if(P.steps){if(P.fin&&P.fin.length===P.steps.length)P.steps.forEach((x,i)=>{if(x.say&&!x.tr)x.tr=P.fin[i][2]});return P.steps}
   const st=[];
-  if(P.place)st.push({h:`<div class="big pop">${P.place[0]}</div><div class="tw pop2">${P.place[1]}</div>`,say:P.place[1],c:"📍 Yer"});
-  st.push({h:`<div class="big pop">${P.verb[0]}</div><div class="tw pop2">${P.verb[1]}</div>`,say:P.verb[1],c:"🎬 Fiil"});
+  if(P.place)st.push({h:`<div class="big pop">${P.place[0]}</div><div class="tw pop2">${P.place[1]}</div>`,tr:P.place[2],say:P.place[1],c:"📍 Yer"});
+  st.push({h:`<div class="big pop">${P.verb[0]}</div><div class="tw pop2">${P.verb[1]}</div>`,tr:P.verb[2],say:P.verb[1],c:"🎬 Fiil"});
   st.push({h:`<div class="cutw"><span>${P.root}</span><span class="sc">✂️</span><span class="end fall">ar</span></div>`,w:2600,c:"✂️ -ar'ı kesiyoruz → "+P.root+"-"});
   PRONS.forEach((p,i)=>st.push({h:`<div class="big pop">${P.pics[i]}</div><div class="cutw sm"><span class="pr">${p}</span>&nbsp;<span>${P.root}</span><span class="nw">${ENDS[i]}</span></div><div class="tw2 pop2">${CAP(p)} ${P.root}${ENDS[i]} ${P.tail}.</div>`,
-     say:`${CAP(p)} ${P.root}${ENDS[i]} ${P.tail}.`,c:`${p} → -${ENDS[i]}`}));
+     tr:P.tr[i],say:`${CAP(p)} ${P.root}${ENDS[i]} ${P.tail}.`,c:`${p} → -${ENDS[i]}`}));
   if(P.schema)st.push({h:`<div class="cutw sm"><span>${P.root}</span> + <span class="nw">o / as / amos</span></div>`,w:2200,c:"Kural: kes ✂️ + yeni son ek"});
   return st;
 }
 function toonFin(P){
-  if(P.fin)return P.fin.map(([pic,es,tr])=>`<div class="fl"><span class="fp">${pic}</span>${esLine(es,tr)}</div>`).join("");
+  if(P.fin)return P.fin.map(([pic,es,tr])=>`<div class="fl"><span class="fp">${pic}</span>${esLineT(es,tr)}</div>`).join("");
   let h="";
-  if(P.place)h+=`<div class="fl"><span class="fp">${P.place[0]}</span>${esLine(P.place[1],P.place[2])}</div>`;
-  h+=`<div class="fl"><span class="fp">${P.verb[0]}</span>${esLine(P.verb[1],P.verb[2])}</div>`;
-  PRONS.forEach((p,i)=>{h+=`<div class="fl"><span class="fp">${P.pics[i]}</span>${esLine(`${CAP(p)} ${P.root}${ENDS[i]} ${P.tail}.`,P.tr[i])}</div>`});
+  if(P.place)h+=`<div class="fl"><span class="fp">${P.place[0]}</span>${esLineT(P.place[1],P.place[2])}</div>`;
+  h+=`<div class="fl"><span class="fp">${P.verb[0]}</span>${esLineT(P.verb[1],P.verb[2])}</div>`;
+  PRONS.forEach((p,i)=>{h+=`<div class="fl"><span class="fp">${P.pics[i]}</span>${esLineT(`${CAP(p)} ${P.root}${ENDS[i]} ${P.tail}.`,P.tr[i])}</div>`});
   return h;
 }
 
@@ -291,16 +292,36 @@ const clean=t=>t.replace(/___/g,"…").replace(/[^\p{L}\p{P}\s]/gu,"");
 let qid=0,lastKey="";
 function clearHl(){document.querySelectorAll(".speaking").forEach(e=>e.classList.remove("speaking"))}
 function stopAll(){qid++;try{speechSynthesis.cancel()}catch(e){}clearHl()}
-function utter(t,end){try{const u=new SpeechSynthesisUtterance(clean(t));u.lang="es-ES";u.rate=.85;if(end){u.onend=end;u.onerror=end}speechSynthesis.speak(u)}catch(e){if(end)end()}}
-function say(t){stopAll();utter(t)}
+let ESV=null;
+function pickVoice(){try{const vs=speechSynthesis.getVoices();if(!vs.length)return;
+  const sc=v=>{const l=(v.lang||"").toLowerCase().replace("_","-");let n=0;if(l.startsWith("es"))n+=10;if(l==="es-es")n+=5;if(/google|monica|jorge|paulina|lucia|enrique|helena|laura|pablo|alvaro|elvira/i.test(v.name))n+=2;return n};
+  const b=vs.slice().sort((a,c)=>sc(c)-sc(a))[0];ESV=sc(b)>=10?b:null}catch(e){}}
+try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
+function utter(t,end){try{if(!ESV)pickVoice();const u=new SpeechSynthesisUtterance(clean(t));u.lang=ESV?ESV.lang:"es-ES";if(ESV)u.voice=ESV;u.rate=.85;if(end){u.onend=end;u.onerror=end}speechSynthesis.speak(u)}catch(e){if(end)end()}}
+function say(t){stopAll();PL.playing=false;plBar();utter(t)}
 function hlEl(el){return el.dataset.es?el:(el.closest(".esl,.pc,.vc,td")||el)}
-function playToon(){stopAll();const id=qid;const P=MODS[S.m].pages[S.p];const st=toonSteps(P);const stg=$("#stage"),cap=$("#tcap");let i=0;
-  const nxt=()=>{if(id!==qid)return;if(i>=st.length){stg.innerHTML=`<div class="fin pop2">${toonFin(P)}</div>`;cap.textContent="✅ Şimdi alıştırma! İleri →";wireIn(stg);return}
-    const s=st[i++];stg.innerHTML=`<div class="frame">${s.h}</div>`;cap.textContent=s.c||"";
-    if(s.say)setTimeout(()=>{if(id===qid)utter(s.say,()=>setTimeout(()=>{if(id===qid)nxt()},800))},450);else setTimeout(nxt,s.w||1800)};nxt()}
-function playAll(){if($("#stage"))return playToon();stopAll();const id=qid;const list=[...document.querySelectorAll("#page [data-say],#page [data-es]")];let i=0;
-  const nxt=()=>{clearHl();if(id!==qid||i>=list.length)return;const el=list[i++];hlEl(el).classList.add("speaking");
-    utter(el.dataset.say||el.dataset.es,()=>setTimeout(()=>{if(id===qid)nxt()},350))};nxt()}
+/* one player for cartoons and page phrases: ⏮ ⏯ ⏭ ↺ */
+const PL={mode:"",items:[],i:0,playing:false,P:null};
+function plBuild(){if($("#stage")){PL.mode="toon";PL.P=MODS[S.m].pages[S.p];PL.items=toonSteps(PL.P)}
+  else{PL.mode="ph";PL.items=[...document.querySelectorAll("#page [data-say],#page [data-es]")]}PL.i=0;PL.playing=false;plBar()}
+function plBar(){const c=$("#pcnt"),t=$("#ptog");if(!c)return;const n=PL.items.length;
+  c.textContent=n?`${Math.min(PL.i+1,n)}/${n}`:"–";t.textContent=PL.playing?"⏸":"▶";t.setAttribute("aria-label",PL.playing?"Duraklat":"Oynat")}
+function plFin(){const stg=$("#stage"),cap=$("#tcap");if(!stg)return;stg.innerHTML=`<div class="fin pop2">${toonFin(PL.P)}</div>`;cap.textContent="✅ Bitti! Şimdi alıştırma →";wireIn(stg)}
+function plStep(i,id){if(id!==qid)return;const n=PL.items.length;clearHl();
+  if(i>=n){PL.playing=false;PL.i=n;if(PL.mode==="toon")plFin();plBar();return}
+  PL.i=i;plBar();
+  if(PL.mode==="toon"){const st=PL.items[i];$("#stage").innerHTML=`<div class="frame">${st.h}${st.tr?`<div class="ttr pop2">🇹🇷 ${st.tr}</div>`:""}</div>`;$("#tcap").textContent=st.c||"";
+    if(st.say)setTimeout(()=>{if(id===qid)utter(st.say,()=>setTimeout(()=>plStep(i+1,id),800))},450);else setTimeout(()=>plStep(i+1,id),st.w||1800)}
+  else{const el=PL.items[i];if(!el.isConnected){plStep(i+1,id);return}hlEl(el).classList.add("speaking");
+    utter(el.dataset.say||el.dataset.es,()=>setTimeout(()=>plStep(i+1,id),350))}}
+function plPlay(i){stopAll();PL.playing=true;plStep(Math.max(0,i),qid)}
+function plPause(){stopAll();PL.playing=false;plBar()}
+function plToggle(){if(PL.playing)plPause();else plPlay(PL.i>=PL.items.length?0:PL.i)}
+function plPrev(){plPlay(PL.i-1)}
+function plNext(){plPlay(PL.i+1)}
+function playAll(){plPlay(0)}
+const playToon=playAll;
+const esLineT=(es,tr)=>`<div><div class="esl"><span class="es">${esc(es)}</span><button type="button" class="ic" data-say="${esc(es)}" aria-label="Dinle">🔊</button></div><div class="ttr">🇹🇷 ${esc(tr)}</div></div>`;
 const esLine=(es,tr,cls="es",pic)=>`<div><div class="esl"><span class="${cls}">${esc(es)}</span><button type="button" class="ic" data-say="${esc(es)}" aria-label="Dinle">🔊</button>${tr?`<button type="button" class="ic" data-tr aria-label="Çeviri">🌐</button>`:""}</div>${pic?`<div class="pics">${pic}</div>`:""}${tr?`<div class="trv" hidden>${esc(tr)}</div>`:""}</div>`;
 
 /* ---------- screens ---------- */
@@ -319,13 +340,13 @@ function render(){
   pg.innerHTML=`<div class="scr">${h}</div>`;
   $("#back").textContent=S.v==="intro"?"☰ Menü":"← Geri";
   $("#next").textContent=S.v==="intro"?"Başla →":S.v==="mdone"?(S.m<MODS.length-1?"Sonraki bölüm →":"☰ Menü"):"İleri →";
-  const ab=$("#abar");ab.hidden=!S.ok||S.v==="menu"||S.v==="intro";
-  ab.innerHTML=`<span class="lb">🔊 Ses</span><button type="button" id="aplay">▶ Tekrar dinle</button><button type="button" id="astop">⏹ Durdur</button><button type="button" id="aauto" class="${S.auto?"":"off"}">Otomatik: ${S.auto?"Açık":"Kapalı"}</button>`;
-  $("#aplay").onclick=playAll;$("#astop").onclick=stopAll;
-  $("#aauto").onclick=()=>{S.auto=!S.auto;save();if(!S.auto)stopAll();const b=$("#aauto");b.textContent="Otomatik: "+(S.auto?"Açık":"Kapalı");b.className=S.auto?"":"off"};
+  const tb=$("#tbar"),topb=$("#abar");topb.innerHTML="";const ab=tb||topb;topb.hidden=!!tb||!S.ok||S.v==="menu"||S.v==="intro";
+  ab.innerHTML=`<span class="lb">🔊 <span id="pcnt">–</span></span><button type="button" id="pprev" aria-label="Önceki">⏮</button><button type="button" id="ptog" class="big2">▶</button><button type="button" id="pnext" aria-label="Sonraki">⏭</button><button type="button" id="prst" aria-label="Baştan">↺</button><button type="button" id="aauto" class="${S.auto?"":"off"}">Oto: ${S.auto?"Açık":"Kapalı"}</button>`;
+  $("#pprev").onclick=plPrev;$("#ptog").onclick=plToggle;$("#pnext").onclick=plNext;$("#prst").onclick=playAll;
+  $("#aauto").onclick=()=>{S.auto=!S.auto;save();if(!S.auto)plPause();const b=$("#aauto");b.textContent="Oto: "+(S.auto?"Açık":"Kapalı");b.className=S.auto?"":"off"};
   wire();window.scrollTo(0,0);
   const k=S.v+"|"+S.m+"|"+S.p;
-  if(k!==lastKey){stopAll();lastKey=k;if(S.ok&&S.auto&&!ab.hidden)playAll()}
+  stopAll();plBuild();if(k!==lastKey){lastKey=k;if(S.ok&&S.auto&&!ab.hidden)playAll()}
 }
 function gate(){return `<div class="gate scr"><div class="pic">🇪🇸🔑</div><h1>Hoş geldin, Fatih!</h1>
  <p class="sub">Daria'nın sana gönderdiği kodu yaz. Kodu sadece bir kez yazman yeterli.</p>
@@ -347,7 +368,7 @@ function page(P){
    <div class="pron">${PRON.map(([e,w,t])=>`<div class="pc"><span class="e">${e}</span><span class="w">${w}</span><span class="sub">${t}</span><button type="button" class="ic" data-say="${w}">🔊</button></div>`).join("")}</div>
    <div class="card scr">${PRON.map(p=>esLine(p[3],p[2]==="biz"?"Biz, birlikte.":(p[2]==="ben"?"Ben, Fatih.":"Sen, Daria."),"es",p[0])).join("")}</div>
    <p class="sub">Okunuş: yo = „yo“, tú = „tu“, nosotros = „nosotros“.</p>`;
-  if(P.k==="toon")return `<h1>${P.t}</h1><div class="stage" id="stage"><div class="fin">${toonFin(P)}</div></div><div class="tcap" id="tcap">🎬 İzlemek için ▶ bas</div><button type="button" class="btn sec" id="treplay">▶ Çizgi filmi izle</button>`;
+  if(P.k==="toon")return `<h1>${P.t}</h1><div class="stage" id="stage"><div class="fin">${toonFin(P)}</div></div><div class="abar" id="tbar"></div><div class="tcap" id="tcap">🎬 İzlemek için ▶ bas · ⏮ ⏭ ile sahne değiştir</div><div class="row"><button type="button" class="btn sec" id="treplay">▶ Tekrar izle</button><button type="button" class="btn pri" data-next>Alıştırmaya geç →</button></div>`;
   if(P.k==="table")return `<h1>Son ek kimi gösterir</h1>
    <div class="card"><table class="tbl">
    <tr><td>👨 yo</td><td>habl<span class="end">o</span> <button type="button" class="ic sm" data-say="yo hablo">🔊</button></td><td class="tr">konuş<b>uyorum</b></td></tr>
@@ -370,8 +391,8 @@ function choice(P){const a=S.ans[key()];
   h+=`<div class="opts">`+P.opts.map((o,i)=>{let c="";if(a!=null){if(i===P.a)c=" ok";else if(i===a)c=" bad"}
     return `<div class="opt"><button type="button" class="ob${c}" data-o="${i}"${o[1]?` data-es="${esc(o[0])}"`:""}${a!=null?" disabled":""}>${esc(o[0])}</button>${o[1]?`<button type="button" class="ic sm" data-tr aria-label="Çeviri">🌐</button><div class="trv" hidden>${esc(o[1])}</div>`:""}</div>`}).join("")+`</div>`;
   if(a==null)h+=`<button type="button" class="skip" data-hint style="text-decoration:none">💡 İpucu</button><p class="hint" id="hint" hidden>${P.hint}</p>`;
-  else if(a===P.a)h+=`<div class="fb ok"><b>✅ ¡Muy bien!</b>${P.why}</div>`;
-  else h+=`<div class="fb bad"><b>❌ Doğru cevap: ${esc(P.opts[P.a][0])}</b>${P.why}</div><button type="button" class="btn sec" data-retry>🔁 Tekrar dene</button>`;
+  else if(a===P.a)h+=`<div class="fb ok"><b>✅ ¡Muy bien!</b>${P.why}</div><button type="button" class="btn pri" data-next>Sonraki görev →</button>`;
+  else h+=`<div class="fb bad"><b>❌ Doğru cevap: ${esc(P.opts[P.a][0])}</b>${P.why}</div><div class="row"><button type="button" class="btn sec" data-retry>🔁 Tekrar dene</button><button type="button" class="btn pri" data-next>Sonraki görev →</button></div>`;
   return h}
 function build(P){const st=S.ans[key()]||{pick:[],res:null};
   const shuffled=P.sh||(P.sh=P.w.map((w,i)=>i).sort(()=>Math.random()-.5));
@@ -380,8 +401,8 @@ function build(P){const st=S.ans[key()]||{pick:[],res:null};
    <div class="chips">${shuffled.map(wi=>`<button type="button" class="chip" data-pk="${wi}"${st.pick.includes(wi)||st.res!=null?" disabled":""}>${esc(P.w[wi])}</button>`).join("")}</div>`;
   const full=P.w.join(" ");
   if(st.res==null)h+=`<div class="row"><button type="button" class="btn pri" data-chk${st.pick.length<P.w.length?" disabled":""}>Kontrol et</button></div><button type="button" class="skip" data-hint style="text-decoration:none">💡 İpucu</button><p class="hint" id="hint" hidden>İlk kelime büyük harfle başlar, son kelimede nokta var.</p>`;
-  else if(st.res)h+=`<div class="fb ok"><b>✅ ¡Perfecto!</b>${P.why}</div>${esLine(full,P.q)}`;
-  else h+=`<div class="fb bad"><b>❌ Doğrusu: ${esc(full)}</b>${P.why}</div><button type="button" class="btn sec" data-retry>🔁 Tekrar dene</button>`;
+  else if(st.res)h+=`<div class="fb ok"><b>✅ ¡Perfecto!</b>${P.why}</div>${esLine(full,P.q)}<button type="button" class="btn pri" data-next>Sonraki görev →</button>`;
+  else h+=`<div class="fb bad"><b>❌ Doğrusu: ${esc(full)}</b>${P.why}</div><div class="row"><button type="button" class="btn sec" data-retry>🔁 Tekrar dene</button><button type="button" class="btn pri" data-next>Sonraki görev →</button></div>`;
   return h}
 
 /* ---------- events ---------- */
@@ -392,7 +413,7 @@ function wire(){
   const pg=$("#page");
   wireIn(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
   pg.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{const t=$("#hint");t.hidden=!t.hidden});
-  pg.querySelectorAll("[data-skip]").forEach(b=>b.onclick=next);
+  pg.querySelectorAll("[data-skip],[data-next]").forEach(b=>b.onclick=next);
   pg.querySelectorAll("[data-mod]").forEach(b=>b.onclick=()=>{S.v="mod";S.m=+b.dataset.mod;S.p=0;save();render()});
   pg.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{S.ans[key()]=+b.dataset.o;save();render()});
   pg.querySelectorAll("[data-retry]").forEach(b=>b.onclick=()=>{delete S.ans[key()];const P=MODS[S.m].pages[S.p];delete P.sh;save();render()});
