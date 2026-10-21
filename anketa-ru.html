@@ -38,6 +38,12 @@ h1{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.15;ma
 .grp{font-weight:700;margin:6px 0 0}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
 .grid.g4{grid-template-columns:repeat(4,1fr)}
+.grid.g2{grid-template-columns:repeat(2,1fr)}
+.g2 .tile{flex-direction:row;justify-content:flex-start;text-align:left;padding:8px 8px;gap:6px;font-size:12.5px}
+.g2 .tile .e{font-size:20px}
+.more{align-self:stretch;background:var(--card);border:2px dashed var(--sea);color:var(--sea);border-radius:12px;padding:10px;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
+.more.less{border-style:solid;border-color:var(--line);color:var(--muted)}
+.cnt{font-size:12px;color:var(--muted);text-align:center;margin-top:-2px}
 .tile{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:7px 4px 6px;
   display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;font:inherit;color:inherit;
   font-size:12.5px;line-height:1.2;text-align:center;position:relative;min-width:0}
@@ -65,6 +71,23 @@ textarea{min-height:90px;resize:vertical}
 .res{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;font-size:13px;line-height:1.45;max-height:46vh;overflow:auto}
 .copied{color:var(--sea);font-weight:700;min-height:1.2em}
 .own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
+.vbtn{align-self:flex-start;background:var(--sel);border:0;border-radius:999px;color:var(--sea);font:inherit;font-weight:700;font-size:13px;padding:6px 12px;cursor:pointer}
+.tile.cur{outline:3px solid var(--sun);outline-offset:1px}
+body.vmode .wrap{padding-bottom:250px}
+.vp{position:fixed;left:0;right:0;bottom:calc(64px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:2px solid var(--sun);
+  box-shadow:0 -4px 14px rgba(0,0,0,.08);padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));z-index:5}
+.vp>div{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.vp .vh{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);gap:8px}
+.vp .vl{font-family:var(--display);font-weight:800;font-size:19px;line-height:1.2;min-height:1.2em}
+.vp .vr{display:flex;gap:8px}
+.vp .vr button{flex:1;border:0;border-radius:12px;padding:12px 6px;font:inherit;font-weight:800;font-size:16px;cursor:pointer}
+.vp .yes{background:#2e8b57;color:#fff}.vp .no{background:#c8453c;color:#fff}
+.vp .sm{flex:0 0 52px!important;background:var(--sel);color:var(--ink)}
+.vp .st{font-size:12.5px;color:var(--muted);min-height:1.2em}
+.vp .off{background:none;border:0;color:var(--muted);font:inherit;font-size:12px;text-decoration:underline;cursor:pointer;padding:0}
+.ov{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;z-index:9;padding:16px}
+.ov .box{background:var(--card);border-radius:18px;padding:20px;max-width:420px;width:100%;display:flex;flex-direction:column;gap:10px}
+.ov .box .btn{flex:none}
 @media (prefers-reduced-motion:reduce){.prog i{transition:none}}
 </style>
 
@@ -76,49 +99,87 @@ textarea{min-height:90px;resize:vertical}
   <main id="page"></main>
   <div class="own">© Собственность Daria Botina</div>
 </div>
+<div class="vp" id="vp" hidden><div>
+  <div class="vh"><span id="vpos">🎧 Озвучка</span><span id="vmic"></span></div>
+  <div class="vl" id="vlab"></div>
+  <div class="vr"><button type="button" class="yes" id="vyes">✅ Да</button><button type="button" class="no" id="vno">❌ Нет</button>
+    <button type="button" class="sm" id="vrep" aria-label="Повторить">🔁</button><button type="button" class="sm" id="vpau" aria-label="Пауза">⏸</button></div>
+  <div class="vh"><span class="st" id="vst"></span><button type="button" class="off" id="voff">📖 Выключить озвучку</button></div>
+</div></div>
+<div class="ov" id="ov" hidden><div class="box" id="ovb"></div></div>
 <nav class="nav"><div>
   <button class="btn sec" id="back" type="button">← Назад</button>
   <button class="btn pri" id="next" type="button">Далее →</button>
 </div></nav>
 
 <script>
+const L=s=>s.split("|").map(x=>{x=x.trim();const k=x.indexOf(" ");return[x.slice(0,k),x.slice(k+1)]});
 const PAGES=[
  {intro:true},
  {lvl:"Знакомство",t:"Как тебя зовут?",s:"Чтобы преподаватель знал, чья это анкета.",name:true},
  {lvl:"Знакомство",t:"Какой язык ты учишь?",s:"Отметь один или несколько.",groups:[
-   {items:[["🇬🇧","Английский"],["🇪🇸","Испанский"],["🇹🇷","Турецкий"],["🇫🇷","Французский"],["🇩🇪","Немецкий"],["🇧🇷","Португальский (Бразилия)"],["🇵🇹","Португальский (Португалия)"],["🇮🇹","Итальянский"],["🌍","Другой"]]}],
+   {items:[["🇬🇧","Английский"],["🇪🇸","Испанский"],["🇹🇷","Турецкий"],["🇫🇷","Французский"],["🇩🇪","Немецкий"],["🇧🇷","Португальский (Бразилия)"],["🇵🇹","Португальский (Португалия)"],["🇮🇹","Итальянский"],["🌍","Другой"]].concat(L("🇷🇺 Русский|🇸🇦 Арабский|🇨🇳 Китайский|🇯🇵 Японский|🇰🇷 Корейский|🇬🇷 Греческий|🇳🇱 Нидерландский|🇵🇱 Польский|🇮🇱 Иврит|🇮🇷 Персидский|🇸🇪 Шведский|🇨🇿 Чешский|🇲🇽 Испанский (Латинская Америка)|🇮🇳 Хинди|🇬🇪 Грузинский|🇦🇲 Армянский|🇦🇿 Азербайджанский|🇰🇿 Казахский")),per:9}],
   text:"Другой язык / твой уровень (например, с нуля, A2)…"},
  {lvl:"1 · Окружение",t:"Где ты живёшь?",s:"Отметь всё, что подходит.",groups:[
-   {q:"Дом",items:[["🏢","Квартира"],["🏡","Частный дом"],["🌆","Центр города"],["🏞️","Пригород"],["🌊","Рядом с морем"],["🌳","С садом / балконом"]]},
-   {q:"С кем?",items:[["❤️","С партнёром"],["👨‍👩‍👧","С семьёй"],["🧒","С детьми"],["🙋","Один / одна"],["🐱","Кошка"],["🐶","Собака"]]}],
+   {q:"Дом",items:[["🏢","Квартира"],["🏡","Частный дом"],["🌆","Центр города"],["🏞️","Пригород"],["🌊","Рядом с морем"],["🌳","С садом / балконом"]].concat(L("🏘️ Таунхаус|🏙️ Высотка|🏠 Маленький городок|🌾 Деревня|⛰️ В горах|🏖️ Курортный город|🛏️ Снимаю комнату|🔑 Своё жильё|📦 Недавно переехал(а)|🚇 Рядом с метро|🌲 Рядом с лесом|🏫 Общежитие")),per:6},
+   {q:"С кем?",items:[["❤️","С партнёром"],["👨‍👩‍👧","С семьёй"],["🧒","С детьми"],["🙋","Один / одна"],["🐱","Кошка"],["🐶","Собака"]].concat(L("👫 С друзьями / соседями|👵 С родителями|🧑‍🤝‍🧑 С братом / сестрой|👶 С малышом|🐦 Птица|🐠 Рыбки|🐹 Хомяк|🐢 Черепаха|🐰 Кролик|🪴 Много растений|🧳 Живу на два дома|🌍 Часто переезжаю")),per:6}],
   text:"Город / страна…"},
  {lvl:"1 · Окружение",t:"Что ты чаще всего используешь дома?",s:"Только самое любимое — много выбирать не нужно.",groups:[
-   {items:[["🛋️","Диван"],["📺","Телевизор"],["☕","Кофемашина"],["💻","Ноутбук"],["📱","Телефон"],["🌇","Балкон"],["🍳","Кухня"],["🎮","Игровая приставка"],["🚗","Машина"],["🛏️","Кровать"],["📚","Книги"],["🎧","Наушники"]]}]},
+   {items:[["🛋️","Диван"],["📺","Телевизор"],["☕","Кофемашина"],["💻","Ноутбук"],["📱","Телефон"],["🌇","Балкон"],["🍳","Кухня"],["🎮","Игровая приставка"],["🚗","Машина"],["🛏️","Кровать"],["📚","Книги"],["🎧","Наушники"]].concat(L("🛁 Ванна|🚿 Душ|🍲 Плита / духовка|❄️ Кондиционер|🧺 Стиральная машина|🤖 Робот-пылесос|🪴 Растения|🖥️ Компьютер|🔊 Колонка|⌚ Умные часы|📷 Фотоаппарат|🎹 Музыкальный инструмент|🧘 Коврик для йоги|🏋️ Тренажёр|🚲 Велосипед|🛵 Скутер|🧸 Детские игрушки|🍷 Вино / бар|🫖 Чайник|🥤 Блендер|🧴 Косметика|🪞 Зеркало|🕯️ Свечи|🖨️ Принтер")),per:12}]},
  {lvl:"2 · Поведение",t:"Чем ты занимаешься?",s:"Отметь или допиши своё.",groups:[
-   {items:[["🏥","Медицина"],["💇","Красота / салон"],["💆","Массаж / спа"],["👩‍🏫","Образование"],["📈","Продажи"],["🚚","Логистика"],["💻","IT"],["🏨","Туризм / отели"],["✈️","Авиация"],["🗂️","Офис / бухгалтерия"],["🎓","Учусь"],["🏪","Своё дело"]]}],
+   {items:[["🏥","Медицина"],["💇","Красота / салон"],["💆","Массаж / спа"],["👩‍🏫","Образование"],["📈","Продажи"],["🚚","Логистика"],["💻","IT"],["🏨","Туризм / отели"],["✈️","Авиация"],["🗂️","Офис / бухгалтерия"],["🎓","Учусь"],["🏪","Своё дело"]].concat(L("🍽️ Ресторан / кафе|🏗️ Строительство|⚖️ Юриспруденция|🏦 Банк / финансы|🎨 Дизайн|📣 Маркетинг|📰 Медиа / журналистика|🧪 Наука|🏭 Производство|🚢 Морское дело|🚕 Водитель / такси|🏛️ Госслужба|🦷 Стоматология|💊 Аптека|🐾 Ветеринария|🌾 Сельское хозяйство|🏡 Недвижимость|🎭 Искусство / сцена|📸 Фото / видео|🗣️ Перевод|🧑‍🍳 Повар|👶 В декрете / с детьми|🏖️ На пенсии / не работаю|🔍 Ищу работу")),per:12}],
   text:"Твоя профессия / должность…"},
  {lvl:"2 · Поведение",t:"Как проходит твой день?",s:"Что ты часто делаешь на работе или учёбе.",groups:[
-   {items:[["🗣️","Говорю с клиентами"],["📞","Звоню"],["💬","Пишу в мессенджерах"],["📧","Электронная почта"],["👥","Встречи"],["🤝","Работа в команде"],["🧾","Документы"],["💶","Цены и оплата"],["🧩","Решаю проблемы"],["🚗","Езжу / в дороге"],["🌍","Общаюсь с иностранцами"],["📚","Учу / учусь"]]}],
+   {items:[["🗣️","Говорю с клиентами"],["📞","Звоню"],["💬","Пишу в мессенджерах"],["📧","Электронная почта"],["👥","Встречи"],["🤝","Работа в команде"],["🧾","Документы"],["💶","Цены и оплата"],["🧩","Решаю проблемы"],["🚗","Езжу / в дороге"],["🌍","Общаюсь с иностранцами"],["📚","Учу / учусь"]].concat(L("🖥️ Работаю за компьютером|📊 Отчёты и таблицы|🛒 Закупки|📦 Склад / доставка|🧑‍💼 Руковожу людьми|🎤 Презентации|✍️ Пишу тексты|🧮 Считаю|🩺 Помогаю пациентам / людям|🧑‍🍳 Готовлю|🧽 Навожу порядок|📱 Соцсети|🗓️ Планирую расписание|🤔 Принимаю решения|🎨 Создаю / рисую|🔧 Чиню|🏃 Весь день на ногах|🪑 Много сижу|☕ Перерывы на кофе|🧑‍🏫 Обучаю коллег|📑 Договоры|💳 Касса|🛎️ Встречаю гостей|🌐 Работаю удалённо")),per:12}],
   text:"Что ты больше всего любишь в своей работе?"},
  {lvl:"2 · Поведение",t:"Что ты любишь делать в свободное время?",s:"Самая интересная часть! 😄",cols4:true,groups:[
-   {items:[["⚽","Футбол"],["🏋️","Спортзал"],["🧘","Йога"],["🏊","Плавание / море"],["🥾","Прогулки"],["🚴","Велосипед"],["💃","Танцы"],["👩‍🍳","Готовить"],["🎬","Фильмы / сериалы"],["🎵","Музыка"],["📖","Книги"],["📷","Фото"],["✈️","Путешествия"],["🛍️","Шопинг"],["🎮","Видеоигры"],["🎨","Творчество"]]}],
+   {items:[["⚽","Футбол"],["🏋️","Спортзал"],["🧘","Йога"],["🏊","Плавание / море"],["🥾","Прогулки"],["🚴","Велосипед"],["💃","Танцы"],["👩‍🍳","Готовить"],["🎬","Фильмы / сериалы"],["🎵","Музыка"],["📖","Книги"],["📷","Фото"],["✈️","Путешествия"],["🛍️","Шопинг"],["🎮","Видеоигры"],["🎨","Творчество"]].concat(L("🎾 Теннис|🏐 Волейбол|🏀 Баскетбол|🏃 Бег|🤿 Дайвинг|🏄 Сёрфинг|⛷️ Лыжи|🧗 Скалолазание|🎣 Рыбалка|⛺ Кемпинг|🌱 Сад / огород|🧶 Вязание / шитьё|🎸 Гитара|🎤 Петь / караоке|♟️ Шахматы|🧩 Настольные игры|🧁 Выпечка|🍷 Дегустации|🐕 Гулять с собакой|🛶 Каяк / SUP|🏇 Лошади|🎳 Боулинг|🎭 Театр|🖼️ Музеи|✍️ Писать / блог|🎙️ Подкасты|📺 YouTube|🧠 Саморазвитие|💅 Уход за собой|🧖 Баня / хаммам|🕺 Вечеринки|🎟️ Фестивали")),per:16}],
   text:"Есть ещё хобби?"},
  {lvl:"2 · Поведение",t:"Как проходят выходные?",s:"Твои типичные выходные.",groups:[
-   {items:[["🥐","Долгий завтрак"],["😴","Поздно встать"],["☕","Посидеть в кафе"],["🍽️","Ресторан"],["👯","Встреча с друзьями"],["👵","Семья"],["🏖️","Пляж / природа"],["🛍️","Шопинг"],["🚙","Поездка за город"],["🧹","Домашние дела"],["📚","Учёба"],["🎤","Концерт / событие"]]}]},
+   {items:[["🥐","Долгий завтрак"],["😴","Поздно встать"],["☕","Посидеть в кафе"],["🍽️","Ресторан"],["👯","Встреча с друзьями"],["👵","Семья"],["🏖️","Пляж / природа"],["🛍️","Шопинг"],["🚙","Поездка за город"],["🧹","Домашние дела"],["📚","Учёба"],["🎤","Концерт / событие"]].concat(L("🛌 Валяюсь весь день|🍳 Готовлю что-то особенное|🧺 Пикник|🚶 Гуляю по городу|⛰️ Горы / походы|🚤 Катер / яхта|🏊 Бассейн|🏋️ Тренировка|💆 Спа / массаж|🎬 Кино|📺 Сериалы дома|🎮 Игры|🛒 Рынок / базар|🌇 Закат на набережной|🍻 Бар / паб|🏛️ Экскурсии|🎨 Мастер-класс|👶 Время с детьми|🐾 Время с питомцем|💼 Работаю и в выходные|📖 Читаю|🧘 Тишина и отдых|✈️ Короткая поездка|🎂 Праздники / дни рождения")),per:12}]},
  {lvl:"1 · Окружение",t:"Что любишь есть и пить?",s:"Это будем заказывать в диалогах 😉",groups:[
-   {items:[["☕","Кофе"],["🫖","Чай"],["🍷","Вино"],["🍳","Завтрак"],["🐟","Рыба"],["🥩","Мясо / шашлык"],["🥗","Салаты"],["🍕","Пицца / паста"],["🍣","Суши"],["🍰","Десерты"],["🍉","Фрукты"],["🥑","Здоровое питание"]]}]},
+   {items:[["☕","Кофе"],["🫖","Чай"],["🍷","Вино"],["🍳","Завтрак"],["🐟","Рыба"],["🥩","Мясо / шашлык"],["🥗","Салаты"],["🍕","Пицца / паста"],["🍣","Суши"],["🍰","Десерты"],["🍉","Фрукты"],["🥑","Здоровое питание"]].concat(L("🥐 Выпечка|🍔 Бургеры|🌮 Мексиканская кухня|🍜 Азиатская кухня|🥘 Домашняя еда|🧀 Сыры|🍤 Морепродукты|🥙 Шаурма / кебаб|🍦 Мороженое|🍫 Шоколад|🥤 Смузи / соки|🍺 Пиво|🍹 Коктейли|🥛 Молочное|🌶️ Острое|🥦 Овощи|🌱 Вегетарианское|🍚 Рис / плов|🥟 Пельмени / манты|🥖 Хлеб|🍲 Супы|🥞 Блины|🧃 Лимонад / компот|💧 Просто вода")),per:12}]},
+ {lvl:"3 · Способности",t:"Что у тебя хорошо получается?",s:"Твои сильные стороны — в жизни и на работе.",groups:[
+   {per:12,items:L("🗣️ Общаться с людьми|👂 Слушать|😂 Шутить|🤝 Договариваться|🧘 Сохранять спокойствие|🧩 Решать проблемы|📋 Организовывать|🧮 Считать / цифры|💻 Компьютер / техника|🎨 Рисовать / дизайн|📸 Фотографировать|👩‍🍳 Готовить|🎵 Петь / музыка|💃 Танцевать|🏃 Спорт|🧠 Запоминать|✍️ Писать тексты|📖 Быстро читать|🗺️ Ориентироваться|🚗 Водить машину|🔧 Чинить|🧵 Рукоделие|🌱 Растения|🐾 Животные|👶 Ладить с детьми|💡 Придумывать идеи|🎭 Изображать / играть роли|🗂️ Держать порядок|⏰ Всё успевать|💬 Поддерживать других|📣 Выступать перед людьми|🛍️ Торговаться|💰 Экономить|🧳 Собирать чемодан|🧑‍🏫 Объяснять|🔍 Замечать детали")}],
+  text:"Что ещё ты умеешь?"},
+ {lvl:"3 · Способности",t:"Как тебе легче учиться?",s:"Отметь всё, что тебе подходит.",groups:[
+   {per:12,items:L("👀 Смотреть картинки|👂 Слушать|🗣️ Повторять вслух|✍️ Записывать|🎬 Видео / сериалы|🎵 Песни|🎮 Игры|🃏 Карточки|📱 С телефона|⏱️ Короткими уроками|🗓️ Каждый день понемногу|🧑‍🏫 С преподавателем|👥 В группе|🙋 Самостоятельно|💬 В разговоре|🧩 Через задачки|📖 Через истории|📏 Через правила|🎭 Через сценки|🚶 На ходу / в дороге|🌅 Утром|🌙 Вечером|🔁 Много повторять|😂 С юмором")}]},
+ {lvl:"3 · Способности",t:"Что в языке уже получается, а что пока трудно?",s:"Если ты учишь язык с нуля — просто пропусти первую часть.",groups:[
+   {q:"Уже получается 💪",per:6,items:L("👂 Понимать на слух|🗣️ Говорить|📖 Читать|✍️ Писать|🔤 Произношение|🧠 Запоминать слова|📏 Грамматика|📞 Говорить по телефону|🎬 Понимать фильмы|⚡ Отвечать быстро|💬 Переписка|🤔 Начать разговор")},
+   {q:"Пока трудно 😅",per:6,items:L("👂 Понимать на слух|🗣️ Говорить|📖 Читать|✍️ Писать|🔤 Произношение|🧠 Запоминать слова|📏 Грамматика|📞 Говорить по телефону|🎬 Понимать фильмы|⚡ Отвечать быстро|💬 Переписка|🤔 Начать разговор")}]},
+ {lvl:"4 · Убеждения",t:"С какими мыслями ты согласен / согласна?",s:"Отметь фразы, которые звучат как твои мысли. Правильных ответов нет.",cols2:true,groups:[
+   {per:12,items:L("🐢 «Языки даются мне трудно»|⚡ «Я быстро учусь»|😳 «Боюсь ошибиться при людях»|👍 «Ошибки — это нормально»|🎂 «Взрослым учить язык труднее»|🧒 «Учиться можно в любом возрасте»|📏 «Сначала грамматика, потом разговор»|🗣️ «Сначала говорить, правила потом»|🧠 «У меня плохая память на слова»|🎁 «У меня есть талант к языкам»|⏳ «На язык нужны годы»|🚀 «Заговорить можно за пару месяцев»|🌍 «Без языка я чувствую себя чужим(ой)»|🤐 «Лучше промолчу, чем скажу неправильно»|🎯 «Если захочу — добьюсь»|😩 «Я уже пробовал(а), не получилось»|🔊 «Мой акцент — это нормально»|🙈 «Стесняюсь своего акцента»|👂 «Местные говорят слишком быстро»|😊 «Местные рады, когда я говорю на их языке»|💸 «Хорошее обучение — это дорого»|📱 «Язык можно выучить с телефона»|🧑‍🏫 «Без преподавателя не получится»|🙋 «Я могу учиться сам(а)»|🔁 «Повторение — мать учения»|😴 «Учёба — это скучно»|🎉 «Учиться может быть весело»|🕰️ «У меня нет времени»|⏱️ «15 минут в день — уже много»|🏆 «Нужно говорить без ошибок»|💬 «Главное — чтобы меня поняли»|👨‍👩‍👧 «Близкие меня поддерживают»|🧗 «Трудности меня заводят»|😟 «Если не понимаю — теряюсь»|🤓 «Мне нравится разбираться в правилах»|🌱 «Каждый день я становлюсь лучше»")}],
+  text:"Своя мысль о себе и языке…"},
+ {lvl:"4 · Убеждения",t:"Что тебе мешает или может помешать?",s:"Честно — так уроки будут удобнее для тебя.",groups:[
+   {per:12,items:L("🕰️ Мало времени|😴 Усталость|📵 Отвлекаюсь на телефон|😳 Стеснение|🧠 Забываю слова|😩 Быстро бросаю|💸 Деньги|👶 Дети / семья|💼 Много работы|🤷 Не знаю, с чего начать|😐 Скучные учебники|👂 Не с кем говорить|🏠 Нет тихого места|🌙 Поздно прихожу домой|🤯 Слишком много правил|🐌 Нет быстрого результата|🔁 Нет привычки|🗓️ Нерегулярный график|😰 Страх экзаменов|🧳 Частые поездки|📚 Слишком много начатого|🙅 Никто не проверяет|🎧 Плохо понимаю на слух|✅ Ничего не мешает!")}]},
+ {lvl:"5 · Ценности",t:"Что для тебя самое важное в жизни?",s:"Выбери 5–7 самых важных.",groups:[
+   {per:12,items:L("👨‍👩‍👧 Семья|❤️ Любовь|👯 Дружба|💪 Здоровье|🕊️ Свобода|🛡️ Безопасность|💰 Деньги|🏆 Успех / карьера|📈 Развитие|🎓 Знания|🎨 Творчество|🌍 Путешествия|🏡 Уютный дом|😌 Спокойствие|🎉 Радость / веселье|😂 Юмор|🤝 Честность|🙏 Благодарность|💞 Забота о других|🌳 Природа|🐾 Животные|🧭 Независимость|⭐ Признание|🎯 Цели|⚖️ Справедливость|🎁 Щедрость|🔥 Драйв / страсть|🧘 Гармония|🕰️ Время для себя|🍷 Удовольствия|💄 Красота|🧠 Мудрость|🌅 Новые впечатления|👑 Уважение|🤗 Принятие|🏅 Качество во всём")}],
+  text:"Что ещё для тебя важно?"},
+ {lvl:"5 · Ценности",t:"Что для тебя важно на уроках?",s:"Каким должен быть твой идеальный урок?",groups:[
+   {per:12,items:L("😂 Юмор|🗣️ Много разговора|📏 Чёткие правила|⚡ Быстрый результат|🎮 Игры|🧘 Спокойный темп|🧑‍🏫 Внимание ко мне|📋 Понятный план|🎯 Темы из моей жизни|🔁 Повторение|✅ Сразу исправлять ошибки|🤫 Не перебивать, когда говорю|🎬 Видео|🎵 Песни|📖 Истории|🏆 Видеть прогресс|📝 Домашние задания|🙅 Без домашних заданий|⏱️ Коротко|🕐 Подольше, но глубоко|🌍 Культура страны|💼 Деловой язык|💬 Живой разговорный язык|🤗 Поддержка и похвала")}]},
+ {lvl:"6 · Идентичность",t:"Кто ты? Выбери слова о себе",s:"Какие слова — про тебя?",groups:[
+   {per:12,items:L("👩‍👧 Мама / папа|💑 Партнёр / супруг(а)|👧 Дочь / сын|🧑‍🤝‍🧑 Друг / подруга|💼 Профессионал|👑 Руководитель|🎓 Студент(ка)|🌍 Путешественник(ца)|🏠 Хозяин(ка) дома|🎨 Творческий человек|🏋️ Спортсмен(ка)|🍽️ Гурман|🐾 Любитель животных|📚 Книголюб|🎵 Меломан|🧭 Искатель приключений|🧘 Спокойный человек|🔥 Энергичный человек|😂 Весельчак|🤔 Мыслитель|💭 Мечтатель(ница)|🛠️ Практик|🌞 Оптимист(ка)|🧐 Перфекционист(ка)|🙋 Экстраверт|🏡 Интроверт|🦁 Смелый человек|🤗 Добрый человек|🎯 Целеустремлённый человек|🌱 Новичок, который растёт|🧑‍🏫 Наставник|🤝 Помощник|🌐 Человек мира|🏝️ Человек моря|🕵️ Любопытный человек|🎤 Душа компании")}],
+  text:"Закончи фразу: «Я — человек, который…»"},
+ {lvl:"6 · Идентичность",t:"Каким ты хочешь быть на новом языке?",s:"Представь себя, когда ты уже свободно говоришь.",groups:[
+   {per:12,items:L("😎 Уверенным(-ой)|😂 Смешным(-ой)|🎩 Вежливым(-ой)|💼 Деловым(-ой)|🏘️ Своим(-ей) среди местных|💃 Обаятельным(-ой)|🧑‍🏫 Интересным собеседником|🤝 Надёжным(-ой)|🗣️ Разговорчивым(-ой)|🧘 Спокойным(-ой)|❤️ Тёплым(-ой)|⚡ Быстрым(-ой) в ответах|🎭 Артистичным(-ой)|🦁 Смелым(-ой)|🌟 Ярким(-ой)|🎯 Точным(-ой) в словах|🤗 Открытым(-ой)|😇 Терпеливым(-ой)|🕵️ Любопытным(-ой)|🧭 Независимым(-ой)|💬 Хорошим слушателем|🍷 Душой компании|🎙️ Ведущим(-ей) в разговоре|🌱 Таким(-ой) же, как сейчас")}]},
+ {lvl:"7 · Миссия",t:"Что ты хочешь дать людям и миру?",s:"Что-то большее, чем ты сам(а). Выбери, что откликается.",groups:[
+   {per:12,items:L("🤝 Помогать людям|🩺 Заботиться о здоровье других|🧑‍🏫 Учить и делиться знаниями|🌉 Соединять культуры|👨‍👩‍👧 Дать лучшее своей семье|👶 Вырастить счастливых детей|✨ Вдохновлять|🎨 Создавать красоту|🌳 Беречь природу|🐾 Защищать животных|🏗️ Строить своё дело|💼 Создавать рабочие места|😊 Дарить людям радость|🕊️ Нести мир и добро|📚 Оставить след: книгу, проект|🗣️ Быть голосом для других|🌍 Делать мир ближе|🧭 Показать, что всё возможно|🍲 Кормить и угощать|🏡 Создавать уют|🔬 Открывать новое|🎶 Делиться искусством|🧑‍🤝‍🧑 Объединять людей|🙋 Пока не думал(а) об этом")}],
+  text:"Своими словами…"},
+ {lvl:"7 · Миссия",t:"Прошло 5 лет, ты свободно говоришь. Где ты и что делаешь?",s:"Помечтай! Отметь всё, что тебе нравится.",groups:[
+   {per:12,items:L("🏖️ Живу у моря в другой стране|🏙️ Живу в большом городе за границей|💼 Работаю в международной компании|🏪 Веду своё дело|🧑‍🏫 Преподаю|🗣️ Перевожу|✈️ Путешествую сам(а)|👨‍👩‍👧 Болтаю с семьёй партнёра|👶 Мои дети говорят на двух языках|🍽️ Шучу с официантами|🎬 Смотрю фильмы без субтитров|📖 Читаю книги в оригинале|🤝 Веду переговоры|🎤 Выступаю на конференции|📱 Веду блог|🩺 Помогаю иностранным клиентам|🏡 Купил(а) дом за границей|🎓 Учусь в университете|🌍 Учу следующий язык|🎶 Пою песни на этом языке|👯 Друзья по всему миру|💑 Новая любовь|🛂 Получил(а) документы / ВНЖ|🏆 Сдал(а) экзамен|☕ Спокойно живу и наслаждаюсь|📞 Звоню куда угодно без страха|🧳 Езжу в командировки|🧭 Вожу туристов|🍷 Ужинаю с местными друзьями|🏛️ Понимаю историю страны|😂 Понимаю местные шутки|🎉 Праздную местные праздники|💻 Работаю удалённо откуда угодно|🌱 Начал(а) новую жизнь|🙌 Горжусь собой|❓ Пока не знаю")}],
+  text:"Опиши свою мечту одним предложением…"},
  {lvl:"Мотивация",t:"Зачем тебе этот язык?",s:"Что тебя больше всего мотивирует?",groups:[
-   {items:[["✈️","Путешествия"],["🏠","Переезд / жизнь за границей"],["💼","Работа / карьера"],["🧾","Документы / ВНЖ"],["❤️","Партнёр / семья"],["🗨️","Новые знакомства"],["📺","Сериалы / фильмы"],["🎶","Музыка"],["🧠","Для себя / тренировка мозга"]]}],
+   {items:[["✈️","Путешествия"],["🏠","Переезд / жизнь за границей"],["💼","Работа / карьера"],["🧾","Документы / ВНЖ"],["❤️","Партнёр / семья"],["🗨️","Новые знакомства"],["📺","Сериалы / фильмы"],["🎶","Музыка"],["🧠","Для себя / тренировка мозга"]].concat(L("📈 Повышение / зарплата|🎓 Учёба за границей|👧 Помогать детям с уроками|🏥 Общаться с пациентами / клиентами|📜 Экзамен / сертификат|🤝 Бизнес-партнёры|🗺️ Понимать местных|🍽️ Самому(ой) заказывать в кафе|📚 Читать книги в оригинале|💑 Найти любовь|🏆 Вызов себе|🌏 Говорить с людьми со всего мира|😌 Чувствовать себя своим(ей)|👵 Корни / предки|📱 Блог / соцсети|🧑‍🏫 Самому(ой) преподавать|🎮 Игры|🏡 Купить дом за границей")),per:9}],
   text:"Другая причина…"},
  {lvl:"Последний шаг",t:"Расскажи о себе в нескольких предложениях",s:"Пиши по-русски. Всё, что напишешь, станет темой твоих уроков: чем личнее, тем интереснее!",
   area:"Например: живу в Анталье, работаю в салоне красоты, по выходным хожу на пляж с дочкой…"},
  {final:true}
 ];
-let ans={},i=0;
-try{ans=JSON.parse(localStorage.getItem("anketa-ru")||"{}");i=+localStorage.getItem("anketa-ru-i")||0}catch(e){}
+let ans={},i=0;const OPEN={};let MODE=null,VP=0;
+try{ans=JSON.parse(localStorage.getItem("anketa-ru")||"{}");i=+localStorage.getItem("anketa-ru-i")||0;MODE=localStorage.getItem("anketa-ru-mode");VP=+localStorage.getItem("anketa-ru-vp")||0}catch(e){}
 if(i>=PAGES.length)i=0;
 const $=s=>document.querySelector(s);
-function save(){try{localStorage.setItem("anketa-ru",JSON.stringify(ans));localStorage.setItem("anketa-ru-i",i)}catch(e){}}
+function save(){try{localStorage.setItem("anketa-ru",JSON.stringify(ans));localStorage.setItem("anketa-ru-i",i);localStorage.setItem("anketa-ru-vp",VP);if(MODE)localStorage.setItem("anketa-ru-mode",MODE)}catch(e){}}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 
 function summary(){
@@ -134,7 +195,7 @@ function summary(){
   return out;
 }
 
-function render(){
+function render(keep){
   const p=PAGES[i];
   $("#bar").style.width=(i/(PAGES.length-1)*100)+"%";
   $("#back").hidden=i===0;
@@ -144,8 +205,8 @@ function render(){
     h=`<div class="hero"><div class="big">👋🌍</div>
       <h1>Привет!</h1>
       <p class="sub">Ты будешь учить язык не как в учебнике, а <b>на материале своей жизни</b>: твой дом, твоя работа, твои хобби.</p>
-      <p class="sub">Чтобы уроки были про тебя, сначала давай познакомимся. Просто нажимай на картинки — около 5 минут.</p>
-      <div class="steps"><span>🏠 Дом</span><span>💼 Работа</span><span>🎨 Хобби</span><span>🍽️ Еда</span><span>🎯 Мотивация</span></div>
+      <p class="sub">Чтобы уроки были про тебя, сначала давай познакомимся. Просто нажимай на картинки — около 10 минут.</p>
+      <div class="steps"><span>🏠 Дом</span><span>💼 Работа</span><span>🎨 Хобби</span><span>🍽️ Еда</span><span>💪 Сильные стороны</span><span>💭 Мысли о языке</span><span>💎 Ценности</span><span>🙋 Кто я</span><span>🌟 Мечта</span><span>🎯 Мотивация</span></div>
       <p class="sub">Правильных и неправильных ответов нет. В конце скопируй результат и отправь преподавателю.</p></div>`;
   }else if(p.final){
     const s=summary();
@@ -157,11 +218,20 @@ function render(){
   }else{
     const a=ans[i]||(ans[i]={sel:[],txt:""});
     h=`<div class="eyebrow">Уровень ${p.lvl}</div><h1>${p.t}</h1><p class="sub">${p.s}</p>`;
-    (p.groups||[]).forEach(g=>{
+    if(p.groups&&MODE!=="voice")h+=`<button type="button" class="vbtn" id="von">🎧 Озвучить варианты</button>`;
+    (p.groups||[]).forEach((g,gi)=>{
       if(g.q)h+=`<p class="grp">${g.q}</p>`;
-      h+=`<div class="grid${p.cols4?" g4":""}">`+g.items.map(([e,l])=>{
-        const k=(g.q?g.q+": ":"")+l;
+      const key=(g.q?g.q+": ":""),per=g.per||g.items.length,pages=Math.ceil(g.items.length/per),ok=i+"-"+gi;
+      if(OPEN[ok]==null){let need=1;g.items.forEach(([e,l],ix)=>{if(a.sel.includes(key+l))need=Math.max(need,Math.floor(ix/per)+1)});OPEN[ok]=need}
+      const shown=g.items.slice(0,OPEN[ok]*per);
+      h+=`<div class="grid${p.cols4?" g4":p.cols2?" g2":""}">`+shown.map(([e,l])=>{
+        const k=key+l;
         return `<button type="button" class="tile" data-k="${esc(k)}" aria-pressed="${a.sel.includes(k)}"><span class="e">${e}</span>${esc(l)}</button>`}).join("")+`</div>`;
+      if(pages>1){
+        const left=g.items.length-shown.length;
+        h+=left>0?`<button type="button" class="more" data-g="${ok}" data-d="1">▾ Показать ещё (${Math.min(left,per)} из ${left}) · стр. ${OPEN[ok]}/${pages}</button>`
+                 :`<button type="button" class="more less" data-g="${ok}" data-d="0">▴ Свернуть</button>`;
+      }
     });
     if(p.name)h+=`<input type="text" id="t${i}" placeholder="Имя" value="${esc(a.txt)}">`;
     if(p.text)h+=`<input type="text" id="t${i}" placeholder="${esc(p.text)}" value="${esc(a.txt)}">`;
@@ -173,8 +243,14 @@ function render(){
     const a=ans[i],k=b.dataset.k,on=a.sel.includes(k);
     a.sel=on?a.sel.filter(x=>x!==k):[...a.sel,k];b.setAttribute("aria-pressed",!on);save();
   });
+  m.querySelectorAll(".more").forEach(b=>b.onclick=()=>{
+    const k=b.dataset.g;
+    if(b.dataset.d==="1"){OPEN[k]++;const y=b.getBoundingClientRect().top+scrollY;render(true);window.scrollTo(0,y-80)}
+    else{OPEN[k]=1;render(true);const g=m.querySelector('[data-g="'+k+'"]');if(g)g.scrollIntoView({block:"center"})}
+  });
   const t=$("#t"+i);if(t)t.oninput=()=>{ans[i].txt=t.value;save()};
   const sk=$("#skip");if(sk)sk.onclick=()=>go(1);
+  const vo=$("#von");if(vo)vo.onclick=()=>voiceOn();
   const c=$("#copy");if(c)c.onclick=()=>{
     const s=summary();
     const done=()=>{$("#copied").textContent="✅ Скопировано! Вставь в чат с преподавателем."};
@@ -182,12 +258,121 @@ function render(){
       $("#copied").textContent="Текст выделен — нажми и удерживай, затем «Скопировать»."};
     try{navigator.clipboard.writeText(s).then(done,fallback)}catch(e){fallback()}
   };
-  window.scrollTo(0,0);
+  if(!keep)window.scrollTo(0,0);
 }
-function go(d){i=Math.max(0,Math.min(PAGES.length-1,i+d));save();render()}
-$("#next").onclick=()=>{if(PAGES[i].final){i=0;save();render()}else go(1)};
+function go(d){vStop();i=Math.max(0,Math.min(PAGES.length-1,i+d));VP=0;save();render();if(MODE==="voice"&&VRUN)setTimeout(step,250)}
+$("#next").onclick=()=>{if(PAGES[i].final){vStop();i=0;VP=0;save();render()}else if(PAGES[i].intro&&!MODE)offer();else go(1)};
 $("#back").onclick=()=>go(-1);
+/* ---------- voice mode: reads question + every option, answer "да"/"нет" by voice or buttons ---------- */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let VRUN=false,TOK=0,REC=null,WAIT=false,NOMIC=false,RETRY=0;
+function ruVoice(){const v=(speechSynthesis.getVoices()||[]).filter(x=>/^ru/i.test(x.lang));return v.find(x=>/google|milena|yandex/i.test(x.name))||v[0]||null}
+function sayable(s){return String(s).replace(/\((-?[а-яё]{1,4}|-[^)]*)\)/gi,"").replace(/\s*\(([^)]*)\)/g,", $1").replace(/[«»"]/g,"").replace(/\s*\/\s*/g," или ").replace(/[^\p{L}\p{N}\s.,:;!?–—-]/gu,"").replace(/\s+/g," ").trim()}
+function speak(t,cb){
+  const my=++TOK;let done=false;const fin=()=>{if(done||my!==TOK)return;done=true;cb&&cb()};
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(sayable(t));u.lang="ru-RU";const v=ruVoice();if(v)u.voice=v;u.rate=1;
+    u.onend=fin;u.onerror=fin;speechSynthesis.speak(u)}catch(e){}
+  setTimeout(fin,Math.max(2500,sayable(t).length*95+1800));
+}
+function flat(p){const r=[];(p.groups||[]).forEach((g,gi)=>g.items.forEach(([e,l],ix)=>r.push({gi,ix,q:g.q||"",l,k:(g.q?g.q+": ":"")+l,per:g.per||g.items.length})));return r}
+function setStatus(t){const s=$("#vst");if(s)s.textContent=t}
+function panel(show){$("#vp").hidden=!show;document.body.classList.toggle("vmode",!!show)}
+function vStop(){TOK++;WAIT=false;try{speechSynthesis.cancel()}catch(e){}if(REC){try{REC.onend=null;REC.abort()}catch(e){}REC=null}$("#vmic").textContent=""}
+function voiceOn(){MODE="voice";VRUN=true;save();render();step()}
+function voiceOff(){vStop();VRUN=false;MODE="read";save();panel(false);render(true)}
+function pause(){if(VRUN){VRUN=false;vStop();$("#vpau").textContent="▶";setStatus("Пауза. Нажми ▶, чтобы продолжить.")}else{VRUN=true;$("#vpau").textContent="⏸";step()}}
+function hilite(k){document.querySelectorAll(".tile.cur").forEach(t=>t.classList.remove("cur"));
+  const t=[...document.querySelectorAll(".tile")].find(x=>x.dataset.k===k);if(t){t.classList.add("cur");t.scrollIntoView({block:"center",behavior:"smooth"})}return t}
+function step(){
+  if(MODE!=="voice"||!VRUN)return;
+  const p=PAGES[i];panel(true);$("#vpau").textContent="⏸";
+  const yn=on=>{$("#vyes").disabled=!on;$("#vno").disabled=!on};
+  if(p.intro){go(1);return}
+  if(p.final){yn(false);$("#vpos").textContent="🎧 Готово";$("#vlab").textContent="Спасибо! 🎉";speak("Готово, спасибо! Нажми кнопку «Скопировать результат» и отправь его преподавателю.");setStatus("");return}
+  const items=flat(p);
+  if(!items.length){yn(false);$("#vpos").textContent="🎧 "+p.lvl;$("#vlab").textContent="✍️ Напиши ответ";
+    setStatus("Напиши ответ и нажми «Далее» — озвучка продолжится.");speak(p.t+" "+p.s+" Напиши ответ и нажми Далее.");return}
+  if(VP>=items.length){
+    yn(false);$("#vlab").textContent="➡️ Дальше";
+    const msg=p.text?"Если хочешь, допиши ответ своими словами — можно и позже. Переходим к следующему вопросу.":"Переходим к следующему вопросу.";
+    speak(msg,()=>{if(VRUN)go(1)});return}
+  const it=items[VP],ok=i+"-"+it.gi,need=Math.floor(it.ix/it.per)+1;
+  if((OPEN[ok]||1)<need){OPEN[ok]=need;render(true)}
+  hilite(it.k);yn(true);
+  const sel=(ans[i]&&ans[i].sel||[]).includes(it.k);
+  $("#vpos").textContent=`🎧 Вариант ${VP+1} из ${items.length}`;$("#vlab").textContent=it.l;
+  let pre="";
+  if(VP===0||!STARTED)pre=(STARTED?"":"Продолжаем. ")+p.t+" Отвечай да или нет. ";
+  if(it.q&&(VP===0||!STARTED||it.gi!==items[VP-1].gi))pre+=it.q+". ";
+  STARTED=true;
+  setStatus("");
+  speak(pre+it.l+(sel?". Уже отмечено.":"")+"?",()=>listen());
+}
+let STARTED=true;
+function answer(yes){
+  if(MODE!=="voice")return;vStop();
+  const p=PAGES[i],items=flat(p),it=items[VP];if(!it)return;
+  const a=ans[i]||(ans[i]={sel:[],txt:""}),on=a.sel.includes(it.k);
+  if(yes&&!on)a.sel.push(it.k);if(!yes&&on)a.sel=a.sel.filter(x=>x!==it.k);
+  const t=[...document.querySelectorAll(".tile")].find(x=>x.dataset.k===it.k);if(t)t.setAttribute("aria-pressed",yes);
+  VP++;save();setStatus(yes?"✅ Записано":"➡️ Дальше");
+  VRUN=true;setTimeout(step,yes?450:250);
+}
+function parse(t){
+  const w=t.toLowerCase().replace(/ё/g,"е").split(/[^a-zа-я]+/).filter(Boolean);
+  const has=a=>w.some(x=>a.includes(x));
+  if(has(["стоп","пауза","хватит","подожди"]))return"stop";
+  if(w.some(x=>x.startsWith("повтор")))return"rep";
+  if(has(["нет","неа","не","no","nope","дальше","пропусти","пропустить","следующий","мимо"]))return"no";
+  if(has(["да","ага","угу","конечно","yes","ок","окей","давай","точно","верно","записывай","отметь"]))return"yes";
+  return null;
+}
+function listen(){
+  if(!VRUN)return;WAIT=true;
+  if(!SR||NOMIC){setStatus("Нажми ✅ Да или ❌ Нет");return}
+  const my=TOK;
+  try{REC=new SR();REC.lang="ru-RU";REC.interimResults=false;REC.maxAlternatives=3;REC.continuous=false}catch(e){NOMIC=true;setStatus("Нажми ✅ Да или ❌ Нет");return}
+  let got=false;
+  REC.onresult=e=>{const alts=[...e.results[0]].map(r=>r.transcript);let c=null;for(const t of alts){c=parse(t);if(c)break}
+    if(!c){setStatus("Не расслышал: «"+alts[0]+"». Скажи «да» или «нет».");return}
+    got=true;RETRY=0;
+    if(c==="yes")answer(true);else if(c==="no")answer(false);else if(c==="rep"){vStop();step()}else if(c==="stop")pause();};
+  REC.onerror=e=>{if(e.error==="not-allowed"||e.error==="service-not-allowed"){NOMIC=true;$("#vmic").textContent="";setStatus("Микрофон не разрешён — отвечай кнопками ✅ / ❌")}};
+  REC.onend=()=>{$("#vmic").textContent="";REC=null;if(!got&&WAIT&&VRUN&&my===TOK&&!NOMIC){if(++RETRY<=4)setTimeout(()=>{if(WAIT&&VRUN&&my===TOK)listen()},250);else{RETRY=0;setStatus("Нажми ✅ Да или ❌ Нет (или 🔁, чтобы послушать снова)")}}};
+  try{REC.start();$("#vmic").textContent="🎙️ слушаю…";setStatus("Скажи «да» или «нет»")}catch(e){setStatus("Нажми ✅ Да или ❌ Нет")}
+}
+$("#vyes").onclick=()=>answer(true);$("#vno").onclick=()=>answer(false);
+$("#vrep").onclick=()=>{vStop();VRUN=true;STARTED=true;step()};$("#vpau").onclick=pause;$("#voff").onclick=voiceOff;
+document.addEventListener("click",e=>{const t=e.target.closest(".tile");if(t&&MODE==="voice"&&VRUN){const items=flat(PAGES[i]);const n=items.findIndex(x=>x.k===t.dataset.k);if(n===VP&&n>=0){/* tap on current option = answered by tap */vStop();VP++;save();setTimeout(step,350)}}});
+function overlay(html){$("#ovb").innerHTML=html;$("#ov").hidden=false}
+function closeOv(){$("#ov").hidden=true}
+function offer(){
+  overlay(`<div style="font-size:40px">🎧</div><h1 style="font-size:21px">Озвучить вопросы и варианты?</h1>
+   <p class="sub">Я буду читать каждый вариант вслух, а ты отвечаешь голосом «да» или «нет» (или кнопками). Удобно на ходу, в наушниках. Экран телефона при этом не выключай.</p>
+   <button class="btn pri" id="o1" type="button">🎧 Да, озвучить</button>
+   <button class="btn sec" id="o2" type="button">📖 Нет, буду читать сам(а)</button>
+   <p class="sub" style="font-size:12.5px">Озвучку можно включить или выключить на любой странице.</p>`);
+  $("#o1").onclick=()=>{closeOv();MODE="voice";VRUN=true;STARTED=true;save();go(1)};
+  $("#o2").onclick=()=>{closeOv();MODE="read";save();go(1)};
+}
+function welcome(){
+  const p=PAGES[i];
+  const done=Object.values(ans).filter(a=>a&&((a.sel&&a.sel.length)||(a.txt&&a.txt.trim()))).length;
+  if(!(i>0&&!p.final))return;
+  const items=flat(p),where=p.t?`«${esc(p.t)}»`+(MODE==="voice"&&VP>0&&VP<items.length?`, вариант ${VP+1} из ${items.length}`:""):"";
+  overlay(`<div style="font-size:40px">👋</div><h1 style="font-size:21px">С возвращением!</h1>
+   <p class="sub">Все ответы сохранены (заполнено вопросов: ${done}). Продолжим с места, где ты остановился(-ась): ${where}.</p>
+   <button class="btn pri" id="w1" type="button">${MODE==="voice"?"🎧 Продолжить с озвучкой":"▶ Продолжить"}</button>
+   ${MODE==="voice"?`<button class="btn sec" id="w2" type="button">📖 Продолжить без звука</button>`:`<button class="btn sec" id="w2" type="button">🎧 Продолжить с озвучкой</button>`}
+   <button class="skip" id="w3" type="button">↩ К началу анкеты (ответы останутся)</button>`);
+  const v=()=>{closeOv();MODE="voice";VRUN=true;STARTED=false;save();render();step()};
+  const r=()=>{closeOv();MODE="read";VRUN=false;save();render()};
+  $("#w1").onclick=MODE==="voice"?v:r;$("#w2").onclick=MODE==="voice"?r:v;
+  $("#w3").onclick=()=>{closeOv();i=0;VP=0;save();render()};
+}
+try{speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>{}}catch(e){}
 render();
+welcome();
 </script>
 
 </body>
