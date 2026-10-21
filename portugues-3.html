@@ -132,6 +132,10 @@ p{margin:0;line-height:1.45}
 .stick .btn{flex:1;padding:11px 8px;font-size:14px;white-space:nowrap}
 .lg{border-radius:12px;padding:8px 10px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:2px;font-size:14px}
 .lg.ok{border-left:4px solid var(--ok)}.lg.bad{border-left:4px solid var(--bad)}.lq{font-weight:700}
+.cult{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:12px}
+.cl{display:flex;flex-direction:column;gap:3px}.cw{font-size:18px;line-height:1.7}
+.wd{font:inherit;color:var(--ink);background:none;border:0;padding:0;border-bottom:2px dotted var(--sea);cursor:pointer}
+.wtr{background:var(--sel);border-radius:8px;padding:4px 8px;font-size:14px}
 .own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
 .modal{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;padding:16px;z-index:20}
 .modal .card{max-width:420px;display:flex;flex-direction:column;gap:8px}
@@ -181,7 +185,7 @@ const HEARR=(listen,opts,a,lang)=>({k:"ch",pic:lang==="pt-PT"?"🇵🇹🎧":"�
 const CFG={n:3,key:"pt-br-3v2-a",readT:"Сообщение от Алиси 💬",who:"Alice 🌴 (Rio de Janeiro)",
  intro:`<div class="pic">🇧🇷🏖️</div><div class="eyebrow">Португальский · Урок 3</div><h1>Olá! Elas, vocês, a gente</h1>
  <p>Что в этом уроке:</p>
- <div class="card"><p>👩👩 <b>Часть 1:</b> «они» (женщины), «вы», «мы» по-разговорному<br>🔄 <b>Часть 2:</b> все местоимения вместе<br>🎧 <b>Часть 3:</b> на слух: что ты слышишь? (10 заданий)<br>💬 <b>Часть 4:</b> сообщение от Алиси и фразы из слов</p></div>
+ <div class="card"><p>👩👩 <b>Часть 1:</b> «они» (женщины), «вы», «мы» по-разговорному<br>🔄 <b>Часть 2:</b> все местоимения вместе<br>🎧 <b>Часть 3:</b> на слух: что ты слышишь? (10 заданий)<br>🌎 <b>Часть 4:</b> культурная заметка: зубная щётка в сумке<br>💬 <b>Часть 5:</b> сообщение от Алиси и фразы из слов</p></div>
  <p class="sub">🇧🇷 Основа — бразильский вариант, 🇵🇹 — что в Португалии иначе. 🔊 — послушать, 🌐 — перевод.</p>`,
  fin:()=>`<div class="card"><table class="tbl"><tr><td>👩 eu</td><td>visit<span class="end">o</span></td></tr><tr><td>👨 você · ele · ela · a gente</td><td>visit<span class="end">a</span></td></tr><tr><td>👩👨 nós</td><td>visit<span class="end">amos</span></td></tr><tr><td>👥 vocês · eles · elas</td><td>visit<span class="end">am</span></td></tr><tr><td>🇵🇹 tu</td><td>visit<span class="end">as</span></td></tr></table></div>
  <p>Теперь ты можешь сказать:</p>${esLine("A gente mora perto da praia. Vocês visitam a gente em dezembro?","Мы живём у пляжа. Вы приедете к нам в декабре?","es","🏖️ · ✈️ · 🎄")}`};
@@ -229,6 +233,11 @@ const MODS=[
   HEARR("Vocês esperam o autocarro?",["Вы ждёте поезд?","Вы ждёте автобус?","Они ждут автобус."],1,"pt-PT"),
   HEARR("Tu visitas os teus avós?",["Вы навещаете бабушку и дедушку?","Я навещаю бабушку и дедушку.","Ты навещаешь своих бабушку и дедушку?"],2,"pt-PT"),
   HEARR("Elas olham as fotos.",["Они смотрят фотографии.","Она смотрит фотографии.","Они делают фотографии."],0,"pt-PT")]},
+ {n:"Культурная заметка",e:"🌎",s:"зубная щётка в сумке",pages:[
+  {k:"cult",t:"🌎 Культурная заметка: зубная щётка в сумке",lines:[["No Brasil, muita gente escova os dentes depois do almoço — no trabalho!", "В Бразилии многие чистят зубы после обеда — прямо на работе!"], ["Elas levam a escova e a pasta de dente na bolsa.", "Женщины носят щётку и пасту в сумке."], ["Nos escritórios, a gente encontra pessoas que escovam os dentes no banheiro.", "В офисах можно встретить людей, которые чистят зубы в туалете."], ["Vocês escovam os dentes no trabalho? Muitos russos acham isso estranho!", "А вы чистите зубы на работе? Многим русским это кажется странным!"], ["Para os brasileiros, um sorriso bonito importa muito. 😁", "Для бразильцев красивая улыбка очень важна. 😁"], ["Por isso, os dentistas no Brasil trabalham muito!", "Поэтому у стоматологов в Бразилии много работы!"]],gloss:{"no": "в (em + o)", "brasil": "Бразилия", "muita": "много", "gente": "люди · muita gente = многие", "escova": "чистит щёткой (escovar); щётка", "os": "артикль (мн. ч., м. р.)", "dentes": "зубы", "depois": "после", "do": "(de + o)", "almoço": "обед", "trabalho": "работа", "elas": "они (ж. р.)", "levam": "носят с собой (levar)", "a": "артикль (ж. р.)", "e": "и", "pasta": "паста · pasta de dente = зубная паста", "de": "из; (связка)", "dente": "зуб", "na": "в (em + a)", "bolsa": "сумка", "nos": "в (em + os)", "escritórios": "офисы", "encontra": "встречает (encontrar) · a gente encontra = можно встретить", "pessoas": "люди", "que": "которые", "escovam": "чистят щёткой (escovar)", "banheiro": "туалет, ванная", "vocês": "вы", "muitos": "многие", "russos": "русские", "acham": "считают (achar) · achar estranho = находить странным", "isso": "это", "estranho": "странный", "para": "для", "brasileiros": "бразильцы", "um": "неопределённый артикль", "sorriso": "улыбка", "bonito": "красивый", "importa": "важен (importar)", "muito": "очень, много", "por": "по, за · por isso = поэтому", "dentistas": "стоматологи", "trabalham": "работают (trabalhar)"}},
+  {k:"ch",pic:"🪥",q:"Когда многие бразильцы чистят зубы?",opts:[["Только утром", null], ["После обеда, на работе", null], ["Только вечером", null]],a:1,why:"«…escova os dentes depois do almoço — no trabalho!»",hint:"Первая фраза."},
+  {k:"ch",pic:"👜",q:"Что женщины носят в сумке?",opts:[["Щётку и зубную пасту", null], ["Расчёску", null], ["Книгу", null]],a:0,why:"«Elas levam a escova e a pasta de dente na bolsa.»",hint:"Вторая фраза."},
+  {k:"ch",pic:"🦷",q:"Почему у стоматологов в Бразилии много работы?",opts:[["В Бразилии мало стоматологов", null], ["Бразильцы едят много сладкого", null], ["Бразильцам очень важна красивая улыбка", null]],a:2,why:"«…um sorriso bonito importa muito. Por isso…»",hint:"Две последние фразы."}]},
  {n:"Сообщение и фразы",e:"💬",s:"всё вместе",pages:[{k:"read"},
   {k:"ch",pic:"⚽",q:"Что делают Артур и Мигел?",opts:[["Играют в футбол",null],["Покупают фрукты",null],["Гуляют по пляжу",null]],a:0,why:"«O Arthur e o Miguel jogam futebol.»",hint:"Третья строка."},
   {k:"ch",pic:"🛍️",q:"Что покупает Алиси?",opts:[["Рыбу",null],["Фрукты",null],["Одежду",null]],a:1,why:"«Depois, eu compro frutas no mercado.»",hint:"«frutas»."},
@@ -332,6 +341,7 @@ function mdone(){const last=S.m===MODS.length-1;return `<div class="pic">${last?
 
 function page(P){CURLANG="";
   if(P.k==="toon")return `<h1>${P.t}</h1><div class="stage" id="stage"><div class="fin">${toonFin(P)}</div></div><div class="abar" id="tbar"></div><div class="tcap" id="tcap">🎬 Нажми ▶ · ⏮ ⏭ — сцены</div><div class="row"><button type="button" class="btn sec" id="treplay">▶ Смотреть ещё раз</button><button type="button" class="btn pri" data-next>К упражнениям →</button></div>`;
+  if(P.k==="cult")return cultPage(P);
   if(P.k==="read")return `<h1>${CFG.readT}</h1><p class="sub">Прочитай про себя. Непонятная фраза — нажми 🌐. Потом 3 вопроса.</p>
    <div class="chatbox"><span class="who">${CFG.who}</span>${READ.map(r=>`<div class="bub">${esLine(r[1],r[2],"",r[0])}</div>`).join("")}</div>`;
   if(P.k==="ch")return choice(P);
@@ -339,6 +349,9 @@ function page(P){CURLANG="";
 }
 const key=()=>S.m+"-"+S.p;
 const LTR={"Elas pintam muito bem.": "Они (женщины) очень хорошо рисуют.", "Vocês limpam a cozinha?": "Вы убираете кухню?"},OTR={};
+function cultPage(P){const G=P.gloss||{};const key=w=>w.toLowerCase().replace(/[^\p{L}\p{N}]/gu,"");
+  return `<h1>${P.t}</h1><p class="sub">Прочитай и послушай. Нажми на любое слово — увидишь перевод. 🌐 — перевод всей фразы. Потом вопросы.</p>
+  <div class="cult">${P.lines.map(([pt,ru],i)=>`<div class="cl"><div class="cw">${pt.split(" ").map(w=>G[key(w)]?`<button type="button" class="wd" data-w="${esc(key(w))}" data-l="${i}">${esc(w)}</button>`:`<span class="wn">${esc(w)}</span>`).join(" ")}</div><div class="esl"><button type="button" class="ic sm" data-say="${esc(pt)}">🔊</button><button type="button" class="ic sm" data-tr>🌐</button></div><div class="trv" hidden>${esc(ru)}</div><div class="wtr" id="wtr${i}" hidden></div></div>`).join("")}</div>`}
 function choice(P){CURLANG=P.lang||"";const a=S.ans[key()];
   let h=`<div class="pic">${P.pic}</div><p><b>${esc(P.q)}</b></p>`;
   if(P.es)h+=`<div class="card">${esLine(P.es,P.tr)}</div>`;
@@ -380,9 +393,12 @@ function afterBuild(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v
   else setTimeout(()=>{if(same())say(txt,lang)},700)}
 function afterAnswer(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
   if(ok)setTimeout(()=>{if(same())next()},1100);else if(txt)setTimeout(()=>{if(same())say(txt,lang)},1000)}
+function wireCult(pg){const P=S.v==="mod"?MODS[S.m].pages[S.p]:null;if(!P||P.k!=="cult")return;
+  pg.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const box=document.getElementById("wtr"+b.dataset.l);const t=`<b>${esc(b.textContent)}</b> — ${esc(P.gloss[b.dataset.w])}`;
+    if(!box.hidden&&box.dataset.w===b.dataset.w){box.hidden=true;return}box.innerHTML=t;box.dataset.w=b.dataset.w;box.hidden=false})}
 function wire(){
   const pg=$("#page");
-  wireIn(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
+  wireIn(pg);wireCult(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
   pg.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{const t=$("#hint");t.hidden=!t.hidden});
   pg.querySelectorAll("[data-skip],[data-next]").forEach(b=>b.onclick=next);
   pg.querySelectorAll("[data-log]").forEach(b=>b.onclick=()=>{S.v="log";save();render()});

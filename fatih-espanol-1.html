@@ -131,6 +131,10 @@ p{margin:0;line-height:1.45}
 .stick .btn{flex:1;padding:11px 8px;font-size:14px;white-space:nowrap}
 .lg{border-radius:12px;padding:8px 10px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:2px;font-size:14px}
 .lg.ok{border-left:4px solid var(--ok)}.lg.bad{border-left:4px solid var(--bad)}.lq{font-weight:700}
+.cult{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:12px}
+.cl{display:flex;flex-direction:column;gap:3px}.cw{font-size:18px;line-height:1.7}
+.wd{font:inherit;color:var(--ink);background:none;border:0;padding:0;border-bottom:2px dotted var(--sea);cursor:pointer}
+.wtr{background:var(--sel);border-radius:8px;padding:4px 8px;font-size:14px}
 .own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
 .modal{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;padding:16px;z-index:20}
 .modal .card{max-width:420px;display:flex;flex-direction:column;gap:8px}
@@ -249,6 +253,11 @@ const MODS=[
    why:"„Por la tarde tú entrenas en el gimnasio…“ → Fatih antrenman yapıyor. Balığı Daria pişiriyor (yo cocino).",hint:"„tú“ = Fatih (Daria ona yazıyor)."},
   {k:"ch",pic:"🌙",q:"Akşam birlikte ne yapıyorlar?",opts:[["Sahilde yürüyüp müzik dinliyorlar",null],["Türk kahvesi içiyorlar",null],["İspanya'ya uçuyorlar",null]],a:0,
    why:"„Por la noche nosotros caminamos por la playa y escuchamos música.“ Kahve cumartesi günü.",hint:"„Por la noche“ = akşam / gece."}]},
+ {n:"Kültür notu",e:"🌎",s:"gece saat onda akşam yemeği",pages:[
+  {k:"cult",t:"🌎 Kültür notu: gece saat onda akşam yemeği",lines:[["En España, nosotros cenamos muy tarde: a las diez de la noche.", "İspanya'da biz çok geç akşam yemeği yeriz: gece saat onda."], ["En Turquía, tú cenas a las siete, ¿verdad?", "Türkiye'de sen saat yedide akşam yemeği yersin, değil mi?"], ["Nosotros almorzamos a las dos o a las tres.", "Biz öğle yemeğini saat ikide ya da üçte yeriz."], ["Después, yo descanso un poco: ¡la famosa siesta! 😴", "Sonra biraz dinlenirim: meşhur siesta! 😴"], ["A las once de la noche, nosotros paseamos por la calle con amigos.", "Gece saat on birde arkadaşlarla sokakta yürüyüş yaparız."], ["¿Y tú? ¿Tú cenas tarde o temprano?", "Ya sen? Geç mi erken mi akşam yemeği yersin?"]],gloss:{"en": "-de, -da", "españa": "İspanya", "nosotros": "biz", "cenamos": "akşam yemeği yeriz (cenar)", "muy": "çok", "tarde": "geç; öğleden sonra", "a": "-e, -de · a las diez = saat onda", "las": "(artikel, çoğul dişil)", "diez": "on", "de": "-in, -den · de la noche = gece", "la": "(artikel, dişil)", "noche": "gece", "turquía": "Türkiye", "tú": "sen", "cenas": "akşam yemeği yersin (cenar)", "siete": "yedi", "verdad": "doğru · ¿verdad? = değil mi?", "almorzamos": "öğle yemeği yeriz (almorzar)", "dos": "iki", "o": "ya da, veya", "tres": "üç", "después": "sonra", "yo": "ben", "descanso": "dinlenirim (descansar)", "un": "bir", "poco": "az · un poco = biraz", "famosa": "meşhur, ünlü", "siesta": "öğle uykusu, siesta", "once": "on bir", "paseamos": "yürüyüş yaparız (pasear)", "por": "-de, boyunca", "calle": "sokak", "con": "ile", "amigos": "arkadaşlar", "y": "ve; ya", "temprano": "erken"}},
+  {k:"ch",pic:"🍽️🕙",q:"İspanyollar akşam yemeğini saat kaçta yer?",opts:[["Saat yedide", null], ["Saat onda", null], ["Saat altıda", null]],a:1,why:"«…a las diez de la noche.»",hint:"İlk cümle."},
+  {k:"ch",pic:"😴",q:"Siesta nedir?",opts:[["Öğleden sonra kısa dinlenme", null], ["Bir yemek", null], ["Bir dans", null]],a:0,why:"«Después, yo descanso un poco: ¡la famosa siesta!»",hint:"Dördüncü cümle."},
+  {k:"ch",pic:"🌙🚶",q:"Gece saat on birde ne yaparlar?",opts:[["Uyurlar", null], ["Çalışırlar", null], ["Arkadaşlarla sokakta yürürler", null]],a:2,why:"«…nosotros paseamos por la calle con amigos.»",hint:"Beşinci cümle."}]},
  {n:"Cümle kur",e:"🧱",s:"çizgi film + kelimeleri sırala",pages:[toonRecap,
   {k:"bd",pic:"🏋️‍♂️",q:"Ben spor salonunda antrenman yapıyorum.",w:["Yo","entreno","en","el","gimnasio."],why:"yo → entren<b>o</b>."},
   {k:"bd",pic:"👩‍🍳🐟",q:"Sen balık pişiriyorsun.",w:["Tú","cocinas","pescado."],why:"tú → cocin<b>as</b>."},
@@ -360,7 +369,7 @@ function gate(){return `<div class="gate scr"><div class="pic">🇪🇸🔑</div
  <button class="btn pri" id="go" type="button">Giriş →</button><div class="err" id="err" aria-live="polite"></div></div>`}
 function intro(){return `<div class="pic">🇪🇸👋</div><div class="eyebrow">İspanyolca · Ders 1</div><h1>¡Hola, Fatih! İlk cümlelerin</h1>
  <p>Bugün sadece 3 şey öğreneceksin:</p>
- <div class="card"><p>👫 <b>yo, tú, nosotros</b> — ben, sen, biz<br>✂️ <b>-AR fiilleri</b> nasıl değişir<br>💬 Kendi hayatından cümleler: spor, müzik, kahve, yolcular</p></div>
+ <div class="card"><p>👫 <b>yo, tú, nosotros</b> — ben, sen, biz<br>✂️ <b>-AR fiilleri</b> nasıl değişir<br>💬 Kendi hayatından cümleler: spor, müzik, kahve, yolcular<br>🌎 Kültür notu: gece saat onda akşam yemeği</p></div>
  <p class="sub">Yaklaşık 15 dakika. 🔊 dinlemek için, 🌐 Türkçe çeviri için. Her bölümü istediğin zaman tekrar yapabilirsin.</p>`}
 function menu(){return `<h1>Ders 1 · Bölümler</h1><p class="sub">Sırayla git ya da istediğin bölümü seç.</p><div class="menu">`+
  MODS.map((M,i)=>`<button type="button" class="mi${S.done[i]?" done":""}" data-mod="${i}"><span class="e">${M.e}</span><span class="n">${i+1}. ${esc(M.n)}<br><span class="s">${esc(M.s)}</span></span>${S.done[i]?"✅":"▶"}</button>`).join("")+`</div><button type="button" class="btn sec" data-log>📋 Cevaplarım</button>`}
@@ -385,6 +394,7 @@ function page(P){
    ${esLine("Hablo inglés.","İngilizce konuşuyorum.","es","👨‍💼🇬🇧")}`;
   if(P.k==="vocab")return `<h1>8 yeni fiil</h1><p class="sub">Hepsi -ar ile biter, hepsi aynı kurala uyar. 🔊 dinle, 🌐 anlamını gör.</p>
    <div class="vg">${VERBS.map(([e,w,t])=>`<div class="vc"><div class="t"><span class="e">${e}</span><span class="w">${w}</span><button type="button" class="ic sm" data-say="${w}">🔊</button><button type="button" class="ic sm" data-tr>🌐</button></div><div class="trv" hidden>${t}</div></div>`).join("")}</div>`;
+  if(P.k==="cult")return cultPage(P);
   if(P.k==="read")return `<h1>Daria'dan mesaj 💬</h1><p class="sub">Sessizce oku. Anlamadığın cümlede 🌐'ye bas. Sonra 3 soru var.</p>
    <div class="chatbox"><span class="who">Daria 💛</span>${READ.map(r=>`<div class="bub">${esLine(r[1],r[2],"",r[0])}</div>`).join("")}</div>`;
   if(P.k==="ch")return choice(P);
@@ -392,6 +402,9 @@ function page(P){
 }
 const key=()=>S.m+"-"+S.p;
 const LTR={},OTR={"yo": "ben", "tú": "sen", "nosotros": "biz"};
+function cultPage(P){const G=P.gloss||{};const key=w=>w.toLowerCase().replace(/[^\p{L}\p{N}]/gu,"");
+  return `<h1>${P.t}</h1><p class="sub">Oku ve dinle. Bir kelimeye dokun — çevirisini görürsün. 🌐 — tüm cümlenin çevirisi. Sonra sorular var.</p>
+  <div class="cult">${P.lines.map(([pt,ru],i)=>`<div class="cl"><div class="cw">${pt.split(" ").map(w=>G[key(w)]?`<button type="button" class="wd" data-w="${esc(key(w))}" data-l="${i}">${esc(w)}</button>`:`<span class="wn">${esc(w)}</span>`).join(" ")}</div><div class="esl"><button type="button" class="ic sm" data-say="${esc(pt)}">🔊</button><button type="button" class="ic sm" data-tr>🌐</button></div><div class="trv" hidden>${esc(ru)}</div><div class="wtr" id="wtr${i}" hidden></div></div>`).join("")}</div>`}
 function choice(P){const a=S.ans[key()];
   let h=`<div class="pic">${P.pic}</div><p><b>${esc(P.q)}</b></p>`;
   if(P.es)h+=`<div class="card">${esLine(P.es,P.tr)}</div>`;
@@ -432,9 +445,12 @@ function afterBuild(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v
   else setTimeout(()=>{if(same())say(txt,lang)},700)}
 function afterAnswer(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
   if(ok)setTimeout(()=>{if(same())next()},1100);else if(txt)setTimeout(()=>{if(same())say(txt,lang)},1000)}
+function wireCult(pg){const P=S.v==="mod"?MODS[S.m].pages[S.p]:null;if(!P||P.k!=="cult")return;
+  pg.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const box=document.getElementById("wtr"+b.dataset.l);const t=`<b>${esc(b.textContent)}</b> — ${esc(P.gloss[b.dataset.w])}`;
+    if(!box.hidden&&box.dataset.w===b.dataset.w){box.hidden=true;return}box.innerHTML=t;box.dataset.w=b.dataset.w;box.hidden=false})}
 function wire(){
   const pg=$("#page");
-  wireIn(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
+  wireIn(pg);wireCult(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
   pg.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{const t=$("#hint");t.hidden=!t.hidden});
   pg.querySelectorAll("[data-skip],[data-next]").forEach(b=>b.onclick=next);
   pg.querySelectorAll("[data-log]").forEach(b=>b.onclick=()=>{S.v="log";save();render()});

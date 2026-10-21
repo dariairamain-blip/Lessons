@@ -132,6 +132,10 @@ p{margin:0;line-height:1.45}
 .stick .btn{flex:1;padding:11px 8px;font-size:14px;white-space:nowrap}
 .lg{border-radius:12px;padding:8px 10px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:2px;font-size:14px}
 .lg.ok{border-left:4px solid var(--ok)}.lg.bad{border-left:4px solid var(--bad)}.lq{font-weight:700}
+.cult{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:12px}
+.cl{display:flex;flex-direction:column;gap:3px}.cw{font-size:18px;line-height:1.7}
+.wd{font:inherit;color:var(--ink);background:none;border:0;padding:0;border-bottom:2px dotted var(--sea);cursor:pointer}
+.wtr{background:var(--sel);border-radius:8px;padding:4px 8px;font-size:14px}
 .own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
 .modal{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;padding:16px;z-index:20}
 .modal .card{max-width:420px;display:flex;flex-direction:column;gap:8px}
@@ -182,7 +186,7 @@ const HEAR=(listen,ltr,opts,a)=>({k:"ch",pic:"🎧",q:"Какую фразу т�
 const CFG={n:5,key:"pt-br-5-a",readT:"Анкета Бруно в приложении 📱",who:"📱 Perfil: Bruno (Recife)",
  intro:`<div class="pic">🇧🇷😍</div><div class="eyebrow">Португальский · Урок 5</div><h1>Olá! Eu adoro, eu detesto</h1>
  <p>Что в этом уроке:</p>
- <div class="card"><p>😍 <b>Часть 1:</b> люблю, обожаю, терпеть не могу<br>🔁 <b>Часть 2:</b> всегда, иногда, никогда<br>🎧 <b>Часть 3:</b> на слух: что ты слышишь? (10 заданий)<br>📱 <b>Часть 4:</b> анкета Бруно и фразы из слов</p></div>
+ <div class="card"><p>😍 <b>Часть 1:</b> люблю, обожаю, терпеть не могу<br>🔁 <b>Часть 2:</b> всегда, иногда, никогда<br>🎧 <b>Часть 3:</b> на слух: что ты слышишь? (10 заданий)<br>🌎 <b>Часть 4:</b> культурная заметка: рис с фасолью каждый день<br>📱 <b>Часть 5:</b> анкета Бруно и фразы из слов</p></div>
  <p class="sub">🇧🇷 Основа — бразильский вариант, 🇵🇹 — что в Португалии иначе. 🔊 — послушать, 🌐 — перевод.</p>`,
  fin:()=>`<div class="card"><table class="tbl"><tr><td>😍</td><td>Eu gosto <b>de</b> nadar.</td><td class="tr">Я люблю плавать.</td></tr><tr><td>🤩</td><td>Eu adoro dançar.</td><td class="tr">Я обожаю танцевать.</td></tr><tr><td>😖</td><td>Eu detesto esperar.</td><td class="tr">Терпеть не могу ждать.</td></tr><tr><td>🔁</td><td>sempre · às vezes · nunca</td><td class="tr">всегда · иногда · никогда</td></tr></table></div>
  <p>Теперь ты можешь сказать:</p>${esLine("Eu adoro viajar, às vezes nado no mar e nunca acordo cedo no domingo.","Я обожаю путешествовать, иногда плаваю в море и никогда не встаю рано в воскресенье.","es","✈️ · 🏊‍♀️ · 😴")}`};
@@ -226,6 +230,11 @@ const MODS=[
   HEARR("Tu gostas de dançar?",["Ты любишь петь?","Ты любишь танцевать?","Вы любите танцевать?"],1,"pt-PT"),
   HEARR("Às vezes tu jantas fora?",["Ты всегда ужинаешь дома?","Вы иногда ужинаете не дома?","Ты иногда ужинаешь не дома?"],2,"pt-PT"),
   HEARR("Eu nunca apanho o autocarro.",["Я никогда не езжу на автобусе.","Я всегда езжу на автобусе.","Я никогда не жду автобус."],0,"pt-PT")]},
+ {n:"Культурная заметка",e:"🌎",s:"рис с фасолью каждый день",pages:[
+  {k:"cult",t:"🌎 Культурная заметка: рис с фасолью каждый день",lines:[["Os brasileiros adoram arroz com feijão.", "Бразильцы обожают рис с фасолью."], ["Muitas famílias almoçam arroz e feijão quase todos os dias.", "Многие семьи обедают рисом с фасолью почти каждый день."], ["Às vezes eles acompanham com carne, salada ou ovo.", "Иногда к этому добавляют мясо, салат или яйцо."], ["Um brasileiro nunca enjoa desse prato!", "Бразильцу это блюдо никогда не надоедает!"], ["Quando um brasileiro mora no exterior, ele sempre procura feijão no supermercado.", "Когда бразилец живёт за границей, он всегда ищет фасоль в супермаркете."], ["E você? Você gosta de comer a mesma coisa todo dia? 😄", "А ты? Ты любишь есть одно и то же каждый день? 😄"]],gloss:{"os": "артикль (мн. ч., м. р.)", "brasileiros": "бразильцы", "adoram": "обожают (adorar)", "arroz": "рис", "com": "с", "feijão": "фасоль", "muitas": "многие", "famílias": "семьи", "almoçam": "обедают (almoçar)", "e": "и", "quase": "почти", "todos": "все · todos os dias = каждый день", "dias": "дни", "às": "(às vezes = иногда)", "vezes": "раза · às vezes = иногда", "eles": "они", "acompanham": "дополняют, подают вместе (acompanhar)", "carne": "мясо", "salada": "салат", "ou": "или", "ovo": "яйцо", "um": "один; неопределённый артикль", "brasileiro": "бразилец", "nunca": "никогда", "enjoa": "надоедает, пресыщается (enjoar)", "desse": "этого (de + esse)", "prato": "блюдо; тарелка", "quando": "когда", "mora": "живёт (morar)", "no": "в (em + o)", "exterior": "заграница · no exterior = за границей", "ele": "он", "sempre": "всегда", "procura": "ищет (procurar)", "supermercado": "супермаркет", "você": "ты", "gosta": "любит (gostar) · gostar de = любить", "de": "(после gostar)", "comer": "есть, кушать", "a": "артикль (ж. р.)", "mesma": "та же самая", "coisa": "вещь · a mesma coisa = одно и то же", "todo": "каждый · todo dia = каждый день", "dia": "день"}},
+  {k:"ch",pic:"🍚",q:"Что бразильцы едят почти каждый день?",opts:[["Рис с фасолью", null], ["Пиццу", null], ["Суп", null]],a:0,why:"«…almoçam arroz e feijão quase todos os dias.»",hint:"Вторая фраза."},
+  {k:"ch",pic:"🥩🥗🥚",q:"Что иногда добавляют к рису с фасолью?",opts:[["Сыр и хлеб", null], ["Мясо, салат или яйцо", null], ["Рыбу и картофель", null]],a:1,why:"«…com carne, salada ou ovo.»",hint:"Третья фраза."},
+  {k:"ch",pic:"🛒",q:"Что бразилец всегда ищет в супермаркете за границей?",opts:[["Кофе", null], ["Рис", null], ["Фасоль", null]],a:2,why:"«…ele sempre procura feijão no supermercado.»",hint:"Пятая фраза."}]},
  {n:"Анкета Бруно и фразы",e:"📱",s:"всё вместе",pages:[{k:"read"},
   {k:"ch",pic:"🌙📚",q:"Что Бруно учит вечером?",opts:[["Испанский",null],["Русский",null],["Английский",null]],a:1,why:"«…à noite estudo russo.»",hint:"Вторая строка."},
   {k:"ch",pic:"🚫🍳",q:"Чего Бруно никогда не делает?",opts:[["Не готовит",null],["Не плавает",null],["Не фотографирует",null]],a:0,why:"«Eu nunca cozinho — eu compro comida pronta.»",hint:"Ищи «nunca»."},
@@ -329,6 +338,7 @@ function mdone(){const last=S.m===MODS.length-1;return `<div class="pic">${last?
 
 function page(P){CURLANG="";
   if(P.k==="toon")return `<h1>${P.t}</h1><div class="stage" id="stage"><div class="fin">${toonFin(P)}</div></div><div class="abar" id="tbar"></div><div class="tcap" id="tcap">🎬 Нажми ▶ · ⏮ ⏭ — сцены</div><div class="row"><button type="button" class="btn sec" id="treplay">▶ Смотреть ещё раз</button><button type="button" class="btn pri" data-next>К упражнениям →</button></div>`;
+  if(P.k==="cult")return cultPage(P);
   if(P.k==="read")return `<h1>${CFG.readT}</h1><p class="sub">Прочитай про себя. Непонятная фраза — нажми 🌐. Потом 3 вопроса.</p>
    <div class="chatbox"><span class="who">${CFG.who}</span>${READ.map(r=>`<div class="bub">${esLine(r[1],r[2],"",r[0])}</div>`).join("")}</div>`;
   if(P.k==="ch")return choice(P);
@@ -336,6 +346,9 @@ function page(P){CURLANG="";
 }
 const key=()=>S.m+"-"+S.p;
 const LTR={},OTR={};
+function cultPage(P){const G=P.gloss||{};const key=w=>w.toLowerCase().replace(/[^\p{L}\p{N}]/gu,"");
+  return `<h1>${P.t}</h1><p class="sub">Прочитай и послушай. Нажми на любое слово — увидишь перевод. 🌐 — перевод всей фразы. Потом вопросы.</p>
+  <div class="cult">${P.lines.map(([pt,ru],i)=>`<div class="cl"><div class="cw">${pt.split(" ").map(w=>G[key(w)]?`<button type="button" class="wd" data-w="${esc(key(w))}" data-l="${i}">${esc(w)}</button>`:`<span class="wn">${esc(w)}</span>`).join(" ")}</div><div class="esl"><button type="button" class="ic sm" data-say="${esc(pt)}">🔊</button><button type="button" class="ic sm" data-tr>🌐</button></div><div class="trv" hidden>${esc(ru)}</div><div class="wtr" id="wtr${i}" hidden></div></div>`).join("")}</div>`}
 function choice(P){CURLANG=P.lang||"";const a=S.ans[key()];
   let h=`<div class="pic">${P.pic}</div><p><b>${esc(P.q)}</b></p>`;
   if(P.es)h+=`<div class="card">${esLine(P.es,P.tr)}</div>`;
@@ -377,9 +390,12 @@ function afterBuild(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v
   else setTimeout(()=>{if(same())say(txt,lang)},700)}
 function afterAnswer(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
   if(ok)setTimeout(()=>{if(same())next()},1100);else if(txt)setTimeout(()=>{if(same())say(txt,lang)},1000)}
+function wireCult(pg){const P=S.v==="mod"?MODS[S.m].pages[S.p]:null;if(!P||P.k!=="cult")return;
+  pg.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const box=document.getElementById("wtr"+b.dataset.l);const t=`<b>${esc(b.textContent)}</b> — ${esc(P.gloss[b.dataset.w])}`;
+    if(!box.hidden&&box.dataset.w===b.dataset.w){box.hidden=true;return}box.innerHTML=t;box.dataset.w=b.dataset.w;box.hidden=false})}
 function wire(){
   const pg=$("#page");
-  wireIn(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
+  wireIn(pg);wireCult(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
   pg.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{const t=$("#hint");t.hidden=!t.hidden});
   pg.querySelectorAll("[data-skip],[data-next]").forEach(b=>b.onclick=next);
   pg.querySelectorAll("[data-log]").forEach(b=>b.onclick=()=>{S.v="log";save();render()});

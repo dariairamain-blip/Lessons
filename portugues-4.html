@@ -132,6 +132,10 @@ p{margin:0;line-height:1.45}
 .stick .btn{flex:1;padding:11px 8px;font-size:14px;white-space:nowrap}
 .lg{border-radius:12px;padding:8px 10px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:2px;font-size:14px}
 .lg.ok{border-left:4px solid var(--ok)}.lg.bad{border-left:4px solid var(--bad)}.lq{font-weight:700}
+.cult{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:12px}
+.cl{display:flex;flex-direction:column;gap:3px}.cw{font-size:18px;line-height:1.7}
+.wd{font:inherit;color:var(--ink);background:none;border:0;padding:0;border-bottom:2px dotted var(--sea);cursor:pointer}
+.wtr{background:var(--sel);border-radius:8px;padding:4px 8px;font-size:14px}
 .own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
 .modal{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;padding:16px;z-index:20}
 .modal .card{max-width:420px;display:flex;flex-direction:column;gap:8px}
@@ -181,10 +185,19 @@ const HEARR=(listen,opts,a,lang)=>({k:"ch",pic:lang==="pt-PT"?"🇵🇹🎧":"�
 const CFG={n:4,key:"pt-br-4-a",readT:"Переписка с Рафаэлом 💬",who:"Rafael 🌴 (São Paulo)",
  intro:`<div class="pic">🇧🇷❓</div><div class="eyebrow">Португальский · Урок 4</div><h1>Olá! Sim, não, onde?</h1>
  <p>Что в этом уроке:</p>
- <div class="card"><p>❓ <b>Часть 1:</b> вопрос, «да» и «нет»<br>📍 <b>Часть 2:</b> где? когда? что?<br>🎧 <b>Часть 3:</b> на слух: что ты слышишь? (10 заданий)<br>💬 <b>Часть 4:</b> переписка с Рафаэлом и фразы из слов</p></div>
+ <div class="card"><p>❓ <b>Часть 1:</b> вопрос, «да» и «нет»<br>📍 <b>Часть 2:</b> где? когда? что?<br>🎧 <b>Часть 3:</b> на слух: что ты слышишь? (10 заданий)<br>🌎 <b>Часть 4:</b> культурная заметка: душ три раза в день<br>💬 <b>Часть 5:</b> переписка с Рафаэлом и фразы из слов</p></div>
  <p class="sub">🇧🇷 Основа — бразильский вариант, 🇵🇹 — что в Португалии иначе. 🔊 — послушать, 🌐 — перевод.</p>`,
  fin:()=>`<div class="card"><table class="tbl"><tr><td>❓</td><td>Você fala inglês?</td><td class="tr">Ты говоришь по-английски?</td></tr><tr><td>✅</td><td>Sim, falo.</td><td class="tr">Да, говорю.</td></tr><tr><td>🚫</td><td>Não, eu <b>não</b> falo.</td><td class="tr">Нет, не говорю.</td></tr><tr><td>📍</td><td>Onde?</td><td class="tr">Где?</td></tr><tr><td>🕖</td><td>Quando?</td><td class="tr">Когда?</td></tr><tr><td>❓</td><td>O que?</td><td class="tr">Что?</td></tr></table></div>
  <p>Теперь ты можешь спросить:</p>${esLine("Onde você mora? Quando você descansa? O que você prepara no domingo?","Где ты живёшь? Когда ты отдыхаешь? Что ты готовишь в воскресенье?","es","📍 · 🕖 · 🍳")}`};
+const CULT={k:"cult",t:"🌎 Культурная заметка: душ три раза в день",
+ lines:[["No Brasil, as pessoas tomam banho duas ou três vezes por dia.","В Бразилии люди принимают душ два или три раза в день."],
+  ["De manhã, elas tomam banho antes do trabalho.","Утром они принимают душ перед работой."],
+  ["Quando chegam em casa, tomam banho de novo.","Когда приходят домой, снова принимают душ."],
+  ["Muitos brasileiros também tomam banho antes de dormir.","Многие бразильцы также принимают душ перед сном."],
+  ["O motivo? O calor! No verão, a temperatura passa de 35 graus.","Причина? Жара! Летом температура переваливает за 35 градусов."],
+  ["Muitas casas usam um chuveiro elétrico: a água esquenta no próprio chuveiro.","Во многих домах стоит электрический душ: вода нагревается прямо в лейке."],
+  ["Por isso, um brasileiro estranha quando um turista toma banho só uma vez por dia! 😄","Поэтому бразилец удивляется, когда турист принимает душ только раз в день! 😄"]],
+ gloss:{no:"в (em + o)",brasil:"Бразилия",as:"артикль (мн. ч., ж. р.)",pessoas:"люди",tomam:"принимают (tomar)",banho:"душ, ванна · tomar banho = принимать душ",duas:"две",ou:"или",três:"три",vezes:"раз (мн. ч.) · vez = раз",por:"в, за · por dia = в день",dia:"день",de:"из, с · de manhã = утром",manhã:"утро",elas:"они (ж. р.)",antes:"до, перед",do:"(de + o)",trabalho:"работа",quando:"когда",chegam:"приходят (chegar)",em:"в",casa:"дом · em casa = дома",novo:"новый · de novo = снова",muitos:"многие",brasileiros:"бразильцы",também:"тоже, также",dormir:"спать",o:"артикль (м. р.)",motivo:"причина",calor:"жара",verão:"лето",a:"артикль (ж. р.)",temperatura:"температура",passa:"переваливает за, превышает (passar)",35:"тридцать пять",graus:"градусов",muitas:"многие",casas:"дома, квартиры",usam:"используют (usar)",um:"один; неопределённый артикль",chuveiro:"душ, лейка душа",elétrico:"электрический",água:"вода",esquenta:"нагревается (esquentar)",próprio:"сам · no próprio = прямо в",isso:"это · por isso = поэтому",brasileiro:"бразилец",estranha:"удивляется (estranhar)",turista:"турист",toma:"принимает (tomar)",só:"только",uma:"одна · uma vez = один раз",vez:"раз"}};
 const MODS=[
  {n:"Sim · não · ?",e:"❓",s:"вопрос, да и нет",pages:[
   {k:"toon",t:"🎬 Вопрос, «да» и «нет»",steps:[
@@ -228,6 +241,11 @@ const MODS=[
   HEARR("Onde moras?",["Где вы живёте?","Где ты живёшь?","Когда ты приезжаешь?"],1,"pt-PT"),
   HEARR("Tu descansas ao domingo?",["Ты работаешь в воскресенье?","Вы отдыхаете в субботу?","Ты отдыхаешь в воскресенье?"],2,"pt-PT"),
   HEARR("Quando chegas?",["Когда ты приезжаешь?","Где ты живёшь?","Когда они приезжают?"],0,"pt-PT")]},
+ {n:"Культурная заметка",e:"🌎",s:"душ три раза в день",pages:[CULT,
+  {k:"ch",pic:"🚿",q:"Сколько раз в день бразильцы принимают душ?",opts:[["Один раз",null],["Два или три раза",null],["Пять раз",null]],a:1,why:"«…tomam banho duas ou três vezes por dia.»",hint:"Первая фраза."},
+  {k:"ch",pic:"☀️",q:"Почему так часто?",opts:[["Из-за жары",null],["Из-за работы",null],["Из-за спорта",null]],a:0,why:"«O motivo? O calor!» — calor = жара.",hint:"Ищи «motivo»."},
+  {k:"ch",pic:"⚡🚿",q:"Что такое «chuveiro elétrico»?",opts:[["Электрический чайник",null],["Кондиционер",null],["Душ, где вода нагревается прямо в лейке",null]],a:2,why:"«…a água esquenta no próprio chuveiro.»",hint:"Шестая фраза."},
+  {k:"ch",pic:"😄",q:"Чему удивляется бразилец?",opts:[["Что турист принимает душ только раз в день",null],["Что турист не говорит по-португальски",null],["Что турист пьёт много кофе",null]],a:0,why:"«…estranha quando um turista toma banho só uma vez por dia!»",hint:"Последняя фраза."}]},
  {n:"Переписка и фразы",e:"💬",s:"всё вместе",pages:[{k:"read"},
   {k:"ch",pic:"🦷",q:"Где работает Дарья?",opts:[["В клинике",null],["В отеле",null],["В школе",null]],a:0,why:"«Você trabalha numa clínica? — Sim!»",hint:"Третья и четвёртая строки."},
   {k:"ch",pic:"📅",q:"Когда Дарья не работает?",opts:[["В субботу",null],["В воскресенье",null],["Вечером",null]],a:1,why:"«Eu não trabalho no domingo!» — domingo = воскресенье.",hint:"«domingo»."},
@@ -332,6 +350,7 @@ function mdone(){const last=S.m===MODS.length-1;return `<div class="pic">${last?
 
 function page(P){CURLANG="";
   if(P.k==="toon")return `<h1>${P.t}</h1><div class="stage" id="stage"><div class="fin">${toonFin(P)}</div></div><div class="abar" id="tbar"></div><div class="tcap" id="tcap">🎬 Нажми ▶ · ⏮ ⏭ — сцены</div><div class="row"><button type="button" class="btn sec" id="treplay">▶ Смотреть ещё раз</button><button type="button" class="btn pri" data-next>К упражнениям →</button></div>`;
+  if(P.k==="cult")return cultPage(P);
   if(P.k==="read")return `<h1>${CFG.readT}</h1><p class="sub">Прочитай про себя. Непонятная фраза — нажми 🌐. Потом 3 вопроса.</p>
    <div class="chatbox"><span class="who">${CFG.who}</span>${READ.map(r=>`<div class="bub">${esLine(r[1],r[2],"",r[0])}</div>`).join("")}</div>`;
   if(P.k==="ch")return choice(P);
@@ -339,6 +358,9 @@ function page(P){CURLANG="";
 }
 const key=()=>S.m+"-"+S.p;
 const LTR={},OTR={};
+function cultPage(P){const G=P.gloss||{};const key=w=>w.toLowerCase().replace(/[^\p{L}\p{N}]/gu,"");
+  return `<h1>${P.t}</h1><p class="sub">Прочитай и послушай. Нажми на любое слово — увидишь перевод. 🌐 — перевод всей фразы. Потом вопросы.</p>
+  <div class="cult">${P.lines.map(([pt,ru],i)=>`<div class="cl"><div class="cw">${pt.split(" ").map(w=>G[key(w)]?`<button type="button" class="wd" data-w="${esc(key(w))}" data-l="${i}">${esc(w)}</button>`:`<span class="wn">${esc(w)}</span>`).join(" ")}</div><div class="esl"><button type="button" class="ic sm" data-say="${esc(pt)}">🔊</button><button type="button" class="ic sm" data-tr>🌐</button></div><div class="trv" hidden>${esc(ru)}</div><div class="wtr" id="wtr${i}" hidden></div></div>`).join("")}</div>`}
 function choice(P){CURLANG=P.lang||"";const a=S.ans[key()];
   let h=`<div class="pic">${P.pic}</div><p><b>${esc(P.q)}</b></p>`;
   if(P.es)h+=`<div class="card">${esLine(P.es,P.tr)}</div>`;
@@ -380,9 +402,12 @@ function afterBuild(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v
   else setTimeout(()=>{if(same())say(txt,lang)},700)}
 function afterAnswer(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
   if(ok)setTimeout(()=>{if(same())next()},1100);else if(txt)setTimeout(()=>{if(same())say(txt,lang)},1000)}
+function wireCult(pg){const P=S.v==="mod"?MODS[S.m].pages[S.p]:null;if(!P||P.k!=="cult")return;
+  pg.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const box=document.getElementById("wtr"+b.dataset.l);const t=`<b>${esc(b.textContent)}</b> — ${esc(P.gloss[b.dataset.w])}`;
+    if(!box.hidden&&box.dataset.w===b.dataset.w){box.hidden=true;return}box.innerHTML=t;box.dataset.w=b.dataset.w;box.hidden=false})}
 function wire(){
   const pg=$("#page");
-  wireIn(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
+  wireIn(pg);wireCult(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
   pg.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{const t=$("#hint");t.hidden=!t.hidden});
   pg.querySelectorAll("[data-skip],[data-next]").forEach(b=>b.onclick=next);
   pg.querySelectorAll("[data-log]").forEach(b=>b.onclick=()=>{S.v="log";save();render()});

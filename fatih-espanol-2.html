@@ -131,6 +131,10 @@ p{margin:0;line-height:1.45}
 .stick .btn{flex:1;padding:11px 8px;font-size:14px;white-space:nowrap}
 .lg{border-radius:12px;padding:8px 10px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:2px;font-size:14px}
 .lg.ok{border-left:4px solid var(--ok)}.lg.bad{border-left:4px solid var(--bad)}.lq{font-weight:700}
+.cult{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:12px}
+.cl{display:flex;flex-direction:column;gap:3px}.cw{font-size:18px;line-height:1.7}
+.wd{font:inherit;color:var(--ink);background:none;border:0;padding:0;border-bottom:2px dotted var(--sea);cursor:pointer}
+.wtr{background:var(--sel);border-radius:8px;padding:4px 8px;font-size:14px}
 .own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
 .modal{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;padding:16px;z-index:20}
 .modal .card{max-width:420px;display:flex;flex-direction:column;gap:8px}
@@ -231,6 +235,11 @@ const MODS=[
    why:"„Llegas a las siete…“ → saat yedide. 5 euro fiyat.",hint:"„siete“ = yedi."},
   {k:"ch",pic:"📷",q:"Fotoğraf çekersen ne oluyor?",opts:[["Bir ödül kazanıyorsun",null],["Ücretsiz salsa dersi alıyorsun",null],["5 euro indirim alıyorsun",null]],a:0,
    why:"„¿Tú sacas fotos? ¡Ganas un premio!“ → ödül. Salsa dersi dans etmeyenler için.",hint:"„premio“ = ödül."}]},
+ {n:"Kültür notu",e:"🌎",s:"hesabı kim öder?",pages:[
+  {k:"cult",t:"🌎 Kültür notu: hesabı kim öder?",lines:[["En España, cuando nosotros cenamos con amigos, pagamos a medias.", "İspanya'da arkadaşlarla yemek yediğimizde hesabı bölüşürüz."], ["Yo pago mi parte y tú pagas tu parte.", "Ben kendi payımı öderim, sen kendi payını ödersin."], ["Nadie lucha por la cuenta, como en Turquía. 😄", "Türkiye'deki gibi kimse hesap için kavga etmez. 😄"], ["Si tú pagas todo, tus amigos preguntan: «¿Por qué?»", "Her şeyi sen ödersen, arkadaşların sorar: «Neden?»"], ["Pero en un cumpleaños, el cumpleañero invita: él paga las tapas.", "Ama doğum gününde, doğum günü olan kişi ısmarlar: tapaları o öder."]],gloss:{"en": "-de, -da", "españa": "İspanya", "cuando": "-dığında, ne zaman", "nosotros": "biz", "cenamos": "akşam yemeği yeriz (cenar)", "con": "ile", "amigos": "arkadaşlar", "pagamos": "öderiz (pagar)", "a": "(a medias = yarı yarıya)", "medias": "yarım · a medias = yarı yarıya", "yo": "ben", "pago": "öderim (pagar)", "mi": "benim", "parte": "pay, kısım", "y": "ve", "tú": "sen", "pagas": "ödersin (pagar)", "tu": "senin", "nadie": "kimse", "lucha": "kavga eder, mücadele eder (luchar)", "por": "için", "la": "(artikel, dişil)", "cuenta": "hesap", "como": "gibi", "turquía": "Türkiye", "si": "eğer", "todo": "her şey", "tus": "senin (çoğul)", "preguntan": "sorarlar (preguntar)", "qué": "ne · ¿por qué? = neden?", "pero": "ama", "un": "bir", "cumpleaños": "doğum günü", "el": "(artikel, eril)", "cumpleañero": "doğum günü olan kişi", "invita": "ısmarlar, davet eder (invitar)", "él": "o (erkek)", "paga": "öder (pagar)", "las": "(artikel, çoğul dişil)", "tapas": "tapalar (küçük atıştırmalıklar)"}},
+  {k:"ch",pic:"💶",q:"İspanya'da arkadaşlarla hesabı nasıl öderler?",opts:[["Yarı yarıya bölüşürler", null], ["En yaşlı öder", null], ["Hep erkek öder", null]],a:0,why:"«…pagamos a medias.»",hint:"İlk cümle."},
+  {k:"ch",pic:"🎂",q:"Doğum gününde kim öder?",opts:[["Herkes yarı yarıya", null], ["Doğum günü olan kişi", null], ["Garson", null]],a:1,why:"«…el cumpleañero invita: él paga las tapas.»",hint:"Son cümle."},
+  {k:"ch",pic:"😅",q:"Her şeyi tek başına ödersen arkadaşların ne der?",opts:[["«Teşekkürler!»", null], ["«Bir daha!»", null], ["«Neden?»", null]],a:2,why:"«…tus amigos preguntan: «¿Por qué?»»",hint:"Dördüncü cümle."}]},
  {n:"Cümle kur",e:"🧱",s:"çizgi film + kelimeleri sırala",pages:[toonRecap,
   {k:"bd",pic:"🚶‍♂️🚶‍♀️🏖️",q:"Biz sahilde yürüyoruz.",w:["Nosotros","caminamos","por","la","playa."],why:"nosotros → camin<b>amos</b>."},
   {k:"bd",pic:"👩⛵",q:"Sen teknelere bakıyorsun.",w:["Tú","miras","los","barcos."],why:"tú → mir<b>as</b>."},
@@ -342,7 +351,7 @@ function gate(){return `<div class="gate scr"><div class="pic">🇪🇸🔑</div
  <button class="btn pri" id="go" type="button">Giriş →</button><div class="err" id="err" aria-live="polite"></div></div>`}
 function intro(){return `<div class="pic">🇪🇸👋</div><div class="eyebrow">İspanyolca · Ders 2</div><h1>¡Hola, Fatih! Bizim cumartesi</h1>
  <p>Çocuklar dili nasıl öğrenir? Annesi etrafta ne oluyorsa anlatır. Bugün sen de böyle öğreneceksin: önce izle ve dinle, sonra kendin söyle.</p>
- <div class="card"><p>🎬 Fatih ve Daria'nın plajda bir cumartesi günü<br>✨ <b>5 yeni -AR fiili</b>: mirar, sacar fotos, llegar, bailar, pagar<br>👂 Zamir olmadan anlamak: son ek kimi söylüyor?<br>📢 Gerçek bir plaj partisi ilanı</p></div>
+ <div class="card"><p>🎬 Fatih ve Daria'nın plajda bir cumartesi günü<br>✨ <b>5 yeni -AR fiili</b>: mirar, sacar fotos, llegar, bailar, pagar<br>👂 Zamir olmadan anlamak: son ek kimi söylüyor?<br>📢 Gerçek bir plaj partisi ilanı<br>🌎 Kültür notu: hesabı kim öder?</p></div>
  <p class="sub">Yaklaşık 15 dakika. 🔊 dinlemek için, 🌐 Türkçe çeviri için. Her bölümü istediğin zaman tekrar yapabilirsin.</p>`}
 function menu(){return `<h1>Ders 2 · Bölümler</h1><p class="sub">Sırayla git ya da istediğin bölümü seç.</p><div class="menu">`+
  MODS.map((M,i)=>`<button type="button" class="mi${S.done[i]?" done":""}" data-mod="${i}"><span class="e">${M.e}</span><span class="n">${i+1}. ${esc(M.n)}<br><span class="s">${esc(M.s)}</span></span>${S.done[i]?"✅":"▶"}</button>`).join("")+`</div><button type="button" class="btn sec" data-log>📋 Cevaplarım</button>`}
@@ -367,6 +376,7 @@ function page(P){
    ${esLine("Hablo inglés.","İngilizce konuşuyorum.","es","👨‍💼🇬🇧")}`;
   if(P.k==="vocab")return `<h1>Fiiller: 5 yeni + 3 tanıdık</h1><p class="sub">İlk 5'i yeni. Hepsi -ar ile biter, aynı kurala uyar. 🔊 dinle, 🌐 anlamını gör.</p>
    <div class="vg">${VERBS.map(([e,w,t])=>`<div class="vc"><div class="t"><span class="e">${e}</span><span class="w">${w}</span><button type="button" class="ic sm" data-say="${w}">🔊</button><button type="button" class="ic sm" data-tr>🌐</button></div><div class="trv" hidden>${t}</div></div>`).join("")}</div>`;
+  if(P.k==="cult")return cultPage(P);
   if(P.k==="read")return `<h1>Plaj partisi ilanı 📢</h1><p class="sub">Sessizce oku. Anlamadığın cümlede 🌐'ye bas. Sonra 3 soru var.</p>
    <div class="chatbox"><span class="who">📢 FIESTA EN LA PLAYA</span>${READ.map(r=>`<div class="bub">${esLine(r[1],r[2],"",r[0])}</div>`).join("")}</div>`;
   if(P.k==="ch")return choice(P);
@@ -374,6 +384,9 @@ function page(P){
 }
 const key=()=>S.m+"-"+S.p;
 const LTR={"Bailamos en la fiesta.": "Partide dans ediyoruz.", "Miras los barcos.": "Teknelere bakıyorsun.", "Pago la cuenta.": "Hesabı ödüyorum.", "Saco fotos del mar.": "Denizin fotoğraflarını çekiyorum.", "Tomamos limonada.": "Limonata içiyoruz."},OTR={};
+function cultPage(P){const G=P.gloss||{};const key=w=>w.toLowerCase().replace(/[^\p{L}\p{N}]/gu,"");
+  return `<h1>${P.t}</h1><p class="sub">Oku ve dinle. Bir kelimeye dokun — çevirisini görürsün. 🌐 — tüm cümlenin çevirisi. Sonra sorular var.</p>
+  <div class="cult">${P.lines.map(([pt,ru],i)=>`<div class="cl"><div class="cw">${pt.split(" ").map(w=>G[key(w)]?`<button type="button" class="wd" data-w="${esc(key(w))}" data-l="${i}">${esc(w)}</button>`:`<span class="wn">${esc(w)}</span>`).join(" ")}</div><div class="esl"><button type="button" class="ic sm" data-say="${esc(pt)}">🔊</button><button type="button" class="ic sm" data-tr>🌐</button></div><div class="trv" hidden>${esc(ru)}</div><div class="wtr" id="wtr${i}" hidden></div></div>`).join("")}</div>`}
 function choice(P){const a=S.ans[key()];
   let h=`<div class="pic">${P.pic}</div><p><b>${esc(P.q)}</b></p>`;
   if(P.es)h+=`<div class="card">${esLine(P.es,P.tr)}</div>`;
@@ -415,9 +428,12 @@ function afterBuild(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v
   else setTimeout(()=>{if(same())say(txt,lang)},700)}
 function afterAnswer(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
   if(ok)setTimeout(()=>{if(same())next()},1100);else if(txt)setTimeout(()=>{if(same())say(txt,lang)},1000)}
+function wireCult(pg){const P=S.v==="mod"?MODS[S.m].pages[S.p]:null;if(!P||P.k!=="cult")return;
+  pg.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const box=document.getElementById("wtr"+b.dataset.l);const t=`<b>${esc(b.textContent)}</b> — ${esc(P.gloss[b.dataset.w])}`;
+    if(!box.hidden&&box.dataset.w===b.dataset.w){box.hidden=true;return}box.innerHTML=t;box.dataset.w=b.dataset.w;box.hidden=false})}
 function wire(){
   const pg=$("#page");
-  wireIn(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
+  wireIn(pg);wireCult(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
   pg.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{const t=$("#hint");t.hidden=!t.hidden});
   pg.querySelectorAll("[data-skip],[data-next]").forEach(b=>b.onclick=next);
   pg.querySelectorAll("[data-log]").forEach(b=>b.onclick=()=>{S.v="log";save();render()});

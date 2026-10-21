@@ -132,6 +132,10 @@ p{margin:0;line-height:1.45}
 .stick .btn{flex:1;padding:11px 8px;font-size:14px;white-space:nowrap}
 .lg{border-radius:12px;padding:8px 10px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:2px;font-size:14px}
 .lg.ok{border-left:4px solid var(--ok)}.lg.bad{border-left:4px solid var(--bad)}.lq{font-weight:700}
+.cult{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:12px}
+.cl{display:flex;flex-direction:column;gap:3px}.cw{font-size:18px;line-height:1.7}
+.wd{font:inherit;color:var(--ink);background:none;border:0;padding:0;border-bottom:2px dotted var(--sea);cursor:pointer}
+.wtr{background:var(--sel);border-radius:8px;padding:4px 8px;font-size:14px}
 .own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
 .modal{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;padding:16px;z-index:20}
 .modal .card{max-width:420px;display:flex;flex-direction:column;gap:8px}
@@ -181,7 +185,7 @@ const HEARR=(listen,opts,a,lang)=>({k:"ch",pic:lang==="pt-PT"?"🇵🇹🎧":"�
 const CFG={n:2,key:"pt-br-2v2-a",readT:"Один день Элены 📖",who:"📖 Um dia da Helena",
  intro:`<div class="pic">🇧🇷☀️</div><div class="eyebrow">Португальский · Урок 2</div><h1>Olá! Ele, ela, eles</h1>
  <p>Что в этом уроке:</p>
- <div class="card"><p>👥 <b>Часть 1:</b> «он», «она», «они»<br>🔄 <b>Часть 2:</b> все вместе: я, ты, он, она, мы, они<br>🎧 <b>Часть 3:</b> на слух: что ты слышишь? (10 заданий)<br>📖 <b>Часть 4:</b> рассказ про один день Элены и фразы из слов</p></div>
+ <div class="card"><p>👥 <b>Часть 1:</b> «он», «она», «они»<br>🔄 <b>Часть 2:</b> все вместе: я, ты, он, она, мы, они<br>🎧 <b>Часть 3:</b> на слух: что ты слышишь? (10 заданий)<br>🌎 <b>Часть 4:</b> культурная заметка: «бразильское время»<br>📖 <b>Часть 5:</b> рассказ про один день Элены и фразы из слов</p></div>
  <p class="sub">🇧🇷 Основа — бразильский вариант, 🇵🇹 — что в Португалии иначе. 🔊 — послушать, 🌐 — перевод.</p>`,
  fin:()=>`<div class="card"><table class="tbl"><tr><td>👩 eu</td><td>compr<span class="end">o</span></td></tr><tr><td>👨 você · ele · ela</td><td>compr<span class="end">a</span></td></tr><tr><td>👩👨 nós</td><td>compr<span class="end">amos</span></td></tr><tr><td>👨👩 eles</td><td>compr<span class="end">am</span></td></tr><tr><td>🇵🇹 tu</td><td>compr<span class="end">as</span></td></tr></table></div>
  <p>Теперь ты можешь сказать:</p>${esLine("Ele acorda às sete, toma café e liga para a mãe.","Он просыпается в семь, пьёт кофе и звонит маме.","es","⏰ · ☕ · 📞")}`};
@@ -228,6 +232,11 @@ const MODS=[
   HEARR("Tu lavas o carro?",["Он моет машину.","Ты моешь машину?","Они моют машину."],1,"pt-PT"),
   HEARR("Ele acorda às sete.",["Он ложится спать в семь.","Она просыпается в восемь.","Он просыпается в семь."],2,"pt-PT"),
   HEARR("Eles tomam um galão.",["Они пьют кофе с молоком (galão).","Он пьёт кофе с молоком.","Они пьют чай."],0,"pt-PT")]},
+ {n:"Культурная заметка",e:"🌎",s:"«бразильское время»",pages:[
+  {k:"cult",t:"🌎 Культурная заметка: «бразильское время»",lines:[["No Brasil, uma festa começa às oito... mas os convidados chegam às nove ou às dez!", "В Бразилии вечеринка начинается в восемь... но гости приходят в девять или в десять!"], ["Ninguém fica bravo: eles chamam isso de «horário brasileiro».", "Никто не злится: это называют «бразильским временем»."], ["Às vezes o anfitrião ainda toma banho quando os primeiros convidados chegam! 😄", "Иногда хозяин ещё в душе, когда приходят первые гости! 😄"], ["Mas no trabalho e no médico, os brasileiros chegam no horário.", "Но на работу и к врачу бразильцы приходят вовремя."], ["Um turista europeu chega às oito em ponto... e espera sozinho! 😅", "Турист из Европы приходит ровно в восемь... и ждёт один! 😅"]],gloss:{"no": "в (em + o)", "brasil": "Бразилия", "uma": "одна; неопределённый артикль", "festa": "праздник, вечеринка", "começa": "начинается (começar)", "às": "в (о времени: às oito = в восемь)", "oito": "восемь", "mas": "но", "os": "артикль (мн. ч., м. р.)", "convidados": "гости", "chegam": "приходят (chegar)", "nove": "девять", "ou": "или", "dez": "десять", "ninguém": "никто", "fica": "становится (ficar) · ficar bravo = злиться", "bravo": "сердитый", "eles": "они", "chamam": "называют (chamar)", "isso": "это", "de": "(здесь) — chamar isso de… = называть это …", "horário": "время, расписание · no horário = вовремя", "brasileiro": "бразильский; бразилец", "vezes": "раза · às vezes = иногда", "o": "артикль (м. р.)", "anfitrião": "хозяин (принимающий гостей)", "ainda": "ещё", "toma": "принимает (tomar)", "banho": "душ · tomar banho = принимать душ", "quando": "когда", "primeiros": "первые", "e": "и", "trabalho": "работа", "médico": "врач", "brasileiros": "бразильцы", "um": "один; неопределённый артикль", "turista": "турист", "europeu": "европейский", "chega": "приходит (chegar)", "em": "в", "ponto": "точка · em ponto = ровно", "espera": "ждёт (esperar)", "sozinho": "один, в одиночестве"}},
+  {k:"ch",pic:"🎉🕗",q:"Вечеринка в восемь. Когда приходят гости?",opts:[["В восемь", null], ["В девять или в десять", null], ["В семь", null]],a:1,why:"«…os convidados chegam às nove ou às dez!»",hint:"Первая фраза."},
+  {k:"ch",pic:"🇧🇷⏰",q:"Как это называют?",opts:[["«Бразильское время»", null], ["«Время праздника»", null], ["«Время ужина»", null]],a:0,why:"«…«horário brasileiro».»",hint:"Вторая фраза."},
+  {k:"ch",pic:"💼🩺",q:"Куда бразильцы приходят вовремя?",opts:[["На вечеринку", null], ["На пляж", null], ["На работу и к врачу", null]],a:2,why:"«Mas no trabalho e no médico, os brasileiros chegam no horário.»",hint:"Четвёртая фраза."}]},
  {n:"Рассказ и фразы",e:"📖",s:"всё вместе",pages:[{k:"read"},
   {k:"ch",pic:"🏙️",q:"Где живёт Элена?",opts:[["В Рио",null],["В Салвадоре",null],["В Сан-Паулу",null]],a:1,why:"«A Helena mora em Salvador.»",hint:"Первая строка."},
   {k:"ch",pic:"☀️",q:"Что Элена делает днём (à tarde)?",opts:[["Обедает с коллегами",null],["Звонит пациентам",null],["Плавает в море",null]],a:2,why:"«À tarde, ela nada no mar.»",hint:"Ищи «à tarde»."},
@@ -331,6 +340,7 @@ function mdone(){const last=S.m===MODS.length-1;return `<div class="pic">${last?
 
 function page(P){CURLANG="";
   if(P.k==="toon")return `<h1>${P.t}</h1><div class="stage" id="stage"><div class="fin">${toonFin(P)}</div></div><div class="abar" id="tbar"></div><div class="tcap" id="tcap">🎬 Нажми ▶ · ⏮ ⏭ — сцены</div><div class="row"><button type="button" class="btn sec" id="treplay">▶ Смотреть ещё раз</button><button type="button" class="btn pri" data-next>К упражнениям →</button></div>`;
+  if(P.k==="cult")return cultPage(P);
   if(P.k==="read")return `<h1>${CFG.readT}</h1><p class="sub">Прочитай про себя. Непонятная фраза — нажми 🌐. Потом 3 вопроса.</p>
    <div class="chatbox"><span class="who">${CFG.who}</span>${READ.map(r=>`<div class="bub">${esLine(r[1],r[2],"",r[0])}</div>`).join("")}</div>`;
   if(P.k==="ch")return choice(P);
@@ -338,6 +348,9 @@ function page(P){CURLANG="";
 }
 const key=()=>S.m+"-"+S.p;
 const LTR={"Ele nada todo dia.": "Он плавает каждый день.", "Nós jantamos fora.": "Мы ужинаем не дома (в кафе, в ресторане)."},OTR={};
+function cultPage(P){const G=P.gloss||{};const key=w=>w.toLowerCase().replace(/[^\p{L}\p{N}]/gu,"");
+  return `<h1>${P.t}</h1><p class="sub">Прочитай и послушай. Нажми на любое слово — увидишь перевод. 🌐 — перевод всей фразы. Потом вопросы.</p>
+  <div class="cult">${P.lines.map(([pt,ru],i)=>`<div class="cl"><div class="cw">${pt.split(" ").map(w=>G[key(w)]?`<button type="button" class="wd" data-w="${esc(key(w))}" data-l="${i}">${esc(w)}</button>`:`<span class="wn">${esc(w)}</span>`).join(" ")}</div><div class="esl"><button type="button" class="ic sm" data-say="${esc(pt)}">🔊</button><button type="button" class="ic sm" data-tr>🌐</button></div><div class="trv" hidden>${esc(ru)}</div><div class="wtr" id="wtr${i}" hidden></div></div>`).join("")}</div>`}
 function choice(P){CURLANG=P.lang||"";const a=S.ans[key()];
   let h=`<div class="pic">${P.pic}</div><p><b>${esc(P.q)}</b></p>`;
   if(P.es)h+=`<div class="card">${esLine(P.es,P.tr)}</div>`;
@@ -379,9 +392,12 @@ function afterBuild(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v
   else setTimeout(()=>{if(same())say(txt,lang)},700)}
 function afterAnswer(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
   if(ok)setTimeout(()=>{if(same())next()},1100);else if(txt)setTimeout(()=>{if(same())say(txt,lang)},1000)}
+function wireCult(pg){const P=S.v==="mod"?MODS[S.m].pages[S.p]:null;if(!P||P.k!=="cult")return;
+  pg.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const box=document.getElementById("wtr"+b.dataset.l);const t=`<b>${esc(b.textContent)}</b> — ${esc(P.gloss[b.dataset.w])}`;
+    if(!box.hidden&&box.dataset.w===b.dataset.w){box.hidden=true;return}box.innerHTML=t;box.dataset.w=b.dataset.w;box.hidden=false})}
 function wire(){
   const pg=$("#page");
-  wireIn(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
+  wireIn(pg);wireCult(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
   pg.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{const t=$("#hint");t.hidden=!t.hidden});
   pg.querySelectorAll("[data-skip],[data-next]").forEach(b=>b.onclick=next);
   pg.querySelectorAll("[data-log]").forEach(b=>b.onclick=()=>{S.v="log";save();render()});

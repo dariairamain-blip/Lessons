@@ -132,6 +132,10 @@ p{margin:0;line-height:1.45}
 .stick .btn{flex:1;padding:11px 8px;font-size:14px;white-space:nowrap}
 .lg{border-radius:12px;padding:8px 10px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:2px;font-size:14px}
 .lg.ok{border-left:4px solid var(--ok)}.lg.bad{border-left:4px solid var(--bad)}.lq{font-weight:700}
+.cult{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:12px}
+.cl{display:flex;flex-direction:column;gap:3px}.cw{font-size:18px;line-height:1.7}
+.wd{font:inherit;color:var(--ink);background:none;border:0;padding:0;border-bottom:2px dotted var(--sea);cursor:pointer}
+.wtr{background:var(--sel);border-radius:8px;padding:4px 8px;font-size:14px}
 .own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
 .modal{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;padding:16px;z-index:20}
 .modal .card{max-width:420px;display:flex;flex-direction:column;gap:8px}
@@ -181,7 +185,7 @@ const HEARR=(listen,opts,a,lang)=>({k:"ch",pic:lang==="pt-PT"?"🇵🇹🎧":"�
 const CFG={n:1,key:"pt-br-1-a",readT:"Сообщение от Мигела 💬",who:"Miguel 🌴 (Rio de Janeiro)",
  intro:`<div class="pic">🇧🇷👋</div><div class="eyebrow">Португальский · Урок 1</div><h1>Olá! Eu, você, nós</h1>
  <p>Что в этом уроке:</p>
- <div class="card"><p>👫 <b>Часть 1:</b> «я», «ты», «мы» по-португальски<br>✂️ <b>Часть 2:</b> как меняются глаголы: говорить, петь, готовить<br>🏠 <b>Часть 3:</b> жить, работать, учиться<br>🎧 <b>Часть 4:</b> на слух: что ты слышишь? (10 заданий)<br>💬 <b>Часть 5:</b> сообщение от друга из Рио и фразы из слов</p></div>
+ <div class="card"><p>👫 <b>Часть 1:</b> «я», «ты», «мы» по-португальски<br>✂️ <b>Часть 2:</b> как меняются глаголы: говорить, петь, готовить<br>🏠 <b>Часть 3:</b> жить, работать, учиться<br>🎧 <b>Часть 4:</b> на слух: что ты слышишь? (10 заданий)<br>🌎 <b>Часть 5:</b> культурная заметка: поцелуй вместо «привет»<br>💬 <b>Часть 6:</b> сообщение от друга из Рио и фразы из слов</p></div>
  <p class="sub">🇧🇷 Основа — бразильский вариант. Где в Португалии иначе, увидишь значок 🇵🇹. 🔊 — послушать, 🌐 — перевод.</p>`,
  fin:()=>`<div class="card"><table class="tbl"><tr><td>👩 eu</td><td>fal<span class="end">o</span></td><td class="tr">говорю</td></tr><tr><td>👨 você</td><td>fal<span class="end">a</span></td><td class="tr">говоришь</td></tr><tr><td>👩👨 nós</td><td>fal<span class="end">amos</span></td><td class="tr">говорим</td></tr><tr><td>🇵🇹 tu</td><td>fal<span class="end">as</span></td><td class="tr">говоришь (Португалия)</td></tr></table></div>
  <p>Теперь ты можешь сказать:</p>${esLine("Eu moro perto do mar, trabalho numa clínica e estudo português.","Я живу у моря, работаю в клинике и учу португальский.","es","🏠🌊 · 🦷 · 📚")}`};
@@ -238,6 +242,11 @@ const MODS=[
   HEARR("Tu falas inglês?",["Я говорю по-английски.","Ты говоришь по-английски?","Мы говорим по-испански."],1,"pt-PT"),
   HEARR("Tu moras em Lisboa.",["Я живу в Лиссабоне.","Мы живём в Порту.","Ты живёшь в Лиссабоне."],2,"pt-PT"),
   HEARR("Nós trabalhamos no Porto.",["Мы работаем в Порту.","Ты работаешь в Порту.","Мы учимся в Порту."],0,"pt-PT")]},
+ {n:"Культурная заметка",e:"🌎",s:"поцелуй вместо «привет»",pages:[
+  {k:"cult",t:"🌎 Культурная заметка: поцелуй вместо «привет»",lines:[["No Brasil, nós cumprimentamos as pessoas com um beijo no rosto.", "В Бразилии мы приветствуем людей поцелуем в щёку."], ["Em São Paulo, nós beijamos só uma vez.", "В Сан-Паулу мы целуем только один раз."], ["No Rio, nós beijamos duas vezes.", "В Рио — два раза."], ["E você? Você beija os amigos quando chega?", "А ты? Ты целуешь друзей, когда приходишь?"], ["Eu abraço todo mundo: amigos, colegas e até pessoas novas!", "Я обнимаю всех: друзей, коллег и даже новых знакомых!"], ["Quando nós conversamos, nós tocamos no braço da pessoa.", "Когда мы разговариваем, мы касаемся руки собеседника."], ["Para nós, brasileiros, isso mostra carinho! 😊", "Для нас, бразильцев, это знак теплоты! 😊"]],gloss:{"no": "в (em + o)", "brasil": "Бразилия", "nós": "мы", "cumprimentamos": "приветствуем (cumprimentar)", "as": "артикль (мн. ч., ж. р.)", "pessoas": "люди", "com": "с", "um": "один; неопределённый артикль", "beijo": "поцелуй", "rosto": "лицо, щека", "em": "в", "são": "святой (São Paulo — Сан-Паулу)", "paulo": "Паулу (часть названия города)", "beijamos": "целуем (beijar)", "só": "только", "uma": "одна", "vez": "раз", "rio": "Рио (Рио-де-Жанейро)", "duas": "две", "vezes": "раза", "e": "и; а", "você": "ты", "beija": "целуешь (beijar)", "os": "артикль (мн. ч., м. р.)", "amigos": "друзья", "quando": "когда", "chega": "приходишь (chegar)", "eu": "я", "abraço": "обнимаю (abraçar)", "todo": "весь", "mundo": "мир · todo mundo = все", "colegas": "коллеги", "até": "даже; до", "novas": "новые", "conversamos": "разговариваем (conversar)", "tocamos": "касаемся (tocar)", "braço": "рука (от плеча до кисти)", "da": "(de + a)", "pessoa": "человек", "para": "для", "brasileiros": "бразильцы", "isso": "это", "mostra": "показывает (mostrar)", "carinho": "нежность, теплота"}},
+  {k:"ch",pic:"🇧🇷👋",q:"Как бразильцы здороваются?",opts:[["Рукопожатием", null], ["Поцелуем в щёку", null], ["Поклоном", null]],a:1,why:"«…com um beijo no rosto.»",hint:"Первая фраза."},
+  {k:"ch",pic:"🏖️",q:"Сколько поцелуев в Рио?",opts:[["Один", null], ["Три", null], ["Два", null]],a:2,why:"«No Rio, nós beijamos duas vezes.»",hint:"Третья фраза."},
+  {k:"ch",pic:"🗣️",q:"Что делают бразильцы во время разговора?",opts:[["Касаются руки собеседника", null], ["Смотрят в телефон", null], ["Стоят далеко", null]],a:0,why:"«…nós tocamos no braço da pessoa.»",hint:"Шестая фраза."}]},
  {n:"Сообщение и фразы",e:"💬",s:"всё вместе",pages:[{k:"read"},
   {k:"ch",pic:"🏨",q:"Где работает Мигел?",opts:[["В клинике",null],["В отеле",null],["В аэропорту",null]],a:1,why:"«Eu trabalho num hotel.» → в отеле.",hint:"Третья строка."},
   {k:"ch",pic:"📚",q:"Что учит Мигел?",opts:[["Испанский",null],["Турецкий",null],["Английский и русский",null]],a:2,why:"«Eu estudo inglês e russo!»",hint:"«russo» = русский."},
@@ -341,6 +350,7 @@ function mdone(){const last=S.m===MODS.length-1;return `<div class="pic">${last?
 
 function page(P){CURLANG="";
   if(P.k==="toon")return `<h1>${P.t}</h1><div class="stage" id="stage"><div class="fin">${toonFin(P)}</div></div><div class="abar" id="tbar"></div><div class="tcap" id="tcap">🎬 Нажми ▶ · ⏮ ⏭ — сцены</div><div class="row"><button type="button" class="btn sec" id="treplay">▶ Смотреть ещё раз</button><button type="button" class="btn pri" data-next>К упражнениям →</button></div>`;
+  if(P.k==="cult")return cultPage(P);
   if(P.k==="read")return `<h1>${CFG.readT}</h1><p class="sub">Прочитай про себя. Непонятная фраза — нажми 🌐. Потом 3 вопроса.</p>
    <div class="chatbox"><span class="who">${CFG.who}</span>${READ.map(r=>`<div class="bub">${esLine(r[1],r[2],"",r[0])}</div>`).join("")}</div>`;
   if(P.k==="ch")return choice(P);
@@ -348,6 +358,9 @@ function page(P){CURLANG="";
 }
 const key=()=>S.m+"-"+S.p;
 const LTR={"nós": "мы", "Você fala francês?": "Ты говоришь по-французски?", "Nós cozinhamos em casa.": "Мы готовим дома."},OTR={"tu": "ты", "eu": "я", "nós": "мы"};
+function cultPage(P){const G=P.gloss||{};const key=w=>w.toLowerCase().replace(/[^\p{L}\p{N}]/gu,"");
+  return `<h1>${P.t}</h1><p class="sub">Прочитай и послушай. Нажми на любое слово — увидишь перевод. 🌐 — перевод всей фразы. Потом вопросы.</p>
+  <div class="cult">${P.lines.map(([pt,ru],i)=>`<div class="cl"><div class="cw">${pt.split(" ").map(w=>G[key(w)]?`<button type="button" class="wd" data-w="${esc(key(w))}" data-l="${i}">${esc(w)}</button>`:`<span class="wn">${esc(w)}</span>`).join(" ")}</div><div class="esl"><button type="button" class="ic sm" data-say="${esc(pt)}">🔊</button><button type="button" class="ic sm" data-tr>🌐</button></div><div class="trv" hidden>${esc(ru)}</div><div class="wtr" id="wtr${i}" hidden></div></div>`).join("")}</div>`}
 function choice(P){CURLANG=P.lang||"";const a=S.ans[key()];
   let h=`<div class="pic">${P.pic}</div><p><b>${esc(P.q)}</b></p>`;
   if(P.es)h+=`<div class="card">${esLine(P.es,P.tr)}</div>`;
@@ -389,9 +402,12 @@ function afterBuild(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v
   else setTimeout(()=>{if(same())say(txt,lang)},700)}
 function afterAnswer(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
   if(ok)setTimeout(()=>{if(same())next()},1100);else if(txt)setTimeout(()=>{if(same())say(txt,lang)},1000)}
+function wireCult(pg){const P=S.v==="mod"?MODS[S.m].pages[S.p]:null;if(!P||P.k!=="cult")return;
+  pg.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const box=document.getElementById("wtr"+b.dataset.l);const t=`<b>${esc(b.textContent)}</b> — ${esc(P.gloss[b.dataset.w])}`;
+    if(!box.hidden&&box.dataset.w===b.dataset.w){box.hidden=true;return}box.innerHTML=t;box.dataset.w=b.dataset.w;box.hidden=false})}
 function wire(){
   const pg=$("#page");
-  wireIn(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
+  wireIn(pg);wireCult(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
   pg.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{const t=$("#hint");t.hidden=!t.hidden});
   pg.querySelectorAll("[data-skip],[data-next]").forEach(b=>b.onclick=next);
   pg.querySelectorAll("[data-log]").forEach(b=>b.onclick=()=>{S.v="log";save();render()});
