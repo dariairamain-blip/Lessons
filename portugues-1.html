@@ -176,11 +176,12 @@ const VERB=(pic,inf,r,ruInf,ruForms,sent,ruSent)=>[W(pic,inf,ruInf,"🎬 Нов�
   Object.assign(FORMS(pic,r,ruForms),{say:`eu ${r}o, você ${r}a, nós ${r}amos`}),S2(pic,sent,ruSent,"Пример")];
 const WHO=[["👩 я (eu)",null],["👨 ты (você)",null],["👩👨 мы (nós)",null]];
 const LH="Смотри на окончание: -o = я, -a = ты, -amos = мы.";
+const HEARR=(listen,opts,a,lang)=>({k:"ch",pic:lang==="pt-PT"?"🇵🇹🎧":"🇧🇷🎧",q:lang==="pt-PT"?"🇵🇹 Португалия. Что ты слышишь? Выбери перевод.":"Что ты слышишь? Выбери перевод.",listen,ltr:"перевод увидишь после ответа",quiet:true,lang,opts:opts.map(x=>[x,null]),a,why:`Звучало: «<b>${listen}</b>» — ${opts[a]}`,hint:"Послушай ещё раз: кто? что делает? где, когда?"});
 /* TITLE: Português 1 */
-const CFG={n:1,key:"pt-br-1",readT:"Сообщение от Мигела 💬",who:"Miguel 🌴 (Rio de Janeiro)",
+const CFG={n:1,key:"pt-br-1-a",readT:"Сообщение от Мигела 💬",who:"Miguel 🌴 (Rio de Janeiro)",
  intro:`<div class="pic">🇧🇷👋</div><div class="eyebrow">Португальский · Урок 1</div><h1>Olá! Eu, você, nós</h1>
  <p>Что в этом уроке:</p>
- <div class="card"><p>👫 <b>Часть 1:</b> «я», «ты», «мы» по-португальски<br>✂️ <b>Часть 2:</b> как меняются глаголы: говорить, петь, готовить<br>🏠 <b>Часть 3:</b> жить, работать, учиться<br>💬 <b>Часть 4:</b> сообщение от друга из Рио и фразы из слов</p></div>
+ <div class="card"><p>👫 <b>Часть 1:</b> «я», «ты», «мы» по-португальски<br>✂️ <b>Часть 2:</b> как меняются глаголы: говорить, петь, готовить<br>🏠 <b>Часть 3:</b> жить, работать, учиться<br>🎧 <b>Часть 4:</b> на слух: что ты слышишь? (10 заданий)<br>💬 <b>Часть 5:</b> сообщение от друга из Рио и фразы из слов</p></div>
  <p class="sub">🇧🇷 Основа — бразильский вариант. Где в Португалии иначе, увидишь значок 🇵🇹. 🔊 — послушать, 🌐 — перевод.</p>`,
  fin:()=>`<div class="card"><table class="tbl"><tr><td>👩 eu</td><td>fal<span class="end">o</span></td><td class="tr">говорю</td></tr><tr><td>👨 você</td><td>fal<span class="end">a</span></td><td class="tr">говоришь</td></tr><tr><td>👩👨 nós</td><td>fal<span class="end">amos</span></td><td class="tr">говорим</td></tr><tr><td>🇵🇹 tu</td><td>fal<span class="end">as</span></td><td class="tr">говоришь (Португалия)</td></tr></table></div>
  <p>Теперь ты можешь сказать:</p>${esLine("Eu moro perto do mar, trabalho numa clínica e estudo português.","Я живу у моря, работаю в клинике и учу португальский.","es","🏠🌊 · 🦷 · 📚")}`};
@@ -226,6 +227,17 @@ const MODS=[
   {k:"ch",pic:"👨📚",q:"Ты говоришь другу. Какая фраза подходит к картинке?",opts:[["Eu estudo.","Я учусь."],["Você estuda.","Ты учишься."],["Nós estudamos.","Мы учимся."]],a:1,why:"Другу — <b>você estuda</b>.",hint:"Ты = você → -a"},
   {k:"ch",pic:"👩🌊🦷",q:"Ты говоришь о себе. Какая фраза правильная?",opts:[["Eu mora perto do mar e trabalha numa clínica.",null],["Eu moro perto do mar e trabalho numa clínica.","Я живу у моря и работаю в клинике."],["Eu moramos perto do mar e trabalhamos numa clínica.",null]],a:1,why:"Оба глагола с <b>eu</b>: mor<b>o</b>, trabalh<b>o</b>.",hint:"eu → оба глагола на -o"},
   {k:"ch",pic:"🎧",q:"Послушай: кто это делает?",listen:"Nós cozinhamos em casa.",opts:WHO,a:2,why:"«Cozinh<b>amos</b> em casa» → мы. (cozinhar — готовить, из части 2)",hint:LH}]},
+ {n:"Аудирование: что ты слышишь?",e:"🎧",s:"10 заданий на слух",pages:[
+  HEARR("Eu falo russo.",["Я говорю по-русски.","Ты говоришь по-русски.","Мы говорим по-русски."],0),
+  HEARR("Você canta muito bem!",["Я очень хорошо пою!","Ты очень хорошо поёшь!","Мы очень хорошо поём!"],1),
+  HEARR("Nós cozinhamos juntos.",["Я готовлю.","Ты готовишь.","Мы готовим вместе."],2),
+  HEARR("Você mora em Antália?",["Ты живёшь в Анталье?","Я живу в Анталье.","Мы живём в Анталье."],0),
+  HEARR("Eu trabalho num hotel.",["Я работаю в клинике.","Я работаю в отеле.","Я учусь в отеле."],1),
+  HEARR("Nós estudamos alemão.",["Мы учим итальянский.","Ты учишь немецкий.","Мы учим немецкий."],2),
+  HEARR("Eu escuto música.",["Я слушаю музыку.","Ты слушаешь музыку.","Я пою песню."],0),
+  HEARR("Tu falas inglês?",["Я говорю по-английски.","Ты говоришь по-английски?","Мы говорим по-испански."],1,"pt-PT"),
+  HEARR("Tu moras em Lisboa.",["Я живу в Лиссабоне.","Мы живём в Порту.","Ты живёшь в Лиссабоне."],2,"pt-PT"),
+  HEARR("Nós trabalhamos no Porto.",["Мы работаем в Порту.","Ты работаешь в Порту.","Мы учимся в Порту."],0,"pt-PT")]},
  {n:"Сообщение и фразы",e:"💬",s:"всё вместе",pages:[{k:"read"},
   {k:"ch",pic:"🏨",q:"Где работает Мигел?",opts:[["В клинике",null],["В отеле",null],["В аэропорту",null]],a:1,why:"«Eu trabalho num hotel.» → в отеле.",hint:"Третья строка."},
   {k:"ch",pic:"📚",q:"Что учит Мигел?",opts:[["Испанский",null],["Турецкий",null],["Английский и русский",null]],a:2,why:"«Eu estudo inglês e russo!»",hint:"«russo» = русский."},
@@ -342,7 +354,7 @@ function choice(P){CURLANG=P.lang||"";const a=S.ans[key()];
   if(P.listen){const lt=P.ltr||LTR[P.listen];h+=`<div class="card" style="text-align:center"><div class="esl" style="justify-content:center"><button type="button" class="btn pri" data-say="${esc(P.listen)}"${DL()}>🔊 Слушать</button>${lt?`<button type="button" class="ic" data-tr aria-label="🌐">🌐</button>`:""}</div>${lt?`<div class="trv" hidden><b>${esc(P.listen)}</b> — ${esc(lt)}</div>`:""}</div>`}
   const trFor=o=>o[1]||OTR[o[0]]||null,anyT=P.opts.some(o=>trFor(o)),trF=o=>trFor(o)||(anyT?trFor(P.opts[P.a]):null);
   h+=`<div class="opts">`+P.opts.map((o,i)=>{let c="";if(a!=null){if(i===P.a)c=" ok";else if(i===a)c=" bad"}
-    return `<div class="opt"><button type="button" class="ob${c}" data-o="${i}"${anyT?` data-es="${esc(o[0])}"${DL()}`:""}${a!=null?" disabled":""}>${esc(o[0])}</button>${trF(o)?`<button type="button" class="ic sm" data-tr aria-label="Перевод">🌐</button><div class="trv" hidden>${esc(trF(o))}</div>`:""}</div>`}).join("")+`</div>`;
+    return `<div class="opt"><button type="button" class="ob${c}" data-o="${i}"${anyT&&!P.quiet?` data-es="${esc(o[0])}"${DL()}`:""}${a!=null?" disabled":""}>${esc(o[0])}</button>${trF(o)?`<button type="button" class="ic sm" data-tr aria-label="Перевод">🌐</button><div class="trv" hidden>${esc(trF(o))}</div>`:""}</div>`}).join("")+`</div>`;
   if(a==null)h+=`<button type="button" class="skip" data-hint style="text-decoration:none">💡 Подсказка</button><p class="hint" id="hint" hidden>${P.hint}</p>`;
   else if(a===P.a)h+=`<div class="fb ok"><b>✅ Muito bem!</b>${P.why}</div><div class="row stick"><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
   else h+=`<div class="fb bad"><b>❌ Правильный ответ: ${esc(P.opts[P.a][0])}</b>${P.why}</div><div class="row stick"><button type="button" class="btn sec" data-retry>🔁 Ещё раз</button><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
