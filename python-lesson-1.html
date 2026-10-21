@@ -1,0 +1,277 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Python: разбор ошибок</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: phone-first lesson; header, one page at a time, sticky bottom bar with skip/next */
+:root{
+  --bg:#f3f6f5; --card:#ffffff; --fg:#14211f; --muted:#5b6b68; --line:#d6e0dd;
+  --accent:#0f7a6c; --accent-soft:#dcefeb; --good:#1d8a4a; --good-soft:#e1f3e8; --bad:#c2412d; --bad-soft:#fbe5e0;
+  --code-bg:#eaf0ee; --snake:#3f9a4a; --wood:#c99a5b; --sky:#e6f1f6; --tile:#fff6dd; --tile-line:#d9b75a;
+  --f-body:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1716; --card:#172220; --fg:#e4eeeb; --muted:#93a5a1; --line:#2a3a37;
+  --accent:#4cc4b0; --accent-soft:#1d3632; --good:#5ccf8a; --good-soft:#163024; --bad:#f08a76; --bad-soft:#3a1f1a;
+  --code-bg:#0c1312; --snake:#62c46e; --wood:#a37a45; --sky:#13232a; --tile:#2c2918; --tile-line:#9c8440; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1716; --card:#172220; --fg:#e4eeeb; --muted:#93a5a1; --line:#2a3a37;
+  --accent:#4cc4b0; --accent-soft:#1d3632; --good:#5ccf8a; --good-soft:#163024; --bad:#f08a76; --bad-soft:#3a1f1a;
+  --code-bg:#0c1312; --snake:#62c46e; --wood:#a37a45; --sky:#13232a; --tile:#2c2918; --tile-line:#9c8440; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.45}
+.wrap{max-width:540px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px 96px;display:flex;flex-direction:column;gap:12px}
+.hdr{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.brand{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.hbtn{all:unset;cursor:pointer;font-size:13px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+.hbtn:focus-visible,.btn:focus-visible,.opt:focus-visible,.pbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.prog{height:5px;border-radius:3px;background:var(--line);overflow:hidden}.prog span{display:block;height:100%;background:var(--accent);transition:width .3s}
+h1{font-size:24px;line-height:1.2;margin:0;text-wrap:balance}
+h2{font-size:18px;margin:0;text-wrap:balance}
+.lead{color:var(--muted);margin:0;font-size:15px}
+.tag{display:inline-block;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:var(--accent-soft);color:var(--accent);font-weight:600}
+pre{margin:0;background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-family:var(--f-mono);font-size:14px;overflow-x:auto;line-height:1.45}
+code{font-family:var(--f-mono);font-size:.92em}
+.menu{display:flex;flex-direction:column;gap:8px}
+.mi{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.mi .ic{font-size:22px;text-align:center}.mi b{display:block;font-size:15px}.mi small{color:var(--muted);font-size:13px}
+.mi .st{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+/* cartoon */
+.stage{background:var(--sky);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.stage svg{display:block;width:100%;height:auto}
+.cap{font-size:16px;font-weight:500;min-height:3em;margin:0}
+.player{display:flex;justify-content:center;gap:10px;align-items:center}
+.pbtn{all:unset;cursor:pointer;width:46px;height:40px;display:grid;place-items:center;border-radius:10px;background:var(--card);border:1px solid var(--line);font-size:18px}
+.dots{display:flex;gap:5px;justify-content:center}.dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}.dots i.on{background:var(--accent)}
+/* exercises */
+.q{font-size:17px;font-weight:500;margin:0}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{all:unset;box-sizing:border-box;display:flex;gap:10px;align-items:center;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);cursor:pointer;font-family:var(--f-mono);font-size:14.5px}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt .k{font-weight:600;color:var(--muted);font-family:var(--f-body)}
+.opt.right{border-color:var(--good);background:var(--good-soft)}.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}.opt[disabled]{cursor:default}
+.hint{all:unset;cursor:pointer;align-self:flex-start;font-size:14px;color:var(--accent);padding:4px 0}
+.hintbox{font-size:14px;background:var(--card);border:1px dashed var(--accent);border-radius:8px;padding:8px 10px}
+.fb{border-left:3px solid var(--bad);padding:6px 10px;background:var(--card);border-radius:0 8px 8px 0;font-size:14px}
+.fb.ok{border-color:var(--good)}
+.fb b{display:block}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding-top:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar .in{max-width:540px;margin:0 auto;display:flex;gap:8px}
+.btn{all:unset;box-sizing:border-box;flex:1;text-align:center;padding:12px 14px;border-radius:10px;background:var(--accent);color:var(--bg);font-weight:700;cursor:pointer;font-size:15px}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);font-weight:500;flex:0 1 auto}
+.btn[disabled]{opacity:.4;cursor:default}
+.ans{display:flex;flex-direction:column;gap:8px}
+.ar{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:14px;display:grid;grid-template-columns:auto 1fr;gap:4px 10px}
+.ar .m{font-size:18px}.ar .yours{font-family:var(--f-mono)}.ar .bad{color:var(--bad)}.ar .good{color:var(--good)}
+.score{font-size:44px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.tbl{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+.tr{display:flex;justify-content:space-between;font-size:14.5px}.tr span:last-child{font-family:var(--f-mono)}
+/* svg animation helpers */
+.pop{animation:pop .45s both}.slideR{animation:slideR .8s both}.drop{animation:drop .7s both}.shake{animation:shake .5s 2 both}.fade{animation:fade .6s both}
+@keyframes pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+@keyframes slideR{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
+@keyframes drop{from{opacity:0;transform:translateY(-50px)}to{opacity:1;transform:none}}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+svg *{transform-box:fill-box;transform-origin:center}
+@media (prefers-reduced-motion:reduce){.pop,.slideR,.drop,.shake,.fade{animation:none}}
+</style>
+</head><body>
+
+<div class="wrap" id="app"></div>
+<div class="bar" id="bar"><div class="in" id="barin"></div></div>
+
+<script>
+/* ---------- drawing helpers ---------- */
+const d=(ms)=>`style="animation-delay:${ms}ms"`;
+function snake(x,y,s=1,dl=0){return `<g transform="translate(${x} ${y}) scale(${s})"><g class="pop" ${d(dl)}>
+<path d="M0 46 C 14 26, 28 64, 44 46 S 72 26, 80 34" stroke="var(--snake)" stroke-width="13" fill="none" stroke-linecap="round"/>
+<circle cx="84" cy="27" r="14" fill="var(--snake)"/><circle cx="88" cy="22" r="4" fill="#fff"/><circle cx="89" cy="22" r="2" fill="#111"/>
+<path d="M97 31 l8 2 l-6 3" stroke="var(--bad)" stroke-width="1.6" fill="none"/></g></g>`}
+function bubble(x,y,w,txt,dl=0){return `<g class="pop" ${d(dl)}><rect x="${x}" y="${y}" width="${w}" height="26" rx="13" fill="var(--card)" stroke="var(--line)"/><path d="M${x+18} ${y+25} l-6 9 l14 -9" fill="var(--card)" stroke="var(--line)"/><rect x="${x+10}" y="${y+22}" width="20" height="5" fill="var(--card)"/><text x="${x+w/2}" y="${y+17}" text-anchor="middle" font-size="12" fill="var(--fg)" font-family="Onest,sans-serif">${txt}</text></g>`}
+function tile(x,y,t,dl=0,cls="pop",hl=false,cross=false){return `<g class="${cls}" ${d(dl)}><rect x="${x}" y="${y}" width="34" height="34" rx="6" fill="${hl?'var(--accent-soft)':'var(--tile)'}" stroke="${hl?'var(--accent)':'var(--tile-line)'}" stroke-width="1.5"/><text x="${x+17}" y="${y+23}" text-anchor="middle" font-size="16" font-weight="600" fill="var(--fg)" font-family="JetBrains Mono,monospace">${t}</text>${cross?`<path d="M${x+4} ${y+4} L${x+30} ${y+30} M${x+30} ${y+4} L${x+4} ${y+30}" stroke="var(--bad)" stroke-width="3"/>`:''}</g>`}
+function label(x,y,t,size=12,col="var(--muted)",dl=0,cls="fade"){return `<text class="${cls}" ${d(dl)} x="${x}" y="${y}" text-anchor="middle" font-size="${size}" fill="${col}" font-family="JetBrains Mono,monospace">${t}</text>`}
+function box(x,y,w,h,dl=0){return `<g class="pop" ${d(dl)}><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="var(--wood)" opacity=".35"/><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="none" stroke="var(--wood)" stroke-width="2.5"/></g>`}
+function tag(x,y,t,tx,ty,dl=0){return `<g class="drop" ${d(dl)}><path d="M${x+18} ${y+28} Q ${(x+tx)/2} ${ty-14} ${tx} ${ty}" stroke="var(--muted)" stroke-width="1.5" fill="none" stroke-dasharray="3 3"/><rect x="${x}" y="${y}" width="36" height="28" rx="5" fill="var(--accent)"/><circle cx="${x+7}" cy="${y+14}" r="3" fill="var(--sky)"/><text x="${x+21}" y="${y+19}" text-anchor="middle" font-size="15" font-weight="700" fill="var(--bg)" font-family="JetBrains Mono,monospace">${t}</text></g>`}
+const SVG=(inner)=>`<svg viewBox="0 0 320 170" role="img"><rect x="0" y="150" width="320" height="20" fill="var(--line)" opacity=".5"/>${inner}</svg>`;
+
+/* ---------- content ---------- */
+const TOPICS=[
+{id:"range",ic:"🔢",name:"range и генератор списка",sub:"Почему range(4) — это 0, 1, 2, 3",
+ scenes:[
+ {cap:"range(4) выдаёт числа 0, 1, 2, 3. Счёт в Python начинается с нуля.",code:"range(4)",
+  svg:()=>SVG(snake(8,70,.9)+bubble(20,20,130,"Считаю с нуля!",200)+[0,1,2,3].map((n,k)=>tile(150+k*40,95,n,600+k*450)).join(""))},
+ {cap:"Число 4 в набор не входит: range(n) останавливается перед n.",code:"list(range(4))   # [0, 1, 2, 3]",
+  svg:()=>SVG([0,1,2,3].map((n,k)=>tile(40+k*44,70,n,k*120)).join("")+tile(216,70,4,700,"pop",false,true)+label(233,128,"стоп!",13,"var(--bad)",1100)+snake(230,10,.55,0))},
+ {cap:"Генератор списка пропускает каждое x через «машинку» и собирает результаты в новый список.",code:"[x**2 for x in range(4)]   # [0, 1, 4, 9]",
+  svg:()=>SVG(`<g class="pop"><rect x="120" y="55" width="80" height="60" rx="10" fill="var(--accent)"/><text x="160" y="91" text-anchor="middle" font-size="16" font-weight="700" fill="var(--bg)" font-family="JetBrains Mono,monospace">x**2</text><circle cx="140" cy="122" r="6" fill="var(--muted)"/><circle cx="180" cy="122" r="6" fill="var(--muted)"/></g>`+[0,1,2,3].map((n,k)=>tile(8+(k%2)*38,22+Math.floor(k/2)*40+40,n,200+k*400,"slideR")).join("")+[0,1,4,9].map((n,k)=>tile(234+(k%2)*40,62+Math.floor(k/2)*40,n,800+k*400,"pop",true)).join("")+label(160,40,"машинка",12,"var(--muted)",0))},
+ {cap:"range(1, 5) начинает с 1 и опять не включает правую границу: 1, 2, 3, 4.",code:"list(range(1, 5))   # [1, 2, 3, 4]",
+  svg:()=>SVG(`<g class="pop"><path d="M40 60 V120" stroke="var(--good)" stroke-width="3"/><path d="M40 60 h22 l-6 7 l6 7 h-22" fill="var(--good)"/></g>`+[1,2,3,4].map((n,k)=>tile(56+k*44,88,n,300+k*350)).join("")+tile(232,88,5,1800,"pop",false,true)+label(73,140,"старт 1",12,"var(--good)",300)+label(249,140,"5 не входит",12,"var(--bad)",1800))}
+ ],
+ ex:[
+ {q:"Что выведет код?",c:"print(list(range(3)))",o:["[1, 2, 3]","[0, 1, 2]","[0, 1, 2, 3]"],a:1,h:"С какого числа начинает range? И входит ли сама граница 3?",e:"range(3) — это 0, 1, 2. Начало с нуля, граница 3 не входит."},
+ {q:"Что выведет код?",c:"print(list(range(1, 5)))",o:["[1, 2, 3, 4]","[1, 2, 3, 4, 5]","[0, 1, 2, 3, 4]"],a:0,h:"Первое число — старт, второе — граница, которая не входит.",e:"Старт 1, остановка перед 5: 1, 2, 3, 4."},
+ {q:"Что выведет код?",c:"print([x * 10 for x in range(3)])",o:["[10, 20, 30]","[0, 10, 20, 30]","[0, 10, 20]"],a:2,h:"Сначала выпишите, какие x даёт range(3), потом умножьте каждое на 10.",e:"x = 0, 1, 2 → 0, 10, 20."},
+ {q:"Что выведет код?",c:"print([x for x in range(6) if x % 2 == 0])",o:["[2, 4, 6]","[0, 2, 4]","[1, 3, 5]"],a:1,h:"if оставляет только те x, что делятся на 2 без остатка. range(6) — это 0…5.",e:"Из 0, 1, 2, 3, 4, 5 чётные: 0, 2, 4. Число 6 в range(6) не входит."}
+ ]},
+{id:"ref",ic:"🏷️",name:"b = a: две бирки, одна коробка",sub:"Почему список меняется «сам»",
+ scenes:[
+ {cap:"a = [1, 2, 3]. Список лежит в коробке, а a — это бирка, привязанная к коробке.",code:"a = [1, 2, 3]",
+  svg:()=>SVG(box(120,80,120,60)+[1,2,3].map((n,k)=>tile(132+k*36,93,n,300+k*200)).join("")+tag(40,30,"a",150,82,900))},
+ {cap:"b = a не делает новую коробку. Это вторая бирка на ту же самую коробку.",code:"b = a",
+  svg:()=>SVG(box(120,80,120,60,0)+[1,2,3].map((n,k)=>tile(132+k*36,93,n,0)).join("")+tag(40,30,"a",150,82,0)+tag(250,24,"b",210,82,500)+bubble(150,8,90,"Та же коробка!",1200))},
+ {cap:"b.append(4) кладёт 4 в общую коробку. Поэтому через a тоже видно 4 элемента.",code:"b.append(4)\nprint(len(a))   # 4",
+  svg:()=>SVG(box(100,80,160,60,0)+[1,2,3].map((n,k)=>tile(110+k*36,93,n,0)).join("")+tile(218,93,4,600,"drop",true)+tag(30,30,"a",130,82,0)+tag(270,24,"b",230,82,0)+snake(190,0,.45,200))},
+ {cap:"Нужна отдельная коробка? Пишите b = a.copy(). Тогда изменения b не затронут a.",code:"b = a.copy()\nb.append(4)\nprint(len(a))   # 3",
+  svg:()=>SVG(box(16,90,120,56,0)+[1,2,3].map((n,k)=>tile(26+k*36,101,n,0)).join("")+tag(56,30,"a",76,92,0)+box(176,90,136,56,500)+[1,2,3,4].map((n,k)=>tile(182+k*32,101,n,800+k*150,"pop",k===3)).join("")+tag(232,30,"b",244,92,600)+label(160,124,"≠",22,"var(--accent)",1200))}
+ ],
+ ex:[
+ {q:"Что выведет код?",c:"a = [1, 2]\nb = a\nb.append(3)\nprint(a)",o:["[1, 2]","[1, 2, 3]","Ошибку"],a:1,h:"Сколько здесь коробок — одна или две?",e:"b = a — вторая бирка на ту же коробку. 3 попала в общий список."},
+ {q:"Что выведет код?",c:"a = [1, 2]\nb = a.copy()\nb.append(3)\nprint(a)",o:["[1, 2, 3]","[3]","[1, 2]"],a:2,h:"copy() делает новую коробку или вешает бирку?",e:"copy() создаёт отдельный список. 3 добавилась только в b, a не изменился."},
+ {q:"Какая строка создаёт независимую копию списка a?",o:["b = a","b = a.copy()","b == a"],a:1,h:"Одна строка вешает бирку, другая сравнивает, третья копирует.",e:"b = a — та же коробка, b == a — сравнение (True/False), b = a.copy() — новая коробка."},
+ {q:"Что выведет код?",c:"a = [5]\nb = a\nb.append(6)\nb.append(7)\nprint(len(a))",o:["1","2","3"],a:2,h:"Посчитайте, сколько всего элементов оказалось в общей коробке.",e:"Коробка одна: 5, 6, 7. Через a видно 3 элемента."}
+ ]},
+{id:"dict",ic:"🗄️",name:"Словарь и d.get()",sub:"Как не упасть с KeyError",
+ scenes:[
+ {cap:"Словарь — это шкаф с ящиками. По ключу 'x' лежит 5, по ключу 'y' — 7.",code:"d = {'x': 5, 'y': 7}",
+  svg:()=>SVG(`<g class="pop"><rect x="100" y="30" width="120" height="118" rx="6" fill="var(--wood)" opacity=".35" stroke="var(--wood)" stroke-width="2.5"/></g>`+["x","y"].map((k,i)=>`<g class="slideR" ${d(300+i*500)}><rect x="110" y="${42+i*50}" width="100" height="40" rx="4" fill="var(--card)" stroke="var(--wood)" stroke-width="2"/><text x="132" y="${67+i*50}" font-size="14" fill="var(--muted)" font-family="JetBrains Mono,monospace">'${k}'</text><text x="190" y="${68+i*50}" font-size="17" font-weight="700" fill="var(--fg)" text-anchor="middle" font-family="JetBrains Mono,monospace">${i?7:5}</text></g>`).join(""))},
+ {cap:"d['z'] ищет ящик, которого нет, и программа падает с ошибкой KeyError.",code:"d['z']   # KeyError: 'z'",
+  svg:()=>SVG(`<rect x="100" y="30" width="120" height="118" rx="6" fill="var(--wood)" opacity=".35" stroke="var(--wood)" stroke-width="2.5"/>`+["x","y"].map((k,i)=>`<rect x="110" y="${42+i*50}" width="100" height="40" rx="4" fill="var(--card)" stroke="var(--wood)" stroke-width="2"/><text x="132" y="${67+i*50}" font-size="14" fill="var(--muted)" font-family="JetBrains Mono,monospace">'${k}'</text>`).join("")+snake(6,70,.7,0)+`<g class="pop" ${d(700)}><g class="shake" ${d(1100)}><rect x="228" y="40" width="88" height="34" rx="8" fill="var(--bad)"/><text x="272" y="62" text-anchor="middle" font-size="13" font-weight="700" fill="var(--bg)" font-family="JetBrains Mono,monospace">KeyError</text></g></g>`+bubble(6,22,90,"Где ящик 'z'?",300))},
+ {cap:"d.get('z', 0) работает вежливо: ящика нет — возвращает запасное значение 0.",code:"d.get('z', 0)   # 0",
+  svg:()=>SVG(`<rect x="160" y="30" width="120" height="118" rx="6" fill="var(--wood)" opacity=".35" stroke="var(--wood)" stroke-width="2.5"/>`+["x","y"].map((k,i)=>`<rect x="170" y="${42+i*50}" width="100" height="40" rx="4" fill="var(--card)" stroke="var(--wood)" stroke-width="2"/><text x="192" y="${67+i*50}" font-size="14" fill="var(--muted)" font-family="JetBrains Mono,monospace">'${k}'</text>`).join("")+snake(10,74,.8,0)+tile(110,60,0,700,"drop",true)+bubble(10,20,140,"Нет ящика? Держи 0",300))},
+ {cap:"Без второго аргумента get возвращает None — специальное значение «ничего».",code:"d.get('z')   # None",
+  svg:()=>SVG(snake(20,74,.8,0)+`<g class="pop" ${d(500)}><rect x="160" y="70" width="90" height="40" rx="8" fill="var(--card)" stroke="var(--muted)" stroke-dasharray="4 3"/><text x="205" y="96" text-anchor="middle" font-size="16" font-weight="600" fill="var(--muted)" font-family="JetBrains Mono,monospace">None</text></g>`+bubble(20,20,120,"Пусто, но без ошибки",900))}
+ ],
+ ex:[
+ {q:"Что выведет код?",c:"d = {'a': 1}\nprint(d['a'])",o:["'a'","1","KeyError"],a:1,h:"Ключ 'a' в словаре есть. Что лежит в этом ящике?",e:"По ключу 'a' лежит 1."},
+ {q:"Что выведет код?",c:"d = {'a': 1}\nprint(d.get('b'))",o:["None","0","KeyError"],a:0,h:"Второго аргумента у get нет. Что тогда возвращается?",e:"Ключа 'b' нет, запасного значения не задано — get возвращает None."},
+ {q:"Что выведет код?",c:"d = {'a': 1}\nprint(d.get('b', 'нет'))",o:["None","KeyError","нет"],a:2,h:"Ключа нет, но у get есть второй аргумент.",e:"Возвращается запасное значение — строка 'нет'."},
+ {q:"Что выведет код?",c:"d = {'a': 1}\nprint(d['b'])",o:["None","KeyError","0"],a:1,h:"Здесь квадратные скобки, а не get.",e:"Квадратные скобки требуют, чтобы ключ был. 'b' нет — KeyError."}
+ ]},
+{id:"slice",ic:"✂️",name:"Срезы строк",sub:"Почему \"data\"[1:3] — это \"at\"",
+ scenes:[
+ {cap:"У каждой буквы строки есть номер — индекс. Он тоже начинается с нуля.",code:'s = "data"',
+  svg:()=>SVG([..."data"].map((c,k)=>tile(80+k*42,60,c,k*250)+label(97+k*42,120,k,14,"var(--accent)",300+k*250)).join("")+label(160,40,"индексы ↓ под буквами",12,"var(--muted)",1300))},
+ {cap:"Срез режет строку между столбиками. [1:3] — разрезы у столбика 1 и у столбика 3.",code:'"data"[1:3]',
+  svg:()=>SVG([..."data"].map((c,k)=>tile(84+k*42,60,c,0)).join("")+[0,1,2,3,4].map(k=>`<g class="fade" ${d(200+k*150)}><line x1="${81+k*42}" y1="50" x2="${81+k*42}" y2="104" stroke="var(--muted)" stroke-width="1.5"/><text x="${81+k*42}" y="122" text-anchor="middle" font-size="13" fill="var(--muted)" font-family="JetBrains Mono,monospace">${k}</text></g>`).join("")+[1,3].map((k,i)=>`<g class="drop" ${d(1200+i*400)}><text x="${81+k*42}" y="42" text-anchor="middle" font-size="22">✂️</text><line x1="${81+k*42}" y1="50" x2="${81+k*42}" y2="104" stroke="var(--bad)" stroke-width="3"/></g>`).join(""))},
+ {cap:"Между разрезами — буквы с индексами 1 и 2, то есть \"at\". Правая граница не входит, как в range.",code:'"data"[1:3]   # "at"',
+  svg:()=>SVG(tile(40,60,"d",0)+tile(250,60,"a",0)+`<g class="pop" ${d(300)}>${tile(124,52,"a",0,"",true)}${tile(162,52,"t",0,"",true)}</g>`+label(160,118,'"at"',18,"var(--accent)",800,"pop")+label(57,118,"0",12)+label(267,118,"3",12))},
+ {cap:"[-1] — последний символ. [2:] — всё от индекса 2 до самого конца.",code:'"data"[-1]   # "a"\n"data"[2:]   # "ta"',
+  svg:()=>SVG([..."data"].map((c,k)=>tile(80+k*42,40,c,0,"pop",k===3)+label(97+k*42,94,k-4,13,k===3?"var(--bad)":"var(--muted)",300+k*150)).join("")+label(160,128,"отрицательные индексы считают с конца",11,"var(--muted)",1000))}
+ ],
+ ex:[
+ {q:"Что выведет код?",c:'print("python"[0])',o:['"p"','"y"','"n"'],a:0,h:"Индекс первой буквы — какое число?",e:"Индекс 0 — первая буква: p."},
+ {q:"Что выведет код?",c:'print("python"[0:2])',o:['"pyt"','"py"','"y"'],a:1,h:"Берутся индексы от 0 до 2, но 2 не входит.",e:"Индексы 0 и 1: p и y."},
+ {q:"Что выведет код?",c:'print("python"[-1])',o:['"p"','"o"','"n"'],a:2,h:"Минус один — это считаем с какого конца?",e:"-1 — последний символ: n."},
+ {q:"Что выведет код?",c:'print("python"[2:])',o:['"thon"','"ython"','"py"'],a:0,h:"После двоеточия ничего нет — значит, до самого конца.",e:"От индекса 2 (t) до конца: thon."}
+ ]}
+];
+const FINAL={id:"mix",ic:"🧩",name:"Всё вместе",sub:"Смешанные задачи по четырём темам",ex:[
+ {q:"Что выведет код?",c:"print([x for x in range(1, 4)])",o:["[1, 2, 3]","[1, 2, 3, 4]","[0, 1, 2, 3]"],a:0,h:"Старт 1, граница 4 не входит.",e:"range(1, 4) → 1, 2, 3."},
+ {q:"Что выведет код?",c:'s = "hello"\nprint(s[1:4])',o:['"hel"','"ell"','"ello"'],a:1,h:"Индексы 1, 2, 3. Какие это буквы?",e:"h=0, e=1, l=2, l=3 → ell."},
+ {q:"Что выведет код?",c:"a = [0]\nb = a\nb.append(1)\nprint(len(a))",o:["1","2","Ошибку"],a:1,h:"Сколько коробок создано в этом коде?",e:"Коробка одна: [0, 1]. Длина 2."},
+ {q:"Что выведет код?",c:"prices = {'tea': 10}\nprint(prices.get('coffee', 0) + prices['tea'])",o:["KeyError","10","0"],a:1,h:"Посчитайте каждую часть отдельно: что даст get, что даст ['tea'].",e:"get('coffee', 0) → 0, prices['tea'] → 10. 0 + 10 = 10."},
+ {q:"Что выведет код?",c:'words = ["cat", "dog"]\nprint([w[0] for w in words])',o:['["cat", "dog"]','["c", "d"]','["t", "g"]'],a:1,h:"w[0] — какая буква каждого слова?",e:"w[0] — первая буква: c у cat, d у dog."}
+]};
+const BLOCKS=[...TOPICS,FINAL];
+
+/* ---------- state ---------- */
+let pages=[], p=-1, scene=0, playing=true, timer=null, answers={}, locked=false;
+BLOCKS.forEach((b,bi)=>{ if(b.scenes) pages.push({type:"cartoon",b:bi}); b.ex.forEach((e,ei)=>pages.push({type:"ex",b:bi,e:ei,id:b.id+ei})); });
+pages.push({type:"result"});
+try{answers=JSON.parse(localStorage.getItem("py1_answers")||"{}")}catch(e){answers={}}
+const save=()=>{try{localStorage.setItem("py1_answers",JSON.stringify(answers))}catch(e){}};
+const app=document.getElementById("app"), barin=document.getElementById("barin");
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const totalEx=pages.filter(x=>x.type==="ex").length;
+
+function header(){const done=Object.keys(answers).length;
+ return `<div class="hdr"><button class="hbtn" id="home">☰ Меню</button><span class="brand">Python · урок 1</span><button class="hbtn" id="myans">Мои ответы</button></div>
+ <div class="prog"><span style="width:${p<0?0:Math.round((p+1)/pages.length*100)}%"></span></div>`}
+function wireHeader(){document.getElementById("home").onclick=()=>go(-1);document.getElementById("myans").onclick=showAnswers}
+function bar(btns){barin.innerHTML=btns;}
+function go(n){clearInterval(timer);timer=null;locked=false;p=n;scene=0;playing=true;render();window.scrollTo(0,0)}
+function skipBtn(){return `<button class="btn ghost" id="skip">⏭ Пропустить эту страницу</button>`}
+function wireSkip(){const s=document.getElementById("skip");if(s)s.onclick=()=>go(Math.min(p+1,pages.length-1))}
+
+function render(){
+ if(p<0){
+  app.innerHTML=header()+`<h1>Python: разбор ошибок из теста</h1>
+  <p class="lead">Четыре коротких мультика с упражнениями после каждого, в конце — задачи на всё вместе.</p>
+  <div class="menu">${BLOCKS.map((b,bi)=>{const ids=b.ex.map((_,ei)=>b.id+ei);const ok=ids.filter(id=>answers[id]&&answers[id].ok).length;const any=ids.some(id=>answers[id]);
+   return `<button class="mi" data-b="${bi}"><span class="ic">${b.ic}</span><span><b>${b.name}</b><small>${b.sub}</small></span><span class="st">${any?ok+"/"+ids.length:""}</span></button>`}).join("")}</div>`;
+  wireHeader();
+  app.querySelectorAll(".mi").forEach(m=>m.onclick=()=>go(pages.findIndex(x=>x.b===+m.dataset.b)));
+  bar(`<button class="btn" id="start">${Object.keys(answers).length?"Начать заново с первого мультика":"Начать урок"}</button>`);
+  document.getElementById("start").onclick=()=>go(0);return;
+ }
+ const pg=pages[p];
+ if(pg.type==="cartoon") return renderCartoon(pg);
+ if(pg.type==="ex") return renderEx(pg);
+ return renderResult();
+}
+
+function renderCartoon(pg){
+ const b=BLOCKS[pg.b], sc=b.scenes[scene], last=scene===b.scenes.length-1;
+ app.innerHTML=header()+`<span><span class="tag">Мультик · ${b.name}</span></span>
+ <div class="stage">${sc.svg()}</div>
+ <div class="player"><button class="pbtn" id="prev" aria-label="Предыдущая сцена">⏮</button><button class="pbtn" id="pp" aria-label="Пауза или продолжить">${playing?"⏸":"▶"}</button><button class="pbtn" id="nx" aria-label="Следующая сцена">⏭</button></div>
+ <div class="dots">${b.scenes.map((_,k)=>`<i class="${k===scene?"on":""}"></i>`).join("")}</div>
+ <p class="cap">${sc.cap}</p><pre>${esc(sc.code)}</pre>`;
+ wireHeader();
+ document.getElementById("prev").onclick=()=>{scene=Math.max(0,scene-1);restartTimer();renderCartoon(pg)};
+ document.getElementById("nx").onclick=()=>{if(scene<b.scenes.length-1){scene++;restartTimer();renderCartoon(pg)}};
+ document.getElementById("pp").onclick=()=>{playing=!playing;restartTimer();renderCartoon(pg)};
+ bar(skipBtn()+`<button class="btn" id="toex" ${last?"":"disabled"}>К упражнениям</button>`);
+ wireSkip();
+ const t=document.getElementById("toex");t.onclick=()=>{if(last)go(p+1)};
+ if(!timer&&playing) restartTimer();
+}
+function restartTimer(){clearInterval(timer);timer=null;if(!playing)return;timer=setInterval(()=>{const pg=pages[p];if(!pg||pg.type!=="cartoon"){clearInterval(timer);return}
+ const b=BLOCKS[pg.b];if(scene<b.scenes.length-1){scene++;renderCartoon(pg)}else{playing=false;clearInterval(timer);timer=null;renderCartoon(pg)}},6500)}
+
+function renderEx(pg,chosen=null,showHint=false){
+ const b=BLOCKS[pg.b], ex=b.ex[pg.e], n=pg.e+1, done=chosen!==null;
+ app.innerHTML=header()+`<span><span class="tag">${b.ic} ${b.name} · ${n}/${b.ex.length}</span></span>
+ <p class="q">${ex.q}</p>${ex.c?`<pre>${esc(ex.c)}</pre>`:""}
+ <div class="opts">${ex.o.map((o,k)=>{let cl="";if(done){if(k===ex.a)cl="right";else if(k===chosen)cl="wrong"}
+  return `<button class="opt ${cl}" data-k="${k}" ${done?"disabled":""}><span class="k">${"АБВ"[k]}</span><span>${esc(o)}</span></button>`}).join("")}</div>
+ ${done?(chosen===ex.a?`<div class="fb ok"><b style="color:var(--good)">Верно!</b>${ex.e}</div>`:`<div class="fb"><b style="color:var(--bad)">Неверно. Правильно: ${esc(ex.o[ex.a])}</b>${ex.e}</div>`)
+  :(showHint?`<div class="hintbox">💡 ${ex.h}</div>`:`<button class="hint" id="hint">💡 Подсказка</button>`)}`;
+ wireHeader();
+ const h=document.getElementById("hint");if(h)h.onclick=()=>renderEx(pg,null,true);
+ app.querySelectorAll(".opt:not([disabled])").forEach(o=>o.onclick=()=>{if(locked)return;const k=+o.dataset.k;
+  answers[pg.id]={c:k,ok:k===ex.a};save();renderEx(pg,k);
+  if(k===ex.a){locked=true;setTimeout(()=>{if(pages[p]===pg)go(p+1)},1400)}});
+ bar(skipBtn()+(done&&chosen!==ex.a?`<button class="btn" id="next">Дальше</button>`:""));
+ wireSkip();const nb=document.getElementById("next");if(nb)nb.onclick=()=>go(p+1);
+}
+
+function renderResult(){
+ const rows=BLOCKS.map(b=>{const ids=b.ex.map((_,ei)=>b.id+ei);return{b,ok:ids.filter(id=>answers[id]&&answers[id].ok).length,n:ids.length,ans:ids.filter(id=>answers[id]).length}});
+ const ok=rows.reduce((s,r)=>s+r.ok,0);
+ const weak=rows.filter(r=>r.ans&&r.ok/r.n<0.75);
+ app.innerHTML=header()+`<h1>Урок пройден</h1>
+ <div><span class="score">${ok}</span> <span class="lead">из ${totalEx} верно</span></div>
+ <div class="tbl">${rows.map(r=>`<div class="tr"><span>${r.b.ic} ${r.b.name}</span><span>${r.ok}/${r.n}</span></div>`).join("")}</div>
+ <p class="lead">${weak.length?"Стоит пересмотреть: "+weak.map(r=>r.b.name).join(", ")+". Мультик можно открыть из меню и пройти упражнения ещё раз — ответы перезапишутся.":"Все четыре темы освоены. Следующий шаг — урок по pandas и NumPy."}</p>`;
+ wireHeader();
+ bar(`<button class="btn ghost" id="ma">Мои ответы</button><button class="btn" id="hm">В меню</button>`);
+ document.getElementById("ma").onclick=showAnswers;document.getElementById("hm").onclick=()=>go(-1);
+}
+
+function showAnswers(){
+ clearInterval(timer);timer=null;
+ const list=[];BLOCKS.forEach(b=>b.ex.forEach((ex,ei)=>list.push({b,ex,a:answers[b.id+ei]})));
+ app.innerHTML=header()+`<h2>Мои ответы</h2><p class="lead">При повторном прохождении ответ перезаписывается.</p>
+ <div class="ans">${list.map(({b,ex,a})=>`<div class="ar"><span class="m">${!a?"⬜":a.ok?"✅":"❌"}</span><span><b>${b.ic} ${b.name}</b></span>
+ <span></span><pre>${esc(ex.c||ex.q)}</pre>
+ <span></span><span>${!a?'<span style="color:var(--muted)">Ещё не отвечено</span>':`<span class="yours ${a.ok?"good":"bad"}">Ваш ответ: ${esc(ex.o[a.c])}</span>${a.ok?"":`<br><span class="yours good">Правильно: ${esc(ex.o[ex.a])}</span>`}`}</span></div>`).join("")}</div>`;
+ wireHeader();
+ bar(`<button class="btn" id="back">Назад</button>`);
+ document.getElementById("back").onclick=()=>{const keep=p;go(keep)};
+}
+render();
+</script>
+</body></html>

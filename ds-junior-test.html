@@ -1,0 +1,146 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Тест Data Science Junior</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one question per phone screen, progress strip on top, results as a topic breakdown */
+:root{
+  --bg:#f3f6f5; --card:#ffffff; --fg:#14211f; --muted:#5b6b68; --line:#d6e0dd;
+  --accent:#0f7a6c; --accent-soft:#dcefeb; --good:#1d8a4a; --good-soft:#e1f3e8; --bad:#c2412d; --bad-soft:#fbe5e0;
+  --code-bg:#eaf0ee;
+  --f-body:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1716; --card:#172220; --fg:#e4eeeb; --muted:#93a5a1; --line:#2a3a37;
+  --accent:#4cc4b0; --accent-soft:#1d3632; --good:#5ccf8a; --good-soft:#163024; --bad:#f08a76; --bad-soft:#3a1f1a;
+  --code-bg:#0c1312; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1716; --card:#172220; --fg:#e4eeeb; --muted:#93a5a1; --line:#2a3a37;
+  --accent:#4cc4b0; --accent-soft:#1d3632; --good:#5ccf8a; --good-soft:#163024; --bad:#f08a76; --bad-soft:#3a1f1a;
+  --code-bg:#0c1312; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 32px;display:flex;flex-direction:column;gap:14px}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.brand{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.count{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.strip{display:grid;grid-template-columns:repeat(20,1fr);gap:3px}
+.strip i{height:6px;border-radius:2px;background:var(--line)}
+.strip i.ok{background:var(--good)} .strip i.no{background:var(--bad)} .strip i.cur{background:var(--accent)}
+h1{font-size:26px;line-height:1.2;margin:4px 0 0;text-wrap:balance}
+.lead{color:var(--muted);margin:0}
+.tag{display:inline-block;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:var(--accent-soft);color:var(--accent);font-weight:600}
+.q{font-size:18px;font-weight:500;margin:0;text-wrap:balance}
+pre{margin:0;background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:12px;font-family:var(--f-mono);font-size:14px;overflow-x:auto;line-height:1.45}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{all:unset;box-sizing:border-box;display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);cursor:pointer;font-size:15px}
+.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt .k{font-family:var(--f-mono);font-weight:600;color:var(--muted);min-width:1.2em}
+.opt code,.ex code{font-family:var(--f-mono);font-size:.92em}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt[disabled]{cursor:default}
+.ex{border-left:3px solid var(--accent);padding:8px 12px;background:var(--card);border-radius:0 8px 8px 0;font-size:14.5px}
+.ex b{display:block;margin-bottom:2px}
+.btn{all:unset;box-sizing:border-box;text-align:center;padding:13px 18px;border-radius:10px;background:var(--accent);color:var(--bg);font-weight:700;cursor:pointer}
+.btn:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row .btn{flex:1}
+.score{display:flex;align-items:baseline;gap:10px}
+.score .n{font-size:52px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.score .of{color:var(--muted);font-family:var(--f-mono)}
+.level{font-size:20px;font-weight:700;color:var(--accent)}
+.topics{display:flex;flex-direction:column;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.t{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-size:14.5px}
+.t .v{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--muted)}
+.bar{grid-column:1/-1;height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--accent)}
+.bar span.low{background:var(--bad)}
+h2{font-size:17px;margin:6px 0 0}
+ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.rev{display:flex;flex-direction:column;gap:10px}
+.ri{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:14.5px;display:flex;flex-direction:column;gap:4px}
+.ri .yours{color:var(--bad)} .ri .corr{color:var(--good)}
+.foot{font-size:12px;color:var(--muted);text-align:center}
+@media (prefers-reduced-motion:no-preference){.card-in{animation:in .25s ease-out}@keyframes in{from{transform:translateY(6px)}to{transform:none}}}
+</style>
+</head><body>
+
+<div class="wrap" id="app"></div>
+
+<script>
+const Q=[
+{t:"Python",q:"Что выведет код?",c:"print([x**2 for x in range(4)])",o:["[1, 4, 9, 16]","[0, 1, 4, 9]","[0, 2, 4, 6]","Ошибку"],a:1,e:"range(4) даёт 0, 1, 2, 3 — счёт начинается с нуля и не включает 4. Квадраты: 0, 1, 4, 9."},
+{t:"Python",q:"Что выведет код?",c:"a = [1, 2, 3]\nb = a\nb.append(4)\nprint(len(a))",o:["3","Ошибку","4","None"],a:2,e:"b = a не копирует список, а даёт второе имя тому же объекту. Изменение через b видно и через a. Копия делается так: b = a.copy()."},
+{t:"Python",q:"Что выведет код?",c:"d = {'x': 5, 'y': 7}\nprint(d.get('z', 0))",o:["0","KeyError","None","7"],a:0,e:"get возвращает значение по умолчанию (второй аргумент), если ключа нет. А d['z'] вызвал бы KeyError."},
+{t:"Python",q:"Что выведет код?",c:'print("data"[1:3])',o:['"da"','"ata"','"dat"','"at"'],a:3,e:"Срез [1:3] берёт символы с индексами 1 и 2 (правая граница не включается): a и t."},
+{t:"pandas / NumPy",q:"Как узнать, сколько пропусков в каждом столбце таблицы df?",o:["<code>df.count()</code>","<code>df.isna().sum()</code>","<code>df.dropna()</code>","<code>df.info().sum()</code>"],a:1,e:"isna() ставит True там, где пропуск, а sum() считает True по каждому столбцу. count() считает, наоборот, непустые значения."},
+{t:"pandas / NumPy",q:"Что вернёт эта строка?",c:"df.groupby('city')['price'].mean()",o:["Одно число — среднюю цену по всей таблице","Таблицу без столбца city","Среднюю цену для каждого города","Количество строк в каждом городе"],a:2,e:"groupby делит строки на группы по городу, затем для каждой группы считается среднее price. Результат — Series: город → средняя цена."},
+{t:"pandas / NumPy",q:"Чем df.iloc отличается от df.loc?",o:["iloc выбирает строки по номеру позиции, loc — по метке индекса","iloc работает только со столбцами","iloc быстрее, но результат одинаковый всегда","iloc удаляет выбранные строки"],a:0,e:"iloc — integer location, позиция 0, 1, 2… loc — по названиям (меткам) строк и столбцов. Если индекс не 0..n, результаты будут разными."},
+{t:"pandas / NumPy",q:"Что выведет код?",c:"import numpy as np\nprint(np.array([1, 2, 3]) * 2)",o:["[1 2 3 1 2 3]","Ошибку","[2 4 6]","[1 2 3 2]"],a:2,e:"В NumPy операции поэлементные: каждый элемент умножается на 2. А у обычного списка [1,2,3]*2 получилось бы [1,2,3,1,2,3]."},
+{t:"Статистика",q:"Чему равна медиана набора: 1, 3, 3, 8, 100?",o:["23","3","8","5,5"],a:1,e:"Медиана — среднее по порядку значение. Набор уже отсортирован, в середине третье число: 3. (23 — это среднее арифметическое.)"},
+{t:"Статистика",q:"В данных о зарплатах есть несколько миллионеров. Какая мера «типичной зарплаты» меньше всего исказится?",o:["Среднее арифметическое","Максимум","Размах","Медиана"],a:3,e:"Медиана устойчива к выбросам: пара огромных значений почти не сдвигает середину. Среднее же сильно вырастет."},
+{t:"Статистика",q:"Уровень значимости α = 0,05, тест дал p-value = 0,03. Какой вывод?",o:["Отвергаем нулевую гипотезу","Принимаем нулевую гипотезу как доказанную","Результат точно ошибочный","Нужно взять α = 0,03"],a:0,e:"p < α, значит результат статистически значим и нулевую гипотезу отвергаем. Важно: «не отвергли» никогда не значит «доказали»."},
+{t:"Статистика",q:"Корреляция между продажами мороженого и числом солнечных ожогов равна 0,9. Что это значит?",o:["Мороженое вызывает ожоги","Сильная положительная линейная связь, причина не доказана","Связи нет","90% покупателей мороженого обгорают"],a:1,e:"Корреляция показывает, что величины растут вместе, но не говорит о причине. Здесь обе зависят от третьего фактора — жаркой погоды."},
+{t:"Машинное обучение",q:"Нужно предсказать цену квартиры в лирах. Какой это тип задачи?",o:["Классификация","Кластеризация","Регрессия","Снижение размерности"],a:2,e:"Предсказываем число на непрерывной шкале — это регрессия. Классификация — когда ответ из набора классов (да/нет, кошка/собака)."},
+{t:"Машинное обучение",q:"Зачем делить данные на обучающую (train) и тестовую (test) выборки?",o:["Чтобы модель училась в два раза быстрее","Чтобы проверить качество на данных, которых модель не видела","Чтобы убрать пропуски","Так требует pandas"],a:1,e:"На train модель может просто «запомнить» ответы. Честная оценка — только на новых данных, отсюда test."},
+{t:"Машинное обучение",q:"Accuracy на train — 99%, на test — 62%. Что происходит?",o:["Недообучение","Модель идеальна","Ошибка в метрике","Переобучение"],a:3,e:"Большой разрыв между train и test — классический признак переобучения: модель выучила шум обучающих данных и плохо обобщает."},
+{t:"Машинное обучение",q:"Среди транзакций 1% мошеннических. Модель на все отвечает «не мошенничество». Какая у неё accuracy?",o:["99%","1%","50%","0%"],a:0,e:"Она права в 99% случаев, но не находит ни одного мошенника. Поэтому при несбалансированных классах смотрят на recall, precision, F1."},
+{t:"Машинное обучение",q:"К какому типу относится алгоритм k-means?",o:["Обучение с учителем, классификация","Обучение без учителя, кластеризация","Обучение с учителем, регрессия","Обучение с подкреплением"],a:1,e:"k-means делит объекты на k групп по сходству без готовых ответов (меток) — это кластеризация, обучение без учителя."},
+{t:"SQL",q:"Что вернёт запрос?",c:"SELECT city, COUNT(*)\nFROM users\nGROUP BY city;",o:["Общее число пользователей","Список всех пользователей","Число пользователей в каждом городе","Количество разных городов"],a:2,e:"GROUP BY city собирает строки по городам, COUNT(*) считает строки в каждой группе. Одна строка результата на один город."},
+{t:"SQL",q:"Нужно оставить только города, где больше 100 пользователей (после GROUP BY). Что использовать?",o:["WHERE COUNT(*) > 100","ORDER BY COUNT(*) > 100","LIMIT 100","HAVING COUNT(*) > 100"],a:3,e:"WHERE фильтрует строки до группировки, HAVING — группы после неё. Условие на COUNT(*) можно писать только в HAVING."},
+{t:"SQL",q:"Что делает LEFT JOIN таблиц clients (слева) и orders (справа)?",o:["Оставляет только клиентов, у которых есть заказы","Оставляет всех клиентов; у кого нет заказов — в столбцах orders будет NULL","Оставляет все заказы, даже без клиента","Склеивает таблицы одна под другой"],a:1,e:"LEFT JOIN сохраняет все строки левой таблицы. Если пары справа нет, подставляется NULL. Только совпадения даёт INNER JOIN."}
+];
+const TOPICS=["Python","pandas / NumPy","Статистика","Машинное обучение","SQL"];
+const TIPS={"Python":"списки и срезы, словари, изменяемые объекты","pandas / NumPy":"groupby, loc/iloc, пропуски, векторные операции","Статистика":"среднее/медиана, p-value, корреляция ≠ причинность","Машинное обучение":"train/test, переобучение, метрики для несбалансированных классов","SQL":"GROUP BY, HAVING vs WHERE, виды JOIN"};
+let i=0, ans=[], state="start";
+const app=document.getElementById("app");
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+function strip(){return '<div class="strip">'+Q.map((_,k)=>`<i class="${k<ans.length?(ans[k]===Q[k].a?'ok':'no'):(k===i&&state==='q'?'cur':'')}"></i>`).join("")+'</div>'}
+function render(){
+  if(state==="start"){
+    app.innerHTML=`<div class="top"><span class="brand">DS · Junior check</span></div>
+    <h1>Проверка знаний Data Science уровня Junior</h1>
+    <p class="lead">20 вопросов по пяти темам: Python, pandas и NumPy, статистика, машинное обучение, SQL. После каждого ответа — короткое объяснение, в конце — оценка по темам и что подтянуть.</p>
+    <div class="topics">${TOPICS.map(t=>`<div class="t"><span>${t}</span><span class="v">${Q.filter(q=>q.t===t).length} вопр.</span></div>`).join("")}</div>
+    <p class="lead">Займёт около 10 минут. Отвечайте честно, без поиска в интернете — так оценка будет точнее.</p>
+    <button class="btn" id="go">Начать тест</button>`;
+    document.getElementById("go").onclick=()=>{state="q";render()};return;
+  }
+  if(state==="q"){
+    const q=Q[i],done=ans.length>i;
+    app.innerHTML=`<div class="top"><span class="brand">DS · Junior check</span><span class="count">${i+1} / ${Q.length}</span></div>${strip()}
+    <div class="card-in" style="display:flex;flex-direction:column;gap:12px">
+    <span><span class="tag">${q.t}</span></span>
+    <p class="q">${q.q}</p>${q.c?`<pre>${esc(q.c)}</pre>`:""}
+    <div class="opts">${q.o.map((o,k)=>{let cl="";if(done){if(k===q.a)cl="right";else if(k===ans[i])cl="wrong"}
+      return `<button class="opt ${cl}" data-k="${k}" ${done?"disabled":""}><span class="k">${"ABCD"[k]}</span><span>${o.startsWith("<code>")?o:esc(o)}</span></button>`}).join("")}</div>
+    ${done?`<div class="ex"><b style="color:var(${ans[i]===q.a?'--good':'--bad'})">${ans[i]===q.a?"Верно":"Неверно"}</b>${q.e}</div>
+    <button class="btn" id="next">${i===Q.length-1?"Посмотреть результат":"Дальше"}</button>`:""}</div>`;
+    app.querySelectorAll(".opt:not([disabled])").forEach(b=>b.onclick=()=>{ans[i]=+b.dataset.k;render();const n=document.getElementById("next");n&&n.scrollIntoView({block:"nearest",behavior:"smooth"})});
+    const n=document.getElementById("next");if(n)n.onclick=()=>{if(i===Q.length-1){state="res"}else i++;render();window.scrollTo(0,0)};
+    return;
+  }
+  const total=ans.filter((a,k)=>a===Q[k].a).length,pct=total/Q.length*100;
+  const lvl=pct>=90?["Уверенный Junior","Базу вы знаете хорошо. Можно готовиться к собеседованиям и переходить к более сложным темам: feature engineering, кросс-валидация, A/B-тесты."]
+    :pct>=75?["Junior","Основа есть, уровень соответствует Junior. Подтяните темы ниже, чтобы на собеседовании не было сюрпризов."]
+    :pct>=50?["Почти Junior","Многое уже понятно, но в нескольких темах есть пробелы. 3–6 недель целевой практики — и уровень Junior реален."]
+    :["Пока ниже Junior","Стоит вернуться к основам. Это нормальный этап: начните с Python и pandas, потом статистика и ML."];
+  const by=TOPICS.map(t=>{const ks=Q.map((q,k)=>q.t===t?k:-1).filter(k=>k>=0);const ok=ks.filter(k=>ans[k]===Q[k].a).length;return{t,ok,n:ks.length}});
+  const weak=by.filter(b=>b.ok/b.n<0.75);
+  const wrong=Q.map((q,k)=>({q,k})).filter(x=>ans[x.k]!==x.q.a);
+  app.innerHTML=`<div class="top"><span class="brand">DS · Junior check</span><span class="count">Результат</span></div>${strip()}
+  <div class="score"><span class="n">${total}</span><span class="of">из ${Q.length} · ${Math.round(pct)}%</span></div>
+  <div class="level">${lvl[0]}</div><p class="lead">${lvl[1]}</p>
+  <div class="topics">${by.map(b=>`<div class="t"><span>${b.t}</span><span class="v">${b.ok}/${b.n}</span><div class="bar"><span class="${b.ok/b.n<0.75?'low':''}" style="width:${b.ok/b.n*100}%"></span></div></div>`).join("")}</div>
+  ${weak.length?`<h2>Что подтянуть</h2><ul>${weak.map(b=>`<li><b>${b.t}:</b> ${TIPS[b.t]}</li>`).join("")}</ul>`:""}
+  ${wrong.length?`<h2>Разбор ошибок</h2><div class="rev">${wrong.map(({q,k})=>`<div class="ri"><span class="tag" style="align-self:flex-start">${q.t}</span><span><b>${q.q}</b></span>${q.c?`<pre>${esc(q.c)}</pre>`:""}<span class="yours">Ваш ответ: ${q.o[ans[k]]}</span><span class="corr">Правильно: ${q.o[q.a]}</span><span>${q.e}</span></div>`).join("")}</div>`:""}
+  <div class="row"><button class="btn ghost" id="again">Пройти заново</button></div>
+  <p class="foot">Напишите Claude свой результат по темам — он подберёт план занятий.</p>`;
+  document.getElementById("again").onclick=()=>{i=0;ans=[];state="start";render();window.scrollTo(0,0)};
+}
+render();
+</script>
+</body></html>
