@@ -176,10 +176,42 @@ const PAGES=[
  {final:true}
 ];
 let ans={},i=0;const OPEN={};let MODE=null,VP=0;
-try{ans=JSON.parse(localStorage.getItem("anketa-ru")||"{}");i=+localStorage.getItem("anketa-ru-i")||0;MODE=localStorage.getItem("anketa-ru-mode");VP=+localStorage.getItem("anketa-ru-vp")||0}catch(e){}
+/* answers are stored by question title (not by page number), so adding questions never shifts old answers */
+function migrate(old){
+  const res={},sets=PAGES.map(p=>new Set(flat(p).map(x=>x.k)));
+  const box=pi=>res[pi]||(res[pi]={sel:[],txt:""});
+  const hasText=pi=>PAGES[pi]&&(PAGES[pi].text||PAGES[pi].area||PAGES[pi].name);
+  const area=PAGES.findIndex(p=>p.area);
+  for(const [ks,a] of Object.entries(old||{})){
+    const idx=+ks;if(!a||isNaN(idx))continue;
+    const here=sets[idx]||new Set(),sel=a.sel||[];
+    sel.filter(k=>here.has(k)).forEach(k=>box(idx).sel.push(k));
+    let foreign=sel.filter(k=>!here.has(k)),first=-1;
+    while(foreign.length){
+      let best=-1,bc=0;sets.forEach((st,pi)=>{const c=foreign.filter(k=>st.has(k)).length;if(c>bc){bc=c;best=pi}});
+      if(best<0)break;if(first<0)first=best;
+      foreign.filter(k=>sets[best].has(k)).forEach(k=>box(best).sel.includes(k)||box(best).sel.push(k));
+      foreign=foreign.filter(k=>!sets[best].has(k));
+    }
+    if(a.txt&&a.txt.trim()){
+      const own=sel.some(k=>here.has(k));
+      const to=(!own&&first>=0&&hasText(first))?first:hasText(idx)?idx:area;
+      box(to).txt=box(to).txt?box(to).txt+" "+a.txt:a.txt;
+    }
+  }
+  return res;
+}
+try{
+  const t2=localStorage.getItem("anketa-ru2");
+  if(t2){const byT=JSON.parse(t2);PAGES.forEach((p,pi)=>{const k=p.t||(p.intro?"#intro":p.final?"#final":"");if(byT[k])ans[pi]=byT[k]})}
+  else ans=migrate(JSON.parse(localStorage.getItem("anketa-ru")||"{}"));
+  const pt=localStorage.getItem("anketa-ru-pt");
+  if(pt!=null){const n=PAGES.findIndex(p=>(p.t||(p.intro?"#intro":"#final"))===pt);i=n>=0?n:0}else i=Math.min(+localStorage.getItem("anketa-ru-i")||0,PAGES.length-1);
+  MODE=localStorage.getItem("anketa-ru-mode");VP=+localStorage.getItem("anketa-ru-vp")||0;
+}catch(e){}
 if(i>=PAGES.length)i=0;
 const $=s=>document.querySelector(s);
-function save(){try{localStorage.setItem("anketa-ru",JSON.stringify(ans));localStorage.setItem("anketa-ru-i",i);localStorage.setItem("anketa-ru-vp",VP);if(MODE)localStorage.setItem("anketa-ru-mode",MODE)}catch(e){}}
+function save(){try{const byT={};Object.entries(ans).forEach(([pi,a])=>{const p=PAGES[pi];if(p&&a)byT[p.t||(p.intro?"#intro":"#final")]=a});localStorage.setItem("anketa-ru2",JSON.stringify(byT));localStorage.setItem("anketa-ru-pt",PAGES[i].t||(PAGES[i].intro?"#intro":"#final"));localStorage.setItem("anketa-ru-vp",VP);if(MODE)localStorage.setItem("anketa-ru-mode",MODE)}catch(e){}}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 
 function summary(){
