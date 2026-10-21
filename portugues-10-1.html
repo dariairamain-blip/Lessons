@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Português 10.1 🇧🇷</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: one phone-sized screen at a time; header with logo + menu, fixed bottom nav */
+:root{
+  --bg:#eef3f7; --card:#ffffff; --ink:#14233a; --muted:#5c6b80;
+  --sea:#1f5fa8; --sun:#f2b632; --sel:#e3eefb; --line:#d5dfea;
+  --ok:#1e8a4c; --okbg:#e2f5ea; --bad:#c2412d; --badbg:#fbe7e3;
+  --chat:#dff3e8; --chatbg:linear-gradient(160deg,#cfe6f7,#f7e6c4);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Nunito Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd; --sea:#6ea8ef; --sel:#1d3657; --line:#2a3b55;
+  --ok:#5fd28f; --okbg:#173a2a; --bad:#f08a78; --badbg:#3e1f1b; --chat:#1f3a2e; --chatbg:linear-gradient(160deg,#16324d,#3a2f1a); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd; --sea:#6ea8ef; --sel:#1d3657; --line:#2a3b55;
+  --ok:#5fd28f; --okbg:#173a2a; --bad:#f08a78; --badbg:#3e1f1b; --chat:#1f3a2e; --chatbg:linear-gradient(160deg,#16324d,#3a2f1a); color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:520px;margin:0 auto;padding-block:10px 24px;display:flex;flex-direction:column;gap:8px}
+.top{display:flex;align-items:center;gap:8px}
+.brand{display:flex;align-items:center;gap:7px;font-family:var(--display);font-weight:800;font-size:14px;flex:1;min-width:0}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--sea);color:var(--card);display:grid;place-items:center;font-size:12px;flex:none}
+.hb{background:var(--card);border:1.5px solid var(--line);color:var(--ink);border-radius:10px;padding:6px 9px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.prog{height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--sun);transition:width .3s}
+.scr{display:flex;flex-direction:column;gap:9px}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--sea);font-weight:800}
+h1{font-family:var(--display);font-weight:800;font-size:23px;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:800;font-size:19px;margin:0}
+p{margin:0;line-height:1.45}
+.sub{color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.pic{font-size:54px;text-align:center;line-height:1.1}
+.es{font-weight:800;font-size:19px;color:var(--ink)}
+.esl{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ic{background:var(--sel);border:0;border-radius:8px;padding:3px 7px;font-size:15px;cursor:pointer;line-height:1.2}
+.ic.sm{font-size:11px;padding:1px 5px;border-radius:6px}
+.trv{color:var(--muted);font-size:13.5px;font-style:italic}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.ob{width:100%;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:11px 12px;
+  font:inherit;font-weight:700;font-size:16px;color:var(--ink);cursor:pointer}
+.ob.ok{border-color:var(--ok);background:var(--okbg)}
+.ob.bad{border-color:var(--bad);background:var(--badbg)}
+.ob:disabled{cursor:default}
+.fb{border-radius:12px;padding:10px 12px;line-height:1.45}
+.fb.ok{background:var(--okbg);color:var(--ink)}
+.fb.bad{background:var(--badbg);color:var(--ink)}
+.fb>b:first-child{display:block;margin-bottom:2px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:800;font-size:15px;cursor:pointer}
+.btn.pri{background:var(--sea);color:var(--card)}
+.btn.sec{background:var(--card);color:var(--ink);border:2px solid var(--line)}
+.skip{align-self:flex-start;background:none;border:0;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:2px 0;text-decoration:underline}
+.hint{color:var(--muted);font-size:14px}
+.nav{padding-top:6px}
+.nav div{max-width:520px;margin:0 auto;display:flex;gap:10px}
+.nav .btn{flex:1;font-size:16px}
+.nav .btn.sec{flex:0 0 32%}
+.pron{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 4px;text-align:center;display:flex;flex-direction:column;gap:3px;align-items:center}
+.pc .e{font-size:34px}
+.pc .w{font-family:var(--display);font-weight:800;font-size:19px;color:var(--sea)}
+.cut{display:flex;justify-content:center;align-items:baseline;gap:2px;font-family:var(--display);font-weight:800;font-size:40px}
+.cut .x{color:var(--bad);text-decoration:line-through;text-decoration-thickness:3px}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl td{padding:7px 6px;border-bottom:1px solid var(--line)}
+.tbl .end{color:var(--sea);font-weight:800}
+.tbl .tr{color:var(--muted);font-size:13px}
+.vg{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.vc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 9px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.vc .t{display:flex;align-items:center;gap:6px}
+.vc .e{font-size:24px}
+.vc .w{font-weight:800;font-size:16px;flex:1;min-width:0}
+.menu{display:flex;flex-direction:column;gap:7px}
+.mi{display:flex;align-items:center;gap:10px;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 12px;cursor:pointer;font:inherit;color:var(--ink);text-align:left}
+.mi .e{font-size:26px}
+.mi .n{flex:1;font-weight:800}
+.mi .s{font-size:13px;color:var(--muted);font-weight:600}
+.mi.done{border-color:var(--ok)}
+.chatbox{background:var(--chatbg);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:7px}
+.bub{background:var(--chat);border-radius:14px 14px 14px 4px;padding:8px 10px;font-size:16.5px;line-height:1.4;max-width:92%}
+.who{font-size:12px;font-weight:800;color:var(--sea)}
+.ans{min-height:46px;border:2px dashed var(--line);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;background:var(--card)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--sel);border:0;border-radius:10px;padding:9px 12px;font:inherit;font-weight:800;font-size:16px;color:var(--ink);cursor:pointer}
+.chip:disabled{opacity:.25;cursor:default}
+.gate input{width:100%;box-sizing:border-box;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:17px;padding:12px}
+.err{color:var(--bad);font-weight:700;min-height:1.2em}
+.abar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 8px}
+.abar .lb{font-size:13px;font-weight:800;color:var(--sea);margin-right:auto}
+.abar button{background:var(--sel);border:0;border-radius:8px;padding:6px 9px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}
+.abar button.off{opacity:.6}
+.abar button{min-width:40px;font-size:16px}.abar #aauto{font-size:12px;min-width:0}.abar .big2{background:var(--sea);color:var(--card)}
+.speaking{outline:3px solid var(--sun);outline-offset:2px;border-radius:8px}
+.pics{font-size:22px;line-height:1.2;margin-top:2px}
+.stage{background:var(--card);border:1px solid var(--line);border-radius:16px;min-height:230px;padding:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.frame{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.fin{display:flex;flex-direction:column;gap:7px;width:100%}
+.fl{display:flex;align-items:flex-start;gap:8px}.fl .fp{font-size:24px;min-width:44px;text-align:center}.fl>div{min-width:0}
+.big{font-size:70px;line-height:1.1}
+.tw{font-family:var(--display);font-weight:800;font-size:32px}
+.tw2{font-weight:800;font-size:19px}
+.cutw{font-family:var(--display);font-weight:800;font-size:46px;display:flex;align-items:baseline}
+.cutw.sm{font-size:30px}.cutw .pr{color:var(--muted)}
+.cutw .end{color:var(--bad)}
+.nw{color:var(--sea);display:inline-block;animation:pop .6s .2s both}
+.tcap{text-align:center;font-weight:800;color:var(--sea);min-height:1.3em}
+.sc{display:inline-block;font-size:34px;animation:snip 1.1s both}
+.fall{display:inline-block;animation:fall 1s 1.1s both}
+.pop{animation:pop .5s ease-out both}.pop2{animation:fadeup .5s .25s both}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes snip{0%{transform:translateY(-70px);opacity:0}45%{transform:translateY(0) rotate(0);opacity:1}65%{transform:rotate(-25deg)}85%{transform:rotate(15deg)}100%{transform:rotate(0)}}
+@keyframes fall{to{transform:translateY(110px) rotate(40deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){.nw,.sc,.fall,.pop,.pop2{animation:none}}
+.ttr{color:var(--muted);font-size:16px;font-weight:600}
+.flag{font-size:13px;font-weight:800;color:var(--sea);background:var(--sel);border-radius:999px;padding:3px 10px}
+.stick{position:sticky;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:5;background:var(--bg);padding-block:6px;box-shadow:0 -6px 12px -8px rgba(0,0,0,.25);border-radius:12px;flex-wrap:nowrap}
+.stick .btn{flex:1;padding:11px 8px;font-size:14px;white-space:nowrap}
+.lg{border-radius:12px;padding:8px 10px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:2px;font-size:14px}
+.lg.ok{border-left:4px solid var(--ok)}.lg.bad{border-left:4px solid var(--bad)}.lq{font-weight:700}
+.cult{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:12px}
+.cl{display:flex;flex-direction:column;gap:3px}.cw{font-size:18px;line-height:1.7}
+.wd{font:inherit;color:var(--ink);background:none;border:0;padding:0;border-bottom:2px dotted var(--sea);cursor:pointer}
+.wtr{background:var(--sel);border-radius:8px;padding:4px 8px;font-size:14px}
+.own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
+.modal{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;padding:16px;z-index:20}
+.modal .card{max-width:420px;display:flex;flex-direction:column;gap:8px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="logo">DB</span><span>Daria Botina</span></div>
+    <button class="hb" id="home" type="button">📲 Добавить на экран</button>
+    <button class="hb" id="mbtn" type="button">☰ Меню</button>
+  </div>
+  <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+  <div class="abar" id="abar" hidden></div>
+  <main id="page"></main>
+  <nav class="nav" id="nav"><div>
+  <button class="btn sec" id="back" type="button">← Назад</button>
+  <button class="btn pri" id="next" type="button">Далее →</button>
+</div></nav>
+  <div class="own">© Собственность Daria Botina</div>
+</div>
+<div class="modal" id="hm" hidden><div class="card">
+  <h2>📲 Добавить на экран</h2>
+  <p><b>iPhone (Safari):</b> кнопка «Поделиться» ⬆️ внизу → «На экран „Домой“».</p>
+  <p><b>Android (Chrome):</b> ⋮ справа вверху → «Добавить на главный экран».</p>
+  <p class="sub">Урок будет открываться на телефоне как приложение.</p>
+  <button class="btn pri" id="hmc" type="button">Понятно</button>
+</div></div>
+
+<script>
+/* ---------- content ---------- */
+
+
+const strip=s=>String(s).replace(/<[^>]+>/g,"");
+const W=(pic,pt,ru,c,lang)=>({h:`<div class="big pop">${pic}</div><div class="tw pop2">${pt}</div>`,say:strip(pt),tr:ru,c,lang});
+const S2=(pic,pt,ru,c,lang)=>({h:`<div class="big pop">${pic}</div><div class="tw2 pop2">${pt}</div>`,say:strip(pt),tr:ru,c,lang});
+const CUT=r=>({h:`<div class="cutw"><span>${r}</span><span class="sc">✂️</span><span class="end fall">ar</span></div>`,w:2400,c:`✂️ Отрезаем -ar → ${r}-`});
+const FORMS=(pic,r,ru)=>S2(pic,`${r}<b class="nw">o</b> · ${r}<b class="nw">a</b> · ${r}<b class="nw">amos</b>`,ru,"eu -o · você -a · nós -amos");
+FORMS.say=0;
+const VERB=(pic,inf,r,ruInf,ruForms,sent,ruSent)=>[W(pic,inf,ruInf,"🎬 Новый глагол"),CUT(r),
+  Object.assign(FORMS(pic,r,ruForms),{say:`eu ${r}o, você ${r}a, nós ${r}amos`}),S2(pic,sent,ruSent,"Пример")];
+const WHO=[["👩 я (eu)",null],["👨 ты (você)",null],["👩👨 мы (nós)",null]];
+const LH="Смотри на окончание: -o = я, -a = ты, -amos = мы.";
+const HEARR=(listen,opts,a,lang)=>({k:"ch",pic:lang==="pt-PT"?"🇵🇹🎧":"🇧🇷🎧",q:lang==="pt-PT"?"🇵🇹 Португалия. Что ты слышишь? Выбери перевод.":"Что ты слышишь? Выбери перевод.",listen,ltr:"перевод увидишь после ответа",quiet:true,lang,opts:opts.map(x=>[x,null]),a,why:`Звучало: «<b>${listen}</b>» — ${opts[a]}`,hint:"Послушай ещё раз: кто? что делает? где, когда?"});
+/* TITLE: Português 10.1 🇧🇷 */
+const HEARB=(listen,opts,a)=>({k:"ch",pic:"🇧🇷🎧",q:"Что ты слышишь? Выбери перевод.",listen,ltr:"перевод увидишь после ответа",quiet:true,opts:opts.map(x=>[x,null]),a,why:`Звучало: «<b>${listen}</b>» — ${opts[a]}`,hint:"Послушай ещё раз: какое число? сколько стоит? который час?"});
+const CFG={n:"10.1",key:"pt-br-10-1",readT:"Сообщение от тренера 💃",who:"💃 Caio — Studio Vida (Rio)",
+ intro:`<div class="pic">🇧🇷🧘‍♀️</div><div class="eyebrow">Португальский · Урок 10.1 · Бразилия</div><h1>Olá! Quanto custa? Que horas são?</h1>
+ <p>Что в этом уроке:</p>
+ <div class="card"><p>💰 <b>Часть 1:</b> сколько стоит? числа до 100<br>🕐 <b>Часть 2:</b> который час? во сколько?<br>🏋️‍♀️ <b>Часть 3:</b> сценка в спортзале: ты — Марина + шутка про абонемент<br>🎵 <b>Часть 4:</b> песенка-считалка<br>🎧 <b>Часть 5:</b> на слух: что ты слышишь? (10 заданий)<br>🌎 <b>Часть 6:</b> культурная заметка: бесплатный спортзал на пляже<br>💃 <b>Часть 7:</b> сообщение от тренера и фразы из слов</p></div>
+ <p class="sub">🇧🇷 Весь урок — бразильский вариант. Тот же урок для Португалии — 10.2. 🔊 — послушать, 🌐 — перевод.</p>`,
+ fin:()=>`<div class="card"><table class="tbl"><tr><td>💰</td><td>Quanto custa? — Custa trinta reais.</td><td class="tr">Сколько стоит? — 30 реалов.</td></tr><tr><td>🔢</td><td>vinte e cinco · noventa e nove · cem</td><td class="tr">25 · 99 · 100</td></tr><tr><td>🕐</td><td>Que horas são? — São sete e meia.</td><td class="tr">Который час? — 7:30.</td></tr><tr><td>📅</td><td>A aula é às oito.</td><td class="tr">Занятие в восемь.</td></tr></table></div>
+ <p>Теперь ты можешь сказать:</p>${esLine("A aula de ioga é às sete e meia e custa trinta reais.","Занятие йогой в 7:30 и стоит тридцать реалов.","es","🧘‍♀️ · 🕢 · 💰")}`};
+const MODS=[
+ {n:"Сколько стоит? Числа",e:"💰",s:"quanto custa · 10–100",pages:[
+  {k:"toon",t:"🎬 Quanto custa? Числа до 100",steps:[
+    W("💰","Quanto custa?","Сколько стоит?","1 / 3"),S2("👩🧘‍♀️",`<b class="nw">Quanto custa</b> a aula de ioga?`,"Сколько стоит занятие йогой?","Quanto custa…?"),
+    W("🔢","dez · vinte · trinta · quarenta · cinquenta","10 · 20 · 30 · 40 · 50","2 / 3"),S2("🧑‍💼",`Custa <b class="nw">cinquenta</b> reais.`,"Стоит пятьдесят реалов.","custa + число"),
+    W("💯","sessenta · setenta · oitenta · noventa · cem","60 · 70 · 80 · 90 · 100","3 / 3"),S2("💆‍♀️",`A massagem custa <b class="nw">cem</b> reais.`,"Массаж стоит сто реалов.","cem = 100"),
+    S2("💡","vinte e cinco = 25","Десятки + «e» + единицы: trinta e dois (32), noventa e nove (99).","💡 Правило")],
+   fin:[["💰","Quanto custa a aula de ioga?","Сколько стоит занятие йогой?"],["🔢","dez · vinte · trinta · quarenta · cinquenta","10 · 20 · 30 · 40 · 50"],["💯","sessenta · setenta · oitenta · noventa · cem","60 · 70 · 80 · 90 · 100"],["💡","vinte e cinco","25"]]},
+  {k:"ch",pic:"🧘‍♀️💰",q:"Выбери правильную форму.",es:"Quanto ___ a aula de ioga?",tr:"Сколько стоит занятие йогой?",opts:[["custa","стоит"],["custam","стоят"],["custamos","стоим"]],a:0,why:"Одно занятие → <b>custa</b>.",hint:"a aula — одна"},
+  {k:"ch",pic:"🔢",q:"Как будет 30?",opts:[["treze","тринадцать"],["trinta","тридцать"],["três","три"]],a:1,why:"30 = <b>trinta</b>.",hint:"трИНТА — тридцать"},
+  {k:"ch",pic:"🔢",q:"Как будет 45?",opts:[["cinquenta e quatro","пятьдесят четыре"],["catorze","четырнадцать"],["quarenta e cinco","сорок пять"]],a:2,why:"40 + 5 = <b>quarenta e cinco</b>.",hint:"десятки + e + единицы"},
+  {k:"ch",pic:"💯",q:"Как будет 100?",opts:[["cem","сто"],["dez","десять"],["mil","тысяча"]],a:0,why:"100 = <b>cem</b>.",hint:"cem — сто"},
+  {k:"ch",pic:"💆‍♀️❓",q:"Как спросить «Сколько стоит массаж?»",opts:[["A que horas é a massagem?","Во сколько массаж?"],["Quanto custa a massagem?","Сколько стоит массаж?"],["Eu quero uma massagem.","Я хочу массаж."]],a:1,why:"Сколько стоит = <b>Quanto custa</b>.",hint:"Quanto custa…?"},
+  {k:"ch",pic:"👩💃",q:"Выбери правильную форму (querer — из урока 9).",es:"Eu ___ uma aula de dança.",tr:"Я хочу урок танцев.",opts:[["quer","хочет"],["queremos","хотим"],["quero","хочу"]],a:2,why:"<b>eu</b> → <b>quero</b>.",hint:"eu → quero"}]},
+ {n:"Который час? Во сколько?",e:"🕐",s:"que horas são · às…",pages:[
+  {k:"toon",t:"🎬 Que horas são? A que horas?",steps:[
+    W("🕐","Que horas são?","Который час?","1 / 3"),S2("⏰",`<b class="nw">São</b> sete horas.`,"Сейчас семь часов.","São + число + horas"),
+    S2("🕐",`<b class="nw">É</b> uma hora.`,"Сейчас час.","1 час → É uma hora"),
+    W("🕢","e meia","с половиной (:30)","2 / 3"),S2("🏊‍♀️",`São seis <b class="nw">e meia</b>.`,"Сейчас 6:30.","… e meia = :30"),
+    W("📅","A que horas? — Às…","Во сколько? — В…","3 / 3"),S2("🧘‍♀️",`A aula de ioga é <b class="nw">às</b> oito.`,"Занятие йогой в восемь.","às + число"),
+    S2("🌞","É meio-dia.","Сейчас полдень (12:00).","meio-dia = 12:00"),
+    S2("💡","São duas horas. · A aula é às duas.","Который час? → São… Во сколько? → Às…","💡 Правило")],
+   fin:[["⏰","Que horas são? — São sete horas.","Который час? — Семь."],["🕐","É uma hora.","Сейчас час."],["🕢","São seis e meia.","Сейчас 6:30."],["🧘‍♀️","A aula de ioga é às oito.","Занятие йогой в восемь."],["🌞","É meio-dia.","Сейчас полдень."]]},
+  {k:"ch",pic:"🕒",q:"Как сказать «Сейчас три часа»?",opts:[["São três horas.","Сейчас три часа."],["É três horas.",null],["Às três horas.","В три часа."]],a:0,why:"2 и больше → <b>São</b> … horas.",hint:"São + число"},
+  {k:"ch",pic:"🕐",q:"Как сказать «Сейчас час»?",opts:[["São uma hora.",null],["É uma hora.","Сейчас час."],["São um hora.",null]],a:1,why:"Только для 1 часа → <b>É uma hora</b>.",hint:"1 час → É"},
+  {k:"ch",pic:"🏋️‍♀️🕘",q:"Какого слова не хватает?",es:"A aula é ___ nove.",tr:"Занятие в девять.",opts:[["são","(сейчас)"],["é","есть"],["às","в (о времени)"]],a:2,why:"Во сколько? → <b>às</b> nove.",hint:"во сколько → às"},
+  {k:"ch",pic:"🕢",q:"Как будет 7:30?",opts:[["sete e quinze","7:15"],["sete e meia","7:30"],["meia e sete",null]],a:1,why:":30 = <b>e meia</b>.",hint:"meia = половина"},
+  {k:"ch",pic:"🏋️❓",q:"Что ответить на вопрос?",es:"A que horas abre a academia?",tr:"Во сколько открывается спортзал?",opts:[["Às seis.","В шесть."],["Seis reais.","Шесть реалов."],["É uma academia.","Это спортзал."]],a:0,why:"Во сколько? → <b>Às</b> seis.",hint:"A que horas → Às"},
+  {k:"ch",pic:"👩🧘‍♀️",q:"Выбери правильную форму (poder — из урока 9).",es:"___ fazer uma aula experimental?",tr:"Можно мне пробное занятие?",opts:[["Podemos","можем"],["Posso","могу"],["Podem","могут"]],a:1,why:"Просишь для себя: <b>Posso</b>…?",hint:"Можно мне? = Posso?"}]},
+ {n:"Сценка в спортзале",e:"🏋️‍♀️",s:"ты — Марина · шутка",pages:[
+  {k:"toon",t:"🎬 Na academia: Marina e a Thaís",steps:[
+    S2("🙋‍♀️","Oi! Bem-vinda à academia! Posso ajudar?","Привет! Добро пожаловать в спортзал! Чем помочь?","🙋‍♀️ Таис, администратор"),
+    S2("👩💰","Oi! Quanto custa a mensalidade?","Привет! Сколько стоит абонемент на месяц?","👩 Марина"),
+    S2("🙋‍♀️","Custa cento e vinte reais por mês.","Сто двадцать реалов в месяц.","🙋‍♀️ Таис"),
+    S2("👩🧘‍♀️","E tem aula de ioga?","А йога есть?","👩 Марина"),
+    S2("🙋‍♀️🕖","Tem, sim! Às sete da manhã e às sete e meia da noite.","Есть! В семь утра и в полвосьмого вечера.","🙋‍♀️ Таис"),
+    S2("👩😊","Que bom! Posso fazer uma aula experimental?","Отлично! Можно пробное занятие?","👩 Марина"),
+    S2("🙋‍♀️🕡","Pode! A próxima aula é hoje, às seis e meia.","Можно! Следующее занятие сегодня в 6:30.","🙋‍♀️ Таис"),
+    S2("👩⌚","Que horas são agora?","А сейчас который час?","👩 Марина"),
+    S2("🙋‍♀️🏃‍♀️","São seis e quinze... Corre! 😄","Шесть пятнадцать... Беги! 😄","🙋‍♀️ Таис")],
+   fin:[["💰","Quanto custa a mensalidade?","Сколько стоит абонемент на месяц?"],["🧘‍♀️","E tem aula de ioga?","А йога есть?"],["😊","Posso fazer uma aula experimental?","Можно пробное занятие?"],["⌚","Que horas são agora? — São seis e quinze.","Который час? — 6:15."]]},
+  {k:"ch",pic:"🙋‍♀️💬",q:"Ты — Марина. Как спросить цену абонемента?",es:"Oi! Bem-vinda à academia! Posso ajudar?",tr:"Привет! Добро пожаловать! Чем помочь?",opts:[["Que horas são?","Который час?"],["Eu tenho calor.","Мне жарко."],["Quanto custa a mensalidade?","Сколько стоит абонемент на месяц?"]],a:2,why:"Цена → <b>Quanto custa</b>…?",hint:"mensalidade = абонемент на месяц"},
+  {k:"ch",pic:"🙋‍♀️🧘‍♀️",q:"Ты — Марина. Как спросить, есть ли йога?",opts:[["E tem aula de ioga?","А йога есть?"],["Eu sou de ioga.",null],["A ioga custa cem.","Йога стоит сто."]],a:0,why:"есть ли… → <b>Tem</b>…?",hint:"tem = есть, имеется"},
+  {k:"ch",pic:"🙋‍♀️🕡",q:"Ты — Марина. Что ответишь?",es:"A próxima aula é hoje, às seis e meia.",tr:"Следующее занятие сегодня в 6:30.",opts:[["Custa cinquenta reais.","Стоит пятьдесят реалов."],["Que horas são agora?","А сейчас который час?"],["Eu sou professora.","Я учительница."]],a:1,why:"Занятие в 6:30 — уточняешь время: «Que horas são agora?»",hint:"Который час?"},
+  {k:"ch",pic:"⌚",q:"«São seis e quinze» — это…",opts:[["6:15",null],["6:50",null],["5:15",null]],a:0,why:"seis e <b>quinze</b> = 6:15.",hint:"quinze = 15"},
+  {k:"toon",t:"😄 Шутка: абонемент",steps:[
+    S2("👩❓","Você vai muito à academia?","Ты часто ходишь в спортзал?","👩 Марина"),
+    S2("🧔😎","Vou, sim! Todo mês!","Конечно! Каждый месяц!","🧔 Бруно"),
+    S2("🧔💳","...para pagar a mensalidade. 😄","...чтобы заплатить за абонемент. 😄","🧔 Бруно")],
+   fin:[["👩","Você vai muito à academia?","Ты часто ходишь в спортзал?"],["🧔","Vou, sim! Todo mês!","Конечно! Каждый месяц!"],["😄","...para pagar a mensalidade.","...чтобы заплатить за абонемент."]]},
+  {k:"ch",pic:"😄",q:"Почему это смешно?",opts:[["Бруно тренируется каждый день",null],["Абонемент очень дешёвый",null],["Бруно ходит в зал только платить, а не заниматься",null]],a:2,why:"«Todo mês… para pagar» — Бруно платит каждый месяц, но не тренируется! 😄",hint:"para pagar = чтобы заплатить"}]},
+ {n:"Песенка-считалка",e:"🎵",s:"повторяй вслух",pages:[
+  {k:"toon",t:"🎵 Песенка: um, dois, três",steps:[
+    S2("🧘‍♀️","Um, dois, três — ioga outra vez!","Раз, два, три — снова йога!","🎵 Повторяй вслух в ритм"),
+    S2("👯","Quatro, cinco, seis — agora vocês!","Четыре, пять, шесть — теперь вы!","🎵 Повторяй вслух в ритм"),
+    S2("🕢","Que horas são? São sete e meia!","Который час? Половина восьмого!","🎵 Повторяй вслух в ритм"),
+    S2("🏃‍♀️🏖️","Quanto custa? Nada — a praia está cheia!","Сколько стоит? Ничего — пляж полон людей!","🎵 Повторяй вслух в ритм")],
+   fin:[["🧘‍♀️","Um, dois, três — ioga outra vez!","Раз, два, три — снова йога!"],["👯","Quatro, cinco, seis — agora vocês!","Четыре, пять, шесть — теперь вы!"],["🕢","Que horas são? São sete e meia!","Который час? Половина восьмого!"],["🏖️","Quanto custa? Nada — a praia está cheia!","Сколько стоит? Ничего — пляж полон людей!"]]},
+  {k:"ch",pic:"🎵🔢",q:"Как поётся в песенке?",es:"Quatro, cinco, ___ — agora vocês!",tr:"Четыре, пять, шесть — теперь вы!",opts:[["sete","семь"],["seis","шесть"],["três","три"]],a:1,why:"4, 5, <b>6</b> — seis (рифма: seis — vocês).",hint:"после cinco"},
+  {k:"ch",pic:"🎵🕢",q:"Который час в песенке?",es:"Que horas são? São sete e meia!",tr:"Который час? …",opts:[["7:00",null],["6:30",null],["7:30",null]],a:2,why:"sete <b>e meia</b> = 7:30.",hint:"e meia = :30"}]},
+ {n:"Аудирование: что ты слышишь?",e:"🎧",s:"10 заданий на слух",pages:[
+  HEARB("Quanto custa a aula de ioga?",["Сколько стоит занятие йогой?","Во сколько занятие йогой?","Сколько стоит массаж?"],0),
+  HEARB("Custa quarenta reais.",["Стоит 14 реалов.","Стоит 40 реалов.","Стоит 400 реалов."],1),
+  HEARB("São oito e meia.",["Сейчас 8:00.","Сейчас 7:30.","Сейчас 8:30."],2),
+  HEARB("A academia abre às seis.",["Спортзал открывается в шесть.","Спортзал закрывается в шесть.","Бассейн открывается в шесть."],0),
+  HEARB("A massagem custa cem reais.",["Массаж стоит 50 реалов.","Массаж стоит 100 реалов.","Маникюр стоит 100 реалов."],1),
+  HEARB("É meio-dia.",["Сейчас полночь.","Сейчас час дня.","Сейчас полдень."],2),
+  HEARB("Eu corro na praia às sete.",["Я бегаю на пляже в семь.","Я гуляю по пляжу в семь.","Я бегаю на пляже в шесть."],0),
+  HEARB("A aula de dança é às nove e meia.",["Урок танцев в 9:00.","Урок танцев в 9:30.","Урок танцев в 10:30."],1),
+  HEARB("Vocês podem pagar trinta e cinco reais.",["Вы можете заплатить 53 реала.","Вы можете заплатить 25 реалов.","Вы можете заплатить 35 реалов."],2),
+  HEARB("Que horas são?",["Который час?","Сколько стоит?","Во сколько?"],0)]},
+ {n:"Культурная заметка",e:"🌎",s:"бесплатный спортзал на пляже",pages:[
+  {k:"cult",t:"🌎 Культурная заметка: спортзал под открытым небом",lines:[
+    ["No Brasil, muitas pessoas fazem exercício na rua.","В Бразилии многие занимаются спортом прямо на улице."],
+    ["Na praia, tem academias ao ar livre, e elas são de graça!","На пляже есть спортзалы под открытым небом — и они бесплатные!"],
+    ["Às seis da manhã, o calçadão já está cheio.","В шесть утра набережная уже полна людей."],
+    ["Você pode ver pessoas que correm, andam de bicicleta e jogam vôlei.","Можно увидеть, как люди бегают, катаются на велосипеде и играют в волейбол."],
+    ["Muitos brasileiros cuidam muito do corpo.","Многие бразильцы очень следят за своим телом."],
+    ["E depois do treino? Uma água de coco, claro!","А после тренировки? Кокосовая вода, конечно!"],
+    ["E você? A que horas você faz exercício?","А ты? Во сколько ты занимаешься спортом?"]],
+   gloss:{"no":"в (em + o)","brasil":"Бразилия","muitas":"многие","pessoas":"люди","fazem":"делают (fazer) · fazer exercício = заниматься спортом","exercício":"упражнение, спорт","na":"на, в (em + a)","rua":"улица","praia":"пляж","tem":"есть, имеется (ter)","academias":"спортзалы","ao":"(a + o) · ao ar livre = под открытым небом","ar":"воздух","livre":"свободный","e":"и","elas":"они (ж. р.)","são":"есть (ser, они)","de":"из, о · de graça = бесплатно","graça":"(de graça = бесплатно)","às":"в (о времени)","seis":"шесть","da":"(de + a)","manhã":"утро","o":"артикль (м. р.)","calçadão":"набережная, широкий тротуар у пляжа","já":"уже","está":"находится, есть (estar)","cheio":"полный","você":"ты","pode":"можешь (poder)","ver":"видеть","que":"которые; что","correm":"бегают (correr)","andam":"ездят, ходят (andar) · andar de bicicleta = кататься на велосипеде","bicicleta":"велосипед","jogam":"играют (jogar)","vôlei":"волейбол","muitos":"многие","brasileiros":"бразильцы","cuidam":"заботятся (cuidar)","muito":"очень, много","do":"(de + o) — о (теле)","corpo":"тело","depois":"после · depois de = после","treino":"тренировка","uma":"одна; неопределённый артикль","água":"вода","coco":"кокос","claro":"конечно","a":"артикль (ж. р.) · a que horas = во сколько","horas":"часы","faz":"делаешь (fazer)"}},
+  {k:"ch",pic:"🏋️",q:"Сколько стоят спортзалы на пляже?",opts:[["Сто реалов в месяц",null],["Они бесплатные",null],["Тридцать реалов",null]],a:1,why:"«…elas são de graça!»",hint:"Вторая фраза."},
+  {k:"ch",pic:"🕕",q:"Когда набережная уже полна людей?",opts:[["В восемь вечера",null],["В полдень",null],["В шесть утра",null]],a:2,why:"«Às seis da manhã, o calçadão já está cheio.»",hint:"Третья фраза."},
+  {k:"ch",pic:"🥥",q:"Что пьют после тренировки?",opts:[["Кокосовую воду",null],["Кофе",null],["Апельсиновый сок",null]],a:0,why:"«Uma água de coco, claro!»",hint:"Шестая фраза."}]},
+ {n:"Сообщение от тренера и фразы",e:"💃",s:"всё вместе",pages:[{k:"read"},
+  {k:"ch",pic:"🧘‍♀️",q:"Когда занятие йогой?",opts:[["В субботу, в 9 утра, на пляже",null],["Во вторник, в 7:30 вечера",null],["Каждый день в 6 утра",null]],a:0,why:"«A aula de ioga é aos sábados, às nove da manhã, na praia.»",hint:"Ищи «ioga»."},
+  {k:"ch",pic:"🎁",q:"Сколько стоит первое занятие?",opts:[["30 реалов",null],["Нисколько — бесплатно",null],["250 реалов",null]],a:1,why:"«A primeira aula é de graça!»",hint:"Ищи «primeira»."},
+  {k:"ch",pic:"💰",q:"Сколько стоит одно занятие потом?",opts:[["25 реалов",null],["50 реалов",null],["30 реалов",null]],a:2,why:"«…cada aula custa trinta reais…»",hint:"Ищи «cada aula»."},
+  {k:"bd",pic:"💆‍♀️❓",q:"Сколько стоит массаж?",w:["Quanto","custa","a","massagem?"],why:"<b>Quanto custa</b> + что."},
+  {k:"bd",pic:"🕢",q:"Сейчас 7:30.",w:["São","sete","e","meia."],why:"<b>São</b> sete <b>e meia</b>."},
+  {k:"bd",pic:"🧘‍♀️🕗",q:"Занятие в восемь.",w:["A","aula","é","às","oito."],why:"во сколько → <b>às</b> oito."}]}
+];
+const READ=[["👋💃","Oi, gente! Aqui é o Caio, o professor de dança do Studio Vida.","Привет всем! Это Кайо, преподаватель танцев в Studio Vida."],
+ ["🎶🕢","Agora temos aula de forró às terças, às sete e meia da noite.","Теперь у нас есть форро по вторникам, в 7:30 вечера."],
+ ["🧘‍♀️🏖️","A aula de ioga é aos sábados, às nove da manhã, na praia.","Йога — по субботам, в 9 утра, на пляже."],
+ ["🎁","A primeira aula é de graça!","Первое занятие — бесплатно!"],
+ ["💰","Depois, cada aula custa trinta reais, ou dez aulas custam duzentos e cinquenta.","Потом каждое занятие стоит 30 реалов, или 10 занятий — 250."],
+ ["🧺💧","Vocês podem levar uma toalha e uma garrafa de água.","Возьмите с собой полотенце и бутылку воды."],
+ ["📱","Querem dançar? Mandem mensagem!","Хотите танцевать? Пишите!"]];
+
+function toonSteps(P){return P.steps}
+function toonFin(P){return P.fin.map(([pic,pt,ru,lg])=>`<div class="fl"><span class="fp">${pic}</span>${esLineT(pt,ru,lg)}</div>`).join("")}
+/* ---------- state ---------- */
+const KEY=CFG.key,CODES=["pt2026","dariab2"];
+let S={auto:true,ok:false,done:{},ans:{},v:"intro",m:0,p:0};
+try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+if(S.ver!==2){S.ans={};S.done={};S.v="intro";S.m=0;S.p=0;S.ver=2}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=q=>document.querySelector(q);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>s.replace(/İ/g,"i").replace(/I/g,"i").toLowerCase().replace(/ı/g,"i").replace(/\s+/g,"");
+const clean=t=>t.replace(/___/g,"…").replace(/[^\p{L}\p{P}\s]/gu,"");
+let qid=0,lastKey="";
+function clearHl(){document.querySelectorAll(".speaking").forEach(e=>e.classList.remove("speaking"))}
+function stopAll(){qid++;try{speechSynthesis.cancel()}catch(e){}clearHl()}
+const VC={};
+function voiceFor(lang){try{if(VC[lang])return VC[lang];const vs=speechSynthesis.getVoices();if(!vs.length)return null;const L=lang.toLowerCase();
+  const sc=v=>{const l=(v.lang||"").toLowerCase().replace("_","-");let n=0;if(l.startsWith("pt"))n+=10;if(l===L)n+=6;if(/google|luciana|joana|catarina|felipe|francisca|thiago|raquel|duarte|fernanda|ines/i.test(v.name))n+=1;return n};
+  const b=vs.slice().sort((a,c)=>sc(c)-sc(a))[0];if(sc(b)>=10){VC[lang]=b;return b}return null}catch(e){return null}}
+try{speechSynthesis.onvoiceschanged=()=>{for(const k in VC)delete VC[k]}}catch(e){}
+function utter(t,end,lang){try{lang=lang||"pt-BR";const v=voiceFor(lang);const u=new SpeechSynthesisUtterance(clean(t));u.lang=v?v.lang:lang;if(v)u.voice=v;u.rate=.85;if(end){u.onend=end;u.onerror=end}speechSynthesis.speak(u)}catch(e){if(end)end()}}
+function say(t,lang){stopAll();PL.playing=false;plBar();utter(t,null,lang)}
+function hlEl(el){return el.dataset.es?el:(el.closest(".esl,.pc,.vc,td")||el)}
+/* one player for cartoons and page phrases: ⏮ ⏯ ⏭ ↺ */
+const PL={mode:"",items:[],i:0,playing:false,P:null};
+function plBuild(){if($("#stage")){PL.mode="toon";PL.P=MODS[S.m].pages[S.p];PL.items=toonSteps(PL.P)}
+  else{PL.mode="ph";PL.items=[...document.querySelectorAll("#page [data-say],#page [data-es]")]}PL.i=0;PL.playing=false;plBar()}
+function plBar(){const c=$("#pcnt"),t=$("#ptog");if(!c)return;const n=PL.items.length;
+  c.textContent=n?`${Math.min(PL.i+1,n)}/${n}`:"–";t.textContent=PL.playing?"⏸":"▶";t.setAttribute("aria-label",PL.playing?"Duraklat":"Oynat")}
+function plFin(){const stg=$("#stage"),cap=$("#tcap");if(!stg)return;stg.innerHTML=`<div class="fin pop2">${toonFin(PL.P)}</div>`;cap.textContent="✅ Готово! Теперь упражнения →";wireIn(stg)}
+function plStep(i,id){if(id!==qid)return;const n=PL.items.length;clearHl();
+  if(i>=n){PL.playing=false;PL.i=n;if(PL.mode==="toon")plFin();plBar();return}
+  PL.i=i;plBar();
+  if(PL.mode==="toon"){const st=PL.items[i];$("#stage").innerHTML=`<div class="frame">${st.lang==="pt-PT"?`<div class="flag">🇵🇹 Португалия</div>`:""}${st.h}${st.tr?`<div class="ttr pop2">🇷🇺 ${st.tr}</div>`:""}</div>`;$("#tcap").textContent=st.c||"";
+    if(st.say)setTimeout(()=>{if(id===qid)utter(st.say,()=>setTimeout(()=>plStep(i+1,id),800),st.lang)},450);else setTimeout(()=>plStep(i+1,id),st.w||1800)}
+  else{const el=PL.items[i];if(!el.isConnected){plStep(i+1,id);return}hlEl(el).classList.add("speaking");/* followRead */{const he=hlEl(el),r=he.getBoundingClientRect();if(r.top<70||r.bottom>innerHeight-90){try{he.scrollIntoView({block:"center",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})}catch(e){he.scrollIntoView()}}}
+    utter(el.dataset.say||el.dataset.es,()=>setTimeout(()=>plStep(i+1,id),350),el.dataset.lang)}}
+function plPlay(i){stopAll();PL.playing=true;plStep(Math.max(0,i),qid)}
+function plPause(){stopAll();PL.playing=false;plBar()}
+function plToggle(){if(PL.playing)plPause();else plPlay(PL.i>=PL.items.length?0:PL.i)}
+function plPrev(){plPlay(PL.i-1)}
+function plNext(){plPlay(PL.i+1)}
+function playAll(){plPlay(0)}
+const playToon=playAll;
+let CURLANG="";
+const DL=lg=>{lg=lg||CURLANG;return lg?` data-lang="${lg}"`:""};
+const esLineT=(es,tr,lg)=>`<div><div class="esl"><span class="es">${esc(es)}</span><button type="button" class="ic" data-say="${esc(es)}"${DL(lg)} aria-label="Слушать">🔊</button></div><div class="ttr">🇷🇺 ${esc(tr)}</div></div>`;
+const esLine=(es,tr,cls="es",pic)=>`<div><div class="esl"><span class="${cls}">${esc(es)}</span><button type="button" class="ic" data-say="${esc(es)}"${DL()} aria-label="Слушать">🔊</button>${tr?`<button type="button" class="ic" data-tr aria-label="Перевод">🌐</button>`:""}</div>${pic?`<div class="pics">${pic}</div>`:""}${tr?`<div class="trv" hidden>${esc(tr)}</div>`:""}</div>`;
+
+/* ---------- screens ---------- */
+function render(){const k0=S.v+"|"+S.m+"|"+S.p;
+  {const kk=S.v+"|"+S.m+"|"+S.p;if(S.ok&&S.v==="mod"&&kk!==lastKey){const P=MODS[S.m].pages[S.p];if(P&&(P.k==="ch"||P.k==="bd")){delete S.ans[S.m+"-"+S.p];delete P.sh;save()}}} /* freshTask */
+  const pg=$("#page");let h="";
+  $("#nav").hidden=!S.ok||S.v==="menu"||S.v==="log";
+  $("#mbtn").hidden=!S.ok;
+  let pct=0;
+  if(!S.ok){h=gate()}
+  else if(S.v==="intro"){h=intro()}
+  else if(S.v==="log"){h=logView()}
+  else if(S.v==="menu"){h=menu();pct=Object.keys(S.done).length/MODS.length*100}
+  else if(S.v==="mdone"){h=mdone();pct=100}
+  else{const M=MODS[S.m],P=M.pages[S.p];pct=(S.p)/M.pages.length*100;
+    h=`<div class="eyebrow">Урок ${CFG.n} · ${S.m+1}. ${esc(M.n)} · ${S.p+1}/${M.pages.length}</div>`+page(P)+`<button type="button" class="skip" data-skip>⏭ Пропустить эту страницу</button>`}
+  $("#bar").style.width=pct+"%";
+  pg.innerHTML=`<div class="scr">${h}</div>`;
+  $("#back").textContent=S.v==="intro"?"☰ Меню":"← Назад";
+  $("#next").textContent=S.v==="intro"?"Начать →":S.v==="mdone"?(S.m<MODS.length-1?"Следующая часть →":"☰ Меню"):"Далее →";
+  const tb=$("#tbar"),topb=$("#abar");topb.innerHTML="";const ab=tb||topb;topb.hidden=!!tb||!S.ok||S.v==="menu"||S.v==="intro"||S.v==="log";
+  ab.innerHTML=`<span class="lb">🔊 <span id="pcnt">–</span></span><button type="button" id="pprev" aria-label="Назад">⏮</button><button type="button" id="ptog" class="big2">▶</button><button type="button" id="pnext" aria-label="Вперёд">⏭</button><button type="button" id="prst" aria-label="Сначала">↺</button><button type="button" id="aauto" class="${S.auto?"":"off"}">Авто: ${S.auto?"вкл":"выкл"}</button>`;
+  $("#pprev").onclick=plPrev;$("#ptog").onclick=plToggle;$("#pnext").onclick=plNext;$("#prst").onclick=playAll;
+  $("#aauto").onclick=()=>{S.auto=!S.auto;save();if(!S.auto)plPause();const b=$("#aauto");b.textContent="Авто: "+(S.auto?"вкл":"выкл");b.className=S.auto?"":"off"};
+  wire();if(window.__lastTop!==k0){window.scrollTo(0,0);window.__lastTop=k0}else{const fb=document.querySelector("#page .fb");if(fb)fb.scrollIntoView({block:"nearest"})}
+  const k=S.v+"|"+S.m+"|"+S.p;
+  stopAll();plBuild();if(k!==lastKey){lastKey=k;if(S.ok&&S.auto&&!ab.hidden)playAll()}
+}
+function gate(){return `<div class="gate scr"><div class="pic">🇧🇷🔑</div><h1>Olá!</h1>
+ <p class="sub">Введи код доступа. Его нужно ввести только один раз.</p>
+ <input id="code" type="text" autocomplete="off" placeholder="Код">
+ <button class="btn pri" id="go" type="button">Войти →</button><div class="err" id="err" aria-live="polite"></div></div>`}
+function intro(){return CFG.intro}
+function menu(){return `<h1>Урок ${CFG.n} · Части</h1><p class="sub">Иди по порядку или выбери любую часть.</p><div class="menu">`+
+ MODS.map((M,i)=>`<button type="button" class="mi${S.done[i]?" done":""}" data-mod="${i}"><span class="e">${M.e}</span><span class="n">${i+1}. ${esc(M.n)}<br><span class="s">${esc(M.s)}</span></span>${S.done[i]?"✅":"▶"}</button>`).join("")+`</div><button type="button" class="btn sec" data-log>📋 Мои ответы</button>`}
+function mdone(){const last=S.m===MODS.length-1;return `<div class="pic">${last?"🏆":"🎉"}</div><h1>${last?`Parabéns! Урок ${CFG.n} пройден`:"Muito bem! Часть пройдена"}</h1>`+
+ (last?CFG.fin():`<p class="sub">Часть ${S.m+1} готова. Дальше: <b>${esc(MODS[S.m+1].n)}</b> ${MODS[S.m+1].e}</p>`)}
+
+function page(P){CURLANG="";
+  if(P.k==="toon")return `<h1>${P.t}</h1><div class="stage" id="stage"><div class="fin">${toonFin(P)}</div></div><div class="abar" id="tbar"></div><div class="tcap" id="tcap">🎬 Нажми ▶ · ⏮ ⏭ — сцены</div><div class="row"><button type="button" class="btn sec" id="treplay">▶ Смотреть ещё раз</button><button type="button" class="btn pri" data-next>К упражнениям →</button></div>`;
+  if(P.k==="cult")return cultPage(P);
+  if(P.k==="read")return `<h1>${CFG.readT}</h1><p class="sub">Прочитай про себя. Непонятная фраза — нажми 🌐. Потом 3 вопроса.</p>
+   <div class="chatbox"><span class="who">${CFG.who}</span>${READ.map(r=>`<div class="bub">${esLine(r[1],r[2],"",r[0])}</div>`).join("")}</div>`;
+  if(P.k==="ch")return choice(P);
+  if(P.k==="bd")return build(P);
+}
+const key=()=>S.m+"-"+S.p;
+const LTR={},OTR={};
+function cultPage(P){const G=P.gloss||{};const key=w=>w.toLowerCase().replace(/[^\p{L}\p{N}]/gu,"");
+  return `<h1>${P.t}</h1><p class="sub">Прочитай и послушай. Нажми на любое слово — увидишь перевод. 🌐 — перевод всей фразы. Потом вопросы.</p>
+  <div class="cult">${P.lines.map(([pt,ru],i)=>`<div class="cl"><div class="cw">${pt.split(" ").map(w=>G[key(w)]?`<button type="button" class="wd" data-w="${esc(key(w))}" data-l="${i}">${esc(w)}</button>`:`<span class="wn">${esc(w)}</span>`).join(" ")}</div><div class="esl"><button type="button" class="ic sm" data-say="${esc(pt)}">🔊</button><button type="button" class="ic sm" data-tr>🌐</button></div><div class="trv" hidden>${esc(ru)}</div><div class="wtr" id="wtr${i}" hidden></div></div>`).join("")}</div>`}
+function choice(P){CURLANG=P.lang||"";const a=S.ans[key()];
+  let h=`<div class="pic">${P.pic}</div><p><b>${esc(P.q)}</b></p>`;
+  if(P.es)h+=`<div class="card">${esLine(P.es,P.tr)}</div>`;
+  if(P.listen){const lt=P.ltr||LTR[P.listen];h+=`<div class="card" style="text-align:center"><div class="esl" style="justify-content:center"><button type="button" class="btn pri" data-say="${esc(P.listen)}"${DL()}>🔊 Слушать</button>${lt?`<button type="button" class="ic" data-tr aria-label="🌐">🌐</button>`:""}</div>${lt?`<div class="trv" hidden><b>${esc(P.listen)}</b> — ${esc(lt)}</div>`:""}</div>`}
+  const trFor=o=>o[1]||OTR[o[0]]||null,anyT=P.opts.some(o=>trFor(o)),trF=o=>trFor(o)||(anyT?trFor(P.opts[P.a]):null);
+  h+=`<div class="opts">`+P.opts.map((o,i)=>{let c="";if(a!=null){if(i===P.a)c=" ok";else if(i===a)c=" bad"}
+    return `<div class="opt"><button type="button" class="ob${c}" data-o="${i}"${anyT&&!P.quiet?` data-es="${esc(o[0])}"${DL()}`:""}${a!=null?" disabled":""}>${esc(o[0])}</button>${trF(o)?`<button type="button" class="ic sm" data-tr aria-label="Перевод">🌐</button><div class="trv" hidden>${esc(trF(o))}</div>`:""}</div>`}).join("")+`</div>`;
+  if(a==null)h+=`<button type="button" class="skip" data-hint style="text-decoration:none">💡 Подсказка</button><p class="hint" id="hint" hidden>${P.hint}</p>`;
+  else if(a===P.a)h+=`<div class="fb ok"><b>✅ Muito bem!</b>${P.why}</div><div class="row stick"><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
+  else h+=`<div class="fb bad"><b>❌ Правильный ответ: ${esc(P.opts[P.a][0])}</b>${P.why}</div><div class="row stick"><button type="button" class="btn sec" data-retry>🔁 Ещё раз</button><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
+  return h}
+function build(P){CURLANG=P.lang||"";const st=S.ans[key()]||{pick:[],res:null};
+  const shuffled=P.sh||(P.sh=P.w.map((w,i)=>i).sort(()=>Math.random()-.5));
+  let h=`<div class="pic">${P.pic}</div><p class="sub">Собери фразу по-португальски:</p><p><b>„${esc(P.q)}“</b></p>
+   <div class="ans">${st.pick.map((wi,j)=>`<button type="button" class="chip" data-un="${j}"${st.res!=null?" disabled":""}>${esc(P.w[wi])}</button>`).join("")}</div>
+   <div class="chips">${shuffled.map(wi=>`<button type="button" class="chip" data-pk="${wi}"${st.pick.includes(wi)||st.res!=null?" disabled":""}>${esc(P.w[wi])}</button>`).join("")}</div>`;
+  const full=P.w.join(" ");
+  if(st.res==null)h+=`<div class="row"><button type="button" class="btn pri" data-chk${st.pick.length<P.w.length?" disabled":""}>Проверить</button></div><button type="button" class="skip" data-hint style="text-decoration:none">💡 Подсказка</button><p class="hint" id="hint" hidden>Первое слово — с большой буквы, в последнем — точка или знак вопроса.</p>`;
+  else if(st.res)h+=`<div class="fb ok"><b>✅ Perfeito!</b>${P.why}</div>${esLine(full,P.q)}<div class="row stick"><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
+  else h+=`<div class="fb bad"><b>❌ Правильно: ${esc(full)}</b>${P.why}</div><div class="row stick"><button type="button" class="btn sec" data-retry>🔁 Ещё раз</button><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
+  return h}
+
+/* ---------- events ---------- */
+function wireIn(root){
+  root.querySelectorAll("[data-say]").forEach(b=>b.onclick=()=>say(b.dataset.say,b.dataset.lang));
+  root.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>{const t=b.closest(".opt,.vc,div:not(.esl)").querySelector(".trv");if(t)t.hidden=!t.hidden});}
+function logIt(e){S.log=S.log||{};S.log[key()]=Object.assign({m:S.m,p:S.p,t:Date.now()},e);save()}
+function logView(){const L=S.log||{};const ks=Object.keys(L).sort((a,b)=>{const[x1,y1]=a.split("-").map(Number),[x2,y2]=b.split("-").map(Number);return x1-x2||y1-y2});
+  const ok=ks.filter(k=>L[k].ok).length;let h=`<h1>📋 Мои ответы</h1><p class="sub">При повторном прохождении ответ на задание перезаписывается.</p>`;
+  if(!ks.length)return h+`<p>Пока нет ответов. Пройди задания — здесь появится каждый ответ.</p><button type="button" class="btn sec" data-tomenu>← В меню</button>`;
+  h+=`<div class="card"><b>${"✅ {ok} · ❌ {bad}".replace("{ok}",ok).replace("{bad}",ks.length-ok)}</b></div>`;let cur=-1;
+  ks.forEach(k=>{const e=L[k];if(e.m!==cur){cur=e.m;h+=`<h2>Часть ${e.m+1}. ${esc(MODS[e.m]?MODS[e.m].n:"")}</h2>`}
+    h+=`<div class="lg ${e.ok?"ok":"bad"}"><div class="lq">${e.ok?"✅":"❌"} ${esc(e.q)}</div><div>Твой ответ: <b>${esc(e.your)}</b></div>${e.ok?"":`<div>Правильно: <b>${esc(e.right)}</b></div>`}</div>`});
+  return h+`<button type="button" class="btn sec" data-tomenu>← В меню</button>`}
+function afterBuild(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
+  if(!S.auto){afterAnswer(ok,txt,lang);return}
+  if(ok){stopAll();let done=false;const go=()=>{if(done)return;done=true;setTimeout(()=>{if(same())next()},600)};
+    setTimeout(()=>{if(same())utter(txt,go,lang);else done=true},250);setTimeout(go,7000)}
+  else setTimeout(()=>{if(same())say(txt,lang)},700)}
+function afterAnswer(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
+  if(ok)setTimeout(()=>{if(same())next()},1100);else if(txt)setTimeout(()=>{if(same())say(txt,lang)},1000)}
+function wireCult(pg){const P=S.v==="mod"?MODS[S.m].pages[S.p]:null;if(!P||P.k!=="cult")return;
+  pg.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const box=document.getElementById("wtr"+b.dataset.l);const t=`<b>${esc(b.textContent)}</b> — ${esc(P.gloss[b.dataset.w])}`;
+    if(!box.hidden&&box.dataset.w===b.dataset.w){box.hidden=true;return}box.innerHTML=t;box.dataset.w=b.dataset.w;box.hidden=false})}
+function wire(){
+  const pg=$("#page");
+  wireIn(pg);wireCult(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
+  pg.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{const t=$("#hint");t.hidden=!t.hidden});
+  pg.querySelectorAll("[data-skip],[data-next]").forEach(b=>b.onclick=next);
+  pg.querySelectorAll("[data-log]").forEach(b=>b.onclick=()=>{S.v="log";save();render()});
+  pg.querySelectorAll("[data-tomenu]").forEach(b=>b.onclick=()=>{S.v="menu";save();render()});
+  pg.querySelectorAll("[data-mod]").forEach(b=>b.onclick=()=>{S.v="mod";S.m=+b.dataset.mod;S.p=0;save();render()});
+  pg.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{const P=MODS[S.m].pages[S.p],o=+b.dataset.o;S.ans[key()]=o;logIt({q:P.q+(P.es?" — "+P.es:"")+(P.listen?" 🎧 "+P.listen:""),your:P.opts[o][0],right:P.opts[P.a][0],ok:o===P.a});save();render();afterAnswer(o===P.a,P.opts[P.a][1]?P.opts[P.a][0]:null,P.lang)});
+  pg.querySelectorAll("[data-retry]").forEach(b=>b.onclick=()=>{delete S.ans[key()];const P=MODS[S.m].pages[S.p];delete P.sh;save();render()});
+  const bd=()=>S.ans[key()]||(S.ans[key()]={pick:[],res:null});
+  pg.querySelectorAll("[data-pk]").forEach(b=>b.onclick=()=>{bd().pick.push(+b.dataset.pk);save();render()});
+  pg.querySelectorAll("[data-un]").forEach(b=>b.onclick=()=>{bd().pick.splice(+b.dataset.un,1);save();render()});
+  pg.querySelectorAll("[data-chk]").forEach(b=>b.onclick=()=>{const s=bd(),P=MODS[S.m].pages[S.p];s.res=s.pick.every((w,i)=>w===i)&&s.pick.length===P.w.length;logIt({q:P.q,your:s.pick.map(i=>P.w[i]).join(" "),right:P.w.join(" "),ok:s.res});save();render();afterBuild(s.res,P.w.join(" "),P.lang)});
+  const go=$("#go");if(go){const tryc=()=>{if(CODES.includes(norm($("#code").value))){S.ok=true;save();render()}else $("#err").textContent="Неверный код. Попробуй ещё раз."};
+    go.onclick=tryc;$("#code").onkeydown=e=>{if(e.key==="Enter")tryc()}}
+}
+function next(){
+  if(S.v==="intro"){S.v="mod";S.m=0;S.p=0}
+  else if(S.v==="mdone"){if(S.m<MODS.length-1){S.m++;S.p=0;S.v="mod"}else S.v="menu"}
+  else{const M=MODS[S.m];if(S.p<M.pages.length-1)S.p++;else{S.done[S.m]=true;S.v="mdone"}}
+  save();render()}
+function back(){
+  if(S.v==="intro"){S.v="menu"}
+  else if(S.v==="mdone"){S.v="mod";S.p=MODS[S.m].pages.length-1}
+  else if(S.p>0)S.p--;else S.v=S.m===0?"intro":"menu";
+  save();render()}
+$("#next").onclick=next;$("#back").onclick=back;
+$("#mbtn").onclick=()=>{S.v="menu";save();render()};
+$("#home").onclick=()=>{$("#hm").hidden=false};$("#hmc").onclick=()=>{$("#hm").hidden=true};
+render();
+</script>
+
+</body>
+</html>
