@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Español: артикли</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: one phone-sized screen at a time; header with logo + menu, fixed bottom nav */
+:root{
+  --bg:#eef3f7; --card:#ffffff; --ink:#14233a; --muted:#5c6b80;
+  --sea:#1f5fa8; --sun:#f2b632; --sel:#e3eefb; --line:#d5dfea;
+  --ok:#1e8a4c; --okbg:#e2f5ea; --bad:#c2412d; --badbg:#fbe7e3;
+  --chat:#dff3e8; --chatbg:linear-gradient(160deg,#cfe6f7,#f7e6c4);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Nunito Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd; --sea:#6ea8ef; --sel:#1d3657; --line:#2a3b55;
+  --ok:#5fd28f; --okbg:#173a2a; --bad:#f08a78; --badbg:#3e1f1b; --chat:#1f3a2e; --chatbg:linear-gradient(160deg,#16324d,#3a2f1a); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd; --sea:#6ea8ef; --sel:#1d3657; --line:#2a3b55;
+  --ok:#5fd28f; --okbg:#173a2a; --bad:#f08a78; --badbg:#3e1f1b; --chat:#1f3a2e; --chatbg:linear-gradient(160deg,#16324d,#3a2f1a); color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:520px;margin:0 auto;padding-block:10px 24px;display:flex;flex-direction:column;gap:8px}
+.top{display:flex;align-items:center;gap:8px}
+.brand{display:flex;align-items:center;gap:7px;font-family:var(--display);font-weight:800;font-size:14px;flex:1;min-width:0}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--sea);color:var(--card);display:grid;place-items:center;font-size:12px;flex:none}
+.hb{background:var(--card);border:1.5px solid var(--line);color:var(--ink);border-radius:10px;padding:6px 9px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.prog{height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--sun);transition:width .3s}
+.scr{display:flex;flex-direction:column;gap:9px}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--sea);font-weight:800}
+h1{font-family:var(--display);font-weight:800;font-size:23px;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:800;font-size:19px;margin:0}
+p{margin:0;line-height:1.45}
+.sub{color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.pic{font-size:54px;text-align:center;line-height:1.1}
+.es{font-weight:800;font-size:19px;color:var(--ink)}
+.esl{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ic{background:var(--sel);border:0;border-radius:8px;padding:3px 7px;font-size:15px;cursor:pointer;line-height:1.2}
+.ic.sm{font-size:11px;padding:1px 5px;border-radius:6px}
+.trv{color:var(--muted);font-size:13.5px;font-style:italic}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.ob{width:100%;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:11px 12px;
+  font:inherit;font-weight:700;font-size:16px;color:var(--ink);cursor:pointer}
+.ob.ok{border-color:var(--ok);background:var(--okbg)}
+.ob.bad{border-color:var(--bad);background:var(--badbg)}
+.ob:disabled{cursor:default}
+.fb{border-radius:12px;padding:10px 12px;line-height:1.45}
+.fb.ok{background:var(--okbg);color:var(--ink)}
+.fb.bad{background:var(--badbg);color:var(--ink)}
+.fb>b:first-child{display:block;margin-bottom:2px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:800;font-size:15px;cursor:pointer}
+.btn.pri{background:var(--sea);color:var(--card)}
+.btn.sec{background:var(--card);color:var(--ink);border:2px solid var(--line)}
+.skip{align-self:flex-start;background:none;border:0;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:2px 0;text-decoration:underline}
+.hint{color:var(--muted);font-size:14px}
+.nav{padding-top:6px}
+.nav div{max-width:520px;margin:0 auto;display:flex;gap:10px}
+.nav .btn{flex:1;font-size:16px}
+.nav .btn.sec{flex:0 0 32%}
+.pron{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 4px;text-align:center;display:flex;flex-direction:column;gap:3px;align-items:center}
+.pc .e{font-size:34px}
+.pc .w{font-family:var(--display);font-weight:800;font-size:19px;color:var(--sea)}
+.cut{display:flex;justify-content:center;align-items:baseline;gap:2px;font-family:var(--display);font-weight:800;font-size:40px}
+.cut .x{color:var(--bad);text-decoration:line-through;text-decoration-thickness:3px}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl td{padding:7px 6px;border-bottom:1px solid var(--line)}
+.tbl .end{color:var(--sea);font-weight:800}
+.tbl .tr{color:var(--muted);font-size:13px}
+.vg{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.vc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 9px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.vc .t{display:flex;align-items:center;gap:6px}
+.vc .e{font-size:24px}
+.vc .w{font-weight:800;font-size:16px;flex:1;min-width:0}
+.menu{display:flex;flex-direction:column;gap:7px}
+.mi{display:flex;align-items:center;gap:10px;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 12px;cursor:pointer;font:inherit;color:var(--ink);text-align:left}
+.mi .e{font-size:26px}
+.mi .n{flex:1;font-weight:800}
+.mi .s{font-size:13px;color:var(--muted);font-weight:600}
+.mi.done{border-color:var(--ok)}
+.chatbox{background:var(--chatbg);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:7px}
+.bub{background:var(--chat);border-radius:14px 14px 14px 4px;padding:8px 10px;font-size:16.5px;line-height:1.4;max-width:92%}
+.who{font-size:12px;font-weight:800;color:var(--sea)}
+.ans{min-height:46px;border:2px dashed var(--line);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;background:var(--card)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--sel);border:0;border-radius:10px;padding:9px 12px;font:inherit;font-weight:800;font-size:16px;color:var(--ink);cursor:pointer}
+.chip:disabled{opacity:.25;cursor:default}
+.gate input{width:100%;box-sizing:border-box;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:17px;padding:12px}
+.err{color:var(--bad);font-weight:700;min-height:1.2em}
+.abar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 8px}
+.abar .lb{font-size:13px;font-weight:800;color:var(--sea);margin-right:auto}
+.abar button{background:var(--sel);border:0;border-radius:8px;padding:6px 9px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}
+.abar button.off{opacity:.6}
+.abar button{min-width:40px;font-size:16px}.abar #aauto{font-size:12px;min-width:0}.abar .big2{background:var(--sea);color:var(--card)}
+.speaking{outline:3px solid var(--sun);outline-offset:2px;border-radius:8px}
+.pics{font-size:22px;line-height:1.2;margin-top:2px}
+.stage{background:var(--card);border:1px solid var(--line);border-radius:16px;min-height:230px;padding:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.frame{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.fin{display:flex;flex-direction:column;gap:7px;width:100%}
+.fl{display:flex;align-items:flex-start;gap:8px}.fl .fp{font-size:24px;min-width:44px;text-align:center}.fl>div{min-width:0}
+.big{font-size:70px;line-height:1.1}
+.tw{font-family:var(--display);font-weight:800;font-size:32px}
+.tw2{font-weight:800;font-size:19px}
+.cutw{font-family:var(--display);font-weight:800;font-size:46px;display:flex;align-items:baseline}
+.cutw.sm{font-size:30px}.cutw .pr{color:var(--muted)}
+.cutw .end{color:var(--bad)}
+.nw{color:var(--sea);display:inline-block;animation:pop .6s .2s both}
+.tcap{text-align:center;font-weight:800;color:var(--sea);min-height:1.3em}
+.sc{display:inline-block;font-size:34px;animation:snip 1.1s both}
+.fall{display:inline-block;animation:fall 1s 1.1s both}
+.pop{animation:pop .5s ease-out both}.pop2{animation:fadeup .5s .25s both}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes snip{0%{transform:translateY(-70px);opacity:0}45%{transform:translateY(0) rotate(0);opacity:1}65%{transform:rotate(-25deg)}85%{transform:rotate(15deg)}100%{transform:rotate(0)}}
+@keyframes fall{to{transform:translateY(110px) rotate(40deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){.nw,.sc,.fall,.pop,.pop2{animation:none}}
+.ttr{color:var(--muted);font-size:16px;font-weight:600}
+.flag{font-size:13px;font-weight:800;color:var(--sea);background:var(--sel);border-radius:999px;padding:3px 10px}
+.stick{position:sticky;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:5;background:var(--bg);padding-block:6px;box-shadow:0 -6px 12px -8px rgba(0,0,0,.25);border-radius:12px;flex-wrap:nowrap}
+.stick .btn{flex:1;padding:11px 8px;font-size:14px;white-space:nowrap}
+.lg{border-radius:12px;padding:8px 10px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:2px;font-size:14px}
+.lg.ok{border-left:4px solid var(--ok)}.lg.bad{border-left:4px solid var(--bad)}.lq{font-weight:700}
+.cult{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:12px}
+.cl{display:flex;flex-direction:column;gap:3px}.cw{font-size:18px;line-height:1.7}
+.wd{font:inherit;color:var(--ink);background:none;border:0;padding:0;border-bottom:2px dotted var(--sea);cursor:pointer}
+.wtr{background:var(--sel);border-radius:8px;padding:4px 8px;font-size:14px}
+.own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
+.modal{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;padding:16px;z-index:20}
+.modal .card{max-width:420px;display:flex;flex-direction:column;gap:8px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="logo">DB</span><span>Daria Botina</span></div>
+    <button class="hb" id="home" type="button">📲 Добавить на экран</button>
+    <button class="hb" id="mbtn" type="button">☰ Меню</button>
+  </div>
+  <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+  <div class="abar" id="abar" hidden></div>
+  <main id="page"></main>
+  <nav class="nav" id="nav"><div>
+  <button class="btn sec" id="back" type="button">← Назад</button>
+  <button class="btn pri" id="next" type="button">Далее →</button>
+</div></nav>
+  <div class="own">© Собственность Daria Botina</div>
+</div>
+<div class="modal" id="hm" hidden><div class="card">
+  <h2>📲 Добавить на экран</h2>
+  <p><b>iPhone (Safari):</b> кнопка «Поделиться» ⬆️ внизу → «На экран „Домой“».</p>
+  <p><b>Android (Chrome):</b> ⋮ справа вверху → «Добавить на главный экран».</p>
+  <p class="sub">Урок будет открываться на телефоне как приложение.</p>
+  <button class="btn pri" id="hmc" type="button">Понятно</button>
+</div></div>
+
+<script>
+/* ---------- content ---------- */
+
+
+const strip=s=>String(s).replace(/<[^>]+>/g,"");
+const W=(pic,pt,ru,c,lang)=>({h:`<div class="big pop">${pic}</div><div class="tw pop2">${pt}</div>`,say:strip(pt),tr:ru,c,lang});
+const S2=(pic,pt,ru,c,lang)=>({h:`<div class="big pop">${pic}</div><div class="tw2 pop2">${pt}</div>`,say:strip(pt),tr:ru,c,lang});
+const CUT=r=>({h:`<div class="cutw"><span>${r}</span><span class="sc">✂️</span><span class="end fall">ar</span></div>`,w:2400,c:`✂️ Отрезаем -ar → ${r}-`});
+const FORMS=(pic,r,ru)=>S2(pic,`${r}<b class="nw">o</b> · ${r}<b class="nw">a</b> · ${r}<b class="nw">amos</b>`,ru,"eu -o · você -a · nós -amos");
+FORMS.say=0;
+const VERB=(pic,inf,r,ruInf,ruForms,sent,ruSent)=>[W(pic,inf,ruInf,"🎬 Новый глагол"),CUT(r),
+  Object.assign(FORMS(pic,r,ruForms),{say:`eu ${r}o, você ${r}a, nós ${r}amos`}),S2(pic,sent,ruSent,"Пример")];
+const WHO=[["👩 я (eu)",null],["👨 ты (você)",null],["👩👨 мы (nós)",null]];
+const LH="Смотри на окончание: -o = я, -a = ты, -amos = мы.";
+const HEARR=(listen,opts,a,lang)=>({k:"ch",pic:lang==="pt-PT"?"🇵🇹🎧":"🇧🇷🎧",q:lang==="pt-PT"?"🇵🇹 Португалия. Что ты слышишь? Выбери перевод.":"Что ты слышишь? Выбери перевод.",listen,ltr:"перевод увидишь после ответа",quiet:true,lang,opts:opts.map(x=>[x,null]),a,why:`Звучало: «<b>${listen}</b>» — ${opts[a]}`,hint:"Послушай ещё раз: кто? что делает? где, когда?"});
+/* TITLE: Español: артикли */
+const HEARE=(listen,opts,a)=>({k:"ch",pic:"🇪🇸🎧",q:"Что ты слышишь? Выбери перевод.",listen,ltr:"перевод увидишь после ответа",quiet:true,opts:opts.map(x=>[x,null]),a,why:`Звучало: «<b>${listen}</b>» — ${opts[a]}`,hint:"Послушай ещё раз: один или много? какой-то или конкретный?"});
+const A=(es,tr,opts,a,why,hint,pic)=>({k:"ch",pic:pic||"📝",q:"Выбери артикль.",es,tr,opts,a,why,hint});
+const N=["— sin artículo","без артикля"];
+const CFG={n:"«Артикли»",key:"olga-es-articulos",readT:"Объявление парикмахерской ✂️",who:"✂️ Peluquería «La Tijera» (Valencia)",
+ intro:`<div class="pic">🇪🇸📦</div><div class="eyebrow">Испанский · Артикли</div><h1>¡Hola! El, la, un, una</h1>
+ <p>Что в этом уроке:</p>
+ <div class="card"><p>🤔 <b>Часть 1:</b> знает ли собеседник, о чём речь? un · una · el · la + описание «один из»<br>👥 <b>Часть 2:</b> los · las · unos · unas, el día, el agua, al и del<br>☕ <b>Часть 3:</b> когда артикль нужен, а когда нет<br>🎬 <b>Часть 4:</b> весь мультик целиком<br>✏️ <b>Часть 5:</b> 5 заданий на всё сразу<br>✂️ <b>Часть 6:</b> история: один день в парикмахерской<br>🧩 <b>Часть 7:</b> фразы из слов<br>🎧 <b>Часть 8:</b> на слух: что ты слышишь? (10 заданий)<br>🌎 <b>Часть 9:</b> культурная заметка: Тенерифе — guagua и papas<br>📋 <b>Часть 10:</b> объявление парикмахерской</p></div>
+ <p class="sub">🔊 — послушать, 🌐 — перевод.</p>`,
+ fin:()=>`<div class="card"><table class="tbl"><tr><td>🤔</td><td>un · una / el · la</td><td class="tr">собеседник не знает / знает, о каком</td></tr><tr><td>🏙️</td><td>Es una ciudad bonita.</td><td class="tr">описание = «один из»</td></tr><tr><td>👥</td><td>unos · unas / los · las</td><td class="tr">несколько / эти</td></tr><tr><td>💧</td><td>el día · la mano · el agua</td><td class="tr">исключения</td></tr><tr><td>🚌</td><td>al · del</td><td class="tr">a + el · de + el</td></tr><tr><td>☕</td><td>Me gusta el café.</td><td class="tr">«вообще» — с el/la</td></tr><tr><td>✂️</td><td>Soy peluquera. · No hay leche.</td><td class="tr">без артикля</td></tr></table></div>
+ <p>Теперь ты можешь сказать:</p>${esLine("El lunes voy al mercado y compro unas flores para la peluquería.","В понедельник я иду на рынок и покупаю цветы для парикмахерской.","es","🗓️ · 💐 · ✂️")}`};
+const MODS=[
+ {n:"Знает ли собеседник? un · el",e:"🤔",s:"главный вопрос · один из",pages:[
+  {k:"toon",t:"🎬 Главный вопрос: знает ли собеседник?",steps:[
+    W("🤔","¿Sabe de cuál hablo?","Главный вопрос: знает ли собеседник, о каком ИМЕННО предмете я говорю?","Главное правило"),
+    S2("👩💬👨","No sabe → un / una · Sabe → el / la","Не знает → un / una. Знает → el / la.","смотрим не на себя, а на собеседника"),
+    W("🆕","un · una","собеседник НЕ знает, о каком именно — для него это новое","1 / 3"),
+    S2("👩🎬",`Ayer vi <b class="nw">una</b> película.`,"Вчера я посмотрела фильм (ты не знаешь, какой).","для него новое → una"),
+    W("👉","el · la","собеседник ЗНАЕТ, о каком именно","2 / 3"),
+    S2("👨🎬",`¿Viste <b class="nw">la</b> película?`,"Ты посмотрел тот фильм? (мы о нём говорили)","мы о нём говорили → la"),
+    S2("🚪",`Cierra <b class="nw">la</b> puerta, por favor.`,"Закрой дверь, пожалуйста (оба видим, какую).","оба видим → la"),
+    S2("☀️",`<b class="nw">El</b> sol está muy fuerte.`,"Солнце сегодня сильное (солнце одно — все знают).","одно на всех → el"),
+    S2("👑",`Había una vez <b class="nw">un</b> rey. <b class="nw">El</b> rey tenía tres hijos.`,"Жил-был король. У короля было три сына.","сначала un — новое, потом el — уже знаем"),
+    W("🏷️","Es un… · Es una…","описываем: предмет — «один из» многих таких","3 / 3"),
+    S2("🏙️",`Valencia es <b class="nw">una</b> ciudad bonita.`,"Валенсия — красивый город (один из красивых городов).","описание = один из → una"),
+    S2("🐶",`Max es <b class="nw">un</b> perro muy simpático.`,"Макс — очень милый пёс (один из милых псов).","описание = один из → un"),
+    S2("💡","el · un — м. р. · la · una — ж. р.","Артикль ещё показывает род: el coche, la casa. Обычно -o — мужской, -a — женский.","💡 Род")],
+   fin:[["🤔","No sabe → un / una · Sabe → el / la","Не знает → un/una · знает → el/la"],["🎬","Ayer vi una película. — ¿Viste la película?","новое · уже знаем"],["🚪","Cierra la puerta. · El sol.","оба видим · одно на всех"],["👑","Había una vez un rey. El rey…","сначала un, потом el"],["🏙️","Valencia es una ciudad bonita.","описание = «один из»"],["💡","el coche · la casa","род"]]},
+  {k:"ch",pic:"👩🎬",q:"Собеседник НЕ знает, о каком фильме речь. Выбери артикль.",es:"Ayer vi ___ película muy buena.",tr:"Вчера я посмотрела очень хороший фильм.",opts:[["la","этот, тот самый"],["una","какой-то, новый"],["las","эти"]],a:1,why:"Для собеседника новое → <b>una</b> película.",hint:"не знает → un/una"},
+  {k:"ch",pic:"👨🎬",q:"Вы вчера говорили об этом фильме — собеседник ЗНАЕТ, о каком. Выбери артикль.",es:"¿Viste ___ película?",tr:"Ты посмотрел тот фильм?",opts:[["la","тот самый"],["una","какой-то"],["unas","несколько"]],a:0,why:"Собеседник знает, о каком → <b>la</b> película.",hint:"знает → el/la"},
+  {k:"ch",pic:"🚪",q:"В комнате одна дверь, оба её видят. Выбери артикль.",es:"Cierra ___ puerta, por favor.",tr:"Закрой дверь, пожалуйста.",opts:[["una","какую-то"],["unas","несколько"],["la","эту"]],a:2,why:"Оба видим, какую → <b>la</b> puerta.",hint:"оба видим → el/la"},
+  A("Tengo un gato. ___ gato es negro.","У меня есть кот. Кот чёрный.",[["Un","какой-то"],["El","этот"],["La","эта"]],1,"Про кота уже сказали — теперь собеседник знает → <b>el</b> gato.","второй раз → el","🐈‍⬛"),
+  A("Valencia es ___ ciudad bonita.","Валенсия — красивый город.",[["una","одна из"],["unas","несколько"],["un","м. р."]],0,"Описание = «один из красивых городов» → <b>una</b> ciudad (ж. р.).","описание → un/una","🏙️"),
+  A("Max es ___ perro muy simpático.","Макс — очень милый пёс.",[["una","ж. р."],["unos","мн. ч."],["un","м. р."]],2,"Описание = «один из милых псов» → <b>un</b> perro.","описание → un/una","🐶"),
+  A("Hay ___ libro en la mesa.","На столе лежит книга.",[["una","ж. р."],["un","м. р."],["unas","мн. ч."]],1,"Новое для собеседника и м. р. → <b>un</b> libro.","libro — м. р.","📕")]},
+ {n:"los · las · el día · al · del",e:"👥",s:"много, исключения, слияние",pages:[
+  {k:"toon",t:"🎬 Много, исключения, al и del",steps:[
+    W("👥","los · las · unos · unas","эти (мн. ч.) · несколько","1 / 3"),
+    S2("👦👦⚽",`<b class="nw">Los</b> niños juegan.`,"Дети играют.","el → los · la → las"),
+    S2("🍎🍎",`Compro <b class="nw">unas</b> manzanas.`,"Покупаю несколько яблок.","un → unos · una → unas"),
+    W("🤯","el día · el mapa · la mano · la foto","исключения: окончание обманывает!","2 / 3"),
+    S2("☀️",`<b class="nw">El</b> día está bonito.`,"День прекрасный.","día — м. р., хотя на -a"),
+    S2("💧",`<b class="nw">El</b> agua está fría.`,"Вода холодная.","agua — ж. р., но «el»: так легче произнести"),
+    W("🚌","a + el = al · de + el = del","слова сливаются","3 / 3"),
+    S2("🛒",`Voy <b class="nw">al</b> supermercado.`,"Я иду в супермаркет.","a + el = al"),
+    S2("🚗",`Es el coche <b class="nw">del</b> profesor.`,"Это машина учителя.","de + el = del"),
+    S2("💡","a la playa · de la casa","С «la» не сливается: a la playa, de la casa.","💡 Правило")],
+   fin:[["⚽","Los niños juegan.","Дети играют."],["🍎","Compro unas manzanas.","Покупаю несколько яблок."],["☀️","El día está bonito.","День прекрасный."],["💧","El agua está fría.","Вода холодная."],["🛒","Voy al supermercado.","Иду в супермаркет."],["🚗","Es el coche del profesor.","Это машина учителя."]]},
+  A("___ niños juegan en el parque.","Дети играют в парке.",[["Los","м. р., мн. ч."],["Las","ж. р., мн. ч."],["El","м. р., ед. ч."]],0,"niños — м. р., мн. ч. → <b>los</b>.","много мальчиков → los","👦👦"),
+  A("Compro ___ manzanas.","Я покупаю несколько яблок.",[["unos","м. р."],["unas","ж. р."],["una","одна"]],1,"manzanas — ж. р., мн. ч. → <b>unas</b>.","manzana — ж. р.","🍎🍎"),
+  A("___ día está bonito.","День прекрасный.",[["La","ж. р."],["Los","мн. ч."],["El","м. р."]],2,"día — исключение, м. р. → <b>el</b> día.","día — исключение","☀️"),
+  A("___ agua está fría.","Вода холодная.",[["El","«el» перед ударным a-"],["La","ж. р."],["Las","мн. ч."]],0,"agua: <b>el</b> agua (ударное «a» в начале).","el agua — особый случай","💧"),
+  A("Voy ___ supermercado.","Я иду в супермаркет.",[["a el",null],["al","a + el"],["del","de + el"]],1,"a + el = <b>al</b>.","куда? a + el → ?","🛒"),
+  A("Es el coche ___ profesor.","Это машина учителя.",[["al","a + el"],["de el",null],["del","de + el"]],2,"de + el = <b>del</b>.","чей? de + el → ?","🚗"),
+  A("___ foto es muy bonita.","Фото очень красивое.",[["La","ж. р."],["El","м. р."],["Los","мн. ч."]],0,"foto — исключение, ж. р. → <b>la</b> foto.","foto = fotografía","📷")]},
+ {n:"Когда артикль нужен, а когда нет",e:"☕",s:"вообще · профессия · дни недели",pages:[
+  {k:"toon",t:"🎬 С артиклем и без",steps:[
+    W("☕","Me gusta el café.","«вообще», то, что любишь — с артиклем","1 / 3"),
+    S2("🎶😍",`Me encanta <b class="nw">la</b> música.`,"Я обожаю музыку.","по-русски без артикля, по-испански — с ним"),
+    W("✂️","Soy peluquera.","профессия после ser — без артикля","2 / 3"),
+    S2("👨‍⚕️",`Mi hermano es médico.`,"Мой брат — врач.","ser + профессия"),
+    S2("✂️⭐",`Olga es <b class="nw">una</b> peluquera muy buena.`,"Ольга — очень хорошая парикмахерша (одна из хороших).","+ описание → снова «один из» → una"),
+    S2("🥛🚫",`No hay leche.`,"Молока нет.","no hay + «сколько-то» — без артикля"),
+    W("🗓️","el lunes · los sábados","дни недели — с артиклем","3 / 3"),
+    S2("🏖️",`<b class="nw">El</b> sábado vamos a la playa.`,"В субботу мы едем на пляж.","el sábado = в эту субботу"),
+    S2("🎩",`Hablo con <b class="nw">el</b> señor García. — Buenos días, señor García.`,"Я говорю с сеньором Гарсией. — Доброе утро, сеньор Гарсия.","о человеке — el señor; обращение — без артикля"),
+    S2("💡","Me gusta el té. · Soy profesora. · El lunes.","«Вообще» и дни — с артиклем. Профессия после ser — без.","💡 Правило")],
+   fin:[["☕","Me gusta el café.","Я люблю кофе."],["🎶","Me encanta la música.","Я обожаю музыку."],["✂️","Soy peluquera.","Я парикмахер."],["🥛","No hay leche.","Молока нет."],["🏖️","El sábado vamos a la playa.","В субботу едем на пляж."],["🎩","Buenos días, señor García.","Доброе утро, сеньор Гарсия."]]},
+  A("Me encanta ___ música.","Я обожаю музыку.",[N,["la","ж. р."],["una","какая-то"]],1,"«Вообще» → с артиклем: <b>la</b> música.","то, что любишь — el/la","🎶"),
+  A("Olga es ___ peluquera muy buena.","Ольга — очень хорошая парикмахерша.",[N,["una","одна из"],["la","та самая"]],1,"Есть описание (muy buena) → «одна из хороших» → <b>una</b>.","профессия + описание → un/una","✂️⭐"),
+  A("Mi hermano es ___ médico.","Мой брат — врач.",[["un","какой-то"],["el","этот"],N],2,"Профессия после ser — <b>без артикля</b>.","ser + профессия","👨‍⚕️"),
+  A("___ sábado vamos a la playa.","В субботу мы едем на пляж.",[["El","м. р."],["Un","какой-то"],N],0,"Дни недели — с артиклем: <b>el</b> sábado.","дни недели → el","🏖️"),
+  A("No hay ___ leche en casa.","Дома нет молока.",[["la","ж. р."],N,["una","какая-то"]],1,"no hay + «сколько-то» — <b>без артикля</b>.","no hay leche","🥛"),
+  A("Me gustan ___ gatos.","Я люблю кошек.",[["las","ж. р."],N,["los","м. р."]],2,"«Вообще» и gatos — м. р., мн. ч. → <b>los</b> gatos.","gusta(n) + el/la/los/las","🐈🐈"),
+  A("Buenos días, ___ señor García.","Доброе утро, сеньор Гарсия.",[N,["el","м. р."],["un","какой-то"]],0,"Обращение — <b>без артикля</b>.","говоришь с ним самим","🎩"),
+  A("Hablo con ___ señor García.","Я разговариваю с сеньором Гарсией.",[["un","какой-то"],["el","м. р."],N],1,"О человеке — <b>el</b> señor García.","говоришь о нём","🎩📞")]},
+ {n:"Весь мультик целиком",e:"🎬",s:"все случаи подряд",pages:[
+  {k:"toon",t:"🎬 Все артикли — подряд",steps:[
+    S2("👩🎬","Ayer vi una película.","1 · собеседник не знает, о каком → un / una","1 / 9"),
+    S2("👨🎬🚪","¿Viste la película? Cierra la puerta.","2 · собеседник знает, о каком → el / la","2 / 9"),
+    S2("🏙️","Valencia es una ciudad bonita.","3 · описание = «один из» → un / una","3 / 9"),
+    S2("👦👦🍎","Los niños comen unas manzanas.","4 · los / las — эти, unos / unas — несколько","4 / 9"),
+    S2("☀️💧","El día está bonito y el agua está fría.","5 · исключения: el día, el agua, la foto, la mano","5 / 9"),
+    S2("🛒🚗","Voy al supermercado en el coche del profesor.","6 · a + el = al, de + el = del","6 / 9"),
+    S2("☕","Me gusta el café.","7 · «вообще» — с артиклем","7 / 9"),
+    S2("✂️🥛","Soy peluquera. No hay leche.","8 · профессия, no hay — без артикля","8 / 9"),
+    S2("🗓️🎩","El lunes hablo con el señor García.","9 · дни недели и «el señor» — с артиклем","9 / 9")],
+   fin:[["🤔","Ayer vi una película. ¿Viste la película?","не знает → un · знает → el"],["🏙️","Valencia es una ciudad bonita.","описание = «один из»"],["👥","Los niños comen unas manzanas.","los · unas"],["💧","El día · el agua · la foto","исключения"],["🛒","al supermercado · del profesor","al · del"],["☕","Me gusta el café.","«вообще»"],["✂️","Soy peluquera. No hay leche.","без артикля"],["🗓️","El lunes hablo con el señor García.","дни · el señor"]]}]},
+ {n:"5 заданий на всё",e:"✏️",s:"всё вместе",pages:[
+  A("Soy ___ peluquera.","Я парикмахер.",[["una","какая-то"],["la","эта"],N],2,"Профессия после ser — <b>без артикля</b>.","ser + профессия","✂️"),
+  A("Me gusta ___ chocolate.","Я люблю шоколад.",[["el","м. р."],["un","какой-то"],N],0,"«Вообще» → <b>el</b> chocolate.","то, что любишь","🍫"),
+  A("___ lunes trabajo en casa.","В понедельник я работаю дома.",[["Un","какой-то"],["El","м. р."],N],1,"Дни недели → <b>el</b> lunes.","дни недели → el","🗓️"),
+  A("Voy ___ cine con mis amigas.","Я иду в кино с подругами.",[["del","de + el"],["a el",null],["al","a + el"]],2,"a + el = <b>al</b> cine.","a + el → ?","🎬"),
+  A("Tengo ___ problema con el coche.","У меня проблема с машиной.",[["un","м. р."],["una","ж. р."],["la","эта"]],0,"problema — исключение, м. р. → <b>un</b> problema.","problema — м. р.","🚗😟")]},
+ {n:"История: день в парикмахерской",e:"✂️",s:"10 пропусков подряд",pages:[
+  A("Olga abre ___ peluquería a las nueve.","Ольга открывает парикмахерскую в девять.",[["la","ж. р."],["el","м. р."],["los","мн. ч."]],0,"peluquería — ж. р. → <b>la</b>.","1 / 10","✂️🕘"),
+  A("Primero, prepara ___ café para ella y para Lucía.","Сначала она готовит кофе себе и Лусии.",[["una","ж. р."],["un","м. р."],["unos","мн. ч."]],1,"café — м. р. → <b>un</b> café.","2 / 10","☕"),
+  A("___ primera clienta es una señora mayor.","Первая клиентка — пожилая сеньора.",[["El","м. р."],["Los","мн. ч."],["La","ж. р."]],2,"clienta — ж. р. → <b>la</b> primera clienta.","3 / 10","👵"),
+  A("Quiere cortar ___ pelo y hablar mucho. 😄","Она хочет подстричь волосы и много поговорить. 😄",[["el","м. р."],["la","ж. р."],["los","мн. ч."]],0,"pelo — м. р. → <b>el</b> pelo.","4 / 10","💇‍♀️"),
+  A("A las doce, Olga va ___ banco.","В двенадцать Ольга идёт в банк.",[["del","de + el"],["al","a + el"],["a el",null]],1,"a + el = <b>al</b> banco.","5 / 10","🏦"),
+  A("Vuelve con ___ flores para la peluquería.","Возвращается с цветами для парикмахерской.",[["unos","м. р."],["una","одна"],["unas","ж. р., мн. ч."]],2,"flores — ж. р., мн. ч. → <b>unas</b> flores.","6 / 10","💐"),
+  A("Por la tarde hay ___ problema: no hay agua caliente.","Днём проблема: нет горячей воды.",[["un","м. р."],["una","ж. р."],["unas","мн. ч."]],0,"problema — м. р. → <b>un</b> problema.","7 / 10","🚿😟"),
+  A("Olga llama a Pedro, ___ fontanero del barrio.","Ольга звонит Педро, сантехнику из их района.",[["al","a + el"],["el","м. р."],["la","ж. р."]],1,"Конкретный человек → <b>el</b> fontanero.","8 / 10","👨‍🔧"),
+  A("Por fin, ___ agua está caliente.","Наконец вода горячая.",[["la","ж. р."],["las","мн. ч."],["el","el + ударное a-"]],2,"<b>el</b> agua — особый случай.","9 / 10","💧🔥"),
+  A("A las ocho, Olga cierra ___ puerta y va a casa.","В восемь Ольга закрывает дверь и идёт домой.",[["la","ж. р."],["el","м. р."],["las","мн. ч."]],0,"puerta — ж. р. → <b>la</b> puerta.","10 / 10","🚪🌙")]},
+ {n:"Фразы из слов",e:"🧩",s:"собери предложение",pages:[
+  {k:"bd",pic:"👩🐶",q:"У меня есть собака. Собаку зовут Макс.",w:["Tengo","un","perro.","El","perro","se","llama","Max."],why:"сначала <b>un</b>, потом <b>el</b>."},
+  {k:"bd",pic:"🛒",q:"Я иду в супермаркет.",w:["Voy","al","supermercado."],why:"a + el = <b>al</b>."},
+  {k:"bd",pic:"☕",q:"Я люблю кофе.",w:["Me","gusta","el","café."],why:"«вообще» → <b>el</b> café."},
+  {k:"bd",pic:"✂️",q:"Я парикмахер.",w:["Soy","peluquera."],why:"профессия — без артикля."},
+  {k:"bd",pic:"🏖️",q:"В субботу мы едем на пляж.",w:["El","sábado","vamos","a","la","playa."],why:"<b>el</b> sábado · a <b>la</b> playa."}]},
+ {n:"Аудирование: что ты слышишь?",e:"🎧",s:"10 заданий на слух",pages:[
+  HEARE("Tengo un perro.",["У меня есть собака.","У меня есть кошка.","У меня нет собаки."],0),
+  HEARE("Los niños juegan en el parque.",["Девочки играют в парке.","Дети играют в парке.","Дети играют на пляже."],1),
+  HEARE("El agua está fría.",["Вода горячая.","Кофе холодный.","Вода холодная."],2),
+  HEARE("Voy al supermercado.",["Я иду в супермаркет.","Я иду из супермаркета.","Я иду в кино."],0),
+  HEARE("Me encanta la música.",["Я обожаю танцы.","Я обожаю музыку.","Я не люблю музыку."],1),
+  HEARE("Soy peluquera.",["Я учительница.","Я медсестра.","Я парикмахер."],2),
+  HEARE("El lunes trabajo en casa.",["В понедельник я работаю дома.","В пятницу я работаю дома.","В понедельник я отдыхаю дома."],0),
+  HEARE("No hay leche.",["Есть молоко.","Молока нет.","Хлеба нет."],1),
+  HEARE("Compro unas flores.",["Я покупаю торт.","Я продаю цветы.","Я покупаю цветы."],2),
+  HEARE("Es el coche del profesor.",["Это машина учителя.","Это машина врача.","Это дом учителя."],0)]},
+ {n:"Культурная заметка",e:"🌎",s:"Тенерифе: guagua и papas",pages:[
+  {k:"cult",t:"🌎 Культурная заметка: Тенерифе — свой испанский",lines:[
+    ["En Tenerife, el autobús tiene otro nombre: la guagua.","На Тенерифе у автобуса другое название: «гуагуа»."],
+    ["Los canarios dicen: «Voy en la guagua».","Канарцы говорят: «Я еду на гуагуа»."],
+    ["Y no dicen «patatas», dicen «papas».","И они говорят не «patatas», а «papas» (картошка)."],
+    ["Un plato típico son las papas arrugadas con mojo.","Типичное блюдо — «морщинистая» картошка с соусом мохо."],
+    ["El mojo es una salsa canaria: hay un mojo rojo y un mojo verde.","Мохо — канарский соус: есть красный мохо и зелёный мохо."],
+    ["Desde la guagua puedes ver el Teide, la montaña más alta de España.","Из гуагуа видно Тейде — самую высокую гору Испании."],
+    ["¿Y tú? ¿Quieres comer unas papas con mojo en Tenerife?","А ты? Хочешь попробовать картошку с мохо на Тенерифе?"]],
+   gloss:{"en":"на, в","tenerife":"Тенерифе (Канарские острова)","el":"артикль (м. р.)","autobús":"автобус","tiene":"имеет (tener)","otro":"другое","nombre":"имя, название","la":"артикль (ж. р.)","guagua":"автобус (на Канарах)","los":"артикль (м. р., мн. ч.)","canarios":"канарцы, жители Канарских островов","dicen":"говорят (decir)","voy":"еду, иду (ir)","y":"и","no":"не","patatas":"картошка (в Испании)","papas":"картошка (на Канарах и в Латинской Америке)","un":"один; артикль (м. р.)","plato":"блюдо","típico":"типичный","son":"есть (ser, они)","las":"артикль (ж. р., мн. ч.)","arrugadas":"морщинистые (варят в солёной воде в кожуре)","con":"с","mojo":"мохо — канарский соус","es":"есть (ser)","una":"одна; артикль (ж. р.)","salsa":"соус","canaria":"канарская","hay":"есть, имеется","rojo":"красный","verde":"зелёный","desde":"из, с","puedes":"можешь (poder)","ver":"видеть","teide":"Тейде — вулкан на Тенерифе","montaña":"гора","más":"самая, более","alta":"высокая","de":"(предлог) Испании","españa":"Испания","tú":"ты","quieres":"хочешь (querer)","comer":"есть, кушать","unas":"несколько; артикль (ж. р., мн. ч.)"}},
+  {k:"ch",pic:"🚌",q:"Как на Тенерифе называют автобус?",opts:[["el taxi",null],["la guagua",null],["el tren",null]],a:1,why:"«…el autobús tiene otro nombre: la guagua.»",hint:"Первая фраза."},
+  {k:"ch",pic:"🥔",q:"Как на Канарах говорят «картошка»?",opts:[["patatas",null],["tomates",null],["papas",null]],a:2,why:"«Y no dicen «patatas», dicen «papas».»",hint:"Третья фраза."},
+  {k:"ch",pic:"🌋",q:"Что такое Тейде?",opts:[["Самая высокая гора Испании",null],["Канарский соус",null],["Пляж на Тенерифе",null]],a:0,why:"«…el Teide, la montaña más alta de España.»",hint:"Шестая фраза."}]},
+ {n:"Объявление парикмахерской",e:"📋",s:"чтение и вопросы",pages:[{k:"read"},
+  {k:"ch",pic:"🗓️",q:"В какие дни работает парикмахерская?",opts:[["Каждый день",null],["С понедельника по субботу",null],["Только по выходным",null]],a:1,why:"«Abrimos de lunes a sábado…»",hint:"Вторая строка."},
+  {k:"ch",pic:"🎓",q:"У кого скидка по вторникам?",opts:[["У пенсионеров",null],["У детей",null],["У студенток",null]],a:2,why:"«Los martes, las estudiantes tienen un descuento…»",hint:"Ищи «martes»."},
+  {k:"ch",pic:"🗣️",q:"На каких языках говорит Лусия?",opts:[["Испанский, английский и немного русский",null],["Только испанский",null],["Испанский и французский",null]],a:0,why:"«…habla español, inglés y un poco de ruso.»",hint:"Ищи «habla»."}]}
+];
+const READ=[["✂️","Peluquería «La Tijera» — en el centro de Valencia.","Парикмахерская «Ножницы» — в центре Валенсии."],
+ ["🗓️🕙","Abrimos de lunes a sábado, de las diez a las ocho.","Мы работаем с понедельника по субботу, с десяти до восьми."],
+ ["💶","Tenemos una oferta especial: el corte y el peinado por treinta euros.","У нас специальное предложение: стрижка и укладка за тридцать евро."],
+ ["🎓","Los martes, las estudiantes tienen un descuento del veinte por ciento.","По вторникам у студенток скидка двадцать процентов."],
+ ["☕","Hay café y té gratis para los clientes.","Для клиентов — бесплатный кофе и чай."],
+ ["🗣️","La peluquera, Lucía, habla español, inglés y un poco de ruso.","Парикмахер Лусия говорит по-испански, по-английски и немного по-русски."],
+ ["📱","Pide una cita por teléfono o por WhatsApp.","Записывайся по телефону или в WhatsApp."]];
+
+function toonSteps(P){return P.steps}
+function toonFin(P){return P.fin.map(([pic,pt,ru,lg])=>`<div class="fl"><span class="fp">${pic}</span>${esLineT(pt,ru,lg)}</div>`).join("")}
+/* ---------- state ---------- */
+const KEY=CFG.key,CODES=["olga2026","dariab2"];
+let S={auto:true,ok:false,done:{},ans:{},v:"intro",m:0,p:0};
+try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+if(S.ver!==2){S.ans={};S.done={};S.v="intro";S.m=0;S.p=0;S.ver=2}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=q=>document.querySelector(q);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>s.replace(/İ/g,"i").replace(/I/g,"i").toLowerCase().replace(/ı/g,"i").replace(/\s+/g,"");
+const clean=t=>t.replace(/___/g,"…").replace(/[^\p{L}\p{P}\s]/gu,"");
+let qid=0,lastKey="";
+function clearHl(){document.querySelectorAll(".speaking").forEach(e=>e.classList.remove("speaking"))}
+function stopAll(){qid++;try{speechSynthesis.cancel()}catch(e){}clearHl()}
+const VC={};
+function voiceFor(lang){try{if(VC[lang])return VC[lang];const vs=speechSynthesis.getVoices();if(!vs.length)return null;const L=lang.toLowerCase();
+  const sc=v=>{const l=(v.lang||"").toLowerCase().replace("_","-");let n=0;if(l.startsWith("es"))n+=10;if(l===L)n+=6;if(/google|monica|mónica|jorge|lucia|lucía|paulina|enrique|helena|conchita/i.test(v.name))n+=1;return n};
+  const b=vs.slice().sort((a,c)=>sc(c)-sc(a))[0];if(sc(b)>=10){VC[lang]=b;return b}return null}catch(e){return null}}
+try{speechSynthesis.onvoiceschanged=()=>{for(const k in VC)delete VC[k]}}catch(e){}
+function utter(t,end,lang){try{lang=lang||"es-ES";const v=voiceFor(lang);const u=new SpeechSynthesisUtterance(clean(t));u.lang=v?v.lang:lang;if(v)u.voice=v;u.rate=.85;if(end){u.onend=end;u.onerror=end}speechSynthesis.speak(u)}catch(e){if(end)end()}}
+function say(t,lang){stopAll();PL.playing=false;plBar();utter(t,null,lang)}
+function hlEl(el){return el.dataset.es?el:(el.closest(".esl,.pc,.vc,td")||el)}
+/* one player for cartoons and page phrases: ⏮ ⏯ ⏭ ↺ */
+const PL={mode:"",items:[],i:0,playing:false,P:null};
+function plBuild(){if($("#stage")){PL.mode="toon";PL.P=MODS[S.m].pages[S.p];PL.items=toonSteps(PL.P)}
+  else{PL.mode="ph";PL.items=[...document.querySelectorAll("#page [data-say],#page [data-es]")]}PL.i=0;PL.playing=false;plBar()}
+function plBar(){const c=$("#pcnt"),t=$("#ptog");if(!c)return;const n=PL.items.length;
+  c.textContent=n?`${Math.min(PL.i+1,n)}/${n}`:"–";t.textContent=PL.playing?"⏸":"▶";t.setAttribute("aria-label",PL.playing?"Duraklat":"Oynat")}
+function plFin(){const stg=$("#stage"),cap=$("#tcap");if(!stg)return;stg.innerHTML=`<div class="fin pop2">${toonFin(PL.P)}</div>`;cap.textContent="✅ Готово! Теперь упражнения →";wireIn(stg)}
+function plStep(i,id){if(id!==qid)return;const n=PL.items.length;clearHl();
+  if(i>=n){PL.playing=false;PL.i=n;if(PL.mode==="toon")plFin();plBar();return}
+  PL.i=i;plBar();
+  if(PL.mode==="toon"){const st=PL.items[i];$("#stage").innerHTML=`<div class="frame">${st.lang==="pt-PT"?`<div class="flag">🇵🇹 Португалия</div>`:""}${st.h}${st.tr?`<div class="ttr pop2">🇷🇺 ${st.tr}</div>`:""}</div>`;$("#tcap").textContent=st.c||"";
+    if(st.say)setTimeout(()=>{if(id===qid)utter(st.say,()=>setTimeout(()=>plStep(i+1,id),800),st.lang)},450);else setTimeout(()=>plStep(i+1,id),st.w||1800)}
+  else{const el=PL.items[i];if(!el.isConnected){plStep(i+1,id);return}hlEl(el).classList.add("speaking");/* followRead */{const he=hlEl(el),r=he.getBoundingClientRect();if(r.top<70||r.bottom>innerHeight-90){try{he.scrollIntoView({block:"center",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})}catch(e){he.scrollIntoView()}}}
+    utter(el.dataset.say||el.dataset.es,()=>setTimeout(()=>plStep(i+1,id),350),el.dataset.lang)}}
+function plPlay(i){stopAll();PL.playing=true;plStep(Math.max(0,i),qid)}
+function plPause(){stopAll();PL.playing=false;plBar()}
+function plToggle(){if(PL.playing)plPause();else plPlay(PL.i>=PL.items.length?0:PL.i)}
+function plPrev(){plPlay(PL.i-1)}
+function plNext(){plPlay(PL.i+1)}
+function playAll(){plPlay(0)}
+const playToon=playAll;
+let CURLANG="";
+const DL=lg=>{lg=lg||CURLANG;return lg?` data-lang="${lg}"`:""};
+const esLineT=(es,tr,lg)=>`<div><div class="esl"><span class="es">${esc(es)}</span><button type="button" class="ic" data-say="${esc(es)}"${DL(lg)} aria-label="Слушать">🔊</button></div><div class="ttr">🇷🇺 ${esc(tr)}</div></div>`;
+const esLine=(es,tr,cls="es",pic)=>`<div><div class="esl"><span class="${cls}">${esc(es)}</span><button type="button" class="ic" data-say="${esc(es)}"${DL()} aria-label="Слушать">🔊</button>${tr?`<button type="button" class="ic" data-tr aria-label="Перевод">🌐</button>`:""}</div>${pic?`<div class="pics">${pic}</div>`:""}${tr?`<div class="trv" hidden>${esc(tr)}</div>`:""}</div>`;
+
+/* ---------- screens ---------- */
+function render(){const k0=S.v+"|"+S.m+"|"+S.p;
+  {const kk=S.v+"|"+S.m+"|"+S.p;if(S.ok&&S.v==="mod"&&kk!==lastKey){const P=MODS[S.m].pages[S.p];if(P&&(P.k==="ch"||P.k==="bd")){delete S.ans[S.m+"-"+S.p];delete P.sh;save()}}} /* freshTask */
+  const pg=$("#page");let h="";
+  $("#nav").hidden=!S.ok||S.v==="menu"||S.v==="log";
+  $("#mbtn").hidden=!S.ok;
+  let pct=0;
+  if(!S.ok){h=gate()}
+  else if(S.v==="intro"){h=intro()}
+  else if(S.v==="log"){h=logView()}
+  else if(S.v==="menu"){h=menu();pct=Object.keys(S.done).length/MODS.length*100}
+  else if(S.v==="mdone"){h=mdone();pct=100}
+  else{const M=MODS[S.m],P=M.pages[S.p];pct=(S.p)/M.pages.length*100;
+    h=`<div class="eyebrow">Урок ${CFG.n} · ${S.m+1}. ${esc(M.n)} · ${S.p+1}/${M.pages.length}</div>`+page(P)+`<button type="button" class="skip" data-skip>⏭ Пропустить эту страницу</button>`}
+  $("#bar").style.width=pct+"%";
+  pg.innerHTML=`<div class="scr">${h}</div>`;
+  $("#back").textContent=S.v==="intro"?"☰ Меню":"← Назад";
+  $("#next").textContent=S.v==="intro"?"Начать →":S.v==="mdone"?(S.m<MODS.length-1?"Следующая часть →":"☰ Меню"):"Далее →";
+  const tb=$("#tbar"),topb=$("#abar");topb.innerHTML="";const ab=tb||topb;topb.hidden=!!tb||!S.ok||S.v==="menu"||S.v==="intro"||S.v==="log";
+  ab.innerHTML=`<span class="lb">🔊 <span id="pcnt">–</span></span><button type="button" id="pprev" aria-label="Назад">⏮</button><button type="button" id="ptog" class="big2">▶</button><button type="button" id="pnext" aria-label="Вперёд">⏭</button><button type="button" id="prst" aria-label="Сначала">↺</button><button type="button" id="aauto" class="${S.auto?"":"off"}">Авто: ${S.auto?"вкл":"выкл"}</button>`;
+  $("#pprev").onclick=plPrev;$("#ptog").onclick=plToggle;$("#pnext").onclick=plNext;$("#prst").onclick=playAll;
+  $("#aauto").onclick=()=>{S.auto=!S.auto;save();if(!S.auto)plPause();const b=$("#aauto");b.textContent="Авто: "+(S.auto?"вкл":"выкл");b.className=S.auto?"":"off"};
+  wire();if(window.__lastTop!==k0){window.scrollTo(0,0);window.__lastTop=k0}else{const fb=document.querySelector("#page .fb");if(fb)fb.scrollIntoView({block:"nearest"})}
+  const k=S.v+"|"+S.m+"|"+S.p;
+  stopAll();plBuild();if(k!==lastKey){lastKey=k;if(S.ok&&S.auto&&!ab.hidden)playAll()}
+}
+function gate(){return `<div class="gate scr"><div class="pic">🇪🇸🔑</div><h1>¡Hola!</h1>
+ <p class="sub">Введи код доступа. Его нужно ввести только один раз.</p>
+ <input id="code" type="text" autocomplete="off" placeholder="Код">
+ <button class="btn pri" id="go" type="button">Войти →</button><div class="err" id="err" aria-live="polite"></div></div>`}
+function intro(){return CFG.intro}
+function menu(){return `<h1>Урок ${CFG.n} · Части</h1><p class="sub">Иди по порядку или выбери любую часть.</p><div class="menu">`+
+ MODS.map((M,i)=>`<button type="button" class="mi${S.done[i]?" done":""}" data-mod="${i}"><span class="e">${M.e}</span><span class="n">${i+1}. ${esc(M.n)}<br><span class="s">${esc(M.s)}</span></span>${S.done[i]?"✅":"▶"}</button>`).join("")+`</div><button type="button" class="btn sec" data-log>📋 Мои ответы</button>`}
+function mdone(){const last=S.m===MODS.length-1;return `<div class="pic">${last?"🏆":"🎉"}</div><h1>${last?`¡Enhorabuena! Урок ${CFG.n} пройден`:"¡Muy bien! Часть пройдена"}</h1>`+
+ (last?CFG.fin():`<p class="sub">Часть ${S.m+1} готова. Дальше: <b>${esc(MODS[S.m+1].n)}</b> ${MODS[S.m+1].e}</p>`)}
+
+function page(P){CURLANG="";
+  if(P.k==="toon")return `<h1>${P.t}</h1><div class="stage" id="stage"><div class="fin">${toonFin(P)}</div></div><div class="abar" id="tbar"></div><div class="tcap" id="tcap">🎬 Нажми ▶ · ⏮ ⏭ — сцены</div><div class="row"><button type="button" class="btn sec" id="treplay">▶ Смотреть ещё раз</button><button type="button" class="btn pri" data-next>К упражнениям →</button></div>`;
+  if(P.k==="cult")return cultPage(P);
+  if(P.k==="read")return `<h1>${CFG.readT}</h1><p class="sub">Прочитай про себя. Непонятная фраза — нажми 🌐. Потом 3 вопроса.</p>
+   <div class="chatbox"><span class="who">${CFG.who}</span>${READ.map(r=>`<div class="bub">${esLine(r[1],r[2],"",r[0])}</div>`).join("")}</div>`;
+  if(P.k==="ch")return choice(P);
+  if(P.k==="bd")return build(P);
+}
+const key=()=>S.m+"-"+S.p;
+const LTR={},OTR={};
+function cultPage(P){const G=P.gloss||{};const key=w=>w.toLowerCase().replace(/[^\p{L}\p{N}]/gu,"");
+  return `<h1>${P.t}</h1><p class="sub">Прочитай и послушай. Нажми на любое слово — увидишь перевод. 🌐 — перевод всей фразы. Потом вопросы.</p>
+  <div class="cult">${P.lines.map(([pt,ru],i)=>`<div class="cl"><div class="cw">${pt.split(" ").map(w=>G[key(w)]?`<button type="button" class="wd" data-w="${esc(key(w))}" data-l="${i}">${esc(w)}</button>`:`<span class="wn">${esc(w)}</span>`).join(" ")}</div><div class="esl"><button type="button" class="ic sm" data-say="${esc(pt)}">🔊</button><button type="button" class="ic sm" data-tr>🌐</button></div><div class="trv" hidden>${esc(ru)}</div><div class="wtr" id="wtr${i}" hidden></div></div>`).join("")}</div>`}
+function choice(P){CURLANG=P.lang||"";const a=S.ans[key()];
+  let h=`<div class="pic">${P.pic}</div><p><b>${esc(P.q)}</b></p>`;
+  if(P.es)h+=`<div class="card">${esLine(P.es,P.tr)}</div>`;
+  if(P.listen){const lt=P.ltr||LTR[P.listen];h+=`<div class="card" style="text-align:center"><div class="esl" style="justify-content:center"><button type="button" class="btn pri" data-say="${esc(P.listen)}"${DL()}>🔊 Слушать</button>${lt?`<button type="button" class="ic" data-tr aria-label="🌐">🌐</button>`:""}</div>${lt?`<div class="trv" hidden><b>${esc(P.listen)}</b> — ${esc(lt)}</div>`:""}</div>`}
+  const trFor=o=>o[1]||OTR[o[0]]||null,anyT=P.opts.some(o=>trFor(o)),trF=o=>trFor(o)||(anyT?trFor(P.opts[P.a]):null);
+  h+=`<div class="opts">`+P.opts.map((o,i)=>{let c="";if(a!=null){if(i===P.a)c=" ok";else if(i===a)c=" bad"}
+    return `<div class="opt"><button type="button" class="ob${c}" data-o="${i}"${anyT&&!P.quiet?` data-es="${esc(o[0])}"${DL()}`:""}${a!=null?" disabled":""}>${esc(o[0])}</button>${trF(o)?`<button type="button" class="ic sm" data-tr aria-label="Перевод">🌐</button><div class="trv" hidden>${esc(trF(o))}</div>`:""}</div>`}).join("")+`</div>`;
+  if(a==null)h+=`<button type="button" class="skip" data-hint style="text-decoration:none">💡 Подсказка</button><p class="hint" id="hint" hidden>${P.hint}</p>`;
+  else if(a===P.a)h+=`<div class="fb ok"><b>✅ ¡Muy bien!</b>${P.why}</div><div class="row stick"><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
+  else h+=`<div class="fb bad"><b>❌ Правильный ответ: ${esc(P.opts[P.a][0])}</b>${P.why}</div><div class="row stick"><button type="button" class="btn sec" data-retry>🔁 Ещё раз</button><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
+  return h}
+function build(P){CURLANG=P.lang||"";const st=S.ans[key()]||{pick:[],res:null};
+  const shuffled=P.sh||(P.sh=P.w.map((w,i)=>i).sort(()=>Math.random()-.5));
+  let h=`<div class="pic">${P.pic}</div><p class="sub">Собери фразу по-испански:</p><p><b>„${esc(P.q)}“</b></p>
+   <div class="ans">${st.pick.map((wi,j)=>`<button type="button" class="chip" data-un="${j}"${st.res!=null?" disabled":""}>${esc(P.w[wi])}</button>`).join("")}</div>
+   <div class="chips">${shuffled.map(wi=>`<button type="button" class="chip" data-pk="${wi}"${st.pick.includes(wi)||st.res!=null?" disabled":""}>${esc(P.w[wi])}</button>`).join("")}</div>`;
+  const full=P.w.join(" ");
+  if(st.res==null)h+=`<div class="row"><button type="button" class="btn pri" data-chk${st.pick.length<P.w.length?" disabled":""}>Проверить</button></div><button type="button" class="skip" data-hint style="text-decoration:none">💡 Подсказка</button><p class="hint" id="hint" hidden>Первое слово — с большой буквы, в последнем — точка или знак вопроса.</p>`;
+  else if(st.res)h+=`<div class="fb ok"><b>✅ ¡Perfecto!</b>${P.why}</div>${esLine(full,P.q)}<div class="row stick"><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
+  else h+=`<div class="fb bad"><b>❌ Правильно: ${esc(full)}</b>${P.why}</div><div class="row stick"><button type="button" class="btn sec" data-retry>🔁 Ещё раз</button><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
+  return h}
+
+/* ---------- events ---------- */
+function wireIn(root){
+  root.querySelectorAll("[data-say]").forEach(b=>b.onclick=()=>say(b.dataset.say,b.dataset.lang));
+  root.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>{const t=b.closest(".opt,.vc,div:not(.esl)").querySelector(".trv");if(t)t.hidden=!t.hidden});}
+function logIt(e){S.log=S.log||{};S.log[key()]=Object.assign({m:S.m,p:S.p,t:Date.now()},e);save()}
+function logView(){const L=S.log||{};const ks=Object.keys(L).sort((a,b)=>{const[x1,y1]=a.split("-").map(Number),[x2,y2]=b.split("-").map(Number);return x1-x2||y1-y2});
+  const ok=ks.filter(k=>L[k].ok).length;let h=`<h1>📋 Мои ответы</h1><p class="sub">При повторном прохождении ответ на задание перезаписывается.</p>`;
+  if(!ks.length)return h+`<p>Пока нет ответов. Пройди задания — здесь появится каждый ответ.</p><button type="button" class="btn sec" data-tomenu>← В меню</button>`;
+  h+=`<div class="card"><b>${"✅ {ok} · ❌ {bad}".replace("{ok}",ok).replace("{bad}",ks.length-ok)}</b></div>`;let cur=-1;
+  ks.forEach(k=>{const e=L[k];if(e.m!==cur){cur=e.m;h+=`<h2>Часть ${e.m+1}. ${esc(MODS[e.m]?MODS[e.m].n:"")}</h2>`}
+    h+=`<div class="lg ${e.ok?"ok":"bad"}"><div class="lq">${e.ok?"✅":"❌"} ${esc(e.q)}</div><div>Твой ответ: <b>${esc(e.your)}</b></div>${e.ok?"":`<div>Правильно: <b>${esc(e.right)}</b></div>`}</div>`});
+  return h+`<button type="button" class="btn sec" data-tomenu>← В меню</button>`}
+function afterBuild(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
+  if(!S.auto){afterAnswer(ok,txt,lang);return}
+  if(ok){stopAll();let done=false;const go=()=>{if(done)return;done=true;setTimeout(()=>{if(same())next()},600)};
+    setTimeout(()=>{if(same())utter(txt,go,lang);else done=true},250);setTimeout(go,7000)}
+  else setTimeout(()=>{if(same())say(txt,lang)},700)}
+function afterAnswer(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
+  if(ok)setTimeout(()=>{if(same())next()},1100);else if(txt)setTimeout(()=>{if(same())say(txt,lang)},1000)}
+function wireCult(pg){const P=S.v==="mod"?MODS[S.m].pages[S.p]:null;if(!P||P.k!=="cult")return;
+  pg.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const box=document.getElementById("wtr"+b.dataset.l);const t=`<b>${esc(b.textContent)}</b> — ${esc(P.gloss[b.dataset.w])}`;
+    if(!box.hidden&&box.dataset.w===b.dataset.w){box.hidden=true;return}box.innerHTML=t;box.dataset.w=b.dataset.w;box.hidden=false})}
+function wire(){
+  const pg=$("#page");
+  wireIn(pg);wireCult(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
+  pg.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{const t=$("#hint");t.hidden=!t.hidden});
+  pg.querySelectorAll("[data-skip],[data-next]").forEach(b=>b.onclick=next);
+  pg.querySelectorAll("[data-log]").forEach(b=>b.onclick=()=>{S.v="log";save();render()});
+  pg.querySelectorAll("[data-tomenu]").forEach(b=>b.onclick=()=>{S.v="menu";save();render()});
+  pg.querySelectorAll("[data-mod]").forEach(b=>b.onclick=()=>{S.v="mod";S.m=+b.dataset.mod;S.p=0;save();render()});
+  pg.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{const P=MODS[S.m].pages[S.p],o=+b.dataset.o;S.ans[key()]=o;logIt({q:P.q+(P.es?" — "+P.es:"")+(P.listen?" 🎧 "+P.listen:""),your:P.opts[o][0],right:P.opts[P.a][0],ok:o===P.a});save();render();afterAnswer(o===P.a,P.opts[P.a][1]?P.opts[P.a][0]:null,P.lang)});
+  pg.querySelectorAll("[data-retry]").forEach(b=>b.onclick=()=>{delete S.ans[key()];const P=MODS[S.m].pages[S.p];delete P.sh;save();render()});
+  const bd=()=>S.ans[key()]||(S.ans[key()]={pick:[],res:null});
+  pg.querySelectorAll("[data-pk]").forEach(b=>b.onclick=()=>{bd().pick.push(+b.dataset.pk);save();render()});
+  pg.querySelectorAll("[data-un]").forEach(b=>b.onclick=()=>{bd().pick.splice(+b.dataset.un,1);save();render()});
+  pg.querySelectorAll("[data-chk]").forEach(b=>b.onclick=()=>{const s=bd(),P=MODS[S.m].pages[S.p];s.res=s.pick.every((w,i)=>w===i)&&s.pick.length===P.w.length;logIt({q:P.q,your:s.pick.map(i=>P.w[i]).join(" "),right:P.w.join(" "),ok:s.res});save();render();afterBuild(s.res,P.w.join(" "),P.lang)});
+  const go=$("#go");if(go){const tryc=()=>{if(CODES.includes(norm($("#code").value))){S.ok=true;save();render()}else $("#err").textContent="Неверный код. Попробуй ещё раз."};
+    go.onclick=tryc;$("#code").onkeydown=e=>{if(e.key==="Enter")tryc()}}
+}
+function next(){
+  if(S.v==="intro"){S.v="mod";S.m=0;S.p=0}
+  else if(S.v==="mdone"){if(S.m<MODS.length-1){S.m++;S.p=0;S.v="mod"}else S.v="menu"}
+  else{const M=MODS[S.m];if(S.p<M.pages.length-1)S.p++;else{S.done[S.m]=true;S.v="mdone"}}
+  save();render()}
+function back(){
+  if(S.v==="intro"){S.v="menu"}
+  else if(S.v==="mdone"){S.v="mod";S.p=MODS[S.m].pages.length-1}
+  else if(S.p>0)S.p--;else S.v=S.m===0?"intro":"menu";
+  save();render()}
+$("#next").onclick=next;$("#back").onclick=back;
+$("#mbtn").onclick=()=>{S.v="menu";save();render()};
+$("#home").onclick=()=>{$("#hm").hidden=false};$("#hmc").onclick=()=>{$("#hm").hidden=true};
+render();
+</script>
+
+</body>
+</html>
