@@ -1,0 +1,434 @@
+<title>Türkçe Klinik 4 💳</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: one phone-sized screen at a time; header with logo + menu, fixed bottom nav */
+:root{
+  --bg:#eef3f7; --card:#ffffff; --ink:#14233a; --muted:#5c6b80;
+  --sea:#1f5fa8; --sun:#f2b632; --sel:#e3eefb; --line:#d5dfea;
+  --ok:#1e8a4c; --okbg:#e2f5ea; --bad:#c2412d; --badbg:#fbe7e3;
+  --chat:#dff3e8; --chatbg:linear-gradient(160deg,#cfe6f7,#f7e6c4);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Nunito Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd; --sea:#6ea8ef; --sel:#1d3657; --line:#2a3b55;
+  --ok:#5fd28f; --okbg:#173a2a; --bad:#f08a78; --badbg:#3e1f1b; --chat:#1f3a2e; --chatbg:linear-gradient(160deg,#16324d,#3a2f1a); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd; --sea:#6ea8ef; --sel:#1d3657; --line:#2a3b55;
+  --ok:#5fd28f; --okbg:#173a2a; --bad:#f08a78; --badbg:#3e1f1b; --chat:#1f3a2e; --chatbg:linear-gradient(160deg,#16324d,#3a2f1a); color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:520px;margin:0 auto;padding-block:10px 24px;display:flex;flex-direction:column;gap:8px}
+.top{display:flex;align-items:center;gap:8px}
+.brand{display:flex;align-items:center;gap:7px;font-family:var(--display);font-weight:800;font-size:14px;flex:1;min-width:0}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--sea);color:var(--card);display:grid;place-items:center;font-size:12px;flex:none}
+.hb{background:var(--card);border:1.5px solid var(--line);color:var(--ink);border-radius:10px;padding:6px 9px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.prog{height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--sun);transition:width .3s}
+.scr{display:flex;flex-direction:column;gap:9px}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--sea);font-weight:800}
+h1{font-family:var(--display);font-weight:800;font-size:23px;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:800;font-size:19px;margin:0}
+p{margin:0;line-height:1.45}
+.sub{color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.pic{font-size:54px;text-align:center;line-height:1.1}
+.es{font-weight:800;font-size:19px;color:var(--ink)}
+.esl{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ic{background:var(--sel);border:0;border-radius:8px;padding:3px 7px;font-size:15px;cursor:pointer;line-height:1.2}
+.ic.sm{font-size:11px;padding:1px 5px;border-radius:6px}
+.trv{color:var(--muted);font-size:13.5px;font-style:italic}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.ob{width:100%;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:11px 12px;
+  font:inherit;font-weight:700;font-size:16px;color:var(--ink);cursor:pointer}
+.ob.ok{border-color:var(--ok);background:var(--okbg)}
+.ob.bad{border-color:var(--bad);background:var(--badbg)}
+.ob:disabled{cursor:default}
+.fb{border-radius:12px;padding:10px 12px;line-height:1.45}
+.fb.ok{background:var(--okbg);color:var(--ink)}
+.fb.bad{background:var(--badbg);color:var(--ink)}
+.fb>b:first-child{display:block;margin-bottom:2px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:800;font-size:15px;cursor:pointer}
+.btn.pri{background:var(--sea);color:var(--card)}
+.btn.sec{background:var(--card);color:var(--ink);border:2px solid var(--line)}
+.skip{align-self:flex-start;background:none;border:0;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:2px 0;text-decoration:underline}
+.hint{color:var(--muted);font-size:14px}
+.nav{padding-top:6px}
+.nav div{max-width:520px;margin:0 auto;display:flex;gap:10px}
+.nav .btn{flex:1;font-size:16px}
+.nav .btn.sec{flex:0 0 32%}
+.pron{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 4px;text-align:center;display:flex;flex-direction:column;gap:3px;align-items:center}
+.pc .e{font-size:34px}
+.pc .w{font-family:var(--display);font-weight:800;font-size:19px;color:var(--sea)}
+.cut{display:flex;justify-content:center;align-items:baseline;gap:2px;font-family:var(--display);font-weight:800;font-size:40px}
+.cut .x{color:var(--bad);text-decoration:line-through;text-decoration-thickness:3px}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl td{padding:7px 6px;border-bottom:1px solid var(--line)}
+.tbl .end{color:var(--sea);font-weight:800}
+.tbl .tr{color:var(--muted);font-size:13px}
+.vg{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.vc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 9px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.vc .t{display:flex;align-items:center;gap:6px}
+.vc .e{font-size:24px}
+.vc .w{font-weight:800;font-size:16px;flex:1;min-width:0}
+.menu{display:flex;flex-direction:column;gap:7px}
+.mi{display:flex;align-items:center;gap:10px;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 12px;cursor:pointer;font:inherit;color:var(--ink);text-align:left}
+.mi .e{font-size:26px}
+.mi .n{flex:1;font-weight:800}
+.mi .s{font-size:13px;color:var(--muted);font-weight:600}
+.mi.done{border-color:var(--ok)}
+.chatbox{background:var(--chatbg);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:7px}
+.bub{background:var(--chat);border-radius:14px 14px 14px 4px;padding:8px 10px;font-size:16.5px;line-height:1.4;max-width:92%}
+.who{font-size:12px;font-weight:800;color:var(--sea)}
+.ans{min-height:46px;border:2px dashed var(--line);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;background:var(--card)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--sel);border:0;border-radius:10px;padding:9px 12px;font:inherit;font-weight:800;font-size:16px;color:var(--ink);cursor:pointer}
+.chip:disabled{opacity:.25;cursor:default}
+.gate input{width:100%;box-sizing:border-box;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:17px;padding:12px}
+.err{color:var(--bad);font-weight:700;min-height:1.2em}
+.abar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 8px}
+.abar .lb{font-size:13px;font-weight:800;color:var(--sea);margin-right:auto}
+.abar button{background:var(--sel);border:0;border-radius:8px;padding:6px 9px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}
+.abar button.off{opacity:.6}
+.abar button{min-width:40px;font-size:16px}.abar #aauto{font-size:12px;min-width:0}.abar .big2{background:var(--sea);color:var(--card)}
+.speaking{outline:3px solid var(--sun);outline-offset:2px;border-radius:8px}
+.pics{font-size:22px;line-height:1.2;margin-top:2px}
+.stage{background:var(--card);border:1px solid var(--line);border-radius:16px;min-height:230px;padding:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.frame{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.fin{display:flex;flex-direction:column;gap:7px;width:100%}
+.fl{display:flex;align-items:flex-start;gap:8px}.fl .fp{font-size:24px;min-width:44px;text-align:center}.fl>div{min-width:0}
+.big{font-size:70px;line-height:1.1}
+.tw{font-family:var(--display);font-weight:800;font-size:32px}
+.tw2{font-weight:800;font-size:19px}
+.cutw{font-family:var(--display);font-weight:800;font-size:46px;display:flex;align-items:baseline}
+.cutw.sm{font-size:30px}.cutw .pr{color:var(--muted)}
+.cutw .end{color:var(--bad)}
+.nw{color:var(--sea);display:inline-block;animation:pop .6s .2s both}
+.tcap{text-align:center;font-weight:800;color:var(--sea);min-height:1.3em}
+.sc{display:inline-block;font-size:34px;animation:snip 1.1s both}
+.fall{display:inline-block;animation:fall 1s 1.1s both}
+.pop{animation:pop .5s ease-out both}.pop2{animation:fadeup .5s .25s both}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes snip{0%{transform:translateY(-70px);opacity:0}45%{transform:translateY(0) rotate(0);opacity:1}65%{transform:rotate(-25deg)}85%{transform:rotate(15deg)}100%{transform:rotate(0)}}
+@keyframes fall{to{transform:translateY(110px) rotate(40deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){.nw,.sc,.fall,.pop,.pop2{animation:none}}
+.ttr{color:var(--muted);font-size:16px;font-weight:600}
+.flag{font-size:13px;font-weight:800;color:var(--sea);background:var(--sel);border-radius:999px;padding:3px 10px}
+.stick{position:sticky;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:5;background:var(--bg);padding-block:6px;box-shadow:0 -6px 12px -8px rgba(0,0,0,.25);border-radius:12px;flex-wrap:nowrap}
+.stick .btn{flex:1;padding:11px 8px;font-size:14px;white-space:nowrap}
+.lg{border-radius:12px;padding:8px 10px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:2px;font-size:14px}
+.lg.ok{border-left:4px solid var(--ok)}.lg.bad{border-left:4px solid var(--bad)}.lq{font-weight:700}
+.cult{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:12px}
+.cl{display:flex;flex-direction:column;gap:3px}.cw{font-size:18px;line-height:1.7}
+.wd{font:inherit;color:var(--ink);background:none;border:0;padding:0;border-bottom:2px dotted var(--sea);cursor:pointer}
+.wtr{background:var(--sel);border-radius:8px;padding:4px 8px;font-size:14px}
+.own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
+.modal{position:fixed;inset:0;background:rgba(10,20,35,.55);display:grid;place-items:center;padding:16px;z-index:20}
+.modal .card{max-width:420px;display:flex;flex-direction:column;gap:8px}
+[hidden]{display:none!important}
+button:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="logo">DB</span><span>Daria Botina</span></div>
+    <button class="hb" id="home" type="button">📲 Добавить на экран</button>
+    <button class="hb" id="mbtn" type="button">☰ Меню</button>
+  </div>
+  <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+  <div class="abar" id="abar" hidden></div>
+  <main id="page"></main>
+  <nav class="nav" id="nav"><div>
+  <button class="btn sec" id="back" type="button">← Назад</button>
+  <button class="btn pri" id="next" type="button">Далее →</button>
+</div></nav>
+  <div class="own">© Собственность Daria Botina</div>
+</div>
+<div class="modal" id="hm" hidden><div class="card">
+  <h2>📲 Добавить на экран</h2>
+  <p><b>iPhone (Safari):</b> кнопка «Поделиться» ⬆️ внизу → «На экран „Домой“».</p>
+  <p><b>Android (Chrome):</b> ⋮ справа вверху → «Добавить на главный экран».</p>
+  <p class="sub">Урок будет открываться на телефоне как приложение.</p>
+  <button class="btn pri" id="hmc" type="button">Понятно</button>
+</div></div>
+
+<script>
+/* ---------- content ---------- */
+const strip=s=>String(s).replace(/<[^>]+>/g,"");
+const W=(pic,tr,ru,c,lang)=>({h:`<div class="big pop">${pic}</div><div class="tw pop2">${tr}</div>`,say:strip(tr),tr:ru,c,lang});
+const S2=(pic,tr,ru,c,lang)=>({h:`<div class="big pop">${pic}</div><div class="tw2 pop2">${tr}</div>`,say:strip(tr),tr:ru,c,lang});
+/* TITLE: Türkçe Klinik 4 💳 */
+const HEARB=(listen,opts,a)=>({k:"ch",pic:"🇹🇷🎧",q:"Что ты слышишь? Выбери перевод.",listen,ltr:"перевод увидишь после ответа",quiet:true,opts:opts.map(x=>[x,null]),a,why:`Звучало: «<b>${listen}</b>» — ${opts[a]}`,hint:"Послушай ещё раз: сколько? когда? как платить?"});
+const CFG={n:"Klinik 4",key:"tr-klinik-4",readT:"Сообщение от менеджера клиники 💬",who:"💬 Selin — muhasebe",
+ intro:`<div class="pic">🇹🇷💳</div><div class="eyebrow">Турецкий B2 · Стоматология · Урок 4</div><h1>Tedavi planı ve ödeme</h1>
+ <p>Что в этом уроке:</p>
+ <div class="card"><p>📋 <b>Часть 1:</b> план и цена — tedavi planı, seans, taksit…<br>📄 <b>Часть 2:</b> гарантии и документы — garanti, fatura, onam formu…<br>👩‍💼 <b>Часть 3:</b> сценка: ты — Дарья, обсуждаешь цену с пациенткой + шутка<br>🎧 <b>Часть 4:</b> на слух: что ты слышишь? (10 заданий)<br>🌍 <b>Часть 5:</b> культурная заметка «Çay alır mısınız?» и сообщение от менеджера</p></div>
+ <p class="sub">🔊 — послушать, 🌐 — перевод.</p>`,
+ fin:()=>`<div class="card"><table class="tbl"><tr><td>📋</td><td>tedavi planı · seans · tahmini süre</td><td class="tr">план лечения · сеанс · примерный срок</td></tr><tr><td>💳</td><td>fiyat teklifi · ön ödeme · taksit</td><td class="tr">ценовое предложение · предоплата · рассрочка</td></tr><tr><td>📄</td><td>garanti · fatura · sigorta</td><td class="tr">гарантия · счёт · страховка</td></tr><tr><td>✍️</td><td>indirim · onam formu · iptal</td><td class="tr">скидка · согласие · отмена</td></tr></table></div>
+ <p>Теперь ты можешь сказать:</p>${esLine("Tedavi dört seans sürecek; kredi kartına altı taksit yapabiliriz.","Лечение займёт четыре сеанса; можем сделать рассрочку на шесть платежей по карте.","es","📋 · 💳")}`};
+const MODS=[
+ {n:"План и цена",e:"📋",s:"tedavi planı · seans · taksit",pages:[
+  {k:"toon",t:"🎬 Tedavi planı",steps:[
+    W("📋","tedavi planı","план лечения","1 / 3"),S2("👩‍💼",`Size bir <b class="nw">tedavi planı</b> hazırladık.`,"Мы подготовили для вас план лечения.","tedavi planı"),
+    W("🗓️","seans","сеанс, визит","2 / 3"),S2("🦷",`Tedavi dört <b class="nw">seans</b> sürecek.`,"Лечение займёт четыре сеанса.","seans"),
+    W("⏳","tahmini süre","примерный срок","3 / 3"),S2("📅",`<b class="nw">Tahmini süre</b> iki hafta.`,"Примерный срок — две недели.","tahmini süre")],
+   fin:[["📋","Size bir tedavi planı hazırladık.","Мы подготовили для вас план лечения."],["🗓️","Tedavi dört seans sürecek.","Лечение займёт четыре сеанса."],["⏳","Tahmini süre iki hafta.","Примерный срок — две недели."]]},
+  {k:"ch",pic:"🗓️❓",q:"Пациент спрашивает, сколько раз приходить. Какое слово нужно?",opts:[["fatura","счёт"],["seans","сеанс"],["garanti","гарантия"]],a:1,why:"Визит к врачу = <b>seans</b>: «Tedavi dört seans sürecek».",hint:"как «сеанс»"},
+  {k:"ch",pic:"⏳",q:"Что значит «tahmini süre»?",opts:[["точная дата",null],["срок гарантии",null],["примерный срок",null]],a:2,why:"<b>tahmin</b> — предположение, <b>süre</b> — срок.",hint:"tahmin = догадка, оценка"},
+  {k:"toon",t:"🎬 Fiyat ve ödeme",steps:[
+    W("💶","fiyat teklifi","ценовое предложение","1 / 3"),S2("📧",`<b class="nw">Fiyat teklifini</b> e-postayla gönderiyorum.`,"Отправляю ценовое предложение по e-mail.","fiyat teklifi"),
+    W("💰","ön ödeme","предоплата","2 / 3"),S2("🗓️",`Randevu için yüzde yirmi <b class="nw">ön ödeme</b> alıyoruz.`,"За запись мы берём предоплату 20%.","ön ödeme (= kapora)"),
+    W("💳","taksit","рассрочка, платёж в рассрочку","3 / 3"),S2("💳",`Kredi kartına üç <b class="nw">taksit</b> yapabiliriz.`,"Можем сделать рассрочку на три платежа по кредитной карте.","taksit")],
+   fin:[["💶","Fiyat teklifini e-postayla gönderiyorum.","Отправляю ценовое предложение по e-mail."],["💰","Randevu için yüzde yirmi ön ödeme alıyoruz.","За запись берём предоплату 20%."],["💳","Kredi kartına üç taksit yapabiliriz.","Можем сделать рассрочку на три платежа."]]},
+  {k:"ch",pic:"💳❓",q:"Пациентка хочет платить частями. Что ты ей предложишь?",opts:[["Ön ödeme istemiyoruz.","Предоплата не нужна."],["Fatura hazırlayalım.","Подготовим счёт."],["Taksit yapabiliriz.","Можем сделать рассрочку."]],a:2,why:"Платить частями = <b>taksit</b>.",hint:"частями = taksitle"},
+  {k:"ch",pic:"💰📅",q:"Выбери правильное слово.",es:"Randevu için yüzde yirmi ___ alıyoruz.",tr:"За запись мы берём предоплату 20%.",opts:[["ön ödeme","предоплата"],["indirim","скидка"],["tahmini süre","примерный срок"]],a:0,why:"предоплата = <b>ön ödeme</b>.",hint:"ön = перед"},
+  {k:"bd",pic:"📋",q:"Лечение займёт четыре сеанса.",w:["Tedavi","dört","seans","sürecek."],why:"<b>sürmek</b> — длиться: tedavi … <b>sürecek</b>."}]},
+ {n:"Гарантии и документы",e:"📄",s:"garanti · fatura · onam formu",pages:[
+  {k:"toon",t:"🎬 Garanti, fatura, sigorta",steps:[
+    W("🛡️","garanti","гарантия","1 / 3"),S2("🔩",`İmplantlarda on yıl <b class="nw">garanti</b> veriyoruz.`,"На импланты даём гарантию десять лет.","garanti vermek"),
+    W("🧾","fatura","счёт, счёт-фактура","2 / 3"),S2("👩‍💼",`Ödemeden sonra <b class="nw">faturanızı</b> hazırlarız.`,"После оплаты подготовим ваш счёт.","fatura"),
+    W("☂️","sigorta","страховка","3 / 3"),S2("❓",`<b class="nw">Sigortanız</b> bu tedaviyi karşılıyor mu?`,"Ваша страховка покрывает это лечение?","sigorta karşılamak")],
+   fin:[["🛡️","İmplantlarda on yıl garanti veriyoruz.","На импланты даём гарантию десять лет."],["🧾","Ödemeden sonra faturanızı hazırlarız.","После оплаты подготовим ваш счёт."],["☂️","Sigortanız bu tedaviyi karşılıyor mu?","Ваша страховка покрывает это лечение?"]]},
+  {k:"ch",pic:"🧾",q:"Пациенту нужен документ об оплате для страховой. Что он попросит?",opts:[["Garanti, lütfen.","Гарантию, пожалуйста."],["Fatura, lütfen.","Счёт, пожалуйста."],["Taksit, lütfen.","Рассрочку, пожалуйста."]],a:1,why:"Документ об оплате = <b>fatura</b>.",hint:"🧾"},
+  {k:"ch",pic:"☂️❓",q:"«Sigortanız bu tedaviyi karşılıyor mu?» — что спрашивают?",opts:[["Покрывает ли страховка лечение?",null],["Есть ли гарантия на лечение?",null],["Сколько стоит лечение?",null]],a:0,why:"<b>sigorta</b> — страховка, <b>karşılamak</b> — покрывать.",hint:"sigorta = страховка"},
+  {k:"toon",t:"🎬 İndirim, onam, iptal",steps:[
+    W("🏷️","indirim","скидка","1 / 3"),S2("💵",`Nakit ödemede yüzde beş <b class="nw">indirim</b> var.`,"При оплате наличными скидка 5%.","indirim"),
+    W("✍️","onam formu","информированное согласие","2 / 3"),S2("📝",`Tedaviden önce <b class="nw">onam formunu</b> imzalamanız gerekiyor.`,"Перед лечением нужно подписать согласие.","onam formu"),
+    W("❌","iptal","отмена","3 / 3"),S2("☎️",`Randevuyu <b class="nw">iptal</b> etmek için bir gün önce haber verin.`,"Чтобы отменить запись, предупредите за день.","iptal etmek")],
+   fin:[["🏷️","Nakit ödemede yüzde beş indirim var.","При оплате наличными скидка 5%."],["✍️","Tedaviden önce onam formunu imzalamanız gerekiyor.","Перед лечением нужно подписать согласие."],["❌","Randevuyu iptal etmek için bir gün önce haber verin.","Чтобы отменить запись, предупредите за день."]]},
+  {k:"ch",pic:"📝✍️",q:"Что пациент подписывает перед лечением?",opts:[["fiyat teklifi","ценовое предложение"],["fatura","счёт"],["onam formu","информированное согласие"]],a:2,why:"Согласие на лечение = <b>onam formu</b>.",hint:"onam = согласие"},
+  {k:"ch",pic:"💵🏷️",q:"Выбери правильное слово.",es:"Nakit ödemede yüzde beş ___ var.",tr:"При оплате наличными скидка 5%.",opts:[["indirim","скидка"],["iptal","отмена"],["garanti","гарантия"]],a:0,why:"скидка = <b>indirim</b>.",hint:"🏷️"},
+  {k:"bd",pic:"🛡️🔩",q:"На импланты даём гарантию десять лет.",w:["İmplantlarda","on","yıl","garanti","veriyoruz."],why:"<b>garanti vermek</b> — давать гарантию."}]},
+ {n:"Сценка: ты — Дарья",e:"👩‍💼",s:"цена и рассрочка · шутка",pages:[
+  {k:"toon",t:"🎬 Fiyat konuşması",steps:[
+    S2("👵❓","Tedavi planım hazır mı?","Мой план лечения готов?","👵 Ayşe Hanım"),
+    S2("👩‍💼📋","Evet! Toplam dört seans: iki implant ve bir köprü.","Да! Всего четыре сеанса: два импланта и один мост.","👩‍💼 Дарья"),
+    S2("👵💰","Fiyatı ne kadar?","Сколько это стоит?","👵 Ayşe Hanım"),
+    S2("👩‍💼🏷️","Toplam altmış bin lira. Nakit öderseniz yüzde beş indirim var.","Всего шестьдесят тысяч лир. Если платите наличными — скидка 5%.","👩‍💼 Дарья"),
+    S2("👵💳","Taksit yapabiliyor musunuz?","А рассрочку можете сделать?","👵 Ayşe Hanım"),
+    S2("👩‍💼💳","Tabii, kredi kartına altı taksit yapabiliriz.","Конечно, можем на шесть платежей по кредитной карте.","👩‍💼 Дарья"),
+    S2("👵😊","Harika, ön ödemeyi bugün yapayım.","Отлично, внесу предоплату сегодня.","👵 Ayşe Hanım")],
+   fin:[["👵","Tedavi planım hazır mı?","Мой план лечения готов?"],["👩‍💼","Toplam dört seans: iki implant ve bir köprü.","Всего четыре сеанса: два импланта и мост."],["👩‍💼","Nakit öderseniz yüzde beş indirim var.","Если платите наличными — скидка 5%."],["👩‍💼","Kredi kartına altı taksit yapabiliriz.","Можем на шесть платежей по карте."]]},
+  {k:"ch",pic:"👵💳",q:"Ты — Дарья. Пациентка спрашивает про рассрочку. Что ответишь?",es:"Taksit yapabiliyor musunuz?",tr:"А рассрочку можете сделать?",opts:[["Tabii, altı taksit yapabiliriz.","Конечно, можем на шесть платежей."],["Hayır, sigortanız yok.","Нет, у вас нет страховки."],["Evet, faturanız hazır.","Да, ваш счёт готов."]],a:0,why:"Вопрос про <b>taksit</b> → отвечаешь про taksit.",hint:"taksit = рассрочка"},
+  {k:"ch",pic:"💵❓",q:"Когда у пациентки будет скидка?",opts:[["Если платит картой",null],["Если платит наличными",null],["Если делает рассрочку",null]],a:1,why:"«<b>Nakit</b> öderseniz yüzde beş indirim var.»",hint:"nakit = наличные"},
+  {k:"toon",t:"😄 Шутка: рассрочка",steps:[
+    S2("🧔❓","Doktor bey, bu implant ne kadar dayanır?","Доктор, сколько прослужит этот имплант?","🧔 Пациент"),
+    S2("👨‍⚕️😊","Taksitlerden çok daha uzun! 😄","Гораздо дольше, чем рассрочка! 😄","👨‍⚕️ Доктор")],
+   fin:[["🧔","Doktor bey, bu implant ne kadar dayanır?","Доктор, сколько прослужит этот имплант?"],["😄","Taksitlerden çok daha uzun!","Гораздо дольше, чем рассрочка!"]]},
+  {k:"ch",pic:"😄",q:"Почему это смешно?",opts:[["Доктор не знает срок гарантии",null],["Имплант дешевле рассрочки",null],["Доктор сравнивает срок службы импланта со сроком рассрочки",null]],a:2,why:"<b>dayanmak</b> — служить, выдерживать. Доктор обещает: имплант переживёт все платежи 😄",hint:"taksit = рассрочка"}]},
+ {n:"Аудирование: что ты слышишь?",e:"🎧",s:"10 заданий на слух",pages:[
+  HEARB("Tedavi üç seans sürecek.",["Лечение займёт три сеанса.","Лечение займёт три недели.","Лечение займёт два сеанса."],0),
+  HEARB("Fiyat teklifini yarın gönderiyorum.",["Отправлю счёт сегодня.","Отправлю ценовое предложение завтра.","Отправлю план лечения завтра."],1),
+  HEARB("Nakit ödemede indirim var mı?",["Можно ли платить наличными?","Есть ли рассрочка при оплате картой?","Есть ли скидка при оплате наличными?"],2),
+  HEARB("Kredi kartına altı taksit yapabiliriz.",["Можем сделать рассрочку на шесть платежей по карте.","Можем сделать скидку шесть процентов.","Картой можно платить только шесть дней."],0),
+  HEARB("Ön ödeme yüzde otuz.",["Скидка тридцать процентов.","Предоплата тридцать процентов.","Предоплата тринадцать процентов."],1),
+  HEARB("Faturanız e-postanızda.",["Ваш план лечения в почте.","Ваше согласие в почте.","Ваш счёт у вас в почте."],2),
+  HEARB("Kronlarda beş yıl garanti var.",["На коронки гарантия пять лет.","На импланты гарантия пять лет.","На коронки гарантия пятнадцать лет."],0),
+  HEARB("Sigortanız bu tedaviyi karşılamıyor.",["Ваша страховка покрывает это лечение.","Ваша страховка не покрывает это лечение.","У вас нет страховки."],1),
+  HEARB("Lütfen onam formunu imzalayın.",["Пожалуйста, оплатите счёт.","Пожалуйста, заполните анкету.","Пожалуйста, подпишите согласие."],2),
+  HEARB("Randevunuzu iptal etmek istiyor musunuz?",["Вы хотите отменить запись?","Вы хотите перенести запись?","Вы хотите записаться?"],0)]},
+ {n:"Культура и сообщение",e:"🌍",s:"«Çay alır mısınız?» · сообщение",pages:[
+  {k:"cult",t:"🌍 Культурная заметка: «Çay alır mısınız?»",lines:[
+    ["Türkiye'de bir klinikte beklerken size çoğu zaman çay ikram edilir.","В Турции, пока вы ждёте в клинике, вам часто предлагают чай."],
+    ["Çay küçük, ince belli bardaklarda gelir.","Чай подают в маленьких стаканчиках с тонкой талией."],
+    ["Bir Türk günde on bardak çay içebilir.","Турок может выпить десять стаканов чая в день."],
+    ["Fiyat konuşulurken de çay içilir, çünkü acele etmek hoş karşılanmaz.","Даже когда обсуждают цену, пьют чай, потому что торопиться не принято."],
+    ["Çayı reddetmek kabalık değildir, ama kabul etmek sıcak bir başlangıçtır.","Отказаться от чая не грубо, но согласиться — тёплое начало."],
+    ["Rusya'da ise klinikte misafire çay ikram etmek pek yaygın değildir.","А в России угощать гостя чаем в клинике не очень принято."],
+    ["Bir dahaki sefere “Çay alır mısınız?” sorusuna “Memnuniyetle!” deyin.","В следующий раз на вопрос «Будете чай?» ответьте «С удовольствием!»."]],
+   gloss:{"türkiyede":"в Турции","bir":"один; какой-то · bir dahaki sefere = в следующий раз","klinikte":"в клинике","beklerken":"пока ждёте (beklemek)","size":"вам","çoğu":"большая часть · çoğu zaman = часто","zaman":"время","çay":"чай","ikram":"угощение · ikram etmek = угощать","edilir":"(пассив от etmek) · ikram edilir = угощают","küçük":"маленький","ince":"тонкий","belli":"с талией · ince belli = с тонкой талией","bardaklarda":"в стаканах","gelir":"приходит, подаётся (gelmek)","türk":"турок","günde":"в день","on":"десять","bardak":"стакан","içebilir":"может выпить (içmek)","fiyat":"цена","konuşulurken":"когда обсуждают (konuşulmak)","de":"тоже, даже","içilir":"пьют (içilmek)","çünkü":"потому что","acele":"спешка · acele etmek = торопиться","etmek":"делать","hoş":"приятный · hoş karşılanmaz = не принято","karşılanmaz":"не встречают (karşılanmak)","çayı":"чай (вин. падеж)","reddetmek":"отказываться","kabalık":"грубость","değildir":"не является","ama":"но","kabul":"принятие · kabul etmek = соглашаться","sıcak":"тёплый","başlangıçtır":"это начало","rusyada":"в России","ise":"а (что касается)","misafire":"гостю","pek":"очень, не очень (с отрицанием)","yaygın":"распространённый","dahaki":"следующий","sefere":"раз","alır":"берёте (almak) · Çay alır mısınız? = Будете чай?","mısınız":"(вопрос: вы?)","sorusuna":"на вопрос","memnuniyetle":"с удовольствием","deyin":"скажите (demek)"}},
+  {k:"ch",pic:"🍵",q:"В чём подают чай?",opts:[["В больших кружках",null],["В фарфоровых чашках",null],["В маленьких стаканчиках с тонкой талией",null]],a:2,why:"«Çay küçük, <b>ince belli bardaklarda</b> gelir.»",hint:"Вторая фраза."},
+  {k:"ch",pic:"💬",q:"Как вежливо согласиться на чай?",opts:[["Memnuniyetle!","С удовольствием!"],["Acele ediyorum.","Я тороплюсь."],["Kabalık değil.","Это не грубо."]],a:0,why:"«<b>Memnuniyetle!</b>» — «С удовольствием!»",hint:"Последняя фраза."},
+  {k:"read"},
+  {k:"ch",pic:"💰",q:"Сколько нужно внести, чтобы подтвердить запись?",opts:[["10%",null],["20%",null],["Ничего",null]],a:1,why:"«Randevuyu onaylamak için <b>yüzde yirmi</b> ön ödeme…»",hint:"Ищи «ön ödeme»."},
+  {k:"ch",pic:"❌",q:"Когда можно отменить запись без потери предоплаты?",opts:[["В любое время",null],["За час до приёма",null],["За 48 часов",null]],a:2,why:"«<b>48 saat</b> önceye kadar iptal ederseniz…»",hint:"Ищи «iptal»."}]}
+];
+const READ=[["👋","Merhaba Daria Hanım!","Здравствуйте, Дарья-ханым!"],
+ ["📋","Yeni ödeme kurallarımızı paylaşıyorum.","Делюсь нашими новыми правилами оплаты."],
+ ["💰","Randevuyu onaylamak için yüzde yirmi ön ödeme alıyoruz.","Для подтверждения записи берём предоплату 20%."],
+ ["❌","Hasta 48 saat önceye kadar iptal ederse ön ödemeyi geri veriyoruz.","Если пациент отменяет запись не позже чем за 48 часов, возвращаем предоплату."],
+ ["💳","Kredi kartına en fazla altı taksit yapılabilir.","По кредитной карте можно максимум шесть платежей."],
+ ["🧾","Faturayı ödemeden hemen sonra e-postayla gönderin lütfen. Selin","Пожалуйста, отправляйте счёт по e-mail сразу после оплаты. Селин"]];
+
+function toonSteps(P){return P.steps}
+function toonFin(P){return P.fin.map(([pic,pt,ru,lg])=>`<div class="fl"><span class="fp">${pic}</span>${esLineT(pt,ru,lg)}</div>`).join("")}
+/* ---------- state ---------- */
+const KEY=CFG.key,CODES=["daria2026","dariab2","дарья2026","дарьяb2","дарьяб2"];
+let S={auto:true,ok:false,done:{},ans:{},v:"intro",m:0,p:0};
+try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+if(S.ver!==2){S.ans={};S.done={};S.v="intro";S.m=0;S.p=0;S.ver=2}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=q=>document.querySelector(q);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>s.replace(/İ/g,"i").replace(/I/g,"i").toLowerCase().replace(/ı/g,"i").replace(/\s+/g,"");
+const clean=t=>t.replace(/___/g,"…").replace(/[^\p{L}\p{P}\s]/gu,"");
+let qid=0,lastKey="";
+function clearHl(){document.querySelectorAll(".speaking").forEach(e=>e.classList.remove("speaking"))}
+function stopAll(){qid++;try{speechSynthesis.cancel()}catch(e){}clearHl()}
+const VC={};
+function voiceFor(lang){try{if(VC[lang])return VC[lang];const vs=speechSynthesis.getVoices();if(!vs.length)return null;const L=lang.toLowerCase();
+  const sc=v=>{const l=(v.lang||"").toLowerCase().replace("_","-");let n=0;if(l.startsWith(L.slice(0,2)))n+=10;if(l===L)n+=6;if(/yelda|cem|filiz|google|premium|enhanced/i.test(v.name))n+=1;return n};
+  const b=vs.slice().sort((a,c)=>sc(c)-sc(a))[0];if(sc(b)>=10){VC[lang]=b;return b}return null}catch(e){return null}}
+try{speechSynthesis.onvoiceschanged=()=>{for(const k in VC)delete VC[k]}}catch(e){}
+function utter(t,end,lang){try{lang=lang||"tr-TR";const v=voiceFor(lang);const u=new SpeechSynthesisUtterance(clean(t));u.lang=v?v.lang:lang;if(v)u.voice=v;u.rate=.85;if(end){u.onend=end;u.onerror=end}speechSynthesis.speak(u)}catch(e){if(end)end()}}
+function say(t,lang){stopAll();PL.playing=false;plBar();utter(t,null,lang)}
+function hlEl(el){return el.dataset.es?el:(el.closest(".esl,.pc,.vc,td")||el)}
+/* one player for cartoons and page phrases: ⏮ ⏯ ⏭ ↺ */
+const PL={mode:"",items:[],i:0,playing:false,P:null};
+function plBuild(){if($("#stage")){PL.mode="toon";PL.P=MODS[S.m].pages[S.p];PL.items=toonSteps(PL.P)}
+  else{PL.mode="ph";PL.items=[...document.querySelectorAll("#page [data-say],#page [data-es]")]}PL.i=0;PL.playing=false;plBar()}
+function plBar(){const c=$("#pcnt"),t=$("#ptog");if(!c)return;const n=PL.items.length;
+  c.textContent=n?`${Math.min(PL.i+1,n)}/${n}`:"–";t.textContent=PL.playing?"⏸":"▶";t.setAttribute("aria-label",PL.playing?"Duraklat":"Oynat")}
+function plFin(){const stg=$("#stage"),cap=$("#tcap");if(!stg)return;stg.innerHTML=`<div class="fin pop2">${toonFin(PL.P)}</div>`;cap.textContent="✅ Готово! Теперь упражнения →";wireIn(stg)}
+function plStep(i,id){if(id!==qid)return;const n=PL.items.length;clearHl();
+  if(i>=n){PL.playing=false;PL.i=n;if(PL.mode==="toon")plFin();plBar();return}
+  PL.i=i;plBar();
+  if(PL.mode==="toon"){const st=PL.items[i];$("#stage").innerHTML=`<div class="frame">${st.lang==="pt-PT"?`<div class="flag">🇵🇹 Португалия</div>`:""}${st.h}${st.tr?`<div class="ttr pop2">🇷🇺 ${st.tr}</div>`:""}</div>`;$("#tcap").textContent=st.c||"";
+    if(st.say)setTimeout(()=>{if(id===qid)utter(st.say,()=>setTimeout(()=>plStep(i+1,id),800),st.lang)},450);else setTimeout(()=>plStep(i+1,id),st.w||1800)}
+  else{const el=PL.items[i];if(!el.isConnected){plStep(i+1,id);return}hlEl(el).classList.add("speaking");/* followRead */{const he=hlEl(el),r=he.getBoundingClientRect();if(r.top<70||r.bottom>innerHeight-90){try{he.scrollIntoView({block:"center",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})}catch(e){he.scrollIntoView()}}}
+    utter(el.dataset.say||el.dataset.es,()=>setTimeout(()=>plStep(i+1,id),350),el.dataset.lang)}}
+function plPlay(i){stopAll();PL.playing=true;plStep(Math.max(0,i),qid)}
+function plPause(){stopAll();PL.playing=false;plBar()}
+function plToggle(){if(PL.playing)plPause();else plPlay(PL.i>=PL.items.length?0:PL.i)}
+function plPrev(){plPlay(PL.i-1)}
+function plNext(){plPlay(PL.i+1)}
+function playAll(){plPlay(0)}
+const playToon=playAll;
+let CURLANG="";
+const DL=lg=>{lg=lg||CURLANG;return lg?` data-lang="${lg}"`:""};
+const esLineT=(es,tr,lg)=>`<div><div class="esl"><span class="es">${esc(es)}</span><button type="button" class="ic" data-say="${esc(es)}"${DL(lg)} aria-label="Слушать">🔊</button></div><div class="ttr">🇷🇺 ${esc(tr)}</div></div>`;
+const esLine=(es,tr,cls="es",pic)=>`<div><div class="esl"><span class="${cls}">${esc(es)}</span><button type="button" class="ic" data-say="${esc(es)}"${DL()} aria-label="Слушать">🔊</button>${tr?`<button type="button" class="ic" data-tr aria-label="Перевод">🌐</button>`:""}</div>${pic?`<div class="pics">${pic}</div>`:""}${tr?`<div class="trv" hidden>${esc(tr)}</div>`:""}</div>`;
+
+/* ---------- screens ---------- */
+function render(){const k0=S.v+"|"+S.m+"|"+S.p;
+  {const kk=S.v+"|"+S.m+"|"+S.p;if(S.ok&&S.v==="mod"&&kk!==lastKey){const P=MODS[S.m].pages[S.p];if(P&&(P.k==="ch"||P.k==="bd")){delete S.ans[S.m+"-"+S.p];delete P.sh;save()}}} /* freshTask */
+  const pg=$("#page");let h="";
+  $("#nav").hidden=!S.ok||S.v==="menu"||S.v==="log";
+  $("#mbtn").hidden=!S.ok;
+  let pct=0;
+  if(!S.ok){h=gate()}
+  else if(S.v==="intro"){h=intro()}
+  else if(S.v==="log"){h=logView()}
+  else if(S.v==="menu"){h=menu();pct=Object.keys(S.done).length/MODS.length*100}
+  else if(S.v==="mdone"){h=mdone();pct=100}
+  else{const M=MODS[S.m],P=M.pages[S.p];pct=(S.p)/M.pages.length*100;
+    h=`<div class="eyebrow">Урок ${CFG.n} · ${S.m+1}. ${esc(M.n)} · ${S.p+1}/${M.pages.length}</div>`+page(P)+`<button type="button" class="skip" data-skip>⏭ Пропустить эту страницу</button>`}
+  $("#bar").style.width=pct+"%";
+  pg.innerHTML=`<div class="scr">${h}</div>`;
+  $("#back").textContent=S.v==="intro"?"☰ Меню":"← Назад";
+  $("#next").textContent=S.v==="intro"?"Начать →":S.v==="mdone"?(S.m<MODS.length-1?"Следующая часть →":"☰ Меню"):"Далее →";
+  const tb=$("#tbar"),topb=$("#abar");topb.innerHTML="";const ab=tb||topb;topb.hidden=!!tb||!S.ok||S.v==="menu"||S.v==="intro"||S.v==="log";
+  ab.innerHTML=`<span class="lb">🔊 <span id="pcnt">–</span></span><button type="button" id="pprev" aria-label="Назад">⏮</button><button type="button" id="ptog" class="big2">▶</button><button type="button" id="pnext" aria-label="Вперёд">⏭</button><button type="button" id="prst" aria-label="Сначала">↺</button><button type="button" id="aauto" class="${S.auto?"":"off"}">Авто: ${S.auto?"вкл":"выкл"}</button>`;
+  $("#pprev").onclick=plPrev;$("#ptog").onclick=plToggle;$("#pnext").onclick=plNext;$("#prst").onclick=playAll;
+  $("#aauto").onclick=()=>{S.auto=!S.auto;save();if(!S.auto)plPause();const b=$("#aauto");b.textContent="Авто: "+(S.auto?"вкл":"выкл");b.className=S.auto?"":"off"};
+  wire();if(window.__lastTop!==k0){window.scrollTo(0,0);window.__lastTop=k0}else{const fb=document.querySelector("#page .fb");if(fb)fb.scrollIntoView({block:"nearest"})}
+  const k=S.v+"|"+S.m+"|"+S.p;
+  stopAll();plBuild();if(k!==lastKey){lastKey=k;if(S.ok&&S.auto&&!ab.hidden)playAll()}
+}
+function gate(){return `<div class="gate scr"><div class="pic">🇹🇷🔑</div><h1>Merhaba!</h1>
+ <p class="sub">Введи код доступа. Его нужно ввести только один раз.</p>
+ <input id="code" type="text" autocomplete="off" placeholder="Код">
+ <button class="btn pri" id="go" type="button">Войти →</button><div class="err" id="err" aria-live="polite"></div></div>`}
+function intro(){return CFG.intro}
+function menu(){return `<h1>Урок ${CFG.n} · Части</h1><p class="sub">Иди по порядку или выбери любую часть.</p><div class="menu">`+
+ MODS.map((M,i)=>`<button type="button" class="mi${S.done[i]?" done":""}" data-mod="${i}"><span class="e">${M.e}</span><span class="n">${i+1}. ${esc(M.n)}<br><span class="s">${esc(M.s)}</span></span>${S.done[i]?"✅":"▶"}</button>`).join("")+`</div><button type="button" class="btn sec" data-log>📋 Мои ответы</button>`}
+function mdone(){const last=S.m===MODS.length-1;return `<div class="pic">${last?"🏆":"🎉"}</div><h1>${last?`Tebrikler! Урок ${CFG.n} пройден`:"Aferin! Часть пройдена"}</h1>`+
+ (last?CFG.fin():`<p class="sub">Часть ${S.m+1} готова. Дальше: <b>${esc(MODS[S.m+1].n)}</b> ${MODS[S.m+1].e}</p>`)}
+
+function page(P){CURLANG="";
+  if(P.k==="toon")return `<h1>${P.t}</h1><div class="stage" id="stage"><div class="fin">${toonFin(P)}</div></div><div class="abar" id="tbar"></div><div class="tcap" id="tcap">🎬 Нажми ▶ · ⏮ ⏭ — сцены</div><div class="row"><button type="button" class="btn sec" id="treplay">▶ Смотреть ещё раз</button><button type="button" class="btn pri" data-next>К упражнениям →</button></div>`;
+  if(P.k==="cult")return cultPage(P);
+  if(P.k==="read")return `<h1>${CFG.readT}</h1><p class="sub">Прочитай про себя. Непонятная фраза — нажми 🌐. Потом 3 вопроса.</p>
+   <div class="chatbox"><span class="who">${CFG.who}</span>${READ.map(r=>`<div class="bub">${esLine(r[1],r[2],"",r[0])}</div>`).join("")}</div>`;
+  if(P.k==="ch")return choice(P);
+  if(P.k==="bd")return build(P);
+}
+const key=()=>S.m+"-"+S.p;
+const LTR={},OTR={};
+function cultPage(P){const G=P.gloss||{};const key=w=>w.toLowerCase().replace(/[^\p{L}\p{N}]/gu,"");
+  return `<h1>${P.t}</h1><p class="sub">Прочитай и послушай. Нажми на любое слово — увидишь перевод. 🌐 — перевод всей фразы. Потом вопросы.</p>
+  <div class="cult">${P.lines.map(([pt,ru],i)=>`<div class="cl"><div class="cw">${pt.split(" ").map(w=>G[key(w)]?`<button type="button" class="wd" data-w="${esc(key(w))}" data-l="${i}">${esc(w)}</button>`:`<span class="wn">${esc(w)}</span>`).join(" ")}</div><div class="esl"><button type="button" class="ic sm" data-say="${esc(pt)}">🔊</button><button type="button" class="ic sm" data-tr>🌐</button></div><div class="trv" hidden>${esc(ru)}</div><div class="wtr" id="wtr${i}" hidden></div></div>`).join("")}</div>`}
+function choice(P){CURLANG=P.lang||"";const a=S.ans[key()];
+  let h=`<div class="pic">${P.pic}</div><p><b>${esc(P.q)}</b></p>`;
+  if(P.es)h+=`<div class="card">${esLine(P.es,P.tr)}</div>`;
+  if(P.listen){const lt=P.ltr||LTR[P.listen];h+=`<div class="card" style="text-align:center"><div class="esl" style="justify-content:center"><button type="button" class="btn pri" data-say="${esc(P.listen)}"${DL()}>🔊 Слушать</button>${lt?`<button type="button" class="ic" data-tr aria-label="🌐">🌐</button>`:""}</div>${lt?`<div class="trv" hidden><b>${esc(P.listen)}</b> — ${esc(lt)}</div>`:""}</div>`}
+  const trFor=o=>o[1]||OTR[o[0]]||null,anyT=P.opts.some(o=>trFor(o)),trF=o=>trFor(o)||(anyT?trFor(P.opts[P.a]):null);
+  h+=`<div class="opts">`+P.opts.map((o,i)=>{let c="";if(a!=null){if(i===P.a)c=" ok";else if(i===a)c=" bad"}
+    return `<div class="opt"><button type="button" class="ob${c}" data-o="${i}"${anyT&&!P.quiet?` data-es="${esc(o[0])}"${DL()}`:""}${a!=null?" disabled":""}>${esc(o[0])}</button>${trF(o)?`<button type="button" class="ic sm" data-tr aria-label="Перевод">🌐</button><div class="trv" hidden>${esc(trF(o))}</div>`:""}</div>`}).join("")+`</div>`;
+  if(a==null)h+=`<button type="button" class="skip" data-hint style="text-decoration:none">💡 Подсказка</button><p class="hint" id="hint" hidden>${P.hint}</p>`;
+  else if(a===P.a)h+=`<div class="fb ok"><b>✅ Aferin!</b>${P.why}</div><div class="row stick"><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
+  else h+=`<div class="fb bad"><b>❌ Правильный ответ: ${esc(P.opts[P.a][0])}</b>${P.why}</div><div class="row stick"><button type="button" class="btn sec" data-retry>🔁 Ещё раз</button><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
+  return h}
+function build(P){CURLANG=P.lang||"";const st=S.ans[key()]||{pick:[],res:null};
+  const shuffled=P.sh||(P.sh=P.w.map((w,i)=>i).sort(()=>Math.random()-.5));
+  let h=`<div class="pic">${P.pic}</div><p class="sub">Собери фразу по-турецки:</p><p><b>„${esc(P.q)}“</b></p>
+   <div class="ans">${st.pick.map((wi,j)=>`<button type="button" class="chip" data-un="${j}"${st.res!=null?" disabled":""}>${esc(P.w[wi])}</button>`).join("")}</div>
+   <div class="chips">${shuffled.map(wi=>`<button type="button" class="chip" data-pk="${wi}"${st.pick.includes(wi)||st.res!=null?" disabled":""}>${esc(P.w[wi])}</button>`).join("")}</div>`;
+  const full=P.w.join(" ");
+  if(st.res==null)h+=`<div class="row"><button type="button" class="btn pri" data-chk${st.pick.length<P.w.length?" disabled":""}>Проверить</button></div><button type="button" class="skip" data-hint style="text-decoration:none">💡 Подсказка</button><p class="hint" id="hint" hidden>Первое слово — с большой буквы, в последнем — точка или знак вопроса.</p>`;
+  else if(st.res)h+=`<div class="fb ok"><b>✅ Harika!</b>${P.why}</div>${esLine(full,P.q)}<div class="row stick"><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
+  else h+=`<div class="fb bad"><b>❌ Правильно: ${esc(full)}</b>${P.why}</div><div class="row stick"><button type="button" class="btn sec" data-retry>🔁 Ещё раз</button><button type="button" class="btn pri" data-next>Следующее задание →</button></div>`;
+  return h}
+
+/* ---------- events ---------- */
+function wireIn(root){
+  root.querySelectorAll("[data-say]").forEach(b=>b.onclick=()=>say(b.dataset.say,b.dataset.lang));
+  root.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>{const t=b.closest(".opt,.vc,div:not(.esl)").querySelector(".trv");if(t)t.hidden=!t.hidden});}
+function logIt(e){S.log=S.log||{};S.log[key()]=Object.assign({m:S.m,p:S.p,t:Date.now()},e);save()}
+function logView(){const L=S.log||{};const ks=Object.keys(L).sort((a,b)=>{const[x1,y1]=a.split("-").map(Number),[x2,y2]=b.split("-").map(Number);return x1-x2||y1-y2});
+  const ok=ks.filter(k=>L[k].ok).length;let h=`<h1>📋 Мои ответы</h1><p class="sub">При повторном прохождении ответ на задание перезаписывается.</p>`;
+  if(!ks.length)return h+`<p>Пока нет ответов. Пройди задания — здесь появится каждый ответ.</p><button type="button" class="btn sec" data-tomenu>← В меню</button>`;
+  h+=`<div class="card"><b>${"✅ {ok} · ❌ {bad}".replace("{ok}",ok).replace("{bad}",ks.length-ok)}</b></div>`;let cur=-1;
+  ks.forEach(k=>{const e=L[k];if(e.m!==cur){cur=e.m;h+=`<h2>Часть ${e.m+1}. ${esc(MODS[e.m]?MODS[e.m].n:"")}</h2>`}
+    h+=`<div class="lg ${e.ok?"ok":"bad"}"><div class="lq">${e.ok?"✅":"❌"} ${esc(e.q)}</div><div>Твой ответ: <b>${esc(e.your)}</b></div>${e.ok?"":`<div>Правильно: <b>${esc(e.right)}</b></div>`}</div>`});
+  return h+`<button type="button" class="btn sec" data-tomenu>← В меню</button>`}
+function afterBuild(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
+  if(!S.auto){afterAnswer(ok,txt,lang);return}
+  if(ok){stopAll();let done=false;const go=()=>{if(done)return;done=true;setTimeout(()=>{if(same())next()},600)};
+    setTimeout(()=>{if(same())utter(txt,go,lang);else done=true},250);setTimeout(go,7000)}
+  else setTimeout(()=>{if(same())say(txt,lang)},700)}
+function afterAnswer(ok,txt,lang){const k=key(),v=S.v,same=()=>key()===k&&S.v===v;
+  if(ok)setTimeout(()=>{if(same())next()},1100);else if(txt)setTimeout(()=>{if(same())say(txt,lang)},1000)}
+function wireCult(pg){const P=S.v==="mod"?MODS[S.m].pages[S.p]:null;if(!P||P.k!=="cult")return;
+  pg.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const box=document.getElementById("wtr"+b.dataset.l);const t=`<b>${esc(b.textContent)}</b> — ${esc(P.gloss[b.dataset.w])}`;
+    if(!box.hidden&&box.dataset.w===b.dataset.w){box.hidden=true;return}box.innerHTML=t;box.dataset.w=b.dataset.w;box.hidden=false})}
+function wire(){
+  const pg=$("#page");
+  wireIn(pg);wireCult(pg);const tr=$("#treplay");if(tr)tr.onclick=playToon;
+  pg.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{const t=$("#hint");t.hidden=!t.hidden});
+  pg.querySelectorAll("[data-skip],[data-next]").forEach(b=>b.onclick=next);
+  pg.querySelectorAll("[data-log]").forEach(b=>b.onclick=()=>{S.v="log";save();render()});
+  pg.querySelectorAll("[data-tomenu]").forEach(b=>b.onclick=()=>{S.v="menu";save();render()});
+  pg.querySelectorAll("[data-mod]").forEach(b=>b.onclick=()=>{S.v="mod";S.m=+b.dataset.mod;S.p=0;save();render()});
+  pg.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{const P=MODS[S.m].pages[S.p],o=+b.dataset.o;S.ans[key()]=o;logIt({q:P.q+(P.es?" — "+P.es:"")+(P.listen?" 🎧 "+P.listen:""),your:P.opts[o][0],right:P.opts[P.a][0],ok:o===P.a});save();render();afterAnswer(o===P.a,P.opts[P.a][1]?P.opts[P.a][0]:null,P.lang)});
+  pg.querySelectorAll("[data-retry]").forEach(b=>b.onclick=()=>{delete S.ans[key()];const P=MODS[S.m].pages[S.p];delete P.sh;save();render()});
+  const bd=()=>S.ans[key()]||(S.ans[key()]={pick:[],res:null});
+  pg.querySelectorAll("[data-pk]").forEach(b=>b.onclick=()=>{bd().pick.push(+b.dataset.pk);save();render()});
+  pg.querySelectorAll("[data-un]").forEach(b=>b.onclick=()=>{bd().pick.splice(+b.dataset.un,1);save();render()});
+  pg.querySelectorAll("[data-chk]").forEach(b=>b.onclick=()=>{const s=bd(),P=MODS[S.m].pages[S.p];s.res=s.pick.every((w,i)=>w===i)&&s.pick.length===P.w.length;logIt({q:P.q,your:s.pick.map(i=>P.w[i]).join(" "),right:P.w.join(" "),ok:s.res});save();render();afterBuild(s.res,P.w.join(" "),P.lang)});
+  const go=$("#go");if(go){const tryc=()=>{if(CODES.includes(norm($("#code").value))){S.ok=true;save();render()}else $("#err").textContent="Неверный код. Попробуй ещё раз."};
+    go.onclick=tryc;$("#code").onkeydown=e=>{if(e.key==="Enter")tryc()}}
+}
+function next(){
+  if(S.v==="intro"){S.v="mod";S.m=0;S.p=0}
+  else if(S.v==="mdone"){if(S.m<MODS.length-1){S.m++;S.p=0;S.v="mod"}else S.v="menu"}
+  else{const M=MODS[S.m];if(S.p<M.pages.length-1)S.p++;else{S.done[S.m]=true;S.v="mdone"}}
+  save();render()}
+function back(){
+  if(S.v==="intro"){S.v="menu"}
+  else if(S.v==="mdone"){S.v="mod";S.p=MODS[S.m].pages.length-1}
+  else if(S.p>0)S.p--;else S.v=S.m===0?"intro":"menu";
+  save();render()}
+$("#next").onclick=next;$("#back").onclick=back;
+$("#mbtn").onclick=()=>{S.v="menu";save();render()};
+$("#home").onclick=()=>{$("#hm").hidden=false};$("#hmc").onclick=()=>{$("#hm").hidden=true};
+render();
+</script>
+
