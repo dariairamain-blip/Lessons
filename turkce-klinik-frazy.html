@@ -45,8 +45,10 @@ details.ls>summary small{color:var(--muted);font-weight:600;font-size:13px;white
 #auto.off{border-color:var(--line);color:var(--muted)}
 #mute{padding:10px 12px;font-size:15px}
 .ph.playing{background:var(--soft);border-radius:14px;box-shadow:0 0 0 2px var(--vio) inset}
+.bar .in2{max-width:640px;margin:0 auto;padding:0 16px 8px}
+#lsel{width:100%;font-weight:800;border-color:var(--vio)}
 .foot{margin-top:24px;text-align:center;color:var(--muted);font-size:13px}
-</style></head><body><div class="bar"><div class="in"><b>🦷 Фразы</b><span class="bb"><button id="auto" type="button">⏩ Подряд: вкл</button><button id="mute" type="button">🔇 Выключить звук</button></span></div></div><div class="wrap">
+</style></head><body><div class="bar"><div class="in"><b>🦷 Фразы</b><span class="bb"><button id="auto" type="button">⏩ Подряд: вкл</button><button id="mute" type="button">🔇 Выключить звук</button></span></div><div class="in2"><select id="lsel" aria-label="Выбрать урок"></select></div></div><div class="wrap">
 <h1>🦷 Türkçe Klinik — фразы</h1>
 <p class="sub">Все фразы из уроков по порядку. 🔊 — послушать · нажми на слово — его перевод · 🌐 — перевод всей фразы.</p>
 <div class="top">
@@ -118,9 +120,11 @@ function phrase(tr, ru, who){
   tb.onclick = () => { r.hidden = !r.hidden; tb.classList.toggle("on", !r.hidden); };
   ln.append(sb, tx, tb); box.append(ln, r); return box;
 }
-let CUR = 0;
+let CUR = 0; const DETS = [];
+const START = (S.ls != null && S.ls < DATA.length) ? S.ls : 0;
 DATA.forEach((d, i) => { CUR = i;
-  const det = el("details", "ls"); if(i === 0) det.open = true;
+  const det = el("details", "ls"); if(i === START) det.open = true; DETS.push(det);
+  det.addEventListener("toggle", () => { if(det.open){ $("#lsel").value = i; S.ls = i; keep(); } });
   const sm = el("summary"); sm.append(el("span", "", "Урок " + d.n + " · " + d.title), el("small", "", d.ph.length + " фраз"));
   const body = el("div", "body");
   body.append(el("div", "sec", "Фразы"));
@@ -128,4 +132,12 @@ DATA.forEach((d, i) => { CUR = i;
   if(d.words.length){ body.append(el("div", "sec", "Слова")); d.words.forEach(w => body.append(phrase(w[0], w[1], ""))); }
   det.append(sm, body); $("#list").append(det);
 });
+/* --- выбор урока: открыть нужный и сразу перейти к нему --- */
+DATA.forEach((d, i) => { const o = el("option", "", "📘 Урок " + d.n + " · " + d.title); o.value = i; $("#lsel").append(o); });
+$("#lsel").value = START;
+$("#lsel").onchange = e => { const i = +e.target.value; stopChain();
+  DETS.forEach((x, j) => { x.open = j === i; });
+  S.ls = i; keep();
+  const bar = document.querySelector(".bar").offsetHeight;
+  window.scrollTo({top: DETS[i].getBoundingClientRect().top + scrollY - bar - 8, behavior: "smooth"}); };
 </script></body></html>
