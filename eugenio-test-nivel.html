@@ -24,13 +24,13 @@
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font:16px/1.45 var(--body);
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 28px}
-.wrap{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.wrap{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
 h1,h2{font-family:var(--display);text-wrap:balance;margin:0}
 h1{font-size:1.45rem;line-height:1.2}
 h2{font-size:1.05rem;line-height:1.3}
 p{margin:0}
 .muted{color:var(--muted);font-size:.9rem}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:11px}
 .day{display:flex;align-items:center;gap:10px}
 .track{flex:1;height:8px;border-radius:8px;background:var(--line);position:relative;overflow:visible}
 .fill{height:100%;border-radius:8px;background:var(--accent);transition:width .4s}
@@ -43,7 +43,7 @@ p{margin:0}
 .gap{display:inline-block;min-width:3.2em;border-bottom:2px solid var(--sun);text-align:center;font-weight:600}
 .opts{display:flex;flex-direction:column;gap:8px}
 button{font:inherit;cursor:pointer;color:inherit}
-.opt{text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:1rem;transition:border-color .15s,background .15s}
+.opt{text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;font-size:1rem;transition:border-color .15s,background .15s}
 @media (hover:hover) and (pointer:fine){.opt:not(:disabled):hover{border-color:var(--accent)}}
 .opt{-webkit-tap-highlight-color:transparent}
 .opt.ok{border-color:var(--ok);background:var(--ok-soft)}
@@ -57,7 +57,9 @@ button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 .btn.wide{width:100%}
 .ghost{background:transparent;border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;font-size:.92rem}
 .listen{background:var(--sun);color:#1b1300;border:0;border-radius:14px;padding:14px 18px;font-weight:600;font-size:1.05rem}
-.listenCol{display:flex;flex-direction:column;gap:8px}
+.listenCol{display:flex;flex-direction:column;gap:6px}
+.listenCol .listen{padding:11px 16px}
+.listenCol .ghost{padding:8px 14px}
 .listenCol button{width:100%;text-align:left}
 .stop{background:transparent;border:1.5px solid var(--line);border-radius:10px;padding:6px 10px;font-size:.85rem;font-weight:600;white-space:nowrap}
 .stop.sure{border-color:var(--bad);color:var(--bad)}
@@ -68,6 +70,10 @@ button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 .lv{flex:1;background:var(--card);border:1.5px solid var(--line);border-radius:10px;height:36px;font:600 .8rem var(--display);padding:0}
 .lv.cur{background:var(--accent);border-color:var(--accent);color:var(--card)}
 .qn{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums;min-width:38px;text-align:center}
+.snd{display:flex;gap:6px}
+.sb{flex:1;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:7px 8px;font-size:.85rem;font-weight:600;color:var(--muted)}
+.sb.on{border-color:var(--accent);color:var(--accent)}
+.rep{align-self:flex-start;font-size:.85rem;padding:7px 12px}
 .fb{font-size:.95rem;padding:10px 12px;border-radius:12px}
 .fb.ok{background:var(--ok-soft);color:var(--ok)}
 .fb.bad{background:var(--bad-soft)}
@@ -159,6 +165,10 @@ const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 
 // ---------- Голос ----------
 let seqId=0;
+// Звук: автоплей и «без звука», запоминаются в этом браузере
+let auto=true, muted=false;
+try{ const d=JSON.parse(localStorage.getItem('eugenio-test-sound')||'null'); if(d){ auto=!!d.auto; muted=!!d.muted; } }catch(e){}
+function saveSound(){ try{ localStorage.setItem('eugenio-test-sound', JSON.stringify({auto,muted})); }catch(e){} }
 function utter(text,r){
   const synth=window.speechSynthesis;
   const u=new SpeechSynthesisUtterance(text); u.lang="es-ES"; u.rate=r;
@@ -172,6 +182,7 @@ function speak(text,onend){
   try{
     const synth=window.speechSynthesis; if(!synth) return false;
     seqId++; synth.cancel(); if(!text){ synth.speak(new SpeechSynthesisUtterance('')); return true; }
+    if(muted) return false;
     const u=utter(text,rate); if(onend) u.onend=onend;
     synth.speak(u); return true;
   }catch(e){return false}
@@ -181,7 +192,7 @@ function speak(text,onend){
 function speakSlow(text,size,pause,r,onend){
   try{
     const synth=window.speechSynthesis; if(!synth) return;
-    const my=++seqId; synth.cancel();
+    const my=++seqId; synth.cancel(); if(muted) return;
     const words=text.split(/\s+/), parts=[];
     for(let k=0;k<words.length;k+=size) parts.push(words.slice(k,k+size).join(' '));
     let k=0;
@@ -244,6 +255,8 @@ function show(){
   if(it.say) body += `<div class="say"><b>«</b>${esc(it.say)}<b>»</b></div>`;
   if(it.msg) body += `<div class="msg">${esc(it.msg)}</div>`;
   if(it.gapText) body += `<div class="say">${esc(it.gapText).replace('___','<span class="gap">?</span>')}</div>`;
+  const spText = it.say || it.msg || (it.gapText ? it.gapText.replace('___','…') : '');
+  if(spText) body += `<button class="ghost rep" id="rep">🔊 Послушать ещё раз</button>`;
   if(it.audio) body += `<div class="listenCol"><button class="listen" id="play">🔊 Слушать</button><button class="ghost" id="slow">🐢 Слушать медленнее</button><button class="ghost" id="slow2">🐌 Слушать ещё медленнее</button></div>
      <button class="ghost" id="nosound" style="align-self:flex-start;font-size:.8rem">Нет звука?</button><div id="fallback" hidden class="say"></div>`;
   app.innerHTML = `
@@ -253,6 +266,10 @@ function show(){
     <div class="lvls">${BLOCKS.map((b,k)=>`<button class="lv ${k===bi?'cur':''}" data-k="${k}">${b.lvl}</button>`).join('')}</div>
     <span class="qn">${qi+1}/${BLOCKS[bi].items.length}</span>
     <button class="navb" id="skip" aria-label="Следующий вопрос">⏭</button>
+  </div>
+  <div class="snd">
+    <button class="sb ${auto?'on':''}" id="autoBtn">${auto?'▶️ Автоплей: вкл':'⏸ Автоплей: выкл'}</button>
+    <button class="sb ${muted?'':'on'}" id="muteBtn">${muted?'🔇 Звук: выкл':'🔊 Звук: вкл'}</button>
   </div>
   ${answers[bi][qi]?'<p class="muted" style="font-size:.85rem">Ты уже отвечал на этот вопрос. Новый ответ заменит старый.</p>':''}
   <div class="card">
@@ -272,14 +289,22 @@ function show(){
     try{seqId++;speechSynthesis.cancel()}catch(e){} finish(); };
   app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(+b.dataset.i));
   document.getElementById('idk').onclick=()=>answer(-1);
+  const toOpts=()=>{const o=app.querySelector('.opts'); if(o&&!answered) o.scrollIntoView({behavior:'smooth',block:'nearest'})};
+  // ручное нажатие на 🔊 само включает звук, если он был выключен
+  const unmute=()=>{ if(muted){ muted=false; saveSound(); const m=document.getElementById('muteBtn'); m.textContent='🔊 Звук: вкл'; m.classList.add('on'); } };
+  const playPage=()=>{ rate=0.8; if(it.audio) speak(it.audio,toOpts); else if(spText) speak(spText,toOpts); };
   if(it.audio){
-    const toOpts=()=>{const o=app.querySelector('.opts'); if(o&&!answered) o.scrollIntoView({behavior:'smooth',block:'nearest'})};
-    document.getElementById('play').onclick=()=>{rate=0.8;speak(it.audio,toOpts)};
-    document.getElementById('slow').onclick=()=>speakSlow(it.audio,3,450,0.65,toOpts);
-    document.getElementById('slow2').onclick=()=>speakSlow(it.audio,1,600,0.5,toOpts);
+    document.getElementById('play').onclick=()=>{unmute();rate=0.8;speak(it.audio,toOpts)};
+    document.getElementById('slow').onclick=()=>{unmute();speakSlow(it.audio,3,450,0.65,toOpts)};
+    document.getElementById('slow2').onclick=()=>{unmute();speakSlow(it.audio,1,600,0.5,toOpts)};
     document.getElementById('nosound').onclick=()=>{const f=document.getElementById('fallback');f.textContent=it.audio;f.hidden=false};
-    setTimeout(()=>{rate=0.8;speak(it.audio,toOpts)},300);
   }
+  if(spText) document.getElementById('rep').onclick=()=>{unmute();rate=0.8;speak(spText,toOpts)};
+  const ab=document.getElementById('autoBtn');
+  ab.onclick=()=>{ auto=!auto; saveSound(); ab.textContent=auto?'▶️ Автоплей: вкл':'⏸ Автоплей: выкл'; ab.classList.toggle('on',auto); if(auto&&!answered) playPage(); };
+  const mb=document.getElementById('muteBtn');
+  mb.onclick=()=>{ muted=!muted; saveSound(); mb.textContent=muted?'🔇 Звук: выкл':'🔊 Звук: вкл'; mb.classList.toggle('on',!muted); if(muted){ try{seqId++;speechSynthesis.cancel()}catch(e){} } };
+  if(auto && !muted){ const tok=navTok; setTimeout(()=>{ if(tok===navTok && !answered) playPage(); },350); }
   window.scrollTo({top:0});
 }
 
