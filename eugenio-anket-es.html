@@ -1,0 +1,235 @@
+<meta http-equiv="content-language" content="ru"><title>Мой мир по-испански</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: one phone-sized card per page, emoji tiles in a grid, sticky nav at the bottom */
+:root{
+  --bg:#eef3f7; --card:#ffffff; --ink:#14233a; --muted:#5c6b80;
+  --sea:#1f5fa8; --sun:#f2b632; --sel:#e3eefb; --line:#d5dfea;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Nunito Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd;
+  --sea:#6ea8ef; --sun:#f2b632; --sel:#1d3657; --line:#2a3b55; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd;
+  --sea:#6ea8ef; --sun:#f2b632; --sel:#1d3657; --line:#2a3b55; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:520px;margin:0 auto;padding-block:12px 96px;display:flex;flex-direction:column;gap:10px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:15px}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--sea);color:#fff;display:grid;place-items:center;font-size:13px;letter-spacing:.5px}
+.prog{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden;max-width:160px}
+.prog i{display:block;height:100%;background:var(--sun);transition:width .3s}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--sea);font-weight:700}
+h1{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.15;margin:2px 0 0;text-wrap:balance}
+.sub{color:var(--muted);margin:2px 0 0;line-height:1.4}
+.grp{font-weight:700;margin:6px 0 0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.grid.g4{grid-template-columns:repeat(4,1fr)}
+.tile{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:7px 4px 6px;
+  display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;font:inherit;color:inherit;
+  font-size:12.5px;line-height:1.2;text-align:center;position:relative;min-width:0}
+.tile .e{font-size:28px;line-height:1.1}
+.g4 .tile .e{font-size:24px}
+.g4 .tile{font-size:11.5px}
+.tile[aria-pressed="true"]{border-color:var(--sea);background:var(--sel)}
+.tile[aria-pressed="true"]::after{content:"✓";position:absolute;top:3px;right:5px;width:17px;height:17px;border-radius:50%;
+  background:var(--sea);color:var(--card);font-size:11px;display:grid;place-items:center;font-weight:700}
+.tile:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+input[type=text],textarea{width:100%;box-sizing:border-box;border:2px solid var(--line);border-radius:10px;
+  background:var(--card);color:var(--ink);font:inherit;padding:9px 11px}
+textarea{min-height:90px;resize:vertical}
+.skip{align-self:flex-start;background:none;border:0;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:2px 0;text-decoration:underline}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.nav div{max-width:520px;margin:0 auto;display:flex;gap:10px}
+.btn{flex:1;border:0;border-radius:12px;padding:13px;font:inherit;font-weight:700;font-size:16px;cursor:pointer}
+.btn.pri{background:var(--sea);color:var(--card)}
+.btn.sec{background:var(--card);color:var(--ink);border:2px solid var(--line);flex:0 0 32%}
+.hero{background:var(--card);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;border:1px solid var(--line)}
+.hero .big{font-size:46px}
+.steps{display:flex;flex-wrap:wrap;gap:6px}
+.steps span{background:var(--sel);border-radius:999px;padding:5px 10px;font-size:13px}
+.res{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;font-size:13px;line-height:1.45;max-height:46vh;overflow:auto}
+.copied{color:var(--sea);font-weight:700;min-height:1.2em}
+.own{font-size:11px;color:var(--muted);text-align:center;margin-top:6px}
+@media (prefers-reduced-motion:reduce){.prog i{transition:none}}
+.gate{position:fixed;inset:0;z-index:50;background:var(--bg,#FFF8EE);display:grid;place-items:center;padding:16px}
+.gate .gbox{max-width:380px;width:100%;display:grid;gap:12px;text-align:center}.gate .big{font-size:44px}.gate input{font:inherit;font-size:20px;text-align:center;letter-spacing:.15em;padding:12px;border-radius:14px;border:2px solid var(--line,#ddd)}
+.gate .err{color:#C2410C;font-weight:700;min-height:1.2em;margin:0}
+.grid.g2{grid-template-columns:repeat(2,1fr)}
+.g2 .tile{flex-direction:row;justify-content:flex-start;text-align:left;gap:6px;font-size:12.5px;padding:8px}
+.g2 .tile .e{font-size:20px}
+.mine{flex:none;border:2px solid var(--line);background:var(--card);color:var(--ink);font:700 12.5px var(--body);border-radius:999px;padding:5px 10px;cursor:pointer}
+.ov{position:fixed;inset:0;z-index:40;background:#0009;display:grid;place-items:center;padding:16px}
+.ov .box{background:var(--card);color:var(--ink);border-radius:18px;padding:16px;max-width:460px;width:100%;max-height:86vh;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.ov h1{font-size:21px;margin:0}
+.note{background:var(--sel);border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.45}
+.more{background:var(--card);border:2px dashed var(--sea);color:var(--sea);border-radius:12px;padding:10px;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
+[hidden]{display:none!important}
+.tile{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+</style>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="logo">DB</span>Daria Botina</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <button class="mine" id="mine" type="button">📋 Мои ответы</button>
+  </div>
+  <main id="page"></main>
+  <div class="own">© Собственность Daria Botina</div>
+</div>
+<nav class="nav"><div>
+  <button class="btn sec" id="back" type="button">← Назад</button>
+  <button class="btn pri" id="next" type="button">Далее →</button>
+</div></nav>
+<div class="gate" id="gate"><div class="gbox"><div class="big">🔐🇪🇸</div><h1>¡Hola, Eugenio!</h1><p class="sub">Введи код, который тебе прислала Даша.</p>
+<input type="text" id="code" inputmode="text" autocomplete="off" autocapitalize="characters" placeholder="Код" aria-label="Код"><button class="btn pri" id="go" type="button">Войти →</button><p class="err" id="err" aria-live="polite"></p></div></div>
+<script>
+(function(){const g=document.getElementById("gate"),ok=v=>/^e?2026$/i.test(v.trim());
+ try{if(localStorage.getItem("eugenio-es-ok")==="1"){g.remove();return}}catch(e){}
+ const tryIt=()=>{const v=document.getElementById("code").value;if(ok(v)){try{localStorage.setItem("eugenio-es-ok","1")}catch(e){}g.remove()}else document.getElementById("err").textContent="Неверный код. Попробуй ещё раз."};
+ document.getElementById("go").onclick=tryIt;document.getElementById("code").onkeydown=e=>{if(e.key==="Enter")tryIt()};})();
+</script>
+<script>
+const PAGES=[
+ {intro:true},
+ {lvl:"1 · Испания",t:"Где ты живёшь в Испании?",s:"Отметь, что подходит.",groups:[
+   {q:"Регион",items:[["🏛️","Мадрид"],["🌉","Барселона / Каталония"],["🍊","Валенсия"],["🏖️","Аликанте / Коста-Бланка"],["☀️","Малага / Андалусия"],["🌋","Канары"],["⛰️","Север Испании"],["🏝️","Балеары"],["📍","Другое"]],more:[["🏰", "Мурсия"], ["🌾", "Кастилия-Ла-Манча"], ["🌧️", "Галисия"], ["🏔️", "Страна Басков"], ["🐄", "Астурия"], ["🏜️", "Арагон"], ["🏞️", "Наварра / Ла-Риоха"], ["🌊", "Кантабрия"], ["🌻", "Эстремадура"], ["🏯", "Кастилия и Леон"], ["🏙️", "Севилья"], ["💃", "Гранада"], ["🌴", "Марбелья"], ["🏖️", "Бенидорм"], ["⚓", "Торревьеха"], ["🌅", "Кальпе / Altea"], ["🌞", "Тенерифе"], ["🏝️", "Гран-Канария"], ["🌴", "Майорка"], ["🎉", "Ибица"], ["🏛️", "Сарагоса"], ["🌉", "Бильбао"], ["🎨", "Валенсия город"], ["⛵", "Аликанте город"]]},
+   {q:"Сколько ты уже в Испании?",items:[["🆕","Меньше года"],["📅","1–3 года"],["🏡","Больше 3 лет"],["✈️","Пока приезжаю"]],more:[["🔁", "Живу на две страны"], ["🎓", "Приехал учиться"], ["💼", "Приехал по работе"], ["❤️", "Приехал к семье / партнёру"], ["🏖️", "Купил жильё, приезжаю на сезон"], ["🧳", "Только собираюсь переехать"]]}],
+  text:"Город…"},
+ {lvl:"1 · Окружение",t:"Где и с кем ты живёшь?",s:"Отметь всё, что подходит.",groups:[
+   {q:"Дом",items:[["🏢","Квартира"],["🏡","Дом"],["🏘️","Урбанизация"],["🌆","Центр города"],["🌊","Рядом с морем"],["🌳","С садом / террасой"]],more:[["🏙️", "Высотка"], ["🏠", "Маленький городок"], ["🌾", "Деревня / пуэбло"], ["⛰️", "В горах"], ["🏖️", "Курортный город"], ["🛏️", "Снимаю комнату"], ["🔑", "Своё жильё"], ["📄", "Снимаю квартиру"], ["📦", "Недавно переехал"], ["🏊", "С бассейном"], ["🚗", "С гаражом / паркингом"], ["🌲", "Рядом с природой"], ["🚇", "Рядом с метро"], ["🏢", "Последний этаж / ático"], ["🌇", "С видом на море"], ["🏘️", "Таунхаус / адосадо"], ["🧱", "Старый дом / центр"], ["🆕", "Новостройка"]]},
+   {q:"С кем?",items:[["❤️","С партнёром"],["👨‍👩‍👧","С семьёй / детьми"],["🙋‍♂️","Один"],["🧑‍🤝‍🧑","С соседями по квартире"],["🐱","Кошка"],["🐶","Собака"]],more:[["👵", "С родителями"], ["🧑‍🤝‍🧑", "С братом / сестрой"], ["👶", "С малышом"], ["🧒", "С детьми-школьниками"], ["🧑", "С подростком"], ["🐦", "Птица"], ["🐠", "Рыбки"], ["🐢", "Черепаха"], ["🐰", "Кролик"], ["🪴", "Много растений"], ["🧳", "Живу на два дома"], ["🏨", "Часто в командировках"]]}]},
+ {lvl:"1 · Испания",t:"Где тебе нужен испанский в жизни?",s:"Самое важное: эти ситуации будут в уроках первыми.",cols4:true,groups:[
+   {items:[["🛒","Магазин / рынок"],["🍽️","Кафе / ресторан"],["🏥","Врач / аптека"],["🗂️","Документы, NIE, padrón"],["🏦","Банк"],["🔑","Аренда / хозяин квартиры"],["🔧","Ремонт / мастер"],["📞","Звонки по телефону"],["👋","Соседи"],["🏫","Школа детей"],["🚌","Транспорт / такси"],["💼","Работа"],["🚗","Машина / ДГТ"],["📦","Посылки / доставка"],["🎉","Друзья / праздники"],["📺","ТВ / новости"]],more:[["💊", "Аптека: объяснить, что нужно"], ["🦷", "Стоматолог"], ["🚑", "Скорая / экстренный случай"], ["👮", "Полиция / заявление"], ["🏛️", "Мэрия / аюнтамьенто"], ["💼", "Собеседование"], ["📑", "Договор аренды"], ["💡", "Свет, вода, интернет"], ["📱", "Мобильный оператор"], ["🧾", "Налоги / гестор"], ["🏦", "Открыть счёт"], ["🛂", "Экстранхерия / ВНЖ"], ["🚙", "Права / обмен прав"], ["🅿️", "Штраф / парковка"], ["🛠️", "Вызвать сантехника"], ["🏗️", "Ремонт в квартире"], ["🛍️", "Вернуть / обменять товар"], ["💇", "Парикмахерская"], ["🏋️", "Спортзал"], ["🐶", "Ветеринар"], ["👶", "Детский сад"], ["🎓", "Курсы / университет"], ["✈️", "Аэропорт / вокзал"], ["🏨", "Отель / бронирование"], ["🥳", "Знакомство с соседями на фиесте"], ["🗣️", "Small talk в лифте / в баре"], ["📺", "Понимать шутки и сериалы"], ["💌", "Свидания / знакомства"], ["⚽", "Разговор о футболе"], ["🏡", "Собрание жильцов"]]}],
+  text:"Где ещё тебе трудно без испанского?"},
+ {lvl:"2 · Поведение",t:"Чем ты занимаешься?",s:"Отметь свою работу или допиши своё.",groups:[
+   {items:[["💻","Работаю онлайн / IT"],["🏗️","Стройка / ремонт"],["🚚","Логистика / водитель"],["🏨","Туризм / отели"],["🍳","Ресторан / кухня"],["🛍️","Продажи"],["🏠","Недвижимость"],["🩺","Медицина"],["🎓","Учусь"],["🏪","Своё дело"],["🔍","Ищу работу"],["🌅","На пенсии / отдыхаю"]],more:[["🍽️", "Ресторан / кафе"], ["⚖️", "Юриспруденция"], ["🏦", "Банк / финансы"], ["🎨", "Дизайн"], ["📣", "Маркетинг"], ["📰", "Медиа"], ["🧪", "Наука"], ["🏭", "Производство"], ["🚢", "Морское дело / яхты"], ["🚕", "Такси / водитель"], ["🏛️", "Госслужба"], ["🦷", "Стоматология"], ["💊", "Аптека"], ["🐾", "Ветеринария"], ["🌾", "Сельское хозяйство"], ["🎭", "Искусство / сцена"], ["📸", "Фото / видео"], ["🗣️", "Перевод"], ["💇", "Красота / барбер"], ["💆", "Массаж / спа"], ["🧹", "Клининг"], ["🔌", "Электрик"], ["🚰", "Сантехник"], ["🏋️", "Тренер"], ["👨‍🏫", "Преподаватель"], ["📊", "Бухгалтерия"], ["🧑‍💼", "Менеджер"], ["🛒", "Магазин / торговля"], ["🏢", "Офис"], ["👶", "Сижу с детьми"], ["✍️", "Фриланс"], ["🖥️", "Работаю на компанию в России удалённо"], ["🎮", "Геймдев"], ["📦", "Склад"], ["🛵", "Курьер"], ["🧑‍🔧", "Автомеханик"]]}],
+  text:"Кем работаешь / чем занимаешься…"},
+ {lvl:"2 · Поведение",t:"Что ты любишь делать в свободное время?",s:"Самая интересная часть! 😄",cols4:true,groups:[
+   {items:[["⚽","Футбол"],["🏋️‍♂️","Спортзал"],["🏊‍♂️","Море / плавание"],["🥾","Горы / хайкинг"],["🚴‍♂️","Велосипед"],["🎣","Рыбалка"],["👨‍🍳","Готовить"],["🎬","Фильмы / сериалы"],["🎵","Музыка"],["📖","Книги"],["🎮","Игры"],["✈️","Путешествия"],["🚗","Машины"],["📷","Фото"],["🛠️","Делать руками"],["🌍","Языки"]],more:[["🎾", "Теннис / падел"], ["🏐", "Волейбол"], ["🏀", "Баскетбол"], ["🏃", "Бег"], ["🤿", "Дайвинг"], ["🏄", "Сёрфинг"], ["⛷️", "Лыжи / Сьерра-Невада"], ["🧗", "Скалолазание"], ["⛺", "Кемпинг"], ["🌱", "Сад / огород"], ["🎸", "Гитара"], ["🎤", "Караоке"], ["♟️", "Шахматы"], ["🧩", "Настольные игры"], ["🧁", "Выпечка"], ["🐕", "Гулять с собакой"], ["🛶", "Каяк / SUP"], ["🏇", "Лошади"], ["🎳", "Боулинг"], ["🎭", "Театр"], ["🖼️", "Музеи"], ["✍️", "Писать / блог"], ["🎙️", "Подкасты"], ["📺", "YouTube"], ["🧠", "Саморазвитие"], ["🧖", "Баня / сауна"], ["🕺", "Вечеринки"], ["🎟️", "Фестивали"], ["🐂", "Испанские праздники и традиции"], ["💃", "Фламенко / сальса"], ["🏍️", "Мотоцикл"], ["⛵", "Яхта / парусник"], ["🍳", "Барбекю"], ["🪚", "Столярка"], ["🌌", "Астрономия"], ["🐠", "Аквариум"]]}],
+  text:"Есть ещё хобби?"},
+ {lvl:"2 · Поведение",t:"Как проходят выходные?",s:"Твои типичные выходные.",groups:[
+   {items:[["😴","Поздно встать"],["🥐","Завтрак в кафе"],["🍤","Тапас с друзьями"],["👨‍👩‍👧","Семья"],["🏖️","Пляж"],["🛍️","Шопинг"],["🚙","Поездка по Испании"],["⚽","Матч / спорт"],["🧹","Домашние дела"],["📚","Учёба"],["🎤","Концерт / фиеста"],["🛋️","Дома отдыхаю"]],more:[["🛌", "Валяюсь весь день"], ["🍳", "Готовлю что-то особенное"], ["🧺", "Пикник"], ["🚶", "Гуляю по городу"], ["⛰️", "Горы / походы"], ["🚤", "Катер / яхта"], ["🏊", "Бассейн"], ["🏋️", "Тренировка"], ["💆", "Спа / массаж"], ["🎬", "Кино"], ["📺", "Сериалы дома"], ["🎮", "Игры"], ["🛒", "Рынок / ростро"], ["🌇", "Закат на набережной"], ["🏛️", "Экскурсии"], ["🎨", "Мастер-класс"], ["👶", "Время с детьми"], ["🐾", "Время с питомцем"], ["💼", "Работаю и в выходные"], ["📖", "Читаю"], ["🧘", "Тишина и отдых"], ["✈️", "Короткая поездка"], ["🎂", "Дни рождения"], ["🙏", "Церковь"], ["🥘", "Обед с семьёй по-испански (долго!)"], ["🛠️", "Чиню что-то дома"], ["🚗", "Мою машину"], ["🧑‍🤝‍🧑", "Встречи русских друзей"], ["🌳", "Парк"], ["🏟️", "Стадион"]]}]},
+ {lvl:"1 · Окружение",t:"Что любишь есть и пить?",s:"Это будем заказывать в диалогах 😉",groups:[
+   {items:[["☕","Кофе"],["🍳","Завтрак"],["🥘","Паэлья"],["🍤","Тапас"],["🥓","Хамон"],["🥔","Тортилья"],["🐟","Рыба / морепродукты"],["🥩","Мясо / гриль"],["🍕","Пицца / паста"],["🥗","Салаты"],["🍰","Десерты / чуррос"],["🍉","Фрукты"]],more:[["🫖", "Чай"], ["🥐", "Выпечка"], ["🍔", "Бургеры"], ["🍣", "Суши"], ["🍜", "Азиатская кухня"], ["🥘", "Домашняя еда"], ["🧀", "Сыры (манчего)"], ["🦐", "Гамбас"], ["🐙", "Осьминог по-галисийски"], ["🥖", "Бокадильо"], ["🥣", "Гаспачо / сальморехо"], ["🍲", "Косидо"], ["🌭", "Чоризо"], ["🫒", "Оливки"], ["🍞", "Pan con tomate"], ["🥚", "Яичница с хамоном"], ["🍮", "Флан"], ["🍦", "Мороженое"], ["🍫", "Шоколад с чуррос"], ["🥤", "Смузи / соки"], ["🧃", "Орчата"], ["🍊", "Свежевыжатый апельсиновый сок"], ["💧", "Просто вода"], ["🥛", "Café con leche"], ["🌱", "Вегетарианское"], ["🌶️", "Острое"], ["🥦", "Овощи"], ["🍚", "Рис"], ["🥟", "Пельмени (скучаю!)"], ["🥞", "Блины"], ["🍲", "Супы"], ["🍗", "Курица"]]}]},
+ {lvl:"Мотивация",t:"Зачем тебе испанский?",s:"Что тебя больше всего мотивирует?",groups:[
+   {items:[["🏠","Жить в Испании свободно"],["🗂️","Документы / гражданство / экзамен DELE"],["💼","Работа / карьера"],["🗨️","Друзья и знакомства"],["👨‍👩‍👧","Семья / дети"],["📺","Сериалы / фильмы"],["🎶","Музыка"],["✈️","Путешествия по Латинской Америке"],["🧠","Для себя"]],more:[["🏥", "Самому решать вопросы с врачами"], ["📞", "Не бояться звонить"], ["🧾", "Сам разбираться с бумагами"], ["🤝", "Подружиться с соседями"], ["💑", "Общаться с партнёром / его семьёй"], ["👦", "Понимать, что говорят дети / их школа"], ["📈", "Найти работу лучше"], ["🏪", "Открыть своё дело"], ["🎓", "Учиться в Испании"], ["📚", "Читать книги"], ["⚽", "Понимать футбольные комментарии"], ["😂", "Понимать испанский юмор"], ["🗳️", "Чувствовать себя своим"], ["🧳", "Путешествовать по Испании"], ["🧓", "Чтобы мозг работал"], ["🏆", "Доказать себе, что могу"], ["🌍", "Знать ещё один язык"], ["🎤", "Петь испанские песни"], ["📺", "Смотреть «Бумажный дом» в оригинале"], ["🛒", "Не показывать на пальцах в магазине"]]}],
+  text:"Другая причина…"},
+ {lvl:"Твой испанский",t:"Что у тебя уже получается?",s:"Отметь всё, что ты можешь сделать по-испански.",groups:[
+   {items:[["👋","Поздороваться, представиться"],["🛒","Купить что-то, спросить цену"],["☕","Заказать в кафе"],["🗺️","Спросить дорогу"],["👨‍👩‍👧","Рассказать о себе и семье"],["🕒","Договориться о времени"],["📞","Поговорить по телефону"],["🏥","Объяснить врачу, что болит"],["📰","Понять новости / ТВ"],["💬","Свободно поболтать с испанцем"],["📝","Написать письмо / сообщение"],["🗣️","Спорить, объяснять своё мнение"]],more:[["🔢", "Числа, цены, время"], ["📅", "Дни недели, даты"], ["🧾", "Понять счёт / чек"], ["🚌", "Купить билет"], ["🏨", "Заселиться в отель"], ["🍽️", "Пожаловаться в ресторане"], ["💊", "Купить лекарство"], ["🛍️", "Вернуть товар"], ["🧑‍🔧", "Объяснить мастеру поломку"], ["🏦", "Сходить в банк"], ["📄", "Заполнить анкету"], ["📧", "Написать e-mail"], ["💬", "Переписываться в WhatsApp"], ["🎬", "Смотреть сериал с субтитрами"], ["📻", "Понимать радио"], ["🗞️", "Читать новости"], ["😂", "Понять шутку"], ["🗣️", "Рассказать историю в прошлом"], ["🔮", "Рассказать о планах"], ["💭", "Говорить «если бы…»"], ["🧑‍💼", "Пройти собеседование"], ["🎤", "Выступить / презентовать"], ["🤝", "Договориться о цене"], ["📞", "Записаться к врачу по телефону"]]}]},
+ {lvl:"Твой испанский",t:"Что для тебя сложнее всего?",s:"Можно несколько.",groups:[
+   {items:[["👂","Понимать быструю речь"],["🗣️","Начать говорить — страшно"],["🔤","Мало слов"],["⏳","Прошедшие времена"],["🔀","Ser / estar"],["🤯","Subjuntivo"],["🎤","Произношение"],["✍️","Писать без ошибок"]],more:[["🧠", "Запоминать слова"], ["📏", "Грамматика вообще"], ["🔤", "Род: el / la"], ["👥", "Tú или usted"], ["🗣️", "Быстро отвечать"], ["🎬", "Понимать сериалы"], ["📞", "Говорить по телефону"], ["🌀", "Испанцы глотают звуки"], ["🗺️", "Акценты (андалузский и др.)"], ["📝", "Предлоги: por / para"], ["🔁", "Возвратные глаголы"], ["⏭️", "Будущее время"], ["💭", "Условное «бы»"], ["🤐", "Начать разговор"], ["😶", "Поддержать small talk"], ["✏️", "Ударения и знаки ¿¡"], ["🔄", "Неправильные глаголы"], ["👂", "Понимать числа на слух"], ["🧾", "Официальный язык документов"], ["😂", "Понимать шутки и сленг"]]}]},
+ {lvl:"3 · Способности",t:"Как тебе легче учиться?",s:"Отметь всё, что подходит.",groups:[
+   {items:[["👀","Картинки"],["👂","Слушать"],["🗣️","Повторять вслух"],["✍️","Записывать"],["🎬","Видео / сериалы"],["🎵","Песни"],["🎮","Игры"],["📱","С телефона"],["⏱️","Короткими уроками"],["💬","В разговоре"],["📖","Через истории"],["📏","Через правила"]],more:[["🃏", "Карточки"], ["⏱️", "Каждый день понемногу"], ["🧑‍🏫", "С преподавателем"], ["👥", "В группе"], ["🙋", "Самостоятельно"], ["🧩", "Через задачки"], ["🎭", "Через сценки"], ["🚶", "На ходу / в дороге"], ["🎧", "В наушниках"], ["🌅", "Утром"], ["🌙", "Вечером"], ["🔁", "Много повторять"], ["😂", "С юмором"], ["🏆", "С соревнованием"], ["📈", "Видеть свой прогресс"], ["🗺️", "Через реальные ситуации"], ["📸", "Через фото и мемы"], ["🎙️", "Записывать свой голос"], ["🗨️", "Переписка в чате"], ["📺", "Короткие видео"], ["🧠", "Через ассоциации"], ["🔤", "Через сравнение с русским"], ["🇬🇧", "Через сравнение с английским"], ["🎲", "Через игры на скорость"]]}]},
+ {lvl:"5 · Ценности",t:"Что для тебя важно на уроках?",s:"Каким должен быть твой идеальный урок?",groups:[
+   {items:[["😂","Юмор"],["🗣️","Много разговора"],["📏","Чёткие правила"],["⚡","Быстрый результат"],["🎮","Игры"],["🧘","Спокойный темп"],["🎯","Темы из моей жизни"],["🔁","Повторение"],["✅","Сразу исправлять ошибки"],["🏆","Видеть прогресс"],["🌍","Культура Испании"],["💬","Живой разговорный язык"]],more:[["🧑‍🏫", "Внимание ко мне"], ["📋", "Понятный план"], ["🤫", "Не перебивать, когда говорю"], ["🎬", "Видео"], ["🎵", "Песни"], ["📖", "Истории"], ["📝", "Домашние задания"], ["🙅", "Без домашних заданий"], ["⏱️", "Коротко"], ["🕐", "Подольше, но глубоко"], ["💼", "Деловой язык"], ["🤗", "Поддержка и похвала"], ["🧾", "Шпаргалки / конспекты"], ["🔊", "Много аудио"], ["🗣️", "Произношение"], ["🎯", "Сразу применять в жизни"], ["🧩", "Разнообразие заданий"], ["🐢", "Без спешки"], ["🚀", "Интенсивно"], ["📚", "Объяснения на русском"], ["🇪🇸", "Как можно больше на испанском"], ["🃏", "Повторение слов"], ["😂", "Мемы и шутки"], ["🏅", "Награды за прогресс"]]}]},
+ {lvl:"6 · Идентичность",t:"Каким ты хочешь быть по-испански?",s:"Представь себя, когда ты уже свободно говоришь.",groups:[
+   {items:[["🎩","Вежливым"],["💼","Деловым"],["😂","Смешным"],["🏘️","Своим среди испанцев"]]}]},
+ {lvl:"7 · Миссия",t:"Прошло 5 лет, ты свободно говоришь по-испански. Где ты и что делаешь?",s:"Помечтай! Отметь всё, что нравится.",cols2:true,groups:[
+   {items:[["🏖️","Живу у моря и всем доволен"],["💼","Работаю с испанцами на равных"],["🏪","Веду своё дело в Испании"],["🛂","Получил гражданство / ВНЖ"],["🏆","Сдал DELE"],["📞","Звоню куда угодно без страха"],["🏥","Спокойно хожу к врачу"],["😂","Шучу с официантами"],["🎬","Смотрю фильмы без субтитров"],["👯","Друзья-испанцы"],["🏡","Купил дом"],["✈️","Путешествую по Латинской Америке"]],more:[["🎓", "Учусь в испанском университете"], ["🧑‍🏫", "Сам помогаю новичкам"], ["🗣️", "Перевожу друзьям"], ["📖", "Читаю книги в оригинале"], ["🎤", "Пою испанские песни"], ["💑", "Новая любовь"], ["👶", "Мои дети говорят на двух языках"], ["🏛️", "Без страха в любой госконторе"], ["🤝", "Веду переговоры"], ["📱", "Веду блог на испанском"], ["🏄", "Живу активной жизнью у моря"], ["🧳", "Объездил всю Испанию"], ["🎉", "Гуляю на фиестах как местный"], ["⚽", "Спорю о футболе с испанцами"], ["🏆", "Сдал экзамен CCSE / DELE"], ["📈", "Повышение на работе"], ["🌍", "Учу следующий язык"], ["☕", "Спокойно живу и наслаждаюсь"], ["🍳", "Готовлю испанские блюда для друзей"], ["🎙️", "Выступаю на испанском"]]}],text:"Своя мечта…"},
+ {lvl:"Как удобно",t:"Сколько времени в день ты готов заниматься?",s:"Уроки подстроим под это.",groups:[
+   {items:[["⏱️","10–15 минут"],["🕧","Около 30 минут"],["🕐","Час и больше"],["📆","Только по выходным"]],more:[["🚌", "В дороге / в транспорте"], ["🌅", "Утром перед работой"], ["🍽️", "В обеденный перерыв"], ["🌙", "Вечером"], ["🔀", "По-разному"]]}]},
+ {lvl:"Последний шаг",t:"Расскажи о себе в нескольких предложениях",s:"Это необязательно — можно пропустить и сразу нажать «Далее», а написать потом. Пиши по-русски (или по-испански, если хочешь). Всё, что напишешь, станет темой уроков: чем личнее, тем интереснее!",
+  area:"Например: живу в Валенсии два года, работаю…, по выходным…"},
+ {final:true}
+];
+let ans={},i=0;
+try{ans=JSON.parse(localStorage.getItem("eugenio-anket-es")||"{}");i=+localStorage.getItem("eugenio-anket-es-i")||0}catch(e){}
+if(i>=PAGES.length)i=0;
+const $=s=>document.querySelector(s);
+function save(){try{localStorage.setItem("eugenio-anket-es",JSON.stringify(ans));localStorage.setItem("eugenio-anket-es-i",i)}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function summary(){
+  let out="📝 Eugenio — анкета для испанского\n";
+  PAGES.forEach((p,pi)=>{
+    if(!p.t)return;
+    const a=ans[pi]||{};const sel=(a.sel||[]);const txt=(a.txt||"").trim();
+    if(!sel.length&&!txt)return;
+    out+="\n▸ "+p.t+"\n";
+    if(sel.length)out+=sel.join(", ")+"\n";
+    if(txt)out+="✍️ "+txt+"\n";
+  });
+  return out;
+}
+function render(){
+  const p=PAGES[i];
+  $("#bar").style.width=(i/(PAGES.length-1)*100)+"%";
+  $("#back").hidden=i===0;
+  $("#next").textContent=p.intro?"Начнём →":p.final?"Сначала ↺":"Далее →";
+  let h="";
+  if(p.intro){
+    h=`<div class="hero"><div class="big">👋🇪🇸</div>
+      <h1>¡Hola, Eugenio!</h1>
+      <p class="sub">Испанский — не как в учебнике, а <b>на материале твоей жизни</b>: твоя жизнь в Испании, работа, хобби.</p>
+      <p class="sub">Отметь картинки, которые про тебя, — около 7 минут.</p>
+      <p class="sub">Вопросы будут про Испанию, работу, хобби, еду, твой испанский — и о чём ты мечтаешь.</p>
+      <p class="sub">Правильных и неправильных ответов нет.</p>\n      <div class="note">⏸ <b>Не обязательно всё сразу.</b> Ответы сохраняются на этом телефоне. Можно пропустить вопрос, закрыть анкету и вернуться в другой раз — продолжишь с того же места.<br>📋 В любой момент нажми «Мои ответы» вверху, скопируй и пришли Даше. Дописал что-то позже — просто пришли ещё раз, повторы не страшны. Ответы можно менять: новые заменят старые.</div></div>`;
+  }else if(p.final){
+    const s=summary();
+    h=`<div class="eyebrow">Готово 🎉</div><h1>¡Gracias, Eugenio!</h1>
+      <p class="sub">Скопируй результат и пришли его Даше. По нему соберём твой личный словарь и уроки испанского. Захочешь что-то дописать или поменять — вернись в любой момент и пришли заново.</p>
+      <div class="res" id="res">${esc(s)}</div>
+      <button class="btn pri" id="copy" type="button">📋 Скопировать результат</button>
+      <div class="copied" id="copied" aria-live="polite"></div>`;
+  }else{
+    const a=ans[i]||(ans[i]={sel:[],txt:""});
+    h=`<div class="eyebrow">${/^\d/.test(p.lvl)?"Уровень ":""}${p.lvl}</div><h1>${p.t}</h1><p class="sub">${p.s}</p>`;
+    (p.groups||[]).forEach(g=>{
+      if(g.q)h+=`<p class="grp">${g.q}</p>`;
+      const all=g.items.concat(g.more||[]),base=g.items.length;
+      h+=`<div class="grid${p.cols4?" g4":p.cols2?" g2":""}" data-per="${p.cols4?16:12}">`+all.map(([e,l],n)=>{
+        const k=(g.q?g.q+": ":"")+l,on=a.sel.includes(k);
+        return `<button type="button" class="tile${n>=base?" x":""}" data-k="${esc(k)}" aria-pressed="${on}"${n>=base&&!on?" hidden":""}><span class="e">${e}</span>${esc(l)}</button>`}).join("")+`</div>`;
+      if(all.length>base)h+=`<button type="button" class="more">➕ Ещё картинки</button>`;
+    });
+    if(p.text||!p.area)h+=`<input type="text" id="t${i}" placeholder="${esc(p.text?("✍️ "+p.text):"✍️ Другое — напиши своё…")}" value="${esc(a.txt)}">`;
+    if(p.area)h+=`<textarea id="t${i}" placeholder="${esc(p.area)}">${esc(a.txt)}</textarea>`;
+    h+=`<button type="button" class="skip" id="skip">⏭ Пропустить эту страницу</button>`;
+  }
+  const m=$("#page");m.innerHTML=`<div style="display:flex;flex-direction:column;gap:9px">${h}</div>`;
+  m.querySelectorAll(".tile").forEach(b=>b.onclick=()=>{
+    const a=ans[i],k=b.dataset.k,on=a.sel.includes(k);
+    a.sel=on?a.sel.filter(x=>x!==k):[...a.sel,k];b.setAttribute("aria-pressed",!on);save();
+  });
+  m.querySelectorAll(".more").forEach(btn=>{const grid=btn.previousElementSibling,per=+grid.dataset.per;
+    const upd=()=>{const left=grid.querySelectorAll(".tile.x[hidden]").length;btn.textContent=left?`➕ Ещё картинки (${left})`:"▲ Свернуть";};upd();
+    btn.onclick=()=>{const hid=[...grid.querySelectorAll(".tile.x[hidden]")];
+      if(hid.length){hid.slice(0,per).forEach(t=>t.hidden=false)}else{grid.querySelectorAll(".tile.x").forEach(t=>{if(t.getAttribute("aria-pressed")!=="true")t.hidden=true});btn.scrollIntoView({block:"nearest"})}upd()}});
+  const t=$("#t"+i);if(t)t.oninput=()=>{ans[i].txt=t.value;save()};
+  const sk=$("#skip");if(sk)sk.onclick=()=>go(1);
+  const c=$("#copy");if(c)c.onclick=()=>{
+    const s=summary();
+    const done=()=>{$("#copied").textContent="✅ Скопировано! Отправь Даше."};
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents($("#res"));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);
+      $("#copied").textContent="Текст выделен — нажми и удерживай, затем «Скопировать»."};
+    try{navigator.clipboard.writeText(s).then(done,fallback)}catch(e){fallback()}
+  };
+  window.scrollTo(0,0);
+}
+function go(d){i=Math.max(0,Math.min(PAGES.length-1,i+d));save();render()}
+$("#next").onclick=()=>{if(PAGES[i].final){i=0;save();render()}else go(1)};
+$("#back").onclick=()=>go(-1);
+function ov(html){const o=document.createElement("div");o.className="ov";o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");o.innerHTML=`<div class="box">${html}</div>`;o.onclick=e=>{if(e.target===o)o.remove()};document.body.append(o);return o}
+function doneCount(){return Object.values(ans).filter(a=>a&&((a.sel&&a.sel.length)||(a.txt&&a.txt.trim()))).length}
+function copyText(s,msg){const done=()=>{msg.textContent="✅ Скопировано! Отправь Даше."};
+  const fb=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("res2"));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);msg.textContent="Текст выделен — нажми и удерживай, затем «Скопировать»."};
+  try{navigator.clipboard.writeText(s).then(done,fb)}catch(e){fb()}}
+$("#mine").onclick=()=>{const n=doneCount(),s=summary();
+  const o=ov(`<h1>📋 Мои ответы</h1><p class="sub">Заполнено вопросов: ${n}. Хочешь что-то поменять — открой вопрос и отметь заново, ответ перезапишется.</p>
+   ${n?`<div class="res" id="res2">${esc(s)}</div><button class="btn pri" id="cp2" type="button">📋 Скопировать и отправить Даше</button><div class="copied" id="cm2" aria-live="polite"></div>`:`<p class="sub">Пока нет ответов.</p>`}
+   <button class="btn sec" id="cl2" type="button">Закрыть</button>`);
+  const c=o.querySelector("#cp2");if(c)c.onclick=()=>copyText(s,o.querySelector("#cm2"));o.querySelector("#cl2").onclick=()=>o.remove()};
+function welcome(){const p=PAGES[i];if(!(i>0&&!p.final))return;
+  const o=ov(`<div style="font-size:40px">👋</div><h1>С возвращением, Eugenio!</h1><p class="sub">Все ответы сохранены (заполнено вопросов: ${doneCount()}). Продолжим с места, где ты остановился: «${esc(p.t||"")}».</p>
+   <button class="btn pri" id="w1" type="button">▶ Продолжить</button><button class="btn sec" id="w2" type="button">📋 Мои ответы</button>
+   <button class="skip" id="w3" type="button">↩ К началу анкеты (ответы останутся)</button>`);
+  o.querySelector("#w1").onclick=()=>o.remove();o.querySelector("#w2").onclick=()=>{o.remove();$("#mine").click()};
+  o.querySelector("#w3").onclick=()=>{o.remove();i=0;save();render()}}
+render();
+if(document.getElementById("gate")){const g=document.getElementById("gate");new MutationObserver((m,ob)=>{if(!document.getElementById("gate")){ob.disconnect();welcome()}}).observe(document.body,{childList:true})}else welcome();
+</script>
