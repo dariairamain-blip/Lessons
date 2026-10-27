@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Тест: один день в Испании</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+/* Layout: one compact phone card per scene, a "day timeline" bar on top; azulejo blue + saffron */
+:root{
+  --bg:#f3f6fb; --card:#ffffff; --fg:#14213d; --muted:#5b6785; --line:#d9e1ef;
+  --accent:#1f4fbf; --accent-soft:#e3ebfb; --sun:#f2a516; --ok:#1e8a52; --ok-soft:#e1f4ea; --bad:#c43c3c; --bad-soft:#fbe6e6;
+  --display:"Unbounded",system-ui,sans-serif; --body:"Golos Text",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0d1426; --card:#162038; --fg:#eef2fb; --muted:#9aa7c6; --line:#2a3757;
+  --accent:#7ea2ff; --accent-soft:#1f2c4d; --sun:#ffc04a; --ok:#4fcf8b; --ok-soft:#173a2a; --bad:#ff7d7d; --bad-soft:#3f1d22; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d1426; --card:#162038; --fg:#eef2fb; --muted:#9aa7c6; --line:#2a3757;
+  --accent:#7ea2ff; --accent-soft:#1f2c4d; --sun:#ffc04a; --ok:#4fcf8b; --ok-soft:#173a2a; --bad:#ff7d7d; --bad-soft:#3f1d22; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.45 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 28px}
+.wrap{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+h1,h2{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-size:1.45rem;line-height:1.2}
+h2{font-size:1.05rem;line-height:1.3}
+p{margin:0}
+.muted{color:var(--muted);font-size:.9rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.day{display:flex;align-items:center;gap:10px}
+.track{flex:1;height:8px;border-radius:8px;background:var(--line);position:relative;overflow:visible}
+.fill{height:100%;border-radius:8px;background:var(--accent);transition:width .4s}
+.sunDot{position:absolute;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;font-size:18px;line-height:22px;text-align:center;transition:left .4s}
+.clock{font-family:var(--display);font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums;min-width:44px;text-align:right}
+.scene{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+.say{background:var(--accent-soft);border-radius:14px;padding:12px 14px;font-size:1.05rem}
+.say b{color:var(--accent)}
+.msg{background:var(--accent-soft);border-radius:14px 14px 14px 4px;padding:12px 14px;font-size:1rem;line-height:1.5}
+.gap{display:inline-block;min-width:3.2em;border-bottom:2px solid var(--sun);text-align:center;font-weight:600}
+.opts{display:flex;flex-direction:column;gap:8px}
+button{font:inherit;cursor:pointer;color:inherit}
+.opt{text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:1rem;transition:border-color .15s,background .15s}
+@media (hover:hover) and (pointer:fine){.opt:not(:disabled):hover{border-color:var(--accent)}}
+.opt{-webkit-tap-highlight-color:transparent}
+.opt.ok{border-color:var(--ok);background:var(--ok-soft)}
+.opt.bad{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{background:var(--accent);color:#fff;border:0;border-radius:12px;padding:13px 18px;font-weight:600;font-size:1rem}
+:root[data-theme="dark"] .btn{color:#0d1426}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#0d1426}}
+.btn.wide{width:100%}
+.ghost{background:transparent;border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;font-size:.92rem}
+.listen{background:var(--sun);color:#1b1300;border:0;border-radius:14px;padding:14px 18px;font-weight:600;font-size:1.05rem}
+.listenCol{display:flex;flex-direction:column;gap:8px}
+.listenCol button{width:100%;text-align:left}
+.stop{background:transparent;border:1.5px solid var(--line);border-radius:10px;padding:6px 10px;font-size:.85rem;font-weight:600;white-space:nowrap}
+.stop.sure{border-color:var(--bad);color:var(--bad)}
+.nav{display:flex;align-items:center;gap:6px}
+.navb{background:var(--card);border:1.5px solid var(--line);border-radius:10px;width:40px;height:36px;font-size:1rem;flex:none}
+.navb:disabled{opacity:.35;cursor:default}
+.lvls{display:flex;gap:4px;flex:1;min-width:0}
+.lv{flex:1;background:var(--card);border:1.5px solid var(--line);border-radius:10px;height:36px;font:600 .8rem var(--display);padding:0}
+.lv.cur{background:var(--accent);border-color:var(--accent);color:var(--card)}
+.qn{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums;min-width:38px;text-align:center}
+.fb{font-size:.95rem;padding:10px 12px;border-radius:12px}
+.fb.ok{background:var(--ok-soft);color:var(--ok)}
+.fb.bad{background:var(--bad-soft)}
+.fb.bad strong{color:var(--bad)}
+.level{font-family:var(--display);font-size:3rem;color:var(--accent);line-height:1}
+.blocks{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.blk{border:1px solid var(--line);border-radius:10px;padding:8px 4px;text-align:center;font-size:.85rem;font-variant-numeric:tabular-nums}
+.blk b{display:block;font-family:var(--display);font-size:.8rem}
+.blk.pass{border-color:var(--ok);background:var(--ok-soft)}
+textarea{width:100%;min-height:96px;font:inherit;color:var(--fg);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:10px}
+pre.copy{white-space:pre-wrap;word-break:break-word;background:var(--bg);border:1px dashed var(--line);border-radius:12px;padding:12px;font:.85rem/1.45 var(--body);margin:0;max-height:240px;overflow:auto;user-select:all}
+.list{display:flex;flex-direction:column;gap:6px;font-size:.88rem}
+.list div{padding:6px 8px;border-radius:8px;background:var(--bg)}
+.foot{text-align:center;font-size:.8rem;color:var(--muted)}
+.toast{font-size:.85rem;color:var(--ok)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<p class="foot">© Daria Botina</p>
+
+<script>
+// ---------- Сцены дня. Каждый блок = уровень (5 сцен). ----------
+const BLOCKS = [
+ {lvl:"A1", items:[
+  {"t": "07:30", "place": "🏫 У школы, разговор с учительницей", "task": "Вставь пропущенное слово.", "gapText": "A mi hijo le ___ mucho las matemáticas.", "opts": ["gusta", "gustan", "gusto"], "a": 1, "es": 1},
+  {"t": "07:43", "place": "☕ Кафе по дороге", "task": "Послушай. О чём спрашивает бариста?", "audio": "¿Para tomar aquí o para llevar?", "opts": ["Наличными или картой?", "С молоком или без?", "Здесь или с собой?"], "a": 2},
+  {"t": "07:56", "place": "🌦 Прогноз погоды по радио", "task": "Послушай. Какая сегодня погода?", "audio": "Hoy hace mucho calor.", "opts": ["Сегодня очень жарко", "Сегодня идёт дождь", "Сегодня холодно"], "a": 0},
+  {"t": "08:09", "place": "🚌 Остановка", "task": "Послушай: когда придёт автобус?", "audio": "El autobús llega a las ocho y media.", "opts": ["8:15", "9:30", "8:30"], "a": 2},
+  {"t": "08:22", "place": "👋 Новый сосед в лифте", "task": "Вставь пропущенное слово.", "gapText": "Yo ___ ruso, pero vivo en España.", "opts": ["soy", "estoy", "tengo"], "a": 0, "es": 1},
+  {"t": "08:35", "place": "💻 Клиент спрашивает по телефону", "task": "Вставь пропущенное слово.", "gapText": "¿Dónde ___ la oficina de su empresa?", "opts": ["es", "está", "hay"], "a": 1, "es": 1},
+  {"t": "08:48", "place": "💼 Рассказ о работе", "task": "Вставь пропущенное слово.", "gapText": "Nuestra empresa ___ programas para grandes empresas.", "opts": ["vende", "vendo", "venden"], "a": 0, "es": 1},
+  {"t": "09:01", "place": "🤝 Знакомишь клиента с командой", "task": "Вставь пропущенное слово.", "gapText": "Mis compañeros ___ de Valencia.", "opts": ["están", "son", "es"], "a": 1, "es": 1},
+  {"t": "09:14", "place": "📍 Прохожий спрашивает дорогу", "task": "Что ответишь?", "say": "¿La farmacia está cerca?", "opts": ["Sí, soy farmacéutico.", "No, tengo dolor.", "Sí, está a dos minutos."], "a": 2, "es": 1},
+  {"t": "09:27", "place": "🎂 Коллега спрашивает про день рождения", "task": "Послушай: когда у неё день рождения?", "audio": "Mi cumpleaños es el doce de mayo.", "opts": ["2 мая", "12 мая", "12 марта"], "a": 1},
+  {"t": "09:40", "place": "🛒 Список покупок", "task": "Вставь пропущенное слово.", "gapText": "Necesito ___ leche y pan.", "opts": ["compro", "compra", "comprar"], "a": 2, "es": 1},
+  {"t": "09:53", "place": "🛒 Очередь в супермаркете", "task": "Вставь пропущенное слово.", "gapText": "Hoy ___ mucha gente en el supermercado.", "opts": ["hay", "está", "es"], "a": 0, "es": 1},
+  {"t": "10:06", "place": "👞 Обувной магазин", "task": "Вставь пропущенное слово.", "gapText": "¿Cuánto cuestan ___ zapatos?", "opts": ["esta", "este", "estos"], "a": 2, "es": 1},
+  {"t": "10:19", "place": "🏋️ Спортзал", "task": "Вставь пропущенное слово.", "gapText": "Yo ___ al gimnasio dos veces por semana.", "opts": ["va", "voy", "vamos"], "a": 1, "es": 1},
+  {"t": "10:32", "place": "🛋 Планы на выходные", "task": "Вставь пропущенное слово.", "gapText": "Los domingos no ___: descanso en casa.", "opts": ["trabajo", "trabaja", "trabajar"], "a": 0, "es": 1},
+  {"t": "10:45", "place": "🥖 Пекарня", "task": "Послушай: сколько нужно заплатить?", "audio": "Son tres euros con cincuenta.", "opts": ["3,50 €", "3,15 €", "13,50 €"], "a": 0}
+ ]},
+ {lvl:"A2", items:[
+  {"t": "11:00", "place": "📞 Звонок начальнику", "task": "Вставь пропущенное слово.", "gapText": "Ayer ___ con un cliente muy importante.", "opts": ["hablo", "hablé", "hablaré"], "a": 1, "es": 1},
+  {"t": "11:15", "place": "🚗 Звонок за рулём", "task": "Вставь пропущенное слово.", "gapText": "Ahora no puedo hablar, ___ conduciendo.", "opts": ["estoy", "soy", "tengo"], "a": 0, "es": 1},
+  {"t": "11:30", "place": "💊 Аптека", "task": "Фармацевт спрашивает. Что это значит?", "say": "¿Tiene receta?", "opts": ["У вас есть сдача?", "У вас есть рецепт?", "Вам нужен пакет?"], "a": 1},
+  {"t": "11:45", "place": "🩺 Запись к врачу", "task": "Послушай. Когда приём?", "audio": "Le doy cita para el martes a las once menos cuarto.", "opts": ["Во вторник в 11:15", "В четверг в 10:45", "Во вторник в 10:45"], "a": 2},
+  {"t": "12:00", "place": "⚽ Коллега спрашивает про детство", "task": "Вставь пропущенное слово.", "gapText": "Cuando era niño, ___ al fútbol todos los días.", "opts": ["juego", "jugaba", "jugaré"], "a": 1, "es": 1},
+  {"t": "12:15", "place": "🔧 Звонок из автосервиса", "task": "Послушай. Когда будет готова машина?", "audio": "Su coche estará listo el jueves por la tarde.", "opts": ["Уже готова, можно забирать", "Во вторник утром", "В четверг после обеда"], "a": 2},
+  {"t": "12:30", "place": "🥗 Обед с коллегой", "task": "Коллега просит. Что ответишь?", "say": "¿Me pasas el informe de ventas?", "opts": ["¡Claro! Te lo envío ahora.", "Sí, me gusta el informe.", "No, tengo hambre de ventas."], "a": 0, "es": 1},
+  {"t": "12:45", "place": "🧾 Бухгалтерия спрашивает про счета", "task": "Вставь пропущенное слово.", "gapText": "¿Las facturas? Ya ___ he enviado.", "opts": ["los", "les", "las"], "a": 2, "es": 1},
+  {"t": "13:00", "place": "🖥 Презентация клиенту", "task": "Вставь пропущенное слово.", "gapText": "Nuestro programa es ___ rápido que el de la competencia.", "opts": ["muy", "más", "mucho"], "a": 1, "es": 1},
+  {"t": "13:15", "place": "📦 Correos", "task": "Послушай. Когда придёт посылка?", "audio": "Su paquete llegará en un plazo de tres a cinco días.", "opts": ["Через 3–5 дней", "Уже пришла", "Через 3–5 недель"], "a": 0},
+  {"t": "13:30", "place": "✂️ Парикмахерская", "task": "Мастер спрашивает. Что ответишь?", "say": "¿Cómo quiere el pelo?", "opts": ["Más corto por los lados, por favor.", "Lo quiero el martes.", "Tengo el pelo en casa."], "a": 0, "es": 1},
+  {"t": "13:45", "place": "🍽 Хотел пообедать в ресторане", "task": "Вставь пропущенное слово.", "gapText": "El restaurante ___ cerrado los lunes.", "opts": ["es", "está", "hay"], "a": 1, "es": 1},
+  {"t": "14:00", "place": "👕 Магазин одежды", "task": "Продавщица спрашивает. Что ответишь?", "say": "¿Qué talla usa?", "opts": ["Pago con tarjeta.", "Muy bien, gracias.", "La M, creo."], "a": 2, "es": 1},
+  {"t": "14:15", "place": "🎶 Сосед стучит в дверь", "task": "Что значит его просьба?", "say": "¿Podrías bajar un poco la música?", "opts": ["Не мог бы ты сделать музыку тише?", "Можешь включить музыку?", "Ты спустишься вниз?"], "a": 0},
+  {"t": "14:30", "place": "☕ Кофе в новой кофейне", "task": "Вставь пропущенное слово.", "gapText": "Este café es ___ que el de la oficina.", "opts": ["bien", "bueno", "mejor"], "a": 2, "es": 1},
+  {"t": "14:45", "place": "🔑 Рассказ коллеге", "task": "Вставь пропущенное слово.", "gapText": "Esta mañana ___ las llaves en el metro.", "opts": ["he perdido", "pierdo", "perderé"], "a": 0, "es": 1}
+ ]},
+ {lvl:"B1", items:[
+  {t:"15:00",place:"🤞 После переговоров",task:"Вставь пропущенное слово.",gapText:"Espero que el cliente ___ el contrato esta semana.",opts:["firma","firmará","firme"],a:2,es:1},
+  {t:"15:20",place:"💬 WhatsApp от хозяина квартиры",task:"Прочитай. Что нужно сделать, если тебя не будет дома?",msg:"Hola. Te escribo porque el lunes vendrá el fontanero a arreglar la ducha. Llegará sobre las diez. Si no puedes estar en casa, déjame la llave en el buzón. ¡Gracias!",opts:["Позвонить сантехнику","Оставить ключ в почтовом ящике","Перенести ремонт на вторник"],a:1},
+  {t:"15:45",place:"⏳ Мечты о свободном времени",task:"Вставь пропущенное слово.",gapText:"Si tuviera más tiempo, ___ más español.",opts:["estudio","estudiaría","estudié"],a:1,es:1},
+  {t:"16:10",place:"🏦 Банк",task:"Послушай. Что нужно принести, чтобы открыть счёт?",audio:"Para abrir la cuenta, necesitamos su NIE y un justificante de domicilio.",opts:["Паспорт и справку с работы","Ничего, всё оформят на месте","NIE и подтверждение адреса"],a:2},
+  {t:"16:30",place:"🗣 Новый коллега спрашивает",task:"Вставь пропущенное слово.",gapText:"Llevo dos años ___ en esta empresa.",opts:["trabajar","trabajado","trabajando"],a:2,es:1},
+  {t:"16:50",place:"🩺 После врача",task:"Вставь пропущенное слово.",gapText:"El médico me recomienda que ___ más agua.",opts:["beba","bebo","beberé"],a:0,es:1},
+  {t:"17:10",place:"🚆 Поезд Renfe",task:"Из окна дует. Вставь пропущенное слово.",gapText:"Disculpe, ¿le importaría ___ la ventana?",opts:["cierra","cerrar","cerrando"],a:1,es:1},
+  {t:"17:30",place:"📲 Сообщение другу",task:"Вставь пропущенное слово.",gapText:"Cuando ___ la reunión, te llamo.",opts:["termine","termino","terminaré"],a:0,es:1}
+ ]},
+ {lvl:"B2", items:[
+  {t:"18:00",place:"😬 Клиент пришёл без предупреждения",task:"Вставь пропущенное слово.",gapText:"Si hubiera sabido que el cliente venía hoy, ___ preparado la presentación.",opts:["había","habría","he"],a:1,es:1},
+  {t:"18:30",place:"📧 Почта",task:"Вставь пропущенное слово.",gapText:"Me molesta que los clientes ___ tanto en contestar.",opts:["tardan","tardarán","tarden"],a:2,es:1},
+  {t:"19:00",place:"🏃 Забираешь сына, мама одноклассника смеётся",task:"Что значит её фраза?",say:"¡Tu hijo es un trasto!",opts:["Твой сын очень устал","Твой сын — тот ещё проказник","Твой сын — лучший ученик"],a:1},
+  {t:"19:30",place:"🎧 Голосовое от клиента",task:"Послушай. Что произошло с ценой?",audio:"Si me lo hubieras dicho antes, habría bajado el precio.",opts:["Цену уже снизили","Цену не снизили, а могли бы, если бы сказали раньше","Цену снизят завтра"],a:1},
+  {t:"20:15",place:"🛍 У выхода из супермаркета",task:"Вставь пропущенное слово.",gapText:"___ salir del supermercado, me di cuenta de que había olvidado la cartera.",opts:["En","Por","Al"],a:2,es:1}
+ ]}
+];
+const passOf = n => Math.ceil(n*0.75); // 6 из 8, 4 из 5 — переходим на следующий уровень
+const TOTAL = BLOCKS.reduce((n,b)=>n+b.items.length,0);
+
+let navTok=0;
+let answers=BLOCKS.map(b=>Array(b.items.length).fill(null));
+let bi=0, qi=0, scores=[], counts=[], log=[], answered=false, rate=0.8;
+const app = document.getElementById('app');
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// ---------- Голос ----------
+let seqId=0;
+function utter(text,r){
+  const synth=window.speechSynthesis;
+  const u=new SpeechSynthesisUtterance(text); u.lang="es-ES"; u.rate=r;
+  const vs=synth.getVoices();
+  const v=vs.find(v=>/^es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang));
+  if(v) u.voice=v;
+  return u;
+}
+// Обычная скорость: фраза целиком
+function speak(text,onend){
+  try{
+    const synth=window.speechSynthesis; if(!synth) return false;
+    seqId++; synth.cancel(); if(!text){ synth.speak(new SpeechSynthesisUtterance('')); return true; }
+    const u=utter(text,rate); if(onend) u.onend=onend;
+    synth.speak(u); return true;
+  }catch(e){return false}
+}
+// Медленно: делим фразу на куски и делаем паузы между ними.
+// Так замедление слышно всегда, даже там, где телефон игнорирует настройку скорости.
+function speakSlow(text,size,pause,r,onend){
+  try{
+    const synth=window.speechSynthesis; if(!synth) return;
+    const my=++seqId; synth.cancel();
+    const words=text.split(/\s+/), parts=[];
+    for(let k=0;k<words.length;k+=size) parts.push(words.slice(k,k+size).join(' '));
+    let k=0;
+    const step=()=>{
+      if(my!==seqId) return;
+      if(k>=parts.length){ if(onend) onend(); return; }
+      const u=utter(parts[k++],r);
+      u.onend=()=>setTimeout(step,pause);
+      synth.speak(u);
+    };
+    step();
+  }catch(e){}
+}
+try{ speechSynthesis.onvoiceschanged = ()=>{} }catch(e){}
+
+// ---------- Экраны ----------
+function start(){
+  app.innerHTML = `
+  <div class="card">
+    <span class="scene">🇪🇸 Тест по испанскому · 10–15 минут</span>
+    <h1>Один день в Испании</h1>
+    <p>Тебя ждёт обычный день: офис и клиенты, кафе, супермаркет, аптека, банк, автосервис и даже поезд. В каждой сцене — один короткий вопрос.</p>
+    <p>Задания постепенно усложняются. Проходи сколько хочешь: если станет слишком трудно или нет времени, нажми вверху <b>⏹ Стоп</b> — результат сохранится.</p>
+    <p>Не угадывай: если не знаешь ответ, нажми <b>🤷 Не знаю</b>. Так результат будет точнее.</p>
+    <p class="muted">В некоторых сценах есть аудио — включи звук. В конце появится сообщение с результатом, его нужно скопировать и отправить Дарье.</p>
+    ${hasSaved()?'<button class="btn wide" id="cont">▶️ Продолжить с того же места</button><button class="ghost" id="go">Начать заново</button>':'<button class="btn wide" id="go">Начать день ☀️</button>'}
+  </div>`;
+  document.getElementById('go').onclick = ()=>{ speak(""); answers=BLOCKS.map(b=>Array(b.items.length).fill(null)); recalc(); bi=0; qi=0; save(); show(); };
+  const c=document.getElementById('cont'); if(c) c.onclick=()=>{ speak(""); show(); };
+}
+
+// Прогресс хранится в этом браузере: если закрыть страницу, можно продолжить
+const KEY='eugenio-test-nivel-v1';
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({answers,bi,qi})); }catch(e){} }
+function hasSaved(){ return answers.some(a=>a.some(x=>x)); }
+function load(){ try{ const d=JSON.parse(localStorage.getItem(KEY)||'null'); if(d&&Array.isArray(d.answers)&&d.answers.length===BLOCKS.length){
+  answers=BLOCKS.map((b,k)=>b.items.map((_,j)=>(d.answers[k]&&d.answers[k][j])||null)); bi=Math.min(d.bi||0,BLOCKS.length-1); qi=Math.min(d.qi||0,BLOCKS[bi].items.length-1); recalc(); } }catch(e){} }
+
+function totalDone(){ let n=qi; for(let k=0;k<bi;k++) n+=BLOCKS[k].items.length; return n; }
+
+// Пересчёт баллов и списка ответов (ответ на тот же вопрос перезаписывается)
+function recalc(){
+  scores=[]; counts=[]; log=[];
+  BLOCKS.forEach((b,k)=>b.items.forEach((it,j)=>{
+    const r=answers[k][j]; if(!r) return;
+    scores[k]=(scores[k]||0)+(r.ok?1:0); counts[k]=(counts[k]||0)+1;
+    log.push({lvl:b.lvl,q:it.gapText||it.say||it.audio||it.msg||it.task,your:r.i<0?"не знаю":it.opts[r.i],right:it.opts[it.a],ok:r.ok});
+  }));
+}
+function go(k,j){ bi=k; qi=j; show(); }
+function prevQ(){ if(qi>0) return go(bi,qi-1); if(bi>0) return go(bi-1,BLOCKS[bi-1].items.length-1); }
+function skipQ(){ if(qi<BLOCKS[bi].items.length-1) return go(bi,qi+1); if(bi<BLOCKS.length-1) return go(bi+1,0); finish(); }
+
+function show(){
+  answered=false; navTok++; save();
+  try{seqId++;speechSynthesis.cancel()}catch(e){}
+  const it = BLOCKS[bi].items[qi];
+  const pct = Math.min(100, totalDone()/TOTAL*100);
+  let body = "";
+  if(it.say) body += `<div class="say"><b>«</b>${esc(it.say)}<b>»</b></div>`;
+  if(it.msg) body += `<div class="msg">${esc(it.msg)}</div>`;
+  if(it.gapText) body += `<div class="say">${esc(it.gapText).replace('___','<span class="gap">?</span>')}</div>`;
+  if(it.audio) body += `<div class="listenCol"><button class="listen" id="play">🔊 Слушать</button><button class="ghost" id="slow">🐢 Слушать медленнее</button><button class="ghost" id="slow2">🐌 Слушать ещё медленнее</button></div>
+     <button class="ghost" id="nosound" style="align-self:flex-start;font-size:.8rem">Нет звука?</button><div id="fallback" hidden class="say"></div>`;
+  app.innerHTML = `
+  <div class="day"><div class="track"><div class="fill" style="width:${pct}%"></div><span class="sunDot" style="left:${pct}%">☀️</span></div><span class="clock">${it.t}</span><button class="stop" id="stop">⏹ Стоп</button></div>
+  <div class="nav">
+    <button class="navb" id="prev" ${bi===0&&qi===0?'disabled':''} aria-label="Предыдущий вопрос">⏮</button>
+    <div class="lvls">${BLOCKS.map((b,k)=>`<button class="lv ${k===bi?'cur':''}" data-k="${k}">${b.lvl}</button>`).join('')}</div>
+    <span class="qn">${qi+1}/${BLOCKS[bi].items.length}</span>
+    <button class="navb" id="skip" aria-label="Следующий вопрос">⏭</button>
+  </div>
+  ${answers[bi][qi]?'<p class="muted" style="font-size:.85rem">Ты уже отвечал на этот вопрос. Новый ответ заменит старый.</p>':''}
+  <div class="card">
+    <span class="scene">${it.place}</span>
+    <h2>${esc(it.task)}</h2>
+    ${body}
+    <div class="opts">${it.opts.map((o,i)=>`<button class="opt" data-i="${i}">${esc(o)}</button>`).join('')}</div>
+    <div id="fb"></div>
+    <div class="row" id="ctrl"><button class="ghost" id="idk">🤷 Не знаю / пропустить</button></div>
+  </div>`;
+  try{document.activeElement&&document.activeElement.blur()}catch(e){}
+  document.getElementById('prev').onclick=prevQ;
+  document.getElementById('skip').onclick=skipQ;
+  app.querySelectorAll('.lv').forEach(b=>b.onclick=()=>go(+b.dataset.k,0));
+  const st=document.getElementById('stop');
+  st.onclick=()=>{ if(!st.classList.contains('sure')){ st.classList.add('sure'); st.textContent='Завершить?'; setTimeout(()=>{st.classList.remove('sure'); st.textContent='⏹ Стоп'},3000); return; }
+    try{seqId++;speechSynthesis.cancel()}catch(e){} finish(); };
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(+b.dataset.i));
+  document.getElementById('idk').onclick=()=>answer(-1);
+  if(it.audio){
+    const toOpts=()=>{const o=app.querySelector('.opts'); if(o&&!answered) o.scrollIntoView({behavior:'smooth',block:'nearest'})};
+    document.getElementById('play').onclick=()=>{rate=0.8;speak(it.audio,toOpts)};
+    document.getElementById('slow').onclick=()=>speakSlow(it.audio,3,450,0.65,toOpts);
+    document.getElementById('slow2').onclick=()=>speakSlow(it.audio,1,600,0.5,toOpts);
+    document.getElementById('nosound').onclick=()=>{const f=document.getElementById('fallback');f.textContent=it.audio;f.hidden=false};
+    setTimeout(()=>{rate=0.8;speak(it.audio,toOpts)},300);
+  }
+  window.scrollTo({top:0});
+}
+
+function answer(i){
+  if(answered) return; answered=true;
+  try{seqId++;speechSynthesis.cancel()}catch(e){}
+  const it = BLOCKS[bi].items[qi];
+  const ok = i===it.a;
+  answers[bi][qi]={i,ok}; save();
+  recalc();
+  const btns=app.querySelectorAll('.opt');
+  btns.forEach((b,k)=>{b.disabled=true; if(k===it.a) b.classList.add('ok'); if(k===i&&!ok) b.classList.add('bad');});
+  document.getElementById('idk').remove();
+  const fb=document.getElementById('fb');
+  if(ok){ fb.innerHTML=`<div class="fb ok">✅ ¡Muy bien!</div>`; const tok=navTok; setTimeout(()=>{ if(tok===navTok) next(); },900); }
+  else{
+    fb.innerHTML=`<div class="fb bad"><strong>${i<0?'Ничего страшного.':'Не совсем.'}</strong> Правильно: «${esc(it.opts[it.a])}»</div>`;
+    const c=document.getElementById('ctrl'); c.innerHTML=`<button class="btn wide" id="nx">Дальше →</button>`;
+    const nx=document.getElementById('nx'); nx.onclick=next;
+    nx.scrollIntoView({behavior:'smooth',block:'nearest'});
+    if(it.es){ const full=it.gapText?it.gapText.replace('___',it.opts[it.a]):it.opts[it.a]; setTimeout(()=>{rate=0.7;speak(full)},1000); }
+  }
+}
+
+function next(){
+  qi++;
+  if(qi<BLOCKS[bi].items.length) return show();
+  // конец блока
+  if(bi<BLOCKS.length-1){ bi++; qi=0; return between(); }
+  finish();
+}
+
+function between(){
+  const msgs={1:"Утро позади! Дальше — задания посложнее.",2:"Половина дня позади. Дальше ещё интереснее.",3:"Последняя часть дня — самая сложная. Попробуй, сколько получится."};
+  app.innerHTML=`<div class="card"><span class="scene">☀️ Перерыв</span><h2>${msgs[bi]}</h2><button class="btn wide" id="go">Продолжить</button><button class="ghost" id="fin">⏹ Завершить и отправить результат</button></div>`;
+  document.getElementById('go').onclick=show;
+  document.getElementById('fin').onclick=finish;
+}
+
+// Уровень = самый высокий блок, где ответил минимум на 4 вопроса и 75%+ правильно,
+// плюс как справился со следующим блоком. Пропущенные блоки ниже не мешают.
+function level(){
+  const good=k=>{const c=counts[k]||0, sc=scores[k]||0; return c>=4 && sc/c>=0.75;};
+  let passed=0;
+  for(let k=0;k<BLOCKS.length;k++) if(good(k)) passed=k+1;
+  if(passed>=4) return "B2+";
+  const c=counts[passed]||0, sc=scores[passed]||0;
+  const upper = c>=4 && sc/c>=0.6;
+  const table=[["A0–A1","A1"],["A1","A1–A2"],["A2","A2–B1"],["B1","B1–B2"]];
+  return table[passed][upper?1:0];
+}
+const blkText=(k)=>{const n=BLOCKS[k].items.length,c=counts[k]||0; if(!c) return '—'; return c===n? scores[k]+'/'+n : scores[k]+'/'+c+' (из '+n+')';};
+
+function finish(){
+  const lv=level();
+  const desc={"A0–A1":"Начинаем с основ — это самая приятная часть: прогресс будет заметен очень быстро.","A1":"Основа есть. Теперь нужно уверенно говорить о себе и о прошлом.","A1–A2":"Базу знаешь хорошо, впереди — прошедшее время и живые разговоры.","A2":"Уверенный бытовой испанский. Следующий шаг — субхунтив и свободная речь.","A2–B1":"Почти B1! Осталось закрепить сложные времена.","B1":"Свободно справляешься в повседневной жизни в Испании.","B1–B2":"Сильный уровень — дальше тонкости грамматики и идиомы.","B2+":"Отличный результат! Дальше — шлифовка и живая речь."}[lv];
+  app.innerHTML=`
+  <div class="card">
+    <span class="scene">🌙 День закончен</span>
+    <p class="muted">Твой уровень</p>
+    <div class="level">${lv}</div>
+    <p>${desc}</p>
+    <div class="blocks">${BLOCKS.map((b,k)=>`<div class="blk ${(counts[k]||0)>=4&&(scores[k]||0)/(counts[k]||1)>=0.75?'pass':''}"><b>${b.lvl}</b>${blkText(k)}</div>`).join('')}</div>
+  </div>
+  <div class="card">
+    <h2>Последний шаг (по желанию)</h2>
+    <p class="muted">Напиши 2–3 предложения о себе по-испански: где живёшь, чем занимаешься, что любишь. Как получится — ошибки не страшны.</p>
+    <textarea id="about" placeholder="Me llamo… Vivo en…"></textarea>
+  </div>
+  <div class="card">
+    <h2>📩 Отправь результат Дарье</h2>
+    <p class="muted">Нажми «Скопировать» и вставь сообщение в чат с Дарьей.</p>
+    <pre class="copy" id="out"></pre>
+    <button class="btn wide" id="cp">📋 Скопировать</button>
+    <span class="toast" id="toast" hidden>Скопировано ✓</span>
+  </div>
+  <div class="card">
+    <h2>Мои ответы</h2>
+    <div class="list">${log.map(l=>`<div>${l.ok?'✅':'❌'} <b>${l.lvl}</b> · ${esc(l.q.length>60?l.q.slice(0,60)+'…':l.q)}<br><span class="muted">Ответ: ${esc(l.your)}${l.ok?'':' → правильно: '+esc(l.right)}</span></div>`).join('')}</div>
+    <button class="ghost" id="again">🔁 Пройти тест заново</button>
+  </div>`;
+  const out=document.getElementById('out'), about=document.getElementById('about');
+  const build=()=>{
+    const errs=log.filter(l=>!l.ok).map(l=>`• [${l.lvl}] ${l.q} — ответ: ${l.your} (правильно: ${l.right})`).join('\n')||'• нет';
+    out.textContent=`🇪🇸 Результат теста по испанскому\nУровень: ${lv}\nПо блокам: ${BLOCKS.map((b,k)=>b.lvl+' '+blkText(k)).join(', ')}\n\nОшибки:\n${errs}\n\nО себе по-испански:\n${about.value.trim()||'(не написал)'}`;
+  };
+  build(); about.oninput=build;
+  document.getElementById('cp').onclick=async()=>{
+    build();
+    try{ await navigator.clipboard.writeText(out.textContent); }
+    catch(e){ const r=document.createRange(); r.selectNodeContents(out); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }
+    const t=document.getElementById('toast'); t.hidden=false; setTimeout(()=>t.hidden=true,2000);
+  };
+  document.getElementById('again').onclick=()=>{bi=0;qi=0;answers=BLOCKS.map(b=>Array(b.items.length).fill(null));recalc();save();start();};
+  window.scrollTo({top:0});
+}
+
+load();
+start();
+</script>
+
+</body>
+</html>
