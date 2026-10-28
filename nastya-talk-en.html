@@ -221,10 +221,10 @@ const viaWorker = {
       let r;
       try{ r = await fetch(WORKER, {method:"POST", headers:{"content-type":"application/json", "x-code": code}, body: JSON.stringify({system, messages, max_tokens: 1500, model: (opt && opt.model) || MODEL()})}); }
       catch(e){ throw {code:"network"}; }
-      if(r.status === 403){ const j = await r.json().catch(() => ({})); if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} code = await askCode("Код не подошёл. Попробуй ещё раз."); continue; } throw {code:"site"}; }
-      if(r.status === 429) throw {code:"rate_limited"};
+      if(r.status === 403){ const j = await r.json().catch(() => ({})); if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} code = await askCode("Код не подошёл. Попробуй ещё раз."); continue; } if(j.error === "paused"){ blockPaused(); throw {code:"paused"}; } throw {code:"site"}; }
+      if(r.status === 429){ const j = await r.json().catch(() => ({})); if(j.error === "limit") throw {code:"limit", scope: j.scope, detail: limitMsg(j.scope)}; throw {code:"rate_limited"}; }
       if(!r.ok){ const j = await r.json().catch(() => ({})); throw {code:"server", detail: "ошибка " + r.status + (j.error ? " · " + j.error : "") + (j.status ? " " + j.status : "") + (j.detail ? " · " + j.detail : "")}; }
-      const j = await r.json(); try{ return parseJSON(j.text); }catch(e){ throw {code:"badjson", detail: "ответ не прочитался · " + String(j.text || "").length + " знаков"}; }
+      checkLeft(r); const j = await r.json(); try{ return parseJSON(j.text); }catch(e){ throw {code:"badjson", detail: "ответ не прочитался · " + String(j.text || "").length + " знаков"}; }
     }
     throw {code:"badcode"};
   }
@@ -343,7 +343,7 @@ async function send(){
   }catch(e){
     S.turns.pop();
     b.innerHTML = ""; b.append(h("div", "warn", e && e.code === "not_granted" ? "Без разрешения Claude герой не может отвечать. Обнови страницу и нажми «Разрешить»." :
-      e && e.code === "rate_limited" ? "Слишком много сообщений подряд — подожди минутку и попробуй снова." : e && e.code === "network" ? "Нет интернета или связь прервалась. Проверь интернет и отправь ещё раз." : "Не получилось ответить. Попробуй ещё раз." + (e && e.detail ? " (" + e.detail + ")" : "")));
+      e && e.code === "limit" ? limitMsg(e.scope) : e && e.code === "paused" ? "🌿 Герои пока отдыхают." : e && e.code === "rate_limited" ? "Слишком много сообщений подряд — подожди минутку и попробуй снова." : e && e.code === "network" ? "Нет интернета или связь прервалась. Проверь интернет и отправь ещё раз." : "Не получилось ответить. Попробуй ещё раз." + (e && e.detail ? " (" + e.detail + ")" : "")));
   }finally{ S.busy = false; $("#send").disabled = false; if(!matchMedia("(pointer: coarse)").matches) $("#box").focus(); }
 }
 const SOSQ = (full, chunk, eu) => `A Russian-speaking learner (about B2) is writing a message in English and got stuck. Her message so far: "${full}". The part "${chunk}" is in Russian (or a word she does not know, maybe marked with *stars*). Translate ONLY that part into natural English so it fits her sentence (right article, form, linking word).
@@ -611,7 +611,7 @@ async function wfetch(path, init){
   for(let i = 0; i < 2; i++){
     const hd = Object.assign({}, init.headers || {}, {"x-code": code});
     let r; try{ r = await fetch(WORKER.replace(/\/$/, "") + path, Object.assign({}, init, {headers: hd})); }catch(e){ throw {code: "network"}; }
-    if(r.status === 403){ const j = await r.clone().json().catch(() => ({})); if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} code = await askCode("Код не подошёл. Попробуй ещё раз."); continue; } }
+    if(r.status === 403){ const j = await r.clone().json().catch(() => ({})); if(j.error === "paused"){ blockPaused(); throw {code: "paused"}; } if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} code = await askCode("Код не подошёл. Попробуй ещё раз."); continue; } }
     return r;
   }
   throw {code: "badcode"};
@@ -634,15 +634,15 @@ async function recOAI(btn, lng){
     try{
       const blob = new Blob(chunks, {type: mr.mimeType || mime || "audio/webm"});
       if(blob.size < 800) throw {code: "short"};
-      const r = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": lng}, body: blob});
-      const j = await r.json().catch(() => ({})); if(!r.ok) throw {code: "stt"};
+      const r = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": lng, "x-prompt": sttPrompt()}, body: blob});
+      const j = await r.json().catch(() => ({})); if(r.status === 429 && j.error === "limit") throw {code: "limit", scope: j.scope}; if(!r.ok) throw {code: "stt"}; checkLeft(r);
       let t = String(j.text || "").trim();
       // only his two languages are possible: English (learning) + Russian (native). Any other script or letter → ask OpenAI again with a language hint
       const BAD = t2 => /[^\sA-Za-zА-Яа-яЁё0-9.,!?;:'"’‘“”()\-–—…%&@#/+*=€₺$£]/.test(t2);
-      if(BAD(t)){ let ok = ""; for(const L of (lng ? [lng] : ["ru", "en"])){ const r2 = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": L}, body: blob}); const j2 = await r2.json().catch(() => ({})); const t2 = r2.ok ? String(j2.text || "").trim() : ""; if(t2 && !BAD(t2)){ ok = t2; break; } } t = ok; if(!t) throw {code: "stt"}; }
+      if(BAD(t)){ let ok = ""; for(const L of (lng ? [lng] : ["ru", "en"])){ const r2 = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": L, "x-prompt": sttPrompt()}, body: blob}); const j2 = await r2.json().catch(() => ({})); const t2 = r2.ok ? String(j2.text || "").trim() : ""; if(t2 && !BAD(t2)){ ok = t2; break; } } t = ok; if(!t) throw {code: "stt"}; }
       if(!t) throw {code: "empty"};
       if(t){ const box = $("#box"); box.value = (box.value && !/\s$/.test(box.value) ? box.value + " " : box.value) + t + " "; S.usedStt = "OpenAI"; renderChips(); if(btn.id !== "micru") previewSend(); }
-    }catch(e){ micMsg(e && e.code === "short" ? "🎤 Запись получилась слишком короткой или тихой. Нажми кнопку, скажи фразу, потом нажми ещё раз." : e && e.code === "empty" ? "🎤 Не расслышал. Попробуй ещё раз чуть громче." : e && e.code === "network" ? "📶 Нет интернета или связь прервалась. Попробуй ещё раз." : "OpenAI не смог распознать — попробуй ещё раз или переключи «🎧 Распознавание» на iPhone."); }
+    }catch(e){ if(!(e && e.code === "paused")) micMsg(e && e.code === "limit" ? limitMsg(e.scope) : e && e.code === "short" ? "🎤 Запись получилась слишком короткой или тихой. Нажми кнопку, скажи фразу, потом нажми ещё раз." : e && e.code === "empty" ? "🎤 Не расслышал. Попробуй ещё раз чуть громче." : e && e.code === "network" ? "📶 Нет интернета или связь прервалась. Попробуй ещё раз." : "OpenAI не смог распознать — попробуй ещё раз или переключи «🎧 Распознавание» на iPhone."); }
     finally{ btn.disabled = false; btn.textContent = label; }
   };
   recO = {stop: () => { try{ mr.stop(); }catch(e){} }};
@@ -949,7 +949,7 @@ const W1C = {};
 async function oneWord(w, ctx){ const k = w.toLowerCase() + "|" + ctx; if(W1C[k]) return W1C[k]; const r = await cheap(W1(w, ctx)); const t = String(r.tr || "").trim(); if(!t) throw 0; return W1C[k] = t; }
 function micMsg(t){ document.querySelectorAll(".micmsg").forEach(x => x.remove()); const d = h("div", "modal repm micmsg"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.style.border = "2px solid #F2B632"; x.textContent = t; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 6000); }
 // ---- ✕ for every window (except the code window)
-new MutationObserver(() => { document.querySelectorAll(".modal > .box").forEach(b => { if(b.querySelector(":scope > .mx") || b.classList.contains("codebox") || b.closest(".modal").style.pointerEvents === "none" || b.closest(".modal").style.background === "transparent") return;
+new MutationObserver(() => { document.querySelectorAll(".modal > .box").forEach(b => { if(b.querySelector(":scope > .mx") || b.classList.contains("codebox") || b.classList.contains("nox") || b.closest(".modal").style.pointerEvents === "none" || b.closest(".modal").style.background === "transparent") return;
   const x = h("button", "mx", "✕"); x.type = "button"; x.setAttribute("aria-label", "Закрыть окно"); x.onclick = () => b.closest(".modal").remove(); b.prepend(x); }); }).observe(document.body, {childList: true});
 // ---- code is asked at the entry and checked at once (no AI call, free)
 (async function codeGate(){
@@ -957,7 +957,7 @@ new MutationObserver(() => { document.querySelectorAll(".modal > .box").forEach(
   for(let i = 0; i < 20; i++){
     let c = getCode(); if(!c) c = await askCode(msg);
     let r; try{ r = await fetch(WORKER.replace(/\/$/, "") + "/tts", {method: "POST", headers: {"content-type": "application/json", "x-code": c}, body: "{}"}); }catch(e){ return; }
-    if(r.status === 403){ const j = await r.json().catch(() => ({})); if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} msg = "Код не подошёл. Попробуй ещё раз."; continue; } }
+    if(r.status === 403){ const j = await r.json().catch(() => ({})); if(j.error === "paused"){ blockPaused(); return; } if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} msg = "Код не подошёл. Попробуй ещё раз."; continue; } }
     return;
   }
 })();
@@ -1077,6 +1077,22 @@ function soundUnlock(){ try{ if(AUD.paused){ AUD.src = SILENT; AUD.play().catch(
 const stopB = h("button", "stopb", "⏹ Стоп"); stopB.type = "button"; stopB.hidden = true; stopB.setAttribute("aria-label", "Остановить голос героя"); document.body.append(stopB);
 stopB.onclick = () => { try{ AUD.pause(); }catch(e){} try{ speechSynthesis.cancel(); }catch(e){} stopB.hidden = true; };
 setInterval(() => { let on = false; try{ on = (!AUD.paused && !AUD.ended && AUD.currentTime > 0 && AUD.src.indexOf("data:") !== 0) || speechSynthesis.speaking; }catch(e){} on = on && !!S.hero; if(stopB.hidden === on) stopB.hidden = !on; }, 300);
+
+
+// ================= limits & pause (Cloudflare worker v2) =================
+function limitMsg(scope){ return scope === "week"
+  ? "🏆 Недельный лимит разговора исчерпан — потрясающая неделя! В понедельник герои снова ждут. До тех пор открыты 🃏 Карточки и 📜 История."
+  : "🌙 На сегодня лимит разговора исчерпан — ты отлично позанималась! Герои отдыхают, завтра снова здесь. А пока можно повторить сегодняшние слова в 🃏 Карточках."; }
+function checkLeft(r){ try{ const v = r.headers.get("x-left"); if(v == null) return; const left = +v, key = "nastya_warned", day = new Date().toDateString();
+  if(left <= 10 && left > 0 && localStorage.getItem(key) !== day){ localStorage.setItem(key, day); micMsg("⏳ На сегодня осталось примерно " + left + " минут 🙂"); } }catch(e){} }
+function sttPrompt(){ let pt = ""; try{ const a = [...S.turns].reverse().find(x => x.role === "assistant"); if(a) pt = String(JSON.parse(a.content).pt || ""); }catch(e){}
+  return encodeURIComponent(((pt ? "The other person just said: " + pt + " " : "") + "The speaker is a Russian woman practising English; she may mix English and Russian words.").slice(0, 600)); }
+function blockPaused(){ if(document.getElementById("paused")) return;
+  const m = h("div", "modal"); m.id = "paused"; m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true"); m.style.background = "var(--bg)";
+  const b = h("div", "box nox"); b.style.textAlign = "center";
+  const h2p = h("h2", "", "Герои пока отдыхают."); h2p.style.paddingRight = "0"; b.append(h("div", "", "🌿"), h2p, h("p", "", "Твой доступ временно приостановлен — Дарья скоро напишет тебе новый план."), h("p", "", "Всё, что ты выучила, сохранено, ничего не потерялось."), h("p", "", "Ты отлично занималась — спасибо! 💜"));
+  b.firstChild.style.fontSize = "44px"; m.append(b); document.body.append(m);
+  try{ AUD.pause(); speechSynthesis.cancel(); }catch(e){} }
 
 pick();
 </script>
