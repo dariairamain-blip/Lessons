@@ -178,6 +178,7 @@ How to reply:
 - If he wrote a word in Turkish, use the English word naturally in your reply and mention it in "fix" ("«havalimanı» — airport").
 - If his message ends with a note about words he did not know (said in Turkish), often — about 2 times out of 3, not always — ask him a short question that uses one of those English words, so the word sticks.
 - Never repeat the same correction twice in a row; if the message is fine, praise briefly in "fix" only every few turns, otherwise leave it empty.
+Inside text values use « » for quotes, never the double-quote character.
 Reply with only JSON: {"pt": "your reply in English", "ru": "Turkish translation of your reply", "fix": "correction in Turkish or empty string"}`;
 const MORE = (w, ctx, pt) => `A Turkish-speaking learner of English tapped the word "${w}" in this sentence: "${ctx}".
 Explain it briefly in Turkish. Reply with only JSON:
@@ -203,6 +204,7 @@ function askCode(msg){
   });
 }
 function parseJSON(t){ t = String(t || ""); const m = t.match(/\{[\s\S]*\}/); if(m){ try{ return JSON.parse(m[0]); }catch(e){} }
+  const fixed = repairJSON(t); if(fixed) return fixed;
   const f = k => { const x = t.match(new RegExp('"' + k + '"\\s*:\\s*"((?:[^"\\\\]|\\\\.)*)"')); if(!x) return null; try{ return JSON.parse('"' + x[1] + '"'); }catch(e){ return x[1]; } };
   const pt = f("pt"); if(pt) return {pt, ru: f("ru") || "", fix: f("fix") || "", words: {}};
   throw {code:"badjson"}; }
@@ -219,7 +221,7 @@ const viaWorker = {
       if(r.status === 403){ const j = await r.json().catch(() => ({})); if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} code = await askCode("Kod yanlış. Tekrar dene."); continue; } throw {code:"site"}; }
       if(r.status === 429) throw {code:"rate_limited"};
       if(!r.ok){ const j = await r.json().catch(() => ({})); throw {code:"server", detail: "hata " + r.status + (j.error ? " · " + j.error : "") + (j.status ? " " + j.status : "") + (j.detail ? " · " + j.detail : "")}; }
-      const j = await r.json(); try{ return parseJSON(j.text); }catch(e){ throw {code:"badjson", detail: "cevap okunamadı"}; }
+      const j = await r.json(); try{ return parseJSON(j.text); }catch(e){ throw {code:"badjson", detail: "cevap okunamadı · " + String(j.text || "").length + " harf"}; }
     }
     throw {code:"badcode"};
   }
@@ -478,7 +480,7 @@ const REP = (() => {
   const PROMPT = ses => `You analyse one English conversation practice of Fatih, a Turkish speaker who speaks English quite well. Hero: ${ses.hero}.
 Transcript (his lines with the hero's corrections; Turkish words he did not know are listed):
 ${ses.log.map(x => x.me ? "HE: " + x.me + (x.newW && x.newW.length ? "  [did not know: " + x.newW.map(w => w[0] + "→" + w[1]).join(", ") + "]" : "") : "HERO: " + x.hero + (x.fix ? "  [correction: " + x.fix + "]" : "")).join("\n").slice(0, 9000)}
-Write a short, warm, motivating report in Turkish. Be honest about the level. Reply with only JSON:
+Write a short, warm, motivating report in Turkish. Be honest about the level. Inside text values use « » for quotes, never the double-quote character. Reply with only JSON:
 {"level": "CEFR estimate for today, e.g. B1, B1+, B2", "praise": "1–2 sentences of specific praise in Turkish", "topic": "what he talked about, 3–6 Turkish words",
  "mistakes": [{"bad": "his wrong English phrase", "good": "correct English", "why": "max 10 Turkish words"}] (max 3, the most important; [] if none),
  "words": [["new English word", "Turkish"]] (max 6, words he did not know or that were corrected),
@@ -499,7 +501,7 @@ Reply with only JSON: {"drill": [{"q": "short Turkish instruction or an English 
   async function makeDrill(r){ let j; try{ j = await sample.json(DRILLP(r), {modelTier: "quick", model: "haiku"}); }catch(e){ j = await sample.json(DRILLP(r), {modelTier: "quick"}); }
     const d = Array.isArray(j.drill) ? j.drill.filter(x => x && Array.isArray(x.opts) && x.opts.includes(x.a)).slice(0, 5) : []; if(!d.length) throw 0; return d; }
   async function makeReport(ses){
-    const r = await sample.json(PROMPT(ses), {modelTier:"quick"});
+    let r; try{ r = await sample.json(PROMPT(ses), {modelTier:"quick"}); }catch(e){ if(!e || e.code !== "badjson") throw e; r = await sample.json(PROMPT(ses), {modelTier:"quick", model: "sonnet"}); }
     ses.report = {level: String(r.level || "—"), praise: String(r.praise || ""), topic: String(r.topic || ""),
       mistakes: Array.isArray(r.mistakes) ? r.mistakes.slice(0, 3) : [], words: Array.isArray(r.words) ? r.words.slice(0, 6) : [],
       tip: String(r.tip || ""), drill: Array.isArray(r.drill) ? r.drill.filter(d => d && Array.isArray(d.opts) && d.opts.includes(d.a)).slice(0, 5) : [],
@@ -976,6 +978,22 @@ new MutationObserver(() => { document.querySelectorAll(".modal > .box").forEach(
     return;
   }
 })();
+
+// ---- repair an AI answer that is not clean JSON (extra commas, or cut off at the end)
+function repairJSON(t){
+  const i0 = t.indexOf("{"); if(i0 < 0) return null; let s = t.slice(i0);
+  const tryP = x => { try{ return JSON.parse(x); }catch(e){ try{ return JSON.parse(x.replace(/,\s*([}\]])/g, "$1")); }catch(e2){ return null; } } };
+  let st = [], inS = false, esc = false, safe = null;
+  for(let i = 0; i < s.length; i++){ const c = s[i];
+    if(inS){ if(esc) esc = false; else if(c === "\\") esc = true; else if(c === '"') inS = false; continue; }
+    if(c === '"') inS = true;
+    else if(c === "{" || c === "["){ st.push(c === "{" ? "}" : "]"); }
+    else if(c === "}" || c === "]"){ st.pop(); safe = {i: i + 1, st: st.slice()}; if(!st.length){ const r = tryP(s.slice(0, i + 1)); if(r) return r; break; } }
+    else if(c === ","){ safe = {i, st: st.slice()}; }
+  }
+  if(!safe) return null;
+  return tryP(s.slice(0, safe.i) + safe.st.slice().reverse().join(""));
+}
 
 // ================= Daily summaries (one per date) =================
 const DAYS = (() => {
