@@ -27,7 +27,8 @@ body{background:var(--bg);color:var(--ink);font:700 16px/1.45 var(--body)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 .who{font-weight:900;font-size:16px}
 .tag{font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--pink)}
-.snd{display:flex;gap:6px}
+.snd{display:flex;gap:6px;flex-wrap:wrap}
+.msg.me .mtag{color:#fff;opacity:.85}
 .snd button,.back{font:800 12.5px var(--body);border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:6px 9px;cursor:pointer}
 .snd button.on{border-color:#10A877;color:#10A877}
 h1{font:800 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
@@ -106,11 +107,35 @@ h1{font:800 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
 .rep .opt.ok{border-color:#10A877;background:#E3F7EF;color:#0B6B4C}.rep .opt.no{border-color:#E2482F;background:#FDE8E4;color:#8A2414}
 .rep .q{font-size:16px;font-weight:800}.rep .toast{font-weight:800;color:#10A877}
 .prog{margin-top:12px;width:100%;border:2px solid var(--line);background:var(--card);color:var(--ink);font:900 16px var(--body);border-radius:16px;padding:12px;cursor:pointer}
+.dash{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:12px;display:grid;gap:8px;text-align:left;font:inherit;color:var(--ink);cursor:pointer}
+.dash .st{display:flex;gap:10px;flex-wrap:wrap;font-weight:900;font-size:15px}
+.dash small{color:var(--muted);font-weight:700;font-size:13px}
+.barx{height:12px;background:var(--sel);border-radius:99px;overflow:hidden}.barx i{display:block;height:100%;background:linear-gradient(90deg,var(--sea),var(--pink));border-radius:99px}
+.sit{background:var(--card);border:2px solid #F2B632;border-radius:18px;padding:12px;display:grid;gap:6px}
+.sit .k{font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#B7791F}
+.sit b{font-size:16px}.sit small{color:var(--muted);font-weight:700;font-size:13.5px}
+.sit button,.pbtn{border:0;border-radius:14px;background:var(--sea);color:#fff;font:900 15px var(--body);padding:10px 12px;cursor:pointer}
+.tools2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tools2 .tool:last-child:nth-child(odd){grid-column:1/-1}
+.tool{border:2px solid var(--line);background:var(--card);color:var(--ink);font:900 14.5px var(--body);border-radius:14px;padding:11px 8px;cursor:pointer;min-height:48px}
+.goal{background:#FFF6DC;color:#7A5200;border:2px solid #F2B632;border-radius:14px;padding:8px 10px;font-size:14px;font-weight:800}
+.rep .card{min-width:min(260px,70vw);border:2px solid var(--line);border-radius:16px;padding:16px;display:grid;gap:8px;text-align:center}
+.rep .card .f{font:800 24px/1.2 var(--display);overflow-wrap:anywhere}.rep .card .bk{font-size:17px;color:var(--muted)}
+.rep .vrow{display:flex;flex-wrap:wrap;gap:6px}.rep .vrow button{border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 13px var(--body);border-radius:999px;padding:6px 10px;cursor:pointer}
+.rep .vrow button.on{border-color:var(--sea);background:var(--sel);color:var(--sea)}
+.rep input,.rep textarea{font:700 16px var(--body);border:2px solid var(--line);border-radius:12px;padding:10px;background:var(--card);color:var(--ink);width:100%;box-sizing:border-box}
+.rep .fact{display:flex;gap:8px;align-items:flex-start;justify-content:space-between;border-bottom:1px solid var(--line);padding:6px 0}
+.rep .fact button{flex:none;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;font:800 13px var(--body);padding:3px 8px;cursor:pointer}
+.rep .hl{display:grid;gap:4px;border-radius:12px;padding:8px 10px;background:var(--sel);font-size:14.5px}.rep .hl.me{background:var(--me);color:var(--meink)}
+.rep .hl .fx{font-size:13px;background:var(--fix);color:var(--fixink);border-radius:8px;padding:4px 6px}
+.rep .emo{display:flex;flex-wrap:wrap;gap:6px}.rep .emo button{font-size:24px;border:2px solid var(--line);background:var(--card);border-radius:12px;padding:4px 8px;cursor:pointer}.rep .emo button.on{border-color:var(--sea);background:var(--sel)}
+.rep small{font-size:13px}
+.addk{border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 13px var(--body);cursor:pointer;padding:4px 9px;border-radius:999px}
 .warn{background:var(--fix);color:var(--fixink);border-radius:14px;padding:12px;font-size:14.5px}
 </style>
 <div class="wrap" id="wrap">
   <div class="bar"><div class="top"><span class="tag" id="who">Kahramanla sohbet</span>
-    <div class="snd"><button type="button" id="hlp" aria-label="Kahramanla nasıl konuşulur">❓</button><button type="button" id="mdl" hidden>🧠 Sonnet</button><button type="button" id="mute">🔊 Ses: açık</button><button type="button" id="auto" class="on">🗣 Otomatik seslendirme: açık</button></div></div></div>
+    <div class="snd"><button type="button" id="hlp" aria-label="Kahramanla nasıl konuşulur">❓</button><button type="button" id="mdl" hidden>🧠 Sonnet</button><button type="button" id="sttb" hidden>🎧 Tanıma: iPhone</button><button type="button" id="ttsb" hidden>🗣 Kahraman sesi: iPhone</button><button type="button" id="mute">🔊 Ses: açık</button><button type="button" id="auto" class="on">🗣 Otomatik seslendirme: açık</button></div></div></div>
   <div id="app"></div>
   <p class="own" style="text-align:center;font-size:12.5px;color:var(--muted);margin:18px 0 0">© Daria Botina</p>
 </div>
@@ -125,8 +150,8 @@ const HEROES = [
  {id:"friend", words:{"hey":"hey","mate":"dostum","long":"uzun","time":"zaman","no":"yok","see":"görmek","what":"ne","have":"(geçmiş zaman yardımcısı)","you":"sen","been":"(be fiili, geçmiş)","up":"yapıyor","to":"(edat)"}, e:"🧔🏻", n:"Arkadaş Jack", d:"Manchester'dan İngiliz arkadaş. Hayat, futbol, hafta sonu planları.",
   role:"You are Jack, a friendly 38-year-old British guy from Manchester and the learner's good friend. You talk like a real mate: share small things about your day, ask about his, react with emotion, love football and travel.",
   hi:"Hey mate, long time no see! What have you been up to?", hiru:"Selam dostum, görüşmeyeli uzun zaman oldu! Neler yapıyorsun?"},
- {id:"colleague", words:{"good":"iyi","morning":"sabah","fatih":"Fatih","busy":"yoğun","day":"gün","at":"-de/-da","the":"(belirli artikel)","airport":"havalimanı","today":"bugün"}, e:"👨🏼‍✈️", n:"Pilot Mike", d:"Havalimanında İngiliz meslektaş. Uçuşlar, iş, kahve molası.",
-  role:"You are Mike, a friendly British airline pilot and the learner's colleague at the airport in Antalya. You chat during a coffee break about flights, passengers, work shifts, travel and plans. Light, professional but warm.",
+ {id:"colleague", words:{"good":"iyi","morning":"sabah","fatih":"Fatih","busy":"yoğun","day":"gün","at":"-de/-da","the":"(belirli artikel)","airport":"havalimanı","today":"bugün"}, e:"👨🏼‍✈️", n:"Pilot Mike", d:"SunExpress'ten İngiliz pilot, iş arkadaşın. Uçuşlar, iş, kahve molası.",
+  role:"You are Mike, a friendly British pilot who flies for SunExpress and is the learner's colleague in Antalya. You chat during a coffee break about flights, passengers, work shifts, travel and plans. Light, professional but warm.",
   hi:"Good morning, Fatih! Busy day at the airport today? ☕", hiru:"Günaydın Fatih! Bugün havalimanında yoğun bir gün mü?"},
  {id:"tourist", words:{"excuse":"affedersiniz","me":"beni","sorry":"pardon","is":"(be fiili)","this":"bu","the":"(belirli artikel)","way":"yol","to":"-e/-a","old":"eski","town":"şehir","kaleiçi":"Kaleiçi"}, e:"🧳", n:"Turist Tom", d:"Antalya'da kaybolmuş İngiliz turist. Ona yol tarif et, tavsiye ver.",
   role:"You are Tom, a friendly but slightly lost British tourist on holiday in Antalya. The learner is a local who helps you: you ask for directions, the best beaches, food, transport and prices in Turkish lira. React with gratitude and small jokes.",
@@ -139,11 +164,11 @@ const HEROES = [
   hi:"Hello, I'm Oliver! Welcome to London. What would you like to see today? 🚇", hiru:"Merhaba, ben Oliver! Londra'ya hoş geldin. Bugün neyi görmek istersin?"}
 ];
 const RULES = h => `${h.role}
-You are a conversation partner for Fatih, a Turkish man who lives in Antalya and works at the airport. He speaks English quite well and wants to practise speaking.
+You are a conversation partner for Fatih. ABOUT FATIH (use naturally, one topic at a time, never list it all): Turkish man, lives in Antalya with his partner Daria; works at the airline SunExpress as a purser / cabin manager (Turkish: kabin amiri — head of the cabin crew on flights); his English is about B2 (speaks quite well); he is also learning Russian and Spanish; he likes the gym and working out, cooking (for example fish), walking on the beach by the sea, travelling, listening to music, tea and Turkish coffee. Ask about his work as a purser at SunExpress — flights, his cabin crew team, passengers, funny or difficult moments on board — and his trips, his workouts, what he cooked, his walks by the sea — real-life topics he can talk about.
 How to reply:
 - Stay in character. Reply ONLY in natural, friendly British English.
 - LENGTH: usually 3–4 short sentences. Only if the meaning really needs more (he asks for instructions, a story, an explanation) use up to 7 sentences. If even 7 is not enough, stop after 7 and add an 8th sentence asking "Shall I tell you more?"; if he says yes, continue with the next part, again at most 7 sentences.
-- LEVEL: match his level from his messages. At most 5% of your words and grammar may be one level higher than his. No rare idioms unless you explain them.
+- LEVEL: he is about B2 — speak naturally at B2, and match what you see in his messages. At most 5% of your words and grammar may be one level higher than his. No rare idioms unless you explain them.
 - Usually end with ONE short question back to keep the talk going.
 - Every time vary your words: never reuse a sentence you already said in this chat.
 - If his last message has a mistake, give a short friendly correction in Turkish: show the corrected English phrase and explain in max 12 words why. If no mistake, "fix" is "".
@@ -212,7 +237,7 @@ function pick(){
   const g = h("div", "grid");
   HEROES.forEach(x => { const b = h("button", "hero"); b.type = "button"; b.append(h("span", "e", x.e), h("b", "", x.n), h("small", "", x.d)); b.onclick = () => start(x); g.append(b); });
   a.append(g, h("p", "note", "Sesle konuş (🎤) ya da yaz. Kahramanın herhangi bir kelimesine dokun — çevirisini görürsün."));
-  const pb = h("button", "prog", "📊 İlerlemem"); pb.type = "button"; pb.onclick = () => REP.progress(); a.append(pb);
+  const pb = h("button", "prog", "📊 İlerlemem"); pb.type = "button"; pb.onclick = () => REP.progress(); a.append(pb); PERS.decorate(a, g, pb);
 }
 function wordTap(el, word, ctx, words, gl, p){
   const key = word.toLowerCase();
@@ -222,7 +247,7 @@ function wordTap(el, word, ctx, words, gl, p){
   const hd = h("div", "hd"); const b = h("b", "", word); const tr = h("span", "", "— " + (words[key] || words[word] || "çeviri — «Daha fazla» düğmesine bas"));
   const sb = h("button", "", "🔊"); sb.type = "button"; sb.onclick = () => say(word, lang(), .7);
   const mb = h("button", "", "📖 Daha fazla"); mb.type = "button";
-  hd.append(b, tr, sb, mb); gl.append(hd);
+  hd.append(b, tr, sb, mb); gl.append(hd); PERS.cardBtn(hd, word, () => words[key] || words[word] || "");
   mb.onclick = async () => {
     mb.disabled = true; mb.textContent = "📖 Arıyorum…";
     if(!sample){ gl.append(h("div", "warn", "Açıklama şu an yok — kahramanla bağlantı yok.")); mb.hidden = true; return; }
@@ -262,12 +287,12 @@ function start(x){
   let bk = document.getElementById("bk"); if(!bk){ bk = h("button", "back", "◀ Kahramanlar"); bk.id = "bk"; bk.type = "button"; bk.onclick = pick; document.querySelector(".bar .top").append(bk); } bk.hidden = false;
   let fb = document.getElementById("fin"); if(!fb){ fb = h("button", "back", "🏁 Özet"); fb.id = "fin"; fb.type = "button"; fb.onclick = () => REP.finish(true); document.querySelector(".bar .top").append(fb); } fb.hidden = false;
   if(x.id === "psy") a.append(h("p", "note", ""));
-  const c = h("div", "chat"); c.id = "chat"; a.append(c);
-  const cb = REP.callback(x); const hi = cb ? cb.pt : x.hi, hiru = cb ? cb.ru : x.hiru, hw = cb ? cb.words : x.words;
+  if(x.scene) a.append(PERS.banner(x.scene)); const c = h("div", "chat"); c.id = "chat"; a.append(c);
+  const cb = x.scene ? null : REP.callback(x); const hi = cb ? cb.pt : x.hi, hiru = cb ? cb.ru : x.hiru, hw = cb ? cb.words : x.words;
   bubble("hero", hi, hiru, "", hw); S.turns.push({role:"assistant", content: JSON.stringify({pt:hi, ru:hiru, fix:""})});
   if(S.auto) say(hi, lang());
   REP.begin(x, hi);
-  $("#dock").hidden = false; $("#mics").hidden = !REC; fitDock();
+  $("#dock").hidden = false; $("#mics").hidden = !(REC || (window.MediaRecorder && WORKER && !window.claude)); fitDock();
   let seen = false; try{ seen = localStorage.getItem("fatih_howto_seen") === "1"; localStorage.setItem("fatih_howto_seen", "1"); }catch(e){}
   if(!seen) howTo(); else if(!matchMedia("(pointer: coarse)").matches) $("#box").focus();
 }
@@ -283,7 +308,7 @@ async function send(){
     res.forEach(x => { if(x){ msg = msg.split(x[0]).join(x[1]); newW.push(x); } });
   }
   (S.ins || []).forEach(x => { if(msg.includes(x[1]) && !newW.some(y => y[0] === x[0])) newW.push(x); }); S.ins = [];
-  const mb = bubble("me", msg);
+  const mb = bubble("me", msg); if(S.usedStt){ mb.append(h("small", "mtag", "🎧 " + S.usedStt)); S.usedStt = null; }
   if(newW.length){ const ptd = mb.querySelector(".pt"); ptd.textContent = "";
     let rest = msg; const marks = newW.map(x => x[1]);
     const re = new RegExp("(" + marks.map(m => m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")");
@@ -293,15 +318,15 @@ async function send(){
   }
   if(!sample){ const b = bubble("hero", "…", "", ""); b.innerHTML = ""; b.append(h("div", "warn", "Sohbet sadece Claude içinde çalışır (uygulamada veya claude.ai'de). Bu sayfayı orada aç.")); return; }
   S.busy = true; $("#send").disabled = true;
-  REP.me(msg, newW);
+  REP.me(msg, newW); PERS.act(true); newW.forEach(x => PERS.addCard(x[1], x[0].replace(/\*/g, "")));
   S.turns.push({role:"user", content: newW.length ? msg + "\n(He did not know these words and said them in Turkish: " + newW.map(x => x[0] + " → " + x[1]).join("; ") + ")" : msg});
   const b = bubble("hero", "", "", ""); b.innerHTML = ""; const ty = h("div", "typing", S.hero.n.split(" ")[1] + " yazıyor…"); b.append(ty);
-  const turns = [{role:"user", content: RULES(S.hero) + REP.memo(S.hero) + "\n\n(The conversation starts now. Your first line was already sent.)"}].concat(S.turns.slice(-60));
+  const turns = [{role:"user", content: RULES(S.hero) + PERS.ctx(S.hero) + REP.memo(S.hero) + "\n\n(The conversation starts now. Your first line was already sent.)"}].concat(S.turns.slice(-60));
   try{
     const r = await sample.json(turns, {modelTier:"quick", cache:false});
     const pt = String(r.pt || "").trim() || "Hmm… pode repetir?", ru = String(r.ru || ""), fix = String(r.fix || "");
     const words = {}; if(r.words && typeof r.words === "object") Object.entries(r.words).forEach(([k, v]) => { words[String(k).toLowerCase()] = String(v); });
-    b.parentElement.remove(); const hb = bubble("hero", pt, ru, fix, words); if(sample === viaWorker) hb.append(h("small", "mtag", mdlLabel()));
+    b.parentElement.remove(); const hb = bubble("hero", pt, ru, fix, words); if(sample === viaWorker) hb.append(h("small", "mtag", mdlLabel() + " · 🗣 " + (TTS() === "openai" ? "OpenAI" : "iPhone")));
     S.turns.push({role:"assistant", content: JSON.stringify({pt, ru, fix})}); REP.hero(pt, fix);
     if(S.auto) say(pt, lang(), 0, true);
   }catch(e){
@@ -399,7 +424,7 @@ function listen(mode, empty){
   $("#micpt").textContent = ru ? "🎤 Konuş" : "● Dinliyorum · durdurmak için bas";
   $("#micru").textContent = ru ? "● Dinliyorum 🇹🇷 · geri: «İngilizce»" : "🇹🇷 Türkçe kelime";
   try{ speechSynthesis.cancel(); }catch(e){}
-  r.onresult = e => { if(next) return; let interim = ""; heard = true;
+  r.onresult = e => { if(next) return; let interim = ""; heard = true; S.usedStt = "iPhone";
     for(let i = e.resultIndex; i < e.results.length; i++){ const t = e.results[i][0].transcript; if(e.results[i].isFinal) fin += t + " "; else interim += t; }
     const txt = (fin + interim).replace(/\s+/g, " ");
     const m = txt.match(ru ? TO_PT : TO_RU);
@@ -458,7 +483,10 @@ Write a short, warm, motivating report in Turkish. Be honest about the level. Re
  "drill": [{"q": "short Turkish instruction or an English sentence with ___", "opts": ["option 1", "option 2", "option 3"], "a": "the one correct option"}] (exactly 5 tasks built ONLY from his mistakes and new words; exactly one option clearly correct; options in English),
  "callback_pt": "1–2 short English sentences the same hero (${ses.hero}) can say next time: recall what he told about and ask a question that invites him to use one corrected form or new word",
  "callback_ru": "Turkish translation of callback_pt",
- "callback_words": {"each word of callback_pt in lowercase": "short Turkish translation"}}`;
+ "callback_words": {"each word of callback_pt in lowercase": "short Turkish translation"},
+ "facts": ["NEW lasting facts about Fatih's life that he told in this talk (work events, people, plans, trips, likes), short English sentences, max 5; [] if none. Do NOT repeat what is already known: ${typeof PERS !== "undefined" ? PERS.factsLine() : ""}"]${ses.scene && ses.scene.goal ? `,
+ "mission_done": true or false — did he complete this mission: ${ses.scene.t}; goal: he must use ${ses.scene.goal},
+ "mission_note": "1 short Turkish sentence: which target phrases he used and which are missing"` : ""}}`;
 
   const WPROMPT = reps => `Weekly summary of Fatih's English conversation practice (Turkish speaker). Day reports:
 ${reps.map(r => r.date.slice(0, 10) + " | " + r.hero + " | level " + r.report.level + " | mistakes: " + (r.report.mistakes || []).map(m => m.bad + "→" + m.good).join("; ") + " | words: " + (r.report.words || []).map(w => w[0]).join(", ")).join("\n").slice(0, 8000)}
@@ -469,8 +497,8 @@ Reply in Turkish with only JSON: {"summary": "2–3 warm sentences: how the week
     ses.report = {level: String(r.level || "—"), praise: String(r.praise || ""), topic: String(r.topic || ""),
       mistakes: Array.isArray(r.mistakes) ? r.mistakes.slice(0, 3) : [], words: Array.isArray(r.words) ? r.words.slice(0, 6) : [],
       tip: String(r.tip || ""), drill: Array.isArray(r.drill) ? r.drill.filter(d => d && Array.isArray(d.opts) && d.opts.includes(d.a)).slice(0, 5) : [],
-      cb: r.callback_pt ? {pt: String(r.callback_pt), ru: String(r.callback_ru || ""), words: r.callback_words && typeof r.callback_words === "object" ? r.callback_words : {}} : null};
-    const a = all().filter(x => x.id !== ses.id); a.push(ses); store(KEY, a.slice(-120)); return ses;
+      facts: Array.isArray(r.facts) ? r.facts.map(String).filter(Boolean).slice(0, 5) : [], mission: ses.scene && ses.scene.goal ? {done: r.mission_done === true || r.mission_done === "true", note: String(r.mission_note || "")} : null, cb: r.callback_pt ? {pt: String(r.callback_pt), ru: String(r.callback_ru || ""), words: r.callback_words && typeof r.callback_words === "object" ? r.callback_words : {}} : null};
+    const a = all().filter(x => x.id !== ses.id); a.push(ses); store(KEY, a.slice(-120)); try{ PERS.afterReport(ses); }catch(e){} return ses;
   }
   const text = ses => { const r = ses.report; return `🏁 Sohbet özeti — ${dstr(ses.date)}, ${ses.hero}\nSeviye: ${r.level} · mesaj: ${ses.log.filter(x => x.me).length}\n🎉 ${r.praise}` +
     (r.mistakes.length ? "\n✏️ Hatalar:\n" + r.mistakes.map((m, i) => `${i + 1}. «${m.bad}» → ${m.good} (${m.why})`).join("\n") : "") +
@@ -485,7 +513,7 @@ Reply in Turkish with only JSON: {"summary": "2–3 warm sentences: how the week
     if(r.mistakes.length){ b.append(h("b", "", "✏️ Önemli hatalar")); r.mistakes.forEach(x => { const d = h("div", "mi"); d.append(h("span", "", "«" + x.bad + "» → "), h("b", "", x.good), h("small", "", x.why)); const sb = btn("🔊", "sec", () => say(x.good, lang())); sb.style.flex = "0"; d.append(sb); b.append(d); }); }
     else b.append(h("div", "toast", "Neredeyse hiç hata yok — böyle devam! 💪"));
     if(r.words.length){ b.append(h("b", "", "🆕 Yeni kelimeler")); const w = h("div", ""); w.textContent = r.words.map(x => x[0] + " — " + x[1]).join(" · "); b.append(w); }
-    if(r.tip) b.append(h("div", "", "👉 " + r.tip));
+    if(r.tip) b.append(h("div", "", "👉 " + r.tip)); PERS.reportExtra(b, ses);
     const out = h("div", "toast"); const row = h("div", "row");
     row.append(btn("📋 Raporu kopyala", "sec", () => copy(text(ses), out)));
     if(r.drill.length) row.append(btn("🔁 Hatalarımı çalış", "sec", () => drill(r.drill)));
@@ -535,18 +563,387 @@ Reply in Turkish with only JSON: {"summary": "2–3 warm sentences: how the week
     b.append(btn("Kapat", "ok", () => m.remove()));
   }
   return {
-    begin(x, hi){ cur = {id: Date.now(), date: new Date().toISOString(), hero: x.n, heroId: x.id, model: (typeof MODEL === "function" ? MODEL() : ""), log: [{hero: hi, fix: ""}], report: null}; },
+    begin(x, hi){ cur = {id: Date.now(), date: new Date().toISOString(), hero: x.n, heroId: x.id, model: (typeof MODEL === "function" ? MODEL() : ""), log: [{hero: hi, fix: ""}], report: null, scene: x.scene ? {kind: x.scene.kind, id: x.scene.id, t: x.scene.t, goal: x.scene.goal_en || ""} : null}; },
     me(msg, newW){ if(!cur) return; cur.log.push({me: msg, newW: newW || []}); saveCur(); },
     hero(pt, fix){ if(!cur) return; cur.log.push({hero: pt, fix: fix || ""}); saveCur(); },
-    memo(hero){ const last = all().filter(x => x.heroId === hero.id && x.report && (!cur || x.id !== cur.id)).sort((a, c) => c.id - a.id)[0];
+    memo(hero){ const last = all().filter(x => x.report && (!cur || x.id !== cur.id)).sort((a, c) => c.id - a.id)[0];
       if(!last) return ""; const r = last.report;
-      return "\n- MEMORY of your last talk with him (" + last.date.slice(0, 10) + "): he talked about " + (r.topic || "his life") + ". His mistakes then: " + (r.mistakes || []).map(m => m.bad + " → " + m.good).join("; ") + ". New words: " + (r.words || []).map(w => w[0]).join(", ") + ". Naturally create chances for him to use these correct forms and words again (do not lecture).";
+      return "\n- MEMORY of his last practice talk (with " + last.hero + ", " + last.date.slice(0, 10) + "; all heroes share this memory, mention it only if natural): he talked about " + (r.topic || "his life") + ". His mistakes then: " + (r.mistakes || []).map(m => m.bad + " → " + m.good).join("; ") + ". New words: " + (r.words || []).map(w => w[0]).join(", ") + ". Naturally create chances for him to use these correct forms and words again (do not lecture).";
     },
     callback(x){ const last = all().filter(s2 => s2.heroId === x.id && s2.report && s2.report.cb).sort((a, c) => c.id - a.id)[0]; return last ? last.report.cb : null; },
     finish, progress, autoReports
   };
 })();
 setTimeout(() => REP.autoReports(), 1500);
+
+
+// ================= OpenAI: speech recognition & hero voice =================
+const STTK = "fatih_stt", TTSK = "fatih_tts";
+const pref = (k, d) => { try{ return localStorage.getItem(k) || d; }catch(e){ return d; } };
+const setPref = (k, v) => { try{ localStorage.setItem(k, v); }catch(e){} };
+const OAI = () => !!(WORKER && sample === viaWorker);
+const STT = () => (!REC ? "openai" : pref(STTK, "iphone"));
+const TTS = () => pref(TTSK, "iphone");
+const VOICES = {parrot: "fable", friend: "ash", colleague: "onyx", tourist: "echo", cafe: "verse", guide: "ballad"};
+const NATIVE = "tr-TR".slice(0, 2);
+function oaiLabels(){
+  $("#sttb").textContent = "🎧 Tanıma: " + (STT() === "openai" ? "OpenAI" : "iPhone");
+  $("#ttsb").textContent = "🗣 Kahraman sesi: " + (TTS() === "openai" ? "OpenAI" : "iPhone");
+  $("#sttb").classList.toggle("on", STT() === "openai"); $("#ttsb").classList.toggle("on", TTS() === "openai");
+}
+$("#sttb").onclick = () => { if(!REC) return; setPref(STTK, STT() === "openai" ? "iphone" : "openai"); micStop(); oaiLabels(); };
+$("#ttsb").onclick = () => { setPref(TTSK, TTS() === "openai" ? "iphone" : "openai"); oaiLabels(); };
+setTimeout(() => { if(OAI()){ $("#sttb").hidden = false; $("#ttsb").hidden = false; oaiLabels(); } }, 350);
+async function wfetch(path, init){
+  let code = getCode(); if(!code) code = await askCode();
+  for(let i = 0; i < 2; i++){
+    const hd = Object.assign({}, init.headers || {}, {"x-code": code});
+    let r; try{ r = await fetch(WORKER.replace(/\/$/, "") + path, Object.assign({}, init, {headers: hd})); }catch(e){ throw {code: "network"}; }
+    if(r.status === 403){ const j = await r.clone().json().catch(() => ({})); if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} code = await askCode("Kod yanlış. Tekrar dene."); continue; } }
+    return r;
+  }
+  throw {code: "badcode"};
+}
+// ---- recording for OpenAI
+let recO = null;
+const _mic = mic;
+mic = function(btn, lng, label){ if(OAI() && STT() === "openai") return recOAI(btn, btn.id === "micru" ? NATIVE : ""); if(REC) return _mic(btn, lng, label); };
+async function recOAI(btn, lng){
+  if(recO){ recO.stop(); return; }
+  let stream; try{ stream = await navigator.mediaDevices.getUserMedia({audio: true}); }catch(e){ micHelp(); return; }
+  const mime = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"].find(t => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || "";
+  let mr; try{ mr = new MediaRecorder(stream, mime ? {mimeType: mime} : undefined); }catch(e){ stream.getTracks().forEach(t => t.stop()); return; }
+  const chunks = [], label = btn.id === "micru" ? "🇹🇷 Türkçe kelime" : "🎤 Konuş";
+  try{ speechSynthesis.cancel(); }catch(e){} try{ AUD.pause(); }catch(e){}
+  btn.classList.add("on"); btn.textContent = "● Kayıt (OpenAI) · bitince bas";
+  mr.ondataavailable = e => { if(e.data && e.data.size) chunks.push(e.data); };
+  mr.onstop = async () => {
+    stream.getTracks().forEach(t => t.stop()); recO = null; btn.classList.remove("on"); btn.textContent = "⏳ OpenAI tanıyor…"; btn.disabled = true;
+    try{
+      const blob = new Blob(chunks, {type: mr.mimeType || mime || "audio/webm"});
+      if(blob.size < 800) throw {code: "short"};
+      const r = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": lng}, body: blob});
+      const j = await r.json().catch(() => ({})); if(!r.ok) throw {code: "stt"};
+      const t = String(j.text || "").trim();
+      if(t){ const box = $("#box"); box.value = (box.value && !/\s$/.test(box.value) ? box.value + " " : box.value) + t + " "; S.usedStt = "OpenAI"; renderChips(); }
+    }catch(e){ if(e && e.code !== "short") micErr(); }
+    finally{ btn.disabled = false; btn.textContent = label; }
+  };
+  recO = {stop: () => { try{ mr.stop(); }catch(e){} }};
+  mr.start();
+}
+function micErr(){ const d = h("div", "modal repm"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.textContent = "OpenAI anlayamadı — tekrar dene veya «🎧 Tanıma»yı iPhone'a çevir."; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 4500); }
+if(!REC && window.MediaRecorder){ $("#micpt").onclick = () => mic($("#micpt"), lang(), ""); $("#micru").onclick = () => mic($("#micru"), "tr-TR", ""); }
+// ---- OpenAI voice (one audio element, unlocked by the first tap — needed on iPhone)
+const AUD = new Audio(); AUD.preload = "auto";
+const SILENT = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
+let audUnlocked = false;
+document.addEventListener("click", () => { if(audUnlocked) return; audUnlocked = true; try{ AUD.src = SILENT; AUD.play().catch(() => {}); }catch(e){} }, true);
+const TTSC = new Map(); let ttsSeq = 0;
+async function sayOAI(t, rate){
+  const text = String(t || "").replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, "").trim(); if(!text) return;
+  const voice = (S.hero && PERS.voice(S.hero)) || "ash", speed = rate && rate < .8 ? .7 : 1, key = voice + "|" + speed + "|" + text, my = ++ttsSeq;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  try{
+    let url = TTSC.get(key);
+    if(!url){ const r = await wfetch("/tts", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({text, voice, speed})}); if(!r.ok) throw 0; url = URL.createObjectURL(await r.blob()); TTSC.set(key, url); }
+    if(my !== ttsSeq) return;
+    AUD.src = url; await AUD.play();
+  }catch(e){ _say(t, lang(), rate); }
+}
+const _say = say;
+say = function(t, lng, rate, queue){ if(S.mute) return; if(OAI() && TTS() === "openai" && lng && lng.slice(0, 2) === lang().slice(0, 2)) return sayOAI(t, rate); return _say(t, lng, rate, queue); };
+$("#mute").addEventListener("click", () => { if(S.mute) try{ AUD.pause(); }catch(e){} });
+
+
+// ================= Personalisation (phase 1) =================
+const PERS = (() => {
+  const K = {facts: "fatih_facts", cards: "fatih_cards", days: "fatih_days", goal: "fatih_goal", mis: "fatih_missions", my: "fatih_myhero", voices: "fatih_voices", ses: "fatih_sessions", weeks: "fatih_weeks", hit: "fatih_goalhit"};
+  const load = (k, d) => { try{ return JSON.parse(localStorage.getItem(k) || "null") || d; }catch(e){ return d; } };
+  const store = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
+  const DAY = 864e5, today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+  const dkey = t => { const d = new Date(t); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+  const monday = () => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return d; };
+  const dstr = iso => new Date(iso).toLocaleDateString("tr-TR", {day: "numeric", month: "long"});
+  const btn = (txt, cls, fn) => { const x = h("button", cls || "sec", txt); x.type = "button"; x.onclick = fn; return x; };
+  const modal = () => { document.querySelectorAll(".modal.repm").forEach(x => x.remove()); const m = h("div", "modal repm"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true");
+    const b = h("div", "box rep"); m.append(b); m.onclick = e => { if(e.target === m) m.remove(); }; document.body.append(m); return [m, b]; };
+  const toast = t => { const d = h("div", "modal repm"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.textContent = t; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 4000); };
+  const heroById = id => id === "custom" ? myHero() : HEROES.find(x => x.id === id);
+
+  // ---------- 📅 situations of the day & 🏆 missions ----------
+  const SITS = [
+   {id:"s1", h:"colleague", t:"Rötar: yolculara nasıl söyleriz?", task:"Your SunExpress flight from Antalya is delayed by two hours because of a technical check. You and Fatih (the purser) discuss how to inform and calm the passengers.",
+    hi:"Fatih, bad news: our flight is delayed by two hours. How shall we tell the passengers?", hiru:"Fatih, kötü haber: uçuşumuz iki saat rötarlı. Yolculara nasıl söyleyelim?",
+    w:{"fatih":"Fatih","bad":"kötü","news":"haber","our":"bizim","flight":"uçuş","is":"(be fiili)","delayed":"rötarlı, gecikmeli","by":"(kadar)","two":"iki","hours":"saat","how":"nasıl","shall":"(öneri: -elim mi)","we":"biz","tell":"söylemek","the":"(belirli artikel)","passengers":"yolcular"}},
+   {id:"s2", h:"tourist", t:"Otobüste unutulan çanta", task:"You (Tom, a tourist) left your bag on a city bus in Antalya. Ask Fatih, a local, what to do.",
+    hi:"Oh no, I think I left my bag on the bus! What should I do?", hiru:"Eyvah, sanırım çantamı otobüste unuttum! Ne yapmalıyım?",
+    w:{"oh":"ah","no":"hayır; eyvah","i":"ben","think":"sanmak, düşünmek","left":"bıraktım, unuttum (leave)","my":"benim","bag":"çanta","on":"-de/-da","the":"(belirli artikel)","bus":"otobüs","what":"ne","should":"-meli","do":"yapmak"}},
+   {id:"s3", h:"cafe", t:"İki kişilik kahvaltı siparişi", task:"Fatih orders breakfast for two in your London café and asks about the options; recommend things.",
+    hi:"Morning! Table for two? What would you like for breakfast?", hiru:"Günaydın! İki kişilik masa mı? Kahvaltıda ne almak istersiniz?",
+    w:{"morning":"sabah; günaydın","table":"masa","for":"için","two":"iki","what":"ne","would":"(istek kipi)","you":"siz","like":"istemek","breakfast":"kahvaltı"}},
+   {id:"s4", h:"friend", t:"Jack Antalya'ya geliyor", task:"Jack is coming to Antalya next month for a week; plan together where to go and what to do.",
+    hi:"Mate, guess what? I'm coming to Antalya next month! Where should we go?", hiru:"Dostum, bil bakalım ne oldu? Gelecek ay Antalya'ya geliyorum! Nereye gidelim?",
+    w:{"mate":"dostum","guess":"tahmin etmek","what":"ne","i'm":"ben ...im","coming":"geliyorum","to":"-e/-a","antalya":"Antalya","next":"gelecek","month":"ay","where":"nereye","should":"-meli","we":"biz","go":"gitmek"}},
+   {id:"s5", h:"guide", t:"Metroyla British Museum'a", task:"Fatih wants to get to the British Museum by Tube and buy a ticket; help him with directions, tickets and timing.",
+    hi:"Morning, Fatih! Want to see the British Museum today? Do you know how to get there?", hiru:"Günaydın Fatih! Bugün British Museum'u görmek ister misin? Oraya nasıl gidilir, biliyor musun?",
+    w:{"morning":"günaydın","fatih":"Fatih","want":"istemek","to":"(-mek)","see":"görmek","the":"(belirli artikel)","british":"İngiliz","museum":"müze","today":"bugün","do":"(soru yardımcısı)","you":"sen","know":"bilmek","how":"nasıl","get":"varmak, gitmek","there":"oraya"}},
+   {id:"s6", h:"parrot", t:"Rocky'ye balık tarifi", task:"Rocky is hungry and wants Fatih's famous fish recipe; ask about it step by step.",
+    hi:"Rocky is hungry! Tell me, how do you cook your famous fish? 🐟", hiru:"Rocky aç! Söyle bakalım, meşhur balığını nasıl pişiriyorsun?",
+    w:{"rocky":"Rocky","is":"(be fiili)","hungry":"aç","tell":"anlatmak","me":"bana","how":"nasıl","do":"(soru yardımcısı)","you":"sen","cook":"pişirmek","your":"senin","famous":"meşhur","fish":"balık"}},
+   {id:"s7", h:"colleague", t:"Yeni ekip üyesinin ilk uçuşu", task:"A new young flight attendant is on Fatih's crew today, on her first flight; discuss what advice Fatih as purser will give her.",
+    hi:"We've got a new girl on the crew today. It's her first flight! Any advice for her?", hiru:"Bugün ekipte yeni bir kız var. Bu onun ilk uçuşu! Ona bir tavsiyen var mı?",
+    w:{"we've":"bizim ... var","got":"(have got = sahip olmak)","a":"bir","new":"yeni","girl":"kız","on":"-de","the":"(belirli artikel)","crew":"ekip","today":"bugün","it's":"bu ...dır","her":"onun; ona","first":"ilk","flight":"uçuş","any":"hiç","advice":"tavsiye","for":"için"}},
+   {id:"s8", h:"tourist", t:"Türk kahvaltısı nerede?", task:"Tom wants a real Turkish breakfast in Antalya; he asks Fatih where to go, what to order and what the dishes are.",
+    hi:"Everyone says I must try a Turkish breakfast. Where can I find a good one?", hiru:"Herkes mutlaka Türk kahvaltısı denemem gerektiğini söylüyor. İyisini nerede bulabilirim?",
+    w:{"everyone":"herkes","says":"söylüyor","i":"ben","must":"mutlaka -meli","try":"denemek","a":"bir","turkish":"Türk","breakfast":"kahvaltı","where":"nerede","can":"-ebilmek","find":"bulmak","good":"iyi","one":"(tane)"}},
+   {id:"s9", h:"friend", t:"Spor salonu programı", task:"Jack wants to start going to the gym; he asks Fatih about his workouts and for a simple plan.",
+    hi:"I've decided to start going to the gym. You go a lot, right? Where do I start?", hiru:"Spor salonuna gitmeye karar verdim. Sen çok gidiyorsun, değil mi? Nereden başlayayım?",
+    w:{"i've":"ben ...dım","decided":"karar verdim","to":"(-mek)","start":"başlamak","going":"gitmek","the":"(belirli artikel)","gym":"spor salonu","you":"sen","go":"gitmek","a":"bir","lot":"çok (a lot)","right":"değil mi","where":"nereden","do":"(soru yardımcısı)","i":"ben"}},
+   {id:"s10", h:"guide", t:"Otelde oda hazır değil", task:"Fatih arrives at a London hotel but his room is not ready; you (Oliver, his guide) help him talk to reception and plan the waiting time.",
+    hi:"Oh dear, the hotel says your room isn't ready until three. What do you want to do?", hiru:"Eyvah, otel odanın saat üçe kadar hazır olmayacağını söylüyor. Ne yapmak istersin?",
+    w:{"oh":"ah","dear":"(eyvah)","the":"(belirli artikel)","hotel":"otel","says":"söylüyor","your":"senin","room":"oda","isn't":"değil","ready":"hazır","until":"-e kadar","three":"üç","what":"ne","do":"yapmak","you":"sen","want":"istemek","to":"(-mek)"}},
+   {id:"s11", h:"parrot", t:"Hayatının en güzel seyahati", task:"Rocky asks Fatih about the best trip of his life.",
+    hi:"Fatih, what was the best trip of your life? Tell Rocky everything! ✈️", hiru:"Fatih, hayatının en güzel seyahati hangisiydi? Rocky'ye her şeyi anlat!",
+    w:{"fatih":"Fatih","what":"ne","was":"idi","the":"(belirli artikel)","best":"en iyi","trip":"seyahat","of":"-in","your":"senin","life":"hayat","tell":"anlatmak","rocky":"Rocky","everything":"her şey"}},
+   {id:"s12", h:"cafe", t:"Yeni bir içecek dene", task:"Fatih tries a British drink he doesn't know; compare it with Turkish tea and Turkish coffee.",
+    hi:"You look like a tea lover! Fancy trying something new today?", hiru:"Çay seven birine benziyorsun! Bugün yeni bir şey denemeye ne dersin?",
+    w:{"you":"sen","look":"görünmek","like":"gibi","a":"bir","tea":"çay","lover":"seven, aşığı","fancy":"(…ister misin)","trying":"denemek","something":"bir şey","new":"yeni","today":"bugün"}}
+  ];
+  const MIS = [
+   {id:"m1", h:"colleague", e:"📢", t:"Rötar anonsu", goal:"Mike'a yolcu anonsunu prova et. Kullan: «delayed», «due to», «we apologise for the inconvenience»", goal_en:"\"delayed\", \"due to\", \"we apologise for the inconvenience\"",
+    task:"Fatih practises the cabin announcement about a one-hour delay on you; you listen like a passenger, then react as a colleague and ask follow-up questions a passenger would ask.",
+    hi:"Fatih, the delay announcement is yours today. Can you practise it on me first?", hiru:"Fatih, bugünkü rötar anonsu senin. Önce bana prova yapabilir misin?",
+    w:{"fatih":"Fatih","the":"(belirli artikel)","delay":"rötar","announcement":"anons","is":"(be fiili)","yours":"senin","today":"bugün","can":"-ebilmek","you":"sen","practise":"prova etmek","it":"onu","on":"üzerinde","me":"bana","first":"önce"}},
+   {id:"m2", h:"tourist", e:"🗺️", t:"Yol tarifi", goal:"Tom'a Kaleiçi'nin yolunu tarif et. Kullan: «go straight», «turn left / turn right», «next to»", goal_en:"\"go straight\", \"turn left\" or \"turn right\", \"next to\"",
+    task:"You are lost near the Antalya clock tower area and need directions to Kaleiçi harbour; Fatih gives directions, you ask to repeat details.",
+    hi:"Hi! Could you tell me how to get to Kaleiçi from here? I'm totally lost.", hiru:"Merhaba! Buradan Kaleiçi'ne nasıl gidilir söyler misiniz? Tamamen kayboldum.",
+    w:{"hi":"merhaba","could":"-ebilir misiniz","you":"siz","tell":"söylemek","me":"bana","how":"nasıl","to":"-e/-a","get":"gitmek, varmak","kaleiçi":"Kaleiçi","from":"-den","here":"burası","i'm":"ben ...im","totally":"tamamen","lost":"kaybolmuş"}},
+   {id:"m3", h:"cafe", e:"☕", t:"Kibar şikâyet", goal:"Siparişin yanlış geldi. Kibarca şikâyet et. Kullan: «I'm afraid», «I ordered», «Could you…?»", goal_en:"\"I'm afraid\", \"I ordered\", \"Could you\"",
+    task:"You brought Fatih the wrong order (a latte instead of a flat white, and a cheese sandwich instead of a tuna one). Let him complain politely; apologise and fix it.",
+    hi:"Here you go: one latte and a cheese sandwich. Enjoy!", hiru:"Buyurun: bir latte ve peynirli sandviç. Afiyet olsun!",
+    w:{"here":"işte","you":"siz","go":"(here you go = buyurun)","one":"bir","latte":"latte","and":"ve","a":"bir","cheese":"peynir","sandwich":"sandviç","enjoy":"afiyet olsun"}},
+   {id:"m4", h:"friend", e:"🕰️", t:"Geçen hafta sonu", goal:"Jack'e geçen hafta sonunu anlat. En az 5 farklı geçmiş zaman fiili kullan (went, saw, cooked…)", goal_en:"at least 5 different verbs in the past simple",
+    task:"Ask Fatih about his last weekend with real interest and follow-up questions, so he tells a full story in the past.",
+    hi:"So, how was your weekend? Tell me everything!", hiru:"Eee, hafta sonun nasıldı? Bana her şeyi anlat!",
+    w:{"so":"eee, peki","how":"nasıl","was":"idi","your":"senin","weekend":"hafta sonu","tell":"anlatmak","me":"bana","everything":"her şey"}},
+   {id:"m5", h:"guide", e:"🎡", t:"Londra günü planı", goal:"Oliver'la bir günlük plan yap. Kullan: «I'd like to», «How long does it take…?», «How much is…?»", goal_en:"\"I'd like to\", \"How long does it take\", \"How much is\"",
+    task:"You and Fatih plan one full day in London together: sights, transport, food, prices.",
+    hi:"Right, we have one full day in London. What's the plan?", hiru:"Pekâlâ, Londra'da tam bir günümüz var. Plan ne?",
+    w:{"right":"pekâlâ","we":"biz","have":"sahip olmak","one":"bir","full":"tam","day":"gün","in":"-de","london":"Londra","what's":"ne","the":"(belirli artikel)","plan":"plan"}},
+   {id:"m6", h:"parrot", e:"🐟", t:"Adım adım tarif", goal:"Rocky'ye balık tarifini anlat. Kullan: «first», «then», «after that», «finally»", goal_en:"\"first\", \"then\", \"after that\", \"finally\"",
+    task:"Rocky wants to cook fish like Fatih; let him explain the recipe step by step, ask funny questions.",
+    hi:"Rocky wants to cook fish like you! Explain it step by step, please.", hiru:"Rocky de senin gibi balık pişirmek istiyor! Adım adım anlatır mısın lütfen?",
+    w:{"rocky":"Rocky","wants":"istiyor","to":"(-mek)","cook":"pişirmek","fish":"balık","like":"gibi","you":"sen","explain":"açıklamak","it":"onu","step":"adım","by":"(step by step = adım adım)","please":"lütfen"}},
+   {id:"m7", h:"colleague", e:"😤", t:"Zor yolcu hikâyesi", goal:"Mike'a zor bir yolcu hikâyesi anlat. Kullan: «was …ing when», «suddenly», «in the end»", goal_en:"\"was ...ing when\" (past continuous), \"suddenly\", \"in the end\"",
+    task:"Coffee break: ask Fatih about the most difficult passenger he ever had; react and ask follow-up questions.",
+    hi:"Tell me, what's the most difficult passenger you've ever had?", hiru:"Anlatsana, şimdiye kadarki en zor yolcun kimdi?",
+    w:{"tell":"anlatmak","me":"bana","what's":"ne; hangisi","the":"(belirli artikel)","most":"en","difficult":"zor","passenger":"yolcu","you've":"sen ...dın","ever":"şimdiye kadar","had":"sahip oldun (have)"}},
+   {id:"m8", h:"friend", e:"🏖️", t:"Davet", goal:"Jack'i Antalya'ya davet et ve planla. Kullan: «Would you like to…?», «How about…?», «Let's…»", goal_en:"\"Would you like to\", \"How about\", \"Let's\"",
+    task:"Jack is tired and needs a holiday; let Fatih invite him and make a plan together.",
+    hi:"I really need a holiday, mate. Any ideas?", hiru:"Gerçekten tatile ihtiyacım var dostum. Bir fikrin var mı?",
+    w:{"i":"ben","really":"gerçekten","need":"ihtiyaç duymak","a":"bir","holiday":"tatil","mate":"dostum","any":"hiç","ideas":"fikirler"}}
+  ];
+  const sitToday = () => { const n = Math.floor((new Date() - new Date(2026, 0, 1)) / DAY); return SITS[((n % SITS.length) + SITS.length) % SITS.length]; };
+  function startScene(sc, kind){
+    const base = heroById(sc.h); if(!base) return;
+    document.querySelectorAll(".modal.repm").forEach(x => x.remove());
+    start(Object.assign({}, base, {hi: sc.hi, hiru: sc.hiru, words: sc.w, scene: Object.assign({kind}, sc)}));
+  }
+  function banner(sc){ const d = h("div", "goal"); d.textContent = sc.kind === "mis" ? "🏆 Görev: " + sc.goal : "📅 Günün durumu: " + sc.t; return d; }
+
+  // ---------- 🔥 time, streak, weekly goal ----------
+  let lastAct = 0;
+  const act = msg => { lastAct = Date.now(); if(msg){ const D = load(K.days, {}), t = today(); D[t] = D[t] || {s: 0, m: 0}; D[t].m++; store(K.days, D); } };
+  document.addEventListener("click", () => { if(S.hero) lastAct = Date.now(); }, true);
+  document.addEventListener("input", () => { if(S.hero) lastAct = Date.now(); }, true);
+  setInterval(() => {
+    if(!S.hero || document.visibilityState !== "visible" || Date.now() - lastAct > 90000) return;
+    const D = load(K.days, {}), t = today(); D[t] = D[t] || {s: 0, m: 0}; D[t].s += 5; store(K.days, D);
+    const g = goalMin(), wk = monday().toISOString().slice(0, 10);
+    if(weekMin() >= g && load(K.hit, "") !== wk){ store(K.hit, wk); toast("🎉 Haftalık hedef tamam: " + g + " dakika! Harika gidiyorsun 🔥"); }
+  }, 5000);
+  const goalMin = () => Math.max(15, +load(K.goal, 15) || 15);
+  const weekMin = () => { const D = load(K.days, {}), m0 = monday().getTime(); let s2 = 0; Object.entries(D).forEach(([k, v]) => { const [y, mo, d] = k.split("-").map(Number); if(new Date(y, mo - 1, d).getTime() >= m0) s2 += v.s || 0; }); return Math.floor(s2 / 60); };
+  const activeDay = v => v && ((v.s || 0) >= 60 || (v.m || 0) > 0);
+  const streak = () => { const D = load(K.days, {}); let n = 0, d = new Date(); if(!activeDay(D[dkey(d)])) d = new Date(d.getTime() - DAY);
+    while(activeDay(D[dkey(d)])){ n++; d = new Date(d.getTime() - DAY); } return n; };
+  function goalModal(){
+    const [m, b] = modal(); b.append(h("h2", "", "🔥 Haftalık hedef"), h("div", "", "Haftada kaç dakika İngilizce konuşmak istersin? En az 15 dakika."));
+    const row = h("div", "vrow"); [15, 30, 45, 60, 90, 120].forEach(v => { const x = btn(v + " dk", "", () => { store(K.goal, v); m.remove(); pick(); }); if(v === goalMin()) x.classList.add("on"); row.append(x); });
+    b.append(row, h("div", "", "Sohbet ettiğin süre otomatik sayılır (sayfa açıkken ve aktifken). Seri = üst üste konuştuğun günler."), btn("Kapat", "ok", () => m.remove()));
+  }
+
+  // ---------- 📈 auto level ----------
+  const ORDER = ["A1", "A1+", "A2-", "A2", "A2+", "B1-", "B1", "B1+", "B2-", "B2", "B2+", "C1-", "C1", "C1+", "C2"];
+  const norm = l => { const x = String(l || "").toUpperCase().replace(/[–−]/g, "-").match(/[ABC][12][+-]?/); return x && ORDER.includes(x[0]) ? x[0] : null; };
+  function level(){
+    const ses = load(K.ses, []).filter(x => x.report && norm(x.report.level)).sort((a, c) => c.id - a.id).slice(0, 3).map(x => norm(x.report.level));
+    const W = load(K.weeks, {}), wk = Object.keys(W).sort().pop(); if(wk && norm(W[wk].level)) ses.push(norm(W[wk].level));
+    if(!ses.length) return {lv: "B2", auto: false};
+    const idx = ses.map(x => ORDER.indexOf(x)).sort((a, c) => a - c); return {lv: ORDER[idx[Math.floor((idx.length - 1) / 2)]], auto: true};
+  }
+
+  // ---------- 🧠 shared facts ----------
+  const facts = () => load(K.facts, []);
+  const factsLine = () => facts().slice(-25).map(f => f.t).join("; ") || "(nothing yet)";
+  function addFacts(list, src){ const F = facts(); list.forEach(t => { t = String(t).trim(); if(t && !F.some(f => f.t.toLowerCase() === t.toLowerCase())) F.push({t, d: new Date().toISOString(), src: src || ""}); }); store(K.facts, F.slice(-40)); }
+  function factsModal(){
+    const [m, b] = modal(); b.append(h("h2", "", "🧠 Kahramanlar senin hakkında ne biliyor"), h("div", "", "Sohbetlerden öğrendikleri. Tüm kahramanlar bunları bilir. Yanlış olanı ✕ ile sil, yenisini ekle (İngilizce veya Türkçe)."));
+    const list = h("div", ""); const draw = () => { list.innerHTML = ""; const F = facts();
+      if(!F.length) list.append(h("div", "", "Henüz bir şey yok — sohbetten sonra «🏁 Özet»e bas, yeni bilgiler buraya gelir."));
+      F.slice().reverse().forEach(f => { const r = h("div", "fact"); r.append(h("span", "", f.t)); r.append(btn("✕", "", () => { store(K.facts, facts().filter(x => x.t !== f.t)); draw(); })); list.append(r); }); };
+    draw(); const inp = h("input"); inp.type = "text"; inp.placeholder = "Örn.: My sister lives in Izmir."; inp.setAttribute("aria-label", "Yeni bilgi");
+    b.append(list, inp, btn("➕ Ekle", "sec", () => { if(inp.value.trim()){ addFacts([inp.value], "me"); inp.value = ""; draw(); } }), btn("Kapat", "ok", () => m.remove()));
+  }
+
+  // ---------- 🃏 cards (SRS 1 / 3 / 7 days) ----------
+  const INT = [0, 1, 3, 7, 21];
+  const cards = () => load(K.cards, {});
+  function addCard(front, back, quiet){
+    front = String(front || "").trim(); back = String(back || "").trim(); if(!front) return false;
+    const C = cards(), key = front.toLowerCase(); if(C[key]) return false;
+    C[key] = {f: front, b: back, box: 0, due: Date.now(), add: Date.now()}; store(K.cards, C); return true;
+  }
+  const dueCards = () => Object.values(cards()).filter(c => c.due <= Date.now()).sort((a, c) => a.due - c.due);
+  function cardBtn(hd, word, trf){ const x = h("button", "addk", "➕ Kart"); x.type = "button";
+    if(cards()[word.toLowerCase()]){ x.textContent = "✓ Kartta"; x.disabled = true; }
+    x.onclick = () => { addCard(word, trf()); x.textContent = "✓ Kartta"; x.disabled = true; }; hd.append(x); }
+  function review(){
+    const [m, b] = modal(); let q = dueCards().slice(0, 20), done = 0; const again = new Set();
+    const C = cards(), total = Object.keys(C).length, learned = Object.values(C).filter(c => c.box >= 4).length;
+    const step = () => { b.innerHTML = "";
+      if(!q.length){ b.append(h("h2", "", done ? "🎯 Bugünlük bitti!" : "🃏 Kartlar"), h("div", "", done ? `Tekrar edilen: ${done}. Sonraki kartlar 1, 3 ve 7 gün sonra gelir.` : "Şu an tekrar edilecek kart yok. 👍"),
+          h("div", "", `Toplam kart: ${total} · öğrenildi: ${learned}`), h("small", "", "Kartlar otomatik eklenir: Türkçe söylediğin kelimeler, özetteki yeni kelimeler ve hatalar. Kahramanın bir kelimesine dokunup «➕ Kart» ile de ekleyebilirsin."), btn("Kapat", "ok", () => m.remove())); return; }
+      const c = q[0]; b.append(h("h2", "", `🃏 Kart · kalan ${q.length}`));
+      const card = h("div", "card"); const f = h("div", "f", c.f); const bk = h("div", "bk", c.b || "—"); bk.hidden = true; card.append(f, bk); b.append(card);
+      b.append(btn("🔊 Dinle", "sec", () => say(c.f, lang())));
+      const show = btn("👀 Çeviriyi göster", "ok", () => { bk.hidden = false; show.remove(); row.hidden = false; }); b.append(show);
+      const row = h("div", "row"); row.hidden = true;
+      row.append(btn("✅ Biliyordum", "sec", () => grade(c, true)), btn("🔁 Tekrar", "sec", () => grade(c, false))); b.append(row);
+      say(c.f, lang()); };
+    const grade = (c, ok) => { const C2 = cards(), x = C2[c.f.toLowerCase()]; q.shift();
+      if(x){ if(ok){ x.box = Math.min(4, x.box + 1); x.due = Date.now() + INT[x.box] * DAY - 36e5; } else { x.box = 0; x.due = Date.now() + DAY - 36e5; if(!again.has(c.f)){ again.add(c.f); q.push(x); } } store(K.cards, C2); }
+      done++; act(false); step(); };
+    step();
+  }
+
+  // ---------- ✨ own hero ----------
+  const EMO = ["🦸", "🧑‍🚀", "🤖", "🦁", "🐻", "🧙", "🕵️", "👨‍🍳", "⚽", "🎸"];
+  function myHero(){ const x = load(K.my, null); if(!x || !x.name) return null;
+    return {id: "custom", e: x.e || "🦸", n: x.name, d: x.who ? x.who.slice(0, 60) : "Senin kahramanın",
+      role: `You are ${x.name}. Your character, created by the learner (it may be written in Turkish): ${x.who || "a friendly person"}. Where you are / your world: ${x.place || "anywhere"}. Stay in this character all the time and talk like this person would.`,
+      hi: `Hi Fatih! It's me, ${x.name}. Great to see you! How's your day going?`, hiru: `Merhaba Fatih! Benim, ${x.name}. Seni görmek harika! Günün nasıl geçiyor?`,
+      words: {"hi": "merhaba", "fatih": "Fatih", "it's": "bu ...dır", "me": "ben", [x.name.toLowerCase()]: x.name, "great": "harika", "to": "(-mek)", "see": "görmek", "you": "seni", "how's": "nasıl", "your": "senin", "day": "gün", "going": "gidiyor"}}; }
+  function heroModal(){
+    const cur = load(K.my, {}) || {}; const [m, b] = modal(); b.append(h("h2", "", "✨ Kendi kahramanın"), h("div", "", "Kiminle konuşmak istersin? Doldur — kahraman böyle konuşur."));
+    const n = h("input"); n.type = "text"; n.placeholder = "Adı (örn. Captain Max)"; n.value = cur.name || ""; n.setAttribute("aria-label", "Adı");
+    const w = h("textarea"); w.rows = 3; w.placeholder = "Kim, nasıl biri? (örn. eski bir pilot, esprili, futbol sever)"; w.value = cur.who || ""; w.setAttribute("aria-label", "Karakter");
+    const pl = h("input"); pl.type = "text"; pl.placeholder = "Nerede? (örn. New York'ta bir bar)"; pl.value = cur.place || ""; pl.setAttribute("aria-label", "Yer");
+    let e = cur.e || EMO[0]; const er = h("div", "emo"); EMO.forEach(x => { const eb = btn(x, "", () => { e = x; er.querySelectorAll("button").forEach(y => y.classList.toggle("on", y === eb)); }); if(x === e) eb.classList.add("on"); er.append(eb); });
+    const err = h("div", ""); err.style.color = "#C2410C";
+    b.append(h("b", "", "Adı"), n, h("b", "", "Karakteri"), w, h("b", "", "Yer"), pl, h("b", "", "Simge"), er, err,
+      btn("💾 Kaydet ve konuş", "ok", () => { if(!n.value.trim()){ err.textContent = "Bir ad yaz."; return; } store(K.my, {name: n.value.trim().slice(0, 30), who: w.value.trim().slice(0, 300), place: pl.value.trim().slice(0, 100), e}); m.remove(); start(myHero()); }));
+    if(cur.name) b.append(btn("🗑 Kahramanı sil", "sec", () => { try{ localStorage.removeItem(K.my); }catch(x){} m.remove(); pick(); }));
+    b.append(btn("Kapat", "sec", () => m.remove()));
+  }
+
+  // ---------- 🎙 voices ----------
+  const VLIST = ["ash", "ballad", "echo", "fable", "onyx", "verse"]; // Fatih: only male voices (Daria: female voices allowed in other versions)
+  const voice = hero => (VLIST.includes(load(K.voices, {})[hero.id]) ? load(K.voices, {})[hero.id] : 0) || VOICES[hero.id] || "ash";
+  async function playSample(v, hero){
+    try{ const r = await wfetch("/tts", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({text: `Hi Fatih, I'm ${hero.n.split(" ").pop()}. Do you like my voice?`, voice: v, speed: 1})});
+      if(!r.ok) throw 0; AUD.src = URL.createObjectURL(await r.blob()); await AUD.play(); }catch(e){ toast("Ses örneği çalınamadı — interneti kontrol et."); }
+  }
+  function voiceModal(){
+    const [m, b] = modal(); b.append(h("h2", "", "🎙 Kahraman sesleri"), h("div", "", "Bir sese dokun — örneği duyarsın ve o ses seçilir. Bu sesler «🗣 Kahraman sesi: OpenAI» ile çalışır; seçince otomatik açılır."));
+    HEROES.concat(myHero() ? [myHero()] : []).forEach(hero => { b.append(h("b", "", hero.e + " " + hero.n)); const row = h("div", "vrow");
+      VLIST.forEach(v => { const x = btn("▶ " + v, "", () => { const V = load(K.voices, {}); V[hero.id] = v; store(K.voices, V); setPref(TTSK, "openai"); try{ oaiLabels(); }catch(e){} row.querySelectorAll("button").forEach(y => y.classList.toggle("on", y === x)); playSample(v, hero); });
+        if(voice(hero) === v) x.classList.add("on"); row.append(x); }); b.append(row); });
+    b.append(btn("Kapat", "ok", () => m.remove()));
+  }
+
+  // ---------- 📜 history ----------
+  function historyModal(){
+    const [m, b] = modal(); const ses = load(K.ses, []).filter(x => x.log && x.log.some(y => y.me)).sort((a, c) => c.id - a.id);
+    b.append(h("h2", "", "📜 Sohbet geçmişi"));
+    if(!ses.length){ b.append(h("div", "", "Henüz kayıtlı sohbet yok."), btn("Kapat", "ok", () => m.remove())); return; }
+    ses.slice(0, 60).forEach(x => { const hr = heroById(x.heroId); const d = h("button", "day"); d.type = "button";
+      d.append(h("span", "", (hr ? hr.e + " " : "💬 ") + dstr(x.date) + " · " + x.hero), h("small", "", "mesaj: " + x.log.filter(y => y.me).length + (x.scene ? " · " + (x.scene.kind === "mis" ? "🏆 " : "📅 ") + x.scene.t : "") + (x.report ? " · seviye " + x.report.level : "")));
+      d.onclick = () => openTalk(x); b.append(d); });
+    b.append(btn("Kapat", "ok", () => m.remove()));
+  }
+  function openTalk(x){
+    const [m, b] = modal(); const hr = heroById(x.heroId) || {id: x.heroId, e: "💬", n: x.hero};
+    b.append(h("h2", "", hr.e + " " + x.hero + " · " + dstr(x.date)));
+    const play = t => { const prev = S.hero; S.hero = hr; try{ say(t, lang()); }finally{ S.hero = prev; } };
+    x.log.forEach(l => { const d = h("div", "hl" + (l.me ? " me" : ""));
+      if(l.me){ d.append(h("span", "", "🙋 " + l.me)); }
+      else { d.append(h("span", "", hr.e + " " + l.hero)); if(l.fix) d.append(h("span", "fx", "✏️ " + l.fix)); const sb = btn("🔊 Dinle", "sec", () => play(l.hero)); sb.style.justifySelf = "start"; d.append(sb); }
+      b.append(d); });
+    b.append(btn("◀ Geçmiş", "sec", historyModal), btn("Kapat", "ok", () => m.remove()));
+  }
+
+  // ---------- 🏆 missions list ----------
+  function missionsModal(){
+    const [m, b] = modal(); const M = load(K.mis, {}); b.append(h("h2", "", "🏆 Görevler"), h("div", "", "Her görevin bir hedefi var. Konuş, sonra «🏁 Özet»e bas — görevi başardın mı, özet söyler."));
+    MIS.forEach(x => { const hr = heroById(x.h); const d = h("button", "day"); d.type = "button";
+      d.append(h("span", "", (M[x.id] && M[x.id].done ? "✅ " : "⭐ ") + x.e + " " + x.t + " · " + (hr ? hr.n : "")), h("small", "", x.goal + (M[x.id] && M[x.id].done ? " · başarıldı " + dstr(M[x.id].date) : "")));
+      d.onclick = () => startScene(x, "mis"); b.append(d); });
+    b.append(btn("Kapat", "ok", () => m.remove()));
+  }
+
+  // ---------- report hooks ----------
+  function afterReport(ses){
+    const r = ses.report; if(!r) return;
+    if(r.facts && r.facts.length) addFacts(r.facts, ses.hero);
+    let n = 0; (r.words || []).forEach(w => { if(Array.isArray(w) && addCard(w[0], w[1])) n++; });
+    (r.mistakes || []).forEach(x => { if(x && x.good && addCard(x.good, "✏️ «" + x.bad + "» değil" + (x.why ? " — " + x.why : ""))) n++; });
+    r.newCards = n;
+    if(ses.scene && ses.scene.kind === "mis" && r.mission && r.mission.done){ const M = load(K.mis, {}); M[ses.scene.id] = {done: true, date: ses.date}; store(K.mis, M); }
+    const a = load(K.ses, []).map(x => x.id === ses.id ? ses : x); store(K.ses, a);
+  }
+  function reportExtra(b, ses){ const r = ses.report;
+    if(r.mission) b.append(h("div", "goal", (r.mission.done ? "🏆 Görev başarıldı! " : "🏆 Görev henüz tamam değil. ") + (r.mission.note || "")));
+    if(r.facts && r.facts.length) b.append(h("div", "", "🧠 Kahramanlar şunu da öğrendi: " + r.facts.join(" · ")));
+    if(r.newCards) b.append(h("div", "", "🃏 Kartlara eklendi: " + r.newCards));
+  }
+  function ctx(hero){
+    const lv = level(), F = facts().slice(-25);
+    let t = "\n- HIS CURRENT LEVEL (measured automatically from his recent talks): " + lv.lv + ". Speak at this level; at most 5% of your words and grammar may be one level higher. This overrides the level written above.";
+    if(F.length) t += "\n- WHAT YOU ALREADY KNOW ABOUT FATIH from earlier talks (all heroes share this knowledge; use it naturally, do not list it): " + F.map(f => f.t).join("; ") + ".";
+    const sc = hero && hero.scene;
+    if(sc && sc.kind === "sit") t += "\n- TODAY'S SITUATION (role-play): " + sc.task + " Play this situation from your first line on.";
+    if(sc && sc.kind === "mis") t += "\n- MISSION for him: " + sc.task + " His goal: use " + sc.goal_en + ". Create natural chances for him to use them. When he has used all of them, congratulate him in \"fix\" (in Turkish) and say the mission is complete.";
+    return t;
+  }
+
+  // ---------- picker ----------
+  function decorate(a, g, pb){
+    const lv = level(), wm = weekMin(), gm = goalMin(), st = streak();
+    const dash = h("button", "dash"); dash.type = "button"; dash.onclick = goalModal;
+    const row = h("div", "st"); row.append(h("span", "", "🔥 Seri: " + st + " gün"), h("span", "", "📈 Seviye: " + lv.lv)); dash.append(row);
+    dash.append(h("span", "", "Bu hafta: " + Math.min(wm, 999) + " / " + gm + " dk" + (wm >= gm ? " ✅" : "")));
+    const bar = h("div", "barx"); const fill = h("i"); fill.style.width = Math.min(100, Math.round(wm / gm * 100)) + "%"; bar.append(fill); dash.append(bar);
+    dash.append(h("small", "", (lv.auto ? "Seviye son sohbetlerine göre otomatik ayarlanır. " : "Seviye ilk özetten sonra otomatik ayarlanır. ") + "Hedefi değiştirmek için dokun."));
+    a.insertBefore(dash, g);
+    const sc = sitToday(), hr = heroById(sc.h), doneToday = load(K.ses, []).some(x => x.scene && x.scene.id === sc.id && dkey(x.date) === today());
+    const sit = h("div", "sit"); sit.append(h("span", "k", "📅 Günün durumu"), h("b", "", sc.t + (doneToday ? " ✅" : "")), h("small", "", "Kiminle: " + hr.e + " " + hr.n));
+    sit.append(btn(doneToday ? "Tekrar konuş →" : "Başla →", "pbtn", () => startScene(sc, "sit"))); a.insertBefore(sit, g);
+    const mh = myHero();
+    const cb = h("button", "hero"); cb.type = "button";
+    if(mh){ cb.append(h("span", "e", mh.e), h("b", "", mh.n), h("small", "", mh.d)); cb.onclick = () => start(mh); g.append(cb);
+      const ed = h("button", "hero"); ed.type = "button"; ed.append(h("span", "e", "✏️"), h("b", "", "Kahramanını düzenle"), h("small", "", "Adı, karakteri, yeri")); ed.onclick = heroModal; g.append(ed); }
+    else { cb.append(h("span", "e", "✨"), h("b", "", "Kendi kahramanın"), h("small", "", "Adını, karakterini ve yerini sen seç.")); cb.onclick = heroModal; g.append(cb); }
+    const M = load(K.mis, {}), md = MIS.filter(x => M[x.id] && M[x.id].done).length, dc = dueCards().length;
+    const tl = h("div", "tools2");
+    tl.append(btn("🏆 Görevler " + md + "/" + MIS.length, "tool", missionsModal), btn("🃏 Kartlar" + (dc ? " · " + dc : ""), "tool", review),
+      btn("📜 Geçmiş", "tool", historyModal), btn("🧠 Hakkımda", "tool", factsModal));
+    if(WORKER) tl.append(btn("🎙 Sesler", "tool", voiceModal));
+    a.insertBefore(tl, pb);
+  }
+  return {ctx, banner, act, addCard, cardBtn, voice, decorate, afterReport, reportExtra, factsLine: () => factsLine()};
+})();
 
 pick();
 </script>
