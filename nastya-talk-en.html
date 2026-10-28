@@ -621,16 +621,16 @@ let recO = null;
 const _mic = mic;
 mic = function(btn, lng, label){ if(OAI() && STT() === "openai") return recOAI(btn, btn.id === "micru" ? NATIVE : ""); if(REC) return _mic(btn, lng, label); };
 async function recOAI(btn, lng){
-  if(recO){ recO.stop(); return; }
+  if(recO){ if(recO.btn !== btn) recO.next = btn; recO.stop(); return; }
   let stream; try{ stream = await navigator.mediaDevices.getUserMedia({audio: true}); }catch(e){ micMsg("🎤 Микрофон не открылся. Открой страницу в Safari (не внутри Telegram или другого приложения) и разреши микрофон."); micHelp(); return; }
   const mime = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"].find(t => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || "";
   let mr; try{ mr = new MediaRecorder(stream, mime ? {mimeType: mime} : undefined); }catch(e){ stream.getTracks().forEach(t => t.stop()); micMsg("🎤 Этот браузер не умеет записывать звук. Открой страницу в Safari или переключи «🎧 Распознавание» на iPhone."); return; }
   const chunks = [], label = btn.id === "micru" ? "🆘 Скажу по-русски" : "🎤 Говорить";
   try{ speechSynthesis.cancel(); }catch(e){} try{ AUD.pause(); }catch(e){}
-  btn.classList.add("on"); btn.textContent = btn.id === "micru" ? "● Запись · закончила — нажми" : "● Слушаю · закончила — нажми, отправлю";
+  btn.classList.add("on"); btn.textContent = btn.id === "micru" ? "● Слушаю по-русски… дальше — 🎤" : "● Слушаю · закончила — нажми, отправлю";
   mr.ondataavailable = e => { if(e.data && e.data.size) chunks.push(e.data); };
   mr.onstop = async () => {
-    stream.getTracks().forEach(t => t.stop()); recO = null; btn.classList.remove("on"); btn.textContent = "⏳ OpenAI распознаёт…"; btn.disabled = true;
+    stream.getTracks().forEach(t => t.stop()); const nx = recO && recO.next; recO = null; if(nx) setTimeout(() => mic(nx, "", ""), 0); btn.classList.remove("on"); btn.textContent = "⏳ OpenAI распознаёт…"; btn.disabled = true;
     try{
       const blob = new Blob(chunks, {type: mr.mimeType || mime || "audio/webm"});
       if(blob.size < 800) throw {code: "short"};
@@ -641,11 +641,11 @@ async function recOAI(btn, lng){
       const BAD = t2 => /[^\sA-Za-zА-Яа-яЁё0-9.,!?;:'"’‘“”()\-–—…%&@#/+*=€₺$£]/.test(t2);
       if(BAD(t)){ let ok = ""; for(const L of (lng ? [lng] : ["ru", "en"])){ const r2 = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": L, "x-prompt": sttPrompt()}, body: blob}); const j2 = await r2.json().catch(() => ({})); const t2 = r2.ok ? String(j2.text || "").trim() : ""; if(t2 && !BAD(t2)){ ok = t2; break; } } t = ok; if(!t) throw {code: "stt"}; }
       if(!t) throw {code: "empty"};
-      if(t){ const box = $("#box"); box.value = (box.value && !/\s$/.test(box.value) ? box.value + " " : box.value) + t + " "; S.usedStt = "OpenAI"; renderChips(); if(btn.id !== "micru") previewSend(); }
+      if(t){ const box = $("#box"); box.value = (box.value && !/\s$/.test(box.value) ? box.value + " " : box.value) + t + " "; S.usedStt = "OpenAI"; renderChips(); if(btn.id !== "micru" && !nx && !recO) previewSend(); }
     }catch(e){ if(!(e && e.code === "paused")) micMsg(e && e.code === "limit" ? limitMsg(e.scope) : e && e.code === "short" ? "🎤 Запись получилась слишком короткой или тихой. Нажми кнопку, скажи фразу, потом нажми ещё раз." : e && e.code === "empty" ? "🎤 Не расслышал. Попробуй ещё раз чуть громче." : e && e.code === "network" ? "📶 Нет интернета или связь прервалась. Попробуй ещё раз." : "OpenAI не смог распознать — попробуй ещё раз или переключи «🎧 Распознавание» на iPhone."); }
     finally{ btn.disabled = false; btn.textContent = label; }
   };
-  recO = {stop: () => { try{ mr.stop(); }catch(e){} }};
+  recO = {btn, stop: () => { try{ mr.stop(); }catch(e){} }};
   mr.start();
 }
 function micErr(){ const d = h("div", "modal repm"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.textContent = "OpenAI не смог распознать — попробуй ещё раз или переключи «🎧 Распознавание» на iPhone."; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 4500); }
