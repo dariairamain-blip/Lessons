@@ -316,7 +316,7 @@ async function send(){
     S.busy = true; $("#send").disabled = true;
     const res = await Promise.all(parts.map(p => trPart(p, t).then(r => [p, r.pt]).catch(() => null)));
     S.busy = false; $("#send").disabled = false;
-    res.forEach(x => { if(x){ msg = msg.split(x[0]).join(x[1]); newW.push(x); } });
+    res.forEach(x => { if(x){ msg = msg.split(x[0]).join(x[1]); newW.push(x); } }); msg = msg.replace(/([.!?…])\s*([.!?])(?=\s|$)/g, "$1");
   }
   (S.ins || []).forEach(x => { if(msg.includes(x[1]) && !newW.some(y => y[0] === x[0])) newW.push(x); }); S.ins = [];
   const mb = bubble("me", msg); if(S.usedStt){ mb.append(h("small", "mtag", "🎧 " + S.usedStt)); S.usedStt = null; }
@@ -641,7 +641,7 @@ async function recOAI(btn, lng){
       const BAD = t2 => /[^\sA-Za-zА-Яа-яЁё0-9.,!?;:'"’‘“”()\-–—…%&@#/+*=€₺$£]/.test(t2);
       if(BAD(t)){ let ok = ""; for(const L of (lng ? [lng] : ["ru", "en"])){ const r2 = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": L, "x-prompt": sttPrompt()}, body: blob}); const j2 = await r2.json().catch(() => ({})); const t2 = r2.ok ? String(j2.text || "").trim() : ""; if(t2 && !BAD(t2)){ ok = t2; break; } } t = ok; if(!t) throw {code: "stt"}; }
       if(!t) throw {code: "empty"};
-      if(t){ const box = $("#box"); box.value = (box.value && !/\s$/.test(box.value) ? box.value + " " : box.value) + t + " "; S.usedStt = "OpenAI"; renderChips(); if(btn.id !== "micru" && !nx && !recO) previewSend(); }
+      if(t){ const box = $("#box"); box.value = (box.value && !/\s$/.test(box.value) ? box.value + " " : box.value) + t + " "; S.usedStt = "OpenAI"; renderChips(); if(!nx && !recO) previewSend(); }
     }catch(e){ if(!(e && e.code === "paused")) micMsg(e && e.code === "limit" ? limitMsg(e.scope) : e && e.code === "short" ? "🎤 Запись получилась слишком короткой или тихой. Нажми кнопку, скажи фразу, потом нажми ещё раз." : e && e.code === "empty" ? "🎤 Не расслышал. Попробуй ещё раз чуть громче." : e && e.code === "network" ? "📶 Нет интернета или связь прервалась. Попробуй ещё раз." : "OpenAI не смог распознать — попробуй ещё раз или переключи «🎧 Распознавание» на iPhone."); }
     finally{ btn.disabled = false; btn.textContent = label; }
   };
