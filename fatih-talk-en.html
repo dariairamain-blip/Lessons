@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Kahramanla sohbet</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Nunito:wght@600;700;800;900&display=swap">
+<style>
+/* Layout: hero picker → full-screen chat, input docked at the bottom */
+:root{
+  --bg:#F3F0FF; --card:#FFFFFF; --ink:#1F1640; --muted:#6A6290; --line:#DDD6F5;
+  --sea:#6C3BFF; --pink:#FF4F8B; --sel:#E6DEFF; --me:#6C3BFF; --meink:#FFFFFF; --fix:#FFF4D6; --fixink:#6B4A00;
+  --display:"Bricolage Grotesque",Georgia,serif; --body:Nunito,"Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#151032; --card:#221A4C; --ink:#F1EEFF; --muted:#B0A8D8; --line:#3A3170; --sea:#9C7BFF; --pink:#FF77A6; --sel:#33296B; --me:#7B55FF; --fix:#3B2F12; --fixink:#F5C66B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#151032; --card:#221A4C; --ink:#F1EEFF; --muted:#B0A8D8; --line:#3A3170; --sea:#9C7BFF; --pink:#FF77A6; --sel:#33296B; --me:#7B55FF; --fix:#3B2F12; --fixink:#F5C66B; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:700 16px/1.45 var(--body)}
+.wrap{max-width:560px;margin:0 auto;padding-block:0 var(--dockh,170px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:12px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px 8px;border-bottom:2px solid var(--line);display:grid;gap:6px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.who{font-weight:900;font-size:16px}
+.tag{font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--pink)}
+.snd{display:flex;gap:6px}
+.snd button,.back{font:800 12.5px var(--body);border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:6px 9px;cursor:pointer}
+.snd button.on{border-color:#10A877;color:#10A877}
+h1{font:800 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
+.sub{color:var(--muted);margin:0;font-weight:600;font-size:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hero{display:grid;gap:4px;text-align:left;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:18px;padding:12px;cursor:pointer;box-shadow:0 4px 0 var(--line);font:inherit}
+.hero .e{font-size:34px;line-height:1}
+.hero b{font-size:16px}
+.hero small{font-weight:600;font-size:13px;color:var(--muted);line-height:1.3}
+.hero:focus-visible,.send:focus-visible{outline:3px solid var(--sea);outline-offset:2px}
+.chat{display:grid;gap:10px}
+.msg{display:flex;gap:8px;align-items:flex-end}
+.msg .av{font-size:30px;line-height:1;flex:none}
+.bub{border-radius:18px 18px 18px 4px;padding:10px 12px;background:var(--card);border:2px solid var(--line);max-width:85%;min-width:0;display:grid;gap:6px}
+.bub .pt{font-size:17px;overflow-wrap:anywhere}
+.bub .ru{font-size:14px;color:var(--muted);font-weight:600}
+.bub .tools{display:flex;gap:6px;flex-wrap:wrap}
+.bub .tools button{border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 13px var(--body);cursor:pointer;padding:5px 9px;border-radius:999px}
+.bub .tools button.on{background:var(--sel)}
+.msg.me{justify-content:flex-end}
+.msg.me .bub{background:var(--me);color:var(--meink);border-color:var(--me);border-radius:18px 18px 4px 18px}
+.fix{background:var(--fix);color:var(--fixink);border-radius:12px;padding:8px 10px;font-size:14px;font-weight:700}
+.typing{color:var(--muted);font-style:italic;font-weight:600}
+.dock{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:2px solid var(--line);padding-block:10px calc(10px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.dock .in{max-width:560px;margin:0 auto;display:flex;gap:8px;align-items:flex-end}
+.dock textarea{flex:1;min-width:0;min-height:46px;max-height:120px;resize:none;font:700 16px var(--body);border:2px solid var(--line);border-radius:14px;padding:10px;background:var(--card);color:var(--ink)}
+.send{flex:none;border:0;border-radius:14px;background:var(--sea);color:#fff;font:900 18px var(--body);width:52px;height:48px;cursor:pointer}
+.send:disabled{opacity:.5}
+.hint{font-size:13px;color:var(--muted);font-weight:600;margin:6px auto 0;max-width:560px}
+.note{font-size:13.5px;color:var(--muted);font-weight:600;margin:0}
+.w{cursor:pointer;border-radius:6px;padding:0 1px;border-bottom:1.5px dotted rgba(108,59,255,.45)}
+.w.on{background:var(--sel);color:var(--sea)}
+.gl{background:var(--sel);border-radius:12px;padding:8px 10px;font-size:14.5px;display:grid;gap:6px}
+.gl .hd{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.gl .hd b{font-size:16px}
+.gl button{border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 13px var(--body);cursor:pointer;padding:4px 9px;border-radius:999px}
+.gl .more{display:grid;gap:6px;font-weight:600}
+.gl .ex{display:flex;gap:6px;align-items:flex-start}
+.gl .ex small{display:block;color:var(--muted)}
+[hidden]{display:none!important}
+.sos{flex:none;border:2px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);font:900 13px var(--body);height:48px;padding:0 10px;cursor:pointer;line-height:1.1}
+.sos.on{background:#E2482F;border-color:#E2482F;color:#fff;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.05)}}
+@media (prefers-reduced-motion: reduce){.sos.on{animation:none}}
+.helps{max-width:560px;margin:0 auto 8px;display:grid;gap:6px}
+.help{background:var(--card);border:2px solid #F2B632;border-radius:14px;padding:8px 10px;display:grid;gap:6px;font-size:14.5px}
+.help .hd{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.help .ru{color:var(--muted)}
+.help .pt{font-weight:900;color:var(--sea);font-size:16px}
+.help button{border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 12.5px var(--body);cursor:pointer;padding:4px 8px;border-radius:999px}
+.help .more{display:grid;gap:6px;font-weight:600}
+.help .ex{display:flex;gap:6px;align-items:flex-start}.help .ex small{display:block;color:var(--muted)}
+.sosnote{max-width:560px;margin:0 auto 6px;font-size:13.5px;font-weight:800;color:#E2482F}
+.chips{max-width:560px;margin:0 auto 6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12.5px;font-weight:800;color:var(--muted)}
+.chip{border:2px solid #F2B632;background:#FFF6DC;color:#7A5200;border-radius:999px;padding:4px 10px;font:800 13.5px var(--body);cursor:pointer}
+.help .x{margin-left:auto}
+.msg.me .new{border-bottom:2px dotted currentColor}
+.modal{position:fixed;inset:0;background:#0008;z-index:30;display:grid;place-items:center;padding:16px}
+.modal .box{background:var(--card);color:var(--ink);border-radius:18px;padding:16px;max-width:460px;max-height:86vh;overflow:auto;display:grid;gap:10px;font-size:15px;line-height:1.4}
+.modal h2{margin:0;font-size:19px}.modal ol{margin:0;padding-left:20px;display:grid;gap:6px}.modal p{margin:0;color:var(--muted);font-size:14px}
+.modal .ok{border:0;border-radius:14px;background:#6C3BF5;color:#fff;font:900 16px var(--body);padding:12px;cursor:pointer}
+.mics{max-width:560px;margin:0 auto 8px;display:grid;grid-template-columns:1.6fr 1fr;gap:8px}
+.mic{border:2px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);font:900 15px var(--body);min-height:48px;padding:6px 10px;cursor:pointer}
+.mic.on{background:#E2482F;border-color:#E2482F;color:#fff;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.03)}}
+@media (prefers-reduced-motion: reduce){.mic.on{animation:none}}
+.codebox{display:grid;gap:10px}.codebox input{font:800 20px var(--body);text-align:center;letter-spacing:.15em;padding:12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+.mtag{display:block;margin-top:4px;font-size:12px;font-weight:800;color:var(--muted)}
+.rep{display:grid;gap:8px}.rep h2{margin:0;font-size:19px}.rep .lv{font-weight:900;color:#6C3BF5}
+.rep .mi{background:var(--fix);color:var(--fixink);border-radius:12px;padding:8px 10px;font-size:14px}
+.rep .mi b{display:block}.rep .row{display:flex;gap:8px;flex-wrap:wrap}
+.rep button.sec{border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 14px var(--body);border-radius:14px;padding:10px 12px;cursor:pointer;flex:1 1 auto}
+.rep .day{border:2px solid var(--line);border-radius:14px;padding:10px;text-align:left;background:var(--card);color:var(--ink);font:600 14px var(--body);cursor:pointer;display:grid;gap:2px}
+.rep .day small{color:var(--muted)}
+.rep .opt{border:2px solid var(--line);border-radius:12px;padding:10px;background:var(--card);color:var(--ink);font:800 15px var(--body);cursor:pointer;text-align:left;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.rep .opt.ok{border-color:#10A877;background:#E3F7EF;color:#0B6B4C}.rep .opt.no{border-color:#E2482F;background:#FDE8E4;color:#8A2414}
+.rep .q{font-size:16px;font-weight:800}.rep .toast{font-weight:800;color:#10A877}
+.prog{margin-top:12px;width:100%;border:2px solid var(--line);background:var(--card);color:var(--ink);font:900 16px var(--body);border-radius:16px;padding:12px;cursor:pointer}
+.warn{background:var(--fix);color:var(--fixink);border-radius:14px;padding:12px;font-size:14.5px}
+</style>
+<div class="wrap" id="wrap">
+  <div class="bar"><div class="top"><span class="tag" id="who">Kahramanla sohbet</span>
+    <div class="snd"><button type="button" id="hlp" aria-label="Kahramanla nasıl konuşulur">❓</button><button type="button" id="mdl" hidden>🧠 Sonnet</button><button type="button" id="mute">🔊 Ses: açık</button><button type="button" id="auto" class="on">🗣 Otomatik seslendirme: açık</button></div></div></div>
+  <div id="app"></div>
+  <p class="own" style="text-align:center;font-size:12.5px;color:var(--muted);margin:18px 0 0">© Daria Botina</p>
+</div>
+<div class="dock" id="dock" hidden><div class="helps" id="helps"></div><div class="chips" id="chips" hidden></div><div class="mics" id="mics" hidden><button class="mic" id="micpt" type="button">🎤 Konuş</button><button class="mic" id="micru" type="button">🇹🇷 Türkçe kelime</button></div><div class="in">
+  <textarea id="box" rows="1" placeholder="Write in English…" aria-label="Mesajın"></textarea>
+  <button class="send" id="send" type="button" aria-label="Gönder">➤</button></div></div>
+<script>
+const HEROES = [
+ {id:"parrot", words:{"hi":"merhaba","fatih":"Fatih","how":"nasıl","are":"(be fiili)","you":"sen","today":"bugün","ready":"hazır","for":"için","a":"bir","chat":"sohbet"}, e:"🦜", n:"Papağan Rocky", d:"Neşeli bir arkadaş. Şakalar yapar, sohbet eder, moral verir.",
+  role:"You are Rocky, a cheerful, funny talking parrot (a boy) and the learner's friend. You love jokes, food, the beach and travelling.",
+  hi:"Hi, Fatih! How are you today? Ready for a chat? 🦜", hiru:"Merhaba Fatih! Bugün nasılsın? Sohbete hazır mısın?"},
+ {id:"friend", words:{"hey":"hey","mate":"dostum","long":"uzun","time":"zaman","no":"yok","see":"görmek","what":"ne","have":"(geçmiş zaman yardımcısı)","you":"sen","been":"(be fiili, geçmiş)","up":"yapıyor","to":"(edat)"}, e:"🧔🏻", n:"Arkadaş Jack", d:"Manchester'dan İngiliz arkadaş. Hayat, futbol, hafta sonu planları.",
+  role:"You are Jack, a friendly 38-year-old British guy from Manchester and the learner's good friend. You talk like a real mate: share small things about your day, ask about his, react with emotion, love football and travel.",
+  hi:"Hey mate, long time no see! What have you been up to?", hiru:"Selam dostum, görüşmeyeli uzun zaman oldu! Neler yapıyorsun?"},
+ {id:"colleague", words:{"good":"iyi","morning":"sabah","fatih":"Fatih","busy":"yoğun","day":"gün","at":"-de/-da","the":"(belirli artikel)","airport":"havalimanı","today":"bugün"}, e:"👨🏼‍✈️", n:"Pilot Mike", d:"Havalimanında İngiliz meslektaş. Uçuşlar, iş, kahve molası.",
+  role:"You are Mike, a friendly British airline pilot and the learner's colleague at the airport in Antalya. You chat during a coffee break about flights, passengers, work shifts, travel and plans. Light, professional but warm.",
+  hi:"Good morning, Fatih! Busy day at the airport today? ☕", hiru:"Günaydın Fatih! Bugün havalimanında yoğun bir gün mü?"},
+ {id:"tourist", words:{"excuse":"affedersiniz","me":"beni","sorry":"pardon","is":"(be fiili)","this":"bu","the":"(belirli artikel)","way":"yol","to":"-e/-a","old":"eski","town":"şehir","kaleiçi":"Kaleiçi"}, e:"🧳", n:"Turist Tom", d:"Antalya'da kaybolmuş İngiliz turist. Ona yol tarif et, tavsiye ver.",
+  role:"You are Tom, a friendly but slightly lost British tourist on holiday in Antalya. The learner is a local who helps you: you ask for directions, the best beaches, food, transport and prices in Turkish lira. React with gratitude and small jokes.",
+  hi:"Excuse me, sorry! Is this the way to the old town, Kaleiçi? 🗺️", hiru:"Affedersiniz, pardon! Eski şehre, Kaleiçi'ne giden yol bu mu?"},
+ {id:"cafe", words:{"hi":"merhaba","there":"(selamlaşma)","welcome":"hoş geldiniz","to":"-e/-a","the":"(belirli artikel)","corner":"köşe","café":"kafe","what":"ne","can":"-ebilmek","i":"ben","get":"getirmek","you":"size"}, e:"☕", n:"Barista Sam", d:"Londra'da bir kafe. Sipariş ver, tavsiye iste, sohbet et.",
+  role:"You are Sam, a friendly young barista in a small café in London. You take the learner's order, recommend drinks and cakes (flat white, tea, scones, sandwiches), answer questions about the menu and prices in pounds, and joke a little.",
+  hi:"Hi there, welcome to the Corner Café! What can I get you? 🥐", hiru:"Merhaba, Corner Café'ye hoş geldiniz! Size ne getirebilirim?"},
+ {id:"guide", words:{"hello":"merhaba","i'm":"ben ...im","oliver":"Oliver","welcome":"hoş geldin","to":"-e/-a","london":"Londra","what":"ne","would":"(istek kipi)","you":"sen","like":"istemek","see":"görmek","today":"bugün"}, e:"🧭", n:"Rehber Oliver", d:"Londra rehberi. Yol sor, ulaşım, nereleri görmeli.",
+  role:"You are Oliver, a lively tour guide in London. You help with directions, the Tube and buses, sights, museums and food tips.",
+  hi:"Hello, I'm Oliver! Welcome to London. What would you like to see today? 🚇", hiru:"Merhaba, ben Oliver! Londra'ya hoş geldin. Bugün neyi görmek istersin?"}
+];
+const RULES = h => `${h.role}
+You are a conversation partner for Fatih, a Turkish man who lives in Antalya and works at the airport. He speaks English quite well and wants to practise speaking.
+How to reply:
+- Stay in character. Reply ONLY in natural, friendly British English.
+- LENGTH: usually 3–4 short sentences. Only if the meaning really needs more (he asks for instructions, a story, an explanation) use up to 7 sentences. If even 7 is not enough, stop after 7 and add an 8th sentence asking "Shall I tell you more?"; if he says yes, continue with the next part, again at most 7 sentences.
+- LEVEL: match his level from his messages. At most 5% of your words and grammar may be one level higher than his. No rare idioms unless you explain them.
+- Usually end with ONE short question back to keep the talk going.
+- Every time vary your words: never reuse a sentence you already said in this chat.
+- If his last message has a mistake, give a short friendly correction in Turkish: show the corrected English phrase and explain in max 12 words why. If no mistake, "fix" is "".
+- If he wrote a word in Turkish, use the English word naturally in your reply and mention it in "fix" ("«havalimanı» — airport").
+- If his message ends with a note about words he did not know (said in Turkish), often — about 2 times out of 3, not always — ask him a short question that uses one of those English words, so the word sticks.
+- Never repeat the same correction twice in a row; if the message is fine, praise briefly in "fix" only every few turns, otherwise leave it empty.
+Reply with only JSON: {"pt": "your reply in English", "ru": "Turkish translation of your reply", "fix": "correction in Turkish or empty string", "words": {"each distinct word of pt in lowercase without punctuation": "its short Turkish translation in this context"}}`;
+const MORE = (w, ctx, pt) => `A Turkish-speaking learner of English tapped the word "${w}" in this sentence: "${ctx}".
+Explain it briefly in Turkish. Reply with only JSON:
+{"lemma": "dictionary form (infinitive for verbs, base form for adjectives/nouns)", "tr": "main Turkish meaning(s)", "grammar": "1–2 short sentences in Turkish: what form this is and why it is used here (tense, person, plural, phrasal verb…); empty string if nothing to say", "examples": [["simple English example 1", "Turkish translation"], ["example 2", "translation"], ["example 3", "translation"]]}
+Examples must be short (max 8 words), everyday English.`;
+const S = {mute:false, auto:true, hero:null, turns:[], busy:false};
+const $ = s => document.querySelector(s);
+const h = (tag, cls, txt) => { const e = document.createElement(tag); if(cls) e.className = cls; if(txt != null) e.textContent = txt; return e; };
+const WORKER = "";
+const CODEKEY = "fatih_code";
+const MODEL = () => { try{ return localStorage.getItem("fatih_model") || "sonnet"; }catch(e){ return "sonnet"; } };
+const getCode = () => { try{ return localStorage.getItem(CODEKEY) || ""; }catch(e){ return ""; } };
+function askCode(msg){
+  return new Promise(res => {
+    const m = h("div", "modal"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true");
+    const b = h("div", "box codebox"); b.append(h("h2", "", "🔐 Erişim kodu"), h("p", "", msg || "Daria'nın sana verdiği kodu gir."));
+    const inp = h("input"); inp.type = "text"; inp.autocomplete = "off"; inp.setAttribute("autocapitalize", "characters"); inp.setAttribute("aria-label", "Kod");
+    const err = h("p", ""); err.style.color = "#C2410C"; err.style.fontWeight = "800";
+    const ok = h("button", "ok", "Giriş →"); ok.type = "button";
+    const go = () => { const v = inp.value.trim(); if(!v){ err.textContent = "Kodu gir."; return; } try{ localStorage.setItem(CODEKEY, v); }catch(e){} m.remove(); res(v); };
+    ok.onclick = go; inp.onkeydown = e => { if(e.key === "Enter") go(); };
+    b.append(inp, err, ok); m.append(b); document.body.append(m); inp.focus({preventScroll:true});
+  });
+}
+function parseJSON(t){ const m = String(t || "").match(/\{[\s\S]*\}/); if(!m) throw {code:"badjson"}; return JSON.parse(m[0]); }
+const viaWorker = {
+  json: async (inp) => {
+    let system = "", messages;
+    if(typeof inp === "string") messages = [{role:"user", content: inp}];
+    else { system = inp[0].content; messages = inp.slice(1); if(!messages.length || messages[0].role !== "user") messages = [{role:"user", content:"(start)"}].concat(messages); }
+    let code = getCode(); if(!code) code = await askCode();
+    for(let attempt = 0; attempt < 2; attempt++){
+      let r;
+      try{ r = await fetch(WORKER, {method:"POST", headers:{"content-type":"application/json", "x-code": code}, body: JSON.stringify({system, messages, max_tokens: 1200, model: MODEL()})}); }
+      catch(e){ throw {code:"network"}; }
+      if(r.status === 403){ const j = await r.json().catch(() => ({})); if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} code = await askCode("Kod yanlış. Tekrar dene."); continue; } throw {code:"site"}; }
+      if(r.status === 429) throw {code:"rate_limited"};
+      if(!r.ok) throw {code:"server"};
+      const j = await r.json(); return parseJSON(j.text);
+    }
+    throw {code:"badcode"};
+  }
+};
+const OFFLINE = [
+ ["That's interesting! Can you tell me more?", "Bu ilginç! Biraz daha anlatır mısın?", {"that's":"bu","interesting":"ilginç","can":"-ebilir","you":"sen","tell":"anlatmak","me":"bana","more":"daha fazla"}],
+ ["Really? How did you feel about it?", "Gerçekten mi? Bu konuda ne hissettin?", {"really":"gerçekten","how":"nasıl","did":"(geçmiş zaman yardımcısı)","you":"sen","feel":"hissetmek","about":"hakkında","it":"o"}],
+ ["Nice! What happened next?", "Güzel! Sonra ne oldu?", {"nice":"güzel","what":"ne","happened":"oldu","next":"sonra"}],
+ ["I see. What do you usually do at the weekend?", "Anlıyorum. Hafta sonları genelde ne yaparsın?", {"i":"ben","see":"anlamak, görmek","what":"ne","do":"yapmak","you":"sen","usually":"genelde","at":"-de","the":"(belirli artikel)","weekend":"hafta sonu"}],
+ ["Sounds great! Where was that?", "Harika görünüyor! Bu nerede oldu?", {"sounds":"kulağa geliyor","great":"harika","where":"nerede","was":"idi","that":"o"}],
+ ["Oh, I didn't know that! Why?", "Aa, bunu bilmiyordum! Neden?", {"oh":"aa","i":"ben","didn't":"-medim","know":"bilmek","that":"bunu","why":"neden"}],
+ ["Good point. What do you think about it?", "Haklısın. Sen bu konuda ne düşünüyorsun?", {"good":"iyi","point":"nokta","what":"ne","do":"(soru yardımcısı)","you":"sen","think":"düşünmek","about":"hakkında","it":"o"}],
+ ["Wow! Who were you with?", "Vay! Kiminleydin?", {"wow":"vay","who":"kim","were":"idin","you":"sen","with":"ile"}],
+ ["Cool. Do you do that often?", "Süper. Bunu sık yapar mısın?", {"cool":"süper","do":"yapmak","you":"sen","that":"bunu","often":"sık sık"}],
+ ["Ha-ha, that's funny! Tell me another story.", "Ha-ha, bu komik! Bana başka bir hikâye anlat.", {"that's":"bu","funny":"komik","tell":"anlat","me":"bana","another":"başka bir","story":"hikâye"}],
+ ["Interesting. What's your plan for tomorrow?", "İlginç. Yarın için planın ne?", {"interesting":"ilginç","what's":"ne","your":"senin","plan":"plan","for":"için","tomorrow":"yarın"}],
+ ["I understand. Was it difficult?", "Anlıyorum. Zor muydu?", {"i":"ben","understand":"anlamak","was":"idi","it":"o","difficult":"zor"}]
+];
+let offIdx = Math.floor(Math.random() * OFFLINE.length);
+const offline = {
+  test: true,
+  json: async (inp) => {
+    if(typeof inp === "string") throw {code: "offline"};
+    await new Promise(r => setTimeout(r, 600));
+    const x = OFFLINE[offIdx++ % OFFLINE.length];
+    return {pt: x[0], ru: x[1], fix: "", words: x[2]};
+  }
+};
+let sample = null;
+(async () => { try{ sample = window.claude ? await window.claude.use("sample") : null; }catch(e){ sample = null; } if(!sample && WORKER) sample = viaWorker; if(!sample) sample = offline; })();
+function fitDock(){ const d = $("#dock"); document.documentElement.style.setProperty("--dockh", (d.hidden ? 24 : d.offsetHeight + 24) + "px"); }
+function show(el){ fitDock(); requestAnimationFrame(() => { const r = el.getBoundingClientRect(), bot = innerHeight - (($("#dock").hidden ? 0 : $("#dock").offsetHeight) + 12), barB = document.querySelector(".bar").getBoundingClientRect().bottom + 8;
+  let dy = 0; if(r.bottom > bot) dy = r.bottom - bot; if(r.top - dy < barB) dy = r.top - barB; if(Math.abs(dy) > 2) scrollBy({top: dy, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); }); }
+addEventListener("resize", fitDock);
+function say(t, lang, rate, queue){ if(S.mute || !("speechSynthesis" in window)) return; try{ if(!queue) speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, "")); u.lang = lang; u.rate = rate || .85;
+  const v = speechSynthesis.getVoices().find(x => x.lang && x.lang.replace("_","-").toLowerCase().startsWith(lang.toLowerCase())) || speechSynthesis.getVoices().find(x => x.lang && x.lang.toLowerCase().startsWith("en")); if(v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
+const lang = () => "en-GB";
+$("#mute").onclick = () => { S.mute = !S.mute; $("#mute").textContent = S.mute ? "🔇 Ses: kapalı" : "🔊 Ses: açık"; $("#mute").classList.toggle("on", S.mute); if(S.mute) try{ speechSynthesis.cancel(); }catch(e){} };
+$("#auto").onclick = () => { S.auto = !S.auto; $("#auto").textContent = "🗣 Otomatik seslendirme: " + (S.auto ? "açık" : "kapalı"); $("#auto").classList.toggle("on", S.auto); };
+
+function pick(){
+  S.hero = null; S.turns = []; const hp = $("#helps"); if(hp) hp.innerHTML = ""; const cp = $("#chips"); if(cp){ cp.innerHTML = ""; cp.hidden = true; } $("#dock").hidden = true; fitDock(); $("#who").textContent = "Kahramanla sohbet"; $("#who").className = "tag"; const bk = document.getElementById("bk"); if(bk) bk.hidden = true; const fb = document.getElementById("fin"); if(fb) fb.hidden = true; scrollTo(0, 0);
+  const a = $("#app"); a.innerHTML = "";
+  a.append(h("h1", "", "Şimdi kiminle konuşmak istersin?"), h("p", "sub", "Bir kahraman seç. Her biri kendi tarzında konuşur. İngilizce cevap ver — kahraman sohbeti sürdürür ve hatalarını nazikçe düzeltir."));
+  const g = h("div", "grid");
+  HEROES.forEach(x => { const b = h("button", "hero"); b.type = "button"; b.append(h("span", "e", x.e), h("b", "", x.n), h("small", "", x.d)); b.onclick = () => start(x); g.append(b); });
+  a.append(g, h("p", "note", "Sesle konuş (🎤) ya da yaz. Kahramanın herhangi bir kelimesine dokun — çevirisini görürsün."));
+  const pb = h("button", "prog", "📊 İlerlemem"); pb.type = "button"; pb.onclick = () => REP.progress(); if(!(sample && sample.test)) a.append(pb);
+  if(sample && sample.test){ const tb = h("p", "note", "🧪 Test modu: mikrofonu dene! Kahraman şimdilik kısa, hazır cevaplar veriyor — gerçek sohbet, çeviri ve özet yakında açılacak."); tb.style.fontWeight = "800"; a.prepend(tb); }
+}
+function wordTap(el, word, ctx, words, gl, p){
+  const key = word.toLowerCase();
+  if(el.classList.contains("on") && !gl.hidden){ el.classList.remove("on"); gl.hidden = true; return; }
+  p.querySelectorAll(".w.on").forEach(x => x.classList.remove("on")); el.classList.add("on");
+  gl.innerHTML = ""; gl.hidden = false;
+  const hd = h("div", "hd"); const b = h("b", "", word); const tr = h("span", "", "— " + (words[key] || words[word] || "çeviri — «Daha fazla» düğmesine bas"));
+  const sb = h("button", "", "🔊"); sb.type = "button"; sb.onclick = () => say(word, lang(), .7);
+  const mb = h("button", "", "📖 Daha fazla"); mb.type = "button";
+  hd.append(b, tr, sb, mb); gl.append(hd);
+  mb.onclick = async () => {
+    mb.disabled = true; mb.textContent = "📖 Arıyorum…";
+    if(!sample){ gl.append(h("div", "warn", "Açıklama şu an yok — kahramanla bağlantı yok.")); mb.hidden = true; return; }
+    try{
+      const r = await sample.json(MORE(word, ctx, lang() === "pt-PT"), {modelTier:"quick"});
+      mb.hidden = true; const m = h("div", "more");
+      if(r.lemma && String(r.lemma).toLowerCase() !== key) m.append(h("div", "", "Sözlük hâli: " + r.lemma + (r.tr ? " — " + r.tr : "")));
+      else if(r.tr) m.append(h("div", "", "Anlamı: " + r.tr));
+      if(r.grammar) m.append(h("div", "", "📘 " + r.grammar));
+      (Array.isArray(r.examples) ? r.examples : []).slice(0, 3).forEach(ex => { if(!Array.isArray(ex)) return; const row = h("div", "ex"); const s2 = h("button", "", "🔊"); s2.type = "button"; s2.onclick = () => say(String(ex[0]), lang());
+        const tx = h("span", "", String(ex[0])); tx.append(h("small", "", String(ex[1] || ""))); row.append(s2, tx); m.append(row); });
+      gl.append(m); show(gl);
+    }catch(e){ mb.disabled = false; mb.textContent = "📖 Daha fazla"; gl.append(h("div", "warn", e && e.code === "not_granted" ? "Claude izni olmadan açıklama gösterilemez." : (sample && sample.test ? "Test modu: açıklama yakında açılacak." : "Açıklama yüklenemedi. Tekrar dene."))); }
+  };
+  show(gl);
+}
+function bubble(who, pt, ru, fix, words){
+  const m = h("div", "msg" + (who === "me" ? " me" : ""));
+  const b = h("div", "bub");
+  if(who !== "me"){
+    m.append(h("span", "av", S.hero.e));
+    const p = h("div", "pt"); const r = h("div", "ru", ru); r.hidden = true; const gl = h("div", "gl"); gl.hidden = true;
+    pt.split(/([\p{L}\-']+)/u).forEach(part => { if(/^[\p{L}\-']+$/u.test(part)){ const w = h("span", "w", part); w.onclick = () => wordTap(w, part, pt, words || {}, gl, p); p.append(w); } else p.append(document.createTextNode(part)); });
+    const t = h("div", "tools"); const s = h("button", "", "🔊 Tekrar"); s.type = "button"; s.onclick = () => say(pt, lang());
+    const sl = h("button", "", "🐢 Yavaş"); sl.type = "button"; sl.onclick = () => say(pt, lang(), .55);
+    const g = h("button", "", "🌐 Çeviri"); g.type = "button"; g.onclick = () => { r.hidden = !r.hidden; g.classList.toggle("on", !r.hidden); g.textContent = r.hidden ? "🌐 Çeviri" : "🙈 Gizle"; if(!r.hidden) show(m); };
+    t.append(s, sl, g); b.append(p);
+    if(fix){ b.prepend(h("div", "fix", "✏️ " + fix)); }
+    b.append(gl, t, r);
+  } else b.append(h("div", "pt", pt));
+  m.append(b); $("#chat").append(m); show(m); return b;
+}
+function start(x){
+  S.hero = x; S.turns = [];
+  const a = $("#app"); a.innerHTML = "";
+  $("#who").textContent = x.e + " " + x.n; $("#who").className = "who";
+  let bk = document.getElementById("bk"); if(!bk){ bk = h("button", "back", "◀ Kahramanlar"); bk.id = "bk"; bk.type = "button"; bk.onclick = pick; document.querySelector(".bar .top").append(bk); } bk.hidden = false;
+  let fb = document.getElementById("fin"); if(!fb){ fb = h("button", "back", "🏁 Özet"); fb.id = "fin"; fb.type = "button"; fb.onclick = () => REP.finish(true); document.querySelector(".bar .top").append(fb); } fb.hidden = !!(sample && sample.test);
+  if(x.id === "psy") a.append(h("p", "note", ""));
+  const c = h("div", "chat"); c.id = "chat"; a.append(c);
+  const cb = REP.callback(x); const hi = cb ? cb.pt : x.hi, hiru = cb ? cb.ru : x.hiru, hw = cb ? cb.words : x.words;
+  bubble("hero", hi, hiru, "", hw); S.turns.push({role:"assistant", content: JSON.stringify({pt:hi, ru:hiru, fix:""})});
+  if(S.auto) say(hi, lang());
+  REP.begin(x, hi);
+  $("#dock").hidden = false; $("#mics").hidden = !REC; fitDock();
+  let seen = false; try{ seen = localStorage.getItem("fatih_howto_seen") === "1"; localStorage.setItem("fatih_howto_seen", "1"); }catch(e){}
+  if(!seen) howTo(); else if(!matchMedia("(pointer: coarse)").matches) $("#box").focus();
+}
+async function send(){
+  const box = $("#box"); const t = box.value.trim(); if(!t || S.busy) return;
+  box.value = ""; $("#helps").innerHTML = ""; renderChips();
+  let msg = t, newW = [];
+  const parts = ruParts(t);
+  if(parts.length && sample){
+    S.busy = true; $("#send").disabled = true;
+    const res = await Promise.all(parts.map(p => trPart(p, t).then(r => [p, r.pt]).catch(() => null)));
+    S.busy = false; $("#send").disabled = false;
+    res.forEach(x => { if(x){ msg = msg.split(x[0]).join(x[1]); newW.push(x); } });
+  }
+  (S.ins || []).forEach(x => { if(msg.includes(x[1]) && !newW.some(y => y[0] === x[0])) newW.push(x); }); S.ins = [];
+  const mb = bubble("me", msg);
+  if(newW.length){ const ptd = mb.querySelector(".pt"); ptd.textContent = "";
+    let rest = msg; const marks = newW.map(x => x[1]);
+    const re = new RegExp("(" + marks.map(m => m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")");
+    rest.split(re).forEach(part => { if(marks.includes(part)) ptd.append(h("span", "new", part)); else if(part) ptd.append(document.createTextNode(part)); });
+    ptd.append(h("small", "", "")); const lst = h("div", "fix", newW.map(x => "🇹🇷 " + x[0].replace(/\*/g, "") + " → " + x[1]).join(" · ")); mb.append(lst);
+    say(newW.map(x => x[1]).join(", "), lang());
+  }
+  if(!sample){ const b = bubble("hero", "…", "", ""); b.innerHTML = ""; b.append(h("div", "warn", "Sohbet sadece Claude içinde çalışır (uygulamada veya claude.ai'de). Bu sayfayı orada aç.")); return; }
+  S.busy = true; $("#send").disabled = true;
+  REP.me(msg, newW);
+  S.turns.push({role:"user", content: newW.length ? msg + "\n(He did not know these words and said them in Turkish: " + newW.map(x => x[0] + " → " + x[1]).join("; ") + ")" : msg});
+  const b = bubble("hero", "", "", ""); b.innerHTML = ""; const ty = h("div", "typing", S.hero.n.split(" ")[1] + " yazıyor…"); b.append(ty);
+  const turns = [{role:"user", content: RULES(S.hero) + REP.memo(S.hero) + "\n\n(The conversation starts now. Your first line was already sent.)"}].concat(S.turns.slice(-60));
+  try{
+    const r = await sample.json(turns, {modelTier:"quick", cache:false});
+    const pt = String(r.pt || "").trim() || "Hmm… pode repetir?", ru = String(r.ru || ""), fix = String(r.fix || "");
+    const words = {}; if(r.words && typeof r.words === "object") Object.entries(r.words).forEach(([k, v]) => { words[String(k).toLowerCase()] = String(v); });
+    b.parentElement.remove(); const hb = bubble("hero", pt, ru, fix, words); if(sample === viaWorker) hb.append(h("small", "mtag", mdlLabel()));
+    S.turns.push({role:"assistant", content: JSON.stringify({pt, ru, fix})}); REP.hero(pt, fix);
+    if(S.auto) say(pt, lang(), 0, true);
+  }catch(e){
+    S.turns.pop();
+    b.innerHTML = ""; b.append(h("div", "warn", e && e.code === "not_granted" ? "Claude izni olmadan kahraman cevap veremez. Sayfayı yenile ve «İzin ver»e bas." :
+      e && e.code === "rate_limited" ? "Arka arkaya çok fazla mesaj — bir dakika bekle ve tekrar dene." : e && e.code === "network" ? "İnternet yok veya bağlantı koptu. İnterneti kontrol et ve tekrar gönder." : "Cevap verilemedi. Tekrar dene."));
+  }finally{ S.busy = false; $("#send").disabled = false; if(!matchMedia("(pointer: coarse)").matches) $("#box").focus(); }
+}
+const SOSQ = (full, chunk, eu) => `A Turkish-speaking learner is writing a message in English and got stuck. His message so far: "${full}". The part "${chunk}" is in Turkish (or a word he does not know, maybe marked with *stars*). Translate ONLY that part into natural English so it fits his sentence (right article, form, linking word).
+Reply with only JSON: {"pt": "the English for that part only (no stars)", "note": "max 2 short Turkish lines on the key words: meaning, why this form"}`;
+const MORE2 = (pt, ru, full, eu) => `A Turkish-speaking learner of English asked how to say "${ru}" and got "${pt}" (in his sentence "${full}"). Explain briefly in Turkish. Reply with only JSON:
+{"grammar": "2–3 short Turkish sentences: the grammar of this part (form, tense, why this word)", "examples": [["short English example", "Turkish"], ["...", "..."], ["...", "..."]]}`;
+const TR = {};
+const CYR = /\*[^*]+\*|[A-Za-zÇĞİÖŞÜçğıöşü]*[ÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü]*(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü]*[ÇĞİÖŞÜçğıöşü][A-Za-zÇĞİÖŞÜçğıöşü]*)*/g; // Türkçe harfli kelimeler veya *yıldızlı* kısım
+const ruParts = t => [...new Set((t.match(CYR) || []).map(x => x.trim()).filter(Boolean))];
+async function trPart(chunk, full){
+  if(TR[chunk]) return TR[chunk];
+  const r = await sample.json(SOSQ(full, chunk, lang() === "pt-PT"), {modelTier:"quick"});
+  const pt = String(r.pt || "").trim(); if(!pt) throw {code:"empty"};
+  return TR[chunk] = {pt, note: String(r.note || "")};
+}
+function renderChips(){
+  const c = $("#chips"), parts = ruParts($("#box").value); c.innerHTML = ""; c.hidden = !parts.length;
+  if(parts.length){ c.append(h("span", "", "🇹🇷 Dokun — çeviri:")); parts.forEach(p => { const b = h("button", "chip", p.replace(/\*/g, "")); b.type = "button"; b.onclick = () => chipTap(p); c.append(b); }); }
+  fitDock();
+}
+function chipTap(chunk){
+  const box = $("#box"); $("#helps").innerHTML = "";
+  const card = h("div", "help"); const hd = h("div", "hd"); const out = h("span", "pt", "…");
+  const x = h("button", "x", "✕"); x.type = "button"; x.setAttribute("aria-label", "Kapat"); x.onclick = () => { card.remove(); fitDock(); };
+  hd.append(h("span", "ru", "«" + chunk.replace(/\*/g, "") + "» → "), out, x); card.append(hd); $("#helps").append(card); fitDock();
+  if(!sample){ card.append(h("div", "warn", "Test modu: çeviri yakında açılacak.")); fitDock(); return; }
+  trPart(chunk, box.value).then(({pt, note}) => {
+    out.textContent = pt; say(pt, lang());
+    const row = h("div", "hd");
+    const s1 = h("button", "", "🔊 Tekrar"); s1.type = "button"; s1.onclick = () => say(pt, lang());
+    const s2 = h("button", "", "🐢 Yavaş"); s2.type = "button"; s2.onclick = () => say(pt, lang(), .55);
+    const ins = h("button", "", "✍️ Metne ekle"); ins.type = "button";
+    ins.onclick = () => { if(box.value.includes(chunk)){ box.value = box.value.replace(chunk, pt); (S.ins = S.ins || []).push([chunk, pt]); } ins.disabled = true; ins.textContent = "✓ Eklendi"; renderChips(); };
+    row.append(s1, s2, ins); card.append(row);
+    if(note) card.append(h("div", "", "💡 " + note));
+    const mb = h("button", "", "📖 Daha fazla"); mb.type = "button"; card.append(mb);
+    mb.onclick = async () => { mb.disabled = true; mb.textContent = "📖 Arıyorum…";
+      try{ const m = await sample.json(MORE2(pt, chunk, box.value, lang() === "pt-PT"), {modelTier:"quick"}); mb.remove(); const d = h("div", "more");
+        if(m.grammar) d.append(h("div", "", "📘 " + m.grammar));
+        (Array.isArray(m.examples) ? m.examples : []).slice(0, 3).forEach(ex => { if(!Array.isArray(ex)) return; const r2 = h("div", "ex"); const sb = h("button", "", "🔊"); sb.type = "button"; sb.onclick = () => say(String(ex[0]), lang()); const tx = h("span", "", String(ex[0])); tx.append(h("small", "", String(ex[1] || ""))); r2.append(sb, tx); d.append(r2); });
+        card.append(d); fitDock(); }
+      catch(e){ mb.disabled = false; mb.textContent = "📖 Daha fazla"; } };
+    fitDock();
+  }).catch(e => { out.textContent = e && e.code === "offline" ? "yakında" : "olmadı"; card.append(h("div", "warn", e && e.code === "offline" ? "Test modu: çeviri yakında açılacak." : e && e.code === "not_granted" ? "Claude izni olmadan çeviri yapılamaz." : "Çevrilemedi. Kelimeye tekrar dokun.")); fitDock(); });
+}
+$("#box").addEventListener("input", renderChips);
+function howTo(){
+  const m = h("div", "modal"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true");
+  const b = h("div", "box"); b.append(h("h2", "", "🎤 Kahramanla nasıl konuşulur"));
+  const ol = h("ol");
+  (REC ? ["«🎤 Konuş»a bas ve İngilizce konuş. Bitirince düğmeye tekrar bas.",
+   "Kelimeyi mi unuttun? «in Turkish» de — mikrofon Türkçeye geçer. Kelimeyi Türkçe söyle.",
+   "Geri dönmek için «İngilizce» de — ve İngilizce devam et.",
+   "Duraklamalar hiçbir şeyi değiştirmez. Bitirince mikrofon düğmesine bas.",
+   "Kelimeyi hemen öğrenmek mi istiyorsun? Yazı alanının üstündeki Türkçe kelimeye dokun — çevirisini görür ve duyarsın.",
+   "Metni kontrol et ve ➤ bas. Kalan Türkçe kelimeleri ben çevirip seslendiririm.",
+   "Yazabilirsin de — nasıl rahatsan."] : ["Yazı alanına dokun ve İngilizce yaz (veya klavyedeki 🎤 ile konuş).",
+   "Kelimeyi mi unuttun? Türkçe yaz — en iyisi *yıldız* içinde: *havalimanı*.",
+   "Kelimeyi hemen öğrenmek mi istiyorsun? Yazı alanının üstündeki Türkçe kelimeye dokun.",
+   "➤ bas. Kalan Türkçe kelimeleri ben çevirip seslendiririm."]).forEach(t => ol.append(h("li", "", t)));
+  b.append(ol, h("p", "", REC ? "İlk seferde Safari mikrofon izni ister — «İzin Ver»e bas." : "İpucu: bu sayfayı Safari'de aç — orada mikrofon düğmesi çalışır."),
+    h("p", "", "Kahramanın herhangi bir kelimesine dokun — çevirisini görürsün."));
+  const ok = h("button", "ok", "Anladım 👍"); ok.type = "button"; ok.onclick = () => m.remove(); b.append(ok);
+  m.append(b); m.onclick = e => { if(e.target === m) m.remove(); }; document.body.append(m); ok.focus({preventScroll:true}); b.scrollTop = 0;
+}
+$("#hlp").onclick = howTo;
+function mdlLabel(){ return MODEL() === "haiku" ? "⚡ Haiku" : "🧠 Sonnet"; }
+$("#mdl").textContent = mdlLabel();
+$("#mdl").onclick = () => { try{ localStorage.setItem("fatih_model", MODEL() === "haiku" ? "sonnet" : "haiku"); }catch(e){} $("#mdl").textContent = mdlLabel(); };
+setTimeout(() => { if(sample === viaWorker) $("#mdl").hidden = false; }, 300);
+const REC = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recNow = null;
+function micStop(){ if(recNow){ recNow.manual = true; try{ recNow.r.stop(); }catch(e){} } }
+function mic(btn, lng, label){
+  if(recNow){ micStop(); return; }
+  listen(lng === "tr-TR" ? "ru" : "pt", 0);
+}
+// Voice switches: «in Turkish» → Turkish; «İngilizce» → back.
+// Pauses do not switch. The mic stops only with the button.
+const TO_RU = /(^|\s)in\s+turkish\b[.,!?]*/i;
+const TO_PT = /(^|\s)[İIi]ngilizce\S*[.,!?]*/;
+function listen(mode, empty){
+  const ru = mode === "ru", btn = ru ? $("#micru") : $("#micpt");
+  const r = new REC(); r.lang = ru ? "tr-TR" : lang(); r.interimResults = true; r.continuous = true; r.maxAlternatives = 1;
+  const box = $("#box"); const base = box.value && !/\s$/.test(box.value) ? box.value + " " : box.value;
+  let fin = "", next = null, heard = false;
+  const me = {r, btn, manual: false}; recNow = me;
+  $("#micpt").classList.toggle("on", !ru); $("#micru").classList.toggle("on", ru);
+  $("#micpt").textContent = ru ? "🎤 Konuş" : "● Dinliyorum · durdurmak için bas";
+  $("#micru").textContent = ru ? "● Dinliyorum 🇹🇷 · geri: «İngilizce»" : "🇹🇷 Türkçe kelime";
+  try{ speechSynthesis.cancel(); }catch(e){}
+  r.onresult = e => { if(next) return; let interim = ""; heard = true;
+    for(let i = e.resultIndex; i < e.results.length; i++){ const t = e.results[i][0].transcript; if(e.results[i].isFinal) fin += t + " "; else interim += t; }
+    const txt = (fin + interim).replace(/\s+/g, " ");
+    const m = txt.match(ru ? TO_PT : TO_RU);
+    if(m){ next = ru ? "pt" : "ru"; box.value = (base + txt.slice(0, m.index)).replace(/\s+$/, "") + " "; renderChips(); try{ r.stop(); }catch(err){} return; }
+    box.value = base + txt.trim(); renderChips(); };
+  r.onerror = e => { if(e.error === "not-allowed" || e.error === "service-not-allowed"){ me.manual = true; micHelp(); } };
+  r.onend = () => {
+    box.value = box.value.replace(/\s+$/, "") + (box.value.trim() ? " " : ""); renderChips();
+    const done = () => { if(recNow === me) recNow = null; $("#micpt").classList.remove("on"); $("#micru").classList.remove("on"); $("#micpt").textContent = "🎤 Konuş"; $("#micru").textContent = "🇹🇷 Türkçe kelime"; };
+    if(me.manual){ done(); return; }
+    if(next){ listen(next, 0); return; }
+    const e2 = heard ? 0 : empty + 1;           // phone stopped after silence — keep listening in the same language
+    if(e2 >= 6){ done(); return; }              // long silence — stop
+    listen(mode, e2);
+  };
+  try{ r.start(); }catch(e){ if(recNow === me) recNow = null; $("#micpt").classList.remove("on"); $("#micru").classList.remove("on"); }
+}
+function micHelp(){
+  const m = h("div", "modal"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true"); const b = h("div", "box");
+  b.append(h("h2", "", "🎤 Mikrofon nasıl açılır"));
+  const ol = h("ol"); ["Safari adres çubuğunda soldaki «aA»ya bas → «Web Sitesi Ayarları» → «Mikrofon» → «İzin Ver».",
+    "Ya da: iPhone Ayarlar → Safari → Mikrofon → «Sor» veya «İzin Ver».",
+    "Buraya dön, sayfayı yenile ve 🎤 tekrar bas.",
+    "Çalışmazsa yazabilirsin: telefon klavyesindeki 🎤 de olur."].forEach(t => ol.append(h("li", "", t)));
+  const ok = h("button", "ok", "Anladım 👍"); ok.type = "button"; ok.onclick = () => m.remove();
+  b.append(ol, ok); m.append(b); m.onclick = e => { if(e.target === m) m.remove(); }; document.body.append(m);
+}
+if(REC){ $("#micpt").onclick = () => { if(recNow && recNow.btn.id === "micru"){ recNow.manual = true; try{ recNow.r.stop(); }catch(e){} recNow = null; listen("pt", 0); } else mic($("#micpt"), lang(), ""); };
+  $("#micru").onclick = () => { if(recNow && recNow.btn.id === "micpt"){ recNow.manual = true; try{ recNow.r.stop(); }catch(e){} recNow = null; listen("ru", 0); } else mic($("#micru"), "tr-TR", ""); }; }
+$("#send").addEventListener("click", micStop, true);
+$("#send").onclick = send;
+$("#box").addEventListener("keydown", e => { if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); send(); } });
+
+// ================= Reports & progress =================
+const REP = (() => {
+  const KEY = "fatih_sessions", WKEY = "fatih_weeks";
+  const load = (k, d) => { try{ return JSON.parse(localStorage.getItem(k) || "null") || d; }catch(e){ return d; } };
+  const store = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
+  let cur = null;
+  const all = () => load(KEY, []);
+  const saveCur = () => { if(!cur || !cur.log.some(x => x.me)) return; const a = all().filter(x => x.id !== cur.id); a.push(cur); store(KEY, a.slice(-120)); };
+  const dstr = iso => new Date(iso).toLocaleDateString("tr-TR", {day:"numeric", month:"long"});
+  const weekKey = iso => { const d = new Date(iso); const day = (d.getDay() + 6) % 7; d.setHours(0,0,0,0); d.setDate(d.getDate() - day); return d.toISOString().slice(0, 10); };
+  const modal = () => { document.querySelectorAll(".modal.repm").forEach(x => x.remove()); const m = h("div", "modal repm"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true");
+    const b = h("div", "box rep"); m.append(b); m.onclick = e => { if(e.target === m) m.remove(); }; document.body.append(m); return [m, b]; };
+  const btn = (txt, cls, fn) => { const x = h("button", cls || "sec", txt); x.type = "button"; x.onclick = fn; return x; };
+
+  const PROMPT = ses => `You analyse one English conversation practice of Fatih, a Turkish speaker who speaks English quite well. Hero: ${ses.hero}.
+Transcript (his lines with the hero's corrections; Turkish words he did not know are listed):
+${ses.log.map(x => x.me ? "HE: " + x.me + (x.newW && x.newW.length ? "  [did not know: " + x.newW.map(w => w[0] + "→" + w[1]).join(", ") + "]" : "") : "HERO: " + x.hero + (x.fix ? "  [correction: " + x.fix + "]" : "")).join("\n").slice(0, 9000)}
+Write a short, warm, motivating report in Turkish. Be honest about the level. Reply with only JSON:
+{"level": "CEFR estimate for today, e.g. B1, B1+, B2", "praise": "1–2 sentences of specific praise in Turkish", "topic": "what he talked about, 3–6 Turkish words",
+ "mistakes": [{"bad": "his wrong English phrase", "good": "correct English", "why": "max 10 Turkish words"}] (max 3, the most important; [] if none),
+ "words": [["new English word", "Turkish"]] (max 6, words he did not know or that were corrected),
+ "tip": "one concrete thing to practise next, in Turkish, max 15 words",
+ "drill": [{"q": "short Turkish instruction or an English sentence with ___", "opts": ["option 1", "option 2", "option 3"], "a": "the one correct option"}] (exactly 5 tasks built ONLY from his mistakes and new words; exactly one option clearly correct; options in English),
+ "callback_pt": "1–2 short English sentences the same hero (${ses.hero}) can say next time: recall what he told about and ask a question that invites him to use one corrected form or new word",
+ "callback_ru": "Turkish translation of callback_pt",
+ "callback_words": {"each word of callback_pt in lowercase": "short Turkish translation"}}`;
+
+  const WPROMPT = reps => `Weekly summary of Fatih's English conversation practice (Turkish speaker). Day reports:
+${reps.map(r => r.date.slice(0, 10) + " | " + r.hero + " | level " + r.report.level + " | mistakes: " + (r.report.mistakes || []).map(m => m.bad + "→" + m.good).join("; ") + " | words: " + (r.report.words || []).map(w => w[0]).join(", ")).join("\n").slice(0, 8000)}
+Reply in Turkish with only JSON: {"summary": "2–3 warm sentences: how the week went and the trend of his level", "level": "level now, e.g. B1+", "repeat": [{"bad": "mistake that repeats", "good": "correct form", "why": "max 10 words"}] (max 3), "words": [["English", "Turkish"]] (max 8 most useful words of the week), "tip": "one goal for next week, max 15 words"}`;
+
+  async function makeReport(ses){
+    const r = await sample.json(PROMPT(ses), {modelTier:"quick"});
+    ses.report = {level: String(r.level || "—"), praise: String(r.praise || ""), topic: String(r.topic || ""),
+      mistakes: Array.isArray(r.mistakes) ? r.mistakes.slice(0, 3) : [], words: Array.isArray(r.words) ? r.words.slice(0, 6) : [],
+      tip: String(r.tip || ""), drill: Array.isArray(r.drill) ? r.drill.filter(d => d && Array.isArray(d.opts) && d.opts.includes(d.a)).slice(0, 5) : [],
+      cb: r.callback_pt ? {pt: String(r.callback_pt), ru: String(r.callback_ru || ""), words: r.callback_words && typeof r.callback_words === "object" ? r.callback_words : {}} : null};
+    const a = all().filter(x => x.id !== ses.id); a.push(ses); store(KEY, a.slice(-120)); return ses;
+  }
+  const text = ses => { const r = ses.report; return `🏁 Sohbet özeti — ${dstr(ses.date)}, ${ses.hero}\nSeviye: ${r.level} · mesaj: ${ses.log.filter(x => x.me).length}\n🎉 ${r.praise}` +
+    (r.mistakes.length ? "\n✏️ Hatalar:\n" + r.mistakes.map((m, i) => `${i + 1}. «${m.bad}» → ${m.good} (${m.why})`).join("\n") : "") +
+    (r.words.length ? "\n🆕 Kelimeler: " + r.words.map(w => w[0] + " — " + w[1]).join(", ") : "") + (r.tip ? "\n👉 " + r.tip : ""); };
+  const copy = (t, out) => { const ok = () => out.textContent = "✅ Kopyalandı"; try{ navigator.clipboard.writeText(t).then(ok, () => out.textContent = "Kopyalanamadı — metni elle seç."); }catch(e){ out.textContent = "Kopyalanamadı."; } };
+
+  function showReport(ses, fromChat){
+    const [m, b] = modal(); const r = ses.report;
+    b.append(h("h2", "", "🏁 Özet — " + dstr(ses.date)), h("div", "", ses.hero + " · mesaj: " + ses.log.filter(x => x.me).length));
+    const lv = h("div", ""); lv.append("Bugünkü seviye: "); lv.append(h("span", "lv", r.level)); b.append(lv);
+    if(r.praise) b.append(h("div", "", "🎉 " + r.praise));
+    if(r.mistakes.length){ b.append(h("b", "", "✏️ Önemli hatalar")); r.mistakes.forEach(x => { const d = h("div", "mi"); d.append(h("span", "", "«" + x.bad + "» → "), h("b", "", x.good), h("small", "", x.why)); const sb = btn("🔊", "sec", () => say(x.good, lang())); sb.style.flex = "0"; d.append(sb); b.append(d); }); }
+    else b.append(h("div", "toast", "Neredeyse hiç hata yok — böyle devam! 💪"));
+    if(r.words.length){ b.append(h("b", "", "🆕 Yeni kelimeler")); const w = h("div", ""); w.textContent = r.words.map(x => x[0] + " — " + x[1]).join(" · "); b.append(w); }
+    if(r.tip) b.append(h("div", "", "👉 " + r.tip));
+    const out = h("div", "toast"); const row = h("div", "row");
+    row.append(btn("📋 Raporu kopyala", "sec", () => copy(text(ses), out)));
+    if(r.drill.length) row.append(btn("🔁 Hatalarımı çalış", "sec", () => drill(r.drill)));
+    b.append(row, out, btn(fromChat ? "Sohbete devam et" : "Kapat", "ok", () => m.remove()));
+    if(fromChat){ const nb = btn("👋 Bitir ve kahraman seç", "sec", () => { m.remove(); cur = null; pick(); }); b.append(nb); }
+  }
+  function drill(items){
+    const [m, b] = modal(); let i = 0, right = 0;
+    const step = () => { b.innerHTML = ""; if(i >= items.length){ b.append(h("h2", "", "🎯 Bitti!"), h("div", "", `Doğru: ${right} / ${items.length}`), btn("Kapat", "ok", () => m.remove())); return; }
+      const it = items[i]; b.append(h("h2", "", `🔁 Görev ${i + 1} / ${items.length}`), h("div", "q", it.q)); let tries = 0;
+      it.opts.forEach(o => { const ob = h("button", "opt"); ob.type = "button"; ob.append(h("span", "", o)); const sp = h("span", "", "🔊"); sp.onclick = e => { e.stopPropagation(); say(o, lang()); }; ob.append(sp);
+        ob.onclick = () => { if(ob.disabled) return; if(o === it.a){ ob.classList.add("ok"); say(o, lang()); if(!tries) right++; b.querySelectorAll(".opt").forEach(x => x.disabled = true); setTimeout(() => { i++; step(); }, 1100); }
+          else { tries++; ob.classList.add("no"); ob.disabled = true; say(it.a, lang()); const hint = h("div", "mi"); hint.append("Doğrusu: ", h("b", "", it.a), h("small", "", "Tekrar dene — doğru seçeneğe bas.")); b.append(hint); } };
+        b.append(ob); }); };
+    step();
+  }
+  async function finish(fromChat){
+    if(!cur || !cur.log.some(x => x.me)){ const [m, b] = modal(); b.append(h("h2", "", "🏁 Özet"), h("div", "", "Önce kahramanla birkaç mesaj konuş — sonra özet çıkar."), btn("Tamam", "ok", () => m.remove())); return; }
+    if(!sample){ return; }
+    const [m, b] = modal(); b.append(h("h2", "", "🏁 Özet hazırlanıyor…"), h("div", "", "Birkaç saniye sürer."));
+    try{ await makeReport(cur); m.remove(); showReport(cur, fromChat); }
+    catch(e){ b.innerHTML = ""; b.append(h("h2", "", "🏁 Özet"), h("div", "warn", "Özet yapılamadı. İnterneti kontrol et ve «🏁 Özet»e tekrar bas."), btn("Kapat", "ok", () => m.remove())); }
+  }
+  async function autoReports(){
+    if(!sample) return; const todo = all().filter(x => !x.report && x.log.filter(y => y.me).length >= 2 && (!cur || x.id !== cur.id));
+    for(const ses of todo.slice(-3)){ try{ await makeReport(ses); toast("🏁 Önceki sohbetin özeti hazır (" + dstr(ses.date) + ") — «📊 İlerlemem»e bak"); }catch(e){ return; } }
+  }
+  function toast(t){ const d = h("div", "modal repm"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.textContent = t; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 4500); }
+  async function progress(){
+    const [m, b] = modal(); const ses = all().filter(x => x.report).sort((a, c) => c.id - a.id);
+    b.append(h("h2", "", "📊 İlerlemem"));
+    if(!ses.length){ b.append(h("div", "", "Henüz özet yok. Kahramanla konuş ve «🏁 Özet»e bas."), btn("Kapat", "ok", () => m.remove())); return; }
+    const wk = weekKey(new Date().toISOString()), mine = ses.filter(x => weekKey(x.date) === wk);
+    const wbox = h("div", "rep"); b.append(h("b", "", "🗓 Bu hafta: sohbet — " + mine.length), wbox);
+    const W = load(WKEY, {});
+    const drawWeek = w => { wbox.innerHTML = ""; const lv = h("div", ""); lv.append("Şu anki seviye: "); lv.append(h("span", "lv", w.level || "—")); wbox.append(h("div", "", w.summary || ""), lv);
+      (w.repeat || []).forEach(x => { const d = h("div", "mi"); d.append(h("span", "", "🔁 «" + x.bad + "» → "), h("b", "", x.good), h("small", "", x.why || "")); wbox.append(d); });
+      if((w.words || []).length) wbox.append(h("div", "", "🆕 Haftanın kelimeleri: " + w.words.map(x => x[0] + " — " + x[1]).join(" · ")));
+      if(w.tip) wbox.append(h("div", "", "👉 Haftanın hedefi: " + w.tip));
+      const out = h("div", "toast"); wbox.append(btn("📋 Haftalık özeti kopyala", "sec", () => copy("🗓 Haftalık özet\nSeviye: " + (w.level || "—") + "\n" + (w.summary || "") + ((w.repeat || []).length ? "\n🔁 Tekrarlananlar:\n" + w.repeat.map(x => "«" + x.bad + "» → " + x.good).join("\n") : "") + ((w.words || []).length ? "\n🆕 " + w.words.map(x => x[0] + " — " + x[1]).join(", ") : "") + (w.tip ? "\n👉 " + w.tip : ""), out)), out); };
+    if(mine.length && W[wk] && W[wk].n === mine.length) drawWeek(W[wk]);
+    else if(mine.length && sample){ wbox.append(h("div", "", "Haftalık özet hazırlanıyor…"));
+      sample.json(WPROMPT(mine), {modelTier:"quick"}).then(r => { const w = {n: mine.length, summary: String(r.summary || ""), level: String(r.level || ""), repeat: Array.isArray(r.repeat) ? r.repeat.slice(0, 3) : [], words: Array.isArray(r.words) ? r.words.slice(0, 8) : [], tip: String(r.tip || "")}; W[wk] = w; store(WKEY, W); drawWeek(w); })
+        .catch(() => { wbox.innerHTML = ""; wbox.append(h("div", "warn", "Haftalık özet yapılamadı — sonra tekrar dene.")); }); }
+    b.append(h("b", "", "📅 Günlere göre"));
+    ses.slice(0, 30).forEach(x => { const d = h("button", "day"); d.type = "button"; d.append(h("span", "", dstr(x.date) + " · " + x.hero), h("small", "", "Seviye " + x.report.level + (x.report.mistakes.length ? " · hata: " + x.report.mistakes.length : " · hatasız") + (x.report.topic ? " · " + x.report.topic : ""))); d.onclick = () => showReport(x, false); b.append(d); });
+    b.append(btn("Kapat", "ok", () => m.remove()));
+  }
+  return {
+    begin(x, hi){ cur = {id: Date.now(), date: new Date().toISOString(), hero: x.n, heroId: x.id, model: (typeof MODEL === "function" ? MODEL() : ""), log: [{hero: hi, fix: ""}], report: null}; },
+    me(msg, newW){ if(!cur) return; cur.log.push({me: msg, newW: newW || []}); saveCur(); },
+    hero(pt, fix){ if(!cur) return; cur.log.push({hero: pt, fix: fix || ""}); saveCur(); },
+    memo(hero){ const last = all().filter(x => x.heroId === hero.id && x.report && (!cur || x.id !== cur.id)).sort((a, c) => c.id - a.id)[0];
+      if(!last) return ""; const r = last.report;
+      return "\n- MEMORY of your last talk with him (" + last.date.slice(0, 10) + "): he talked about " + (r.topic || "his life") + ". His mistakes then: " + (r.mistakes || []).map(m => m.bad + " → " + m.good).join("; ") + ". New words: " + (r.words || []).map(w => w[0]).join(", ") + ". Naturally create chances for him to use these correct forms and words again (do not lecture).";
+    },
+    callback(x){ const last = all().filter(s2 => s2.heroId === x.id && s2.report && s2.report.cb).sort((a, c) => c.id - a.id)[0]; return last ? last.report.cb : null; },
+    finish, progress, autoReports
+  };
+})();
+setTimeout(() => REP.autoReports(), 1500);
+
+pick();
+</script>
+
+</body>
+</html>
