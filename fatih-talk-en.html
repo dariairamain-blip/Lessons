@@ -178,7 +178,7 @@ How to reply:
 - If he wrote a word in Turkish, use the English word naturally in your reply and mention it in "fix" ("«havalimanı» — airport").
 - If his message ends with a note about words he did not know (said in Turkish), often — about 2 times out of 3, not always — ask him a short question that uses one of those English words, so the word sticks.
 - Never repeat the same correction twice in a row; if the message is fine, praise briefly in "fix" only every few turns, otherwise leave it empty.
-Reply with only JSON: {"pt": "your reply in English", "ru": "Turkish translation of your reply", "fix": "correction in Turkish or empty string", "words": {"each distinct word of pt in lowercase without punctuation": "its short Turkish translation in this context"}}`;
+Reply with only JSON: {"pt": "your reply in English", "ru": "Turkish translation of your reply", "fix": "correction in Turkish or empty string"}`;
 const MORE = (w, ctx, pt) => `A Turkish-speaking learner of English tapped the word "${w}" in this sentence: "${ctx}".
 Explain it briefly in Turkish. Reply with only JSON:
 {"lemma": "dictionary form (infinitive for verbs, base form for adjectives/nouns)", "tr": "main Turkish meaning(s)", "grammar": "1–2 short sentences in Turkish: what form this is and why it is used here (tense, person, plural, phrasal verb…); empty string if nothing to say", "examples": [["simple English example 1", "Turkish translation"], ["example 2", "translation"], ["example 3", "translation"]]}
@@ -202,16 +202,19 @@ function askCode(msg){
     b.append(inp, err, ok); m.append(b); document.body.append(m); inp.focus({preventScroll:true});
   });
 }
-function parseJSON(t){ const m = String(t || "").match(/\{[\s\S]*\}/); if(!m) throw {code:"badjson"}; return JSON.parse(m[0]); }
+function parseJSON(t){ t = String(t || ""); const m = t.match(/\{[\s\S]*\}/); if(m){ try{ return JSON.parse(m[0]); }catch(e){} }
+  const f = k => { const x = t.match(new RegExp('"' + k + '"\\s*:\\s*"((?:[^"\\\\]|\\\\.)*)"')); if(!x) return null; try{ return JSON.parse('"' + x[1] + '"'); }catch(e){ return x[1]; } };
+  const pt = f("pt"); if(pt) return {pt, ru: f("ru") || "", fix: f("fix") || "", words: {}};
+  throw {code:"badjson"}; }
 const viaWorker = {
-  json: async (inp) => {
+  json: async (inp, opt) => {
     let system = "", messages;
     if(typeof inp === "string") messages = [{role:"user", content: inp}];
     else { system = inp[0].content; messages = inp.slice(1); if(!messages.length || messages[0].role !== "user") messages = [{role:"user", content:"(start)"}].concat(messages); }
     let code = getCode(); if(!code) code = await askCode();
     for(let attempt = 0; attempt < 2; attempt++){
       let r;
-      try{ r = await fetch(WORKER, {method:"POST", headers:{"content-type":"application/json", "x-code": code}, body: JSON.stringify({system, messages, max_tokens: 1200, model: MODEL()})}); }
+      try{ r = await fetch(WORKER, {method:"POST", headers:{"content-type":"application/json", "x-code": code}, body: JSON.stringify({system, messages, max_tokens: 1500, model: (opt && opt.model) || MODEL()})}); }
       catch(e){ throw {code:"network"}; }
       if(r.status === 403){ const j = await r.json().catch(() => ({})); if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} code = await askCode("Kod yanlış. Tekrar dene."); continue; } throw {code:"site"}; }
       if(r.status === 429) throw {code:"rate_limited"};
@@ -234,7 +237,7 @@ $("#mute").onclick = () => { S.mute = !S.mute; $("#mute").textContent = S.mute ?
 $("#auto").onclick = () => { S.auto = !S.auto; $("#auto").textContent = "🗣 Otomatik seslendirme: " + (S.auto ? "açık" : "kapalı"); $("#auto").classList.toggle("on", S.auto); };
 
 function pick(){
-  S.hero = null; S.turns = []; const hp = $("#helps"); if(hp) hp.innerHTML = ""; const cp = $("#chips"); if(cp){ cp.innerHTML = ""; cp.hidden = true; } $("#dock").hidden = true; fitDock(); $("#who").textContent = "Kahramanla sohbet"; $("#who").className = "tag"; const bk = document.getElementById("bk"); if(bk) bk.hidden = true; const fb = document.getElementById("fin"); if(fb) fb.hidden = true; scrollTo(0, 0);
+  S.hero = null; S.turns = []; { const own1 = document.querySelector(".own"); if(own1) own1.hidden = false; } const hp = $("#helps"); if(hp) hp.innerHTML = ""; const cp = $("#chips"); if(cp){ cp.innerHTML = ""; cp.hidden = true; } $("#dock").hidden = true; fitDock(); $("#who").textContent = "Kahramanla sohbet"; $("#who").className = "tag"; const bk = document.getElementById("bk"); if(bk) bk.hidden = true; const fb = document.getElementById("fin"); if(fb) fb.hidden = true; scrollTo(0, 0);
   const a = $("#app"); a.innerHTML = "";
   a.append(h("h1", "", "Şimdi kiminle konuşmak istersin?"), h("p", "sub", "Bir kahraman seç. Her biri kendi tarzında konuşur. İngilizce cevap ver — kahraman sohbeti sürdürür ve hatalarını nazikçe düzeltir."));
   const g = h("div", "grid");
@@ -247,7 +250,7 @@ function wordTap(el, word, ctx, words, gl, p){
   if(el.classList.contains("on") && !gl.hidden){ el.classList.remove("on"); gl.hidden = true; return; }
   p.querySelectorAll(".w.on").forEach(x => x.classList.remove("on")); el.classList.add("on");
   gl.innerHTML = ""; gl.hidden = false;
-  const hd = h("div", "hd"); const b = h("b", "", word); const tr = h("span", "", "— " + (words[key] || words[word] || "çeviri — «Daha fazla» düğmesine bas"));
+  const hd = h("div", "hd"); const b = h("b", "", word); const tr = h("span", "", "— " + (words[key] || words[word] || "…")); if(!words[key] && !words[word]) oneWord(word, ctx).then(t => { words[key] = t; tr.textContent = "— " + t; }).catch(() => { tr.textContent = "— çeviri — «Daha fazla» düğmesine bas"; });
   const sb = h("button", "", "🔊"); sb.type = "button"; sb.onclick = () => say(word, lang(), .7);
   const mb = h("button", "", "📖 Daha fazla"); mb.type = "button";
   hd.append(b, tr, sb, mb); gl.append(hd); PERS.cardBtn(hd, word, () => words[key] || words[word] || "");
@@ -283,7 +286,7 @@ function bubble(who, pt, ru, fix, words){
   } else b.append(h("div", "pt", pt));
   m.append(b); $("#chat").append(m); show(m); return b;
 }
-function start(x){
+function start(x){ const own0 = document.querySelector(".own"); if(own0) own0.hidden = true;
   S.hero = x; S.turns = [];
   const a = $("#app"); a.innerHTML = "";
   $("#who").textContent = x.e + " " + x.n; $("#who").className = "who";
@@ -480,10 +483,8 @@ Write a short, warm, motivating report in Turkish. Be honest about the level. Re
  "mistakes": [{"bad": "his wrong English phrase", "good": "correct English", "why": "max 10 Turkish words"}] (max 3, the most important; [] if none),
  "words": [["new English word", "Turkish"]] (max 6, words he did not know or that were corrected),
  "tip": "one concrete thing to practise next, in Turkish, max 15 words",
- "drill": [{"q": "short Turkish instruction or an English sentence with ___", "opts": ["option 1", "option 2", "option 3"], "a": "the one correct option"}] (exactly 5 tasks built ONLY from his mistakes and new words; exactly one option clearly correct; options in English),
  "callback_pt": "1–2 short English sentences the same hero (${ses.hero}) can say next time: recall what he told about and ask a question that invites him to use one corrected form or new word",
  "callback_ru": "Turkish translation of callback_pt",
- "callback_words": {"each word of callback_pt in lowercase": "short Turkish translation"},
  "facts": ["NEW lasting facts about Fatih's life that he told in this talk (work events, people, plans, trips, likes), short English sentences, max 5; [] if none. Do NOT repeat what is already known: ${typeof PERS !== "undefined" ? PERS.factsLine() : ""}"]${ses.scene && ses.scene.goal ? `,
  "mission_done": true or false — did he complete this mission: ${ses.scene.t}; goal: he must use ${ses.scene.goal},
  "mission_note": "1 short Turkish sentence: which target phrases he used and which are missing"` : ""}}`;
@@ -492,6 +493,11 @@ Write a short, warm, motivating report in Turkish. Be honest about the level. Re
 ${reps.map(r => r.date.slice(0, 10) + " | " + r.hero + " | level " + r.report.level + " | mistakes: " + (r.report.mistakes || []).map(m => m.bad + "→" + m.good).join("; ") + " | words: " + (r.report.words || []).map(w => w[0]).join(", ")).join("\n").slice(0, 8000)}
 Reply in Turkish with only JSON: {"summary": "2–3 warm sentences: how the week went and the trend of his level", "level": "level now, e.g. B1+", "repeat": [{"bad": "mistake that repeats", "good": "correct form", "why": "max 10 words"}] (max 3), "words": [["English", "Turkish"]] (max 8 most useful words of the week), "tip": "one goal for next week, max 15 words"}`;
 
+  const DRILLP = r => `Make 5 short practice tasks for Fatih (Turkish speaker, learns English) ONLY from these mistakes and new words.
+Mistakes: ${(r.mistakes || []).map(m => m.bad + " → " + m.good).join("; ") || "none"}. New words: ${(r.words || []).map(w => w[0] + " = " + w[1]).join(", ") || "none"}.
+Reply with only JSON: {"drill": [{"q": "short Turkish instruction or an English sentence with ___", "opts": ["option 1", "option 2", "option 3"], "a": "the one correct option"}]} with exactly 5 tasks, exactly one option clearly correct, options in English.`;
+  async function makeDrill(r){ let j; try{ j = await sample.json(DRILLP(r), {modelTier: "quick", model: "haiku"}); }catch(e){ j = await sample.json(DRILLP(r), {modelTier: "quick"}); }
+    const d = Array.isArray(j.drill) ? j.drill.filter(x => x && Array.isArray(x.opts) && x.opts.includes(x.a)).slice(0, 5) : []; if(!d.length) throw 0; return d; }
   async function makeReport(ses){
     const r = await sample.json(PROMPT(ses), {modelTier:"quick"});
     ses.report = {level: String(r.level || "—"), praise: String(r.praise || ""), topic: String(r.topic || ""),
@@ -516,7 +522,7 @@ Reply in Turkish with only JSON: {"summary": "2–3 warm sentences: how the week
     if(r.tip) b.append(h("div", "", "👉 " + r.tip)); PERS.reportExtra(b, ses);
     const out = h("div", "toast"); const row = h("div", "row");
     row.append(btn("📋 Raporu kopyala", "sec", () => copy(text(ses), out)));
-    if(r.drill.length) row.append(btn("🔁 Hatalarımı çalış", "sec", () => drill(r.drill)));
+    if(r.drill.length || r.mistakes.length || r.words.length){ const db = btn("🔁 Hatalarımı çalış", "sec", async () => { if(!r.drill.length){ db.disabled = true; db.textContent = "⏳ Görevler hazırlanıyor… (~5 sn)"; try{ r.drill = await makeDrill(r); const a2 = all().map(x => x.id === ses.id ? ses : x); store(KEY, a2); }catch(e){ db.disabled = false; db.textContent = "🔁 Hatalarımı çalış"; out.textContent = "Görevler hazırlanamadı — tekrar dene."; return; } db.disabled = false; db.textContent = "🔁 Hatalarımı çalış"; } if(r.drill.length) drill(r.drill); }); row.append(db); }
     b.append(row, out, btn(fromChat ? "Sohbete devam et" : "Kapat", "ok", () => m.remove()));
     if(fromChat){ const nb = btn("👋 Bitir ve kahraman seç", "sec", () => { m.remove(); cur = null; pick(); }); b.append(nb); }
   }
@@ -534,9 +540,9 @@ Reply in Turkish with only JSON: {"summary": "2–3 warm sentences: how the week
     const nMe = cur ? cur.log.filter(x => x.me).length : 0;
     if(nMe < 3){ const [m, b] = modal(); b.append(h("h2", "", "🏁 Özet"), h("div", "", "Özet için en az 3 mesaj yaz — şu an: " + nMe + " / 3"), btn("Tamam", "ok", () => m.remove())); return; }
     if(!sample){ return; }
-    const [m, b] = modal(); b.append(h("h2", "", "🏁 Özet hazırlanıyor…"), h("div", "", "Birkaç saniye sürer."));
-    try{ await makeReport(cur); m.remove(); showReport(cur, fromChat); }
-    catch(e){ b.innerHTML = ""; b.append(h("h2", "", "🏁 Özet"), h("div", "warn", "Özet yapılamadı. İnterneti kontrol et ve «🏁 Özet»e tekrar bas."), btn("Kapat", "ok", () => m.remove())); }
+    const [m, b] = modal(); const wt = h("div", "", "Lütfen bekle — yaklaşık 15 saniye sürer."); const cd = h("div", "lv", "⏳ 15"); b.append(h("h2", "", "🏁 Özet hazırlanıyor…"), wt, cd); let left = 15; const tick = setInterval(() => { left--; cd.textContent = left > 0 ? "⏳ " + left : "⏳ Az kaldı…"; if(!document.body.contains(cd)) clearInterval(tick); }, 1000);
+    try{ await makeReport(cur); clearInterval(tick); m.remove(); showReport(cur, fromChat); }
+    catch(e){ clearInterval(tick); b.innerHTML = ""; b.append(h("h2", "", "🏁 Özet"), h("div", "warn", "Özet yapılamadı. İnterneti kontrol et ve «🏁 Özet»e tekrar bas." + (e && e.detail ? " (" + e.detail + ")" : "")), btn("Kapat", "ok", () => m.remove())); }
   }
   async function autoReports(){
     if(!sample) return; const todo = all().filter(x => !x.report && x.log.filter(y => y.me).length >= 3 && (!cur || x.id !== cur.id));
@@ -611,9 +617,9 @@ const _mic = mic;
 mic = function(btn, lng, label){ if(OAI() && STT() === "openai") return recOAI(btn, btn.id === "micru" ? NATIVE : ""); if(REC) return _mic(btn, lng, label); };
 async function recOAI(btn, lng){
   if(recO){ recO.stop(); return; }
-  let stream; try{ stream = await navigator.mediaDevices.getUserMedia({audio: true}); }catch(e){ micHelp(); return; }
+  let stream; try{ stream = await navigator.mediaDevices.getUserMedia({audio: true}); }catch(e){ micMsg("🎤 Mikrofon açılamadı. Sayfayı Safari'de aç (Telegram veya başka bir uygulamanın içinde değil) ve mikrofon iznini ver."); micHelp(); return; }
   const mime = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"].find(t => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || "";
-  let mr; try{ mr = new MediaRecorder(stream, mime ? {mimeType: mime} : undefined); }catch(e){ stream.getTracks().forEach(t => t.stop()); return; }
+  let mr; try{ mr = new MediaRecorder(stream, mime ? {mimeType: mime} : undefined); }catch(e){ stream.getTracks().forEach(t => t.stop()); micMsg("🎤 Bu tarayıcı ses kaydedemiyor. Sayfayı Safari'de aç veya «🎧 Tanıma»yı iPhone'a çevir."); return; }
   const chunks = [], label = btn.id === "micru" ? "🇹🇷 Türkçe kelime" : "🎤 Konuş";
   try{ speechSynthesis.cancel(); }catch(e){} try{ AUD.pause(); }catch(e){}
   btn.classList.add("on"); btn.textContent = btn.id === "micru" ? "● Kayıt · bitince bas" : "● Dinliyorum · bitince bas — gönderilir";
@@ -629,8 +635,9 @@ async function recOAI(btn, lng){
       // only his two languages are possible: English (learning) + Turkish (native). Any other script or letter → ask OpenAI again with a language hint
       const BAD = t2 => /[^\sA-Za-zÇĞİÖŞÜçğıöşüÂÎÛâîû0-9.,!?;:'"’‘“”()\-–—…%&@#/+*=€₺$£]/.test(t2);
       if(BAD(t)){ let ok = ""; for(const L of (lng ? [lng] : ["tr", "en"])){ const r2 = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": L}, body: blob}); const j2 = await r2.json().catch(() => ({})); const t2 = r2.ok ? String(j2.text || "").trim() : ""; if(t2 && !BAD(t2)){ ok = t2; break; } } t = ok; if(!t) throw {code: "stt"}; }
+      if(!t) throw {code: "empty"};
       if(t){ const box = $("#box"); box.value = (box.value && !/\s$/.test(box.value) ? box.value + " " : box.value) + t + " "; S.usedStt = "OpenAI"; renderChips(); if(btn.id !== "micru") setTimeout(() => send(), 50); }
-    }catch(e){ if(e && e.code !== "short") micErr(); }
+    }catch(e){ micMsg(e && e.code === "short" ? "🎤 Kayıt çok kısa veya sessiz geldi. Düğmeye bas, konuş, sonra tekrar bas." : e && e.code === "empty" ? "🎤 Seni duyamadım. Biraz daha yüksek sesle tekrar dene." : e && e.code === "network" ? "📶 İnternet yok veya bağlantı koptu. Tekrar dene." : "OpenAI anlayamadı — tekrar dene veya «🎧 Tanıma»yı iPhone'a çevir."); }
     finally{ btn.disabled = false; btn.textContent = label; }
   };
   recO = {stop: () => { try{ mr.stop(); }catch(e){} }};
@@ -950,6 +957,12 @@ const PERS = (() => {
 })();
 
 
+// ---- word translations by the cheap model (Haiku), fallback to the main model
+const W1 = (w, ctx) => `Translate the English word "${w}" into Turkish as it is used in this sentence: "${ctx}". Reply with only JSON: {"tr": "short Turkish translation"}`;
+async function cheap(prompt){ try{ return await sample.json(prompt, {modelTier: "quick", model: "haiku"}); }catch(e){ if(e && (e.code === "network" || e.code === "badcode")) throw e; return await sample.json(prompt, {modelTier: "quick"}); } }
+const W1C = {};
+async function oneWord(w, ctx){ const k = w.toLowerCase() + "|" + ctx; if(W1C[k]) return W1C[k]; const r = await cheap(W1(w, ctx)); const t = String(r.tr || "").trim(); if(!t) throw 0; return W1C[k] = t; }
+function micMsg(t){ document.querySelectorAll(".micmsg").forEach(x => x.remove()); const d = h("div", "modal repm micmsg"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.style.border = "2px solid #F2B632"; x.textContent = t; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 6000); }
 // ---- ✕ for every window (except the code window)
 new MutationObserver(() => { document.querySelectorAll(".modal > .box").forEach(b => { if(b.querySelector(":scope > .mx") || b.classList.contains("codebox") || b.closest(".modal").style.pointerEvents === "none" || b.closest(".modal").style.background === "transparent") return;
   const x = h("button", "mx", "✕"); x.type = "button"; x.setAttribute("aria-label", "Pencereyi kapat"); x.onclick = () => b.closest(".modal").remove(); b.prepend(x); }); }).observe(document.body, {childList: true});
