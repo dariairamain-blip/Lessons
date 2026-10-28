@@ -95,7 +95,7 @@ h1{font:800 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
 .mic.on{background:#E2482F;border-color:#E2482F;color:#fff;animation:pulse 1.2s ease-in-out infinite}
 @keyframes pulse{50%{transform:scale(1.03)}}
 @media (prefers-reduced-motion: reduce){.mic.on{animation:none}}
-.codebox{display:grid;gap:10px}.codebox input{font:800 20px var(--body);text-align:center;letter-spacing:.15em;padding:12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+.codebox{display:grid;gap:10px}.codebox input{width:100%;min-width:0;box-sizing:border-box}.codebox input{font:800 20px var(--body);text-align:center;letter-spacing:.15em;padding:12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
 .mtag{display:block;margin-top:4px;font-size:12px;font-weight:800;color:var(--muted)}
 .rep{display:grid;gap:8px}.rep h2{margin:0;font-size:19px}.rep .lv{font-weight:900;color:#6C3BF5}
 .rep .mi{background:var(--fix);color:var(--fixink);border-radius:12px;padding:8px 10px;font-size:14px}
@@ -212,8 +212,8 @@ const viaWorker = {
       catch(e){ throw {code:"network"}; }
       if(r.status === 403){ const j = await r.json().catch(() => ({})); if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} code = await askCode("Kod yanlış. Tekrar dene."); continue; } throw {code:"site"}; }
       if(r.status === 429) throw {code:"rate_limited"};
-      if(!r.ok) throw {code:"server"};
-      const j = await r.json(); return parseJSON(j.text);
+      if(!r.ok){ const j = await r.json().catch(() => ({})); throw {code:"server", detail: "hata " + r.status + (j.error ? " · " + j.error : "") + (j.status ? " " + j.status : "") + (j.detail ? " · " + j.detail : "")}; }
+      const j = await r.json(); try{ return parseJSON(j.text); }catch(e){ throw {code:"badjson", detail: "cevap okunamadı"}; }
     }
     throw {code:"badcode"};
   }
@@ -320,7 +320,7 @@ async function send(){
   S.busy = true; $("#send").disabled = true;
   REP.me(msg, newW); PERS.act(true); newW.forEach(x => PERS.addCard(x[1], x[0].replace(/\*/g, "")));
   S.turns.push({role:"user", content: newW.length ? msg + "\n(He did not know these words and said them in Turkish: " + newW.map(x => x[0] + " → " + x[1]).join("; ") + ")" : msg});
-  const b = bubble("hero", "", "", ""); b.innerHTML = ""; const ty = h("div", "typing", S.hero.n.split(" ")[1] + " yazıyor…"); b.append(ty);
+  const b = bubble("hero", "", "", ""); b.innerHTML = ""; const ty = h("div", "typing", (S.hero.id === "custom" ? S.hero.n : S.hero.n.split(" ").slice(1).join(" ") || S.hero.n) + " yazıyor…"); b.append(ty);
   const turns = [{role:"user", content: RULES(S.hero) + PERS.ctx(S.hero) + REP.memo(S.hero) + "\n\n(The conversation starts now. Your first line was already sent.)"}].concat(S.turns.slice(-60));
   try{
     const r = await sample.json(turns, {modelTier:"quick", cache:false});
@@ -332,7 +332,7 @@ async function send(){
   }catch(e){
     S.turns.pop();
     b.innerHTML = ""; b.append(h("div", "warn", e && e.code === "not_granted" ? "Claude izni olmadan kahraman cevap veremez. Sayfayı yenile ve «İzin ver»e bas." :
-      e && e.code === "rate_limited" ? "Arka arkaya çok fazla mesaj — bir dakika bekle ve tekrar dene." : e && e.code === "network" ? "İnternet yok veya bağlantı koptu. İnterneti kontrol et ve tekrar gönder." : "Cevap verilemedi. Tekrar dene."));
+      e && e.code === "rate_limited" ? "Arka arkaya çok fazla mesaj — bir dakika bekle ve tekrar dene." : e && e.code === "network" ? "İnternet yok veya bağlantı koptu. İnterneti kontrol et ve tekrar gönder." : "Cevap verilemedi. Tekrar dene." + (e && e.detail ? " (" + e.detail + ")" : "")));
   }finally{ S.busy = false; $("#send").disabled = false; if(!matchMedia("(pointer: coarse)").matches) $("#box").focus(); }
 }
 const SOSQ = (full, chunk, eu) => `A Turkish-speaking learner is writing a message in English and got stuck. His message so far: "${full}". The part "${chunk}" is in Turkish (or a word he does not know, maybe marked with *stars*). Translate ONLY that part into natural English so it fits his sentence (right article, form, linking word).
@@ -383,13 +383,10 @@ function howTo(){
   const m = h("div", "modal"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true");
   const b = h("div", "box"); b.append(h("h2", "", "🎤 Kahramanla nasıl konuşulur"));
   const ol = h("ol");
-  (REC ? ["«🎤 Konuş»a bas ve İngilizce konuş. Bitirince düğmeye tekrar bas.",
-   "Kelimeyi mi unuttun? «in Turkish» de — mikrofon Türkçeye geçer. Kelimeyi Türkçe söyle.",
-   "Geri dönmek için «İngilizce» de — ve İngilizce devam et.",
-   "Duraklamalar hiçbir şeyi değiştirmez. Bitirince mikrofon düğmesine bas.",
-   "Kelimeyi hemen öğrenmek mi istiyorsun? Yazı alanının üstündeki Türkçe kelimeye dokun — çevirisini görür ve duyarsın.",
-   "Metni kontrol et ve ➤ bas. Kalan Türkçe kelimeleri ben çevirip seslendiririm.",
-   "Yazabilirsin de — nasıl rahatsan."] : ["Yazı alanına dokun ve İngilizce yaz (veya klavyedeki 🎤 ile konuş).",
+  (REC || window.MediaRecorder ? ["«🎤 Konuş»a bas ve İngilizce konuş. Bitirince düğmeye tekrar bas — mesaj hemen kahramana gider.",
+   "Kelimeyi mi unuttun? Türkçe söyle — İngilizce ve Türkçe karışık konuşabilirsin. Türkçe kısımları ben çevirip seslendiririm.",
+   "Bu, «🎧 Tanıma: OpenAI» ile çalışır. «🎧 Tanıma: iPhone» modunda Türkçeye geçmek için «in Turkish», geri dönmek için «İngilizce» de.",
+   "Yazabilirsin de: yaz ve ➤ bas. Yazı alanının üstündeki Türkçe kelimeye dokunursan çevirisini görür ve duyarsın."] : ["Yazı alanına dokun ve İngilizce yaz (veya klavyedeki 🎤 ile konuş).",
    "Kelimeyi mi unuttun? Türkçe yaz — en iyisi *yıldız* içinde: *havalimanı*.",
    "Kelimeyi hemen öğrenmek mi istiyorsun? Yazı alanının üstündeki Türkçe kelimeye dokun.",
    "➤ bas. Kalan Türkçe kelimeleri ben çevirip seslendiririm."]).forEach(t => ol.append(h("li", "", t)));
@@ -407,7 +404,7 @@ const REC = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recNow = null;
 function micStop(){ if(recNow){ recNow.manual = true; try{ recNow.r.stop(); }catch(e){} } }
 function mic(btn, lng, label){
-  if(recNow){ micStop(); return; }
+  if(recNow){ recNow.send = true; micStop(); return; }
   listen(lng === "tr-TR" ? "ru" : "pt", 0);
 }
 // Voice switches: «in Turkish» → Turkish; «İngilizce» → back.
@@ -421,7 +418,7 @@ function listen(mode, empty){
   let fin = "", next = null, heard = false;
   const me = {r, btn, manual: false}; recNow = me;
   $("#micpt").classList.toggle("on", !ru); $("#micru").classList.toggle("on", ru);
-  $("#micpt").textContent = ru ? "🎤 Konuş" : "● Dinliyorum · durdurmak için bas";
+  $("#micpt").textContent = ru ? "🎤 Konuş" : "● Dinliyorum · bitince bas — gönderilir";
   $("#micru").textContent = ru ? "● Dinliyorum 🇹🇷 · geri: «İngilizce»" : "🇹🇷 Türkçe kelime";
   try{ speechSynthesis.cancel(); }catch(e){}
   r.onresult = e => { if(next) return; let interim = ""; heard = true; S.usedStt = "iPhone";
@@ -434,7 +431,7 @@ function listen(mode, empty){
   r.onend = () => {
     box.value = box.value.replace(/\s+$/, "") + (box.value.trim() ? " " : ""); renderChips();
     const done = () => { if(recNow === me) recNow = null; $("#micpt").classList.remove("on"); $("#micru").classList.remove("on"); $("#micpt").textContent = "🎤 Konuş"; $("#micru").textContent = "🇹🇷 Türkçe kelime"; };
-    if(me.manual){ done(); return; }
+    if(me.manual){ done(); if(me.send && $("#box").value.trim()) send(); return; }
     if(next){ listen(next, 0); return; }
     const e2 = heard ? 0 : empty + 1;           // phone stopped after silence — keep listening in the same language
     if(e2 >= 6){ done(); return; }              // long silence — stop
@@ -531,14 +528,15 @@ Reply in Turkish with only JSON: {"summary": "2–3 warm sentences: how the week
     step();
   }
   async function finish(fromChat){
-    if(!cur || !cur.log.some(x => x.me)){ const [m, b] = modal(); b.append(h("h2", "", "🏁 Özet"), h("div", "", "Önce kahramanla birkaç mesaj konuş — sonra özet çıkar."), btn("Tamam", "ok", () => m.remove())); return; }
+    const nMe = cur ? cur.log.filter(x => x.me).length : 0;
+    if(nMe < 3){ const [m, b] = modal(); b.append(h("h2", "", "🏁 Özet"), h("div", "", "Özet için en az 3 mesaj yaz — şu an: " + nMe + " / 3"), btn("Tamam", "ok", () => m.remove())); return; }
     if(!sample){ return; }
     const [m, b] = modal(); b.append(h("h2", "", "🏁 Özet hazırlanıyor…"), h("div", "", "Birkaç saniye sürer."));
     try{ await makeReport(cur); m.remove(); showReport(cur, fromChat); }
     catch(e){ b.innerHTML = ""; b.append(h("h2", "", "🏁 Özet"), h("div", "warn", "Özet yapılamadı. İnterneti kontrol et ve «🏁 Özet»e tekrar bas."), btn("Kapat", "ok", () => m.remove())); }
   }
   async function autoReports(){
-    if(!sample) return; const todo = all().filter(x => !x.report && x.log.filter(y => y.me).length >= 2 && (!cur || x.id !== cur.id));
+    if(!sample) return; const todo = all().filter(x => !x.report && x.log.filter(y => y.me).length >= 3 && (!cur || x.id !== cur.id));
     for(const ses of todo.slice(-3)){ try{ await makeReport(ses); toast("🏁 Önceki sohbetin özeti hazır (" + dstr(ses.date) + ") — «📊 İlerlemem»e bak"); }catch(e){ return; } }
   }
   function toast(t){ const d = h("div", "modal repm"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.textContent = t; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 4500); }
@@ -559,7 +557,7 @@ Reply in Turkish with only JSON: {"summary": "2–3 warm sentences: how the week
       sample.json(WPROMPT(mine), {modelTier:"quick"}).then(r => { const w = {n: mine.length, summary: String(r.summary || ""), level: String(r.level || ""), repeat: Array.isArray(r.repeat) ? r.repeat.slice(0, 3) : [], words: Array.isArray(r.words) ? r.words.slice(0, 8) : [], tip: String(r.tip || "")}; W[wk] = w; store(WKEY, W); drawWeek(w); })
         .catch(() => { wbox.innerHTML = ""; wbox.append(h("div", "warn", "Haftalık özet yapılamadı — sonra tekrar dene.")); }); }
     b.append(h("b", "", "📅 Günlere göre"));
-    ses.slice(0, 30).forEach(x => { const d = h("button", "day"); d.type = "button"; d.append(h("span", "", dstr(x.date) + " · " + x.hero), h("small", "", "Seviye " + x.report.level + (x.report.mistakes.length ? " · hata: " + x.report.mistakes.length : " · hatasız") + (x.report.topic ? " · " + x.report.topic : ""))); d.onclick = () => showReport(x, false); b.append(d); });
+    DAYS.list(b, ses, showReport);
     b.append(btn("Kapat", "ok", () => m.remove()));
   }
   return {
@@ -574,7 +572,7 @@ Reply in Turkish with only JSON: {"summary": "2–3 warm sentences: how the week
     finish, progress, autoReports
   };
 })();
-setTimeout(() => REP.autoReports(), 1500);
+setTimeout(() => REP.autoReports().then(() => DAYS.auto()), 1500);
 
 
 // ================= OpenAI: speech recognition & hero voice =================
@@ -582,7 +580,7 @@ const STTK = "fatih_stt", TTSK = "fatih_tts";
 const pref = (k, d) => { try{ return localStorage.getItem(k) || d; }catch(e){ return d; } };
 const setPref = (k, v) => { try{ localStorage.setItem(k, v); }catch(e){} };
 const OAI = () => !!(WORKER && sample === viaWorker);
-const STT = () => (!REC ? "openai" : pref(STTK, "iphone"));
+const STT = () => (!REC ? "openai" : pref(STTK, "openai"));
 const TTS = () => pref(TTSK, "iphone");
 const VOICES = {parrot: "fable", friend: "ash", colleague: "onyx", tourist: "echo", cafe: "verse", guide: "ballad"};
 const NATIVE = "tr-TR".slice(0, 2);
@@ -615,7 +613,7 @@ async function recOAI(btn, lng){
   let mr; try{ mr = new MediaRecorder(stream, mime ? {mimeType: mime} : undefined); }catch(e){ stream.getTracks().forEach(t => t.stop()); return; }
   const chunks = [], label = btn.id === "micru" ? "🇹🇷 Türkçe kelime" : "🎤 Konuş";
   try{ speechSynthesis.cancel(); }catch(e){} try{ AUD.pause(); }catch(e){}
-  btn.classList.add("on"); btn.textContent = "● Kayıt (OpenAI) · bitince bas";
+  btn.classList.add("on"); btn.textContent = btn.id === "micru" ? "● Kayıt · bitince bas" : "● Dinliyorum · bitince bas — gönderilir";
   mr.ondataavailable = e => { if(e.data && e.data.size) chunks.push(e.data); };
   mr.onstop = async () => {
     stream.getTracks().forEach(t => t.stop()); recO = null; btn.classList.remove("on"); btn.textContent = "⏳ OpenAI tanıyor…"; btn.disabled = true;
@@ -624,8 +622,11 @@ async function recOAI(btn, lng){
       if(blob.size < 800) throw {code: "short"};
       const r = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": lng}, body: blob});
       const j = await r.json().catch(() => ({})); if(!r.ok) throw {code: "stt"};
-      const t = String(j.text || "").trim();
-      if(t){ const box = $("#box"); box.value = (box.value && !/\s$/.test(box.value) ? box.value + " " : box.value) + t + " "; S.usedStt = "OpenAI"; renderChips(); }
+      let t = String(j.text || "").trim();
+      // only his two languages are possible: English (learning) + Turkish (native). Any other script or letter → ask OpenAI again with a language hint
+      const BAD = t2 => /[^\sA-Za-zÇĞİÖŞÜçğıöşüÂÎÛâîû0-9.,!?;:'"’‘“”()\-–—…%&@#/+*=€₺$£]/.test(t2);
+      if(BAD(t)){ let ok = ""; for(const L of (lng ? [lng] : ["tr", "en"])){ const r2 = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": L}, body: blob}); const j2 = await r2.json().catch(() => ({})); const t2 = r2.ok ? String(j2.text || "").trim() : ""; if(t2 && !BAD(t2)){ ok = t2; break; } } t = ok; if(!t) throw {code: "stt"}; }
+      if(t){ const box = $("#box"); box.value = (box.value && !/\s$/.test(box.value) ? box.value + " " : box.value) + t + " "; S.usedStt = "OpenAI"; renderChips(); if(btn.id !== "micru") setTimeout(() => send(), 50); }
     }catch(e){ if(e && e.code !== "short") micErr(); }
     finally{ btn.disabled = false; btn.textContent = label; }
   };
@@ -943,6 +944,97 @@ const PERS = (() => {
     a.insertBefore(tl, pb);
   }
   return {ctx, banner, act, addCard, cardBtn, voice, decorate, afterReport, reportExtra, factsLine: () => factsLine()};
+})();
+
+
+// ---- code is asked at the entry and checked at once (no AI call, free)
+(async function codeGate(){
+  if(!WORKER || window.claude) return; let msg;
+  for(let i = 0; i < 20; i++){
+    let c = getCode(); if(!c) c = await askCode(msg);
+    let r; try{ r = await fetch(WORKER.replace(/\/$/, "") + "/tts", {method: "POST", headers: {"content-type": "application/json", "x-code": c}, body: "{}"}); }catch(e){ return; }
+    if(r.status === 403){ const j = await r.json().catch(() => ({})); if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} msg = "Kod yanlış. Tekrar dene."; continue; } }
+    return;
+  }
+})();
+
+// ================= Daily summaries (one per date) =================
+const DAYS = (() => {
+  const KS = "fatih_daysum", DAY = 864e5;
+  const load = (k, d) => { try{ return JSON.parse(localStorage.getItem(k) || "null") || d; }catch(e){ return d; } };
+  const store = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
+  const dkey = t => { const d = new Date(t); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+  const fromKey = k => { const [y, m, d] = k.split("-").map(Number); return new Date(y, m - 1, d); };
+  const dname = k => fromKey(k).toLocaleDateString("tr-TR", {day: "numeric", month: "long"});
+  const btn = (txt, cls, fn) => { const x = h("button", cls || "sec", txt); x.type = "button"; x.onclick = fn; return x; };
+  const reported = () => load("fatih_sessions", []).filter(x => x.report);
+  const byDay = () => { const g = {}; reported().forEach(x => { (g[dkey(x.date)] = g[dkey(x.date)] || []).push(x); }); return g; };
+  const mins = k => Math.round(((load("fatih_days", {})[k] || {}).s || 0) / 60);
+  const DPROMPT = (k, reps) => `Daily summary of Fatih's English conversation practice on ${k} (Turkish speaker). Talk reports of this day:
+${reps.map(r => r.hero + " | level " + r.report.level + " | topic: " + (r.report.topic || "") + " | mistakes: " + (r.report.mistakes || []).map(m => m.bad + "→" + m.good).join("; ") + " | words: " + (r.report.words || []).map(w => w[0] + "=" + w[1]).join(", ")).join("\n").slice(0, 6000)}
+Reply in Turkish with only JSON: {"level": "level of the day, e.g. B1+", "praise": "1–2 warm sentences: what went well today", "mistakes": [{"bad": "mistake", "good": "correct form", "why": "max 10 Turkish words"}] (max 3, no repeats), "words": [["English", "Turkish"]] (max 8), "tip": "one tip for tomorrow, max 15 Turkish words"}`;
+  function fromOne(x){ const r = x.report; return {n: 1, level: r.level, praise: r.praise, mistakes: r.mistakes || [], words: r.words || [], tip: r.tip}; }
+  async function make(k, reps){
+    const D = load(KS, {});
+    if(reps.length === 1){ D[k] = fromOne(reps[0]); store(KS, D); return D[k]; }
+    const r = await sample.json(DPROMPT(k, reps), {modelTier: "quick"});
+    D[k] = {n: reps.length, level: String(r.level || ""), praise: String(r.praise || ""), mistakes: Array.isArray(r.mistakes) ? r.mistakes.slice(0, 3) : [], words: Array.isArray(r.words) ? r.words.slice(0, 8) : [], tip: String(r.tip || "")};
+    store(KS, D); return D[k];
+  }
+  async function auto(){
+    if(!sample) return; const g = byDay(), D = load(KS, {}), today = dkey(Date.now());
+    for(const k of Object.keys(g).sort().reverse().slice(0, 5)){
+      if(k === today) continue; if(D[k] && D[k].n === g[k].length) continue;
+      try{ await make(k, g[k]); }catch(e){ return; }
+    }
+  }
+  function dayModal(k, reps, show){
+    document.querySelectorAll(".modal.repm").forEach(x => x.remove());
+    const m = h("div", "modal repm"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true"); const b = h("div", "box rep"); m.append(b); m.onclick = e => { if(e.target === m) m.remove(); }; document.body.append(m);
+    const today = k === dkey(Date.now());
+    b.append(h("h2", "", "📅 " + dname(k) + (today ? " · bugün" : "")), h("div", "", reps.length + " sohbet" + (mins(k) ? " · " + mins(k) + " dk" : "")));
+    const draw = d => { const box = h("div", "rep");
+      const lv = h("div", ""); lv.append("Günün seviyesi: "); lv.append(h("span", "lv", d.level || "—")); box.append(lv);
+      if(d.praise) box.append(h("div", "", "🎉 " + d.praise));
+      (d.mistakes || []).forEach(x => { const q = h("div", "mi"); q.append(h("span", "", "«" + x.bad + "» → "), h("b", "", x.good), h("small", "", x.why || "")); box.append(q); });
+      if((d.words || []).length) box.append(h("div", "", "🆕 " + d.words.map(w => w[0] + " — " + w[1]).join(" · ")));
+      if(d.tip) box.append(h("div", "", "👉 " + d.tip)); return box; };
+    const slot = h("div", ""); b.append(slot);
+    const D = load(KS, {});
+    if(today) slot.append(h("div", "goal", "⏳ Bugün devam ediyor — günün özeti yarın hazır olur. Sohbetlerin özetleri aşağıda."));
+    else if(D[k] && D[k].n === reps.length) slot.append(draw(D[k]));
+    else if(sample){ slot.append(h("div", "", "Günün özeti hazırlanıyor…")); make(k, reps).then(d => { slot.innerHTML = ""; slot.append(draw(d)); }).catch(() => { slot.innerHTML = ""; slot.append(h("div", "warn", "Günün özeti yapılamadı — sonra tekrar dene.")); }); }
+    b.append(h("b", "", "💬 Bu günün sohbetleri"));
+    reps.slice().sort((a, c) => a.id - c.id).forEach(x => { const d = h("button", "day"); d.type = "button";
+      d.append(h("span", "", new Date(x.date).toLocaleTimeString("tr-TR", {hour: "2-digit", minute: "2-digit"}) + " · " + x.hero), h("small", "", "Seviye " + x.report.level + (x.report.topic ? " · " + x.report.topic : "")));
+      d.onclick = () => show(x, false); b.append(d); });
+    b.append(btn("Kapat", "ok", () => m.remove()));
+  }
+  function list(b, ses, show){
+    const g = byDay(), D = load(KS, {}), act = load("fatih_days", {});
+    const keys = Object.keys(g).concat(Object.keys(act).filter(k => act[k] && ((act[k].m || 0) > 0 || (act[k].s || 0) >= 60))).sort();
+    if(!keys.length) return;
+    const first = fromKey(keys[0]), todayK = dkey(Date.now()); let d = fromKey(todayK), gap = null; const rows = [];
+    const flush = () => { if(gap){ rows.push({empty: gap}); gap = null; } };
+    for(let i = 0; i < 120 && d >= first; i++){
+      const k = dkey(d);
+      if(g[k]){ flush(); rows.push({k}); }
+      else if(act[k] && ((act[k].m || 0) > 0 || (act[k].s || 0) >= 60)){ flush(); rows.push({short: k}); }
+      else if(k !== todayK){ if(gap) gap.from = k; else gap = {to: k, from: k}; }
+      d = new Date(d.getTime() - DAY); d.setHours(0, 0, 0, 0);
+    }
+    flush();
+    rows.forEach(r => {
+      if(r.empty){ const e = h("div", "day"); e.style.cursor = "default"; e.style.opacity = ".6"; e.append(h("span", "", (r.empty.from === r.empty.to ? dname(r.empty.to) : dname(r.empty.from) + " – " + dname(r.empty.to)) + " · 💤 sohbet yok")); b.append(e); return; }
+      if(r.short){ const e = h("div", "day"); e.style.cursor = "default"; e.append(h("span", "", "📅 " + dname(r.short) + (r.short === todayK ? " · bugün" : "") + " · " + mins(r.short) + " dk"), h("small", "", r.short === todayK ? "devam ediyor — özet için en az 3 mesaj" : "kısa sohbet — özet yok (3 mesajdan az)")); b.append(e); return; }
+      const k = r.k, reps = g[k], sm = D[k] && D[k].n === reps.length ? D[k] : null, today = k === todayK;
+      const x = h("button", "day"); x.type = "button";
+      x.append(h("span", "", "📅 " + dname(k) + (today ? " · bugün" : "") + " · " + reps.length + " sohbet" + (mins(k) ? " · " + mins(k) + " dk" : "")),
+        h("small", "", today ? "devam ediyor" : sm ? "Seviye " + (sm.level || "—") + (sm.praise ? " · " + sm.praise.slice(0, 80) : "") : "günün özeti: dokun"));
+      x.onclick = () => dayModal(k, reps, show); b.append(x);
+    });
+  }
+  return {list, auto};
 })();
 
 pick();
