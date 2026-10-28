@@ -1,0 +1,1061 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Разговор с героем</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Nunito:wght@600;700;800;900&display=swap">
+<style>
+/* Layout: hero picker → full-screen chat, input docked at the bottom */
+:root{
+  --bg:#F3F0FF; --card:#FFFFFF; --ink:#1F1640; --muted:#6A6290; --line:#DDD6F5;
+  --sea:#6C3BFF; --pink:#FF4F8B; --sel:#E6DEFF; --me:#6C3BFF; --meink:#FFFFFF; --fix:#FFF4D6; --fixink:#6B4A00;
+  --display:"Bricolage Grotesque",Georgia,serif; --body:Nunito,"Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#151032; --card:#221A4C; --ink:#F1EEFF; --muted:#B0A8D8; --line:#3A3170; --sea:#9C7BFF; --pink:#FF77A6; --sel:#33296B; --me:#7B55FF; --fix:#3B2F12; --fixink:#F5C66B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#151032; --card:#221A4C; --ink:#F1EEFF; --muted:#B0A8D8; --line:#3A3170; --sea:#9C7BFF; --pink:#FF77A6; --sel:#33296B; --me:#7B55FF; --fix:#3B2F12; --fixink:#F5C66B; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:700 16px/1.45 var(--body)}
+.wrap{max-width:560px;margin:0 auto;padding-block:0 var(--dockh,170px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:12px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px 8px;border-bottom:2px solid var(--line);display:grid;gap:6px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.who{font-weight:900;font-size:16px}
+.tag{font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--pink)}
+.snd{display:flex;gap:6px;flex-wrap:wrap}
+.msg.me .mtag{color:#fff;opacity:.85}
+.snd button,.back{font:800 12.5px var(--body);border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:6px 9px;cursor:pointer}
+.snd button.on{border-color:#10A877;color:#10A877}
+h1{font:800 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
+.sub{color:var(--muted);margin:0;font-weight:600;font-size:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hero{display:grid;gap:4px;text-align:left;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:18px;padding:12px;cursor:pointer;box-shadow:0 4px 0 var(--line);font:inherit}
+.hero .e{font-size:34px;line-height:1}
+.hero b{font-size:16px}
+.hero small{font-weight:600;font-size:13px;color:var(--muted);line-height:1.3}
+.hero:focus-visible,.send:focus-visible{outline:3px solid var(--sea);outline-offset:2px}
+.chat{display:grid;gap:10px}
+.msg{display:flex;gap:8px;align-items:flex-end}
+.msg .av{font-size:30px;line-height:1;flex:none}
+.bub{border-radius:18px 18px 18px 4px;padding:10px 12px;background:var(--card);border:2px solid var(--line);max-width:85%;min-width:0;display:grid;gap:6px}
+.bub .pt{font-size:17px;overflow-wrap:anywhere}
+.bub .ru{font-size:14px;color:var(--muted);font-weight:600}
+.bub .tools{display:flex;gap:6px;flex-wrap:wrap}
+.bub .tools button{border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 13px var(--body);cursor:pointer;padding:5px 9px;border-radius:999px}
+.bub .tools button.on{background:var(--sel)}
+.msg.me{justify-content:flex-end}
+.msg.me .bub{background:var(--me);color:var(--meink);border-color:var(--me);border-radius:18px 18px 4px 18px}
+.fix{background:var(--fix);color:var(--fixink);border-radius:12px;padding:8px 10px;font-size:14px;font-weight:700}
+.typing{color:var(--muted);font-style:italic;font-weight:600}
+.dock{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:2px solid var(--line);padding-block:10px calc(10px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.dock .in{max-width:560px;margin:0 auto;display:flex;gap:8px;align-items:flex-end}
+.dock textarea{flex:1;min-width:0;min-height:46px;max-height:120px;resize:none;font:700 16px var(--body);border:2px solid var(--line);border-radius:14px;padding:10px;background:var(--card);color:var(--ink)}
+.send{flex:none;border:0;border-radius:14px;background:var(--sea);color:#fff;font:900 18px var(--body);width:52px;height:48px;cursor:pointer}
+.send:disabled{opacity:.5}
+.hint{font-size:13px;color:var(--muted);font-weight:600;margin:6px auto 0;max-width:560px}
+.note{font-size:13.5px;color:var(--muted);font-weight:600;margin:0}
+.w{cursor:pointer;border-radius:6px;padding:0 1px;border-bottom:1.5px dotted rgba(108,59,255,.45)}
+.w.on{background:var(--sel);color:var(--sea)}
+.gl{background:var(--sel);border-radius:12px;padding:8px 10px;font-size:14.5px;display:grid;gap:6px}
+.gl .hd{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.gl .hd b{font-size:16px}
+.gl button{border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 13px var(--body);cursor:pointer;padding:4px 9px;border-radius:999px}
+.gl .more{display:grid;gap:6px;font-weight:600}
+.gl .ex{display:flex;gap:6px;align-items:flex-start}
+.gl .ex small{display:block;color:var(--muted)}
+[hidden]{display:none!important}
+.sos{flex:none;border:2px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);font:900 13px var(--body);height:48px;padding:0 10px;cursor:pointer;line-height:1.1}
+.sos.on{background:#E2482F;border-color:#E2482F;color:#fff;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.05)}}
+@media (prefers-reduced-motion: reduce){.sos.on{animation:none}}
+.helps{max-width:560px;margin:0 auto 8px;display:grid;gap:6px}
+.help{background:var(--card);border:2px solid #F2B632;border-radius:14px;padding:8px 10px;display:grid;gap:6px;font-size:14.5px}
+.help .hd{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.help .ru{color:var(--muted)}
+.help .pt{font-weight:900;color:var(--sea);font-size:16px}
+.help button{border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 12.5px var(--body);cursor:pointer;padding:4px 8px;border-radius:999px}
+.help .more{display:grid;gap:6px;font-weight:600}
+.help .ex{display:flex;gap:6px;align-items:flex-start}.help .ex small{display:block;color:var(--muted)}
+.sosnote{max-width:560px;margin:0 auto 6px;font-size:13.5px;font-weight:800;color:#E2482F}
+.chips{max-width:560px;margin:0 auto 6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12.5px;font-weight:800;color:var(--muted)}
+.chip{border:2px solid #F2B632;background:#FFF6DC;color:#7A5200;border-radius:999px;padding:4px 10px;font:800 13.5px var(--body);cursor:pointer}
+.help .x{margin-left:auto}
+.msg.me .new{border-bottom:2px dotted currentColor}
+.modal{position:fixed;inset:0;background:#0008;z-index:30;display:grid;place-items:center;padding:16px}
+.modal .box{background:var(--card);color:var(--ink);border-radius:18px;padding:16px;max-width:460px;max-height:86vh;overflow:auto;display:grid;gap:10px;font-size:15px;line-height:1.4}
+.modal h2{margin:0;font-size:19px}.modal ol{margin:0;padding-left:20px;display:grid;gap:6px}.modal p{margin:0;color:var(--muted);font-size:14px}
+.modal .box{position:relative;max-height:78vh;font-size:14.5px;padding-top:14px}.modal ol{font-size:14.5px;gap:4px}.modal h2{padding-right:40px;font-size:18px}
+.modal .mx{position:sticky;top:0;justify-self:end;margin:-6px -6px -40px 0;width:38px;height:38px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--ink);font:900 17px var(--body);cursor:pointer;z-index:2}
+.modal .box > .ok:last-child{position:sticky;bottom:-16px;box-shadow:0 -8px 12px var(--card)}
+.modal .ok{border:0;border-radius:14px;background:#6C3BF5;color:#fff;font:900 16px var(--body);padding:12px;cursor:pointer}
+.mics{max-width:560px;margin:0 auto 8px;display:grid;grid-template-columns:1.6fr 1fr;gap:8px}
+.mic{border:2px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);font:900 15px var(--body);min-height:48px;padding:6px 10px;cursor:pointer}
+.mic.on{background:#E2482F;border-color:#E2482F;color:#fff;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.03)}}
+@media (prefers-reduced-motion: reduce){.mic.on{animation:none}}
+.codebox{display:grid;gap:10px}.codebox input{width:100%;min-width:0;box-sizing:border-box}.codebox input{font:800 20px var(--body);text-align:center;letter-spacing:.15em;padding:12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+.mtag{display:block;margin-top:4px;font-size:12px;font-weight:800;color:var(--muted)}
+.rep{display:grid;gap:8px}.rep h2{margin:0;font-size:19px}.rep .lv{font-weight:900;color:#6C3BF5}
+.rep .mi{background:var(--fix);color:var(--fixink);border-radius:12px;padding:8px 10px;font-size:14px}
+.rep .mi b{display:block}.rep .row{display:flex;gap:8px;flex-wrap:wrap}
+.rep button.sec{border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 14px var(--body);border-radius:14px;padding:10px 12px;cursor:pointer;flex:1 1 auto}
+.rep .day{border:2px solid var(--line);border-radius:14px;padding:10px;text-align:left;background:var(--card);color:var(--ink);font:600 14px var(--body);cursor:pointer;display:grid;gap:2px}
+.rep .day small{color:var(--muted)}
+.rep .opt{border:2px solid var(--line);border-radius:12px;padding:10px;background:var(--card);color:var(--ink);font:800 15px var(--body);cursor:pointer;text-align:left;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.rep .opt.ok{border-color:#10A877;background:#E3F7EF;color:#0B6B4C}.rep .opt.no{border-color:#E2482F;background:#FDE8E4;color:#8A2414}
+.rep .q{font-size:16px;font-weight:800}.rep .toast{font-weight:800;color:#10A877}
+.prog{margin-top:12px;width:100%;border:2px solid var(--line);background:var(--card);color:var(--ink);font:900 16px var(--body);border-radius:16px;padding:12px;cursor:pointer}
+.dash{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:12px;display:grid;gap:8px;text-align:left;font:inherit;color:var(--ink);cursor:pointer}
+.dash .st{display:flex;gap:10px;flex-wrap:wrap;font-weight:900;font-size:15px}
+.dash small{color:var(--muted);font-weight:700;font-size:13px}
+.barx{height:12px;background:var(--sel);border-radius:99px;overflow:hidden}.barx i{display:block;height:100%;background:linear-gradient(90deg,var(--sea),var(--pink));border-radius:99px}
+.sit{background:var(--card);border:2px solid #F2B632;border-radius:18px;padding:12px;display:grid;gap:6px}
+.sit .k{font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#B7791F}
+.sit b{font-size:16px}.sit small{color:var(--muted);font-weight:700;font-size:13.5px}
+.sit button,.pbtn{border:0;border-radius:14px;background:var(--sea);color:#fff;font:900 15px var(--body);padding:10px 12px;cursor:pointer}
+.tools2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tools2 .tool:last-child:nth-child(odd){grid-column:1/-1}
+.tool{border:2px solid var(--line);background:var(--card);color:var(--ink);font:900 14.5px var(--body);border-radius:14px;padding:11px 8px;cursor:pointer;min-height:48px}
+.goal{background:#FFF6DC;color:#7A5200;border:2px solid #F2B632;border-radius:14px;padding:8px 10px;font-size:14px;font-weight:800}
+.rep .card{min-width:min(260px,70vw);border:2px solid var(--line);border-radius:16px;padding:16px;display:grid;gap:8px;text-align:center}
+.rep .card .f{font:800 24px/1.2 var(--display);overflow-wrap:anywhere}.rep .card .bk{font-size:17px;color:var(--muted)}
+.rep .vrow{display:flex;flex-wrap:wrap;gap:6px}.rep .vrow button{border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 13px var(--body);border-radius:999px;padding:6px 10px;cursor:pointer}
+.rep .vrow button.on{border-color:var(--sea);background:var(--sel);color:var(--sea)}
+.rep input,.rep textarea{font:700 16px var(--body);border:2px solid var(--line);border-radius:12px;padding:10px;background:var(--card);color:var(--ink);width:100%;box-sizing:border-box}
+.rep .fact{display:flex;gap:8px;align-items:flex-start;justify-content:space-between;border-bottom:1px solid var(--line);padding:6px 0}
+.rep .fact button{flex:none;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;font:800 13px var(--body);padding:3px 8px;cursor:pointer}
+.rep .hl{display:grid;gap:4px;border-radius:12px;padding:8px 10px;background:var(--sel);font-size:14.5px}.rep .hl.me{background:var(--me);color:var(--meink)}
+.rep .hl .fx{font-size:13px;background:var(--fix);color:var(--fixink);border-radius:8px;padding:4px 6px}
+.rep .emo{display:flex;flex-wrap:wrap;gap:6px}.rep .emo button{font-size:24px;border:2px solid var(--line);background:var(--card);border-radius:12px;padding:4px 8px;cursor:pointer}.rep .emo button.on{border-color:var(--sea);background:var(--sel)}
+.rep small{font-size:13px}
+.addk{border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 13px var(--body);cursor:pointer;padding:4px 9px;border-radius:999px}
+.warn{background:var(--fix);color:var(--fixink);border-radius:14px;padding:12px;font-size:14.5px}
+</style>
+<div class="wrap" id="wrap">
+  <div class="bar"><div class="top"><span class="tag" id="who">Разговор с героем</span>
+    <div class="snd"><button type="button" id="hlp" aria-label="Как говорить с героем">❓</button><button type="button" id="mdl" hidden>🧠 Sonnet</button><button type="button" id="sttb" hidden>🎧 Распознавание: iPhone</button><button type="button" id="ttsb" hidden>🗣 Голос героя: iPhone</button><button type="button" id="mute">🔊 Звук: вкл</button><button type="button" id="auto" class="on">🗣 Автоозвучка: вкл</button></div></div></div>
+  <div id="app"></div>
+  <p class="own" style="text-align:center;font-size:12.5px;color:var(--muted);margin:18px 0 0">© Daria Botina</p>
+</div>
+<div class="dock" id="dock" hidden><div class="helps" id="helps"></div><div class="chips" id="chips" hidden></div><div class="mics" id="mics" hidden><button class="mic" id="micpt" type="button">🎤 Говорить</button><button class="mic" id="micru" type="button">🇷🇺 Русское слово</button></div><div class="in">
+  <textarea id="box" rows="1" placeholder="Write in English…" aria-label="Твоё сообщение"></textarea>
+  <button class="send" id="send" type="button" aria-label="Отправить">➤</button></div></div>
+<script>
+const HEROES = [
+ {id:"client", words:{}, e:"🧑‍💼", n:"Клиентка Emma", d:"Клиентка из Чикаго. Заказывает переводы: сроки, цена, правки.", br:false,
+  role:"You are Emma, a friendly but demanding American client from Chicago (marketing manager in a logistics company) who orders translations from the learner's translation agency. You discuss deadlines, prices, terminology, edits and feedback. Professional, polite, sometimes in a hurry.",
+  hi:"Hi Anastasia! Thanks for the last translation. Do you have a minute to talk about a new project?", hiru:"Привет, Анастасия! Спасибо за прошлый перевод. Есть минутка обсудить новый проект?"},
+ {id:"colleague", words:{}, e:"👩‍💻", n:"Коллега Sarah", d:"Проект-менеджер агентства переводов в Нью-Йорке. Проекты, дедлайны, кофе.", br:false,
+  role:"You are Sarah, an energetic American project manager at a partner translation agency in New York and the learner's colleague. You chat about projects, deadlines, tricky texts, CAT tools, clients and work-life balance, like colleagues over coffee.",
+  hi:"Morning, Anastasia! How's your week going? Busy with projects?", hiru:"Доброе утро, Анастасия! Как проходит неделя? Много проектов?"},
+ {id:"mentor", words:{}, e:"🎤", n:"Наставник James", d:"Опытный устный переводчик из Лондона. Как сказать естественнее.", br:true,
+  role:"You are James, a warm, witty senior conference interpreter from London and the learner's mentor. You love language: idioms, phrasal verbs, collocations, how natives really say things, translation traps between Russian and English. You give one practical tip at a time.",
+  hi:"Hello, Anastasia! Lovely to see you. Shall we play with some English today?", hiru:"Здравствуй, Анастасия! Рад тебя видеть. Поиграем сегодня с английским?"},
+ {id:"hr", words:{}, e:"📞", n:"HR Rachel", d:"Рекрутер международной компании. Тренировка собеседования.", br:false,
+  role:"You are Rachel, a friendly American recruiter at an international company hiring translators and localization specialists. You run a realistic but kind job interview: typical interview questions, follow-up questions, and at the end short honest feedback.",
+  hi:"Hi Anastasia, thanks for joining the call! Can you hear me okay?", hiru:"Здравствуйте, Анастасия, спасибо, что подключились! Хорошо меня слышите?"},
+ {id:"friend", words:{}, e:"🇺🇸", n:"Подруга Jessica", d:"Американка из Калифорнии, тоже мама. Семья, дети, сериалы.", br:false,
+  role:"You are Jessica, a cheerful American woman from San Diego, California, the learner's friend. You are also a mom of a teenager who is finishing high school. You chat about family, kids, school and university plans, TV series, food, weekends and everyday life, react with emotion and share your own stories.",
+  hi:"Hey Nastya! It's been ages! How are you and the family?", hiru:"Привет, Настя! Сто лет не виделись! Как ты и семья?"},
+ {id:"masha", words:{}, e:"👩", n:"Подруга Маша", d:"Подруга из Новосибирска, 10 лет жила в США. Говорит только по-английски и учит.", br:false,
+  role:"You are Masha, the learner's Russian friend from Novosibirsk who lived in the USA for 10 years and speaks excellent, natural American English. You talk with Nastya ONLY in English (that is your deal, to help her practise). You are warm, supportive and a bit funny. Very often you give her one friendly tip in \"fix\": how to say her phrase more naturally or more beautifully, like a native speaker would.",
+  hi:"Hey Nastya! Our English-only deal is on, okay? So, how was your day?", hiru:"Привет, Настя! Наш уговор «только по-английски» в силе, ок? Ну, как прошёл твой день?"}
+];
+const RULES = h => `${h.role}
+You are a conversation partner for Anastasia (Nastya). ABOUT HER (use naturally, one topic at a time, never list it all): Russian woman from Novosibirsk, Russia; works as a translator at a translation agency; her English is about B2.1 (good grammar and vocabulary, but little speaking practice, so she wants fluency and confidence); she is married to Vitaly; her son Artem is 17 (finishing school, thinking about exams and university). Ask about her translation work (projects, clients, tricky texts, deadlines), life in Novosibirsk, her family (Vitaly, Artem), her plans, hobbies and travels — real-life topics she can talk about.
+How to reply:
+- Stay in character. Reply ONLY in natural, friendly ${h.br ? "British" : "American"} English.
+- LENGTH: usually 3–4 short sentences. Only if the meaning really needs more (she asks for instructions, a story, an explanation) use up to 7 sentences. If even 7 is not enough, stop after 7 and add an 8th sentence asking "Shall I tell you more?"; if she says yes, continue with the next part, again at most 7 sentences.
+- LEVEL: she is about B2.1 — speak naturally at B2 level and match what you see in her messages. At most 5% of your words and grammar may be one level higher. No rare idioms unless you explain them.
+- Usually end with ONE short question back to keep the talk going.
+- Every time vary your words: never reuse a sentence you already said in this chat.
+- If her last message has a mistake, give a short friendly correction in Russian: show the corrected English phrase and explain in max 12 words why. If no mistake, "fix" is "".
+- If she wrote a word in Russian, use the English word naturally in your reply and mention it in "fix" («устала» — tired).
+- If her message ends with a note about words she did not know (said in Russian), often — about 2 times out of 3, not always — ask her a short question that uses one of those English words, so the word sticks.
+- Never repeat the same correction twice in a row; if the message is fine, praise briefly in "fix" only every few turns, otherwise leave it empty.
+Inside text values use « » for quotes, never the double-quote character.
+Reply with only JSON: {"pt": "your reply in English", "ru": "Russian translation of your reply", "fix": "correction in Russian or empty string"}`;
+const MORE = (w, ctx, pt) => `A Russian-speaking learner of English (about B2) tapped the word "${w}" in this sentence: "${ctx}".
+Explain it briefly in Russian. Reply with only JSON:
+{"lemma": "dictionary form (infinitive for verbs, base form for adjectives/nouns)", "tr": "main Russian meaning(s)", "grammar": "1–2 short sentences in Russian: what form this is and why it is used here (tense, phrasal verb, collocation…); empty string if nothing to say", "examples": [["simple English example 1", "Russian translation"], ["example 2", "translation"], ["example 3", "translation"]]}
+Examples must be short (max 8 words), everyday English.`;
+const S = {mute:false, auto:true, hero:null, turns:[], busy:false};
+const $ = s => document.querySelector(s);
+const h = (tag, cls, txt) => { const e = document.createElement(tag); if(cls) e.className = cls; if(txt != null) e.textContent = txt; return e; };
+const WORKER = "https://daria-talk.daria-iramain.workers.dev";
+const CODEKEY = "nastya_code";
+const MODEL = () => { try{ return localStorage.getItem("nastya_model") || "sonnet"; }catch(e){ return "sonnet"; } };
+const getCode = () => { try{ return localStorage.getItem(CODEKEY) || ""; }catch(e){ return ""; } };
+function askCode(msg){
+  return new Promise(res => {
+    const m = h("div", "modal"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true");
+    const b = h("div", "box codebox"); b.append(h("h2", "", "🔐 Код доступа"), h("p", "", msg || "Введи код, который тебе дала Даша."));
+    const inp = h("input"); inp.type = "text"; inp.autocomplete = "off"; inp.setAttribute("autocapitalize", "characters"); inp.setAttribute("aria-label", "Код");
+    const err = h("p", ""); err.style.color = "#C2410C"; err.style.fontWeight = "800";
+    const ok = h("button", "ok", "Войти →"); ok.type = "button";
+    const go = () => { const v = inp.value.trim(); if(!v){ err.textContent = "Введи код."; return; } try{ localStorage.setItem(CODEKEY, v); }catch(e){} m.remove(); res(v); };
+    ok.onclick = go; inp.onkeydown = e => { if(e.key === "Enter") go(); };
+    b.append(inp, err, ok); m.append(b); document.body.append(m); inp.focus({preventScroll:true});
+  });
+}
+function parseJSON(t){ t = String(t || ""); const m = t.match(/\{[\s\S]*\}/); if(m){ try{ return JSON.parse(m[0]); }catch(e){} }
+  const fixed = repairJSON(t); if(fixed) return fixed;
+  const f = k => { const x = t.match(new RegExp('"' + k + '"\\s*:\\s*"((?:[^"\\\\]|\\\\.)*)"')); if(!x) return null; try{ return JSON.parse('"' + x[1] + '"'); }catch(e){ return x[1]; } };
+  const pt = f("pt"); if(pt) return {pt, ru: f("ru") || "", fix: f("fix") || "", words: {}};
+  throw {code:"badjson"}; }
+const viaWorker = {
+  json: async (inp, opt) => {
+    let system = "", messages;
+    if(typeof inp === "string") messages = [{role:"user", content: inp}];
+    else { system = inp[0].content; messages = inp.slice(1); if(!messages.length || messages[0].role !== "user") messages = [{role:"user", content:"(start)"}].concat(messages); }
+    let code = getCode(); if(!code) code = await askCode();
+    for(let attempt = 0; attempt < 2; attempt++){
+      let r;
+      try{ r = await fetch(WORKER, {method:"POST", headers:{"content-type":"application/json", "x-code": code}, body: JSON.stringify({system, messages, max_tokens: 1500, model: (opt && opt.model) || MODEL()})}); }
+      catch(e){ throw {code:"network"}; }
+      if(r.status === 403){ const j = await r.json().catch(() => ({})); if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} code = await askCode("Код не подошёл. Попробуй ещё раз."); continue; } throw {code:"site"}; }
+      if(r.status === 429) throw {code:"rate_limited"};
+      if(!r.ok){ const j = await r.json().catch(() => ({})); throw {code:"server", detail: "ошибка " + r.status + (j.error ? " · " + j.error : "") + (j.status ? " " + j.status : "") + (j.detail ? " · " + j.detail : "")}; }
+      const j = await r.json(); try{ return parseJSON(j.text); }catch(e){ throw {code:"badjson", detail: "ответ не прочитался · " + String(j.text || "").length + " знаков"}; }
+    }
+    throw {code:"badcode"};
+  }
+};
+let sample = null;
+(async () => { try{ sample = window.claude ? await window.claude.use("sample") : null; }catch(e){ sample = null; } if(!sample && WORKER) sample = viaWorker; })();
+function fitDock(){ const d = $("#dock"); document.documentElement.style.setProperty("--dockh", (d.hidden ? 24 : d.offsetHeight + 24) + "px"); }
+function show(el){ fitDock(); requestAnimationFrame(() => { const r = el.getBoundingClientRect(), bot = innerHeight - (($("#dock").hidden ? 0 : $("#dock").offsetHeight) + 12), barB = document.querySelector(".bar").getBoundingClientRect().bottom + 8;
+  let dy = 0; if(r.bottom > bot) dy = r.bottom - bot; if(r.top - dy < barB) dy = r.top - barB; if(Math.abs(dy) > 2) scrollBy({top: dy, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); }); }
+addEventListener("resize", fitDock);
+function say(t, lang, rate, queue){ if(S.mute || !("speechSynthesis" in window)) return; try{ if(!queue) speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, "")); u.lang = lang; u.rate = rate || .85;
+  const v = speechSynthesis.getVoices().find(x => x.lang && x.lang.replace("_","-").toLowerCase().startsWith(lang.toLowerCase())) || speechSynthesis.getVoices().find(x => x.lang && x.lang.toLowerCase().startsWith("en")); if(v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
+const lang = () => S.hero && S.hero.br ? "en-GB" : "en-US";
+$("#mute").onclick = () => { S.mute = !S.mute; $("#mute").textContent = S.mute ? "🔇 Звук: выкл" : "🔊 Звук: вкл"; $("#mute").classList.toggle("on", S.mute); if(S.mute) try{ speechSynthesis.cancel(); }catch(e){} };
+$("#auto").onclick = () => { S.auto = !S.auto; $("#auto").textContent = "🗣 Автоозвучка: " + (S.auto ? "вкл" : "выкл"); $("#auto").classList.toggle("on", S.auto); };
+
+function pick(){
+  S.hero = null; S.turns = []; { const own1 = document.querySelector(".own"); if(own1) own1.hidden = false; } const hp = $("#helps"); if(hp) hp.innerHTML = ""; const cp = $("#chips"); if(cp){ cp.innerHTML = ""; cp.hidden = true; } $("#dock").hidden = true; fitDock(); $("#who").textContent = "Разговор с героем"; $("#who").className = "tag"; const bk = document.getElementById("bk"); if(bk) bk.hidden = true; const fb = document.getElementById("fin"); if(fb) fb.hidden = true; scrollTo(0, 0);
+  const a = $("#app"); a.innerHTML = "";
+  a.append(h("h1", "", "С кем хочешь поговорить сейчас?"), h("p", "sub", "Выбери героя. Каждый говорит по-своему. Отвечай по-английски — герой поддержит разговор и мягко исправит ошибки."));
+  const g = h("div", "grid");
+  HEROES.forEach(x => { const b = h("button", "hero"); b.type = "button"; b.append(h("span", "e", x.e), h("b", "", x.n), h("small", "", x.d)); b.onclick = () => start(x); g.append(b); });
+  a.append(g, h("p", "note", "Говори голосом (🎤) или пиши. Нажми на любое слово героя — увидишь перевод."));
+  const pb = h("button", "prog", "📊 Мой прогресс"); pb.type = "button"; pb.onclick = () => REP.progress(); a.append(pb); PERS.decorate(a, g, pb);
+}
+function wordTap(el, word, ctx, words, gl, p){
+  const key = word.toLowerCase();
+  if(el.classList.contains("on") && !gl.hidden){ el.classList.remove("on"); gl.hidden = true; return; }
+  p.querySelectorAll(".w.on").forEach(x => x.classList.remove("on")); el.classList.add("on");
+  gl.innerHTML = ""; gl.hidden = false;
+  const hd = h("div", "hd"); const b = h("b", "", word); const tr = h("span", "", "— " + (words[key] || words[word] || "…")); if(!words[key] && !words[word]) oneWord(word, ctx).then(t => { words[key] = t; tr.textContent = "— " + t; }).catch(() => { tr.textContent = "— перевод — нажми «Узнать больше»"; });
+  const sb = h("button", "", "🔊"); sb.type = "button"; sb.onclick = () => say(word, lang(), .7);
+  const mb = h("button", "", "📖 Узнать больше"); mb.type = "button";
+  hd.append(b, tr, sb, mb); gl.append(hd); PERS.cardBtn(hd, word, () => words[key] || words[word] || "");
+  mb.onclick = async () => {
+    mb.disabled = true; mb.textContent = "📖 Ищу…";
+    if(!sample){ gl.append(h("div", "warn", "Справка пока недоступна — нет связи с героем.")); mb.hidden = true; return; }
+    try{
+      const r = await sample.json(MORE(word, ctx, lang() === "pt-PT"), {modelTier:"quick"});
+      mb.hidden = true; const m = h("div", "more");
+      if(r.lemma && String(r.lemma).toLowerCase() !== key) m.append(h("div", "", "Начальная форма: " + r.lemma + (r.tr ? " — " + r.tr : "")));
+      else if(r.tr) m.append(h("div", "", "Значение: " + r.tr));
+      if(r.grammar) m.append(h("div", "", "📘 " + r.grammar));
+      (Array.isArray(r.examples) ? r.examples : []).slice(0, 3).forEach(ex => { if(!Array.isArray(ex)) return; const row = h("div", "ex"); const s2 = h("button", "", "🔊"); s2.type = "button"; s2.onclick = () => say(String(ex[0]), lang());
+        const tx = h("span", "", String(ex[0])); tx.append(h("small", "", String(ex[1] || ""))); row.append(s2, tx); m.append(row); });
+      gl.append(m); show(gl);
+    }catch(e){ mb.disabled = false; mb.textContent = "📖 Узнать больше"; gl.append(h("div", "warn", e && e.code === "not_granted" ? "Без разрешения Claude справка недоступна." : "Не получилось загрузить справку. Попробуй ещё раз.")); }
+  };
+  show(gl);
+}
+function bubble(who, pt, ru, fix, words){
+  const m = h("div", "msg" + (who === "me" ? " me" : ""));
+  const b = h("div", "bub");
+  if(who !== "me"){
+    m.append(h("span", "av", S.hero.e));
+    const p = h("div", "pt"); const r = h("div", "ru", ru); r.hidden = true; const gl = h("div", "gl"); gl.hidden = true;
+    pt.split(/([\p{L}\-']+)/u).forEach(part => { if(/^[\p{L}\-']+$/u.test(part)){ const w = h("span", "w", part); w.onclick = () => wordTap(w, part, pt, words || {}, gl, p); p.append(w); } else p.append(document.createTextNode(part)); });
+    const t = h("div", "tools"); const s = h("button", "", "🔊 Ещё раз"); s.type = "button"; s.onclick = () => say(pt, lang());
+    const sl = h("button", "", "🐢 Медленно"); sl.type = "button"; sl.onclick = () => say(pt, lang(), .55);
+    const g = h("button", "", "🌐 Перевод"); g.type = "button"; g.onclick = () => { r.hidden = !r.hidden; g.classList.toggle("on", !r.hidden); g.textContent = r.hidden ? "🌐 Перевод" : "🙈 Скрыть"; if(!r.hidden) show(m); };
+    t.append(s, sl, g); b.append(p);
+    if(fix){ b.prepend(h("div", "fix", "✏️ " + fix)); }
+    b.append(gl, t, r);
+  } else b.append(h("div", "pt", pt));
+  m.append(b); $("#chat").append(m); show(m); return b;
+}
+function start(x){ const own0 = document.querySelector(".own"); if(own0) own0.hidden = true;
+  S.hero = x; S.turns = [];
+  const a = $("#app"); a.innerHTML = "";
+  $("#who").textContent = x.e + " " + x.n; $("#who").className = "who";
+  let bk = document.getElementById("bk"); if(!bk){ bk = h("button", "back", "◀ Герои"); bk.id = "bk"; bk.type = "button"; bk.onclick = pick; document.querySelector(".bar .top").append(bk); } bk.hidden = false;
+  let fb = document.getElementById("fin"); if(!fb){ fb = h("button", "back", "🏁 Итог"); fb.id = "fin"; fb.type = "button"; fb.onclick = () => REP.finish(true); document.querySelector(".bar .top").append(fb); } fb.hidden = false;
+  if(x.id === "psy") a.append(h("p", "note", ""));
+  if(x.scene) a.append(PERS.banner(x.scene)); const c = h("div", "chat"); c.id = "chat"; a.append(c);
+  const cb = x.scene ? null : REP.callback(x); const hi = cb ? cb.pt : x.hi, hiru = cb ? cb.ru : x.hiru, hw = cb ? cb.words : x.words;
+  bubble("hero", hi, hiru, "", hw); S.turns.push({role:"assistant", content: JSON.stringify({pt:hi, ru:hiru, fix:""})});
+  if(S.auto) say(hi, lang());
+  REP.begin(x, hi);
+  $("#dock").hidden = false; $("#mics").hidden = !(REC || (window.MediaRecorder && WORKER && !window.claude)); fitDock();
+  let seen = false; try{ seen = localStorage.getItem("nastya_howto_seen") === "1"; localStorage.setItem("nastya_howto_seen", "1"); }catch(e){}
+  if(!seen) howTo(); else if(!matchMedia("(pointer: coarse)").matches) $("#box").focus();
+}
+async function send(){
+  const box = $("#box"); const t = box.value.trim(); if(!t || S.busy) return;
+  box.value = ""; $("#helps").innerHTML = ""; renderChips();
+  let msg = t, newW = [];
+  const parts = ruParts(t);
+  if(parts.length && sample){
+    S.busy = true; $("#send").disabled = true;
+    const res = await Promise.all(parts.map(p => trPart(p, t).then(r => [p, r.pt]).catch(() => null)));
+    S.busy = false; $("#send").disabled = false;
+    res.forEach(x => { if(x){ msg = msg.split(x[0]).join(x[1]); newW.push(x); } });
+  }
+  (S.ins || []).forEach(x => { if(msg.includes(x[1]) && !newW.some(y => y[0] === x[0])) newW.push(x); }); S.ins = [];
+  const mb = bubble("me", msg); if(S.usedStt){ mb.append(h("small", "mtag", "🎧 " + S.usedStt)); S.usedStt = null; }
+  if(newW.length){ const ptd = mb.querySelector(".pt"); ptd.textContent = "";
+    let rest = msg; const marks = newW.map(x => x[1]);
+    const re = new RegExp("(" + marks.map(m => m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")");
+    rest.split(re).forEach(part => { if(marks.includes(part)) ptd.append(h("span", "new", part)); else if(part) ptd.append(document.createTextNode(part)); });
+    ptd.append(h("small", "", "")); const lst = h("div", "fix", newW.map(x => "🇷🇺 " + x[0].replace(/\*/g, "") + " → " + x[1]).join(" · ")); mb.append(lst);
+    say(newW.map(x => x[1]).join(", "), lang());
+  }
+  if(!sample){ const b = bubble("hero", "…", "", ""); b.innerHTML = ""; b.append(h("div", "warn", "Разговор работает только внутри Claude (в приложении или на claude.ai). Открой эту страницу там.")); return; }
+  S.busy = true; $("#send").disabled = true;
+  REP.me(msg, newW); PERS.act(true); newW.forEach(x => PERS.addCard(x[1], x[0].replace(/\*/g, "")));
+  S.turns.push({role:"user", content: newW.length ? msg + "\n(She did not know these words and said them in Russian: " + newW.map(x => x[0] + " → " + x[1]).join("; ") + ")" : msg});
+  const b = bubble("hero", "", "", ""); b.innerHTML = ""; const ty = h("div", "typing", (S.hero.id === "custom" ? S.hero.n : S.hero.n.split(" ").slice(1).join(" ") || S.hero.n) + " печатает…"); b.append(ty);
+  const turns = [{role:"user", content: RULES(S.hero) + PERS.ctx(S.hero) + REP.memo(S.hero) + "\n\n(The conversation starts now. Your first line was already sent.)"}].concat(S.turns.slice(-60));
+  try{
+    const r = await sample.json(turns, {modelTier:"quick", cache:false});
+    const pt = String(r.pt || "").trim() || "Hmm… pode repetir?", ru = String(r.ru || ""), fix = String(r.fix || "");
+    const words = {}; if(r.words && typeof r.words === "object") Object.entries(r.words).forEach(([k, v]) => { words[String(k).toLowerCase()] = String(v); });
+    b.parentElement.remove(); const hb = bubble("hero", pt, ru, fix, words); if(sample === viaWorker) hb.append(h("small", "mtag", mdlLabel() + " · 🗣 " + (TTS() === "openai" ? "OpenAI" : "iPhone")));
+    S.turns.push({role:"assistant", content: JSON.stringify({pt, ru, fix})}); REP.hero(pt, fix);
+    if(S.auto) say(pt, lang(), 0, true);
+  }catch(e){
+    S.turns.pop();
+    b.innerHTML = ""; b.append(h("div", "warn", e && e.code === "not_granted" ? "Без разрешения Claude герой не может отвечать. Обнови страницу и нажми «Разрешить»." :
+      e && e.code === "rate_limited" ? "Слишком много сообщений подряд — подожди минутку и попробуй снова." : e && e.code === "network" ? "Нет интернета или связь прервалась. Проверь интернет и отправь ещё раз." : "Не получилось ответить. Попробуй ещё раз." + (e && e.detail ? " (" + e.detail + ")" : "")));
+  }finally{ S.busy = false; $("#send").disabled = false; if(!matchMedia("(pointer: coarse)").matches) $("#box").focus(); }
+}
+const SOSQ = (full, chunk, eu) => `A Russian-speaking learner (about B2) is writing a message in English and got stuck. Her message so far: "${full}". The part "${chunk}" is in Russian (or a word she does not know, maybe marked with *stars*). Translate ONLY that part into natural English so it fits her sentence (right article, form, linking word).
+Reply with only JSON: {"pt": "the English for that part only (no stars)", "note": "max 2 short Russian lines on the key words: meaning, why this form"}`;
+const MORE2 = (pt, ru, full, eu) => `A Russian-speaking learner of English asked how to say "${ru}" and got "${pt}" (in her sentence "${full}"). Explain briefly in Russian. Reply with only JSON:
+{"grammar": "2–3 short Russian sentences: the grammar of this part (form, tense, why this word)", "examples": [["short English example", "Russian"], ["...", "..."], ["...", "..."]]}`;
+const TR = {};
+const CYR = /\*[^*]+\*|[А-Яа-яЁё]+(?:[\s,\-]+[А-Яа-яЁё]+)*/g; // русские слова или *звёздочки*
+const ruParts = t => [...new Set((t.match(CYR) || []).map(x => x.trim()).filter(Boolean))];
+async function trPart(chunk, full){
+  if(TR[chunk]) return TR[chunk];
+  const r = await sample.json(SOSQ(full, chunk, lang() === "pt-PT"), {modelTier:"quick"});
+  const pt = String(r.pt || "").trim(); if(!pt) throw {code:"empty"};
+  return TR[chunk] = {pt, note: String(r.note || "")};
+}
+function renderChips(){
+  const c = $("#chips"), parts = ruParts($("#box").value); c.innerHTML = ""; c.hidden = !parts.length;
+  if(parts.length){ c.append(h("span", "", "🇷🇺 Нажми — перевод:")); parts.forEach(p => { const b = h("button", "chip", p.replace(/\*/g, "")); b.type = "button"; b.onclick = () => chipTap(p); c.append(b); }); }
+  fitDock();
+}
+function chipTap(chunk){
+  const box = $("#box"); $("#helps").innerHTML = "";
+  const card = h("div", "help"); const hd = h("div", "hd"); const out = h("span", "pt", "…");
+  const x = h("button", "x", "✕"); x.type = "button"; x.setAttribute("aria-label", "Закрыть"); x.onclick = () => { card.remove(); fitDock(); };
+  hd.append(h("span", "ru", "«" + chunk.replace(/\*/g, "") + "» → "), out, x); card.append(hd); $("#helps").append(card); fitDock();
+  if(!sample){ card.append(h("div", "warn", "Перевод пока недоступен — нет связи с героем.")); fitDock(); return; }
+  trPart(chunk, box.value).then(({pt, note}) => {
+    out.textContent = pt; say(pt, lang());
+    const row = h("div", "hd");
+    const s1 = h("button", "", "🔊 Ещё раз"); s1.type = "button"; s1.onclick = () => say(pt, lang());
+    const s2 = h("button", "", "🐢 Медленно"); s2.type = "button"; s2.onclick = () => say(pt, lang(), .55);
+    const ins = h("button", "", "✍️ Вставить в текст"); ins.type = "button";
+    ins.onclick = () => { if(box.value.includes(chunk)){ box.value = box.value.replace(chunk, pt); (S.ins = S.ins || []).push([chunk, pt]); } ins.disabled = true; ins.textContent = "✓ Вставлено"; renderChips(); };
+    row.append(s1, s2, ins); card.append(row);
+    if(note) card.append(h("div", "", "💡 " + note));
+    const mb = h("button", "", "📖 Узнать больше"); mb.type = "button"; card.append(mb);
+    mb.onclick = async () => { mb.disabled = true; mb.textContent = "📖 Ищу…";
+      try{ const m = await sample.json(MORE2(pt, chunk, box.value, lang() === "pt-PT"), {modelTier:"quick"}); mb.remove(); const d = h("div", "more");
+        if(m.grammar) d.append(h("div", "", "📘 " + m.grammar));
+        (Array.isArray(m.examples) ? m.examples : []).slice(0, 3).forEach(ex => { if(!Array.isArray(ex)) return; const r2 = h("div", "ex"); const sb = h("button", "", "🔊"); sb.type = "button"; sb.onclick = () => say(String(ex[0]), lang()); const tx = h("span", "", String(ex[0])); tx.append(h("small", "", String(ex[1] || ""))); r2.append(sb, tx); d.append(r2); });
+        card.append(d); fitDock(); }
+      catch(e){ mb.disabled = false; mb.textContent = "📖 Узнать больше"; } };
+    fitDock();
+  }).catch(e => { out.textContent = "не получилось"; card.append(h("div", "warn", e && e.code === "not_granted" ? "Без разрешения Claude перевод недоступен." : "Не получилось перевести. Нажми на слово ещё раз.")); fitDock(); });
+}
+$("#box").addEventListener("input", renderChips);
+function howTo(){
+  const m = h("div", "modal"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true");
+  const b = h("div", "box"); b.append(h("h2", "", "🎤 Как говорить с героем"));
+  const ol = h("ol");
+  (REC || window.MediaRecorder ? ["Нажми «🎤 Говорить» и говори по-английски. Закончила — нажми ещё раз, и сообщение сразу уйдёт герою.",
+   "Забыла слово? Скажи по-русски — можно говорить вперемешку по-английски и по-русски. Русские кусочки я переведу и озвучу.",
+   "Это работает в режиме «🎧 Распознавание: OpenAI». В режиме «🎧 Распознавание: iPhone» скажи «in Russian», чтобы перейти на русский, и «по-английски», чтобы вернуться.",
+   "Можно и писать: напиши и нажми ➤. Нажми на русское слово над полем ввода — увидишь и услышишь перевод."] : ["Нажми на поле ввода и пиши по-английски (или говори через 🎤 на клавиатуре).",
+   "Забыла слово? Напиши его по-русски.",
+   "Хочешь узнать слово сразу? Нажми на русское слово над полем ввода.",
+   "Нажми ➤. Остальные русские слова я переведу сам и озвучу."]).forEach(t => ol.append(h("li", "", t)));
+  b.append(ol, h("p", "", REC ? "Первый раз Safari спросит разрешение на микрофон — нажми «Разрешить»." : "Совет: открой эту страницу в Safari — там работает кнопка микрофона."),
+    h("p", "", "Нажми на любое слово героя — увидишь перевод."));
+  const ok = h("button", "ok", "Понятно 👍"); ok.type = "button"; ok.onclick = () => m.remove(); b.append(ok);
+  m.append(b); m.onclick = e => { if(e.target === m) m.remove(); }; document.body.append(m); ok.focus({preventScroll:true}); b.scrollTop = 0;
+}
+$("#hlp").onclick = howTo;
+function mdlLabel(){ return MODEL() === "haiku" ? "⚡ Haiku" : "🧠 Sonnet"; }
+$("#mdl").textContent = mdlLabel();
+$("#mdl").onclick = () => { try{ localStorage.setItem("nastya_model", MODEL() === "haiku" ? "sonnet" : "haiku"); }catch(e){} $("#mdl").textContent = mdlLabel(); };
+setTimeout(() => { if(sample === viaWorker) $("#mdl").hidden = false; }, 300);
+const REC = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recNow = null;
+function micStop(){ if(recNow){ recNow.manual = true; try{ recNow.r.stop(); }catch(e){} } }
+function mic(btn, lng, label){
+  if(recNow){ recNow.send = true; micStop(); return; }
+  listen(lng === "ru-RU" ? "ru" : "pt", 0);
+}
+// Voice switches: «in Russian» → Russian; «по-английски» → back.
+// Pauses do not switch. The mic stops only with the button.
+const TO_RU = /(^|\s)in\s+russian\b[.,!?]*/i;
+const TO_PT = /(^|\s)по[\s-]?английски(?=[\s.,!?]|$)[.,!?]*/i;
+function listen(mode, empty){
+  const ru = mode === "ru", btn = ru ? $("#micru") : $("#micpt");
+  const r = new REC(); r.lang = ru ? "ru-RU" : lang(); r.interimResults = true; r.continuous = true; r.maxAlternatives = 1;
+  const box = $("#box"); const base = box.value && !/\s$/.test(box.value) ? box.value + " " : box.value;
+  let fin = "", next = null, heard = false;
+  const me = {r, btn, manual: false}; recNow = me;
+  $("#micpt").classList.toggle("on", !ru); $("#micru").classList.toggle("on", ru);
+  $("#micpt").textContent = ru ? "🎤 Говорить" : "● Слушаю · закончила — нажми, отправлю";
+  $("#micru").textContent = ru ? "● Слушаю 🇷🇺 · назад: «по-английски»" : "🇷🇺 Русское слово";
+  try{ speechSynthesis.cancel(); }catch(e){}
+  r.onresult = e => { if(next) return; let interim = ""; heard = true; S.usedStt = "iPhone";
+    for(let i = e.resultIndex; i < e.results.length; i++){ const t = e.results[i][0].transcript; if(e.results[i].isFinal) fin += t + " "; else interim += t; }
+    const txt = (fin + interim).replace(/\s+/g, " ");
+    const m = txt.match(ru ? TO_PT : TO_RU);
+    if(m){ next = ru ? "pt" : "ru"; box.value = (base + txt.slice(0, m.index)).replace(/\s+$/, "") + " "; renderChips(); try{ r.stop(); }catch(err){} return; }
+    box.value = base + txt.trim(); renderChips(); };
+  r.onerror = e => { if(e.error === "not-allowed" || e.error === "service-not-allowed"){ me.manual = true; micHelp(); } };
+  r.onend = () => {
+    box.value = box.value.replace(/\s+$/, "") + (box.value.trim() ? " " : ""); renderChips();
+    const done = () => { if(recNow === me) recNow = null; $("#micpt").classList.remove("on"); $("#micru").classList.remove("on"); $("#micpt").textContent = "🎤 Говорить"; $("#micru").textContent = "🇷🇺 Русское слово"; };
+    if(me.manual){ done(); if(me.send && $("#box").value.trim()) send(); return; }
+    if(next){ listen(next, 0); return; }
+    const e2 = heard ? 0 : empty + 1;           // phone stopped after silence — keep listening in the same language
+    if(e2 >= 6){ done(); return; }              // long silence — stop
+    listen(mode, e2);
+  };
+  try{ r.start(); }catch(e){ if(recNow === me) recNow = null; $("#micpt").classList.remove("on"); $("#micru").classList.remove("on"); }
+}
+function micHelp(){
+  const m = h("div", "modal"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true"); const b = h("div", "box");
+  b.append(h("h2", "", "🎤 Как включить микрофон"));
+  const ol = h("ol"); ["Нажми «аА» слева в адресной строке Safari → «Настройки веб-сайта» → «Микрофон» → «Разрешить».",
+    "Или: Настройки iPhone → Safari → Микрофон → «Спрашивать» или «Разрешить».",
+    "Вернись сюда, обнови страницу и нажми 🎤 ещё раз.",
+    "Пока не работает — можно писать: 🎤 на клавиатуре телефона тоже подойдёт."].forEach(t => ol.append(h("li", "", t)));
+  const ok = h("button", "ok", "Понятно 👍"); ok.type = "button"; ok.onclick = () => m.remove();
+  b.append(ol, ok); m.append(b); m.onclick = e => { if(e.target === m) m.remove(); }; document.body.append(m);
+}
+if(REC){ $("#micpt").onclick = () => { if(recNow && recNow.btn.id === "micru"){ recNow.manual = true; try{ recNow.r.stop(); }catch(e){} recNow = null; listen("pt", 0); } else mic($("#micpt"), lang(), ""); };
+  $("#micru").onclick = () => { if(recNow && recNow.btn.id === "micpt"){ recNow.manual = true; try{ recNow.r.stop(); }catch(e){} recNow = null; listen("ru", 0); } else mic($("#micru"), "ru-RU", ""); }; }
+$("#send").addEventListener("click", micStop, true);
+$("#send").onclick = send;
+$("#box").addEventListener("keydown", e => { if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); send(); } });
+
+// ================= Reports & progress =================
+const REP = (() => {
+  const KEY = "nastya_sessions", WKEY = "nastya_weeks";
+  const load = (k, d) => { try{ return JSON.parse(localStorage.getItem(k) || "null") || d; }catch(e){ return d; } };
+  const store = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
+  let cur = null;
+  const all = () => load(KEY, []);
+  const saveCur = () => { if(!cur || !cur.log.some(x => x.me)) return; const a = all().filter(x => x.id !== cur.id); a.push(cur); store(KEY, a.slice(-120)); };
+  const dstr = iso => new Date(iso).toLocaleDateString("ru-RU", {day:"numeric", month:"long"});
+  const weekKey = iso => { const d = new Date(iso); const day = (d.getDay() + 6) % 7; d.setHours(0,0,0,0); d.setDate(d.getDate() - day); return d.toISOString().slice(0, 10); };
+  const modal = () => { document.querySelectorAll(".modal.repm").forEach(x => x.remove()); const m = h("div", "modal repm"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true");
+    const b = h("div", "box rep"); m.append(b); m.onclick = e => { if(e.target === m) m.remove(); }; document.body.append(m); return [m, b]; };
+  const btn = (txt, cls, fn) => { const x = h("button", cls || "sec", txt); x.type = "button"; x.onclick = fn; return x; };
+
+  const PROMPT = ses => `You analyse one English conversation practice of Anastasia, a Russian speaker with about B2.1 English. Hero: ${ses.hero}.
+Transcript (her lines with the hero's corrections; Russian words she did not know are listed):
+${ses.log.map(x => x.me ? "SHE: " + x.me + (x.newW && x.newW.length ? "  [did not know: " + x.newW.map(w => w[0] + "→" + w[1]).join(", ") + "]" : "") : "HERO: " + x.hero + (x.fix ? "  [correction: " + x.fix + "]" : "")).join("\n").slice(0, 9000)}
+Write a short, warm, motivating report in Russian. Be honest about the level. Inside text values use « » for quotes, never the double-quote character. Reply with only JSON:
+{"level": "CEFR estimate for today, e.g. B1, B1+, B2", "praise": "1–2 sentences of specific praise in Russian", "topic": "what she talked about, 3–6 Russian words",
+ "mistakes": [{"bad": "her wrong English phrase", "good": "correct English", "why": "max 10 Russian words"}] (max 3, the most important; [] if none),
+ "words": [["new English word", "Russian"]] (max 6, words she did not know or that were corrected),
+ "tip": "one concrete thing to practise next, in Russian, max 15 words",
+ "callback_pt": "1–2 short English sentences the same hero (${ses.hero}) can say next time: recall what she told about and ask a question that invites her to use one corrected form or new word",
+ "callback_ru": "Russian translation of callback_pt",
+ "facts": ["NEW lasting facts about Anastasia's life that she told in this talk (work events, people, plans, trips, likes), short English sentences, max 5; [] if none. Do NOT repeat what is already known: ${typeof PERS !== "undefined" ? PERS.factsLine() : ""}"]${ses.scene && ses.scene.goal ? `,
+ "mission_done": true or false — did she complete this mission: ${ses.scene.t}; goal: she must use ${ses.scene.goal},
+ "mission_note": "1 short Russian sentence: which target phrases she used and which are missing"` : ""}}`;
+
+  const WPROMPT = reps => `Weekly summary of Anastasia's English conversation practice (Russian speaker, about B2.1). Day reports:
+${reps.map(r => r.date.slice(0, 10) + " | " + r.hero + " | level " + r.report.level + " | mistakes: " + (r.report.mistakes || []).map(m => m.bad + "→" + m.good).join("; ") + " | words: " + (r.report.words || []).map(w => w[0]).join(", ")).join("\n").slice(0, 8000)}
+Reply in Russian with only JSON: {"summary": "2–3 warm sentences: how the week went and the trend of her level", "level": "level now, e.g. B2-", "repeat": [{"bad": "mistake that repeats", "good": "correct form", "why": "max 10 words"}] (max 3), "words": [["English", "Russian"]] (max 8 most useful words of the week), "tip": "one goal for next week, max 15 words"}`;
+
+  const DRILLP = r => `Make 5 short practice tasks for Anastasia (Russian speaker, learns English) ONLY from these mistakes and new words.
+Mistakes: ${(r.mistakes || []).map(m => m.bad + " → " + m.good).join("; ") || "none"}. New words: ${(r.words || []).map(w => w[0] + " = " + w[1]).join(", ") || "none"}.
+Reply with only JSON: {"drill": [{"q": "short Russian instruction or an English sentence with ___", "opts": ["option 1", "option 2", "option 3"], "a": "the one correct option"}]} with exactly 5 tasks, exactly one option clearly correct, options in English.`;
+  async function makeDrill(r){ let j; try{ j = await sample.json(DRILLP(r), {modelTier: "quick", model: "haiku"}); }catch(e){ j = await sample.json(DRILLP(r), {modelTier: "quick"}); }
+    const d = Array.isArray(j.drill) ? j.drill.filter(x => x && Array.isArray(x.opts) && x.opts.includes(x.a)).slice(0, 5) : []; if(!d.length) throw 0; return d; }
+  async function makeReport(ses){
+    let r; try{ r = await sample.json(PROMPT(ses), {modelTier:"quick"}); }catch(e){ if(!e || e.code !== "badjson") throw e; r = await sample.json(PROMPT(ses), {modelTier:"quick", model: "sonnet"}); }
+    ses.report = {level: String(r.level || "—"), praise: String(r.praise || ""), topic: String(r.topic || ""),
+      mistakes: Array.isArray(r.mistakes) ? r.mistakes.slice(0, 3) : [], words: Array.isArray(r.words) ? r.words.slice(0, 6) : [],
+      tip: String(r.tip || ""), drill: Array.isArray(r.drill) ? r.drill.filter(d => d && Array.isArray(d.opts) && d.opts.includes(d.a)).slice(0, 5) : [],
+      facts: Array.isArray(r.facts) ? r.facts.map(String).filter(Boolean).slice(0, 5) : [], mission: ses.scene && ses.scene.goal ? {done: r.mission_done === true || r.mission_done === "true", note: String(r.mission_note || "")} : null, cb: r.callback_pt ? {pt: String(r.callback_pt), ru: String(r.callback_ru || ""), words: r.callback_words && typeof r.callback_words === "object" ? r.callback_words : {}} : null};
+    const a = all().filter(x => x.id !== ses.id); a.push(ses); store(KEY, a.slice(-120)); try{ PERS.afterReport(ses); }catch(e){} return ses;
+  }
+  const text = ses => { const r = ses.report; return `🏁 Итог разговора — ${dstr(ses.date)}, ${ses.hero}\nУровень: ${r.level} · реплик: ${ses.log.filter(x => x.me).length}\n🎉 ${r.praise}` +
+    (r.mistakes.length ? "\n✏️ Ошибки:\n" + r.mistakes.map((m, i) => `${i + 1}. «${m.bad}» → ${m.good} (${m.why})`).join("\n") : "") +
+    (r.words.length ? "\n🆕 Слова: " + r.words.map(w => w[0] + " — " + w[1]).join(", ") : "") + (r.tip ? "\n👉 " + r.tip : ""); };
+  const copy = (t, out) => { const ok = () => out.textContent = "✅ Скопировано"; try{ navigator.clipboard.writeText(t).then(ok, () => out.textContent = "Не получилось скопировать — выдели текст вручную."); }catch(e){ out.textContent = "Не получилось скопировать."; } };
+
+  function showReport(ses, fromChat){
+    const [m, b] = modal(); const r = ses.report;
+    b.append(h("h2", "", "🏁 Итог — " + dstr(ses.date)), h("div", "", ses.hero + " · реплик: " + ses.log.filter(x => x.me).length));
+    const lv = h("div", ""); lv.append("Уровень сегодня: "); lv.append(h("span", "lv", r.level)); b.append(lv);
+    if(r.praise) b.append(h("div", "", "🎉 " + r.praise));
+    if(r.mistakes.length){ b.append(h("b", "", "✏️ Главные ошибки")); r.mistakes.forEach(x => { const d = h("div", "mi"); d.append(h("span", "", "«" + x.bad + "» → "), h("b", "", x.good), h("small", "", x.why)); const sb = btn("🔊", "sec", () => say(x.good, lang())); sb.style.flex = "0"; d.append(sb); b.append(d); }); }
+    else b.append(h("div", "toast", "Ошибок почти не было — так держать! 💪"));
+    if(r.words.length){ b.append(h("b", "", "🆕 Новые слова")); const w = h("div", ""); w.textContent = r.words.map(x => x[0] + " — " + x[1]).join(" · "); b.append(w); }
+    if(r.tip) b.append(h("div", "", "👉 " + r.tip)); PERS.reportExtra(b, ses);
+    const out = h("div", "toast"); const row = h("div", "row");
+    row.append(btn("📋 Скопировать отчёт", "sec", () => copy(text(ses), out)));
+    if(r.drill.length || r.mistakes.length || r.words.length){ const db = btn("🔁 Потренировать мои ошибки", "sec", async () => { if(!r.drill.length){ db.disabled = true; db.textContent = "⏳ Готовлю задания… (~5 сек)"; try{ r.drill = await makeDrill(r); const a2 = all().map(x => x.id === ses.id ? ses : x); store(KEY, a2); }catch(e){ db.disabled = false; db.textContent = "🔁 Потренировать мои ошибки"; out.textContent = "Задания не получились — попробуй ещё раз."; return; } db.disabled = false; db.textContent = "🔁 Потренировать мои ошибки"; } if(r.drill.length) drill(r.drill); }); row.append(db); }
+    b.append(row, out, btn(fromChat ? "Продолжить разговор" : "Закрыть", "ok", () => m.remove()));
+    if(fromChat){ const nb = btn("👋 Закончить и выбрать героя", "sec", () => { m.remove(); cur = null; pick(); }); b.append(nb); }
+  }
+  function drill(items){
+    const [m, b] = modal(); let i = 0, right = 0;
+    const step = () => { b.innerHTML = ""; if(i >= items.length){ b.append(h("h2", "", "🎯 Готово!"), h("div", "", `Правильно: ${right} из ${items.length}`), btn("Закрыть", "ok", () => m.remove())); return; }
+      const it = items[i]; b.append(h("h2", "", `🔁 Задание ${i + 1} из ${items.length}`), h("div", "q", it.q)); let tries = 0;
+      it.opts.forEach(o => { const ob = h("button", "opt"); ob.type = "button"; ob.append(h("span", "", o)); const sp = h("span", "", "🔊"); sp.onclick = e => { e.stopPropagation(); say(o, lang()); }; ob.append(sp);
+        ob.onclick = () => { if(ob.disabled) return; if(o === it.a){ ob.classList.add("ok"); say(o, lang()); if(!tries) right++; b.querySelectorAll(".opt").forEach(x => x.disabled = true); setTimeout(() => { i++; step(); }, 1100); }
+          else { tries++; ob.classList.add("no"); ob.disabled = true; say(it.a, lang()); const hint = h("div", "mi"); hint.append("Правильно: ", h("b", "", it.a), h("small", "", "Попробуй ещё раз — нажми правильный вариант.")); b.append(hint); } };
+        b.append(ob); }); };
+    step();
+  }
+  async function finish(fromChat){
+    const nMe = cur ? cur.log.filter(x => x.me).length : 0;
+    if(nMe < 3){ const [m, b] = modal(); b.append(h("h2", "", "🏁 Итог"), h("div", "", "Для итога напиши минимум 3 сообщения — сейчас: " + nMe + " / 3"), btn("Хорошо", "ok", () => m.remove())); return; }
+    if(!sample){ return; }
+    const [m, b] = modal(); const wt = h("div", "", "Подожди, пожалуйста, — это займёт около 15 секунд."); const cd = h("div", "lv", "⏳ 15"); b.append(h("h2", "", "🏁 Готовлю итог…"), wt, cd); let left = 15; const tick = setInterval(() => { left--; cd.textContent = left > 0 ? "⏳ " + left : "⏳ Почти готово…"; if(!document.body.contains(cd)) clearInterval(tick); }, 1000);
+    try{ await makeReport(cur); clearInterval(tick); m.remove(); showReport(cur, fromChat); }
+    catch(e){ clearInterval(tick); b.innerHTML = ""; b.append(h("h2", "", "🏁 Итог"), h("div", "warn", "Не получилось сделать итог. Проверь интернет и нажми «🏁 Итог» ещё раз." + (e && e.detail ? " (" + e.detail + ")" : "")), btn("Закрыть", "ok", () => m.remove())); }
+  }
+  async function autoReports(){
+    if(!sample) return; const todo = all().filter(x => !x.report && x.log.filter(y => y.me).length >= 3 && (!cur || x.id !== cur.id));
+    for(const ses of todo.slice(-3)){ try{ await makeReport(ses); toast("🏁 Готов итог прошлого разговора (" + dstr(ses.date) + ") — смотри «📊 Мой прогресс»"); }catch(e){ return; } }
+  }
+  function toast(t){ const d = h("div", "modal repm"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.textContent = t; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 4500); }
+  async function progress(){
+    const [m, b] = modal(); const ses = all().filter(x => x.report).sort((a, c) => c.id - a.id);
+    b.append(h("h2", "", "📊 Мой прогресс"));
+    if(!ses.length){ b.append(h("div", "", "Пока нет итогов. Поговори с героем и нажми «🏁 Итог»."), btn("Закрыть", "ok", () => m.remove())); return; }
+    const wk = weekKey(new Date().toISOString()), mine = ses.filter(x => weekKey(x.date) === wk);
+    const wbox = h("div", "rep"); b.append(h("b", "", "🗓 Эта неделя: разговоров — " + mine.length), wbox);
+    const W = load(WKEY, {});
+    const drawWeek = w => { wbox.innerHTML = ""; const lv = h("div", ""); lv.append("Уровень сейчас: "); lv.append(h("span", "lv", w.level || "—")); wbox.append(h("div", "", w.summary || ""), lv);
+      (w.repeat || []).forEach(x => { const d = h("div", "mi"); d.append(h("span", "", "🔁 «" + x.bad + "» → "), h("b", "", x.good), h("small", "", x.why || "")); wbox.append(d); });
+      if((w.words || []).length) wbox.append(h("div", "", "🆕 Слова недели: " + w.words.map(x => x[0] + " — " + x[1]).join(" · ")));
+      if(w.tip) wbox.append(h("div", "", "👉 Цель на неделю: " + w.tip));
+      const out = h("div", "toast"); wbox.append(btn("📋 Скопировать итог недели", "sec", () => copy("🗓 Итог недели\nУровень: " + (w.level || "—") + "\n" + (w.summary || "") + ((w.repeat || []).length ? "\n🔁 Повторяются:\n" + w.repeat.map(x => "«" + x.bad + "» → " + x.good).join("\n") : "") + ((w.words || []).length ? "\n🆕 " + w.words.map(x => x[0] + " — " + x[1]).join(", ") : "") + (w.tip ? "\n👉 " + w.tip : ""), out)), out); };
+    if(mine.length && W[wk] && W[wk].n === mine.length) drawWeek(W[wk]);
+    else if(mine.length && sample){ wbox.append(h("div", "", "Готовлю итог недели…"));
+      sample.json(WPROMPT(mine), {modelTier:"quick"}).then(r => { const w = {n: mine.length, summary: String(r.summary || ""), level: String(r.level || ""), repeat: Array.isArray(r.repeat) ? r.repeat.slice(0, 3) : [], words: Array.isArray(r.words) ? r.words.slice(0, 8) : [], tip: String(r.tip || "")}; W[wk] = w; store(WKEY, W); drawWeek(w); })
+        .catch(() => { wbox.innerHTML = ""; wbox.append(h("div", "warn", "Не получилось сделать итог недели — попробуй позже.")); }); }
+    b.append(h("b", "", "📅 По дням"));
+    DAYS.list(b, ses, showReport);
+    b.append(btn("Закрыть", "ok", () => m.remove()));
+  }
+  return {
+    begin(x, hi){ cur = {id: Date.now(), date: new Date().toISOString(), hero: x.n, heroId: x.id, model: (typeof MODEL === "function" ? MODEL() : ""), log: [{hero: hi, fix: ""}], report: null, scene: x.scene ? {kind: x.scene.kind, id: x.scene.id, t: x.scene.t, goal: x.scene.goal_en || ""} : null}; },
+    me(msg, newW){ if(!cur) return; cur.log.push({me: msg, newW: newW || []}); saveCur(); },
+    hero(pt, fix){ if(!cur) return; cur.log.push({hero: pt, fix: fix || ""}); saveCur(); },
+    memo(hero){ const last = all().filter(x => x.report && (!cur || x.id !== cur.id)).sort((a, c) => c.id - a.id)[0];
+      if(!last) return ""; const r = last.report;
+      return "\n- MEMORY of her last practice talk (with " + last.hero + ", " + last.date.slice(0, 10) + "; all heroes share this memory, mention it only if natural): she talked about " + (r.topic || "her life") + ". Her mistakes then: " + (r.mistakes || []).map(m => m.bad + " → " + m.good).join("; ") + ". New words: " + (r.words || []).map(w => w[0]).join(", ") + ". Naturally create chances for her to use these correct forms and words again (do not lecture).";
+    },
+    callback(x){ const last = all().filter(s2 => s2.heroId === x.id && s2.report && s2.report.cb).sort((a, c) => c.id - a.id)[0]; return last ? last.report.cb : null; },
+    finish, progress, autoReports
+  };
+})();
+setTimeout(() => REP.autoReports().then(() => DAYS.auto()), 1500);
+
+
+// ================= OpenAI: speech recognition & hero voice =================
+const STTK = "nastya_stt", TTSK = "nastya_tts";
+const pref = (k, d) => { try{ return localStorage.getItem(k) || d; }catch(e){ return d; } };
+const setPref = (k, v) => { try{ localStorage.setItem(k, v); }catch(e){} };
+const OAI = () => !!(WORKER && sample === viaWorker);
+const STT = () => (!REC ? "openai" : pref(STTK, "openai"));
+const TTS = () => pref(TTSK, "iphone");
+const VOICES = {client: "coral", colleague: "nova", mentor: "fable", hr: "sage", friend: "shimmer", masha: "alloy"};
+const NATIVE = "ru-RU".slice(0, 2);
+function oaiLabels(){
+  $("#sttb").textContent = "🎧 Распознавание: " + (STT() === "openai" ? "OpenAI" : "iPhone");
+  $("#ttsb").textContent = "🗣 Голос героя: " + (TTS() === "openai" ? "OpenAI" : "iPhone");
+  $("#sttb").classList.toggle("on", STT() === "openai"); $("#ttsb").classList.toggle("on", TTS() === "openai");
+}
+$("#sttb").onclick = () => { if(!REC) return; setPref(STTK, STT() === "openai" ? "iphone" : "openai"); micStop(); oaiLabels(); };
+$("#ttsb").onclick = () => { setPref(TTSK, TTS() === "openai" ? "iphone" : "openai"); oaiLabels(); };
+setTimeout(() => { if(OAI()){ $("#sttb").hidden = false; $("#ttsb").hidden = false; oaiLabels(); } }, 350);
+async function wfetch(path, init){
+  let code = getCode(); if(!code) code = await askCode();
+  for(let i = 0; i < 2; i++){
+    const hd = Object.assign({}, init.headers || {}, {"x-code": code});
+    let r; try{ r = await fetch(WORKER.replace(/\/$/, "") + path, Object.assign({}, init, {headers: hd})); }catch(e){ throw {code: "network"}; }
+    if(r.status === 403){ const j = await r.clone().json().catch(() => ({})); if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} code = await askCode("Код не подошёл. Попробуй ещё раз."); continue; } }
+    return r;
+  }
+  throw {code: "badcode"};
+}
+// ---- recording for OpenAI
+let recO = null;
+const _mic = mic;
+mic = function(btn, lng, label){ if(OAI() && STT() === "openai") return recOAI(btn, btn.id === "micru" ? NATIVE : ""); if(REC) return _mic(btn, lng, label); };
+async function recOAI(btn, lng){
+  if(recO){ recO.stop(); return; }
+  let stream; try{ stream = await navigator.mediaDevices.getUserMedia({audio: true}); }catch(e){ micMsg("🎤 Микрофон не открылся. Открой страницу в Safari (не внутри Telegram или другого приложения) и разреши микрофон."); micHelp(); return; }
+  const mime = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"].find(t => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || "";
+  let mr; try{ mr = new MediaRecorder(stream, mime ? {mimeType: mime} : undefined); }catch(e){ stream.getTracks().forEach(t => t.stop()); micMsg("🎤 Этот браузер не умеет записывать звук. Открой страницу в Safari или переключи «🎧 Распознавание» на iPhone."); return; }
+  const chunks = [], label = btn.id === "micru" ? "🇷🇺 Русское слово" : "🎤 Говорить";
+  try{ speechSynthesis.cancel(); }catch(e){} try{ AUD.pause(); }catch(e){}
+  btn.classList.add("on"); btn.textContent = btn.id === "micru" ? "● Запись · закончила — нажми" : "● Слушаю · закончила — нажми, отправлю";
+  mr.ondataavailable = e => { if(e.data && e.data.size) chunks.push(e.data); };
+  mr.onstop = async () => {
+    stream.getTracks().forEach(t => t.stop()); recO = null; btn.classList.remove("on"); btn.textContent = "⏳ OpenAI распознаёт…"; btn.disabled = true;
+    try{
+      const blob = new Blob(chunks, {type: mr.mimeType || mime || "audio/webm"});
+      if(blob.size < 800) throw {code: "short"};
+      const r = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": lng}, body: blob});
+      const j = await r.json().catch(() => ({})); if(!r.ok) throw {code: "stt"};
+      let t = String(j.text || "").trim();
+      // only his two languages are possible: English (learning) + Russian (native). Any other script or letter → ask OpenAI again with a language hint
+      const BAD = t2 => /[^\sA-Za-zА-Яа-яЁё0-9.,!?;:'"’‘“”()\-–—…%&@#/+*=€₺$£]/.test(t2);
+      if(BAD(t)){ let ok = ""; for(const L of (lng ? [lng] : ["ru", "en"])){ const r2 = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": L}, body: blob}); const j2 = await r2.json().catch(() => ({})); const t2 = r2.ok ? String(j2.text || "").trim() : ""; if(t2 && !BAD(t2)){ ok = t2; break; } } t = ok; if(!t) throw {code: "stt"}; }
+      if(!t) throw {code: "empty"};
+      if(t){ const box = $("#box"); box.value = (box.value && !/\s$/.test(box.value) ? box.value + " " : box.value) + t + " "; S.usedStt = "OpenAI"; renderChips(); if(btn.id !== "micru") setTimeout(() => send(), 50); }
+    }catch(e){ micMsg(e && e.code === "short" ? "🎤 Запись получилась слишком короткой или тихой. Нажми кнопку, скажи фразу, потом нажми ещё раз." : e && e.code === "empty" ? "🎤 Не расслышал. Попробуй ещё раз чуть громче." : e && e.code === "network" ? "📶 Нет интернета или связь прервалась. Попробуй ещё раз." : "OpenAI не смог распознать — попробуй ещё раз или переключи «🎧 Распознавание» на iPhone."); }
+    finally{ btn.disabled = false; btn.textContent = label; }
+  };
+  recO = {stop: () => { try{ mr.stop(); }catch(e){} }};
+  mr.start();
+}
+function micErr(){ const d = h("div", "modal repm"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.textContent = "OpenAI не смог распознать — попробуй ещё раз или переключи «🎧 Распознавание» на iPhone."; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 4500); }
+if(!REC && window.MediaRecorder){ $("#micpt").onclick = () => mic($("#micpt"), lang(), ""); $("#micru").onclick = () => mic($("#micru"), "ru-RU", ""); }
+// ---- OpenAI voice (one audio element, unlocked by the first tap — needed on iPhone)
+const AUD = new Audio(); AUD.preload = "auto";
+const SILENT = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
+let audUnlocked = false;
+document.addEventListener("click", () => { if(audUnlocked) return; audUnlocked = true; try{ AUD.src = SILENT; AUD.play().catch(() => {}); }catch(e){} }, true);
+const TTSC = new Map(); let ttsSeq = 0;
+async function sayOAI(t, rate){
+  const text = String(t || "").replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, "").trim(); if(!text) return;
+  const voice = (S.hero && PERS.voice(S.hero)) || "ash", speed = rate && rate < .8 ? .7 : 1, key = voice + "|" + speed + "|" + text, my = ++ttsSeq;
+  try{ speechSynthesis.cancel(); }catch(e){}
+  try{
+    let url = TTSC.get(key);
+    if(!url){ const r = await wfetch("/tts", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({text, voice, speed})}); if(!r.ok) throw 0; url = URL.createObjectURL(await r.blob()); TTSC.set(key, url); }
+    if(my !== ttsSeq) return;
+    AUD.src = url; await AUD.play();
+  }catch(e){ _say(t, lang(), rate); }
+}
+const _say = say;
+say = function(t, lng, rate, queue){ if(S.mute) return; if(OAI() && TTS() === "openai" && lng && lng.slice(0, 2) === lang().slice(0, 2)) return sayOAI(t, rate); return _say(t, lng, rate, queue); };
+$("#mute").addEventListener("click", () => { if(S.mute) try{ AUD.pause(); }catch(e){} });
+
+
+// ================= Personalisation (phase 1) =================
+const PERS = (() => {
+  const K = {facts: "nastya_facts", cards: "nastya_cards", days: "nastya_days", goal: "nastya_goal", mis: "nastya_missions", my: "nastya_myhero", voices: "nastya_voices", ses: "nastya_sessions", weeks: "nastya_weeks", hit: "nastya_goalhit"};
+  const load = (k, d) => { try{ return JSON.parse(localStorage.getItem(k) || "null") || d; }catch(e){ return d; } };
+  const store = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
+  const DAY = 864e5, today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+  const dkey = t => { const d = new Date(t); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+  const monday = () => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return d; };
+  const dstr = iso => new Date(iso).toLocaleDateString("ru-RU", {day: "numeric", month: "long"});
+  const btn = (txt, cls, fn) => { const x = h("button", cls || "sec", txt); x.type = "button"; x.onclick = fn; return x; };
+  const modal = () => { document.querySelectorAll(".modal.repm").forEach(x => x.remove()); const m = h("div", "modal repm"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true");
+    const b = h("div", "box rep"); m.append(b); m.onclick = e => { if(e.target === m) m.remove(); }; document.body.append(m); return [m, b]; };
+  const toast = t => { const d = h("div", "modal repm"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.textContent = t; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 4000); };
+  const heroById = id => id === "custom" ? myHero() : HEROES.find(x => x.id === id);
+
+  // ---------- 📅 situations of the day & 🏆 missions ----------
+  const SITS = [
+   {id:"s1", h:"client", t:"Срочный перевод к пятнице", task:"Emma needs a 20-page contract translated by Friday; discuss the deadline, the price for an urgent job and what is realistic.",
+    hi:"Anastasia, I have a 20-page contract and I need it translated by Friday. Is that doable?", hiru:"Анастасия, у меня договор на 20 страниц, и перевод нужен к пятнице. Это реально?", w:{}},
+   {id:"s2", h:"colleague", t:"Слоган с игрой слов", task:"Sarah has a marketing slogan full of wordplay and asks how Anastasia would translate it into Russian and why it is hard.",
+    hi:"Help! The client wants their slogan «Get a grip on life» in Russian. How would you even translate that?", hiru:"Помоги! Клиент хочет слоган «Get a grip on life» на русском. Как это вообще перевести?", w:{}},
+   {id:"s3", h:"mentor", t:"Как звучать естественнее", task:"James asks which English phrases feel hardest for Anastasia to say naturally and gives her native-like alternatives.",
+    hi:"Tell me, which English phrases do you find hardest to say naturally?", hiru:"Скажи, какие английские фразы тебе труднее всего произносить естественно?", w:{}},
+   {id:"s4", h:"hr", t:"«Расскажите о себе»", task:"Job interview start: Rachel asks the classic «Tell me about yourself» and follow-up questions about her translation experience.",
+    hi:"So, Anastasia, let's start with the classic: tell me a little about yourself.", hiru:"Итак, Анастасия, начнём с классики: расскажите немного о себе.", w:{}},
+   {id:"s5", h:"friend", t:"Сериал, который ты смотришь", task:"Jessica asks what series Anastasia is watching now; compare tastes and recommend shows to each other.",
+    hi:"I just finished a series and I'm totally lost now. What are you watching these days?", hiru:"Я только что досмотрела сериал и теперь не знаю, что делать. Что ты сейчас смотришь?", w:{}},
+   {id:"s6", h:"masha", t:"Сибирская зима для американцев", task:"Masha's American friends asked what winter in Novosibirsk is like; she asks Nastya to describe it in English.",
+    hi:"Nastya, my American friends asked me what winter in Novosibirsk is like. How would you describe it?", hiru:"Настя, мои американские друзья спросили, какая зима в Новосибирске. Как бы ты её описала?", w:{}},
+   {id:"s7", h:"friend", t:"Выпускной год Артёма", task:"Jessica's son is also finishing high school; talk about exams, university plans and how moms survive this year.",
+    hi:"My son is applying to colleges and I'm so stressed! How's Artem doing with his final year?", hiru:"Мой сын поступает в колледж, и я в таком стрессе! Как у Артёма дела с выпускным годом?", w:{}},
+   {id:"s8", h:"client", t:"Клиентка недовольна термином", task:"Emma is unhappy with how one term was translated; Anastasia explains her choice politely and finds a solution.",
+    hi:"Anastasia, our legal team says one term in the translation is wrong. Can we talk about it?", hiru:"Анастасия, наши юристы говорят, что один термин в переводе неверный. Можем обсудить?", w:{}},
+   {id:"s9", h:"colleague", t:"Два дедлайна сразу", task:"Sarah has two urgent projects at the same time and asks Anastasia how she prioritises and manages stress.",
+    hi:"Two urgent projects, same deadline, one me. How do you deal with days like this?", hiru:"Два срочных проекта, один дедлайн и одна я. Как ты справляешься с такими днями?", w:{}},
+   {id:"s10", h:"masha", t:"Выходные с семьёй", task:"Masha asks how Nastya spent the weekend with Vitaly and Artem.",
+    hi:"So, tell me everything! How was your weekend with Vitaly and Artem?", hiru:"Ну, рассказывай всё! Как прошли выходные с Виталием и Артёмом?", w:{}},
+   {id:"s11", h:"hr", t:"Сильные и слабые стороны", task:"Interview: Rachel asks about strengths and weaknesses and a difficult situation at work.",
+    hi:"What would you say are your biggest strengths as a translator?", hiru:"Какие, по-вашему, ваши главные сильные стороны как переводчика?", w:{}},
+   {id:"s12", h:"mentor", t:"Как перевести русскую шутку", task:"James asks Anastasia to tell a Russian joke or saying and together they try to make it work in English.",
+    hi:"I've always wondered: is there a Russian joke you think is impossible to translate?", hiru:"Мне всегда было интересно: есть русская шутка, которую, по-твоему, невозможно перевести?", w:{}}
+  ];
+  const MIS = [
+   {id:"m1", h:"client", e:"💼", t:"Переговоры о сроках", goal:"Договорись с Emma о новом сроке. Используй: «I'm afraid», «Would it be possible to…», «I can offer…»", goal_en:"\"I'm afraid\", \"Would it be possible to\", \"I can offer\"",
+    task:"Emma wants a translation in two days, which is not realistic; Anastasia must negotiate a new deadline politely.",
+    hi:"I really need this translation by Wednesday. That works for you, right?", hiru:"Мне очень нужен этот перевод к среде. Вам ведь подходит?", w:{}},
+   {id:"m2", h:"hr", e:"🎯", t:"Собеседование", goal:"Пройди собеседование. Используй: «I'm responsible for», «I managed to», «My strength is»", goal_en:"\"I'm responsible for\", \"I managed to\", \"My strength is\"",
+    task:"A full short job interview for a senior translator position: experience, achievements, strengths.",
+    hi:"Welcome, Anastasia! Could you walk me through your current role?", hiru:"Добро пожаловать, Анастасия! Расскажете о своей нынешней работе?", w:{}},
+   {id:"m3", h:"friend", e:"📺", t:"Перескажи сериал", goal:"Перескажи Jessica сериал или фильм. Используй минимум 5 разных глаголов в прошедшем времени", goal_en:"at least 5 different verbs in the past simple",
+    task:"Jessica asks Anastasia to retell the plot of a series or film she watched recently; ask follow-up questions.",
+    hi:"Okay, I need a new show. Tell me about the last thing you watched!", hiru:"Так, мне нужен новый сериал. Расскажи, что ты смотрела последним!", w:{}},
+   {id:"m4", h:"colleague", e:"📧", t:"Вежливый отказ", goal:"Вежливо откажись от лишнего проекта. Используй: «Unfortunately», «I'd be happy to…, but», «How about…?»", goal_en:"\"Unfortunately\", \"I'd be happy to ... but\", \"How about\"",
+    task:"Sarah asks Anastasia to take one more urgent project this week; she must say no politely and offer an alternative.",
+    hi:"Anastasia, can you squeeze in one more project this week? Pretty please?", hiru:"Анастасия, сможешь втиснуть ещё один проект на этой неделе? Ну пожалуйста?", w:{}},
+   {id:"m5", h:"mentor", e:"🗣", t:"Фразовые глаголы", goal:"Поговори с James и используй 4 фразовых глагола: «look into», «come up with», «figure out», «put off»", goal_en:"\"look into\", \"come up with\", \"figure out\", \"put off\"",
+    task:"James talks with Anastasia about her work and plans, creating natural chances for phrasal verbs.",
+    hi:"Today's challenge: phrasal verbs, but naturally. So, what's on your plate this week?", hiru:"Сегодняшний вызов: фразовые глаголы, но естественно. Итак, что у тебя на этой неделе?", w:{}},
+   {id:"m6", h:"masha", e:"❄️", t:"Экскурсия по Новосибирску", goal:"Расскажи Маше, что показать американцам в Новосибирске. Используй: «It's worth visiting», «You can't miss», «Make sure you…»", goal_en:"\"It's worth visiting\", \"You can't miss\", \"Make sure you\"",
+    task:"Masha's American friends are coming to Novosibirsk; Nastya plans a city tour for them.",
+    hi:"My American friends are coming to Novosibirsk next month! What should they see?", hiru:"Мои американские друзья приезжают в Новосибирск в следующем месяце! Что им посмотреть?", w:{}},
+   {id:"m7", h:"friend", e:"👨‍👩‍👦", t:"Рассказ о семье", goal:"Расскажи Jessica о семье. Используй: «has been», «has just», «have never»", goal_en:"\"has been\", \"has just\", \"have never\" (present perfect)",
+    task:"Jessica asks about Vitaly and Artem and recent family news.",
+    hi:"Tell me about your family! What's new with Vitaly and Artem?", hiru:"Расскажи о семье! Что нового у Виталия и Артёма?", w:{}},
+   {id:"m8", h:"client", e:"📞", t:"Звонок с жалобой", goal:"Успокой недовольную клиентку. Используй: «I understand your concern», «Let me check», «I'll get back to you»", goal_en:"\"I understand your concern\", \"Let me check\", \"I'll get back to you\"",
+    task:"Emma calls, upset: the translation arrived late and one page is missing. Anastasia handles the complaint professionally.",
+    hi:"Anastasia, I'm not happy. The translation came late and one page is missing!", hiru:"Анастасия, я недовольна. Перевод пришёл поздно, и не хватает одной страницы!", w:{}}
+  ];
+  const sitToday = () => { const n = Math.floor((new Date() - new Date(2026, 0, 1)) / DAY); return SITS[((n % SITS.length) + SITS.length) % SITS.length]; };
+  function startScene(sc, kind){
+    const base = heroById(sc.h); if(!base) return;
+    document.querySelectorAll(".modal.repm").forEach(x => x.remove());
+    start(Object.assign({}, base, {hi: sc.hi, hiru: sc.hiru, words: sc.w, scene: Object.assign({kind}, sc)}));
+  }
+  function banner(sc){ const d = h("div", "goal"); d.textContent = sc.kind === "mis" ? "🏆 Миссия: " + sc.goal : "📅 Ситуация дня: " + sc.t; return d; }
+
+  // ---------- 🔥 time, streak, weekly goal ----------
+  let lastAct = 0;
+  const act = msg => { lastAct = Date.now(); if(msg){ const D = load(K.days, {}), t = today(); D[t] = D[t] || {s: 0, m: 0}; D[t].m++; store(K.days, D); } };
+  document.addEventListener("click", () => { if(S.hero) lastAct = Date.now(); }, true);
+  document.addEventListener("input", () => { if(S.hero) lastAct = Date.now(); }, true);
+  setInterval(() => {
+    if(!S.hero || document.visibilityState !== "visible" || Date.now() - lastAct > 90000) return;
+    const D = load(K.days, {}), t = today(); D[t] = D[t] || {s: 0, m: 0}; D[t].s += 5; store(K.days, D);
+    const g = goalMin(), wk = monday().toISOString().slice(0, 10);
+    if(weekMin() >= g && load(K.hit, "") !== wk){ store(K.hit, wk); toast("🎉 Цель недели выполнена: " + g + " минут! Отлично получается 🔥"); }
+  }, 5000);
+  const goalMin = () => Math.max(15, +load(K.goal, 15) || 15);
+  const weekMin = () => { const D = load(K.days, {}), m0 = monday().getTime(); let s2 = 0; Object.entries(D).forEach(([k, v]) => { const [y, mo, d] = k.split("-").map(Number); if(new Date(y, mo - 1, d).getTime() >= m0) s2 += v.s || 0; }); return Math.floor(s2 / 60); };
+  const activeDay = v => v && ((v.s || 0) >= 60 || (v.m || 0) > 0);
+  const streak = () => { const D = load(K.days, {}); let n = 0, d = new Date(); if(!activeDay(D[dkey(d)])) d = new Date(d.getTime() - DAY);
+    while(activeDay(D[dkey(d)])){ n++; d = new Date(d.getTime() - DAY); } return n; };
+  function goalModal(){
+    const [m, b] = modal(); b.append(h("h2", "", "🔥 Цель на неделю"), h("div", "", "Сколько минут в неделю хочешь говорить по-английски? Минимум 15 минут."));
+    const row = h("div", "vrow"); [15, 30, 45, 60, 90, 120].forEach(v => { const x = btn(v + " мин", "", () => { store(K.goal, v); m.remove(); pick(); }); if(v === goalMin()) x.classList.add("on"); row.append(x); });
+    b.append(row, h("div", "", "Время разговора считается само (пока страница открыта и ты активна). Серия — дни подряд, когда ты разговаривала."), btn("Закрыть", "ok", () => m.remove()));
+  }
+
+  // ---------- 📈 auto level ----------
+  const ORDER = ["A1", "A1+", "A2-", "A2", "A2+", "B1-", "B1", "B1+", "B2-", "B2", "B2+", "C1-", "C1", "C1+", "C2"];
+  const norm = l => { const x = String(l || "").toUpperCase().replace(/[–−]/g, "-").match(/[ABC][12][+-]?/); return x && ORDER.includes(x[0]) ? x[0] : null; };
+  function level(){
+    const ses = load(K.ses, []).filter(x => x.report && norm(x.report.level)).sort((a, c) => c.id - a.id).slice(0, 3).map(x => norm(x.report.level));
+    const W = load(K.weeks, {}), wk = Object.keys(W).sort().pop(); if(wk && norm(W[wk].level)) ses.push(norm(W[wk].level));
+    if(!ses.length) return {lv: "B2-", auto: false};
+    const idx = ses.map(x => ORDER.indexOf(x)).sort((a, c) => a - c); return {lv: ORDER[idx[Math.floor((idx.length - 1) / 2)]], auto: true};
+  }
+
+  // ---------- 🧠 shared facts ----------
+  const facts = () => load(K.facts, []);
+  const factsLine = () => facts().slice(-25).map(f => f.t).join("; ") || "(nothing yet)";
+  function addFacts(list, src){ const F = facts(); list.forEach(t => { t = String(t).trim(); if(t && !F.some(f => f.t.toLowerCase() === t.toLowerCase())) F.push({t, d: new Date().toISOString(), src: src || ""}); }); store(K.facts, F.slice(-40)); }
+  function factsModal(){
+    const [m, b] = modal(); b.append(h("h2", "", "🧠 Что герои знают о тебе"), h("div", "", "Это они узнали из разговоров. Все герои знают одно и то же. Неверное удали ✕, новое добавь (по-английски или по-русски)."));
+    const list = h("div", ""); const draw = () => { list.innerHTML = ""; const F = facts();
+      if(!F.length) list.append(h("div", "", "Пока пусто — после разговора нажми «🏁 Итог», и новые факты появятся здесь."));
+      F.slice().reverse().forEach(f => { const r = h("div", "fact"); r.append(h("span", "", f.t)); r.append(btn("✕", "", () => { store(K.facts, facts().filter(x => x.t !== f.t)); draw(); })); list.append(r); }); };
+    draw(); const inp = h("input"); inp.type = "text"; inp.placeholder = "Например: My husband Vitaly loves fishing."; inp.setAttribute("aria-label", "Новый факт");
+    b.append(list, inp, btn("➕ Добавить", "sec", () => { if(inp.value.trim()){ addFacts([inp.value], "me"); inp.value = ""; draw(); } }), btn("Закрыть", "ok", () => m.remove()));
+  }
+
+  // ---------- 🃏 cards (SRS 1 / 3 / 7 days) ----------
+  const INT = [0, 1, 3, 7, 21];
+  const cards = () => load(K.cards, {});
+  function addCard(front, back, quiet){
+    front = String(front || "").trim(); back = String(back || "").trim(); if(!front) return false;
+    const C = cards(), key = front.toLowerCase(); if(C[key]) return false;
+    C[key] = {f: front, b: back, box: 0, due: Date.now(), add: Date.now()}; store(K.cards, C); return true;
+  }
+  const dueCards = () => Object.values(cards()).filter(c => c.due <= Date.now()).sort((a, c) => a.due - c.due);
+  function cardBtn(hd, word, trf){ const x = h("button", "addk", "➕ Карточка"); x.type = "button";
+    if(cards()[word.toLowerCase()]){ x.textContent = "✓ В карточках"; x.disabled = true; }
+    x.onclick = () => { addCard(word, trf()); x.textContent = "✓ В карточках"; x.disabled = true; }; hd.append(x); }
+  function review(){
+    const [m, b] = modal(); let q = dueCards().slice(0, 20), done = 0; const again = new Set();
+    const C = cards(), total = Object.keys(C).length, learned = Object.values(C).filter(c => c.box >= 4).length;
+    const step = () => { b.innerHTML = "";
+      if(!q.length){ b.append(h("h2", "", done ? "🎯 На сегодня всё!" : "🃏 Карточки"), h("div", "", done ? `Повторено: ${done}. Следующие карточки придут через 1, 3 и 7 дней.` : "Сейчас повторять нечего. 👍"),
+          h("div", "", `Всего карточек: ${total} · выучено: ${learned}`), h("small", "", "Карточки добавляются сами: слова, которые ты сказала по-русски, новые слова и ошибки из итога. Можно и самой: нажми на слово героя и «➕ Карточка»."), btn("Закрыть", "ok", () => m.remove())); return; }
+      const c = q[0]; b.append(h("h2", "", `🃏 Карточка · осталось ${q.length}`));
+      const card = h("div", "card"); const f = h("div", "f", c.f); const bk = h("div", "bk", c.b || "—"); bk.hidden = true; card.append(f, bk); b.append(card);
+      b.append(btn("🔊 Слушать", "sec", () => say(c.f, lang())));
+      const show = btn("👀 Показать перевод", "ok", () => { bk.hidden = false; show.remove(); row.hidden = false; }); b.append(show);
+      const row = h("div", "row"); row.hidden = true;
+      row.append(btn("✅ Знала", "sec", () => grade(c, true)), btn("🔁 Ещё раз", "sec", () => grade(c, false))); b.append(row);
+      say(c.f, lang()); };
+    const grade = (c, ok) => { const C2 = cards(), x = C2[c.f.toLowerCase()]; q.shift();
+      if(x){ if(ok){ x.box = Math.min(4, x.box + 1); x.due = Date.now() + INT[x.box] * DAY - 36e5; } else { x.box = 0; x.due = Date.now() + DAY - 36e5; if(!again.has(c.f)){ again.add(c.f); q.push(x); } } store(K.cards, C2); }
+      done++; act(false); step(); };
+    step();
+  }
+
+  // ---------- ✨ own hero ----------
+  const EMO = ["🦸", "🧑‍🚀", "🤖", "🦁", "🐻", "🧙", "🕵️", "👨‍🍳", "⚽", "🎸"];
+  function myHero(){ const x = load(K.my, null); if(!x || !x.name) return null;
+    return {id: "custom", e: x.e || "🦸", n: x.name, d: x.who ? x.who.slice(0, 60) : "Твой герой",
+      role: `You are ${x.name}. Your character, created by the learner (it may be written in Russian): ${x.who || "a friendly person"}. Where you are / your world: ${x.place || "anywhere"}. Stay in this character all the time and talk like this person would.`,
+      hi: `Hi Nastya! It's me, ${x.name}. Great to see you! How's your day going?`, hiru: `Привет, Настя! Это я, ${x.name}. Рада тебя видеть! Как проходит твой день?`,
+      words: {}}; }
+  function heroModal(){
+    const cur = load(K.my, {}) || {}; const [m, b] = modal(); b.append(h("h2", "", "✨ Свой герой"), h("div", "", "С кем хочешь поговорить? Заполни — герой будет говорить именно так."));
+    const n = h("input"); n.type = "text"; n.placeholder = "Имя (например, Captain Max)"; n.value = cur.name || ""; n.setAttribute("aria-label", "Имя");
+    const w = h("textarea"); w.rows = 3; w.placeholder = "Кто он, какой? (например, бывший пилот, с юмором, любит футбол)"; w.value = cur.who || ""; w.setAttribute("aria-label", "Karakter");
+    const pl = h("input"); pl.type = "text"; pl.placeholder = "Где? (например, бар в Нью-Йорке)"; pl.value = cur.place || ""; pl.setAttribute("aria-label", "Место");
+    let e = cur.e || EMO[0]; const er = h("div", "emo"); EMO.forEach(x => { const eb = btn(x, "", () => { e = x; er.querySelectorAll("button").forEach(y => y.classList.toggle("on", y === eb)); }); if(x === e) eb.classList.add("on"); er.append(eb); });
+    const err = h("div", ""); err.style.color = "#C2410C";
+    b.append(h("b", "", "Имя"), n, h("b", "", "Характер"), w, h("b", "", "Место"), pl, h("b", "", "Значок"), er, err,
+      btn("💾 Сохранить и поговорить", "ok", () => { if(!n.value.trim()){ err.textContent = "Напиши имя."; return; } store(K.my, {name: n.value.trim().slice(0, 30), who: w.value.trim().slice(0, 300), place: pl.value.trim().slice(0, 100), e}); m.remove(); start(myHero()); }));
+    if(cur.name) b.append(btn("🗑 Удалить героя", "sec", () => { try{ localStorage.removeItem(K.my); }catch(x){} m.remove(); pick(); }));
+    b.append(btn("Закрыть", "sec", () => m.remove()));
+  }
+
+  // ---------- 🎙 voices ----------
+  const VLIST = ["coral", "nova", "shimmer", "sage", "alloy", "ash", "ballad", "echo", "fable", "onyx", "verse"];
+  const voice = hero => (VLIST.includes(load(K.voices, {})[hero.id]) ? load(K.voices, {})[hero.id] : 0) || VOICES[hero.id] || "ash";
+  async function playSample(v, hero){
+    try{ const r = await wfetch("/tts", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({text: `Hi Nastya, I'm ${hero.n.split(" ").pop()}. Do you like my voice?`, voice: v, speed: 1})});
+      if(!r.ok) throw 0; AUD.src = URL.createObjectURL(await r.blob()); await AUD.play(); }catch(e){ toast("Пример голоса не проигрался — проверь интернет."); }
+  }
+  function voiceModal(){
+    const [m, b] = modal(); b.append(h("h2", "", "🎙 Голоса героев"), h("div", "", "Нажми на голос — услышишь пример, и голос выберется. Эти голоса работают в режиме «🗣 Голос героя: OpenAI» — он включится сам."));
+    HEROES.concat(myHero() ? [myHero()] : []).forEach(hero => { b.append(h("b", "", hero.e + " " + hero.n)); const row = h("div", "vrow");
+      VLIST.forEach(v => { const x = btn("▶ " + v, "", () => { const V = load(K.voices, {}); V[hero.id] = v; store(K.voices, V); setPref(TTSK, "openai"); try{ oaiLabels(); }catch(e){} row.querySelectorAll("button").forEach(y => y.classList.toggle("on", y === x)); playSample(v, hero); });
+        if(voice(hero) === v) x.classList.add("on"); row.append(x); }); b.append(row); });
+    b.append(btn("Закрыть", "ok", () => m.remove()));
+  }
+
+  // ---------- 📜 history ----------
+  function historyModal(){
+    const [m, b] = modal(); const ses = load(K.ses, []).filter(x => x.log && x.log.some(y => y.me)).sort((a, c) => c.id - a.id);
+    b.append(h("h2", "", "📜 История разговоров"));
+    if(!ses.length){ b.append(h("div", "", "Пока нет сохранённых разговоров."), btn("Закрыть", "ok", () => m.remove())); return; }
+    ses.slice(0, 60).forEach(x => { const hr = heroById(x.heroId); const d = h("button", "day"); d.type = "button";
+      d.append(h("span", "", (hr ? hr.e + " " : "💬 ") + dstr(x.date) + " · " + x.hero), h("small", "", "сообщений: " + x.log.filter(y => y.me).length + (x.scene ? " · " + (x.scene.kind === "mis" ? "🏆 " : "📅 ") + x.scene.t : "") + (x.report ? " · уровень " + x.report.level : "")));
+      d.onclick = () => openTalk(x); b.append(d); });
+    b.append(btn("Закрыть", "ok", () => m.remove()));
+  }
+  function openTalk(x){
+    const [m, b] = modal(); const hr = heroById(x.heroId) || {id: x.heroId, e: "💬", n: x.hero};
+    b.append(h("h2", "", hr.e + " " + x.hero + " · " + dstr(x.date)));
+    const play = t => { const prev = S.hero; S.hero = hr; try{ say(t, lang()); }finally{ S.hero = prev; } };
+    x.log.forEach(l => { const d = h("div", "hl" + (l.me ? " me" : ""));
+      if(l.me){ d.append(h("span", "", "🙋 " + l.me)); }
+      else { d.append(h("span", "", hr.e + " " + l.hero)); if(l.fix) d.append(h("span", "fx", "✏️ " + l.fix)); const sb = btn("🔊 Слушать", "sec", () => play(l.hero)); sb.style.justifySelf = "start"; d.append(sb); }
+      b.append(d); });
+    b.append(btn("◀ История", "sec", historyModal), btn("Закрыть", "ok", () => m.remove()));
+  }
+
+  // ---------- 🏆 missions list ----------
+  function missionsModal(){
+    const [m, b] = modal(); const M = load(K.mis, {}); b.append(h("h2", "", "🏆 Миссии"), h("div", "", "У каждой миссии есть цель. Поговори, потом нажми «🏁 Итог» — итог скажет, выполнена ли миссия."));
+    MIS.forEach(x => { const hr = heroById(x.h); const d = h("button", "day"); d.type = "button";
+      d.append(h("span", "", (M[x.id] && M[x.id].done ? "✅ " : "⭐ ") + x.e + " " + x.t + " · " + (hr ? hr.n : "")), h("small", "", x.goal + (M[x.id] && M[x.id].done ? " · выполнено " + dstr(M[x.id].date) : "")));
+      d.onclick = () => startScene(x, "mis"); b.append(d); });
+    b.append(btn("Закрыть", "ok", () => m.remove()));
+  }
+
+  // ---------- report hooks ----------
+  function afterReport(ses){
+    const r = ses.report; if(!r) return;
+    if(r.facts && r.facts.length) addFacts(r.facts, ses.hero);
+    let n = 0; (r.words || []).forEach(w => { if(Array.isArray(w) && addCard(w[0], w[1])) n++; });
+    (r.mistakes || []).forEach(x => { if(x && x.good && addCard(x.good, "✏️ «" + x.bad + "» — неверно" + (x.why ? " — " + x.why : ""))) n++; });
+    r.newCards = n;
+    if(ses.scene && ses.scene.kind === "mis" && r.mission && r.mission.done){ const M = load(K.mis, {}); M[ses.scene.id] = {done: true, date: ses.date}; store(K.mis, M); }
+    const a = load(K.ses, []).map(x => x.id === ses.id ? ses : x); store(K.ses, a);
+  }
+  function reportExtra(b, ses){ const r = ses.report;
+    if(r.mission) b.append(h("div", "goal", (r.mission.done ? "🏆 Миссия выполнена! " : "🏆 Миссия пока не выполнена. ") + (r.mission.note || "")));
+    if(r.facts && r.facts.length) b.append(h("div", "", "🧠 Герои узнали о тебе: " + r.facts.join(" · ")));
+    if(r.newCards) b.append(h("div", "", "🃏 Добавлено в карточки: " + r.newCards));
+  }
+  function ctx(hero){
+    const lv = level(), F = facts().slice(-25);
+    let t = "\n- HER CURRENT LEVEL (measured automatically from her recent talks): " + lv.lv + ". Speak at this level; at most 5% of your words and grammar may be one level higher. This overrides the level written above.";
+    if(F.length) t += "\n- WHAT YOU ALREADY KNOW ABOUT ANASTASIA from earlier talks (all heroes share this knowledge; use it naturally, do not list it): " + F.map(f => f.t).join("; ") + ".";
+    const sc = hero && hero.scene;
+    if(sc && sc.kind === "sit") t += "\n- TODAY'S SITUATION (role-play): " + sc.task + " Play this situation from your first line on.";
+    if(sc && sc.kind === "mis") t += "\n- MISSION for her: " + sc.task + " Her goal: use " + sc.goal_en + ". Create natural chances for her to use them. When she has used all of them, congratulate her in \"fix\" (in Russian) and say the mission is complete.";
+    return t;
+  }
+
+  // ---------- picker ----------
+  function decorate(a, g, pb){
+    const lv = level(), wm = weekMin(), gm = goalMin(), st = streak();
+    const dash = h("button", "dash"); dash.type = "button"; dash.onclick = goalModal;
+    const row = h("div", "st"); row.append(h("span", "", "🔥 Серия: " + st + " дн."), h("span", "", "📈 Уровень: " + lv.lv)); dash.append(row);
+    dash.append(h("span", "", "На этой неделе: " + Math.min(wm, 999) + " / " + gm + " мин" + (wm >= gm ? " ✅" : "")));
+    const bar = h("div", "barx"); const fill = h("i"); fill.style.width = Math.min(100, Math.round(wm / gm * 100)) + "%"; bar.append(fill); dash.append(bar);
+    dash.append(h("small", "", (lv.auto ? "Уровень настраивается сам по последним разговорам. " : "Уровень настроится сам после первого итога. ") + "Нажми, чтобы изменить цель."));
+    a.insertBefore(dash, g);
+    const sc = sitToday(), hr = heroById(sc.h), doneToday = load(K.ses, []).some(x => x.scene && x.scene.id === sc.id && dkey(x.date) === today());
+    const sit = h("div", "sit"); sit.append(h("span", "k", "📅 Ситуация дня"), h("b", "", sc.t + (doneToday ? " ✅" : "")), h("small", "", "С кем: " + hr.e + " " + hr.n));
+    sit.append(btn(doneToday ? "Поговорить ещё →" : "Начать →", "pbtn", () => startScene(sc, "sit"))); a.insertBefore(sit, g);
+    const mh = myHero();
+    const cb = h("button", "hero"); cb.type = "button";
+    if(mh){ cb.append(h("span", "e", mh.e), h("b", "", mh.n), h("small", "", mh.d)); cb.onclick = () => start(mh); g.append(cb);
+      const ed = h("button", "hero"); ed.type = "button"; ed.append(h("span", "e", "✏️"), h("b", "", "Изменить своего героя"), h("small", "", "Имя, характер, место")); ed.onclick = heroModal; g.append(ed); }
+    else { cb.append(h("span", "e", "✨"), h("b", "", "Свой герой"), h("small", "", "Имя, характер и место выбираешь ты.")); cb.onclick = heroModal; g.append(cb); }
+    const M = load(K.mis, {}), md = MIS.filter(x => M[x.id] && M[x.id].done).length, dc = dueCards().length;
+    const tl = h("div", "tools2");
+    tl.append(btn("🏆 Миссии " + md + "/" + MIS.length, "tool", missionsModal), btn("🃏 Карточки" + (dc ? " · " + dc : ""), "tool", review),
+      btn("📜 История", "tool", historyModal), btn("🧠 Обо мне", "tool", factsModal));
+    if(WORKER) tl.append(btn("🎙 Голоса", "tool", voiceModal));
+    a.insertBefore(tl, pb);
+  }
+  return {ctx, banner, act, addCard, cardBtn, voice, decorate, afterReport, reportExtra, factsLine: () => factsLine()};
+})();
+
+
+// ---- word translations by the cheap model (Haiku), fallback to the main model
+const W1 = (w, ctx) => `Translate the English word "${w}" into Russian as it is used in this sentence: "${ctx}". Reply with only JSON: {"tr": "short Russian translation"}`;
+async function cheap(prompt){ try{ return await sample.json(prompt, {modelTier: "quick", model: "haiku"}); }catch(e){ if(e && (e.code === "network" || e.code === "badcode")) throw e; return await sample.json(prompt, {modelTier: "quick"}); } }
+const W1C = {};
+async function oneWord(w, ctx){ const k = w.toLowerCase() + "|" + ctx; if(W1C[k]) return W1C[k]; const r = await cheap(W1(w, ctx)); const t = String(r.tr || "").trim(); if(!t) throw 0; return W1C[k] = t; }
+function micMsg(t){ document.querySelectorAll(".micmsg").forEach(x => x.remove()); const d = h("div", "modal repm micmsg"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.style.border = "2px solid #F2B632"; x.textContent = t; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 6000); }
+// ---- ✕ for every window (except the code window)
+new MutationObserver(() => { document.querySelectorAll(".modal > .box").forEach(b => { if(b.querySelector(":scope > .mx") || b.classList.contains("codebox") || b.closest(".modal").style.pointerEvents === "none" || b.closest(".modal").style.background === "transparent") return;
+  const x = h("button", "mx", "✕"); x.type = "button"; x.setAttribute("aria-label", "Закрыть окно"); x.onclick = () => b.closest(".modal").remove(); b.prepend(x); }); }).observe(document.body, {childList: true});
+// ---- code is asked at the entry and checked at once (no AI call, free)
+(async function codeGate(){
+  if(!WORKER || window.claude) return; let msg;
+  for(let i = 0; i < 20; i++){
+    let c = getCode(); if(!c) c = await askCode(msg);
+    let r; try{ r = await fetch(WORKER.replace(/\/$/, "") + "/tts", {method: "POST", headers: {"content-type": "application/json", "x-code": c}, body: "{}"}); }catch(e){ return; }
+    if(r.status === 403){ const j = await r.json().catch(() => ({})); if(j.error === "code"){ try{ localStorage.removeItem(CODEKEY); }catch(e){} msg = "Код не подошёл. Попробуй ещё раз."; continue; } }
+    return;
+  }
+})();
+
+// ---- repair an AI answer that is not clean JSON (extra commas, or cut off at the end)
+function repairJSON(t){
+  const i0 = t.indexOf("{"); if(i0 < 0) return null; let s = t.slice(i0);
+  const tryP = x => { try{ return JSON.parse(x); }catch(e){ try{ return JSON.parse(x.replace(/,\s*([}\]])/g, "$1")); }catch(e2){ return null; } } };
+  let st = [], inS = false, esc = false, safe = null;
+  for(let i = 0; i < s.length; i++){ const c = s[i];
+    if(inS){ if(esc) esc = false; else if(c === "\\") esc = true; else if(c === '"') inS = false; continue; }
+    if(c === '"') inS = true;
+    else if(c === "{" || c === "["){ st.push(c === "{" ? "}" : "]"); }
+    else if(c === "}" || c === "]"){ st.pop(); safe = {i: i + 1, st: st.slice()}; if(!st.length){ const r = tryP(s.slice(0, i + 1)); if(r) return r; break; } }
+    else if(c === ","){ safe = {i, st: st.slice()}; }
+  }
+  if(!safe) return null;
+  return tryP(s.slice(0, safe.i) + safe.st.slice().reverse().join(""));
+}
+
+// ================= Daily summaries (one per date) =================
+const DAYS = (() => {
+  const KS = "nastya_daysum", DAY = 864e5;
+  const load = (k, d) => { try{ return JSON.parse(localStorage.getItem(k) || "null") || d; }catch(e){ return d; } };
+  const store = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
+  const dkey = t => { const d = new Date(t); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+  const fromKey = k => { const [y, m, d] = k.split("-").map(Number); return new Date(y, m - 1, d); };
+  const dname = k => fromKey(k).toLocaleDateString("ru-RU", {day: "numeric", month: "long"});
+  const btn = (txt, cls, fn) => { const x = h("button", cls || "sec", txt); x.type = "button"; x.onclick = fn; return x; };
+  const reported = () => load("nastya_sessions", []).filter(x => x.report);
+  const byDay = () => { const g = {}; reported().forEach(x => { (g[dkey(x.date)] = g[dkey(x.date)] || []).push(x); }); return g; };
+  const mins = k => Math.round(((load("nastya_days", {})[k] || {}).s || 0) / 60);
+  const DPROMPT = (k, reps) => `Daily summary of Anastasia's English conversation practice on ${k} (Russian speaker). Talk reports of this day:
+${reps.map(r => r.hero + " | level " + r.report.level + " | topic: " + (r.report.topic || "") + " | mistakes: " + (r.report.mistakes || []).map(m => m.bad + "→" + m.good).join("; ") + " | words: " + (r.report.words || []).map(w => w[0] + "=" + w[1]).join(", ")).join("\n").slice(0, 6000)}
+Reply in Russian with only JSON: {"level": "level of the day, e.g. B1+", "praise": "1–2 warm sentences: what went well today", "mistakes": [{"bad": "mistake", "good": "correct form", "why": "max 10 Russian words"}] (max 3, no repeats), "words": [["English", "Russian"]] (max 8), "tip": "one tip for tomorrow, max 15 Russian words"}`;
+  function fromOne(x){ const r = x.report; return {n: 1, level: r.level, praise: r.praise, mistakes: r.mistakes || [], words: r.words || [], tip: r.tip}; }
+  async function make(k, reps){
+    const D = load(KS, {});
+    if(reps.length === 1){ D[k] = fromOne(reps[0]); store(KS, D); return D[k]; }
+    const r = await sample.json(DPROMPT(k, reps), {modelTier: "quick"});
+    D[k] = {n: reps.length, level: String(r.level || ""), praise: String(r.praise || ""), mistakes: Array.isArray(r.mistakes) ? r.mistakes.slice(0, 3) : [], words: Array.isArray(r.words) ? r.words.slice(0, 8) : [], tip: String(r.tip || "")};
+    store(KS, D); return D[k];
+  }
+  async function auto(){
+    if(!sample) return; const g = byDay(), D = load(KS, {}), today = dkey(Date.now());
+    for(const k of Object.keys(g).sort().reverse().slice(0, 5)){
+      if(k === today) continue; if(D[k] && D[k].n === g[k].length) continue;
+      try{ await make(k, g[k]); }catch(e){ return; }
+    }
+  }
+  function dayModal(k, reps, show){
+    document.querySelectorAll(".modal.repm").forEach(x => x.remove());
+    const m = h("div", "modal repm"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true"); const b = h("div", "box rep"); m.append(b); m.onclick = e => { if(e.target === m) m.remove(); }; document.body.append(m);
+    const today = k === dkey(Date.now());
+    b.append(h("h2", "", "📅 " + dname(k) + (today ? " · сегодня" : "")), h("div", "", reps.length + " разг." + (mins(k) ? " · " + mins(k) + " мин" : "")));
+    const draw = d => { const box = h("div", "rep");
+      const lv = h("div", ""); lv.append("Уровень дня: "); lv.append(h("span", "lv", d.level || "—")); box.append(lv);
+      if(d.praise) box.append(h("div", "", "🎉 " + d.praise));
+      (d.mistakes || []).forEach(x => { const q = h("div", "mi"); q.append(h("span", "", "«" + x.bad + "» → "), h("b", "", x.good), h("small", "", x.why || "")); box.append(q); });
+      if((d.words || []).length) box.append(h("div", "", "🆕 " + d.words.map(w => w[0] + " — " + w[1]).join(" · ")));
+      if(d.tip) box.append(h("div", "", "👉 " + d.tip)); return box; };
+    const slot = h("div", ""); b.append(slot);
+    const D = load(KS, {});
+    if(today) slot.append(h("div", "goal", "⏳ День ещё идёт — итог дня будет готов завтра. Итоги разговоров — ниже."));
+    else if(D[k] && D[k].n === reps.length) slot.append(draw(D[k]));
+    else if(sample){ slot.append(h("div", "", "Готовлю итог дня…")); make(k, reps).then(d => { slot.innerHTML = ""; slot.append(draw(d)); }).catch(() => { slot.innerHTML = ""; slot.append(h("div", "warn", "Итог дня не получился — попробуй позже.")); }); }
+    b.append(h("b", "", "💬 Разговоры этого дня"));
+    reps.slice().sort((a, c) => a.id - c.id).forEach(x => { const d = h("button", "day"); d.type = "button";
+      d.append(h("span", "", new Date(x.date).toLocaleTimeString("ru-RU", {hour: "2-digit", minute: "2-digit"}) + " · " + x.hero), h("small", "", "Уровень " + x.report.level + (x.report.topic ? " · " + x.report.topic : "")));
+      d.onclick = () => show(x, false); b.append(d); });
+    b.append(btn("Закрыть", "ok", () => m.remove()));
+  }
+  function list(b, ses, show){
+    const g = byDay(), D = load(KS, {}), act = load("nastya_days", {});
+    const keys = Object.keys(g).concat(Object.keys(act).filter(k => act[k] && ((act[k].m || 0) > 0 || (act[k].s || 0) >= 60))).sort();
+    if(!keys.length) return;
+    const first = fromKey(keys[0]), todayK = dkey(Date.now()); let d = fromKey(todayK), gap = null; const rows = [];
+    const flush = () => { if(gap){ rows.push({empty: gap}); gap = null; } };
+    for(let i = 0; i < 120 && d >= first; i++){
+      const k = dkey(d);
+      if(g[k]){ flush(); rows.push({k}); }
+      else if(act[k] && ((act[k].m || 0) > 0 || (act[k].s || 0) >= 60)){ flush(); rows.push({short: k}); }
+      else if(k !== todayK){ if(gap) gap.from = k; else gap = {to: k, from: k}; }
+      d = new Date(d.getTime() - DAY); d.setHours(0, 0, 0, 0);
+    }
+    flush();
+    rows.forEach(r => {
+      if(r.empty){ const e = h("div", "day"); e.style.cursor = "default"; e.style.opacity = ".6"; e.append(h("span", "", (r.empty.from === r.empty.to ? dname(r.empty.to) : dname(r.empty.from) + " – " + dname(r.empty.to)) + " · 💤 разговоров не было")); b.append(e); return; }
+      if(r.short){ const e = h("div", "day"); e.style.cursor = "default"; e.append(h("span", "", "📅 " + dname(r.short) + (r.short === todayK ? " · сегодня" : "") + " · " + mins(r.short) + " мин"), h("small", "", r.short === todayK ? "день идёт — для итога нужно минимум 3 сообщения" : "короткий разговор — без итога (меньше 3 сообщений)")); b.append(e); return; }
+      const k = r.k, reps = g[k], sm = D[k] && D[k].n === reps.length ? D[k] : null, today = k === todayK;
+      const x = h("button", "day"); x.type = "button";
+      x.append(h("span", "", "📅 " + dname(k) + (today ? " · сегодня" : "") + " · " + reps.length + " разг." + (mins(k) ? " · " + mins(k) + " мин" : "")),
+        h("small", "", today ? "день ещё идёт" : sm ? "Уровень " + (sm.level || "—") + (sm.praise ? " · " + sm.praise.slice(0, 80) : "") : "итог дня: нажми"));
+      x.onclick = () => dayModal(k, reps, show); b.append(x);
+    });
+  }
+  return {list, auto};
+})();
+
+pick();
+</script>
+
+</body>
+</html>
