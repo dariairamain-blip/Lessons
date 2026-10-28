@@ -158,7 +158,7 @@ Examples must be short (max 8 words), everyday English.`;
 const S = {mute:false, auto:true, hero:null, turns:[], busy:false};
 const $ = s => document.querySelector(s);
 const h = (tag, cls, txt) => { const e = document.createElement(tag); if(cls) e.className = cls; if(txt != null) e.textContent = txt; return e; };
-const WORKER = "";
+const WORKER = "https://daria-talk.daria-iramain.workers.dev";
 const CODEKEY = "fatih_code";
 const MODEL = () => { try{ return localStorage.getItem("fatih_model") || "sonnet"; }catch(e){ return "sonnet"; } };
 const getCode = () => { try{ return localStorage.getItem(CODEKEY) || ""; }catch(e){ return ""; } };
@@ -193,32 +193,8 @@ const viaWorker = {
     throw {code:"badcode"};
   }
 };
-const OFFLINE = [
- ["That's interesting! Can you tell me more?", "Bu ilginç! Biraz daha anlatır mısın?", {"that's":"bu","interesting":"ilginç","can":"-ebilir","you":"sen","tell":"anlatmak","me":"bana","more":"daha fazla"}],
- ["Really? How did you feel about it?", "Gerçekten mi? Bu konuda ne hissettin?", {"really":"gerçekten","how":"nasıl","did":"(geçmiş zaman yardımcısı)","you":"sen","feel":"hissetmek","about":"hakkında","it":"o"}],
- ["Nice! What happened next?", "Güzel! Sonra ne oldu?", {"nice":"güzel","what":"ne","happened":"oldu","next":"sonra"}],
- ["I see. What do you usually do at the weekend?", "Anlıyorum. Hafta sonları genelde ne yaparsın?", {"i":"ben","see":"anlamak, görmek","what":"ne","do":"yapmak","you":"sen","usually":"genelde","at":"-de","the":"(belirli artikel)","weekend":"hafta sonu"}],
- ["Sounds great! Where was that?", "Harika görünüyor! Bu nerede oldu?", {"sounds":"kulağa geliyor","great":"harika","where":"nerede","was":"idi","that":"o"}],
- ["Oh, I didn't know that! Why?", "Aa, bunu bilmiyordum! Neden?", {"oh":"aa","i":"ben","didn't":"-medim","know":"bilmek","that":"bunu","why":"neden"}],
- ["Good point. What do you think about it?", "Haklısın. Sen bu konuda ne düşünüyorsun?", {"good":"iyi","point":"nokta","what":"ne","do":"(soru yardımcısı)","you":"sen","think":"düşünmek","about":"hakkında","it":"o"}],
- ["Wow! Who were you with?", "Vay! Kiminleydin?", {"wow":"vay","who":"kim","were":"idin","you":"sen","with":"ile"}],
- ["Cool. Do you do that often?", "Süper. Bunu sık yapar mısın?", {"cool":"süper","do":"yapmak","you":"sen","that":"bunu","often":"sık sık"}],
- ["Ha-ha, that's funny! Tell me another story.", "Ha-ha, bu komik! Bana başka bir hikâye anlat.", {"that's":"bu","funny":"komik","tell":"anlat","me":"bana","another":"başka bir","story":"hikâye"}],
- ["Interesting. What's your plan for tomorrow?", "İlginç. Yarın için planın ne?", {"interesting":"ilginç","what's":"ne","your":"senin","plan":"plan","for":"için","tomorrow":"yarın"}],
- ["I understand. Was it difficult?", "Anlıyorum. Zor muydu?", {"i":"ben","understand":"anlamak","was":"idi","it":"o","difficult":"zor"}]
-];
-let offIdx = Math.floor(Math.random() * OFFLINE.length);
-const offline = {
-  test: true,
-  json: async (inp) => {
-    if(typeof inp === "string") throw {code: "offline"};
-    await new Promise(r => setTimeout(r, 600));
-    const x = OFFLINE[offIdx++ % OFFLINE.length];
-    return {pt: x[0], ru: x[1], fix: "", words: x[2]};
-  }
-};
 let sample = null;
-(async () => { try{ sample = window.claude ? await window.claude.use("sample") : null; }catch(e){ sample = null; } if(!sample && WORKER) sample = viaWorker; if(!sample) sample = offline; })();
+(async () => { try{ sample = window.claude ? await window.claude.use("sample") : null; }catch(e){ sample = null; } if(!sample && WORKER) sample = viaWorker; })();
 function fitDock(){ const d = $("#dock"); document.documentElement.style.setProperty("--dockh", (d.hidden ? 24 : d.offsetHeight + 24) + "px"); }
 function show(el){ fitDock(); requestAnimationFrame(() => { const r = el.getBoundingClientRect(), bot = innerHeight - (($("#dock").hidden ? 0 : $("#dock").offsetHeight) + 12), barB = document.querySelector(".bar").getBoundingClientRect().bottom + 8;
   let dy = 0; if(r.bottom > bot) dy = r.bottom - bot; if(r.top - dy < barB) dy = r.top - barB; if(Math.abs(dy) > 2) scrollBy({top: dy, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); }); }
@@ -236,8 +212,7 @@ function pick(){
   const g = h("div", "grid");
   HEROES.forEach(x => { const b = h("button", "hero"); b.type = "button"; b.append(h("span", "e", x.e), h("b", "", x.n), h("small", "", x.d)); b.onclick = () => start(x); g.append(b); });
   a.append(g, h("p", "note", "Sesle konuş (🎤) ya da yaz. Kahramanın herhangi bir kelimesine dokun — çevirisini görürsün."));
-  const pb = h("button", "prog", "📊 İlerlemem"); pb.type = "button"; pb.onclick = () => REP.progress(); if(!(sample && sample.test)) a.append(pb);
-  if(sample && sample.test){ const tb = h("p", "note", "🧪 Test modu: mikrofonu dene! Kahraman şimdilik kısa, hazır cevaplar veriyor — gerçek sohbet, çeviri ve özet yakında açılacak."); tb.style.fontWeight = "800"; a.prepend(tb); }
+  const pb = h("button", "prog", "📊 İlerlemem"); pb.type = "button"; pb.onclick = () => REP.progress(); a.append(pb);
 }
 function wordTap(el, word, ctx, words, gl, p){
   const key = word.toLowerCase();
@@ -260,7 +235,7 @@ function wordTap(el, word, ctx, words, gl, p){
       (Array.isArray(r.examples) ? r.examples : []).slice(0, 3).forEach(ex => { if(!Array.isArray(ex)) return; const row = h("div", "ex"); const s2 = h("button", "", "🔊"); s2.type = "button"; s2.onclick = () => say(String(ex[0]), lang());
         const tx = h("span", "", String(ex[0])); tx.append(h("small", "", String(ex[1] || ""))); row.append(s2, tx); m.append(row); });
       gl.append(m); show(gl);
-    }catch(e){ mb.disabled = false; mb.textContent = "📖 Daha fazla"; gl.append(h("div", "warn", e && e.code === "not_granted" ? "Claude izni olmadan açıklama gösterilemez." : (sample && sample.test ? "Test modu: açıklama yakında açılacak." : "Açıklama yüklenemedi. Tekrar dene."))); }
+    }catch(e){ mb.disabled = false; mb.textContent = "📖 Daha fazla"; gl.append(h("div", "warn", e && e.code === "not_granted" ? "Claude izni olmadan açıklama gösterilemez." : "Açıklama yüklenemedi. Tekrar dene.")); }
   };
   show(gl);
 }
@@ -285,7 +260,7 @@ function start(x){
   const a = $("#app"); a.innerHTML = "";
   $("#who").textContent = x.e + " " + x.n; $("#who").className = "who";
   let bk = document.getElementById("bk"); if(!bk){ bk = h("button", "back", "◀ Kahramanlar"); bk.id = "bk"; bk.type = "button"; bk.onclick = pick; document.querySelector(".bar .top").append(bk); } bk.hidden = false;
-  let fb = document.getElementById("fin"); if(!fb){ fb = h("button", "back", "🏁 Özet"); fb.id = "fin"; fb.type = "button"; fb.onclick = () => REP.finish(true); document.querySelector(".bar .top").append(fb); } fb.hidden = !!(sample && sample.test);
+  let fb = document.getElementById("fin"); if(!fb){ fb = h("button", "back", "🏁 Özet"); fb.id = "fin"; fb.type = "button"; fb.onclick = () => REP.finish(true); document.querySelector(".bar .top").append(fb); } fb.hidden = false;
   if(x.id === "psy") a.append(h("p", "note", ""));
   const c = h("div", "chat"); c.id = "chat"; a.append(c);
   const cb = REP.callback(x); const hi = cb ? cb.pt : x.hi, hiru = cb ? cb.ru : x.hiru, hw = cb ? cb.words : x.words;
@@ -358,7 +333,7 @@ function chipTap(chunk){
   const card = h("div", "help"); const hd = h("div", "hd"); const out = h("span", "pt", "…");
   const x = h("button", "x", "✕"); x.type = "button"; x.setAttribute("aria-label", "Kapat"); x.onclick = () => { card.remove(); fitDock(); };
   hd.append(h("span", "ru", "«" + chunk.replace(/\*/g, "") + "» → "), out, x); card.append(hd); $("#helps").append(card); fitDock();
-  if(!sample){ card.append(h("div", "warn", "Test modu: çeviri yakında açılacak.")); fitDock(); return; }
+  if(!sample){ card.append(h("div", "warn", "Çeviri şu an yok — kahramanla bağlantı yok.")); fitDock(); return; }
   trPart(chunk, box.value).then(({pt, note}) => {
     out.textContent = pt; say(pt, lang());
     const row = h("div", "hd");
@@ -376,7 +351,7 @@ function chipTap(chunk){
         card.append(d); fitDock(); }
       catch(e){ mb.disabled = false; mb.textContent = "📖 Daha fazla"; } };
     fitDock();
-  }).catch(e => { out.textContent = e && e.code === "offline" ? "yakında" : "olmadı"; card.append(h("div", "warn", e && e.code === "offline" ? "Test modu: çeviri yakında açılacak." : e && e.code === "not_granted" ? "Claude izni olmadan çeviri yapılamaz." : "Çevrilemedi. Kelimeye tekrar dokun.")); fitDock(); });
+  }).catch(e => { out.textContent = "olmadı"; card.append(h("div", "warn", e && e.code === "not_granted" ? "Claude izni olmadan çeviri yapılamaz." : "Çevrilemedi. Kelimeye tekrar dokun.")); fitDock(); });
 }
 $("#box").addEventListener("input", renderChips);
 function howTo(){
