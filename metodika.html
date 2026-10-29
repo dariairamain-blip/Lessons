@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Язык на заказ</title>
+<meta name="description" content="Методика уроков Daria Botina — методы, подтверждённые исследованиями.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Manrope:wght@500;600;700;800&family=Vazirmatn:wght@400;600;800&display=swap">
+<style>
+/* Layout: hero (thesis + forgetting-curve card) → meme contrast → methods as a field guide with study citations → benefits → sources */
+:root{
+  --paper:#F3F5FA; --card:#FFFFFF; --ink:#141B2D; --muted:#566079; --line:#D8DDEA;
+  --accent:#E2551B; --teal:#0E7A78; --soft:#FFE9DE; --tealsoft:#DDF2F1;
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:Manrope,"Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0E1320; --card:#161D2E; --ink:#E9EDF7; --muted:#A3ACC3; --line:#2A3350;
+  --accent:#FF7B42; --teal:#45C7C2; --soft:#3A2016; --tealsoft:#123433; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0E1320; --card:#161D2E; --ink:#E9EDF7; --muted:#A3ACC3; --line:#2A3350;
+  --accent:#FF7B42; --teal:#45C7C2; --soft:#3A2016; --tealsoft:#123433; color-scheme:dark}
+html[lang="fa"]{--display:Vazirmatn,Tahoma,sans-serif; --body:Vazirmatn,Tahoma,sans-serif}
+body{background:var(--paper);color:var(--ink);font:500 16.5px/1.6 var(--body);margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5.4vw,52px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:clamp(22px,3.4vw,32px);font-weight:800}
+h3{font-size:17px;font-weight:600;line-height:1.3}
+p{margin:0}
+.eyebrow{font:800 12.5px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+html[lang="fa"] .eyebrow{letter-spacing:0}
+/* top bar */
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-block:18px 8px}
+.brand{font:800 15px/1 var(--display);display:flex;align-items:center;gap:10px}
+.brand i{width:30px;height:30px;border-radius:9px;background:var(--accent);display:grid;place-items:center;color:#fff;font-style:normal;font-size:14px}
+.langs{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px}
+.langs button{border:0;background:transparent;color:var(--muted);font:800 13px var(--body);padding:7px 12px;border-radius:999px;cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.langs button:focus-visible,.cta:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+/* hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:center;padding-block:32px 40px}
+.hero > *{min-width:0}
+.hero .lead{font-size:clamp(17px,2vw,19px);color:var(--muted);max-width:56ch;margin-top:16px}
+.hero .tag{display:inline-block;margin-top:22px;font:800 15px var(--body);background:var(--soft);color:var(--accent);padding:10px 16px;border-radius:12px}
+.curve{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px 18px 14px}
+.curve h3{font-size:14px;font-family:var(--body);font-weight:800;letter-spacing:.02em}
+.curve svg{width:100%;max-width:330px;height:auto;display:block;margin:6px auto 0}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);font-weight:700;margin-top:6px}
+.legend span::before{content:"";display:inline-block;width:18px;height:4px;border-radius:2px;margin-inline-end:6px;vertical-align:middle;background:var(--c)}
+.note{font-size:12.5px;color:var(--muted);margin-top:6px}
+/* meme */
+.meme{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-block:8px 48px}
+.meme > div{border-radius:18px;padding:22px;min-width:0}
+.meme .old{background:var(--card);border:1px dashed var(--line);color:var(--muted)}
+.meme .old q{display:block;font:800 clamp(17px,2.2vw,22px)/1.3 var(--display);text-decoration:line-through;text-decoration-color:var(--accent);text-decoration-thickness:3px;quotes:none;margin-top:10px}
+.meme .new{background:var(--ink);color:var(--paper)}
+.meme .new q{display:block;font:800 clamp(17px,2.2vw,22px)/1.3 var(--display);quotes:none;margin-top:10px}
+.meme small{font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+html[lang="fa"] .meme small{letter-spacing:0}
+.meme .new p{margin-top:10px;opacity:.85;font-size:15px}
+/* methods */
+.sec-h{display:grid;gap:10px;max-width:62ch;padding-block:8px 22px}
+.sec-h p{color:var(--muted)}
+.methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.m{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:grid;gap:10px;align-content:start}
+.m .ic{font-size:26px;line-height:1}
+.m p{color:var(--muted);font-size:15.5px}
+.cite{justify-self:start;font:700 12.5px/1.35 var(--body);color:var(--teal);background:var(--tealsoft);border-radius:8px;padding:5px 9px}
+/* benefits */
+.ben{margin-block:48px;background:var(--ink);color:var(--paper);border-radius:24px}
+.ben .wrap{padding-block:36px}
+.ben h2{color:var(--paper)}
+.bgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:22px}
+.bgrid div{display:grid;gap:6px;align-content:start}
+.bgrid b{font:800 clamp(24px,3vw,32px)/1 var(--display);color:var(--accent)}
+.bgrid span{opacity:.85;font-size:15px}
+/* sources */
+.src{padding-block:8px 28px}
+.src ol{margin:14px 0 0;padding-inline-start:20px;display:grid;gap:6px;color:var(--muted);font-size:14px}
+.cta{display:inline-block;margin-top:18px;background:var(--accent);color:#fff;text-decoration:none;font:800 16px var(--body);padding:14px 20px;border-radius:14px}
+footer{border-top:1px solid var(--line);padding-block:20px 28px;color:var(--muted);font-size:13.5px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (max-width:820px){.hero{grid-template-columns:1fr}.bgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.methods,.meme{grid-template-columns:1fr}.bgrid{grid-template-columns:1fr 1fr}}
+@media (prefers-reduced-motion: no-preference){.curve .rep{stroke-dasharray:900;stroke-dashoffset:900;animation:draw 2.4s .3s ease-out forwards}@keyframes draw{to{stroke-dashoffset:0}}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><i>Я</i><span data-t="brand">Язык на заказ</span></div>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" data-l="ru">RU</button><button type="button" data-l="tr">TR</button><button type="button" data-l="fa">FA</button><button type="button" data-l="en">EN</button><button type="button" data-l="es">ES</button><button type="button" data-l="pt">PT</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow" data-t="eyebrow">Методика уроков</div>
+      <h1 data-t="h1" style="margin-top:14px">Интересно, как сериал. Полезно, как личный тренер.</h1>
+      <p class="lead" data-t="lead">Каждый урок собран из приёмов, которые проверены исследованиями памяти и изучения языков, и из вашей жизни: работы, семьи, поездок, планов. Поэтому слова не забываются через неделю, а речь появляется с первого урока.</p>
+      <span class="tag" data-t="tag">Учите своё и применяйте уже сегодня</span>
+    </div>
+    <figure class="curve" style="margin:0">
+      <h3 data-t="curveT">Сколько слов остаётся в памяти</h3>
+      <svg id="cv" viewBox="0 0 300 190" role="img" aria-labelledby="cvt"><title id="cvt">Кривая забывания</title></svg>
+      <div class="legend"><span style="--c:var(--muted)" data-t="leg1">выучил один раз</span><span style="--c:var(--accent)" data-t="leg2">с интервальным повторением</span></div>
+      <p class="note" data-t="curveN">Схема по кривой забывания Эббингауза: каждое повторение в нужный момент возвращает слово и делает забывание медленнее.</p>
+    </figure>
+  </section>
+
+  <section class="meme" aria-label="">
+    <div class="old"><small data-t="oldL">Обычный учебник</small><q>London is the capital of Great Britain.</q></div>
+    <div class="new"><small data-t="newL">Ваш урок</small><q data-t="newQ">«Можно перенести приём на пятницу? У меня рейс в четверг».</q><p data-t="newP">Фразы из вашей жизни, которые пригодятся уже завтра: на работе, в поездке, с друзьями.</p></div>
+  </section>
+
+  <div class="sec-h">
+    <div class="eyebrow" data-t="mEy">На чём построены уроки</div>
+    <h2 data-t="mH">12 методов, которые работают на вас</h2>
+    <p data-t="mP">Никакой магии и «секретных систем». Только то, что учёные много раз проверяли на тысячах людей, — собранное в короткие уроки для занятых взрослых.</p>
+  </div>
+  <div class="methods" id="methods"></div>
+</div>
+
+<section class="ben" style="margin-inline:max(16px,env(safe-area-inset-left,0px))">
+  <div class="wrap">
+    <h2 data-t="bH">Что это значит для вас</h2>
+    <div class="bgrid">
+      <div><b>10–15</b><span data-t="b1">минут в день достаточно: уроки короткие и помещаются в перерыв</span></div>
+      <div><b>1</b><span data-t="b2">урок — и вы уже говорите: речь с первого занятия, а не «когда-нибудь потом»</span></div>
+      <div><b>7</b><span data-t="b3">уровней анкеты о вас: работа, семья, увлечения, цели — всё это попадает в уроки</span></div>
+      <div><b>24/7</b><span data-t="b4">собеседник, который не устаёт, не смеётся над акцентом и мягко исправляет</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="src">
+    <div class="eyebrow" data-t="sEy">Исследования</div>
+    <h2 data-t="sH" style="margin-top:10px">Откуда это известно</h2>
+    <ol>
+      <li>Ebbinghaus, H. (1885). Über das Gedächtnis.</li>
+      <li>Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T., &amp; Rohrer, D. (2006). Distributed practice in verbal recall tasks. Psychological Bulletin.</li>
+      <li>Roediger, H. L., &amp; Karpicke, J. D. (2006). Test-enhanced learning. Psychological Science.</li>
+      <li>Krashen, S. (1982). Principles and Practice in Second Language Acquisition.</li>
+      <li>Laufer, B. (1989). What percentage of text-lexis is essential for comprehension?</li>
+      <li>Swain, M. (1985). Communicative competence: some roles of comprehensible input and output.</li>
+      <li>Long, M. (1996). The role of the linguistic environment in second language acquisition.</li>
+      <li>Li, S. (2010). The effectiveness of corrective feedback in SLA: a meta-analysis. Language Learning.</li>
+      <li>Paivio, A. (1971). Imagery and Verbal Processes · Mayer, R. E. (2001). Multimedia Learning.</li>
+      <li>Sweller, J. (1988). Cognitive load during problem solving. Cognitive Science.</li>
+      <li>Rohrer, D., &amp; Taylor, K. (2007). The shuffling of mathematics problems improves learning. Instructional Science.</li>
+      <li>Rogers, T. B., Kuiper, N. A., &amp; Kirker, W. S. (1977). Self-reference and the encoding of personal information. Journal of Personality and Social Psychology.</li>
+      <li>Willingham, D. T. (2004). The privileged status of story. American Educator · Tyng, C. M. et al. (2017). The influences of emotion on learning and memory. Frontiers in Psychology.</li>
+      <li>Hattie, J., &amp; Timperley, H. (2007). The power of feedback. Review of Educational Research.</li>
+      <li>Logan, J. S., Lively, S. E., &amp; Pisoni, D. B. (1991). Training Japanese listeners to identify English /r/ and /l/. Journal of the Acoustical Society of America.</li>
+      <li>Ellis, R. (2003). Task-based Language Learning and Teaching.</li>
+    </ol>
+  </section>
+  <footer><span>© Daria Botina</span><span data-t="foot">Уроки на русском, турецком и персидском интерфейсе · английский, испанский, португальский, французский, турецкий, русский</span></footer>
+</div>
+
+<script>
+const M = [
+ {ic:"🔁", k:"spaced", cite:"Ebbinghaus 1885 · Cepeda et al. 2006"},
+ {ic:"🧠", k:"retrieval", cite:"Roediger & Karpicke 2006"},
+ {ic:"🎯", k:"input", cite:"Krashen 1982 · Laufer 1989"},
+ {ic:"🗣", k:"output", cite:"Swain 1985"},
+ {ic:"💬", k:"dialog", cite:"Long 1996 · Li 2010"},
+ {ic:"🖼", k:"dual", cite:"Paivio 1971 · Mayer 2001"},
+ {ic:"🧩", k:"small", cite:"Sweller 1988"},
+ {ic:"🔀", k:"interleave", cite:"Rohrer & Taylor 2007"},
+ {ic:"🙋", k:"self", cite:"Rogers, Kuiper & Kirker 1977"},
+ {ic:"🎬", k:"story", cite:"Willingham 2004 · Tyng et al. 2017"},
+ {ic:"⚡", k:"feedback", cite:"Hattie & Timperley 2007"},
+ {ic:"🎧", k:"ear", cite:"Logan, Lively & Pisoni 1991 · Ellis 2003"}
+];
+const T = {
+ru:{
+ brand:"Язык на заказ", eyebrow:"Методика уроков", h1:"Интересно, как сериал. Полезно, как личный тренер.",
+ lead:"Каждый урок собран из приёмов, которые проверены исследованиями памяти и изучения языков, и из вашей жизни: работы, семьи, поездок, планов. Поэтому слова не забываются через неделю, а речь появляется с первого урока.",
+ tag:"Учите своё и применяйте уже сегодня", curveT:"Сколько слов остаётся в памяти", leg1:"выучил один раз", leg2:"с интервальным повторением",
+ curveN:"Схема по кривой забывания Эббингауза: каждое повторение в нужный момент возвращает слово и делает забывание медленнее.",
+ ax:["день 1","3","7","30"], axy:"помню",
+ oldL:"Обычный учебник", newL:"Ваш урок", newQ:"«Можно перенести приём на пятницу? У меня рейс в четверг».", newP:"Фразы из вашей жизни, которые пригодятся уже завтра: на работе, в поездке, с друзьями.",
+ mEy:"На чём построены уроки", mH:"12 методов, которые работают на вас", mP:"Никакой магии и «секретных систем». Только то, что учёные много раз проверяли на тысячах людей, — собранное в короткие уроки для занятых взрослых.",
+ spaced:["Интервальное повторение","Слова возвращаются к вам именно тогда, когда начинают забываться: через день, три, неделю. Так они переходят в долгую память, и зубрить не нужно."],
+ retrieval:["Вспоминать, а не перечитывать","Вы не просто смотрите на правильный ответ, а сами достаёте его из памяти. Каждое такое усилие закрепляет слово сильнее, чем десять перечитываний."],
+ input:["Понятно на 95%","Почти всё в уроке вам уже знакомо, и совсем немного — новое. Так мозг понимает смысл и спокойно забирает новое, без перегруза и словаря на каждой строчке."],
+ output:["Говорите с первого урока","Язык запоминается, когда вы его используете. Вы произносите, отвечаете и строите свои фразы с самого начала, а не только слушаете."],
+ dialog:["Живой разговор с мягкой правкой","Собеседник отвечает на ваши слова, задаёт вопросы и незаметно поправляет ошибки. Это самый быстрый путь от «понимаю» к «говорю»."],
+ dual:["Слово + картинка + звук","Новое приходит сразу через глаза и уши. Двойной след в памяти держится дольше и вспоминается быстрее."],
+ small:["Маленькие шаги","Короткие блоки по несколько заданий, от простого к сложному. Мозг не перегружается, и вы видите прогресс каждые пару минут."],
+ interleave:["Повторение вперемешку","Новое смешивается с тем, что вы учили раньше. Так вы учитесь не узнавать задание, а по-настоящему выбирать нужное слово и форму."],
+ self:["Ваша жизнь в уроках","Всё, что касается вас лично, запоминается лучше. Поэтому в уроках ваша работа, семья, хобби и планы — из вашей анкеты."],
+ story:["Истории, юмор и эмоции","Сюжет и улыбка включают внимание и память. Истории, шутки и культурные сюрпризы делают урок похожим на сериал, а не на учебник."],
+ feedback:["Ответ сразу и вторая попытка","Вы сразу видите, где ошибка и почему, слышите правильный вариант и пробуете ещё раз. Ошибка становится шагом вперёд, а не провалом."],
+ ear:["Настоящая речь и настоящие задачи","Вы слушаете разные голоса и акценты и решаете реальные задачи: заказать, договориться, объяснить. Так язык готов к жизни, а не только к тесту."],
+ bH:"Что это значит для вас", b1:"минут в день достаточно: уроки короткие и помещаются в перерыв", b2:"урок — и вы уже говорите: речь с первого занятия, а не «когда-нибудь потом»",
+ b3:"уровней анкеты о вас: работа, семья, увлечения, цели — всё это попадает в уроки", b4:"собеседник, который не устаёт, не смеётся над акцентом и мягко исправляет",
+ sEy:"Исследования", sH:"Откуда это известно", foot:"Языки: английский, испанский, португальский, французский, турецкий, русский"
+},
+tr:{
+ brand:"Ismarlama Dil", eyebrow:"Ders yöntemi", h1:"Dizi kadar ilgi çekici. Kişisel antrenör kadar faydalı.",
+ lead:"Her ders, hafıza ve dil öğrenimi araştırmalarıyla kanıtlanmış yöntemlerden ve sizin hayatınızdan oluşur: işiniz, aileniz, seyahatleriniz, planlarınız. Bu yüzden kelimeler bir hafta sonra unutulmaz, konuşma ilk dersten başlar.",
+ tag:"Kendi hayatınızı öğrenin, bugün kullanın", curveT:"Hafızada kaç kelime kalıyor", leg1:"bir kez öğrendim", leg2:"aralıklı tekrarla",
+ curveN:"Ebbinghaus'un unutma eğrisine göre şema: doğru anda yapılan her tekrar kelimeyi geri getirir ve unutmayı yavaşlatır.",
+ ax:["1. gün","3","7","30"], axy:"hatırlıyorum",
+ oldL:"Sıradan ders kitabı", newL:"Sizin dersiniz", newQ:"«Uçuş ekibimizle saat yedide brifing var, kahve molasını sonra yapalım mı?»", newP:"Hayatınızdan, yarın hemen işinize yarayacak cümleler: işte, seyahatte, arkadaşlarla.",
+ mEy:"Derslerin temeli", mH:"Sizin için çalışan 12 yöntem", mP:"Sihir ya da «gizli sistem» yok. Sadece bilim insanlarının binlerce kişiyle defalarca test ettiği yöntemler — yoğun yetişkinler için kısa derslerde.",
+ spaced:["Aralıklı tekrar","Kelimeler tam unutulmaya başladığında size geri gelir: bir gün, üç gün, bir hafta sonra. Böylece uzun süreli hafızaya geçer, ezber gerekmez."],
+ retrieval:["Tekrar okumak değil, hatırlamak","Doğru cevaba sadece bakmazsınız, onu hafızanızdan kendiniz çıkarırsınız. Bu çaba kelimeyi on kez okumaktan daha güçlü pekiştirir."],
+ input:["%95 anlaşılır","Dersin neredeyse tamamını zaten bilirsiniz, sadece küçük bir kısmı yenidir. Beyin anlamı yakalar ve yeniyi zorlanmadan alır, her satırda sözlüğe gerek kalmaz."],
+ output:["İlk dersten konuşma","Dil, kullandıkça kalıcı olur. En baştan telaffuz eder, cevap verir ve kendi cümlelerinizi kurarsınız, sadece dinlemezsiniz."],
+ dialog:["Nazik düzeltmeli canlı sohbet","Sohbet partneriniz sözlerinize cevap verir, soru sorar ve hatalarınızı fark ettirmeden düzeltir. «Anlıyorum»dan «konuşuyorum»a en hızlı yol budur."],
+ dual:["Kelime + resim + ses","Yeni bilgi aynı anda göz ve kulaktan gelir. Hafızadaki çift iz daha uzun kalır ve daha hızlı hatırlanır."],
+ small:["Küçük adımlar","Birkaç görevden oluşan kısa bloklar, basitten zora. Beyin yorulmaz, ilerlemenizi her birkaç dakikada görürsünüz."],
+ interleave:["Karışık tekrar","Yeni konular, daha önce öğrendiklerinizle karışır. Böylece görevi tanımayı değil, doğru kelimeyi ve biçimi gerçekten seçmeyi öğrenirsiniz."],
+ self:["Dersin içinde sizin hayatınız","Kişisel olarak sizi ilgilendiren her şey daha iyi hatırlanır. Bu yüzden derslerde anketinizden işiniz, aileniz, hobileriniz ve planlarınız var."],
+ story:["Hikâyeler, mizah ve duygular","Olay örgüsü ve bir gülümseme dikkati ve hafızayı açar. Hikâyeler, şakalar ve kültürel sürprizler dersi ders kitabına değil, diziye benzetir."],
+ feedback:["Anında geri bildirim ve ikinci şans","Hatanın nerede ve neden olduğunu hemen görür, doğrusunu duyar ve tekrar denersiniz. Hata başarısızlık değil, ileriye bir adım olur."],
+ ear:["Gerçek konuşma, gerçek görevler","Farklı sesleri ve aksanları dinler, gerçek görevleri çözersiniz: sipariş vermek, anlaşmak, açıklamak. Böylece dil sadece sınava değil, hayata hazır olur."],
+ bH:"Bu sizin için ne demek", b1:"dakika günde yeterli: dersler kısa, bir molaya sığar", b2:"ders ve konuşmaya başlıyorsunuz: «bir gün» değil, ilk dersten",
+ b3:"seviyeli hakkınızdaki anket: iş, aile, hobiler, hedefler — hepsi derslere girer", b4:"yorulmayan, aksanınıza gülmeyen ve nazikçe düzelten bir sohbet partneri",
+ sEy:"Araştırmalar", sH:"Bunu nereden biliyoruz", foot:"Diller: İngilizce, İspanyolca, Portekizce, Fransızca, Türkçe, Rusça"
+},
+en:{
+ brand:"Language to Order", eyebrow:"How the lessons work", h1:"As gripping as a TV series. As useful as a personal coach.",
+ lead:"Every lesson is built from techniques proven by research on memory and language learning, and from your own life: your work, family, trips and plans. That is why words don't fade after a week and you start speaking from the very first lesson.",
+ tag:"Learn what matters to you and use it today", curveT:"How many words stay in your memory", leg1:"learned once", leg2:"with spaced repetition",
+ curveN:"Based on Ebbinghaus's forgetting curve: each review at the right moment brings a word back and makes forgetting slower.",
+ ax:["day 1","3","7","30"], axy:"remember",
+ oldL:"A typical textbook", newL:"Your lesson", newQ:"“Could we move my appointment to Friday? I have a flight on Thursday.”", newP:"Phrases from your life that you can use tomorrow: at work, on a trip, with friends.",
+ mEy:"What the lessons are built on", mH:"12 methods that work for you", mP:"No magic and no “secret systems”. Only what scientists have tested many times with thousands of people, packed into short lessons for busy adults.",
+ spaced:["Spaced repetition","Words come back to you exactly when they start to fade: after a day, three days, a week. That moves them into long-term memory, with no cramming."],
+ retrieval:["Recall, don't reread","You don't just look at the right answer, you pull it out of your memory yourself. Each such effort fixes a word more firmly than reading it ten times."],
+ input:["95% understandable","Almost everything in a lesson is already familiar, and only a little is new. Your brain gets the meaning and takes in the new part calmly, without a dictionary on every line."],
+ output:["Speak from lesson one","Language sticks when you use it. From the very start you pronounce, answer and build your own sentences instead of only listening."],
+ dialog:["Real conversation, gentle correction","Your conversation partner replies to what you say, asks questions and quietly corrects mistakes. It is the fastest way from “I understand” to “I speak”."],
+ dual:["Word + picture + sound","New material arrives through your eyes and ears at once. A double trace in memory lasts longer and comes back faster."],
+ small:["Small steps","Short blocks of a few tasks, from easy to harder. Your brain doesn't overload, and you see progress every couple of minutes."],
+ interleave:["Mixed review","New material is mixed with what you learned before. You learn to really choose the right word and form instead of just recognising the task."],
+ self:["Your life in the lessons","Anything about you personally is remembered better. That is why your work, family, hobbies and plans from your questionnaire are in the lessons."],
+ story:["Stories, humour and emotion","A plot and a smile switch on attention and memory. Stories, jokes and cultural surprises make a lesson feel like a series, not a textbook."],
+ feedback:["Instant feedback and a second try","You see right away where the mistake is and why, hear the correct version and try again. A mistake becomes a step forward, not a failure."],
+ ear:["Real speech, real tasks","You hear different voices and accents and handle real tasks: order, agree, explain. So your language is ready for life, not just for a test."],
+ bH:"What this means for you", b1:"minutes a day are enough: lessons are short and fit into a break", b2:"lesson and you are already speaking: from the first session, not “some day later”",
+ b3:"levels of a questionnaire about you: work, family, interests, goals — all of it goes into the lessons", b4:"a conversation partner who never gets tired, never laughs at your accent and corrects you gently",
+ sEy:"Research", sH:"How we know", foot:"Languages: English, Spanish, Portuguese, French, Turkish, Russian"
+},
+es:{
+ brand:"Idioma por encargo", eyebrow:"Cómo funcionan las clases", h1:"Tan interesante como una serie. Tan útil como un entrenador personal.",
+ lead:"Cada clase está hecha con técnicas comprobadas por la investigación sobre la memoria y el aprendizaje de idiomas, y con tu propia vida: tu trabajo, tu familia, tus viajes y tus planes. Por eso las palabras no se olvidan en una semana y empiezas a hablar desde la primera clase.",
+ tag:"Aprende lo tuyo y úsalo hoy mismo", curveT:"Cuántas palabras se quedan en la memoria", leg1:"aprendido una vez", leg2:"con repaso espaciado",
+ curveN:"Esquema según la curva del olvido de Ebbinghaus: cada repaso en el momento justo recupera la palabra y hace que el olvido sea más lento.",
+ ax:["día 1","3","7","30"], axy:"recuerdo",
+ oldL:"Un libro de texto normal", newL:"Tu clase", newQ:"«¿Podemos pasar mi cita al viernes? El jueves tengo un vuelo.»", newP:"Frases de tu vida que te servirán mañana mismo: en el trabajo, de viaje, con amigos.",
+ mEy:"En qué se basan las clases", mH:"12 métodos que trabajan para ti", mP:"Nada de magia ni de «sistemas secretos». Solo lo que los científicos han comprobado muchas veces con miles de personas, en clases cortas para adultos con poco tiempo.",
+ spaced:["Repaso espaciado","Las palabras vuelven justo cuando empiezan a olvidarse: al día siguiente, a los tres días, a la semana. Así pasan a la memoria a largo plazo, sin memorizar a la fuerza."],
+ retrieval:["Recordar, no releer","No solo miras la respuesta correcta: la sacas tú de la memoria. Cada uno de esos esfuerzos fija la palabra mejor que leerla diez veces."],
+ input:["Comprensible al 95%","Casi todo en la clase ya te resulta conocido y solo un poco es nuevo. Tu cerebro entiende el sentido y absorbe lo nuevo con calma, sin diccionario en cada línea."],
+ output:["Hablas desde la primera clase","Un idioma se queda cuando lo usas. Desde el principio pronuncias, respondes y construyes tus propias frases, no solo escuchas."],
+ dialog:["Conversación real con corrección suave","Tu interlocutor responde a lo que dices, te hace preguntas y corrige los errores sin que se note. Es el camino más rápido de «entiendo» a «hablo»."],
+ dual:["Palabra + imagen + sonido","Lo nuevo entra por los ojos y los oídos a la vez. Una doble huella en la memoria dura más y se recupera antes."],
+ small:["Pasos pequeños","Bloques cortos de pocas tareas, de lo fácil a lo difícil. El cerebro no se satura y ves tu progreso cada par de minutos."],
+ interleave:["Repaso mezclado","Lo nuevo se mezcla con lo que ya aprendiste. Así aprendes a elegir de verdad la palabra y la forma correctas, y no solo a reconocer el ejercicio."],
+ self:["Tu vida en las clases","Todo lo que tiene que ver contigo se recuerda mejor. Por eso en las clases aparecen tu trabajo, tu familia, tus aficiones y tus planes, sacados de tu cuestionario."],
+ story:["Historias, humor y emociones","Una trama y una sonrisa encienden la atención y la memoria. Historias, bromas y sorpresas culturales hacen que la clase parezca una serie y no un libro de texto."],
+ feedback:["Respuesta inmediata y segunda oportunidad","Ves enseguida dónde está el error y por qué, oyes la versión correcta y lo intentas otra vez. El error se convierte en un paso adelante, no en un fracaso."],
+ ear:["Habla real, tareas reales","Escuchas voces y acentos distintos y resuelves tareas reales: pedir, acordar, explicar. Así el idioma está listo para la vida, no solo para un examen."],
+ bH:"Qué significa esto para ti", b1:"minutos al día son suficientes: las clases son cortas y caben en un descanso", b2:"clase y ya hablas: desde la primera sesión, no «algún día»",
+ b3:"niveles de un cuestionario sobre ti: trabajo, familia, aficiones, metas — todo entra en las clases", b4:"un interlocutor que no se cansa, no se ríe de tu acento y te corrige con suavidad",
+ sEy:"Investigación", sH:"Cómo lo sabemos", foot:"Idiomas: inglés, español, portugués, francés, turco, ruso"
+},
+pt:{
+ brand:"Idioma sob encomenda", eyebrow:"Como as aulas funcionam", h1:"Interessante como uma série. Útil como um personal trainer.",
+ lead:"Cada aula é feita com técnicas comprovadas por pesquisas sobre memória e aprendizagem de idiomas, e com a sua própria vida: seu trabalho, sua família, suas viagens e seus planos. Por isso as palavras não somem depois de uma semana e você começa a falar já na primeira aula.",
+ tag:"Aprenda o que é seu e use hoje mesmo", curveT:"Quantas palavras ficam na memória", leg1:"aprendi uma vez", leg2:"com repetição espaçada",
+ curveN:"Esquema baseado na curva do esquecimento de Ebbinghaus: cada revisão na hora certa traz a palavra de volta e deixa o esquecimento mais lento.",
+ ax:["dia 1","3","7","30"], axy:"lembro",
+ oldL:"Um livro didático comum", newL:"A sua aula", newQ:"“Dá para remarcar minha consulta para sexta? Na quinta eu tenho um voo.”", newP:"Frases da sua vida que vão servir já amanhã: no trabalho, na viagem, com os amigos.",
+ mEy:"No que as aulas se baseiam", mH:"12 métodos que trabalham por você", mP:"Nada de mágica nem de “sistemas secretos”. Só o que cientistas testaram muitas vezes com milhares de pessoas, em aulas curtas para adultos ocupados.",
+ spaced:["Repetição espaçada","As palavras voltam exatamente quando começam a ser esquecidas: depois de um dia, de três dias, de uma semana. Assim elas vão para a memória de longo prazo, sem decoreba."],
+ retrieval:["Lembrar, não reler","Você não só olha a resposta certa: você mesmo a tira da memória. Cada esforço desses fixa a palavra mais do que ler dez vezes."],
+ input:["95% compreensível","Quase tudo na aula já é conhecido e só um pouco é novo. O cérebro entende o sentido e absorve o novo com calma, sem dicionário em cada linha."],
+ output:["Fale desde a primeira aula","O idioma fica quando você usa. Desde o começo você pronuncia, responde e monta suas próprias frases, em vez de só ouvir."],
+ dialog:["Conversa de verdade, correção gentil","Seu parceiro de conversa responde ao que você diz, faz perguntas e corrige os erros sem chamar atenção. É o caminho mais rápido de “entendo” para “falo”."],
+ dual:["Palavra + imagem + som","O novo chega pelos olhos e pelos ouvidos ao mesmo tempo. Um rastro duplo na memória dura mais e volta mais rápido."],
+ small:["Passos pequenos","Blocos curtos com poucas tarefas, do fácil ao difícil. O cérebro não sobrecarrega e você vê o progresso a cada dois minutos."],
+ interleave:["Revisão misturada","O novo se mistura com o que você já aprendeu. Assim você aprende a escolher de verdade a palavra e a forma certas, e não só a reconhecer o exercício."],
+ self:["A sua vida nas aulas","Tudo o que tem a ver com você é lembrado melhor. Por isso as aulas trazem seu trabalho, sua família, seus hobbies e seus planos, tirados do seu questionário."],
+ story:["Histórias, humor e emoção","Um enredo e um sorriso ligam a atenção e a memória. Histórias, piadas e surpresas culturais deixam a aula parecida com uma série, não com um livro didático."],
+ feedback:["Resposta na hora e segunda chance","Você vê na hora onde está o erro e por quê, ouve a versão certa e tenta de novo. O erro vira um passo à frente, não um fracasso."],
+ ear:["Fala real, tarefas reais","Você ouve vozes e sotaques diferentes e resolve tarefas reais: pedir, combinar, explicar. Assim o idioma fica pronto para a vida, não só para uma prova."],
+ bH:"O que isso significa para você", b1:"minutos por dia bastam: as aulas são curtas e cabem num intervalo", b2:"aula e você já está falando: desde o primeiro encontro, não “algum dia”",
+ b3:"níveis de um questionário sobre você: trabalho, família, interesses, metas — tudo entra nas aulas", b4:"um parceiro de conversa que não se cansa, não ri do seu sotaque e corrige com gentileza",
+ sEy:"Pesquisas", sH:"Como sabemos", foot:"Idiomas: inglês, espanhol, português, francês, turco, russo"
+},
+fa:{
+ brand:"زبانِ سفارشی", eyebrow:"روش درس‌ها", h1:"جذاب مثل یک سریال. مفید مثل یک مربی شخصی.",
+ lead:"هر درس از روش‌هایی ساخته شده که پژوهش‌های حافظه و یادگیری زبان آن‌ها را تأیید کرده‌اند، و از زندگی خود شما: کار، خانواده، سفرها و برنامه‌هایتان. برای همین کلمه‌ها بعد از یک هفته فراموش نمی‌شوند و صحبت کردن از همان درس اول شروع می‌شود.",
+ tag:"چیزی را یاد بگیرید که مال شماست و همین امروز به کار ببرید", curveT:"چند کلمه در حافظه می‌ماند", leg1:"یک بار یاد گرفتم", leg2:"با تکرار فاصله‌دار",
+ curveN:"طرح بر اساس منحنی فراموشی ابینگهاوس: هر تکرار در لحظهٔ درست، کلمه را برمی‌گرداند و فراموشی را کندتر می‌کند.",
+ ax:["روز ۱","۳","۷","۳۰"], axy:"به یاد دارم",
+ oldL:"کتاب درسی معمولی", newL:"درس شما", newQ:"«برای مصاحبهٔ کاری فردا ساعت ده وقت دارم؛ رزومه‌ام را می‌شود یک بار دیگر ببینید؟»", newP:"جمله‌هایی از زندگی خودتان که همین فردا به کارتان می‌آیند: سر کار، در سفر، با دوستان.",
+ mEy:"پایهٔ درس‌ها", mH:"۱۲ روشی که به نفع شما کار می‌کنند", mP:"نه جادویی در کار است و نه «سیستم مخفی». فقط چیزهایی که دانشمندان بارها روی هزاران نفر آزموده‌اند — در قالب درس‌های کوتاه برای بزرگسالانِ پرمشغله.",
+ spaced:["تکرار فاصله‌دار","کلمه‌ها درست وقتی برمی‌گردند که دارند فراموش می‌شوند: یک روز، سه روز، یک هفته بعد. این‌طور به حافظهٔ بلندمدت می‌روند و نیازی به حفظ کردنِ طوطی‌وار نیست."],
+ retrieval:["به یاد آوردن، نه دوباره خواندن","شما فقط به جواب درست نگاه نمی‌کنید، بلکه خودتان آن را از حافظه بیرون می‌کشید. همین تلاش کلمه را محکم‌تر از ده بار خواندن تثبیت می‌کند."],
+ input:["۹۵٪ قابل فهم","تقریباً همهٔ درس برایتان آشناست و فقط بخش کوچکی تازه است. مغز معنا را می‌فهمد و چیز تازه را بی‌دردسر می‌گیرد، بدون فرهنگ لغت در هر خط."],
+ output:["صحبت از درس اول","زبان وقتی می‌ماند که از آن استفاده کنید. از همان ابتدا تلفظ می‌کنید، جواب می‌دهید و جمله‌های خودتان را می‌سازید، نه این‌که فقط گوش بدهید."],
+ dialog:["گفت‌وگوی زنده با اصلاحِ ملایم","هم‌صحبت شما به حرف‌هایتان جواب می‌دهد، سؤال می‌پرسد و اشتباه‌ها را بی‌آن‌که به چشم بیاید اصلاح می‌کند. این سریع‌ترین راه از «می‌فهمم» به «حرف می‌زنم» است."],
+ dual:["کلمه + تصویر + صدا","مطلب تازه هم‌زمان از راه چشم و گوش می‌رسد. ردّ دوگانه در حافظه بیشتر می‌ماند و زودتر یادآوری می‌شود."],
+ small:["قدم‌های کوچک","بلوک‌های کوتاه با چند تمرین، از ساده به سخت. مغز خسته نمی‌شود و هر چند دقیقه پیشرفت خود را می‌بینید."],
+ interleave:["تکرارِ درهم","مطالب تازه با آنچه قبلاً یاد گرفته‌اید مخلوط می‌شوند. این‌طور یاد می‌گیرید واقعاً کلمه و شکل درست را انتخاب کنید، نه این‌که فقط تمرین را بشناسید."],
+ self:["زندگی شما در درس‌ها","هر چیزی که به خود شما مربوط است بهتر به یاد می‌ماند. برای همین کار، خانواده، سرگرمی‌ها و برنامه‌هایتان از پرسش‌نامهٔ شما در درس‌ها آمده است."],
+ story:["داستان، شوخی و احساس","داستان و لبخند توجه و حافظه را روشن می‌کنند. داستان‌ها، شوخی‌ها و شگفتی‌های فرهنگی درس را شبیه سریال می‌کنند، نه کتاب درسی."],
+ feedback:["بازخورد فوری و فرصت دوم","فوراً می‌بینید اشتباه کجاست و چرا، شکل درست را می‌شنوید و دوباره امتحان می‌کنید. اشتباه یک قدم به جلو می‌شود، نه شکست."],
+ ear:["گفتار واقعی، کارهای واقعی","صداها و لهجه‌های مختلف را می‌شنوید و کارهای واقعی انجام می‌دهید: سفارش دادن، توافق کردن، توضیح دادن. این‌طور زبان برای زندگی آماده است، نه فقط برای آزمون."],
+ bH:"این برای شما یعنی چه", b1:"دقیقه در روز کافی است: درس‌ها کوتاه‌اند و در یک استراحت جا می‌شوند", b2:"درس و شما صحبت می‌کنید: از جلسهٔ اول، نه «یک روزی بعداً»",
+ b3:"سطحِ پرسش‌نامه دربارهٔ شما: کار، خانواده، سرگرمی‌ها، هدف‌ها — همه وارد درس‌ها می‌شود", b4:"هم‌صحبتی که خسته نمی‌شود، به لهجه‌تان نمی‌خندد و با ملایمت اصلاح می‌کند",
+ sEy:"پژوهش‌ها", sH:"از کجا می‌دانیم", foot:"زبان‌ها: انگلیسی، اسپانیایی، پرتغالی، فرانسوی، ترکی، روسی"
+}};
+const NUM = {fa: s => s.replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d])};
+
+function drawCurve(L){
+  const svg = document.getElementById("cv"), W = 300, H = 190, x0 = 54, x1 = 290, y0 = 14, y1 = 152;
+  const X = d => x0 + (x1 - x0) * Math.log1p(d) / Math.log1p(30), Y = r => y1 - (y1 - y0) * r;
+  // forgetting without review: R = e^(-t/S), S = 1.6 days
+  const once = []; for(let t = 0; t <= 30; t += 0.25) once.push([X(t), Y(Math.exp(-t / 1.6))]);
+  // with reviews on days 1, 3, 7: each review returns memory to 100% and stability grows
+  const rev = []; const reps = [0, 1, 3, 7]; const st = [1.6, 4, 10, 40];
+  for(let i = 0; i < reps.length; i++){ const a = reps[i], b = i + 1 < reps.length ? reps[i + 1] : 30;
+    for(let t = a; t <= b + 1e-9; t += 0.1) rev.push([X(t), Y(Math.exp(-(t - a) / st[i]))]); if(i + 1 < reps.length) rev.push([X(b), Y(1)]); }
+  const path = p => "M" + p.map(q => q[0].toFixed(1) + " " + q[1].toFixed(1)).join(" L");
+  const fmt = NUM[L] || (s => s);
+  const rtl = L === "fa";
+  let g = '<title id="cvt">' + T[L].curveT + '</title>';
+  [0, .5, 1].forEach(r => { g += '<line x1="' + x0 + '" x2="' + x1 + '" y1="' + Y(r) + '" y2="' + Y(r) + '" stroke="var(--line)" stroke-width="1"/>';
+    g += '<text x="' + (x0 - 6) + '" y="' + (Y(r) + 4) + '" text-anchor="end" font-size="15" fill="var(--muted)" font-weight="700">' + fmt(Math.round(r * 100) + "%") + '</text>'; });
+  [[1, 0], [3, 1], [7, 2], [30, 3]].forEach(([d, i]) => { g += '<line x1="' + X(d) + '" x2="' + X(d) + '" y1="' + y1 + '" y2="' + (y1 + 4) + '" stroke="var(--muted)"/>';
+    g += '<text x="' + X(d) + '" y="' + (y1 + 17) + '" text-anchor="' + (d === 30 ? "end" : "middle") + '" font-size="15" fill="var(--muted)" font-weight="700">' + fmt(T[L].ax[i]) + '</text>'; });
+  g += '<path d="' + path(once) + '" fill="none" stroke="var(--muted)" stroke-width="2.5" stroke-dasharray="5 5"/>';
+  g += '<path class="rep" d="' + path(rev) + '" fill="none" stroke="var(--accent)" stroke-width="3.5" stroke-linejoin="round"/>';
+  reps.slice(1).forEach(d => { g += '<circle cx="' + X(d) + '" cy="' + Y(1) + '" r="4.5" fill="var(--accent)"/>'; });
+  g += '<circle cx="' + X(30) + '" cy="' + Y(Math.exp(-23 / 40)) + '" r="5" fill="var(--card)" stroke="var(--accent)" stroke-width="3"/>';
+  svg.innerHTML = g; svg.setAttribute("direction", "ltr");
+}
+function setLang(L){
+  if(!T[L]) L = "ru"; const D = T[L];
+  document.documentElement.lang = L; document.documentElement.dir = L === "fa" ? "rtl" : "ltr";
+  document.title = D.brand;
+  document.querySelectorAll("[data-t]").forEach(e => { const v = D[e.dataset.t]; if(typeof v === "string") e.textContent = v; });
+  const box = document.getElementById("methods"); box.innerHTML = "";
+  M.forEach(m => { const c = document.createElement("article"); c.className = "m";
+    const ic = document.createElement("div"); ic.className = "ic"; ic.textContent = m.ic; ic.setAttribute("aria-hidden", "true");
+    const h = document.createElement("h3"); h.textContent = D[m.k][0];
+    const p = document.createElement("p"); p.textContent = D[m.k][1];
+    const s = document.createElement("span"); s.className = "cite"; s.dir = "ltr"; s.textContent = m.cite;
+    c.append(ic, h, p, s); box.append(c); });
+  if(L === "fa") document.querySelectorAll(".bgrid b").forEach(b => b.textContent = NUM.fa(b.textContent));
+  else { const n = ["10–15", "1", "7", "24/7"]; document.querySelectorAll(".bgrid b").forEach((b, i) => b.textContent = n[i]); }
+  document.querySelectorAll(".langs button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.l === L)));
+  drawCurve(L);
+}
+document.querySelectorAll(".langs button").forEach(b => b.onclick = () => { location.hash = b.dataset.l; });
+const pickLang = () => { const h = location.hash.slice(1); if(T[h]) return h; const n = (navigator.language || "ru").slice(0, 2); return T[n] ? n : "ru"; };
+addEventListener("hashchange", () => setLang(pickLang()));
+setLang(pickLang());
+</script>
+
+</body>
+</html>
