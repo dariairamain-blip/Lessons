@@ -656,6 +656,14 @@ button{font:inherit;color:inherit;cursor:pointer}
 <div id="wm-bar" hidden></div>
 
 <script>
+// progress for the teacher (Telegram report + Google table): silent, never blocks the lesson
+const EV_WHO = "Дарья";
+function sendEvent(type, title, detail){ try{ if(location.origin !== "https://dariairamain-blip.github.io") return; fetch("https://daria-talk.daria-iramain.workers.dev/event", {method: "POST", headers: {"content-type": "application/json"}, keepalive: true,
+  body: JSON.stringify({type, who: EV_WHO, title: String(title || "").slice(0, 120), detail: String(detail || "").slice(0, 3000)})}).catch(() => {}); }catch(e){} }
+let evDone = false;
+function lessonDone(detail){ if(evDone) return; evDone = true; sendEvent("lesson_done", document.title, detail); }
+setTimeout(() => sendEvent("visit", document.title), 1500);
+
 /* ===== Коды доступа: один код = один ученик ===== */
 
 
@@ -1481,7 +1489,7 @@ function answer(ok, wrongMsg, sayAfter){
 $("#sheet-next").onclick = () => { hideSheet(); next(); };
 function finish(){
   $("#bar-fill").style.width = "100%";
-  P.done[LI] = true; P.xp += 20; if(P.logs[LI]) P.logs[LI].done = true; save(); sfxWin();
+  P.done[LI] = true; P.xp += 20; try{ if(doneN() >= NLV()) lessonDone("Все уровни пройдены: " + NLV()); }catch(e){} if(P.logs[LI]) P.logs[LI].done = true; save(); sfxWin();
   const pct = scored ? right / scored : 1;
   const stars = pct >= .9 ? 3 : pct >= .6 ? 2 : 1;
   $("#done-stars").textContent = "⭐".repeat(stars) + "☆".repeat(3 - stars);

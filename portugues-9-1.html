@@ -167,6 +167,14 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-of
 </div></div>
 
 <script>
+// progress for the teacher (Telegram report + Google table): silent, never blocks the lesson
+const EV_WHO = "Дарья";
+function sendEvent(type, title, detail){ try{ if(location.origin !== "https://dariairamain-blip.github.io") return; fetch("https://daria-talk.daria-iramain.workers.dev/event", {method: "POST", headers: {"content-type": "application/json"}, keepalive: true,
+  body: JSON.stringify({type, who: EV_WHO, title: String(title || "").slice(0, 120), detail: String(detail || "").slice(0, 3000)})}).catch(() => {}); }catch(e){} }
+let evDone = false;
+function lessonDone(detail){ if(evDone) return; evDone = true; sendEvent("lesson_done", document.title, detail); }
+setTimeout(() => sendEvent("visit", document.title), 1500);
+
 /* ---------- content ---------- */
 
 
@@ -374,7 +382,7 @@ function gate(){return `<div class="gate scr"><div class="pic">🇧🇷🔑</div
 function intro(){return CFG.intro}
 function menu(){return `<h1>Урок ${CFG.n} · Части</h1><p class="sub">Иди по порядку или выбери любую часть.</p><div class="menu">`+
  MODS.map((M,i)=>`<button type="button" class="mi${S.done[i]?" done":""}" data-mod="${i}"><span class="e">${M.e}</span><span class="n">${i+1}. ${esc(M.n)}<br><span class="s">${esc(M.s)}</span></span>${S.done[i]?"✅":"▶"}</button>`).join("")+`</div><button type="button" class="btn sec" data-log>📋 Мои ответы</button>`}
-function mdone(){const last=S.m===MODS.length-1;return `<div class="pic">${last?"🏆":"🎉"}</div><h1>${last?`Parabéns! Урок ${CFG.n} пройден`:"Muito bem! Часть пройдена"}</h1>`+
+function mdone(){const last=S.m===MODS.length-1;if(last) lessonDone("Все части урока пройдены");return `<div class="pic">${last?"🏆":"🎉"}</div><h1>${last?`Parabéns! Урок ${CFG.n} пройден`:"Muito bem! Часть пройдена"}</h1>`+
  (last?CFG.fin():`<p class="sub">Часть ${S.m+1} готова. Дальше: <b>${esc(MODS[S.m+1].n)}</b> ${MODS[S.m+1].e}</p>`)}
 
 function page(P){CURLANG="";
