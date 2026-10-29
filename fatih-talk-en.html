@@ -232,8 +232,14 @@ function fitDock(){ const d = $("#dock"); document.documentElement.style.setProp
 function show(el){ fitDock(); requestAnimationFrame(() => { const r = el.getBoundingClientRect(), bot = innerHeight - (($("#dock").hidden ? 0 : $("#dock").offsetHeight) + 12), barB = document.querySelector(".bar").getBoundingClientRect().bottom + 8;
   let dy = 0; if(r.bottom > bot) dy = r.bottom - bot; if(r.top - dy < barB) dy = r.top - barB; if(Math.abs(dy) > 2) scrollBy({top: dy, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); }); }
 addEventListener("resize", fitDock);
+const FEMV = /samantha|karen|moira|tessa|victoria|allison|ava|susan|zoe|nicky|serena|kate|martha|fiona|veena|catherine|kathy|princess|vicki|joelle|shelley|flo|sandy|female|woman|jenny|aria|sonia|libby|emma|olivia|amy|salli|joanna|kimberly|ivy|kendra|google us english|google uk english female/i;
+const MALEV = /aaron|fred|daniel|alex\b|tom\b|oliver|arthur|gordon|rishi|evan|nathan|reed|rocko|grandpa|eddy|ralph|junior|albert|bruce|lee\b|male|guy|ryan|brian|matthew|joey|justin|google uk english male/i;
+function pickVoice(lang){ const all = speechSynthesis.getVoices(), L = lang.toLowerCase();
+  const byL = all.filter(x => x.lang && x.lang.replace("_","-").toLowerCase().startsWith(L)), en = all.filter(x => x.lang && x.lang.toLowerCase().startsWith("en"));
+  const good = x => MALEV.test(x.name) && !FEMV.test(x.name);
+  return byL.find(good) || en.find(good) || byL.find(x => !FEMV.test(x.name)) || en.find(x => !FEMV.test(x.name)) || null; }
 function say(t, lang, rate, queue){ if(S.mute || !("speechSynthesis" in window)) return; try{ if(!queue) speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, "")); u.lang = lang; u.rate = rate || .85;
-  const v = speechSynthesis.getVoices().find(x => x.lang && x.lang.replace("_","-").toLowerCase().startsWith(lang.toLowerCase())) || speechSynthesis.getVoices().find(x => x.lang && x.lang.toLowerCase().startsWith("en")); if(v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
+  const v = pickVoice(lang); if(v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
 const lang = () => "en-GB";
 $("#mute").onclick = () => { S.mute = !S.mute; $("#mute").textContent = S.mute ? "🔇 Ses: kapalı" : "🔊 Ses: açık"; $("#mute").classList.toggle("on", S.mute); if(S.mute) try{ speechSynthesis.cancel(); }catch(e){} };
 $("#auto").onclick = () => { S.auto = !S.auto; $("#auto").textContent = "🗣 Otomatik seslendirme: " + (S.auto ? "açık" : "kapalı"); $("#auto").classList.toggle("on", S.auto); };
@@ -661,9 +667,12 @@ async function sayOAI(t, rate){
     let url = TTSC.get(key);
     if(!url){ const r = await wfetch("/tts", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({text, voice, speed})}); if(!r.ok) throw 0; url = URL.createObjectURL(await r.blob()); TTSC.set(key, url); }
     if(my !== ttsSeq) return;
-    AUD.src = url; await AUD.play();
-  }catch(e){ _say(t, lang(), rate); }
+    AUD.src = url;
+    try{ await AUD.play(); }catch(e1){ soundUnlock(); await new Promise(r => setTimeout(r, 250)); if(my !== ttsSeq) return; AUD.src = url; await AUD.play(); }
+  }catch(e){ if(!sayOAI.told){ sayOAI.told = true; micMsg("🔈 OpenAI sesi şu an çalmadı — geçici olarak iPhone sesi. Tekrar denemek için «🔊» bas."); } _say(t, lang(), rate); }
 }
+function soundUnlock(){ try{ if(AUD.paused){ AUD.src = SILENT; AUD.play().catch(() => {}); } }catch(e){} }
+["#micpt", "#micru", "#send"].forEach(id => { const b = $(id); if(b) b.addEventListener("click", soundUnlock, true); });
 const _say = say;
 say = function(t, lng, rate, queue){ if(S.mute) return; if(OAI() && TTS() === "openai" && lng && lng.slice(0, 2) === lang().slice(0, 2)) return sayOAI(t, rate); return _say(t, lng, rate, queue); };
 $("#mute").addEventListener("click", () => { if(S.mute) try{ AUD.pause(); }catch(e){} });
@@ -845,7 +854,7 @@ const PERS = (() => {
   const EMO = ["🦸", "🧑‍🚀", "🤖", "🦁", "🐻", "🧙", "🕵️", "👨‍🍳", "⚽", "🎸"];
   function myHero(){ const x = load(K.my, null); if(!x || !x.name) return null;
     return {id: "custom", e: x.e || "🦸", n: x.name, d: x.who ? x.who.slice(0, 60) : "Senin kahramanın",
-      role: `You are ${x.name}. Your character, created by the learner (it may be written in Turkish): ${x.who || "a friendly person"}. Where you are / your world: ${x.place || "anywhere"}. Stay in this character all the time and talk like this person would.`,
+      role: `You are ${x.name}, a man (always speak about yourself as a man). Your character, created by the learner (it may be written in Turkish): ${x.who || "a friendly person"}. Where you are / your world: ${x.place || "anywhere"}. Stay in this character all the time and talk like this person would.`,
       hi: `Hi Fatih! It's me, ${x.name}. Great to see you! How's your day going?`, hiru: `Merhaba Fatih! Benim, ${x.name}. Seni görmek harika! Günün nasıl geçiyor?`,
       words: {"hi": "merhaba", "fatih": "Fatih", "it's": "bu ...dır", "me": "ben", [x.name.toLowerCase()]: x.name, "great": "harika", "to": "(-mek)", "see": "görmek", "you": "seni", "how's": "nasıl", "your": "senin", "day": "gün", "going": "gidiyor"}}; }
   function heroModal(){
