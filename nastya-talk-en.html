@@ -137,6 +137,7 @@ h1{font:800 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
 .bub .tools button.stopm{background:#E2482F;border-color:#E2482F;color:#fff}
 .pv{max-width:560px;margin:0 auto 8px;display:flex;align-items:center;gap:8px;background:#FFF6DC;border:2px solid #F2B632;color:#7A5200;border-radius:14px;padding:8px 10px;font:800 14px var(--body)}
 .pv span{flex:1}.pv button{border:2px solid #F2B632;background:#fff;color:#7A5200;border-radius:999px;font:900 14px var(--body);padding:6px 12px;cursor:pointer}
+.gsel{display:grid;grid-template-columns:1fr 1fr;gap:8px}.gsel button{font:800 15px var(--body);padding:8px 6px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}.gsel button.on{border-color:#6D4AFF;background:#ECE6FF;color:#2A1A6E}
 .warn{background:var(--fix);color:var(--fixink);border-radius:14px;padding:12px;font-size:14.5px}
 </style>
 <div class="wrap" id="wrap">
@@ -150,22 +151,22 @@ h1{font:800 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
   <button class="send" id="send" type="button" aria-label="Отправить">➤</button></div></div>
 <script>
 const HEROES = [
- {id:"client", words:{}, e:"🧑‍💼", n:"Клиентка Emma", d:"Клиентка из Чикаго. Заказывает переводы: сроки, цена, правки.", br:false,
+ {id:"client", g:"f", words:{}, e:"🧑‍💼", n:"Клиентка Emma", d:"Клиентка из Чикаго. Заказывает переводы: сроки, цена, правки.", br:false,
   role:"You are Emma, a friendly but demanding American client from Chicago (marketing manager in a logistics company) who orders translations from the learner's translation agency. You discuss deadlines, prices, terminology, edits and feedback. Professional, polite, sometimes in a hurry.",
   hi:"Hi Anastasia! Thanks for the last translation. Do you have a minute to talk about a new project?", hiru:"Привет, Анастасия! Спасибо за прошлый перевод. Есть минутка обсудить новый проект?"},
- {id:"colleague", words:{}, e:"👩‍💻", n:"Коллега Sarah", d:"Проект-менеджер агентства переводов в Нью-Йорке. Проекты, дедлайны, кофе.", br:false,
+ {id:"colleague", g:"f", words:{}, e:"👩‍💻", n:"Коллега Sarah", d:"Проект-менеджер агентства переводов в Нью-Йорке. Проекты, дедлайны, кофе.", br:false,
   role:"You are Sarah, an energetic American project manager at a partner translation agency in New York and the learner's colleague. You chat about projects, deadlines, tricky texts, CAT tools, clients and work-life balance, like colleagues over coffee.",
   hi:"Morning, Anastasia! How's your week going? Busy with projects?", hiru:"Доброе утро, Анастасия! Как проходит неделя? Много проектов?"},
- {id:"mentor", words:{}, e:"🎤", n:"Наставник James", d:"Опытный устный переводчик из Лондона. Как сказать естественнее.", br:true,
+ {id:"mentor", g:"m", words:{}, e:"🎤", n:"Наставник James", d:"Опытный устный переводчик из Лондона. Как сказать естественнее.", br:true,
   role:"You are James, a warm, witty senior conference interpreter from London and the learner's mentor. You love language: idioms, phrasal verbs, collocations, how natives really say things, translation traps between Russian and English. You give one practical tip at a time.",
   hi:"Hello, Anastasia! Lovely to see you. Shall we play with some English today?", hiru:"Здравствуй, Анастасия! Рад тебя видеть. Поиграем сегодня с английским?"},
- {id:"hr", words:{}, e:"📞", n:"HR Rachel", d:"Рекрутер международной компании. Тренировка собеседования.", br:false,
+ {id:"hr", g:"f", words:{}, e:"📞", n:"HR Rachel", d:"Рекрутер международной компании. Тренировка собеседования.", br:false,
   role:"You are Rachel, a friendly American recruiter at an international company hiring translators and localization specialists. You run a realistic but kind job interview: typical interview questions, follow-up questions, and at the end short honest feedback.",
   hi:"Hi Anastasia, thanks for joining the call! Can you hear me okay?", hiru:"Здравствуйте, Анастасия, спасибо, что подключились! Хорошо меня слышите?"},
- {id:"friend", words:{}, e:"🇺🇸", n:"Подруга Jessica", d:"Американка из Калифорнии, тоже мама. Семья, дети, сериалы.", br:false,
+ {id:"friend", g:"f", words:{}, e:"🇺🇸", n:"Подруга Jessica", d:"Американка из Калифорнии, тоже мама. Семья, дети, сериалы.", br:false,
   role:"You are Jessica, a cheerful American woman from San Diego, California, the learner's friend. You are also a mom of a teenager who is finishing high school. You chat about family, kids, school and university plans, TV series, food, weekends and everyday life, react with emotion and share your own stories.",
   hi:"Hey Nastya! It's been ages! How are you and the family?", hiru:"Привет, Настя! Сто лет не виделись! Как ты и семья?"},
- {id:"masha", words:{}, e:"👩", n:"Подруга Маша", d:"Подруга из Новосибирска, 10 лет жила в США. Говорит только по-английски и учит.", br:false,
+ {id:"masha", g:"f", words:{}, e:"👩", n:"Подруга Маша", d:"Подруга из Новосибирска, 10 лет жила в США. Говорит только по-английски и учит.", br:false,
   role:"You are Masha, the learner's Russian friend from Novosibirsk who lived in the USA for 10 years and speaks excellent, natural American English. You talk with Nastya ONLY in English (that is your deal, to help her practise). You are warm, supportive and a bit funny. Very often you give her one friendly tip in \"fix\": how to say her phrase more naturally or more beautifully, like a native speaker would.",
   hi:"Hey Nastya! Our English-only deal is on, okay? So, how was your day?", hiru:"Привет, Настя! Наш уговор «только по-английски» в силе, ок? Ну, как прошёл твой день?"}
 ];
@@ -235,8 +236,16 @@ function fitDock(){ const d = $("#dock"); document.documentElement.style.setProp
 function show(el){ fitDock(); requestAnimationFrame(() => { const r = el.getBoundingClientRect(), bot = innerHeight - (($("#dock").hidden ? 0 : $("#dock").offsetHeight) + 12), barB = document.querySelector(".bar").getBoundingClientRect().bottom + 8;
   let dy = 0; if(r.bottom > bot) dy = r.bottom - bot; if(r.top - dy < barB) dy = r.top - barB; if(Math.abs(dy) > 2) scrollBy({top: dy, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); }); }
 addEventListener("resize", fitDock);
+const FEMV = /samantha|karen|moira|tessa|victoria|allison|ava|susan|zoe|nicky|serena|kate|martha|fiona|veena|catherine|kathy|princess|vicki|joelle|shelley|flo|sandy|female|woman|jenny|aria|sonia|libby|emma|olivia|amy|salli|joanna|kimberly|ivy|kendra|google us english|google uk english female/i;
+const MALEV = /aaron|fred|daniel|alex\b|tom\b|oliver|arthur|gordon|rishi|evan|nathan|reed|rocko|grandpa|eddy|ralph|junior|albert|bruce|lee\b|male|guy|ryan|brian|matthew|joey|justin|google uk english male/i;
+function heroG(){ return S.hero && S.hero.g === "m" ? "m" : "f"; }
+function pickVoice(lang){ const all = speechSynthesis.getVoices(); const L = lang.toLowerCase();
+  const byL = all.filter(x => x.lang && x.lang.replace("_","-").toLowerCase().startsWith(L)), en = all.filter(x => x.lang && x.lang.toLowerCase().startsWith("en"));
+  const want = heroG() === "m" ? MALEV : FEMV, avoid = heroG() === "m" ? FEMV : MALEV;
+  return byL.find(x => want.test(x.name) && !(heroG() === "f" && MALEV.test(x.name))) || en.find(x => want.test(x.name) && !(heroG() === "f" && MALEV.test(x.name)))
+    || byL.find(x => !avoid.test(x.name)) || en.find(x => !avoid.test(x.name)) || byL[0] || en[0] || null; }
 function say(t, lang, rate, queue){ if(S.mute || !("speechSynthesis" in window)) return; try{ if(!queue) speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, "")); u.lang = lang; u.rate = rate || .85;
-  const v = speechSynthesis.getVoices().find(x => x.lang && x.lang.replace("_","-").toLowerCase().startsWith(lang.toLowerCase())) || speechSynthesis.getVoices().find(x => x.lang && x.lang.toLowerCase().startsWith("en")); if(v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
+  const v = pickVoice(lang); if(v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
 const lang = () => S.hero && S.hero.br ? "en-GB" : "en-US";
 $("#mute").onclick = () => { S.mute = !S.mute; $("#mute").textContent = S.mute ? "🔇 Звук: выкл" : "🔊 Звук: вкл"; $("#mute").classList.toggle("on", S.mute); if(S.mute) try{ speechSynthesis.cancel(); }catch(e){} };
 $("#auto").onclick = () => { S.auto = !S.auto; $("#auto").textContent = "🗣 Автоозвучка: " + (S.auto ? "вкл" : "выкл"); $("#auto").classList.toggle("on", S.auto); };
@@ -596,7 +605,7 @@ const setPref = (k, v) => { try{ localStorage.setItem(k, v); }catch(e){} };
 const OAI = () => !!(WORKER && sample === viaWorker);
 const STT = () => (!REC ? "openai" : pref(STTK, "openai"));
 const TTS = () => pref(TTSK, "iphone");
-const VOICES = {client: "coral", colleague: "nova", mentor: "fable", hr: "sage", friend: "shimmer", masha: "alloy"};
+const VOICES = {client: "coral", colleague: "nova", mentor: "fable", hr: "sage", friend: "shimmer", masha: "shimmer"};
 const NATIVE = "ru-RU".slice(0, 2);
 function oaiLabels(){
   $("#sttb").textContent = "🎧 Распознавание: " + (STT() === "openai" ? "OpenAI" : "iPhone");
@@ -825,28 +834,35 @@ const PERS = (() => {
   }
 
   // ---------- ✨ own hero ----------
-  const EMO = ["🦸", "🧑‍🚀", "🤖", "🦁", "🐻", "🧙", "🕵️", "👨‍🍳", "⚽", "🎸"];
-  function myHero(){ const x = load(K.my, null); if(!x || !x.name) return null;
-    return {id: "custom", e: x.e || "🦸", n: x.name, d: x.who ? x.who.slice(0, 60) : "Твой герой",
-      role: `You are ${x.name}. Your character, created by the learner (it may be written in Russian): ${x.who || "a friendly person"}. Where you are / your world: ${x.place || "anywhere"}. Stay in this character all the time and talk like this person would.`,
-      hi: `Hi Nastya! It's me, ${x.name}. Great to see you! How's your day going?`, hiru: `Привет, Настя! Это я, ${x.name}. Рада тебя видеть! Как проходит твой день?`,
+  const EMO = {f: ["👩", "👩‍🚀", "👸", "🧚‍♀️", "👩‍🍳", "🕵️‍♀️", "🦊", "🐱", "💃", "🎸"], m: ["🦸", "🧑‍🚀", "🤖", "🦁", "🐻", "🧙", "🕵️", "👨‍🍳", "⚽", "🎸"]};
+  const guessG = n => /[аяaи]$/i.test(String(n || "").trim()) ? "f" : "m";
+  function myHero(){ const x = load(K.my, null); if(!x || !x.name) return null; const g = x.g || guessG(x.name);
+    return {id: "custom", g, e: x.e || (g === "f" ? "👩" : "🦸"), n: x.name, d: x.who ? x.who.slice(0, 60) : "Твой герой",
+      role: `You are ${x.name}, ${g === "f" ? "a woman" : "a man"} (always speak about yourself as a ${g === "f" ? "woman" : "man"}). Your character, created by the learner (it may be written in Russian): ${x.who || "a friendly person"}. Where you are / your world: ${x.place || "anywhere"}. Stay in this character all the time and talk like this person would.`,
+      hi: `Hi Nastya! It's me, ${x.name}. Great to see you! How's your day going?`, hiru: `Привет, Настя! Это я, ${x.name}. ${g === "f" ? "Рада" : "Рад"} тебя видеть! Как проходит твой день?`,
       words: {}}; }
   function heroModal(){
     const cur = load(K.my, {}) || {}; const [m, b] = modal(); b.append(h("h2", "", "✨ Свой герой"), h("div", "", "С кем хочешь поговорить? Заполни — герой будет говорить именно так."));
     const n = h("input"); n.type = "text"; n.placeholder = "Имя (например, Captain Max)"; n.value = cur.name || ""; n.setAttribute("aria-label", "Имя");
-    const w = h("textarea"); w.rows = 3; w.placeholder = "Кто он, какой? (например, бывший пилот, с юмором, любит футбол)"; w.value = cur.who || ""; w.setAttribute("aria-label", "Karakter");
+    const w = h("textarea"); w.rows = 3; w.placeholder = "Кто это, какой характер? (например, бывший пилот, с юмором, любит футбол)"; w.value = cur.who || ""; w.setAttribute("aria-label", "Karakter");
     const pl = h("input"); pl.type = "text"; pl.placeholder = "Где? (например, бар в Нью-Йорке)"; pl.value = cur.place || ""; pl.setAttribute("aria-label", "Место");
-    let e = cur.e || EMO[0]; const er = h("div", "emo"); EMO.forEach(x => { const eb = btn(x, "", () => { e = x; er.querySelectorAll("button").forEach(y => y.classList.toggle("on", y === eb)); }); if(x === e) eb.classList.add("on"); er.append(eb); });
+    let g = cur.g || (cur.name ? guessG(cur.name) : ""), e = cur.e || "";
+    const gr = h("div", "gsel"), er = h("div", "emo");
+    const drawE = () => { er.innerHTML = ""; (EMO[g || "f"]).forEach(x => { const eb = btn(x, "", () => { e = x; er.querySelectorAll("button").forEach(y => y.classList.toggle("on", y === eb)); }); if(x === e) eb.classList.add("on"); er.append(eb); }); };
+    [["f", "👩 Женщина"], ["m", "👨 Мужчина"]].forEach(([k, t]) => { const gb = btn(t, "", () => { g = k; if(!EMO[k].includes(e)) e = EMO[k][0]; gr.querySelectorAll("button").forEach(y => y.classList.toggle("on", y === gb)); drawE(); }); if(k === g) gb.classList.add("on"); gr.append(gb); });
+    drawE();
     const err = h("div", ""); err.style.color = "#C2410C";
-    b.append(h("b", "", "Имя"), n, h("b", "", "Характер"), w, h("b", "", "Место"), pl, h("b", "", "Значок"), er, err,
-      btn("💾 Сохранить и поговорить", "ok", () => { if(!n.value.trim()){ err.textContent = "Напиши имя."; return; } store(K.my, {name: n.value.trim().slice(0, 30), who: w.value.trim().slice(0, 300), place: pl.value.trim().slice(0, 100), e}); m.remove(); start(myHero()); }));
+    b.append(h("b", "", "Имя"), n, h("b", "", "Кто это"), gr, h("b", "", "Характер"), w, h("b", "", "Место"), pl, h("b", "", "Значок"), er, err,
+      btn("💾 Сохранить и поговорить", "ok", () => { if(!n.value.trim()){ err.textContent = "Напиши имя."; return; } if(!g){ err.textContent = "Выбери: 👩 Женщина или 👨 Мужчина."; return; } const V = load(K.voices, {}); delete V.custom; store(K.voices, V); store(K.my, {name: n.value.trim().slice(0, 30), who: w.value.trim().slice(0, 300), place: pl.value.trim().slice(0, 100), e: e || EMO[g][0], g}); m.remove(); start(myHero()); }));
     if(cur.name) b.append(btn("🗑 Удалить героя", "sec", () => { try{ localStorage.removeItem(K.my); }catch(x){} m.remove(); pick(); }));
     b.append(btn("Закрыть", "sec", () => m.remove()));
   }
 
   // ---------- 🎙 voices ----------
-  const VLIST = ["coral", "nova", "shimmer", "sage", "alloy", "ash", "ballad", "echo", "fable", "onyx", "verse"];
-  const voice = hero => (VLIST.includes(load(K.voices, {})[hero.id]) ? load(K.voices, {})[hero.id] : 0) || VOICES[hero.id] || "ash";
+  const VLIST = ["coral", "nova", "shimmer", "sage", "ash", "ballad", "echo", "fable", "onyx", "verse"];
+  const GV = {f: ["coral", "nova", "shimmer", "sage"], m: ["ash", "ballad", "echo", "fable", "onyx", "verse"]};
+  const gOf = hero => hero && hero.g === "m" ? "m" : "f";
+  const voice = hero => { const ok = GV[gOf(hero)], sv = load(K.voices, {})[hero.id]; return ok.includes(sv) ? sv : ok.includes(VOICES[hero.id]) ? VOICES[hero.id] : ok[0]; };
   async function playSample(v, hero){
     try{ const r = await wfetch("/tts", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({text: `Hi Nastya, I'm ${hero.n.split(" ").pop()}. Do you like my voice?`, voice: v, speed: 1})});
       if(!r.ok) throw 0; AUD.src = URL.createObjectURL(await r.blob()); await AUD.play(); }catch(e){ toast("Пример голоса не проигрался — проверь интернет."); }
@@ -854,7 +870,7 @@ const PERS = (() => {
   function voiceModal(){
     const [m, b] = modal(); b.append(h("h2", "", "🎙 Голоса героев"), h("div", "", "Нажми на голос — услышишь пример, и голос выберется. Эти голоса работают в режиме «🗣 Голос героя: OpenAI» — он включится сам."));
     HEROES.concat(myHero() ? [myHero()] : []).forEach(hero => { b.append(h("b", "", hero.e + " " + hero.n)); const row = h("div", "vrow");
-      VLIST.forEach(v => { const x = btn("▶ " + v, "", () => { const V = load(K.voices, {}); V[hero.id] = v; store(K.voices, V); setPref(TTSK, "openai"); try{ oaiLabels(); }catch(e){} row.querySelectorAll("button").forEach(y => y.classList.toggle("on", y === x)); playSample(v, hero); });
+      GV[gOf(hero)].forEach(v => { const x = btn("▶ " + v, "", () => { const V = load(K.voices, {}); V[hero.id] = v; store(K.voices, V); setPref(TTSK, "openai"); try{ oaiLabels(); }catch(e){} row.querySelectorAll("button").forEach(y => y.classList.toggle("on", y === x)); playSample(v, hero); });
         if(voice(hero) === v) x.classList.add("on"); row.append(x); }); b.append(row); });
     b.append(btn("Закрыть", "ok", () => m.remove()));
   }
