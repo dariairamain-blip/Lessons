@@ -192,6 +192,10 @@ const S = {mute:false, auto:true, hero:null, turns:[], busy:false};
 const $ = s => document.querySelector(s);
 const h = (tag, cls, txt) => { const e = document.createElement(tag); if(cls) e.className = cls; if(txt != null) e.textContent = txt; return e; };
 const WORKER = "https://daria-talk.daria-iramain.workers.dev";
+// progress for the teacher (Telegram report + Google table): silent, never blocks the page
+const WHO = "Анастасия";
+function sendEvent(type, title, detail){ try{ if(location.origin !== "https://dariairamain-blip.github.io") return; fetch(WORKER + "/event", {method: "POST", headers: {"content-type": "application/json"}, keepalive: true,
+  body: JSON.stringify({type, who: WHO, title: String(title || "").slice(0, 120), detail: String(detail || "").slice(0, 3000)})}).catch(() => {}); }catch(e){} }
 const CODEKEY = "nastya_code";
 const MODEL = () => { try{ return localStorage.getItem("nastya_model") || "sonnet"; }catch(e){ return "sonnet"; } };
 const getCode = () => { try{ return localStorage.getItem(CODEKEY) || ""; }catch(e){ return ""; } };
@@ -300,7 +304,7 @@ function bubble(who, pt, ru, fix, words){
   } else b.append(h("div", "pt", pt));
   m.append(b); $("#chat").append(m); show(m); return b;
 }
-function start(x){ const own0 = document.querySelector(".own"); if(own0) own0.hidden = true;
+function start(x){ sendEvent("visit", "Герои: " + (x && x.n ? x.n : "")); const own0 = document.querySelector(".own"); if(own0) own0.hidden = true;
   S.hero = x; S.turns = [];
   const a = $("#app"); a.innerHTML = "";
   $("#who").textContent = x.e + " " + x.n; $("#who").className = "who";
@@ -518,7 +522,7 @@ Reply with only JSON: {"drill": [{"q": "short Russian instruction or an English 
       mistakes: Array.isArray(r.mistakes) ? r.mistakes.slice(0, 3) : [], words: Array.isArray(r.words) ? r.words.slice(0, 6) : [],
       tip: String(r.tip || ""), drill: Array.isArray(r.drill) ? r.drill.filter(d => d && Array.isArray(d.opts) && d.opts.includes(d.a)).slice(0, 5) : [],
       facts: Array.isArray(r.facts) ? r.facts.map(String).filter(Boolean).slice(0, 5) : [], mission: ses.scene && ses.scene.goal ? {done: r.mission_done === true || r.mission_done === "true", note: String(r.mission_note || "")} : null, cb: r.callback_pt ? {pt: String(r.callback_pt), ru: String(r.callback_ru || ""), words: r.callback_words && typeof r.callback_words === "object" ? r.callback_words : {}} : null};
-    const a = all().filter(x => x.id !== ses.id); a.push(ses); store(KEY, a.slice(-120)); try{ PERS.afterReport(ses); }catch(e){} return ses;
+    const a = all().filter(x => x.id !== ses.id); a.push(ses); store(KEY, a.slice(-120)); try{ sendEvent("talk_report", ses.hero, text(ses).split("\n").slice(1).join("\n")); }catch(e){} try{ PERS.afterReport(ses); }catch(e){} return ses;
   }
   const text = ses => { const r = ses.report; return `🏁 Итог разговора — ${dstr(ses.date)}, ${ses.hero}\nУровень: ${r.level} · реплик: ${ses.log.filter(x => x.me).length}\n🎉 ${r.praise}` +
     (r.mistakes.length ? "\n✏️ Ошибки:\n" + r.mistakes.map((m, i) => `${i + 1}. «${m.bad}» → ${m.good} (${m.why})`).join("\n") : "") +
