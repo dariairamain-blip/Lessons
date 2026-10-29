@@ -1,4 +1,4 @@
-<title>Türkçe Klinik 3 🦷</title>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Türkçe Klinik 3 🦷</title><link rel="apple-touch-icon" href="icon-daria-tr.png"><link rel="icon" href="icon-daria-tr.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Klinik 3"></head><body>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito+Sans:wght@400;600;700;800&display=swap">
 <style>
@@ -160,6 +160,12 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-of
 </div></div>
 
 <script>
+const WHO = "Дарья";
+function sendEvent(type, title, detail){ try{ if(location.origin !== "https://dariairamain-blip.github.io") return; fetch("https://daria-talk.daria-iramain.workers.dev/event", {method:"POST", headers:{"content-type":"application/json"}, keepalive:true, body: JSON.stringify({type, who: WHO, title: String(title||"").slice(0,120), detail: String(detail||"").slice(0,3000)})}).catch(()=>{}); }catch(e){} }
+let evDone = false;
+function lessonDone(detail){ if(evDone) return; evDone = true; sendEvent("lesson_done", document.title, detail); }
+setTimeout(() => sendEvent("visit", document.title), 1500);
+
 /* ---------- content ---------- */
 const strip=s=>String(s).replace(/<[^>]+>/g,"");
 const W=(pic,tr,ru,c,lang)=>({h:`<div class="big pop">${pic}</div><div class="tw pop2">${tr}</div>`,say:strip(tr),tr:ru,c,lang});
@@ -430,5 +436,15 @@ $("#next").onclick=next;$("#back").onclick=back;
 $("#mbtn").onclick=()=>{S.v="menu";save();render()};
 $("#home").onclick=()=>{$("#hm").hidden=false};$("#hmc").onclick=()=>{$("#hm").hidden=true};
 render();
-</script>
 
+/* ===== отчёт преподавателю: урок пройден ===== */
+(function(){ try{
+  const _mRep = mdone;
+  mdone = function(){ const r = _mRep.apply(this, arguments);
+    try{ if(S.m === MODS.length - 1){ const lg = S.log || {}; const ks = Object.keys(lg); const ok = ks.filter(k => lg[k].ok).length;
+      const bad = ks.filter(k => !lg[k].ok).map(k => String(lg[k].q || "").replace(/<[^>]+>/g, "").slice(0, 70) + " → " + String(lg[k].your || "") + " (надо: " + String(lg[k].right || "") + ")");
+      lessonDone((ks.length ? "Верно " + ok + " из " + ks.length : "Урок пройден полностью") + "; ошибки: " + (bad.length ? bad.join("; ") : "нет")); } }catch(e){}
+    return r; };
+}catch(e){} })();
+</script>
+</body></html>

@@ -518,6 +518,12 @@ button{font:inherit;color:inherit;cursor:pointer}
 <div id="wm-bar" hidden></div>
 
 <script>
+const WHO = "Дарья";
+function sendEvent(type, title, detail){ try{ if(location.origin !== "https://dariairamain-blip.github.io") return; fetch("https://daria-talk.daria-iramain.workers.dev/event", {method:"POST", headers:{"content-type":"application/json"}, keepalive:true, body: JSON.stringify({type, who: WHO, title: String(title||"").slice(0,120), detail: String(detail||"").slice(0,3000)})}).catch(()=>{}); }catch(e){} }
+let evDone = false;
+function lessonDone(detail){ if(evDone) return; evDone = true; sendEvent("lesson_done", document.title, detail); }
+setTimeout(() => sendEvent("visit", document.title), 1500);
+
 /* ===== Коды доступа: один код = один ученик ===== */
 
 
@@ -2774,6 +2780,18 @@ function openGramDeck(onClose){
   setInterval(() => { try{ const b = document.getElementById("auto-tg"); if(b) b.hidden = !!document.getElementById("gate"); }catch(e){} }, 1000);
 })();
 autoUnlock();
+
+/* ===== отчёт преподавателю: урок пройден ===== */
+(function(){ try{
+  const _fRep = finish;
+  finish = function(){ const r = _fRep.apply(this, arguments);
+    try{ const n = NLV(); if(n && LI < n && doneN() >= n){ let R = 0, S = 0; const errs = [];
+      for(let i = 0; i < n; i++){ const lg = P.logs && P.logs[i]; if(!lg) continue; R += +lg.right || 0; S += +lg.scored || 0;
+        const bad = (lg.entries || []).filter(e => e && !e.ok).map(e => String(e.q || "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().slice(0, 70));
+        if(bad.length) errs.push((LEVELS[i] && LEVELS[i].title || ("#" + (i + 1))) + ": " + bad.join(" | ")); }
+      lessonDone((S ? "Верно " + R + " из " + S : "Урок пройден полностью") + "; ошибки: " + (errs.length ? errs.join("; ") : "нет")); } }catch(e){}
+    return r; };
+}catch(e){} })();
 </script>
 </body>
 </html>
