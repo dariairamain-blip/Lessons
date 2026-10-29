@@ -656,6 +656,12 @@ button{font:inherit;color:inherit;cursor:pointer}
 <div id="wm-bar" hidden></div>
 
 <script>
+const WHO = "Eugenio";
+function sendEvent(type, title, detail){ try{ if(location.origin !== "https://dariairamain-blip.github.io") return; fetch("https://daria-talk.daria-iramain.workers.dev/event", {method:"POST", headers:{"content-type":"application/json"}, keepalive:true, body: JSON.stringify({type, who: WHO, title: String(title||"").slice(0,120), detail: String(detail||"").slice(0,3000)})}).catch(()=>{}); }catch(e){} }
+let evDone = false;
+function lessonDone(detail){ if(evDone) return; evDone = true; sendEvent("lesson_done", document.title, detail); }
+setTimeout(() => sendEvent("visit", document.title), 1500);
+
 /* ===== Коды доступа: один код = один ученик ===== */
 
 
@@ -4782,6 +4788,12 @@ autoUnlock();
 
 })();
 
+
+;(function(){ try{ const _evFin = finish; finish = function(){ let was = true; try{ for(let i = 0; i < NLV(); i++) if(!P.done[i]){ was = false; break; } }catch(e){} const li = LI; const r = _evFin.apply(this, arguments);
+  try{ const n = NLV(); let all = n > 0; for(let i = 0; i < n; i++) if(!P.done[i]){ all = false; break; }
+    if(all && (!was || li === n - 1)){ const sm = logSummary(); const errs = sm.rows.filter(x => x.bad > 0).map(x => x.title.replace(/^\S+\s+/, "") + " — " + x.bad).join("; ");
+      lessonDone(sm.all ? "Верно " + sm.ok + " из " + sm.all + (errs ? "; ошибки: " + errs : "; без ошибок") : "Урок пройден полностью"); } }catch(e){}
+  return r; }; }catch(e){} })();
 </script>
 </body>
 </html>
