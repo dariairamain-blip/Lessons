@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Китайский урок 1</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600;7..72,700&family=Manrope:wght@400;600;700&family=Noto+Serif+SC:wght@500;700&display=swap">
+<style>
+/* Layout: one narrow phone column; sticky lesson bar on top, page card, back/skip row under it. Jade ink + seal red for the radicals. */
+:root{
+  --paper:#EEF3F0; --card:#FFFFFF; --ink:#1A2925; --muted:#586A64; --line:#D3DDD8;
+  --jade:#1E6B58; --jade-soft:#DCECE5; --seal:#C0352A; --seal-soft:#F8E2DF;
+  --ok:#2C7A4C; --ok-soft:#DDF0E3; --bad:#B3261E; --bad-soft:#F9DEDC; --gold:#A87A20;
+  --chat:#DCEFE6; --chat2:#FFFFFF;
+  --f-head:"Literata", Georgia, "Times New Roman", serif;
+  --f-body:"Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-zh:"Noto Serif SC", "Noto Serif CJK SC", "Songti SC", "STSong", "SimSun", serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#111917; --card:#1A2522; --ink:#E5EEEA; --muted:#9AADA6; --line:#2D3C37;
+  --jade:#5FC4A6; --jade-soft:#1C3630; --seal:#F0705F; --seal-soft:#3B2321;
+  --ok:#6FCB91; --ok-soft:#1D3527; --bad:#F2877E; --bad-soft:#3C2220; --gold:#E2B65C;
+  --chat:#1F3A31; --chat2:#22302C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111917; --card:#1A2522; --ink:#E5EEEA; --muted:#9AADA6; --line:#2D3C37;
+  --jade:#5FC4A6; --jade-soft:#1C3630; --seal:#F0705F; --seal-soft:#3B2321;
+  --ok:#6FCB91; --ok-soft:#1D3527; --bad:#F2877E; --bad-soft:#3C2220; --gold:#E2B65C;
+  --chat:#1F3A31; --chat2:#22302C; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--paper);color:var(--ink)}
+body{font-family:var(--f-body);font-size:16px;line-height:1.45;margin:0;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 24px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--paper)}
+.wrap{max-width:560px;margin:0 auto}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible,.tok:focus-visible{outline:3px solid var(--jade);outline-offset:2px}
+.zh{font-family:var(--f-zh);font-weight:500}
+h1,h2,h3{font-family:var(--f-head);text-wrap:balance;margin:0}
+.muted{color:var(--muted)}
+.hidden{display:none!important}
+[hidden]{display:none!important}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--paper);display:flex;align-items:center;gap:6px;padding:8px 0;border-bottom:1px solid var(--line)}
+.bar .t{flex:1;min-width:0;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .t small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.ib{border:1px solid var(--line);background:var(--card);border-radius:10px;min-width:36px;height:38px;padding:0 8px;font-size:15px;display:inline-flex;align-items:center;justify-content:center;gap:4px}
+.ib small{font-size:12px}
+.ib.off{opacity:.55}
+
+/* page */
+.page{padding-top:14px;display:flex;flex-direction:column;gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--jade);font-weight:700}
+.q{font-size:17px;font-weight:600}
+.q .zh{font-size:22px;color:var(--seal)}
+.nav{display:flex;gap:8px;margin-top:4px}
+.nav button{flex:1;border:1px solid var(--line);background:transparent;border-radius:12px;padding:10px 8px;font-size:14px;color:var(--muted)}
+.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:700;background:var(--jade);color:var(--card);font-size:16px}
+.btn.ghost{background:transparent;border:1.5px solid var(--jade);color:var(--jade)}
+.btn.small{padding:8px 12px;font-size:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tiny{border:1px solid var(--line);background:transparent;border-radius:8px;font-size:12px;padding:2px 7px;color:var(--muted)}
+.snd{border:0;background:var(--jade-soft);color:var(--jade);border-radius:50%;width:36px;height:36px;font-size:16px;flex:none}
+
+/* intro */
+.hero{display:flex;gap:14px;align-items:center}
+.seal{flex:none;width:104px;height:104px;border-radius:14px;background:var(--seal-soft);border:2px solid var(--seal);display:flex;align-items:center;justify-content:center;font-size:72px;color:var(--seal);line-height:1}
+.hero h2{font-size:24px}
+.pyname{font-size:14px;color:var(--muted)}
+.story{font-size:15px}
+.exs{display:flex;flex-direction:column;gap:8px}
+.ex{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:8px}
+.ex .c{font-size:40px;width:52px;text-align:center;line-height:1.1}
+.ex .m{flex:1;min-width:0;font-size:14px}
+.ex .f{font-family:var(--f-zh);font-size:17px}
+.ex .f b{color:var(--seal);font-weight:700}
+
+/* options */
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;flex-direction:column;align-items:stretch;gap:2px}
+.ob{width:100%;text-align:left;border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:10px 14px;font-size:16px;display:flex;align-items:center;gap:10px;min-height:52px}
+.ob .zh{font-size:30px;line-height:1}
+.ob.ok{border-color:var(--ok);background:var(--ok-soft)}
+.ob.bad{border-color:var(--bad);background:var(--bad-soft)}
+.ob[disabled]{cursor:default}
+.opt .row{margin-left:6px}
+.tr{font-size:13px;color:var(--muted);margin-left:6px}
+.big{font-size:64px;color:var(--seal);text-align:center;line-height:1.1}
+.fb{border-radius:12px;padding:12px;font-size:15px;display:flex;flex-direction:column;gap:10px}
+.fb.ok{background:var(--ok-soft);color:var(--ok);font-weight:700}
+.fb.bad{background:var(--bad-soft)}
+.fb.bad b.h{color:var(--bad)}
+.hint{background:var(--jade-soft);border-radius:10px;padding:8px 12px;font-size:14px}
+
+/* match */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mcol{display:flex;flex-direction:column;gap:8px;min-width:0}
+.mb{border:1.5px solid var(--line);background:var(--card);border-radius:12px;min-height:56px;padding:6px 8px;font-size:15px}
+.mb.zh{font-size:30px}
+.mb.sel{border-color:var(--jade);background:var(--jade-soft)}
+.mb.done{opacity:.35;border-style:dashed}
+.mb.shake{animation:sh .35s;border-color:var(--bad)}
+@keyframes sh{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* writing */
+.wbox{position:relative;width:min(280px,100%);aspect-ratio:1;margin:0 auto;background:var(--card);border:2px solid var(--seal);border-radius:10px;touch-action:none}
+.wbox svg{width:100%;height:100%;display:block}
+.wstat{text-align:center;font-size:14px;color:var(--muted);min-height:20px}
+
+/* speaking */
+.clues{display:flex;flex-direction:column;gap:4px;font-size:14px}
+.clue{display:flex;gap:8px;align-items:baseline}
+.clue span:first-child{color:var(--gold)}
+.clue.lock{color:var(--muted)}
+.word{text-align:center}
+.word .zh{font-size:52px;line-height:1.1}
+.mic{font-size:18px;padding:14px 20px}
+.mic.rec{background:var(--seal)}
+.status{font-size:14px;min-height:20px}
+details{font-size:14px}
+details summary{cursor:pointer;color:var(--jade);font-weight:600}
+
+/* reading */
+.phone{border-radius:18px;padding:14px 12px;background:
+  radial-gradient(circle at 15% 20%, var(--jade-soft) 0 18%, transparent 19%),
+  radial-gradient(circle at 85% 70%, var(--seal-soft) 0 14%, transparent 15%),
+  linear-gradient(160deg, var(--jade-soft), var(--paper));
+  border:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.phone .who{font-size:13px;color:var(--muted);text-align:center}
+.bub{align-self:flex-start;max-width:92%;background:var(--chat2);border-radius:4px 16px 16px 16px;padding:8px 12px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.bub .zh{font-size:22px;line-height:1.5}
+.bub .tools{display:flex;gap:6px;margin-top:4px}
+.bub .rt{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* culture */
+.ctext{font-size:22px;line-height:1.8}
+.sent{padding:6px 0;border-bottom:1px dashed var(--line)}
+.tok{cursor:pointer;border-radius:4px;padding:0 1px}
+.tok:hover,.tok.on{background:var(--jade-soft)}
+.winfo{font-size:14px;background:var(--jade-soft);border-radius:8px;padding:6px 10px;margin-top:4px}
+
+/* menu */
+.top{display:flex;align-items:center;gap:12px;padding-top:18px}
+.logo{display:flex;flex-direction:column;align-items:center;gap:2px}
+.logo small{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.02em}
+.top h1{font-size:26px;line-height:1.15}
+.sec{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:8px}
+.mi{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:12px 14px}
+.mi .ic{font-size:22px;width:30px;text-align:center;flex:none}
+.mi .tx{flex:1;min-width:0}
+.mi .tx b{display:block;font-size:16px}
+.mi .tx span{font-size:13px;color:var(--muted)}
+.mi .st{color:var(--ok);font-weight:700;font-size:18px}
+.owner{text-align:center;font-size:13px;color:var(--muted);padding-top:18px}
+.radrow{font-family:var(--f-zh);font-size:22px;color:var(--seal);letter-spacing:.15em}
+
+/* answers */
+.ans{border-top:1px solid var(--line);padding:8px 0;font-size:14px}
+.ans .ok{color:var(--ok);font-weight:700}
+.ans .bad{color:var(--bad);font-weight:700}
+
+/* character breakdown */
+.hz{cursor:pointer;text-decoration:underline dotted var(--line);text-underline-offset:4px}
+.hz:hover{background:var(--seal-soft);border-radius:3px}
+.pt .py{font-size:12px;color:var(--muted)}
+.hzbox .hc{display:flex;gap:12px;align-items:center}
+.hzbox .hc .zh{font-size:64px;line-height:1;color:var(--seal)}
+.parts{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.pt{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:4px 10px;font-size:14px;display:inline-flex;align-items:center;gap:6px}
+.pt .zh{font-size:22px;color:var(--jade)}
+button.pt{cursor:pointer}
+.why{background:var(--jade-soft);border-radius:10px;padding:10px 12px;font-size:15px}
+.hzbtn.on{background:var(--seal);color:var(--card);border-color:var(--seal)}
+/* modal */
+.mod{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:20;padding:16px}
+.mod .box{background:var(--card);border-radius:16px;padding:16px;max-width:400px;width:100%;position:relative;font-size:15px}
+.mod .x{position:absolute;top:8px;right:8px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script type="text/plain" id="decomp">
+人|rén|человек||Рисунок человека, который идёт: две ноги.
+亻|rén|человек (слева в иероглифе)|人=человек|Это 人, сжатый в узкую полоску, когда он стоит слева.
+单|dān|один, одиночный||Древний рисунок рогатины для охоты. Значение «один» запоминается целиком.
+旁|páng|сбоку, рядом|方=сторона|Внизу 方 «сторона». Что сбоку — то «со стороны».
+尔|ěr|ты (книжное)||Старое слово «ты». Запоминается целиком; сидит внутри 你.
+你|nǐ|ты|亻=человек;尔=ты (книжн.)|Человек 亻 + старое «ты» 尔 → ты, человек, к которому обращаюсь.
+也|yě|тоже||Древний рисунок, значение «тоже» запоминается целиком.
+他|tā|он|亻=человек;也=тоже (звук)|Человек 亻 + 也. Другой человек, не я и не ты → он.
+门|mén|дверь||Рисунок двустворчатой двери (упрощено из 門).
+们|men|мн. число людей|亻=человек;门=дверь (звук men)|Человек 亻 говорит о людях, 门 mén подсказывает звук → 我们, 你们.
+我|wǒ|я|手=рука;戈=алебарда|Древний рисунок оружия-алебарды в руке. Запоминалка: «я — с оружием в руке».
+戈|gē|алебарда||Рисунок древнего оружия на длинной ручке.
+手|shǒu|рука||Рисунок ладони с пальцами.
+口|kǒu|рот||Рисунок открытого рта.
+乞|qǐ|просить (милостыню)||Запоминается целиком; в 吃 подсказывает звук.
+吃|chī|есть, кушать|口=рот;乞=просить (звук)|Рот 口 — делаем ртом; 乞 подсказывает звук → есть.
+曷|hé|что? (книжн.)||Звуковая часть, сама по себе встречается редко.
+喝|hē|пить|口=рот;曷=звук hé|Рот 口 + 曷 hé (звук) → hē пить.
+丩|jiū|переплетение||Звуковая часть.
+叫|jiào|звать, кричать; зваться|口=рот;丩=звук jiū|Рот 口 кричит; 丩 подсказывает звук → звать.
+女|nǚ|женщина||Рисунок женщины, присевшей со скрещёнными руками.
+她|tā|она|女=женщина;也=тоже (звук)|Как 他 «он», только вместо человека — женщина 女 → она.
+马|mǎ|лошадь||Рисунок лошади: голова с гривой, ноги, хвост.
+妈|mā|мама|女=женщина;马=лошадь (звук mǎ)|Женщина 女 + 马 mǎ подсказывает звук → mā мама.
+且|qiě|к тому же||Звуковая часть (древний рисунок таблички).
+姐|jiě|старшая сестра|女=женщина;且=звук qiě|Женщина 女 + 且 подсказывает звук → jiě старшая сестра.
+妹|mèi|младшая сестра|女=женщина;未=ещё не (звук wèi)|Женщина 女, которая «ещё не» 未 выросла → младшая сестра.
+未|wèi|ещё не||Дерево 木 с маленькими верхними ветками — «ещё не выросло».
+子|zǐ|ребёнок||Малыш в пелёнке: голова, ручки в стороны, спелёнутые ножки.
+宀|mián|крыша||Рисунок крыши дома.
+字|zì|иероглиф|宀=крыша;子=ребёнок|Ребёнок 子 под крышей 宀 учится писать → иероглиф. 子 zǐ подсказывает и звук zì.
+亥|hài|12-я ветвь (свинья)||Звуковая часть.
+孩|hái|ребёнок|子=ребёнок;亥=звук hài|Ребёнок 子 + 亥 hài подсказывает звук → hái.
+冖|mì|покрышка||Крышка, накрывающая что-то.
+学|xué|учиться|⺍=знания сверху;冖=крыша;子=ребёнок|Ребёнок 子 под крышей 冖 школы, сверху на него «сыплются» знания ⺍ → учиться.
+木|mù|дерево||Ствол, ветка поперёк, корни вниз.
+林|lín|роща|木=дерево;木=дерево|Два дерева → роща.
+森|sēn|лес|木=дерево;木=дерево;木=дерево|Три дерева → густой лес.
+对|duì|правильно; пара|又=рука;寸=мера|Рука 又 + 寸 «точная мера» → правильно.
+又|yòu|снова; рука||Рисунок правой руки.
+寸|cùn|вершок (мера)||Рука с точкой на запястье, где меряют пульс → точная мера.
+树|shù|дерево|木=дерево;对=правильно|Дерево 木 + 对 (в упрощённом написании заменило старую часть) → дерево.
+日|rì|солнце, день||Солнце в рамке с чертой посередине.
+月|yuè|луна, месяц||Рисунок полумесяца.
+明|míng|светлый; 明天 — завтра|日=солнце;月=луна|Солнце 日 + луна 月 — два самых ярких света → светлый, ясный.
+天|tiān|небо, день|大=человек с раскинутыми руками;一=черта над головой|Над человеком 大 — черта 一 → небо.
+大|dà|большой||Человек раскинул руки: «во-о-от такой большой».
+一|yī|один||Одна черта.
+十|shí|десять||Пересечение черт — полный счёт.
+早|zǎo|рано, утро|日=солнце;十=черта горизонта|Солнце 日 поднялось над горизонтом/травой 十 → рано утром.
+时|shí|время|日=солнце;寸=мера|Солнце 日 + мера 寸 → время, которое меряют по солнцу.
+水|shuǐ|вода||Поток посередине и брызги по бокам.
+氵|shuǐ|вода (слева в иероглифе)|水=вода|Три капли — короткая форма 水.
+三|sān|три||Три черты.
+点|diǎn|точка; час|占=звук zhàn;灬=огонь (точки)|Внизу 4 точки 灬 → точка, пятнышко. 占 подсказывает звук.
+可|kě|можно|口=рот;丁=гвоздь|Рот 口 говорит «можно». Звуковая часть в 河.
+河|hé|река|氵=вода;可=звук kě|Вода 氵 + 可 подсказывает звук → hé река.
+母|mǔ|мать||Женщина 女 с двумя точками (грудь) → мать.
+每|měi|каждый|𠂉=трава сверху;母=мать|Запоминается целиком; в 海 подсказывает звук.
+海|hǎi|море|氵=вода;每=звук měi|Вода 氵 + 每 подсказывает звук → hǎi море.
+先|xiān|сначала|𠂉=ступня;儿=ноги|Ноги 儿 идут впереди → сначала.
+洗|xǐ|мыть|氵=вода;先=звук xiān|Вода 氵 + 先 подсказывает звук → xǐ мыть.
+言|yán|слово, речь|口=рот;三=черты — звук изо рта|Изо рта 口 выходят линии звука → слово.
+讠|yán|речь (слева в иероглифе)|言=слово|Сокращённое 言.
+兑|duì|обменивать||Звуковая часть.
+说|shuō|говорить|讠=речь;兑=звук duì|Речь 讠 + 兑 подсказывает звук → говорить.
+舌|shé|язык (во рту)|千=тысяча;口=рот|Язык высовывается изо рта 口.
+话|huà|речь, слова|讠=речь;舌=язык|Слово 讠 + язык 舌 → речь, разговор.
+吾|wú|я (книжн.)|五=пять;口=рот|Звуковая часть в 语.
+语|yǔ|язык (речь)|讠=речь;吾=звук wú|Речь 讠 + 吾 подсказывает звук → язык: 汉语.
+汉|hàn|китайский (народ хань)|氵=вода;又=рука|Изначально название реки Хань (поэтому вода 氵). По ней назвали династию и народ → 汉语 китайский язык.
+心|xīn|сердце||Рисунок сердца.
+忄|xīn|сердце (слева в иероглифе)|心=сердце|Сердце 心, вставшее вертикально.
+竖|shù|вертикальный|〢=черты;又=рука;立=стоять|立 «стоять» внизу → стоящий прямо, вертикальный.
+立|lì|стоять||Человек 大 стоит на земле 一.
+亡|wáng|потерять, погибнуть||Запоминается целиком.
+忙|máng|занятый|忄=сердце;亡=потерять|Сердце 忄 потерялось 亡 в суете → занят.
+夬|guài|решительный||Звуковая часть.
+快|kuài|быстрый; весёлый|忄=сердце;夬=звук guài|Сердце 忄 бьётся быстро, весело → быстрый, радостный.
+目|mù|глаз||Рисунок глаза, повёрнутого вертикально.
+相|xiāng|взаимно; смотреть|木=дерево;目=глаз|Глаз 目 смотрит на дерево 木 → осматривать, смотреть друг на друга.
+想|xiǎng|думать; хотеть; скучать|相=звук xiāng;心=сердце|Сердце 心 внизу — думают сердцем; 相 подсказывает звук.
+昌|chāng|процветать|日=солнце;日=солнце|Два солнца → всё сияет и процветает.
+唱|chàng|петь|口=рот;昌=звук chāng|Рот 口 + 昌 подсказывает звук → петь.
+哥|gē|старший брат|可=можно;可=можно|Два 可 → звук gē.
+欠|qiàn|зевать, открытый рот||Человек широко открыл рот.
+歌|gē|песня|哥=звук gē;欠=открытый рот|Открытый рот 欠 + 哥 подсказывает звук → песня.
+青|qīng|сине-зелёный||Цвет молодой травы и неба; частая звуковая часть (qing).
+晴|qíng|ясно, солнечно|日=солнце;青=звук qīng|Солнце 日 + 青 подсказывает звук → ясная погода.
+反|fǎn|обратный||Рука 又 под скалой — переворачивать.
+板|bǎn|доска|木=дерево;反=звук fǎn|Дерево 木 + 反 подсказывает звук → доска.
+黑|hēi|чёрный|囗=окно с сажей;灬=огонь|Огонь 灬 внизу коптит окно наверху → чёрный.
+好|hǎo|хорошо|女=женщина;子=ребёнок|Мама 女 с ребёнком 子 → хорошо.
+胡|hú|усы; варварский||Звуковая часть hu.
+湖|hú|озеро|氵=вода;胡=звук hú|Вода 氵 + 胡 подсказывает звук → озеро.
+西|xī|запад||Рисунок птицы в гнезде: птицы садятся вечером, когда солнце на западе.
+卖|mài|продавать||В 读 — звуковая часть (упрощение старого написания).
+读|dú|читать (вслух)|讠=речь;卖=звуковая часть|Слово 讠 произносится вслух → читать.
+书|shū|книга||Упрощённый рисунок руки с кистью для письма.
+情|qíng|чувство|忄=сердце;青=звук qīng|Сердце 忄 + 青 подсказывает звук → чувство.
+休|xiū|отдыхать|亻=человек;木=дерево|Человек 亻 прислонился к дереву 木 → отдыхает.
+夕|xī|вечер||Полумесяц, только встающий → вечер.
+名|míng|имя|夕=вечер;口=рот|Вечером 夕 в темноте не видно лица — называешь себя ртом 口 → имя.
+土|tǔ|земля||Росток над землёй.
+在|zài|находиться|才=росток;土=земля|Росток в земле 土 → находиться, быть где-то.
+自|zì|сам; нос||Рисунок носа (китайцы показывают на нос, говоря «я»).
+息|xī|дыхание; отдых|自=нос;心=сердце|Воздух через нос 自 к сердцу 心 → дыхание, передышка.
+下|xià|вниз, под||Черта под линией.
+上|shàng|вверх, на||Черта над линией.
+会|huì|уметь; встреча|人=люди (крыша);云=облако|Люди 人 собрались под одной крышей → встреча, а ещё «уметь».
+吗|ma|вопросит. частица|口=рот;马=звук mǎ|Рот 口 спрашивает; 马 подсказывает звук.
+今|jīn|сейчас, сегодня||Запоминается целиком: 今天 сегодня.
+彳|chì|шаг||Шагающая нога.
+很|hěn|очень|彳=шаг;艮=звук gěn|Запоминается как целое; 艮 подсказывает звук.
+请|qǐng|просить; пожалуйста|讠=речь;青=звук qīng|Вежливые слова 讠 + 青 подсказывает звук → пожалуйста.
+曼|màn|длинный||Звуковая часть.
+慢|màn|медленный|忄=сердце;曼=звук màn|Сердце 忄 не спешит → медленный.
+正|zhèng|прямой, правильный||Нога 止 идёт прямо к линии 一.
+是|shì|быть, являться|日=солнце;正=прямо, правильно|Под солнцем 日 всё прямо 正 и правильно → «так и есть», быть.
+去|qù|идти (туда)|土=земля;厶=человек уходит|Человек уходит из дома → идти.
+辶|chuò|движение||Идущая нога и дорога.
+力|lì|сила||Рисунок плуга или напряжённой руки.
+边|biān|край, сторона|辶=движение;力=сила|Идёшь 辶 до самого края → сторона, берег: 海边.
+文|wén|письменность||Человек с узором на груди.
+这|zhè|этот|辶=движение;文=знак|Движение 辶 к тому, что рядом → этот.
+个|gè|штука (счётное слово)|人=человек;丨=палочка|Человек и одна палочка → одна штука.
+乍|zhà|вдруг||Звуковая часть.
+怎|zěn|как?|乍=звук zhà;心=сердце|Сердце 心 недоумевает: как? 乍 подсказывает звук.
+么|me|частица||Запоминается целиком: 什么, 怎么.
+写|xiě|писать|冖=покрышка;与=давать|Запоминается целиком (упрощение старого 寫).
+念|niàn|думать; читать вслух|今=сейчас;心=сердце|Сейчас 今 держу в сердце 心 → думать, вспоминать.
+生|shēng|рождаться||Росток пробивается из земли.
+星|xīng|звезда|日=светило;生=звук shēng|Светило 日 + 生 подсказывает звук → звезда. 星期 — неделя.
+其|qí|его, тот||Рисунок корзины-веялки; звуковая часть.
+期|qī|период|其=звук qí;月=луна, месяц|Луна 月 отмеряет время + 其 подсказывает звук → период: 星期 неделя.
+六|liù|шесть||Запоминается целиком.
+巴|bā|ожидать||Звуковая часть ba.
+吧|ba|частица («давай»)|口=рот;巴=звук bā|Рот 口 предлагает; 巴 подсказывает звук.
+娄|lóu|(звук)|米=рис;女=женщина|Звуковая часть lou.
+楼|lóu|многоэтажный дом, этаж|木=дерево;娄=звук lóu|Дома строили из дерева 木; 娄 подсказывает звук → здание, 楼下 внизу.
+八|bā|восемь||Две черты расходятся — «делить».
+豕|shǐ|свинья||Рисунок свиньи.
+家|jiā|дом, семья|宀=крыша;豕=свинья|Под крышей 宀 держали свинью 豕 — значит, здесь живёт семья → дом.
+⺮|zhú|бамбук (сверху)||Два бамбуковых листика.
+寺|sì|храм||Звуковая часть.
+等|děng|ждать|⺮=бамбук;寺=храм|Бамбуковые дощечки ⺮ раскладывали по порядку в учреждении 寺 → очередь, ждать.
+孝|xiào|почтение к родителям|老=старый;子=ребёнок|Ребёнок 子 поддерживает старика.
+攵|pū|рука с палкой||Рука держит палку.
+教|jiāo|учить кого-то|孝=почтительный ребёнок;攵=рука с палкой|Рука с палкой 攵 учит ребёнка → учить.
+如|rú|как; если|女=женщина;口=рот|Женщина 女 делает, как сказано 口 → «как, подобно»; 如果 если.
+田|tián|поле||Поле, разделённое на участки.
+果|guǒ|плод|田=плод;木=дерево|Плод 田 на дереве 木 → фрукт, результат; 如果 если.
+不|bù|нет, не||Запоминается целиком.
+以|yǐ|с помощью||Запоминается целиком: 可以 можно.
+巾|jīn|ткань||Кусок ткани на палке.
+冒|mào|покрывать голову||Шапка над глазом 目.
+帽|mào|шапка|巾=ткань;冒=звук mào|Ткань 巾 на голове + 冒 подсказывает звук → шапка, 帽子.
+刂|dāo|нож (справа)||Короткая форма 刀 нож.
+别|bié|не надо; другой|另=отдельный;刂=нож|Отрезать ножом 刂 → отдельный, другой; 别 + глагол — «не надо».
+忘|wàng|забыть|亡=потерять;心=сердце|Из сердца 心 пропало 亡 → забыть.
+了|le|частица завершения||Запоминается целиком.
+带|dài|пояс; брать с собой||Рисунок пояса с подвесками — что носишь на себе.
+扌|shǒu|рука (слева)|手=рука|Короткая форма 手.
+提|tí|поднимать|扌=рука;是=звук shì|Рука 扌 поднимает; 是 подсказывает звук.
+毛|máo|шерсть||Волоски.
+笔|bǐ|кисть, ручка|⺮=бамбук;毛=шерсть|Палочка из бамбука ⺮ с шерстью 毛 → кисть для письма.
+并|bìng|вместе||Два человека рядом.
+拼|pīn|составлять|扌=рука;并=вместе|Рукой 扌 складывать вместе 并 → составлять; 拼音 пиньинь.
+音|yīn|звук|立=стоять;日=рот со звуком|Похож на 言 «слово», но во «рту» звук → звук.
+只|zhǐ|только|口=рот;八=расходящиеся черты|Запоминается целиком.
+覀|yà|покрышка||Крышка сверху.
+要|yào|хотеть; нужно|覀=покрышка;女=женщина|Запоминается целиком: 要 — хотеть, нужно.
+几|jī|столик; сколько||Рисунок низкого столика.
+机|jī|машина, аппарат|木=дерево;几=звук jī|Механизмы делали из дерева 木; 几 подсказывает звук → 手机 телефон.
+京|jīng|столица||Высокое здание на холме.
+尤|yóu|особенно||Звуковая часть.
+就|jiù|сразу; именно|京=столица;尤=особенно|Запоминается целиком.
+纟|sī|нить||Короткая форма 糸 шёлковая нить.
+合|hé|соединять|人=крышка;口=рот (сосуд)|Крышка закрывает сосуд → совпадать, соединять.
+给|gěi|давать|纟=нить;合=соединять|Связать нитью 纟 и соединить 合 → передать, дать.
+拿|ná|брать|合=соединять;手=рука|Соединить 合 пальцы руки 手 → взять.
+走|zǒu|идти||Человек размахивает руками и идёт.
+己|jǐ|сам||Звуковая часть.
+起|qǐ|вставать|走=идти;己=звук jǐ|Пойти 走 → встать, подняться; 己 подсказывает звук.
+斤|jīn|топор; полкило||Рисунок топора.
+听|tīng|слушать|口=рот;斤=звук jīn|Связано со звуком изо рта 口 → слушать.
+出|chū|выходить||Росток выходит из земли (две «горки»).
+来|lái|приходить||Изначально рисунок колоса пшеницы; значение «приходить» запоминается целиком.
+多|duō|много|夕=вечер;夕=вечер|Много-много вечеров 夕夕 → много.
+比|bǐ|сравнивать||Два человека стоят рядом → сравнить.
+贝|bèi|ракушка, деньги||Ракушка-деньги древности.
+赛|sài|соревнование|宀=крыша;贝=деньги|Под крышей 宀 соревнуются за приз 贝 → состязание.
+间|jiān|между|门=дверь;日=солнце|Солнце 日 видно в щель двери 门 → промежуток.
+简|jiǎn|простой|⺮=бамбук;间=звук jiān|Бамбуковые дощечки ⺮ для письма — коротко и просто.
+白|bái|белый||Солнце 日 с лучиком → светлый, белый.
+勺|sháo|ложка||Ложка с чем-то внутри.
+的|de|частица принадлежности|白=белый;勺=ложка|Запоминается целиком: 我的 мой.
+达|dá|достигать|辶=движение;大=большой|Большими шагами 辶 дойти → достичь; в имени 达莉亚.
+艹|cǎo|трава (сверху)||Две травинки.
+利|lì|польза|禾=зерно;刂=нож|Ножом 刂 жать зерно 禾 → польза.
+莉|lì|жасмин|艹=трава;利=звук lì|Растение 艹 + 利 подсказывает звук → жасмин; в имени 达莉亚.
+亚|yà|Азия; второй||Запоминается целиком; в именах и 亚洲 Азия.
+穴|xué|пещера||Вход в пещеру.
+工|gōng|работа||Плотницкий угольник.
+空|kōng|пустой; воздух|穴=пещера;工=звук gōng|Пустота пещеры 穴 → пустой, небо; 空气 воздух.
+气|qì|воздух, пар||Слои пара, облака.
+游|yóu|плавать, путешествовать|氵=вода;斿=флаг|Вода 氵 + развевающийся флаг → плыть, путешествовать.
+永|yǒng|вечный||Поток реки, который течёт вечно.
+泳|yǒng|плавать|氵=вода;永=звук yǒng|Вода 氵 + 永 подсказывает звук → плавать: 游泳.
+中|zhōng|середина; Китай||Стрела точно в центре мишени.
+午|wǔ|полдень||Запоминается целиком: 中午 полдень.
+饣|shí|еда (слева)|食=еда|Короткая форма 食.
+饭|fàn|еда, рис|饣=еда;反=звук fǎn|Еда 饣 + 反 подсказывает звук → 吃饭 есть.
+耶|yē|(звук)||Звуковая часть.
+椰|yē|кокосовая пальма|木=дерево;耶=звук yē|Дерево 木 + 耶 подсказывает звук → кокос: 椰子.
+太|tài|слишком|大=большой;丶=точка|Больше, чем большой 大 → слишком; 太阳 солнце.
+阝|fù|холм (слева)||Рисунок холма с уступами.
+阳|yáng|солнце|阝=холм;日=солнце|Солнечная 日 сторона холма 阝 → солнце: 太阳.
+囗|wéi|рамка, граница||Граница со всех сторон.
+玉|yù|нефрит||Нитка с нефритовыми бусинами.
+国|guó|страна|囗=граница;玉=нефрит|Сокровище 玉 внутри границ 囗 → страна; 中国 Китай.
+用|yòng|пользоваться||Запоминается целиком.
+丁|dīng|гвоздь||Рисунок гвоздя.
+打|dǎ|бить; печатать|扌=рука;丁=гвоздь|Рукой 扌 бить по гвоздю 丁 → бить; 打字 печатать.
+候|hòu|ждать; время|亻=человек;侯=маркиз|Человек 亻 ждёт → 的时候 «когда».
+户|hù|дверь (одностворчатая)||Половинка двери.
+所|suǒ|место|户=дверь;斤=топор|Дом с дверью 户 и топором 斤 → место; 所以 поэтому.
+年|nián|год||Изначально человек несёт урожай — урожай раз в год.
+车|chē|повозка||Повозка сверху: ось и колесо.
+轻|qīng|лёгкий|车=повозка;圣=звуковая часть|Лёгкая повозка 车 → лёгкий; 年轻 молодой.
+认|rèn|узнавать|讠=речь;人=человек|По словам 讠 узнать человека 人 → узнавать.
+识|shí|знать|讠=речь;只=звук zhǐ|Слова 讠 → знание; 认识 знать, быть знакомым.
+旦|dàn|рассвет|日=солнце;一=горизонт|Солнце 日 над горизонтом 一 → рассвет; звук dan.
+但|dàn|но|亻=человек;旦=звук dàn|Человек 亻 + 旦 подсказывает звук → 但是 но.
+把|bǎ|брать (предлог)|扌=рука;巴=звук bā|Рука 扌 держит → взять; 巴 подсказывает звук.
+电|diàn|электричество||Молния.
+礻|shì|алтарь (слева)|示=показывать|Короткая форма 示.
+见|jiàn|видеть|目=глаз;儿=ноги|Глаз 目 на ногах 儿 → видеть.
+视|shì|смотреть|礻=алтарь;见=видеть|Видеть 见 → смотреть; 电视 телевизор.
+有|yǒu|иметь|𠂇=рука;月=мясо|Рука 𠂇 держит кусок мяса 月 → иметь.
+担|dān|нести; волноваться|扌=рука;旦=звук dàn|Рука 扌 несёт груз → 担心 волноваться (груз на сердце).
+羊|yáng|овца||Голова овцы с рогами.
+样|yàng|вид, образец|木=дерево;羊=звук yáng|Дерево 木 + 羊 подсказывает звук → вид; 一样 одинаковый.
+小|xiǎo|маленький||Три маленькие чёрточки.
+阿|ā|(звук «а»)|阝=холм;可=звук kě|Звуковая часть a.
+啊|a|частица|口=рот;阿=звук ā|Рот 口 восклицает «а!».
+爸|bà|папа|父=отец;巴=звук bā|Отец 父 + 巴 подсказывает звук.
+</script>
+
+<script>
+(function(){
+"use strict";
+const LESSON='zh-01', WHO='Daria';
+const $=s=>document.querySelector(s);
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
+          set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let settings=LS.get('zh1_set',{sound:true,auto:true});
+let answers=LS.get('zh1_ans',{});
+let done=LS.get('zh1_done',{});
+
+/* silent report to the teacher (works only on the GitHub site) */
+function sendEvent(type,data){
+  if(location.hostname!=='dariairamain-blip.github.io')return;
+  try{fetch('https://daria-talk.daria-iramain.workers.dev/event',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({who:WHO,lesson:LESSON,type:type,data:data||{},t:new Date().toISOString()})}).catch(function(){});}catch(e){}
+}
+sendEvent('enter');
+
+/* ---------- audio ---------- */
+let zhVoice=null;
+function pickVoice(){try{const vs=speechSynthesis.getVoices();zhVoice=vs.find(v=>/zh[-_]CN/i.test(v.lang))||vs.find(v=>/^zh/i.test(v.lang)&&!/HK|TW/i.test(v.lang))||null;}catch(e){}}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+let speakTok=0;
+const clean=s=>String(s).replace(/[^㐀-鿿豈-﫿⺀-⿟，。！？、]/g,'');
+function stopSpeak(){speakTok++;try{speechSynthesis.cancel()}catch(e){}}
+function speak(list,onEnd){
+  stopSpeak();
+  const arr=(Array.isArray(list)?list:[list]).map(clean).filter(Boolean);
+  if(!settings.sound||!('speechSynthesis' in window)||!arr.length){onEnd&&setTimeout(onEnd,10);return;}
+  const tok=speakTok;let i=0;
+  const nx=()=>{if(tok!==speakTok)return;if(i>=arr.length){onEnd&&onEnd();return;}
+    const u=new SpeechSynthesisUtterance(arr[i++]);u.lang='zh-CN';if(zhVoice)u.voice=zhVoice;u.rate=.8;
+    u.onend=()=>setTimeout(nx,380);u.onerror=()=>setTimeout(nx,30);speechSynthesis.speak(u);};
+  nx();
+}
+
+/* ---------- content ---------- */
+const COMP={
+ '亻':{full:'人',name:'单人旁',py:'dān rén páng',ru:'человек',story:'Человек, который встал слева от иероглифа и «похудел»: 人 превратился в узкий 亻. Где он есть — там речь о людях.',
+   ex:[['你','nǐ','ты',['亻','尔']],['他','tā','он',['亻','也']],['们','men','мн. число людей: 我们 — мы',['亻','门']]]},
+ '口':{name:'口字旁',py:'kǒu zì páng',ru:'рот',story:'Квадратик — открытый рот. Если он слева, иероглиф делает что-то ртом: ест, пьёт, зовёт.',
+   ex:[['吃','chī','есть, кушать',['口','乞']],['喝','hē','пить',['口','曷']],['叫','jiào','звать; меня зовут…',['口','丩']]]},
+ '女':{name:'女字旁',py:'nǚ zì páng',ru:'женщина',story:'Женщина присела, скрестив руки. Рядом с ней — женщины и семья.',
+   ex:[['她','tā','она',['女','也']],['妈','mā','мама',['女','马']],['姐','jiě','старшая сестра',['女','且']]]},
+ '子':{name:'子字旁',py:'zǐ zì páng',ru:'ребёнок',story:'Малыш в пелёнке: голова сверху, ручки в стороны, ножки спелёнуты в одну линию.',
+   ex:[['字','zì','иероглиф — ребёнок под крышей',['宀','子']],['孩','hái','ребёнок: 孩子',['子','亥']],['学','xué','учиться',['⺍冖','子']]]},
+ '木':{name:'木字旁',py:'mù zì páng',ru:'дерево',story:'Ствол, ветка поперёк, корни вниз. Два дерева — роща, три — уже лес.',
+   ex:[['林','lín','роща',['木','木']],['森','sēn','лес: 森林',['木','木木']],['树','shù','дерево',['木','对']]]},
+ '日':{name:'日字旁',py:'rì zì páng',ru:'солнце, день',story:'Солнце в рамке с чертой посередине. Где солнце — там свет и время.',
+   ex:[['明','míng','светлый; 明天 — завтра',['日','月']],['早','zǎo','рано, утро',['日','十']],['时','shí','время',['日','寸']]]},
+ '氵':{full:'水',name:'三点水',py:'sān diǎn shuǐ',ru:'вода',story:'Три капли — китайцы так и говорят: «три точки воды». Всё мокрое: реки, моря, мытьё.',
+   ex:[['河','hé','река',['氵','可']],['海','hǎi','море',['氵','每']],['洗','xǐ','мыть',['氵','先']]]},
+ '讠':{full:'言',name:'言字旁',py:'yán zì páng',ru:'речь, слово',story:'Сокращённое 言 «слово». Стоит слева — значит, иероглиф про разговор и язык.',
+   ex:[['说','shuō','говорить',['讠','兑']],['话','huà','речь, слова',['讠','舌']],['语','yǔ','язык: 汉语',['讠','吾']]]},
+ '忄':{full:'心',name:'竖心旁',py:'shù xīn páng',ru:'сердце, чувство',story:'Сердце 心 слева встаёт вертикально и становится 忄. Снизу остаётся 心. Всё про чувства и мысли.',
+   ex:[['忙','máng','занятый',['忄','亡']],['快','kuài','быстрый; весёлый',['忄','夬']],['想','xiǎng','думать, хотеть',['相','心']]]}
+};
+const CN=k=>COMP[k].name; // spoken name of a component
+
+const intro=k=>({t:'intro',k});
+function A(id,comp,opts,hint,why){ // which character contains the component
+  return {t:'mcq',id,q:`В каком иероглифе есть часть <span class="zh">${comp}</span> «${COMP[comp].ru}»?`,say:[CN(comp)],
+    opts:opts.map(o=>({x:o[0],zh:1,say:o[0],tr:o[1]})),hint,why};}
+function B(id,ch,py,ru,ask,opts,hint,why){ // which component in a character
+  return {t:'mcq',id,q:`<span class="zh">${ch}</span> ${py} — «${ru}». ${ask}`,say:[ch],
+    opts:opts.map(c=>({x:c,zh:1,say:CN(c),tr:COMP[c].ru})),hint,why};}
+function C(id,ch,py,opts,hint,why){ // guess a new character
+  return {t:'mcq',id,q:'Новый иероглиф. Что он может значить?',big:ch,bigPy:py,say:[ch],
+    opts:opts.map(o=>({x:o})),hint,why};}
+const M=(id,keys)=>({t:'match',id,pairs:keys.map(k=>[k,CN(k),COMP[k].ru])});
+
+const PARTS=[
+ {id:'p1',sec:'Части иероглифов',ic:'人',title:'Часть 1 · 亻 口 女',sub:'человек, рот, женщина',pages:[
+   intro('亻'),intro('口'),intro('女'),
+   A('p1a','亻',[['你','ты'],['吃','есть'],['妈','мама']],'Ищи узкого человечка слева.','В 你 слева 亻. В 吃 слева 口 (рот), в 妈 — 女 (женщина).'),
+   B('p1b','喝','hē','пить','Какая часть подсказывает, что это делают ртом?',['口','女','亻'],'Чем мы пьём?','Слева в 喝 стоит 口 — рот. Пьют ртом!'),
+   A('p1c','女',[['姐','старшая сестра'],['叫','звать'],['他','он']],'Женщина присела, скрестив руки.','В 姐 слева 女. В 叫 — 口, в 他 — 亻.'),
+   C('p1d','唱','chàng',['петь','старшая сестра','друг'],'Посмотри на левую часть: что там?','Слева 口 — рот. Ртом поют: 唱 — петь (唱歌 — петь песню).'),
+   B('p1e','们','men','мн. число: 我们 — мы','Какая часть слева?',['亻','口','女'],'Мы — это много людей.','Слева в 们 — 亻 «человек»: 我们, 你们, 他们 — всё про людей.'),
+   M('p1m',['亻','口','女'])]},
+ {id:'p2',sec:'Части иероглифов',ic:'木',title:'Часть 2 · 子 木 日',sub:'ребёнок, дерево, солнце',pages:[
+   intro('子'),intro('木'),intro('日'),
+   A('p2a','木',[['林','роща'],['明','светлый'],['字','иероглиф']],'Ищи ствол с веткой и корнями.','В 林 два дерева 木. В 明 — солнце 日 и луна 月, в 字 — крыша и ребёнок 子.'),
+   B('p2b','早','zǎo','рано, утро','Какая часть говорит про время дня?',['日','子','口'],'Утром встаёт…','Сверху в 早 — солнце 日. Солнце встаёт рано утром.'),
+   C('p2c','晴','qíng',['ясная, солнечная погода','стул','ребёнок'],'Слева — то, что светит днём.','Слева 日 — солнце. 晴 — ясно, солнечно: 晴天 — солнечный день.'),
+   A('p2d','口',[['叫','звать'],['她','она'],['树','дерево']],'Квадратный рот.','В 叫 слева 口. В 她 — 女, в 树 — 木.'),
+   B('p2e','学','xué','учиться','Кто учится? Какая часть внизу?',['子','木','女'],'Кто ходит в школу?','Внизу в 学 — ребёнок 子. Учатся дети!'),
+   C('p2f','板','bǎn',['доска','петь','солнечно'],'Из чего делают доски?','Слева 木 — дерево. 板 — доска (黑板 — школьная доска).'),
+   M('p2m',['子','木','日']),
+   A('p2g','亻',[['他','он'],['好','хорошо'],['时','время']],'Узкий человечек слева.','В 他 слева 亻. В 好 — 女 и 子, в 时 — 日 и 寸.')]},
+ {id:'p3',sec:'Части иероглифов',ic:'水',title:'Часть 3 · 氵 讠 忄',sub:'вода, речь, сердце',pages:[
+   intro('氵'),intro('讠'),intro('忄'),
+   A('p3a','氵',[['海','море'],['说','говорить'],['忙','занятый']],'Три капли слева.','В 海 слева 氵 — вода. В 说 — 讠 (речь), в 忙 — 忄 (сердце).'),
+   B('p3b','话','huà','речь, слова','Какая часть говорит, что это про разговор?',['讠','氵','忄'],'Сокращённое 言 «слово».','Слева в 话 — 讠, сокращённое 言 «слово».'),
+   C('p3c','湖','hú',['озеро','говорить','бояться'],'Слева три капли.','Слева 氵 — вода. 湖 — озеро (西湖 — Западное озеро).'),
+   A('p3d','忄',[['快','быстрый'],['河','река'],['语','язык']],'Сердце встало вертикально.','В 快 слева 忄. В 河 — 氵, в 语 — 讠.'),
+   C('p3e','读','dú',['читать','плавать','дерево'],'Слева часть «речь, слово».','Слева 讠 — слово. 读 — читать (вслух): 读书 — читать книгу.'),
+   B('p3f','妈','mā','мама','Какая часть говорит, что это женщина?',['女','子','日'],'Мама — это…','Слева в 妈 — 女 «женщина». Справа 马 подсказывает звук: mǎ → mā.'),
+   C('p3g','情','qíng',['чувство','река','стол'],'Слева сердце.','Слева 忄 — сердце. 情 — чувство (心情 — настроение).'),
+   A('p3h','日',[['明','светлый'],['林','роща'],['你','ты']],'Солнце в рамке.','В 明 слева 日. В 林 — два 木, в 你 — 亻.'),
+   M('p3m',['氵','讠','忄']),
+   M('p3n',['女','木','讠','日'])]},
+
+ {id:'w1',sec:'✍️ Пишем',ic:'✍️',title:'Пишем 1 · 人 口 女 子',sub:'порядок черт и обвести пальцем',pages:[
+   {t:'write',ch:'人',py:'rén',ru:'человек'},{t:'write',ch:'口',py:'kǒu',ru:'рот'},{t:'write',ch:'女',py:'nǚ',ru:'женщина'},{t:'write',ch:'子',py:'zǐ',ru:'ребёнок'}]},
+ {id:'w2',sec:'✍️ Пишем',ic:'✍️',title:'Пишем 2 · 木 日 好 休',sub:'из частей — целые иероглифы',pages:[
+   {t:'write',ch:'木',py:'mù',ru:'дерево'},{t:'write',ch:'日',py:'rì',ru:'солнце, день'},{t:'write',ch:'好',py:'hǎo',ru:'хорошо = 女 + 子'},{t:'write',ch:'休',py:'xiū',ru:'отдыхать = 亻 + 木'}]},
+
+ {id:'s1',sec:'🗣 Говорим: тайна печати',ic:'🗣',title:'Печать мастера Вана · 1',sub:'5 слов — 5 подсказок — загадка',pages:[
+   {t:'mic'},
+   {t:'story',html:'<p>Старый мастер Ван вырезает печати в пекинском переулке. Ночью ветер разбросал его записки, и теперь он не помнит, какой иероглиф был на любимой печати.</p><p>Каждое слово, которое ты правильно скажешь вслух, вернёт одну записку. Собери пять — и отгадай иероглиф.</p>'},
+   {t:'speak',id:'s1a',w:'你好',py:'nǐ hǎo',ru:'привет',tip:'Два третьих тона подряд: первый звучит как второй — ní hǎo, второй опускается и поднимается.',clue:'В иероглифе две части.'},
+   {t:'speak',id:'s1b',w:'妈妈',py:'māma',ru:'мама',tip:'Первый слог высоко и ровно, как нота «ля». Второй — короткий и лёгкий, без тона.',clue:'Левая часть — 女, женщина.'},
+   {t:'speak',id:'s1c',w:'喝水',py:'hē shuǐ',ru:'пить воду',tip:'hē — высоко и ровно. shuǐ — вниз и чуть вверх, как удивлённое «ну?».',clue:'Правая часть — 子, ребёнок.'},
+   {t:'speak',id:'s1d',w:'孩子',py:'háizi',ru:'ребёнок',tip:'há поднимается вверх, как переспрос «а?». zi — короткий лёгкий слог.',clue:'Вместе — мама с ребёнком.'},
+   {t:'speak',id:'s1e',w:'名字',py:'míngzi',ru:'имя',tip:'míng — голос идёт вверх. zi — лёгкий, без тона.',clue:'Мастер Ван говорит: «Это самое доброе слово в Китае!»'},
+   {t:'mcq',id:'s1r',clues:true,q:'Какой иероглиф был на печати мастера Вана?',say:[],opts:[{x:'好',zh:1,say:'好',tr:'хорошо'},{x:'姐',zh:1,say:'姐',tr:'старшая сестра'},{x:'字',zh:1,say:'字',tr:'иероглиф'}],
+    hint:'Нужны обе части: и 女, и 子.',why:'女 + 子 = 好 «хорошо». В 姐 нет 子, в 字 нет 女.'}]},
+ {id:'s2',sec:'🗣 Говорим: тайна печати',ic:'🗣',title:'Печать мастера Вана · 2',sub:'новая печать, новая загадка',pages:[
+   {t:'story',html:'<p>Мастер Ван нашёл вторую печать — и снова не помнит иероглиф. Пять слов — пять записок.</p>'},
+   {t:'speak',id:'s2a',w:'明天',py:'míngtiān',ru:'завтра',tip:'míng — вверх. tiān — высоко и ровно.',clue:'И здесь две части.'},
+   {t:'speak',id:'s2b',w:'说话',py:'shuōhuà',ru:'разговаривать',tip:'shuō — высоко и ровно. huà — резко вниз, как команда «Да!».',clue:'Слева — человек 亻.'},
+   {t:'speak',id:'s2c',w:'汉语',py:'Hànyǔ',ru:'китайский язык',tip:'Hàn — резко вниз. yǔ — вниз и вверх.',clue:'Справа — дерево 木.'},
+   {t:'speak',id:'s2d',w:'我想',py:'wǒ xiǎng',ru:'я хочу / я думаю',tip:'Снова два третьих тона: wó xiǎng — первый поднимается, второй опускается и поднимается.',clue:'Человек прислонился к дереву…'},
+   {t:'speak',id:'s2e',w:'森林',py:'sēnlín',ru:'лес',tip:'sēn — высоко и ровно. lín — вверх.',clue:'…и ничего не делает. Хорошо ему!'},
+   {t:'mcq',id:'s2r',clues:true,q:'Какой иероглиф на второй печати?',say:[],opts:[{x:'休',zh:1,say:'休',tr:'отдыхать'},{x:'你',zh:1,say:'你',tr:'ты'},{x:'林',zh:1,say:'林',tr:'роща'}],
+    hint:'Человек + дерево.',why:'亻 + 木 = 休 «отдыхать»: человек прислонился к дереву. В 你 нет дерева, в 林 нет человека.'}]},
+
+ {id:'l1',sec:'🎧 Слушаем',ic:'🎧',title:'Слушаем · 1–5',sub:'услышь фразу, выбери перевод',pages:[
+   {t:'listen',id:'l1',zh:'妈妈在喝水。',py:'Māma zài hē shuǐ.',opts:['Мама пьёт воду.','Мама моет руки.','Мама ест.'],why:'喝 hē — пить (口 рот), 水 shuǐ — вода.'},
+   {t:'listen',id:'l2',zh:'我想休息一下。',py:'Wǒ xiǎng xiūxi yíxià.',opts:['Я хочу немного отдохнуть.','Я хочу немного поесть.','Я хочу немного поучиться.'],why:'休息 xiūxi — отдыхать (亻 + 木: человек у дерева).'},
+   {t:'listen',id:'l3',zh:'孩子在树下。',py:'Háizi zài shù xià.',opts:['Ребёнок под деревом.','Ребёнок у реки.','Ребёнок дома.'],why:'孩子 — ребёнок, 树下 shù xià — под деревом.'},
+   {t:'listen',id:'l4',zh:'你会说汉语吗？',py:'Nǐ huì shuō Hànyǔ ma?',opts:['Ты говоришь по-китайски?','Ты пишешь иероглифы?','Ты учишь английский?'],why:'说 shuō — говорить, 汉语 Hànyǔ — китайский язык.'},
+   {t:'listen',id:'l5',zh:'今天我很忙。',py:'Jīntiān wǒ hěn máng.',opts:['Сегодня я очень занята.','Вчера я была очень занята.','Сегодня я свободна.'],why:'今天 jīntiān — сегодня, 忙 máng — занятый.'}]},
+ {id:'l2',sec:'🎧 Слушаем',ic:'🎧',title:'Слушаем · 6–10',sub:'услышь фразу, выбери перевод',pages:[
+   {t:'listen',id:'l6',zh:'早上好！',py:'Zǎoshang hǎo!',opts:['Доброе утро!','Добрый вечер!','Спокойной ночи!'],why:'早上 zǎoshang — утро (日 солнце встаёт).'},
+   {t:'listen',id:'l7',zh:'请说慢一点。',py:'Qǐng shuō màn yìdiǎn.',opts:['Пожалуйста, говорите помедленнее.','Пожалуйста, говорите погромче.','Пожалуйста, скажите ещё раз.'],why:'慢 màn — медленно, 一点 — немного.'},
+   {t:'listen',id:'l8',zh:'她是我姐姐。',py:'Tā shì wǒ jiějie.',opts:['Она моя старшая сестра.','Она моя младшая сестра.','Она моя мама.'],why:'姐姐 jiějie — старшая сестра. Младшая — 妹妹 mèimei.'},
+   {t:'listen',id:'l9',zh:'明天我们去海边。',py:'Míngtiān wǒmen qù hǎibiān.',opts:['Завтра мы едем на море.','Сегодня мы едем на море.','Завтра мы идём в лес.'],why:'明天 — завтра, 海边 hǎibiān — берег моря.'},
+   {t:'listen',id:'l10',zh:'这个字怎么写？',py:'Zhège zì zěnme xiě?',opts:['Как пишется этот иероглиф?','Как читается этот иероглиф?','Что значит это слово?'],why:'写 xiě — писать. «Читать» было бы 读 dú или 念 niàn.'}]},
+
+ {id:'r1',sec:'📖 Читаем',ic:'📖',title:'Сообщение от Сяо Линь',sub:'прочитай про себя и ответь',pages:[
+   {t:'read'},
+   {t:'mcq',id:'r1a',src:1,q:'Когда они поедут на море?',say:[],opts:[{x:'Завтра, в субботу'},{x:'Сегодня'},{x:'В воскресенье'}],hint:'Найди 明天 míngtiān и 星期六 xīngqīliù.',why:'В тексте: 明天是星期六，我们去海边吧？ 明天 — завтра, 星期六 — суббота.'},
+   {t:'mcq',id:'r1b',src:2,q:'Где Сяо Линь будет ждать Дарью?',say:[],opts:[{x:'Внизу у её дома'},{x:'На море'},{x:'У метро'}],hint:'Найди 楼下 lóuxià.',why:'В тексте: 早上八点我在你家楼下等你。 你家楼下 — внизу у твоего дома.'},
+   {t:'mcq',id:'r1c',src:3,q:'Кто ещё хочет поехать?',say:[],opts:[{x:'Мама Сяо Линь'},{x:'Старшая сестра Сяо Линь'},{x:'Ребёнок Сяо Линь'}],hint:'Ищи часть 女 в начале строки.',why:'В тексте: 我妈妈也想去。 妈妈 — мама.'},
+   {t:'mcq',id:'r1d',src:4,q:'Что Сяо Линь предлагает, если Дарья не умеет плавать?',say:[],opts:[{x:'Научить её'},{x:'Остаться дома'},{x:'Купить ей круг'}],hint:'教 jiāo — учить кого-то.',why:'В тексте: 如果不会，我可以教你。 教你 — научить тебя.'},
+   {t:'mcq',id:'r1e',src:6,q:'Что нельзя забыть?',say:[],opts:[{x:'Шляпу'},{x:'Кокосовую воду'},{x:'Купальник'}],hint:'帽子 màozi — тоже с 子.',why:'В тексте: 别忘了带帽子！ 帽子 màozi — шляпа, кепка.'},
+   {t:'mcq',id:'r1f',q:'Какой иероглиф из письма связан с водой?',say:[],opts:[{x:'海',zh:1,say:'海',tr:'море'},{x:'妈',zh:1,say:'妈',tr:'мама'},{x:'早',zh:1,say:'早',tr:'рано'}],hint:'Три капли слева.',why:'В 海 слева 氵 — вода. В 妈 — 女, в 早 — 日.'}]},
+
+ {id:'c1',sec:'🏮 Культура',ic:'🏮',title:'提笔忘字',sub:'почему китайцы забывают иероглифы',pages:[
+   {t:'culture'},
+   {t:'mcq',id:'c1a',srcC:1,q:'Как многие китайцы пишут в телефоне?',say:[],opts:[{x:'Набирают пиньинь, а телефон даёт иероглифы'},{x:'Рисуют иероглифы пальцем'},{x:'Только диктуют голосом'}],hint:'Найди 拼音 pīnyīn.',why:'В тексте: 只要写拼音，手机就给你汉字。 Достаточно написать пиньинь — телефон даст иероглифы.'},
+   {t:'mcq',id:'c1b',srcC:3,q:'Что значит 提笔忘字 tí bǐ wàng zì?',say:['提笔忘字'],opts:[{x:'Взял ручку — и забыл, как пишется иероглиф'},{x:'Забыл ручку дома'},{x:'Не умеет читать иероглифы'}],hint:'笔 bǐ — ручка, 忘 wàng — забыть.',why:'В тексте: 拿起笔，就忘了字怎么写。 Взял ручку — и забыл, как писать иероглиф.'},
+   {t:'mcq',id:'c1c',srcC:5,q:'Что бывает на телеконкурсе 《汉字听写大会》 Hànzì Tīngxiě Dàhuì?',say:[],opts:[{x:'Даже взрослые не могут написать простые иероглифы'},{x:'Дети поют песни'},{x:'Люди соревнуются, кто быстрее печатает'}],hint:'Найди 大人 dàren и 写不出来 xiě bu chūlái.',why:'В тексте: 很多大人在比赛上也写不出来简单的字。 Многие взрослые не могут написать простые иероглифы.'}]}
+];
+
+/* reading text */
+const READ=[
+ ['达莉亚，你好！','Dálìyà, nǐ hǎo!','Дарья, привет!'],
+ ['明天是星期六，我们去海边吧？','Míngtiān shì xīngqīliù, wǒmen qù hǎibiān ba?','Завтра суббота, поедем на море?'],
+ ['早上八点我在你家楼下等你。','Zǎoshang bā diǎn wǒ zài nǐ jiā lóuxià děng nǐ.','В восемь утра я жду тебя внизу у твоего дома.'],
+ ['我妈妈也想去，她说海边的空气很好。','Wǒ māma yě xiǎng qù, tā shuō hǎibiān de kōngqì hěn hǎo.','Моя мама тоже хочет поехать, она говорит, что у моря хороший воздух.'],
+ ['你会游泳吗？如果不会，我可以教你。','Nǐ huì yóuyǒng ma? Rúguǒ bú huì, wǒ kěyǐ jiāo nǐ.','Ты умеешь плавать? Если нет, я могу тебя научить.'],
+ ['中午我们在海边吃饭，喝椰子水。','Zhōngwǔ wǒmen zài hǎibiān chī fàn, hē yēzi shuǐ.','В обед поедим на берегу и попьём кокосовой воды.'],
+ ['别忘了带帽子！太阳很大！','Bié wàng le dài màozi! Tàiyáng hěn dà!','Не забудь взять шляпу! Солнце очень сильное!']
+];
+/* culture text: word/pinyin/translation */
+const CULT=[
+ ['在/zài/в 中国/Zhōngguó/Китай ， 很多/hěn_duō/много 人/rén/людей 每天/měitiān/каждый_день 用/yòng/пользоваться 手机/shǒujī/телефон 打字/dǎ_zì/печатать 。','В Китае многие каждый день печатают в телефоне.'],
+ ['打字/dǎ_zì/печатать 的时候/de_shíhou/когда ， 只要/zhǐyào/достаточно 写/xiě/написать 拼音/pīnyīn/пиньинь ， 手机/shǒujī/телефон 就/jiù/сразу 给/gěi/даёт 你/nǐ/тебе 汉字/Hànzì/иероглифы 。','Когда печатаешь, достаточно написать пиньинь — телефон сразу даёт иероглифы.'],
+ ['所以/suǒyǐ/поэтому 很多/hěn_duō/многие 年轻人/niánqīngrén/молодые_люди 认识/rènshi/узнают 汉字/Hànzì/иероглифы ， 但是/dànshì/но 不会/bú_huì/не_умеют 写/xiě/писать 。','Поэтому многие молодые люди узнают иероглифы, но не умеют их писать.'],
+ ['中国人/Zhōngguórén/китайцы 把/bǎ/(это) 这个/zhège/это 叫/jiào/называют “ 提笔忘字/tí_bǐ_wàng_zì/«взял_ручку_—_забыл_иероглиф» ” ： 拿起/náqǐ/взять 笔/bǐ/ручку ， 就/jiù/и_сразу 忘了/wàng_le/забыл 字/zì/иероглиф 怎么/zěnme/как 写/xiě/писать 。','Китайцы называют это «提笔忘字»: взял ручку — и сразу забыл, как пишется иероглиф.'],
+ ['电视/diànshì/телевидение 上/shang/на 有/yǒu/есть 一个/yí_ge/один 比赛/bǐsài/конкурс ， 叫/jiào/называется 《汉字听写大会》/Hànzì_Tīngxiě_Dàhuì/«Большой_диктант_иероглифов» 。','На телевидении есть конкурс «Большой диктант иероглифов».'],
+ ['很多/hěn_duō/многие 大人/dàren/взрослые 在/zài/на 比赛/bǐsài/конкурсе 上/shang/(на) 也/yě/тоже 写不出来/xiě_bu_chūlái/не_могут_написать 简单/jiǎndān/простые 的/de/(частица) 字/zì/иероглифы 。','Многие взрослые на этом конкурсе тоже не могут написать простые иероглифы.'],
+ ['所以/suǒyǐ/так_что ， 如果/rúguǒ/если 你/nǐ/ты 忘了/wàng_le/забыла 汉字/Hànzì/иероглифы ， 别/bié/не 担心/dānxīn/волнуйся — 中国人/Zhōngguórén/китайцы 也/yě/тоже 一样/yíyàng/такие_же ！','Так что если ты забыла иероглифы, не волнуйся — у китайцев так же!']
+];
+
+/* stroke medians, 0–100 grid */
+const STROKES={
+ '人':[[[50,10],[48,40],[36,66],[14,90]],[[50,44],[66,70],[90,88]]],
+ '口':[[[22,24],[24,84]],[[22,24],[78,24],[76,84]],[[24,80],[76,80]]],
+ '女':[[[46,10],[28,50],[76,90]],[[68,32],[54,64],[20,90]],[[10,52],[90,48]]],
+ '子':[[[24,16],[74,16],[52,36]],[[50,36],[50,88],[40,82]],[[10,56],[90,54]]],
+ '木':[[[12,34],[88,34]],[[50,8],[50,94]],[[48,38],[14,78]],[[52,38],[88,76]]],
+ '日':[[[28,14],[28,88]],[[28,14],[72,14],[72,88]],[[28,50],[72,50]],[[28,86],[72,86]]],
+ '好':[[[30,12],[16,50],[46,86]],[[40,34],[30,64],[8,90]],[[6,52],[46,48]],[[58,18],[90,18],[76,36]],[[75,36],[75,90],[66,84]],[[54,56],[96,54]]],
+ '休':[[[34,8],[10,50]],[[24,34],[24,94]],[[42,34],[96,34]],[[69,8],[69,94]],[[67,38],[42,76]],[[71,38],[96,74]]]
+};
+
+/* ---------- helpers ---------- */
+function hash(s){let h=7;for(const c of s)h=(h*31+c.charCodeAt(0))>>>0;return h;}
+function order(id,n){const r=hash(id)%n;return [...Array(n).keys()].map(i=>(i+r)%n);} // rotated, varied positions
+const strip=h=>h.replace(/<[^>]+>/g,'');
+function rec(id,q,your,right,ok){answers[id]={part:cur.P.title,q:strip(q),your,right,ok,ts:Date.now()};LS.set('zh1_ans',answers);}
+function saveSet(){LS.set('zh1_set',settings);}
+function shuffle(a,id){const o=order(id+'s',a.length);return o.map(i=>a[i]);}
+
+/* ---------- state ---------- */
+let cur=null, lock=false, timers=[];
+function later(fn,ms){timers.push(setTimeout(fn,ms));}
+function clearT(){timers.forEach(clearTimeout);timers=[];}
+
+function bar(){
+  const P=cur.P, n=P.pages.length, extra=cur.i>=n;
+  const pg=cur.pages[cur.i];
+  const prog=pg.t==='done'?'готово':(cur.retry&&extra?'работа над ошибками':`${Math.min(cur.i+1,n)} / ${n}`);
+  return `<div class="bar">
+   <button class="ib" id="bMenu" aria-label="Меню">☰</button>
+   <div class="t">${P.title}<small>${prog}</small></div>
+   <button class="ib" id="bRep" aria-label="Повторить аудио">🔁</button>
+   <button class="ib ${settings.sound?'':'off'}" id="bSnd" aria-label="Звук">${settings.sound?'🔊':'🔇'}</button>
+   <button class="ib ${settings.auto?'':'off'}" id="bAuto" aria-label="Авто-озвучка">▶<small>авто</small></button></div>`;
+}
+const navHtml=`<div class="nav"><button id="bPrev">⏮ Назад</button><button id="bSkip">⏭ Пропустить эту страницу</button></div>`;
+
+function showMenu(){
+  clearT();stopSpeak();cur=null;lock=false;
+  let html=`<div class="top"><div class="logo">${sealSvg(56)}<small>Daria Botina</small></div>
+    <div><h1>Китайский · Урок 1</h1><div class="radrow">亻口女子木日氵讠忄</div></div></div>
+    <div class="page"><div class="row"><button class="btn ghost small" id="bHome">📲 Добавить на экран</button></div>
+    <div class="muted" style="font-size:13px">🧩 Нажми на любой иероглиф в уроке — увидишь, из каких частей он состоит, как читается каждая часть и почему иероглиф так значит. В вариантах ответа для этого есть маленькая кнопка 🧩.</div>`;
+  let sec='';
+  PARTS.forEach(p=>{
+    if(p.sec!==sec){sec=p.sec;html+=`<div class="sec">${sec}</div>`;}
+    html+=`<button class="mi" data-p="${p.id}"><span class="ic ${/[一-鿿]/.test(p.ic)?'zh':''}">${p.ic}</span><span class="tx"><b>${p.title}</b><span>${p.sub}</span></span><span class="st">${done[p.id]?'✓':''}</span></button>`;
+  });
+  html+=`<div class="sec">Итоги</div><button class="mi" id="bAns"><span class="ic">📋</span><span class="tx"><b>Мои ответы</b><span>все ответы, верные и с ошибками</span></span></button>
+    <div class="owner">© Daria Botina</div></div>`;
+  $('#app').innerHTML=html;
+  document.querySelectorAll('.mi[data-p]').forEach(b=>b.onclick=()=>openPart(b.dataset.p));
+  $('#bAns').onclick=showAnswers;
+  $('#bHome').onclick=()=>modal(`<h3>Добавить урок на экран</h3>
+   <p><b>iPhone (Safari):</b> внизу нажми «Поделиться» ⬆️ → «На экран „Домой“» → «Добавить».</p>
+   <p><b>Android (Chrome):</b> нажми ⋮ вверху справа → «Добавить на главный экран».</p>`);
+  window.scrollTo(0,0);
+}
+function sealSvg(s){return `<svg width="${s}" height="${s}" viewBox="0 0 56 56" aria-hidden="true"><rect x="3" y="3" width="50" height="50" rx="9" fill="var(--seal)"/><rect x="8" y="8" width="40" height="40" rx="5" fill="none" stroke="var(--card)" stroke-width="1.5"/><text x="28" y="39" text-anchor="middle" font-size="28" fill="var(--card)" font-family="Noto Serif SC, Noto Serif CJK SC, serif" font-weight="700">字</text></svg>`;}
+function modal(inner){
+  const d=document.createElement('div');d.className='mod';
+  d.innerHTML=`<div class="box" role="dialog"><button class="ib x" aria-label="Закрыть">✕</button>${inner}</div>`;
+  d.onclick=e=>{if(e.target===d||e.target.closest('.x'))d.remove();};
+  document.body.appendChild(d);
+}
+
+function openPart(pid){
+  const P=PARTS.find(p=>p.id===pid);
+  cur={pid,P,pages:P.pages.slice(),i:0,mist:new Set(),retry:false,asked:false,clues:new Set()};
+  render();
+}
+function next(){clearT();lock=false;if(cur.i<cur.pages.length-1){cur.i++;render();}else finishPart();}
+function prev(){clearT();lock=false;if(cur.i>0){cur.i--;render();}else showMenu();}
+function finishPart(){
+  if(!cur.retry&&cur.mist.size&&!cur.asked){cur.asked=true;cur.pages.push({t:'errq'});cur.i++;render();return;}
+  markDone();cur.pages.push({t:'done'});cur.i=cur.pages.length-1;render();
+}
+function markDone(){
+  done[cur.pid]=1;LS.set('zh1_done',done);
+  if(PARTS.every(p=>done[p.id])&&!LS.get('zh1_sent',0)){LS.set('zh1_sent',1);
+    const ok=Object.values(answers).filter(a=>a.ok).length;
+    sendEvent('lessonDone',{answers:Object.keys(answers).length,correct:ok,mistakes:Object.values(answers).filter(a=>!a.ok).map(a=>a.q+' → '+a.your)});}
+}
+
+/* ---------- render ---------- */
+let pageAudio=[];
+function render(){
+  clearT();stopSpeak();lock=false;
+  const p=cur.pages[cur.i];
+  pageAudio=[];
+  const body=PAGE[p.t](p);
+  $('#app').innerHTML=bar()+`<div class="page">${body}${p.t==='done'?'':navHtml}</div>`;
+  $('#bMenu').onclick=showMenu;
+  $('#bRep').onclick=()=>playPage(true);
+  $('#bSnd').onclick=()=>{settings.sound=!settings.sound;saveSet();if(!settings.sound)stopSpeak();const b=$('#bSnd');b.textContent=settings.sound?'🔊':'🔇';b.classList.toggle('off',!settings.sound);};
+  $('#bAuto').onclick=()=>{settings.auto=!settings.auto;saveSet();$('#bAuto').classList.toggle('off',!settings.auto);};
+  if($('#bPrev')){$('#bPrev').onclick=prev;$('#bSkip').onclick=next;}
+  window.scrollTo(0,0);
+  (MOUNT[p.t]||(()=>{}))(p);
+  if(settings.auto&&p.t!=='write'&&p.t!=='listen')later(()=>playPage(false),250);
+}
+function playPage(manual,onEnd){if(pageAudio.length)speak(pageAudio,onEnd);else onEnd&&onEnd();}
+function wireSnd(){document.querySelectorAll('[data-say]').forEach(b=>b.onclick=e=>{e.stopPropagation();speak(b.dataset.say);});}
+function wireTr(){document.querySelectorAll('[data-tr]').forEach(b=>b.onclick=e=>{e.stopPropagation();const t=document.getElementById(b.dataset.tr);t.hidden=!t.hidden;});}
+
+const PAGE={}, MOUNT={};
+
+PAGE.intro=p=>{
+  const c=COMP[p.k];
+  pageAudio=[c.name,...c.ex.map(e=>e[0])];
+  const full=c.full?`<div class="muted" style="font-size:13px">полная форма: <span class="zh" style="font-size:18px">${c.full}</span></div>`:'';
+  return `<div class="card"><div class="hero"><div class="seal zh">${p.k}</div>
+    <div><div class="eyebrow">Новая часть</div><h2>${c.ru}</h2>
+    <div class="row" style="gap:6px"><span class="zh" style="font-size:18px">${c.name}</span><button class="snd" data-say="${c.name}" aria-label="Слушать">🔊</button></div>
+    <div class="pyname">${c.py}</div>${full}</div></div>
+    <p class="story" style="margin:10px 0 4px">${c.story}</p>
+    <div class="exs">${c.ex.map(e=>`<div class="ex"><div class="c zh">${e[0]}</div>
+      <div class="m"><div class="f">${e[0]} = ${e[3].map(x=>(x===p.k||(p.k==='忄'&&x==='心'))?`<b>${x}</b>`:x).join(' + ')}</div><div><b>${e[1]}</b> — ${e[2]}</div></div>
+      <button class="snd" data-say="${e[0]}" aria-label="Слушать">🔊</button></div>`).join('')}</div></div>`;
+};
+MOUNT.intro=()=>wireSnd();
+
+function optsHtml(p,ord){
+  return `<div class="opts" id="opts">${ord.map(k=>{const o=p.opts[k];
+    return `<div class="opt"><button class="ob" data-k="${k}">${o.zh?`<span class="zh">${o.x}</span>`:`<span>${o.x}</span>`}</button>
+    <div class="row" style="gap:6px">${o.tr?`<button class="tiny" data-tr="tr_${k}">🌐</button>`:''}${o.zh?`<button class="tiny" data-hz="${o.x}">🧩 разбор</button>`:''}${o.tr?`<span class="tr" id="tr_${k}" hidden>${o.tr}</span>`:''}</div></div>`;}).join('')}</div>
+    <div id="fb"></div>`;
+}
+PAGE.mcq=p=>{
+  const ord=order(p.id,p.opts.length);p._ord=ord;
+  pageAudio=[...(p.say||[]),...ord.map(k=>p.opts[k].say).filter(Boolean)];
+  let clues='';
+  if(p.clues){const sp=cur.pages.filter(x=>x.t==='speak');
+    clues=`<div class="card clues"><div class="eyebrow">Записки мастера Вана</div>${sp.map(x=>cur.clues.has(x.id)?`<div class="clue"><span>📜</span><span>${x.clue}</span></div>`:`<div class="clue lock"><span>📜</span><span>не найдена (слово «${x.w}»)</span></div>`).join('')}</div>`;}
+  const big=p.big?`<div class="row" style="justify-content:center;gap:10px"><div class="big zh">${p.big}</div><div><div class="muted">${p.bigPy}</div><button class="snd" data-say="${p.big}" aria-label="Слушать">🔊</button></div></div>`:'';
+  return `${clues}<div class="card" style="display:flex;flex-direction:column;gap:10px"><div class="q">${p.q}</div>${big}
+   ${p.hint?`<div><button class="tiny" id="bHint">💡 Подсказка</button><div class="hint" id="hint" hidden>${p.hint}</div></div>`:''}
+   ${optsHtml(p,p._ord)}</div>`;
+};
+function wireHint(){const b=$('#bHint');if(b)b.onclick=()=>{$('#hint').hidden=!$('#hint').hidden;};}
+MOUNT.mcq=p=>{wireSnd();wireTr();wireHint();
+  document.querySelectorAll('.ob').forEach(b=>b.onclick=()=>answer(p,+b.dataset.k));
+  if(cur.ans&&cur.ans[p.id]!=null){lock=true;answer(p,cur.ans[p.id],true);}};
+
+let pcN=0;
+function cultZh(i){return CULT[i][0].split(' ').map(t=>t.split('/')[0]).join('');}
+function cultPy(i){return CULT[i][0].split(' ').map(t=>{const q=t.split('/');return q.length<3?t:q[1].replace(/_/g,' ');}).join(' ').replace(/ ([，。！？：、”》])/g,'$1');}
+function phraseCard(zh,py,ru,title){const n=++pcN;
+  return `<div class="card" style="padding:10px 12px;display:flex;flex-direction:column;gap:6px;background:var(--paper)">
+   <div class="eyebrow">${title||'Фраза'}</div><div class="zh" style="font-size:24px;line-height:1.5">${zh}</div>
+   <div class="row" style="gap:6px"><button class="snd" style="width:30px;height:30px;font-size:13px" data-say="${zh}" aria-label="Слушать">🔊</button>
+   <button class="tiny" data-tr="pcp${n}">🔤 пиньинь</button><button class="tiny" data-tr="pcr${n}">🌐 перевод</button></div>
+   <div id="pcp${n}" hidden style="font-size:15px"><b>${py}</b></div><div id="pcr${n}" hidden class="muted" style="font-size:15px">${ru}</div>
+   <div class="muted" style="font-size:12px">Нажми на любой иероглиф — 🧩 разбор.</div></div>`;}
+function cardFor(p){
+  if(p.t==='listen')return phraseCard(p.zh,p.py,p.opts[0].x,'Фраза из аудио');
+  if(p.src!=null){const l=READ[p.src];return phraseCard(l[0],l[1],l[2],'Строка из письма');}
+  if(p.srcC!=null)return phraseCard(cultZh(p.srcC),cultPy(p.srcC),CULT[p.srcC][1],'Предложение из текста');
+  return '';}
+function answer(p,k,review){
+  if(!review){if(lock)return;lock=true;clearT();stopSpeak();cur.ans=cur.ans||{};cur.ans[p.id]=k;}
+  const ok=k===0, right=p.opts[0];
+  const bs=[...document.querySelectorAll('.ob')];bs.forEach(b=>b.setAttribute("aria-disabled","true"));
+  const mine=bs.find(b=>+b.dataset.k===k), good=bs.find(b=>+b.dataset.k===0);
+  const fb=$('#fb');
+  if(review){
+    (ok?mine:good).classList.add('ok');if(!ok)mine.classList.add('bad');
+    fb.innerHTML=`<div class="fb ${ok?'ok':'bad'}" style="font-weight:400"><div>${ok?'<b>✓ Ты ответила верно.</b>':`<b class="h">Было неверно.</b> Правильно: <b>${right.x}</b>`}</div>${ok?'':`<div>${p.why}</div>`}${cardFor(p)}
+      <div class="row"><button class="btn ghost small" id="bAgain">↩︎ Ответить ещё раз</button><button class="btn small" id="bNext">Дальше →</button></div></div>`;
+    wireSnd();wireTr();
+    $('#bAgain').onclick=()=>{delete cur.ans[p.id];render();};$('#bNext').onclick=next;
+    return;}
+  rec(p.id,p.q||('🎧 '+p.zh+' ('+p.py+')'),p.opts[k].x,right.x,ok);
+  if(ok){
+    mine.classList.add('ok');
+    const s=p.t==='listen'?p.zh:right.say;
+    fb.innerHTML=`<div class="fb ok">✓ Верно!</div>`;
+    later(()=>{speak(s||[]);},150);
+    later(next,s?2100:1100);
+  }else{
+    cur.mist.add(p.id);mine.classList.add('bad');
+    later(()=>{
+      good.classList.add('ok');
+      speak((p.t==='listen'?p.zh:right.say)||[]);
+      fb.innerHTML=`<div class="fb bad"><div><b class="h">Не совсем.</b> Правильно: <b>${right.x}</b></div><div>${p.why}</div>${cardFor(p)}
+        <div class="row"><button class="btn ghost small" id="bAgain">↩︎ Попробовать ещё раз</button><button class="btn small" id="bNext">Дальше →</button></div></div>`;
+      wireSnd();wireTr();
+      $('#bAgain').onclick=()=>{delete cur.ans[p.id];render();};$('#bNext').onclick=next;
+      fb.scrollIntoView({block:'end',behavior:'smooth'});
+    },1000);
+  }
+}
+
+PAGE.listen=p=>{
+  p.opts=p.opts.map(x=>typeof x==='string'?{x}:x);
+  const ord=order(p.id,p.opts.length);p._ord=ord;
+  const q=p;
+  pageAudio=[p.zh];
+  return `<div class="card" style="display:flex;flex-direction:column;gap:10px"><div class="q">Послушай и выбери перевод</div>
+   <div class="muted" style="font-size:13px">После ответа можно нажать ⏮ Назад — увидишь фразу иероглифами, с пиньинем и переводом.</div>
+   <div style="text-align:center"><button class="btn" id="bPlay" style="font-size:20px;padding:16px 28px">🔊 Слушать</button>
+   <div class="row" style="justify-content:center;margin-top:8px"><button class="tiny" id="bSlow">🐢 медленнее</button><button class="tiny" id="bHint">💡 Подсказка</button></div>
+   <div class="hint" id="hint" hidden><span class="zh" style="font-size:20px">${p.zh}</span><br>${p.py}</div></div>
+   ${optsHtml(q,ord)}</div>`;
+};
+MOUNT.listen=p=>{
+  const go=()=>speak(p.zh,()=>{const o=$('#opts');if(o)o.scrollIntoView({block:'nearest',behavior:'smooth'});});
+  $('#bPlay').onclick=go;
+  $('#bSlow').onclick=()=>{stopSpeak();if(!settings.sound)return;const u=new SpeechSynthesisUtterance(clean(p.zh));u.lang='zh-CN';if(zhVoice)u.voice=zhVoice;u.rate=.55;speechSynthesis.speak(u);};
+  wireHint();
+  document.querySelectorAll('.ob').forEach(b=>b.onclick=()=>answer(p,+b.dataset.k));
+  if(cur.ans&&cur.ans[p.id]!=null){lock=true;answer(p,cur.ans[p.id],true);return;}
+  if(settings.auto)later(go,300);
+};
+
+PAGE.match=p=>{
+  const left=p.pairs.map((x,i)=>i), right=shuffle(p.pairs.map((x,i)=>i),p.id);
+  pageAudio=[];
+  return `<div class="card" style="display:flex;flex-direction:column;gap:10px"><div class="q">Соедини пары: часть — значение</div>
+   <div class="muted" style="font-size:14px">Нажми на часть слева, потом на её значение справа. На найденную часть можно нажать ещё раз — откроется 🧩 разбор.</div>
+   <div class="mgrid"><div class="mcol">${left.map(i=>`<button class="mb zh" data-l="${i}">${p.pairs[i][0]}</button>`).join('')}</div>
+   <div class="mcol">${right.map(i=>`<button class="mb" data-r="${i}">${p.pairs[i][2]}</button>`).join('')}</div></div><div id="fb"></div></div>`;
+};
+MOUNT.match=p=>{
+  let sel=null,left=p.pairs.length,miss=0;
+  document.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{if(b.classList.contains('done')){showHz(b.textContent.trim());return;}
+    document.querySelectorAll('[data-l]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=+b.dataset.l;speak(p.pairs[sel][1]);});
+  document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{if(sel===null||b.classList.contains('done'))return;
+    const r=+b.dataset.r, lb=document.querySelector(`[data-l="${sel}"]`);
+    if(r===sel){lb.classList.remove('sel');lb.classList.add('done');b.classList.add('done');sel=null;left--;
+      if(!left){rec(p.id,'Соедини пары: '+p.pairs.map(x=>x[0]).join(' '),miss?`ошибок: ${miss}`:'без ошибок','все пары',!miss);
+        if(miss)cur.mist.add(p.id);
+        $('#fb').innerHTML=`<div class="fb ok">✓ Все пары найдены!</div>`;later(next,1300);}}
+    else{miss++;b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');}
+  });
+};
+
+/* writing */
+PAGE.write=p=>{
+  pageAudio=[p.ch];
+  return `<div class="card" style="display:flex;flex-direction:column;gap:10px">
+   <div class="row" style="justify-content:space-between"><div><div class="eyebrow">Пишем</div><div><span class="zh" style="font-size:26px">${p.ch}</span> <b>${p.py}</b> — ${p.ru}</div></div>
+   <button class="snd" data-say="${p.ch}" aria-label="Слушать">🔊</button></div>
+   <div class="wbox" id="wb"></div>
+   <div class="wstat" id="ws">Смотри порядок черт…</div>
+   <div class="row" style="justify-content:center"><button class="btn ghost small" id="bAnim">▶ Порядок черт</button><button class="btn small" id="bTrace">✍️ Обвести пальцем</button></div>
+   <div id="fb"></div></div>`;
+};
+MOUNT.write=p=>{
+  wireSnd();
+  const S=STROKES[p.ch], NS='http://www.w3.org/2000/svg';
+  const d=pts=>'M'+pts.map(q=>q.join(' ')).join(' L');
+  const box=$('#wb');
+  box.innerHTML=`<svg viewBox="0 0 100 100"><g stroke="var(--line)" stroke-width=".6" stroke-dasharray="2 2"><line x1="0" y1="50" x2="100" y2="50"/><line x1="50" y1="0" x2="50" y2="100"/><line x1="0" y1="0" x2="100" y2="100"/><line x1="100" y1="0" x2="0" y2="100"/></g>
+    <g id="out" fill="none" stroke="var(--line)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">${S.map(s=>`<path d="${d(s)}"/>`).join('')}</g>
+    <g id="ink" fill="none" stroke="var(--ink)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"></g>
+    <path id="usr" fill="none" stroke="var(--jade)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/></svg>`;
+  const svg=box.querySelector('svg'), ink=svg.querySelector('#ink'), usr=svg.querySelector('#usr'), ws=$('#ws');
+  let mode='idle', k=0, miss=0, pts=[], animTok=0, autoT=null;
+  function addStroke(i,color,dur,cb){const pa=document.createElementNS(NS,'path');pa.setAttribute('d',d(S[i]));if(color)pa.setAttribute('stroke',color);ink.appendChild(pa);
+    const L=pa.getTotalLength();pa.style.strokeDasharray=L;pa.style.strokeDashoffset=L;
+    pa.getBoundingClientRect();pa.style.transition=`stroke-dashoffset ${dur}ms ease-in-out`;pa.style.strokeDashoffset=0;
+    if(cb)later(cb,dur+120);return pa;}
+  function animate(){const tok=++animTok;mode='anim';ink.innerHTML='';k=0;ws.textContent=`Черт: ${S.length}`;
+    let i=0;const step=()=>{if(tok!==animTok)return;if(i>=S.length){ws.textContent='Теперь обведи сама ✍️';startTrace(false);return;}
+      ws.textContent=`Черта ${i+1} из ${S.length}`;addStroke(i,'var(--seal)',650,step);i++;};step();}
+  function startTrace(reset){animTok++;clearTimeout(autoT);mode='trace';k=0;miss=0;if(reset!==false||true)ink.innerHTML='';ws.textContent=`Обведи черту 1 из ${S.length}`;}
+  function pos(e){const r=svg.getBoundingClientRect();return [(e.clientX-r.left)/r.width*100,(e.clientY-r.top)/r.height*100];}
+  const dist=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1]);
+  box.addEventListener('pointerdown',e=>{if(mode!=='trace')return;e.preventDefault();box.setPointerCapture(e.pointerId);pts=[pos(e)];usr.setAttribute('d',d(pts));});
+  box.addEventListener('pointermove',e=>{if(mode!=='trace'||!pts.length)return;pts.push(pos(e));usr.setAttribute('d',d(pts));});
+  box.addEventListener('pointerup',()=>{if(mode!=='trace'||!pts.length)return;
+    const s=S[k], a=pts[0], b=pts[pts.length-1];let len=0;for(let i=1;i<pts.length;i++)len+=dist(pts[i-1],pts[i]);
+    let sl=0;for(let i=1;i<s.length;i++)sl+=dist(s[i-1],s[i]);
+    const endOk=dist(b,s[s.length-1])<24||(s.length>2&&dist(b,s[s.length-2])<20);
+    pts=[];usr.setAttribute('d','');
+    if(dist(a,s[0])<24&&endOk&&len>sl*.45){addStroke(k,null,180);k++;miss=0;
+      if(k>=S.length){mode='done';ws.textContent='';$('#fb').innerHTML=`<div class="fb ok">✓ Отлично! Иероглиф ${p.ch} написан.</div>`;speak(p.ch);later(next,1900);}
+      else ws.textContent=`Обведи черту ${k+1} из ${S.length}`;}
+    else{miss++;ws.textContent=miss>=2?`Смотри, как идёт черта ${k+1} 👇`:`Не та черта — начни с другого конца или с другого места`;
+      if(miss>=2){const h=addStroke(k,'var(--seal)',600);later(()=>h.remove(),1300);}}
+  });
+  $('#bAnim').onclick=()=>{clearTimeout(autoT);animate();};$('#bTrace').onclick=()=>startTrace(true);
+  if(settings.auto){speak(p.ch);autoT=setTimeout(animate,500);timers.push(autoT);}else startTrace(true);
+};
+
+/* speaking */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let recog=null;
+function listenOnce(cb){
+  if(!SR){cb({err:'unsupported'});return;}
+  try{recog=new SR();}catch(e){cb({err:'unsupported'});return;}
+  let got=false;recog.lang='zh-CN';recog.interimResults=false;recog.maxAlternatives=5;
+  recog.onresult=e=>{got=true;cb({alts:[...e.results[0]].map(a=>a.transcript)});};
+  recog.onerror=e=>{got=true;cb({err:e.error||'error'});};
+  recog.onend=()=>{if(!got)cb({err:'no-speech'});recog=null;};
+  try{recog.start();}catch(e){cb({err:'not-allowed'});}
+}
+const ERR={
+ 'unsupported':'Здесь распознавание речи не работает. Послушай слово, скажи его вслух и отметь сама.',
+ 'not-allowed':'Нет доступа к микрофону. Как включить — ниже. А пока можно отметить самой.',
+ 'service-not-allowed':'Нет доступа к микрофону. Как включить — ниже. А пока можно отметить самой.',
+ 'no-speech':'Я ничего не услышал. Нажми 🎤 и скажи погромче.',
+ 'audio-capture':'Микрофон не найден. Проверь, что он включён.',
+ 'network':'Распознаванию речи нужен интернет. Проверь связь или отметь сама.'};
+const micHelp=`<details><summary>Как включить микрофон</summary>
+ <p><b>iPhone:</b> Настройки → Safari → Микрофон → «Разрешить». Открой урок в Safari, не во встроенном браузере Telegram.</p>
+ <p><b>Android:</b> в Chrome нажми 🔒 слева от адреса → Разрешения → Микрофон → «Разрешить».</p>
+ <p>Потом обнови страницу.</p></details>`;
+
+PAGE.mic=()=>{pageAudio=[];
+  return `<div class="card" style="display:flex;flex-direction:column;gap:10px"><div class="eyebrow">Перед началом</div>
+   <h2 style="font-size:20px">Проверим микрофон</h2>
+   <p style="margin:0">Нажми кнопку и скажи <span class="zh" style="font-size:20px">你好</span> (nǐ hǎo).</p>
+   <button class="btn mic" id="bMic">🎤 Проверить микрофон</button>
+   <div class="status" id="st"></div>${micHelp}
+   <button class="btn ghost" id="bGo">Дальше →</button></div>`;};
+MOUNT.mic=()=>{
+  const st=$('#st');
+  $('#bMic').onclick=()=>{st.textContent='Слушаю… скажи 你好';listenOnce(r=>{
+    if(r.err)st.textContent='⚠️ '+(ERR[r.err]||ERR['unsupported']);
+    else st.textContent='✓ Микрофон работает. Я услышал: '+r.alts[0];});};
+  $('#bGo').onclick=next;
+};
+PAGE.story=p=>{pageAudio=[];return `<div class="card"><div class="eyebrow">История</div><div class="story">${p.html}</div><button class="btn" id="bGo">Начать →</button></div>`;};
+MOUNT.story=()=>{$('#bGo').onclick=next;};
+
+PAGE.speak=p=>{
+  pageAudio=[p.w];
+  const sp=cur.pages.filter(x=>x.t==='speak'), n=sp.indexOf(p)+1;
+  return `<div class="card" style="display:flex;flex-direction:column;gap:10px">
+   <div class="row" style="justify-content:space-between"><div class="eyebrow">Записка ${n} из ${sp.length}</div><div>${sp.map(x=>cur.clues.has(x.id)?'📜':'○').join('')}</div></div>
+   <div class="word"><div class="zh">${p.w}</div><div style="font-size:18px"><b>${p.py}</b></div>
+   <div class="row" style="justify-content:center;margin-top:6px"><button class="snd" data-say="${p.w}" aria-label="Слушать">🔊</button><button class="tiny" data-tr="trw">🌐</button><span class="tr" id="trw" hidden>${p.ru}</span></div></div>
+   <button class="btn mic" id="bMic">🎤 Сказать</button>
+   <div class="status" id="st"></div>
+   <div class="row hidden" id="self" style="justify-content:center"><button class="btn small" id="bYes">✅ Получилось</button><button class="btn ghost small" id="bNo">❌ Нет</button></div>
+   <div id="fb"></div><div id="help" class="hidden">${micHelp}</div></div>`;
+};
+MOUNT.speak=p=>{
+  wireSnd();wireTr();
+  const st=$('#st'), mic=$('#bMic');
+  const win=how=>{cur.clues.add(p.id);rec(p.id,'Скажи: '+p.w+' ('+p.py+')',how,p.w,true);
+    $('#fb').innerHTML=`<div class="fb ok">✓ Записка найдена! 📜 ${p.clue}</div>`;$('#self').classList.add('hidden');mic.disabled=true;
+    later(next,2600);};
+  const fail=heard=>{rec(p.id,'Скажи: '+p.w+' ('+p.py+')',heard||'не получилось',p.w,false);cur.mist.add(p.id);
+    $('#fb').innerHTML=`<div class="fb bad"><div><b class="h">Пока не то.</b>${heard?` Я услышал: <span class="zh">${heard}</span>`:''}</div><div>${p.tip}</div>
+     <div class="row"><button class="btn ghost small" id="bAgain">🔊 Послушать и ещё раз</button><button class="btn small" id="bNext">Дальше →</button></div></div>`;
+    speak(p.w);$('#bAgain').onclick=()=>{$('#fb').innerHTML='';speak(p.w);};$('#bNext').onclick=next;
+    $('#fb').scrollIntoView({block:'end',behavior:'smooth'});};
+  const showSelf=()=>$('#self').classList.remove('hidden');
+  mic.onclick=()=>{
+    if(recog){try{recog.stop()}catch(e){}return;}
+    stopSpeak();$('#fb').innerHTML='';mic.classList.add('rec');mic.textContent='⏹ Готово';st.textContent='Слушаю…';
+    listenOnce(r=>{mic.classList.remove('rec');mic.textContent='🎤 Сказать';
+      if(r.err){st.textContent='⚠️ '+(ERR[r.err]||ERR['unsupported']);showSelf();
+        if(/allowed|audio|unsupported/.test(r.err))$('#help').classList.remove('hidden');return;}
+      st.textContent='';
+      const norm=s=>s.replace(/[^㐀-鿿]/g,'');
+      if(r.alts.some(a=>norm(a).includes(p.w)))win('сказала верно');else fail(norm(r.alts[0])||r.alts[0]);});
+  };
+  $('#bYes').onclick=()=>win('отметила сама: получилось');
+  $('#bNo').onclick=()=>fail('');
+  if(!SR){st.textContent='Послушай 🔊, скажи вслух и отметь сама.';showSelf();}
+};
+
+/* reading */
+PAGE.read=()=>{pageAudio=[];
+  return `<div class="card" style="display:flex;flex-direction:column;gap:10px"><div class="eyebrow">Читаем про себя</div>
+   <div class="muted" style="font-size:14px">Подруга Сяо Линь написала тебе в WeChat. Прочитай. 🔊 — послушать строку, 🔤 — пиньинь, 🌐 — перевод, нажатие на иероглиф — 🧩 разбор.</div>
+   <div class="phone"><div class="who">小林 · WeChat</div>
+   ${READ.map((l,i)=>`<div class="bub"><div class="zh">${l[0]}</div><div class="tools"><button class="snd" style="width:30px;height:30px;font-size:13px" data-say="${l[0]}" aria-label="Слушать">🔊</button><button class="tiny" data-tr="rp${i}">🔤 пиньинь</button><button class="tiny" data-tr="rt${i}">🌐</button></div><div class="rt" id="rp${i}" hidden><b>${l[1]}</b></div><div class="rt" id="rt${i}" hidden>${l[2]}</div></div>`).join('')}
+   <div class="bub" style="align-self:flex-end;border-radius:16px 4px 16px 16px;background:var(--chat)"><div class="zh">好啊！😊</div><div class="tools"><button class="snd" style="width:30px;height:30px;font-size:13px" data-say="好啊" aria-label="Слушать">🔊</button><button class="tiny" data-tr="rpx">🔤 пиньинь</button><button class="tiny" data-tr="rtx">🌐</button></div><div class="rt" id="rpx" hidden><b>Hǎo a!</b></div><div class="rt" id="rtx" hidden>Давай! С удовольствием!</div></div></div>
+   <button class="btn" id="bGo">Ответить на вопросы →</button></div>`;};
+MOUNT.read=()=>{wireSnd();wireTr();$('#bGo').onclick=next;};
+
+/* culture */
+PAGE.culture=()=>{pageAudio=[];
+  const sents=CULT.map((s,si)=>{
+    const toks=s[0].split(' ').filter(Boolean).map((t,ti)=>{const q=t.split('/');
+      if(q.length<3)return `<span>${t}</span>`;
+      return `<span class="tok" tabindex="0" role="button" data-w="${si}_${ti}" data-py="${q[1].replace(/_/g,' ')}" data-ru="${q[2].replace(/_/g,' ')}">${q[0]}</span>`;}).join('');
+    const plain=s[0].split(' ').map(t=>t.split('/')[0]).join('');
+    return `<div class="sent"><span class="zh">${toks}</span> <button class="snd" style="width:28px;height:28px;font-size:12px" data-say="${plain}" aria-label="Слушать">🔊</button> <button class="tiny" data-tr="cp${si}">🔤</button> <button class="tiny" data-tr="ct${si}">🌐</button>
+      <div class="winfo" id="wi${si}" hidden></div><div id="cp${si}" hidden style="font-size:15px;line-height:1.5"><b>${cultPy(si)}</b></div><div class="tr" id="ct${si}" hidden style="display:block;margin:0">${s[1]}</div></div>`;}).join('');
+  return `<div class="card" style="display:flex;flex-direction:column;gap:8px"><div class="eyebrow">Культура</div>
+   <h2 style="font-size:22px"><span class="zh">提笔忘字</span></h2>
+   <div class="muted" style="font-size:14px">Нажми на любое слово — увидишь пиньинь и перевод.</div>
+   <div class="ctext">${sents}</div><button class="btn" id="bGo">Вопросы по тексту →</button></div>`;};
+MOUNT.culture=()=>{wireSnd();wireTr();$('#bGo').onclick=next;
+  document.querySelectorAll('.tok').forEach(t=>t.onclick=t.onkeydown=e=>{if(e.type==='keydown'&&e.key!=='Enter')return;
+    const si=t.dataset.w.split('_')[0], box=document.getElementById('wi'+si);
+    document.querySelectorAll('.tok.on').forEach(x=>x.classList.remove('on'));t.classList.add('on');
+    box.hidden=false;box.innerHTML=`<span class="zh" style="font-size:18px">${t.textContent}</span> <b>${t.dataset.py}</b> — ${t.dataset.ru} <span class="muted" style="font-size:12px">(нажми на иероглиф здесь — 🧩 разбор)</span>`;speak(t.textContent);});
+};
+
+/* end of part */
+PAGE.errq=()=>{pageAudio=[];
+  return `<div class="card" style="display:flex;flex-direction:column;gap:12px;text-align:center"><h2 style="font-size:22px">Работа над ошибками?</h2>
+   <p style="margin:0">Ошибок в этой части: <b>${cur.mist.size}</b>. Повторим эти задания ещё раз?</p>
+   <div class="row" style="justify-content:center"><button class="btn" id="bY">Да, повторим</button><button class="btn ghost" id="bN">Нет, дальше</button></div></div>`;};
+MOUNT.errq=()=>{
+  $('#bY').onclick=()=>{const t=cur.P.pages.filter(p=>p.id&&cur.mist.has(p.id));cur.retry=true;cur.pages.splice(cur.i+1,0,...t);
+    if(t.some(x=>x.t==='speak'))t.forEach(x=>cur.clues.delete(x.id));next();};
+  $('#bN').onclick=()=>{markDone();cur.pages.push({t:'done'});cur.i=cur.pages.length-1;render();};
+};
+PAGE.done=()=>{pageAudio=[];
+  const idx=PARTS.findIndex(x=>x.id===cur.pid), nx=PARTS[idx+1];
+  return `<div class="card" style="display:flex;flex-direction:column;gap:12px;text-align:center">
+   <div class="zh" style="font-size:56px;color:var(--seal)">好！</div><h2 style="font-size:22px">Часть пройдена</h2>
+   <div class="row" style="justify-content:center">${nx?`<button class="btn" id="bNx">${nx.title} →</button>`:''}<button class="btn ghost" id="bM">☰ Меню</button></div></div>`;};
+MOUNT.done=()=>{const idx=PARTS.findIndex(x=>x.id===cur.pid), nx=PARTS[idx+1];
+  if(nx)$('#bNx').onclick=()=>openPart(nx.id);$('#bM').onclick=showMenu;};
+
+/* my answers */
+function showAnswers(){
+  clearT();stopSpeak();
+  const list=Object.entries(answers);
+  const by={};list.forEach(([id,a])=>{(by[a.part]=by[a.part]||[]).push(a);});
+  const okN=list.filter(([,a])=>a.ok).length;
+  $('#app').innerHTML=`<div class="bar"><button class="ib" id="bMenu" aria-label="Меню">☰</button><div class="t">📋 Мои ответы<small>верно: ${okN} из ${list.length}</small></div></div>
+   <div class="page">${list.length?'':'<div class="card muted">Здесь появятся твои ответы. Если пройти задание ещё раз, ответ перезапишется.</div>'}
+   ${PARTS.filter(p=>by[p.title]).map(p=>`<div class="card"><div class="eyebrow">${p.title}</div>${by[p.title].map(a=>`<div class="ans"><div>${a.q}</div>
+     <div>Твой ответ: <span class="${a.ok?'ok':'bad'}">${a.ok?'✓':'✗'} ${a.your}</span>${a.ok?'':` · верно: <b>${a.right}</b>`}</div></div>`).join('')}</div>`).join('')}</div>`;
+  $('#bMenu').onclick=showMenu;window.scrollTo(0,0);
+}
+
+/* ---------- character breakdown ---------- */
+const DEC={};
+$('#decomp').textContent.trim().split('\n').forEach(l=>{const f=l.split('|');if(f.length<5)return;
+  DEC[f[0]]={py:f[1],ru:f[2],parts:f[3]?f[3].split(';').map(x=>x.split('=')):[],why:f[4]};});
+const HZRE=/[\u3400-\u9fff\u2e80-\u2fdf]/;
+/* how to pronounce parts that are only components */
+const PPY={'⺍':['—','знаки сверху'],'𠂉':['—','',],'儿':['ér','ноги; сын'],'千':['qiān','тысяча'],'五':['wǔ','пять'],'丨':['gǔn','вертикальная черта'],
+ '丶':['zhǔ','точка'],'灬':['huǒ','огонь'],'占':['zhàn','занимать'],'斿':['yóu','флажок'],'云':['yún','облако'],'艮':['gěn','упрямый'],'止':['zhǐ','стоп'],
+ '厶':['sī','личный'],'与':['yǔ','и; давать'],'米':['mǐ','рис'],'另':['lìng','другой'],'老':['lǎo','старый'],'才':['cái','только; талант'],
+ '禾':['hé','злак'],'食':['shí','еда'],'示':['shì','показывать'],'刀':['dāo','нож'],'丝':['sī','нить'],'糸':['mì','шёлк'],'父':['fù','отец'],'圣':['shèng','святой'],
+ '侯':['hóu','маркиз'],'𠂇':['zuǒ','рука'],'〢':['—','черты'],'竹':['zhú','бамбук'],'方':['fāng','сторона']};
+const SAYAS={'亻':'人','氵':'水','讠':'言','忄':'心','扌':'手','纟':'丝','饣':'食','刂':'刀','阝':'阜','⺮':'竹','艹':'草','辶':'辵','礻':'示','宀':'绵','冖':'幂','丩':'纠','夬':'怪','囗':'围','攵':'扑','覀':'亚','𠂇':'左','灬':'火','丨':'滚','丶':'主'};
+const pyOf=c=>DEC[c]?DEC[c].py:(PPY[c]?PPY[c][0]:'');
+const canSay=c=>pyOf(c)&&pyOf(c)!=='—';
+function toast(t){const d=document.createElement('div');d.className='mod';d.style.background='transparent';d.style.pointerEvents='none';d.style.alignItems='flex-end';
+  d.innerHTML=`<div class="box" style="text-align:center;padding:10px 14px;margin-bottom:24px;box-shadow:0 4px 16px rgba(0,0,0,.2)">${t}</div>`;
+  document.body.appendChild(d);setTimeout(()=>d.remove(),1800);}
+function wrapHz(root){
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+    const pe=n.parentElement;if(!pe||!HZRE.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+    if(pe.closest('svg,script,style,.hz,.mod,.bar,.mi,.nav,button,.tok'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});
+  const list=[];while(w.nextNode())list.push(w.currentNode);
+  list.forEach(n=>{const fr=document.createDocumentFragment();
+    n.nodeValue.split(/([\u3400-\u9fff\u2e80-\u2fdf])/).forEach(part=>{if(!part)return;
+      if(HZRE.test(part)&&part.length===1){const sp=document.createElement('span');sp.className='hz';sp.textContent=part;fr.appendChild(sp);}
+      else fr.appendChild(document.createTextNode(part));});
+    n.parentNode.replaceChild(fr,n);});
+}
+new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1&&!n.classList.contains('hz'))wrapHz(n);else if(n.nodeType===3&&n.parentElement&&!n.parentElement.closest('.hz'))wrapHz(n.parentElement);})))
+  .observe($('#app'),{childList:true,subtree:true});
+document.addEventListener('click',e=>{
+  const b=e.target.closest('#app [data-hz]');
+  if(b){e.preventDefault();e.stopPropagation();showHz(b.dataset.hz);return;}
+  const h=e.target.closest('#app .hz');if(!h)return;
+  e.preventDefault();e.stopPropagation();showHz(h.textContent);},true);
+function showHz(ch){
+  document.querySelectorAll('.mod.hzm').forEach(m=>m.remove());
+  const d=DEC[ch];
+  const body=d?`<div class="hzbox"><div class="hc"><div class="zh">${ch}</div><div><div style="font-size:18px"><b>${d.py}</b></div><div style="font-size:16px">${d.ru}</div>
+      <button class="snd" id="hzSay" aria-label="Слушать" style="margin-top:4px">🔊</button></div></div>
+    ${d.parts.length?`<div class="eyebrow" style="margin-top:12px">Из каких частей</div><div class="parts">${d.parts.map(p=>{const c=p[0],py=pyOf(c);
+        const inner=`<span class="zh">${c}</span><span>${py&&py!=='—'?`<b>${py}</b><br>`:''}<span class="py">${p[1]}</span></span>`;
+        const snd=canSay(c)?`<button class="snd" style="width:28px;height:28px;font-size:12px" data-sayp="${SAYAS[c]||c}" aria-label="Слушать">🔊</button>`:'';
+        return DEC[c]&&c!==ch?`<span class="row" style="gap:4px"><button class="pt" data-ch="${c}">${inner} ›</button>${snd}</span>`:`<span class="row" style="gap:4px"><span class="pt">${inner}</span>${snd}</span>`;}).join('<span style="align-self:center">+</span>')}</div>
+    <div class="muted" style="font-size:12px;margin-top:-4px">Нажми на часть со знаком › — разберём и её.</div>`
+      :`<div class="eyebrow" style="margin-top:12px">Цельный знак</div><div class="muted" style="font-size:14px;margin:6px 0 10px">Его не делят на части — это сам по себе маленький рисунок.</div>`}
+    <div class="why">💡 ${d.why}</div></div>`
+   :`<div class="hzbox"><div class="hc"><div class="zh">${ch}</div><div>Разбора этого знака пока нет.</div></div></div>`;
+  const m=document.createElement('div');m.className='mod hzm';
+  m.innerHTML=`<div class="box" role="dialog"><button class="ib x" aria-label="Закрыть">✕</button>${body}</div>`;
+  m.onclick=e=>{const sp=e.target.closest('[data-sayp]');if(sp){speak(sp.dataset.sayp);return;}
+    const pb=e.target.closest('.pt[data-ch]');if(pb){showHz(pb.dataset.ch);return;}
+    if(e.target===m||e.target.closest('.x'))m.remove();};
+  document.body.appendChild(m);
+  const sb=m.querySelector('#hzSay');if(sb)sb.onclick=e=>{e.stopPropagation();speak(SAYAS[ch]||ch);};
+  speak(SAYAS[ch]||ch);
+}
+showMenu();
+})();
+</script>
+
+</body>
+</html>
