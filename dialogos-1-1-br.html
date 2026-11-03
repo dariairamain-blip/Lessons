@@ -14,16 +14,16 @@
 /* Layout: phone-first column; sticky control header on dialogue pages; chat bubbles (Daria on the right) */
 :root{
   --bg:#f1f6f3; --card:#ffffff; --ink:#10302a; --muted:#52695f; --accent:#0a7a5a; --accent-ink:#ffffff;
-  --sun:#f2c12e; --me:#dcf1e6; --line:#d2e1d9; --hl:#fff1bd; --tr:#3d5a50;
+  --sun:#f2c12e; --me:#dcf1e6; --line:#d2e1d9; --hl:#fff1bd; --tr:#3d5a50; --err:#c2410c;
   --display:"Bricolage Grotesque",system-ui,sans-serif;
   --body:"Nunito Sans",system-ui,-apple-system,sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0c1916; --card:#14261f; --ink:#e5f0eb; --muted:#97b0a6; --accent:#3cc393; --accent-ink:#06281d;
-  --sun:#f2c12e; --me:#1a3a2d; --line:#24403a; --hl:#3b3418; --tr:#b9cec5; color-scheme:dark}}
+  --sun:#f2c12e; --me:#1a3a2d; --line:#24403a; --hl:#3b3418; --tr:#b9cec5; --err:#ff8a65; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0c1916; --card:#14261f; --ink:#e5f0eb; --muted:#97b0a6; --accent:#3cc393; --accent-ink:#06281d;
-  --sun:#f2c12e; --me:#1a3a2d; --line:#24403a; --hl:#3b3418; --tr:#b9cec5; color-scheme:dark}
+  --sun:#f2c12e; --me:#1a3a2d; --line:#24403a; --hl:#3b3418; --tr:#b9cec5; --err:#ff8a65; color-scheme:dark}
 html,body{min-height:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.4;-webkit-text-size-adjust:100%}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--card)}
@@ -162,6 +162,15 @@ details.vd[open]>summary::after{content:"▴"}
 .myl{display:flex;flex-direction:column;gap:6px}
 .mya{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 10px;font-size:14px;line-height:1.4}
 .mya .c{color:var(--accent);font-weight:700}
+/* CODE GATE */
+.gate{position:fixed;inset:0;z-index:90;background:var(--bg);display:grid;place-items:center;padding:16px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+.gate .gb{max-width:380px;width:100%;display:flex;flex-direction:column;gap:12px;text-align:center}
+.gate .gi{font-size:44px}
+.gate h2{font-family:var(--display);font-size:24px;margin:0}
+.gate p{margin:0;color:var(--muted);font-size:15px}
+.gate input{font:inherit;font-size:20px;text-align:center;letter-spacing:.12em;padding:12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+.gate .err{color:var(--err);font-weight:800;min-height:1.3em;margin:0}
+.gate .big{justify-content:center}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 
@@ -175,6 +184,7 @@ setTimeout(()=>sendEvent("visit", document.title), 1500);
 let evDone=false;
 </script>
 <script>
+const META={lsk:'dlg1_1_br_',tts:'pt-BR',eyebrow:'Diálogos · A2 · Brasil 🇧🇷',h1:'1.1 Viagem ao Rio',sub:'Поездка в Рио: 7 живых диалогов — от паспортного контроля до заката на пляже.',gate:true,codes:[]};
 const SPK = {
  d:{n:"Daria",e:"👩🏼",g:"f",me:1},
  f:{n:"Fatih",e:"👨🏻",g:"m"},
@@ -677,7 +687,7 @@ const DICT={"a":"артикль ж.р. / к, в / её","abrir":"открыть"
 <script>
 (function(){
 const app=document.getElementById('app');
-const LSK='dlg1_1_br_';
+const LSK=META.lsk;
 function lsGet(k,d){try{const v=localStorage.getItem(LSK+k);return v===null?d:JSON.parse(v)}catch(e){return d}}
 function lsSet(k,v){try{localStorage.setItem(LSK+k,JSON.stringify(v))}catch(e){}}
 let opt={auto:lsGet('auto',true),sound:lsGet('sound',true),subs:lsGet('subs',false)};
@@ -689,10 +699,10 @@ function wordsHTML(t){let out='',last=0;t.replace(WRE,(m,i)=>{out+=esc(t.slice(l
 
 /* ---------- SPEECH ---------- */
 const S=window.speechSynthesis;let voices=[];
-function loadV(){try{voices=S.getVoices().filter(v=>/^pt[-_]BR/i.test(v.lang));if(!voices.length)voices=S.getVoices().filter(v=>/^pt/i.test(v.lang)&&!/PT$/i.test(v.lang))}catch(e){}}
+function loadV(){try{const all=S.getVoices();const re=META.tts==='pt-PT'?/^pt[-_]PT/i:/^pt[-_]BR/i;voices=all.filter(v=>re.test(v.lang));if(!voices.length)voices=all.filter(v=>/^pt/i.test(v.lang))}catch(e){}}
 if(S){loadV();S.onvoiceschanged=loadV}
-const FEM=/luciana|francisca|fernanda|vit[oó]ria|maria|thalita|leila|raquel|google portugu|female|feminin/i;
-const MAL=/felipe|daniel|ant[oô]nio|ricardo|donato|f[aá]bio|humberto|j[uú]lio|male|masculin/i;
+const FEM=/luciana|francisca|fernanda|vit[oó]ria|maria|thalita|leila|raquel|joana|catarina|in[eê]s|google portugu|female|feminin/i;
+const MAL=/felipe|daniel|ant[oô]nio|ricardo|donato|f[aá]bio|humberto|j[uú]lio|duarte|cristiano|male|masculin/i;
 function pickVoice(g){const f=voices.filter(v=>FEM.test(v.name)&&!MAL.test(v.name)),m=voices.filter(v=>MAL.test(v.name)&&!/female/i.test(v.name));
  if(g==='m'&&m.length)return{v:m[0],p:1};if(g==='f'&&f.length)return{v:f[0],p:1};
  return{v:voices[0]||null,p:g==='m'?0.8:1.15}}
@@ -703,7 +713,7 @@ function say(text,g,cb){const my=++tok;clearTimeout(safety);
  const fin=()=>{if(my!==tok)return;clearTimeout(safety);cb&&cb()};
  const txt=clean(text);
  if(!opt.sound||!S||!txt){safety=setTimeout(fin,Math.max(1400,txt.split(' ').length*430));return}
- try{S.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang='pt-BR';const pv=pickVoice(g);if(pv.v)u.voice=pv.v;u.pitch=pv.p;u.rate=0.88;
+ try{S.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang=META.tts;const pv=pickVoice(g);if(pv.v)u.voice=pv.v;u.pitch=pv.p;u.rate=0.88;
   u.onend=fin;u.onerror=fin;S.speak(u)}catch(e){}
  safety=setTimeout(fin,txt.length*110+4000)}
 
@@ -763,7 +773,7 @@ function home(){CUR={i:-1,k:'home'};pause();closePop();P={items:[],cur:0,playing
  app.innerHTML=`<div class="gut"><div class="col home">
  <div class="brandrow"><div class="brand"><span class="logo">DB</span>Daria Botina</div><button class="pill" id="a2h">📲 Добавить на экран</button></div>
  <button class="skip" id="skipH">⏭ Пропустить эту страницу</button>
- <div class="hero"><div class="eyebrow">Diálogos · A2 · Brasil 🇧🇷</div><h1>1.1 Viagem ao Rio</h1><p class="sub">Поездка в Рио: 7 живых диалогов — от паспортного контроля до заката на пляже.</p></div>
+ <div class="hero"><div class="eyebrow">${META.eyebrow}</div><h1>${META.h1}</h1><p class="sub">${META.sub}</p></div>
  <div class="hint">👆 Нажми на любое слово — увидишь перевод. 🌐 под фразой — перевод всей фразы. Вверху: ▶▶ Авто — диалог читается сам, 🔊 — звук вкл/выкл, 💬 Субтитры — перевод фразы появляется, пока её читают. После каждого диалога — 🏋️ упражнения на его слова.</div>
  <button class="big sec navB" id="navH"><span style="font-size:22px">🧭</span><span>Перейти: любой диалог или упражнение</span></button>
  <button class="big" id="prepB"><span style="font-size:22px">📚</span><span>Подготовиться: слова и конструкции</span></button>
@@ -790,7 +800,7 @@ function a2h(){const ov=document.createElement('div');ov.className='ov';
 
 /* ---------- DIALOGUE ---------- */
 function openDlg(i){CUR={i,k:'dlg'};closePop();const d=DLG[i];
- app.innerHTML=barHTML(`${i+1}/7 · ${esc(d.t)}`,'← Меню')+`<div class="gut"><div class="col page">
+ app.innerHTML=barHTML(`${i+1}/${DLG.length} · ${esc(d.t)}`,'← Меню')+`<div class="gut"><div class="col page">
  <div class="prep"><button class="skip" id="skipD">⏭ Пропустить эту страницу</button><span style="display:flex;gap:6px"><button class="pill" id="prepD">📚 Слова</button><button class="pill" id="exD">🏋️ Упражнения</button></span></div>
  <div class="chat">${d.lines.map((l,k)=>{const s=SPK[l[0]];return `<div class="ln${s.me?' me':''}" data-k="${k}"><div class="av" aria-hidden="true">${s.e}</div><div class="bb"><div class="nm">${esc(s.n)}</div><div class="pt">${wordsHTML(l[1])}</div><div class="tr" hidden>${esc(l[2])}</div><div class="acts"><button class="sb say" aria-label="Послушать">🔊</button><button class="sb glob" aria-label="Перевод фразы">🌐</button></div></div></div>`}).join('')}</div>
  <div class="end" id="endB"><h2>🎉 Диалог пройден!</h2>
@@ -973,7 +983,7 @@ function taskSub(box,idx,it){const [m,mru,cue,okT,b1,b2,why]=it;const o=buildOpt
 
 /* ant: anticipation — say it first, then check */
 function taskAnt(box,idx,it){const [ru,okT,b1,b2,why]=it;const o=buildOpts(okT,[b1,b2]);
- box.innerHTML=`<div class="q">Как сказать по-португальски?</div><div class="rucard">${esc(ru)}</div>
+ box.innerHTML=`<div class="q">${META.antQ||'Как сказать по-португальски?'}</div><div class="rucard">${esc(ru)}</div>
  <div class="cd" id="cd"><b id="cdn">4</b><span>🗣 Скажи вслух сама…</span><button class="pill" id="cdSkip">Показать варианты</button></div>
  <div id="ow" hidden>${optsHTML(o)}</div><div class="fb"></div>`;
  const readAll=bindOpts(box,o,idx,ru,okT,why,null);
@@ -1031,7 +1041,21 @@ function navPop(){closePop();stopSpeech();if(typeof pause==='function')pause();c
   if(k==='dlg')openDlg(i);else if(k==='voc')vocab(i,()=>openDlg(i));else runEx(i,k)});}
 document.addEventListener('click',e=>{if(e.target.closest('.navB')){e.preventDefault();navPop()}});
 
-home();
+function normCode(v){let t=String(v||'').toLowerCase().replace(/[\s.\-_]/g,'');
+ t=t.replace(/^(дарья|дария|дариа|даря|дарjа|дарjа)/,'daria').replace(/^(darja|darya|darija|dariya|daria)/,'daria');
+ t=t.replace(/[бвbв]2$/,'b2').replace(/[вb]$/,'b');return t}
+const TEACHER='dariab2';
+const CODES=[TEACHER].concat((META.codes||[]).map(normCode));
+function gateOk(){return CODES.includes(normCode(lsGet('code','')))}
+function showGate(){const g=document.createElement('div');g.className='gate';
+ g.innerHTML=`<form class="gb" id="gf" autocomplete="off"><div class="gi">🔒</div><h2>${META.h1}</h2><p>Введи, пожалуйста, свой код, чтобы открыть урок.</p>
+ <input id="gc" type="text" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Код" placeholder="Код">
+ <p class="err" id="ge" aria-live="polite"></p><button class="big" type="submit">Открыть урок</button><div class="own">© Daria Botina</div></form>`;
+ document.body.appendChild(g);
+ g.querySelector('#gf').addEventListener('submit',e=>{e.preventDefault();const v=g.querySelector('#gc').value.trim();
+  if(CODES.includes(normCode(v))){lsSet('code',v);g.remove();home()}
+  else{g.querySelector('#ge').textContent=v?'Код не подходит. Проверь, пожалуйста, и попробуй ещё раз.':'Введи, пожалуйста, код.'}})}
+if(META.gate&&!gateOk())showGate();else home();
 })();
 </script>
 

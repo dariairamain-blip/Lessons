@@ -1,0 +1,1039 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Diálogos 2.1 🇧🇷 Festa no Rio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta http-equiv="content-language" content="ru">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: phone-first column; sticky control header on dialogue pages; chat bubbles (Daria on the right) */
+:root{
+  --bg:#f1f6f3; --card:#ffffff; --ink:#10302a; --muted:#52695f; --accent:#0a7a5a; --accent-ink:#ffffff;
+  --sun:#f2c12e; --me:#dcf1e6; --line:#d2e1d9; --hl:#fff1bd; --tr:#3d5a50; --err:#c2410c;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Nunito Sans",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c1916; --card:#14261f; --ink:#e5f0eb; --muted:#97b0a6; --accent:#3cc393; --accent-ink:#06281d;
+  --sun:#f2c12e; --me:#1a3a2d; --line:#24403a; --hl:#3b3418; --tr:#b9cec5; --err:#ff8a65; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1916; --card:#14261f; --ink:#e5f0eb; --muted:#97b0a6; --accent:#3cc393; --accent-ink:#06281d;
+  --sun:#f2c12e; --me:#1a3a2d; --line:#24403a; --hl:#3b3418; --tr:#b9cec5; --err:#ff8a65; color-scheme:dark}
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.4;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--card)}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.col{max-width:560px;margin:0 auto}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+
+/* HOME */
+.home{padding-block:14px 28px;display:flex;flex-direction:column;gap:14px}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:15px}
+.logo{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:13px;letter-spacing:.5px}
+.pill{border:2px solid var(--line);background:var(--card);border-radius:999px;padding:6px 11px;font-size:13px;font-weight:700}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:var(--sun);opacity:.35}
+.eyebrow{font-size:12.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:800}
+h1{font-family:var(--display);font-weight:800;font-size:28px;line-height:1.1;margin:0;text-wrap:balance;position:relative}
+.sub{color:var(--muted);margin:0;font-size:14.5px;position:relative}
+.hint{font-size:13.5px;color:var(--muted);background:var(--me);border-radius:12px;padding:9px 12px;line-height:1.45}
+.big{border:0;border-radius:14px;padding:13px 14px;font-weight:800;font-size:16px;background:var(--accent);color:var(--accent-ink);text-align:left;display:flex;gap:10px;align-items:center}
+.big.sec{background:var(--card);color:var(--ink);border:2px solid var(--line)}
+.list{display:flex;flex-direction:column;gap:8px}
+.dcard{display:flex;gap:12px;align-items:center;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 12px}
+.dcard .em{font-size:26px;width:40px;height:40px;display:grid;place-items:center;background:var(--bg);border-radius:12px;flex:none}
+.dcard .tx{display:flex;flex-direction:column;min-width:0;flex:1}
+.dcard b{font-family:var(--display);font-size:17px;font-weight:800}
+.dcard span{font-size:13px;color:var(--muted)}
+.dcard .ok{font-size:13px;font-weight:800;color:var(--accent);flex:none}
+.own{font-size:12.5px;color:var(--muted);text-align:center;margin-top:8px}
+.skip{align-self:flex-start;background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;padding:4px 0}
+
+/* STICKY HEADER */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+.bar .col{padding-block:8px;display:flex;flex-direction:column;gap:6px}
+.r1{display:flex;align-items:center;gap:8px}
+.r1 .ttl{flex:1;min-width:0;font-family:var(--display);font-weight:800;font-size:16px;display:flex;align-items:center;gap:6px;border:2px solid var(--line);background:var(--bg);border-radius:10px;height:36px;padding:0 10px;text-align:left}
+.r1 .ttl .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r1 .ttl .car{flex:none;color:var(--accent);font-size:14px}
+.nav{display:grid;grid-template-columns:minmax(0,1fr) repeat(4,40px);gap:5px;align-items:center}
+.nav .hd{font-size:12.5px;font-weight:800;color:var(--muted);text-align:center}
+.nav .hd.l{text-align:left}
+.nb{height:38px;border:2px solid var(--line);background:var(--card);border-radius:9px;font-size:14px;font-weight:700;padding:0 6px;display:flex;align-items:center;gap:5px;min-width:0;position:relative}
+.nb.dl{justify-content:flex-start;text-align:left}.nb.dl .nt{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13.5px}
+.nb.ex{justify-content:center;padding:0}
+.nb.here{border-color:var(--accent);background:var(--me);box-shadow:0 0 0 2px var(--accent)}
+.nb.dn::after{content:"✓";position:absolute;top:-6px;right:-5px;background:var(--accent);color:var(--accent-ink);border-radius:50%;width:18px;height:18px;font-size:12px;display:grid;place-items:center}
+.navtop{display:flex;gap:6px}.navtop .big{flex:1;padding:9px 10px;font-size:14px;justify-content:center}
+.legend{font-size:12.5px;color:var(--muted);line-height:1.5}
+.ib{border:2px solid var(--line);background:var(--card);border-radius:10px;min-width:38px;height:36px;padding:0 9px;font-size:14px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:4px;flex:none}
+.r2{display:flex;align-items:center;gap:6px}
+.r3{display:flex;gap:6px}.r3 .ib{flex:1 1 0;min-width:0;font-size:13px;padding:0 4px;white-space:nowrap}
+.ib.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.ib.play{min-width:46px;font-size:16px}
+.cnt{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:38px;text-align:center}
+
+/* DIALOGUE */
+.page{padding-block:10px 40px;display:flex;flex-direction:column;gap:10px}
+.prep{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.chat{display:flex;flex-direction:column;gap:10px}
+.ln{display:flex;gap:8px;align-items:flex-end;scroll-margin-top:175px;scroll-margin-bottom:80px}
+.ln.me{flex-direction:row-reverse}
+.av{width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;font-size:17px;flex:none}
+.bb{background:var(--card);border:1px solid var(--line);border-radius:16px 16px 16px 4px;padding:8px 11px 6px;max-width:82%;min-width:0;transition:background .2s,box-shadow .2s}
+.me .bb{background:var(--me);border-radius:16px 16px 4px 16px}
+.ln.cur .bb{box-shadow:0 0 0 3px var(--sun)}
+.nm{font-size:12.5px;font-weight:800;color:var(--accent)}
+.pt{font-size:17.5px;line-height:1.45;overflow-wrap:break-word}
+.w{cursor:pointer;border-radius:4px;-webkit-tap-highlight-color:transparent}
+.w.sel{background:var(--hl)}
+.acts{display:flex;justify-content:flex-end;gap:4px;margin-top:2px}
+.sb{border:0;background:transparent;font-size:15px;width:32px;height:28px;border-radius:8px;padding:0}
+.sb:active{background:var(--bg)}
+.tr{font-size:14.5px;color:var(--tr);font-style:italic;border-top:1px dashed var(--line);margin-top:4px;padding-top:4px}
+.end{background:var(--card);border:2px solid var(--accent);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px;scroll-margin-bottom:20px;scroll-margin-top:175px}
+.end h2{font-family:var(--display);margin:0;font-size:20px}
+
+/* VOCAB */
+.sec-h{font-family:var(--display);font-weight:800;font-size:19px;margin:8px 0 0}
+.vgrid{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.vrow{display:flex;align-items:center;gap:8px;padding:7px 10px;border-top:1px solid var(--line);scroll-margin-top:175px}
+.vrow:first-child{border-top:0}
+.vrow.cur{background:var(--hl)}
+.vrow .pt2{font-weight:800;flex:1 1 50%;min-width:0;font-size:15.5px}
+.vrow .ru2{flex:1 1 50%;min-width:0;color:var(--muted);font-size:14px}
+.ccard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;scroll-margin-top:175px}
+.ccard.cur{box-shadow:0 0 0 3px var(--sun)}
+.ccard .pat{font-weight:800;font-size:16px}
+.ccard .mean{font-size:14px;color:var(--muted)}
+.ccard .ex{display:flex;align-items:flex-start;gap:4px;margin-top:2px}
+.ccard .ex .pt{font-size:16px;flex:1;min-width:0}
+details.vd{background:transparent}
+details.vd>summary{list-style:none;cursor:pointer;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 12px;font-weight:800;display:flex;gap:8px;align-items:center}
+details.vd>summary::-webkit-details-marker{display:none}
+details.vd>summary::after{content:"▾";margin-left:auto;color:var(--muted)}
+details.vd[open]>summary::after{content:"▴"}
+.vbody{display:flex;flex-direction:column;gap:8px;padding-top:8px}
+
+/* POPUPS */
+.pop{position:fixed;z-index:60;background:var(--card);border:2px solid var(--accent);border-radius:12px;padding:8px 10px;box-shadow:0 8px 24px #0004;max-width:min(290px,calc(100vw - 32px));display:flex;gap:8px;align-items:flex-start}
+.pop .pw{font-weight:800}
+.pop .pr{font-size:14.5px}
+.pop .x{border:0;background:none;font-size:16px;padding:0 2px;color:var(--muted)}
+.ov{position:fixed;inset:0;z-index:70;background:#0008;display:grid;place-items:center;padding:16px}
+.mbox{background:var(--card);border-radius:18px;padding:16px;max-width:400px;width:100%;max-height:80vh;overflow:auto;display:flex;flex-direction:column;gap:10px;position:relative}
+.mbox h3{margin:0;font-family:var(--display);font-size:19px;padding-right:30px}
+.mbox .x{position:absolute;top:10px;right:10px;border:0;background:var(--bg);width:32px;height:32px;border-radius:50%;font-size:15px}
+.mbox ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+/* EXERCISES */
+.xcard{display:flex;gap:12px;align-items:center;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:11px 12px}
+.xcard .tx{display:flex;flex-direction:column;flex:1;min-width:0}.xcard b{font-size:16px}.xcard span{font-size:13px;color:var(--muted)}
+.xcard .sc{font-weight:800;color:var(--accent);font-size:14px;flex:none}
+.task{display:flex;flex-direction:column;gap:10px}
+.steps{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--line)}.dot.on{background:var(--accent)}
+.q{font-size:15px;color:var(--muted)}.q b{color:var(--ink);font-size:17px}
+.model{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.model .row{display:flex;gap:4px;align-items:flex-start}.model .pt{flex:1;min-width:0}
+.rucard{background:var(--me);border-radius:14px;padding:14px;font-size:19px;font-weight:700;line-height:1.35}
+.ansbox{min-height:52px;border:2px dashed var(--line);border-radius:14px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;background:var(--card)}
+.ansbox.ok{border-color:var(--accent);border-style:solid}.ansbox.bad{border-color:#d0573f;border-style:solid}
+.tiles{display:flex;flex-wrap:wrap;gap:8px}
+.tile{border:2px solid var(--line);background:var(--card);border-radius:10px;padding:8px 12px;font-size:16.5px;font-weight:700}
+.tile.chunk{background:var(--me);border-color:var(--accent)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.orow{display:flex;gap:6px;align-items:stretch}
+.opt{flex:1;min-width:0;text-align:left;border:2px solid var(--line);background:var(--card);border-radius:12px;padding:10px 12px;font-size:16.5px;font-weight:600}
+.opt.ok{border-color:var(--accent);background:var(--me)}.opt.bad{border-color:#d0573f;text-decoration:line-through;opacity:.8}
+.opt.rd{box-shadow:0 0 0 3px var(--sun)}
+.fb{display:flex;flex-direction:column;gap:8px;scroll-margin-bottom:24px}
+.fbm{border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.45}
+.fbm.ok{background:var(--me);font-weight:800}.fbm.bad{background:var(--hl)}
+.btnrow{display:flex;gap:8px}.btnrow .big{flex:1;justify-content:center}
+.cd{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--muted)}
+.cd b{font-size:26px;color:var(--accent);font-variant-numeric:tabular-nums;width:28px;text-align:center}
+.myl{display:flex;flex-direction:column;gap:6px}
+.mya{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 10px;font-size:14px;line-height:1.4}
+.mya .c{color:var(--accent);font-weight:700}
+/* CODE GATE */
+.gate{position:fixed;inset:0;z-index:90;background:var(--bg);display:grid;place-items:center;padding:16px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+.gate .gb{max-width:380px;width:100%;display:flex;flex-direction:column;gap:12px;text-align:center}
+.gate .gi{font-size:44px}
+.gate h2{font-family:var(--display);font-size:24px;margin:0}
+.gate p{margin:0;color:var(--muted);font-size:15px}
+.gate input{font:inherit;font-size:20px;text-align:center;letter-spacing:.12em;padding:12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+.gate .err{color:var(--err);font-weight:800;min-height:1.3em;margin:0}
+.gate .big{justify-content:center}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+
+<div id="app"></div>
+
+<script>
+const EV_WHO = "Дарья";
+function sendEvent(type, title, detail){ try{ if(location.origin !== "https://dariairamain-blip.github.io") return; fetch("https://daria-talk.daria-iramain.workers.dev/event", {method:"POST", headers:{"content-type":"application/json"}, keepalive:true,
+  body: JSON.stringify({type, who: EV_WHO, title: String(title||"").slice(0,120), detail: String(detail||"").slice(0,3000)})}).catch(()=>{}); }catch(e){} }
+setTimeout(()=>sendEvent("visit", document.title), 1500);
+let evDone=false;
+</script>
+<script>
+const META={lsk:'dlg2_1_br_',tts:'pt-BR',eyebrow:'Diálogos · A2 · Brasil 🇧🇷',h1:'2.1 Festa no Rio',sub:'Знакомства и вечеринка: 7 живых диалогов — от первого «oi» на танцах до обмена номерами в конце праздника.',gate:true,codes:[]};
+const SPK = {
+ d:{n:"Daria",e:"👩🏼",g:"f",me:1},
+ f:{n:"Fatih",e:"👨🏻",g:"m"},
+ lu:{n:"Luana",e:"🌺",g:"f"},
+ ca:{n:"Carol",e:"💃🏽",g:"f"},
+ th:{n:"Thiago",e:"🧑🏾",g:"m"},
+ dm:{n:"Dona Marta",e:"👵🏽",g:"f"},
+ pr:{n:"Professor Beto",e:"🕺🏿",g:"m"},
+ gu:{n:"Gustavo",e:"🎸",g:"m"}
+};
+
+const DLG = [
+{t:"Na aula de forró",ru:"Знакомство на уроке танцев",e:"💃",
+ lines:[
+ ["pr","Boa noite, gente! Quem é novo aqui hoje?","Добрый вечер, ребята! Кто сегодня здесь впервые?"],
+ ["d","Eu! É a minha primeira aula de forró.","Я! Это мой первый урок форро."],
+ ["pr","Seja bem-vinda! Qual é o seu nome?","Добро пожаловать! Как тебя зовут?"],
+ ["d","Daria. Prazer!","Дарья. Очень приятно!"],
+ ["pr","Prazer, Daria. Eu sou o Beto. Hoje você vai dançar com a Carol, tá?","Очень приятно, Дарья. Я Бето. Сегодня ты танцуешь с Карол, хорошо?"],
+ ["ca","Oi, Daria! Não se preocupe, eu também comecei há pouco tempo.","Привет, Дарья! Не волнуйся, я тоже начала недавно."],
+ ["d","Ufa, que alívio! Eu tenho dois pés esquerdos.","Уф, какое облегчение! У меня две левые ноги."],
+ ["ca","Haha, todo mundo diz isso no começo. Você é de onde?","Ха-ха, все так говорят в начале. Ты откуда?"],
+ ["d","Sou russa, mas moro na Turquia, em Antália.","Я русская, но живу в Турции, в Анталии."],
+ ["ca","Que legal! E o que você está fazendo no Rio?","Как здорово! А что ты делаешь в Рио?"],
+ ["d","Estou de férias com o meu namorado. Ele está no hotel, descansando.","Я в отпуске со своим парнем. Он в отеле, отдыхает."],
+ ["ca","Ele não gosta de dançar?","Он не любит танцевать?"],
+ ["d","Ele adora, mas hoje está cansado. Ele trabalhou muito antes da viagem.","Обожает, но сегодня устал. Он много работал перед поездкой."],
+ ["pr","Atenção! Dois passos para a direita, dois para a esquerda. Um, dois... um, dois!","Внимание! Два шага вправо, два влево. Раз, два... раз, два!"],
+ ["d","Assim? Estou fazendo certo?","Так? Я правильно делаю?"],
+ ["ca","Tá ótimo! Só relaxa os ombros. Você tá muito dura.","Отлично! Только расслабь плечи. Ты очень зажатая."],
+ ["d","É o nervosismo! Desculpa, pisei no seu pé?","Это от волнения! Извини, я наступила тебе на ногу?"],
+ ["ca","Não foi nada. No forró, pisar no pé faz parte!","Ничего страшного. В форро наступать на ноги — часть танца!"],
+ ["pr","Agora, troquem de par! Daria, você dança com o Thiago.","А теперь поменяйтесь парами! Дарья, ты танцуешь с Тиаго."],
+ ["th","Oi! Tudo bem? Eu sou o Thiago.","Привет! Как дела? Я Тиаго."],
+ ["d","Tudo bem, e você? Eu sou a Daria. Vou pedir desculpas antes: sou iniciante.","Всё хорошо, а у тебя? Я Дарья. Сразу извиняюсь: я начинающая."],
+ ["th","Relaxa, eu te guio. Você trabalha com o quê, Daria?","Расслабься, я веду. Кем ты работаешь, Дарья?"],
+ ["d","Sou gerente de pacientes numa clínica odontológica.","Я менеджер по работе с пациентами в стоматологической клинике."],
+ ["th","Sério? Eu sou dentista! Que coincidência!","Правда? А я стоматолог! Какое совпадение!"],
+ ["d","Não acredito! O mundo é pequeno mesmo.","Не может быть! Мир и правда тесен."],
+ ["th","Muitos brasileiros vão para a Turquia fazer implante, né?","Многие бразильцы ездят в Турцию ставить импланты, да?"],
+ ["d","Vão, sim! E também fazem lentes de contato dental.","Ездят! И ещё ставят виниры."],
+ ["pr","Muito bem, pessoal! Por hoje é só. Até quinta!","Очень хорошо, ребята! На сегодня всё. До четверга!"],
+ ["ca","Daria, sábado é o aniversário da minha amiga Luana. Quer vir?","Дарья, в субботу день рождения моей подруги Луаны. Хочешь прийти?"],
+ ["d","A Luana? Eu conheço uma Luana! Ela mora em Copacabana?","Луана? Я знаю одну Луану! Она живёт на Копакабане?"],
+ ["ca","Mora! Cabelo cacheado, trabalha numa agência de viagens?","Живёт! Кудрявые волосы, работает в турагентстве?"],
+ ["d","É ela! Ela me convidou ontem! Que mundo pequeno!","Это она! Она пригласила меня вчера! Какой тесный мир!"],
+ ["th","Então a gente se vê na festa! Eu também vou.","Значит, увидимся на вечеринке! Я тоже иду."]
+ ],
+ voc:[["Quem é novo aqui?","Кто здесь впервые?"],["a aula","урок, занятие"],["Prazer!","Очень приятно!"],["comecei há pouco tempo","я начала недавно"],["que alívio","какое облегчение"],["no começo","в начале"],["Você é de onde?","Ты откуда?"],["o namorado","парень, бойфренд"],["descansando","отдыхает (сейчас)"],["o passo","шаг"],["relaxar","расслабиться"],["o ombro","плечо"],["duro / dura","напряжённый, зажатый"],["o nervosismo","волнение, нервы"],["pisar no pé","наступить на ногу"],["fazer parte","быть частью"],["trocar de par","поменяться парами"],["o iniciante","начинающий"],["guiar","вести"],["trabalhar com o quê","кем работать"],["a clínica odontológica","стоматологическая клиника"],["o implante","имплант"],["a lente de contato dental","винир (Бразилия)"],["Por hoje é só.","На сегодня всё."],["o aniversário","день рождения"],["o cabelo cacheado","кудрявые волосы"],["convidar","приглашать"],["a gente se vê","увидимся"]],
+ con:[["Você é de onde?","Ты откуда?","Você é de onde? — Sou da Rússia.","Ты откуда? — Я из России."],
+ ["Comecei há pouco tempo.","Я начала недавно.","Comecei a aprender português há pouco tempo.","Я недавно начала учить португальский."],
+ ["Estou fazendo certo?","Я правильно делаю?","Estou falando certo?","Я правильно говорю?"],
+ ["Você trabalha com o quê?","Кем ты работаешь?","Você trabalha com o quê? — Sou dentista.","Кем ты работаешь? — Я стоматолог."],
+ ["Que mundo pequeno!","Какой тесный мир!","Você conhece a Luana? Que mundo pequeno!","Ты знаешь Луану? Какой тесный мир!"],
+ ["Quer vir?","Хочешь прийти?","Sábado tem festa. Quer vir?","В субботу вечеринка. Хочешь прийти?"],
+ ["A gente se vê!","Увидимся!","A gente se vê no sábado!","Увидимся в субботу!"]]
+},
+{t:"O convite no WhatsApp",ru:"Приглашение и подготовка к празднику",e:"📱",
+ lines:[
+ ["lu","Oi, Daria! Lembra da minha festa no sábado? Vocês vêm, né?","Привет, Дарья! Помнишь про мою вечеринку в субботу? Вы придёте, да?"],
+ ["d","Claro que a gente vai! E adivinha: ontem conheci a sua amiga Carol no forró!","Конечно, мы придём! И угадай: вчера я познакомилась с твоей подругой Карол на форро!"],
+ ["lu","Não acredito! A Carol é minha melhor amiga desde a escola.","Не может быть! Карол — моя лучшая подруга со школы."],
+ ["d","O Rio é enorme, mas parece uma cidade pequena!","Рио огромный, но кажется маленьким городом!"],
+ ["lu","Haha, é verdade. Então: a festa começa às oito da noite.","Ха-ха, правда. Итак: вечеринка начинается в восемь вечера."],
+ ["d","Às oito em ponto?","Ровно в восемь?"],
+ ["lu","Brasileiro nunca chega na hora! Pode chegar às nove, tranquilo.","Бразилец никогда не приходит вовремя! Можно прийти к девяти, спокойно."],
+ ["d","Na Rússia, quando dizem oito, é oito!","В России, если говорят в восемь, значит в восемь!"],
+ ["lu","Aqui não. Se você chegar às oito, vai me ver de toalha na cabeça!","Здесь нет. Если придёшь в восемь, увидишь меня с полотенцем на голове!"],
+ ["d","Haha, entendi. E qual é o endereço?","Ха-ха, поняла. А какой адрес?"],
+ ["lu","Rua Barata Ribeiro, quinhentos e dez, apartamento oitocentos e dois.","Руа Барата Рибейру, пятьсот десять, квартира восемьсот два."],
+ ["d","Anotei. Precisa levar alguma coisa?","Записала. Нужно что-нибудь принести?"],
+ ["lu","Não precisa nada! Mas se quiser, pode levar um docinho.","Ничего не нужно! Но если хочешь, можешь принести сладкое."],
+ ["d","Docinho? Tipo brigadeiro?","Сладкое? Типа бригадейру?"],
+ ["lu","Isso! Tem uma padaria perto do seu hotel que faz brigadeiro gourmet.","Да! Возле твоего отеля есть пекарня, где делают бригадейру-гурме."],
+ ["d","Perfeito. E qual é o dress code?","Отлично. А какой дресс-код?"],
+ ["lu","Bem informal! Vestido leve, sandália. Vai ser no terraço.","Совсем неформальный! Лёгкое платье, сандалии. Будет на террасе."],
+ ["d","E vai ter muita gente?","А людей будет много?"],
+ ["lu","Umas trinta pessoas. Amigos do trabalho, da faculdade, a família...","Человек тридцать. Друзья с работы, из университета, семья..."],
+ ["d","Nossa, vou ficar tímida com tanta gente nova.","Ого, я буду стесняться при стольких новых людях."],
+ ["lu","Você? Tímida? Imagina! Você conversa com todo mundo.","Ты? Стесняться? Да брось! Ты со всеми разговариваешь."],
+ ["d","Em russo e em inglês, sim. Em português, ainda tenho vergonha.","На русском и английском — да. На португальском мне ещё стыдно."],
+ ["lu","Ninguém vai ligar para o seu sotaque. Os cariocas adoram estrangeiros.","Никому нет дела до твоего акцента. Кариоки обожают иностранцев."],
+ ["d","Tomara! E vai ter música?","Надеюсь! А музыка будет?"],
+ ["lu","Vai! O meu primo Gustavo toca violão. Ele sempre faz um som nas festas.","Будет! Мой двоюродный брат Густаво играет на гитаре. Он всегда устраивает музыку на праздниках."],
+ ["d","Que legal! O Fatih vai querer pedir uma música turca.","Как здорово! Фатих захочет попросить турецкую песню."],
+ ["lu","Pode pedir! O Gustavo toca de tudo.","Пусть просит! Густаво играет всё что угодно."],
+ ["d","Ótimo! Luana, o que você quer de presente?","Отлично! Луана, что ты хочешь в подарок?"],
+ ["lu","Nada, sério! A sua presença é o meu presente.","Ничего, серьёзно! Твоё присутствие — мой подарок."],
+ ["d","Que fofa! Mas eu vou levar uma lembrancinha da Turquia, tá?","Какая ты милая! Но я принесу маленький сувенир из Турции, ладно?"],
+ ["lu","Ai, você não existe! Então até sábado. Beijo!","Ой, ты чудо! Тогда до субботы. Целую!"],
+ ["d","Beijo! Até sábado!","Целую! До субботы!"]
+ ],
+ voc:[["Lembra de…?","Помнишь про…?"],["adivinha","угадай"],["conheci","я познакомилась"],["a melhor amiga","лучшая подруга"],["desde a escola","со школы"],["em ponto","ровно (о времени)"],["chegar na hora","прийти вовремя"],["a toalha","полотенце"],["o endereço","адрес"],["levar alguma coisa","принести что-нибудь"],["o docinho","сладость, конфетка"],["o brigadeiro","бригадейру (шоколадная конфета)"],["o vestido","платье"],["a sandália","сандалия"],["informal","неформальный"],["a faculdade","университет (Бразилия)"],["tímido / tímida","застенчивый"],["ter vergonha","стесняться, стыдиться"],["o sotaque","акцент"],["o estrangeiro","иностранец"],["o violão","гитара"],["tocar (violão)","играть (на гитаре)"],["o primo","двоюродный брат"],["fazer um som","поиграть музыку (разг.)"],["o presente","подарок"],["a presença","присутствие"],["fofo / fofa","милый, милая"],["a lembrancinha","маленький сувенир"],["Você não existe!","Ты чудо! (разг.)"],["Beijo!","Целую! (в конце сообщения)"]],
+ con:[["Lembra de…?","Помнишь про…?","Lembra da festa no sábado?","Помнишь про вечеринку в субботу?"],
+ ["Claro que…","Конечно…","Claro que a gente vai!","Конечно, мы придём!"],
+ ["… em ponto","ровно в…","A festa começa às oito em ponto.","Вечеринка начинается ровно в восемь."],
+ ["Precisa levar alguma coisa?","Нужно что-нибудь принести?","Precisa levar bebida ou comida?","Нужно принести напитки или еду?"],
+ ["Vai ter muita gente?","Людей будет много?","Vai ter música ao vivo?","Будет живая музыка?"],
+ ["Ainda tenho vergonha de…","Мне ещё стыдно…","Ainda tenho vergonha de falar português.","Мне ещё стыдно говорить по-португальски."],
+ ["O que você quer de presente?","Что ты хочешь в подарок?","O que a sua mãe quer de presente?","Что твоя мама хочет в подарок?"]]
+},
+{t:"Chegando na festa",ru:"Приход на вечеринку: приветствия и знакомства",e:"🎉",
+ lines:[
+ ["lu","Daria! Fatih! Vocês vieram! Entrem, entrem!","Дарья! Фатих! Вы пришли! Заходите, заходите!"],
+ ["d","Parabéns, Luana! Muitas felicidades!","С днём рождения, Луана! Счастья тебе!"],
+ ["lu","Obrigada, querida! Me dá um abraço!","Спасибо, дорогая! Обними меня!"],
+ ["f","Parabéns! Isso aqui é para você. Uma lembrancinha da Turquia.","С днём рождения! Это тебе. Маленький сувенир из Турции."],
+ ["lu","Ai, que lindo! É um olho grego?","Ой, какая красота! Это «глаз от сглаза»?"],
+ ["d","É um nazar. Na Turquia, dizem que protege contra o mau-olhado.","Это назар. В Турции говорят, что он защищает от сглаза."],
+ ["lu","Vou pendurar na porta agora mesmo! Gente, esses são a Daria e o Fatih!","Повешу на дверь прямо сейчас! Ребята, это Дарья и Фатих!"],
+ ["dm","Oi, meu bem! Eu sou a Marta, mãe da Luana.","Привет, милая! Я Марта, мама Луаны."],
+ ["d","Muito prazer, Dona Marta!","Очень приятно, дона Марта!"],
+ ["dm","Aqui no Rio a gente dá um beijinho no rosto. Só um, tá?","Здесь, в Рио, целуют один раз в щёку. Только один, хорошо?"],
+ ["d","Só um? Na Rússia a gente não beija desconhecidos!","Только один? В России незнакомых не целуют!"],
+ ["dm","Aqui todo mundo é íntimo depois de cinco minutos!","Здесь все становятся близкими через пять минут!"],
+ ["f","E em São Paulo são dois beijinhos, não é?","А в Сан-Паулу — два поцелуя, да?"],
+ ["dm","Em São Paulo, um. Em Minas, às vezes três! Cada lugar é de um jeito.","В Сан-Паулу один. В Минас-Жерайс иногда три! Везде по-своему."],
+ ["d","Que confusão! Vou só sorrir e esperar.","Какая путаница! Буду просто улыбаться и ждать."],
+ ["ca","Daria! Que bom que você veio!","Дарья! Как хорошо, что ты пришла!"],
+ ["d","Carol! Fatih, essa é a Carol, do forró.","Карол! Фатих, это Карол с форро."],
+ ["f","Oi, Carol. Ouvi falar muito de você. Você ensinou a Daria a dançar?","Привет, Карол. Много о тебе слышал. Это ты научила Дарью танцевать?"],
+ ["ca","Tentei! Mas ela pisou no meu pé duas vezes.","Пыталась! Но она два раза наступила мне на ногу."],
+ ["d","Só duas? Achei que foram cinco!","Только два? Я думала, пять!"],
+ ["lu","Fiquem à vontade, tá? Tem comida na mesa e bebida na geladeira.","Чувствуйте себя как дома, ладно? Еда на столе, напитки в холодильнике."],
+ ["f","Que bebidas tem?","Какие есть напитки?"],
+ ["lu","Suco de maracujá, guaraná, água de coco e refrigerante.","Сок маракуйи, гуарана, кокосовая вода и газировка."],
+ ["f","Guaraná! Sempre quis experimentar.","Гуарана! Всегда хотел попробовать."],
+ ["ca","Você vai viciar. Todo gringo vicia em guaraná.","Подсядешь. Все иностранцы подсаживаются на гуарану."],
+ ["d","Luana, você está linda! Esse vestido é novo?","Луана, ты прекрасно выглядишь! Это платье новое?"],
+ ["lu","É, comprei para hoje. Você também está um arraso!","Да, купила к сегодняшнему дню. Ты тоже выглядишь потрясающе!"],
+ ["d","Obrigada! Comprei essa sandália aqui em Copacabana.","Спасибо! Эти сандалии я купила здесь, на Копакабане."],
+ ["dm","Vocês dois formam um casal muito bonito.","Вы двое очень красивая пара."],
+ ["f","Muito obrigado, Dona Marta. A senhora é muito gentil.","Большое спасибо, дона Марта. Вы очень любезны."],
+ ["dm","Que educado! Luana, gostei muito dos seus amigos.","Какой воспитанный! Луана, мне очень нравятся твои друзья."],
+ ["lu","Eu sabia! Agora vou apresentar vocês para todo mundo.","Я так и знала! А теперь познакомлю вас со всеми."]
+ ],
+ voc:[["Vocês vieram!","Вы пришли!"],["Entrem!","Заходите!"],["Parabéns!","Поздравляю! С днём рождения!"],["Muitas felicidades!","Счастья! (пожелание)"],["querido / querida","дорогой / дорогая"],["o abraço","объятие"],["o olho grego","«греческий глаз», оберег"],["proteger","защищать"],["o mau-olhado","сглаз"],["pendurar","вешать"],["agora mesmo","прямо сейчас"],["meu bem","милая, дорогая (обращение)"],["o beijinho no rosto","поцелуй в щёку"],["o desconhecido","незнакомец"],["íntimo","близкий"],["de um jeito","по-своему"],["sorrir","улыбаться"],["ouvir falar de","слышать о"],["ensinar","учить, научить"],["tentar","пытаться"],["Fiquem à vontade!","Чувствуйте себя как дома!"],["a bebida","напиток"],["o guaraná","гуарана (газировка)"],["a água de coco","кокосовая вода"],["o refrigerante","газировка"],["viciar","подсесть, привыкнуть"],["estar um arraso","выглядеть потрясающе (разг.)"],["o casal","пара"],["educado","воспитанный, вежливый"],["apresentar","знакомить, представлять"]],
+ con:[["Parabéns! Muitas felicidades!","С днём рождения! Счастья!","Parabéns pelo aniversário!","Поздравляю с днём рождения!"],
+ ["Isso aqui é para você.","Это тебе.","Isso aqui é para a sua mãe.","Это для твоей мамы."],
+ ["Essa / Esse é…","Это… (представляем человека)","Esse é o Fatih, meu namorado.","Это Фатих, мой парень."],
+ ["Ouvi falar muito de você.","Много о тебе слышал(а).","Ouvi falar muito do Rio.","Я много слышала о Рио."],
+ ["Fiquem à vontade!","Чувствуйте себя как дома!","Fique à vontade, a casa é sua!","Будь как дома!"],
+ ["Sempre quis + глагол","Всегда хотел(а)…","Sempre quis aprender samba.","Я всегда хотела научиться самбе."],
+ ["Você está um arraso!","Ты выглядишь потрясающе!","Nossa, você está um arraso hoje!","Ого, ты сегодня потрясающе выглядишь!"]]
+},
+{t:"Papo na varanda",ru:"Разговор с новыми знакомыми",e:"💬",
+ lines:[
+ ["th","Daria! Que bom te ver de novo. Esse é o famoso Fatih?","Дарья! Рад снова тебя видеть. Это тот самый Фатих?"],
+ ["d","É ele! Fatih, esse é o Thiago, o dentista do forró.","Он самый! Фатих, это Тиаго, стоматолог с форро."],
+ ["f","Prazer, Thiago. A Daria me contou da coincidência.","Приятно познакомиться, Тиаго. Дарья рассказала мне о совпадении."],
+ ["th","Pois é! E você, Fatih, faz o quê?","Да уж! А ты, Фатих, чем занимаешься?"],
+ ["f","Sou comissário de bordo numa companhia aérea turca.","Я бортпроводник в турецкой авиакомпании."],
+ ["th","Que máximo! Você deve conhecer o mundo inteiro.","Круто! Ты, наверное, весь мир знаешь."],
+ ["f","Conheço muitos aeroportos! As cidades, nem sempre.","Знаю много аэропортов! А города — не всегда."],
+ ["th","Haha, imagino. Qual foi o voo mais engraçado que você já fez?","Ха-ха, представляю. Какой твой самый смешной рейс?"],
+ ["f","Uma vez um passageiro levou um papagaio escondido no casaco!","Однажды пассажир пронёс попугая, спрятав его в куртке!"],
+ ["th","Mentira! E o papagaio falava?","Да ладно! И попугай говорил?"],
+ ["f","Falava! No meio do voo, ele gritou: «Olá! Olá!»","Говорил! Посреди полёта он закричал: «Привет! Привет!»"],
+ ["d","Todo mundo começou a rir. O Fatih me contou essa história mil vezes.","Все начали смеяться. Фатих рассказывал мне эту историю тысячу раз."],
+ ["th","É boa demais! E vocês moram juntos há quanto tempo?","Она слишком хороша! А вы давно живёте вместе?"],
+ ["d","Há alguns anos. Moramos num apartamento perto do mar.","Несколько лет. Мы живём в квартире у моря."],
+ ["th","Que sonho! E você gosta da Turquia?","Мечта! А тебе нравится Турция?"],
+ ["d","Gosto muito. O clima é parecido com o do Rio, mas a comida é diferente.","Очень. Климат похож на климат Рио, но еда другая."],
+ ["th","E a comida brasileira, já experimentaram?","А бразильскую еду уже попробовали?"],
+ ["f","Muita coisa! Pão de queijo, açaí, feijoada...","Много чего! Пан-де-кейжу, асаи, фейжоаду..."],
+ ["th","Feijoada? Onde vocês comeram?","Фейжоаду? Где вы ели?"],
+ ["d","Num restaurante em Santa Teresa. Foi a melhor comida da viagem!","В ресторане в Санта-Терезе. Это была лучшая еда за поездку!"],
+ ["th","Então vocês precisam provar a feijoada da minha avó. É imbatível!","Тогда вам надо попробовать фейжоаду моей бабушки. Ей нет равных!"],
+ ["d","Isso é um convite?","Это приглашение?"],
+ ["th","É, sim! Todo domingo tem almoço na casa dela, em Niterói.","Да! Каждое воскресенье у неё обед, в Нитерое."],
+ ["f","Niterói é longe daqui?","Нитерой далеко отсюда?"],
+ ["th","Meia hora de barca. A vista da baía é linda.","Полчаса на пароме. Вид на залив прекрасный."],
+ ["d","De barca! Eu adoro barcos. Vamos, Fatih?","На пароме! Я обожаю лодки. Поедем, Фатих?"],
+ ["f","Vamos! Mas sua avó não vai se incomodar com dois estrangeiros?","Поедем! А твоя бабушка не будет против двух иностранцев?"],
+ ["th","Que nada! Ela vai adorar. Ela sempre faz comida para vinte pessoas.","Да что ты! Она будет в восторге. Она всегда готовит на двадцать человек."],
+ ["d","Então combinado! O que a gente pode levar?","Тогда договорились! Что нам принести?"],
+ ["th","Só a fome! E talvez uma sobremesa.","Только аппетит! И, может, десерт."],
+ ["d","Vou fazer um bolo russo para ela. Medovik, de mel.","Я испеку ей русский торт. Медовик, с мёдом."],
+ ["th","Fechado! Minha avó vai querer a receita, pode ter certeza.","Договорились! Бабушка захочет рецепт, можешь не сомневаться."]
+ ],
+ voc:[["o papo","болтовня, разговор (разг.)"],["a varanda","балкон, веранда"],["de novo","снова"],["contar","рассказывать"],["fazer o quê","чем заниматься"],["Que máximo!","Круто!"],["o mundo inteiro","весь мир"],["engraçado","смешной"],["o passageiro","пассажир"],["o papagaio","попугай"],["escondido","спрятанный"],["Mentira!","Да ладно! Не может быть!"],["gritar","кричать"],["rir","смеяться"],["demais","слишком, очень"],["há quanto tempo","как давно"],["juntos","вместе"],["parecido com","похожий на"],["a feijoada","фейжоада (бобы с мясом)"],["a avó","бабушка"],["imbatível","непревзойдённый"],["o convite","приглашение"],["o almoço","обед"],["a barca","паром"],["se incomodar","быть против, беспокоиться"],["Que nada!","Да что ты! Ничего подобного!"],["o bolo","торт"],["o mel","мёд"],["a receita","рецепт"],["pode ter certeza","можешь не сомневаться"]],
+ con:[["Que bom te ver de novo!","Рад(а) снова тебя видеть!","Que bom te ver de novo, Carol!","Рада снова тебя видеть, Карол!"],
+ ["E você, faz o quê?","А ты чем занимаешься?","E a sua irmã, faz o quê?","А твоя сестра чем занимается?"],
+ ["Você deve + глагол","Ты, наверное, …","Você deve conhecer muitos países.","Ты, наверное, знаешь много стран."],
+ ["Vocês moram juntos há quanto tempo?","Как давно вы живёте вместе?","Você mora no Rio há quanto tempo?","Как давно ты живёшь в Рио?"],
+ ["… é parecido com…","…похож на…","O clima daqui é parecido com o da Turquia.","Здешний климат похож на турецкий."],
+ ["Isso é um convite?","Это приглашение?","Sério? Isso é um convite?","Серьёзно? Это приглашение?"],
+ ["Pode ter certeza.","Можешь не сомневаться.","Ela vai adorar, pode ter certeza.","Ей понравится, можешь не сомневаться."]]
+},
+{t:"Na cozinha da festa",ru:"Помогаем на кухне: еда и сладости",e:"🍫",
+ lines:[
+ ["d","Luana, posso ajudar em alguma coisa?","Луана, могу чем-нибудь помочь?"],
+ ["lu","Pode! Me ajuda a enrolar os brigadeiros?","Можешь! Поможешь мне скатать бригадейру?"],
+ ["d","Enrolar? Como assim?","Скатать? Это как?"],
+ ["lu","Você passa manteiga na mão, pega um pouquinho da massa e faz uma bolinha.","Мажешь руку маслом, берёшь немного массы и делаешь шарик."],
+ ["d","Assim? Ficou muito grande?","Так? Не слишком большой получился?"],
+ ["lu","Um pouco. Faz menor, do tamanho de uma uva.","Немного. Сделай поменьше, размером с виноградину."],
+ ["d","Do tamanho de uma uva... pronto! E agora?","Размером с виноградину... готово! А теперь?"],
+ ["lu","Agora passa no granulado de chocolate e coloca na forminha.","Теперь обваляй в шоколадной посыпке и положи в формочку."],
+ ["d","Hmm, posso provar um?","Ммм, можно попробовать одну?"],
+ ["lu","Só um! Senão não sobra nada para os convidados.","Только одну! А то гостям ничего не останется."],
+ ["d","Meu Deus, que delícia! É muito doce, mas é viciante.","Боже мой, какая вкуснятина! Очень сладко, но затягивает."],
+ ["dm","Luana, cadê os salgadinhos? O pessoal está com fome!","Луана, где закуски? Народ проголодался!"],
+ ["lu","No forno, mãe! Faltam cinco minutos.","В духовке, мам! Ещё пять минут."],
+ ["d","Salgadinhos? O que são?","Салгадиньюс? Что это?"],
+ ["dm","Coxinha, pastel, empada, bolinha de queijo... Toda festa brasileira tem.","Кошинья, пастел, эмпада, сырные шарики... На каждом бразильском празднике они есть."],
+ ["d","Coxinha é aquela de frango, em forma de gota?","Кошинья — это такая с курицей, в форме капли?"],
+ ["dm","Essa mesma! Recheada de frango com requeijão.","Она самая! С начинкой из курицы со сливочным сыром."],
+ ["f","Com licença... alguém sabe onde estão os copos?","Извините... кто-нибудь знает, где стаканы?"],
+ ["lu","No armário em cima da pia, Fatih. Os de plástico.","В шкафчике над раковиной, Фатих. Пластиковые."],
+ ["f","Achei! Quer que eu leve para a varanda?","Нашёл! Отнести на веранду?"],
+ ["lu","Quero, sim! Você é um anjo.","Да, пожалуйста! Ты ангел."],
+ ["dm","Daria, você cozinha?","Дарья, ты готовишь?"],
+ ["d","Cozinho, sim. Adoro fazer comida russa e turca para os amigos.","Да, готовлю. Обожаю готовить русскую и турецкую еду для друзей."],
+ ["dm","Que maravilha! Qual é o seu prato preferido?","Чудесно! Какое твоё любимое блюдо?"],
+ ["d","Pelmeni. É parecido com um pastel pequeno, cozido em água.","Пельмени. Похоже на маленький пастел, отваренный в воде."],
+ ["dm","Que interessante! Você precisa me ensinar um dia.","Как интересно! Ты должна меня как-нибудь научить."],
+ ["d","Combinado! E a senhora me ensina a fazer coxinha?","Договорились! А вы научите меня делать кошинью?"],
+ ["dm","Ensino! Mas aviso: coxinha dá trabalho.","Научу! Но предупреждаю: с кошиньей много возни."],
+ ["lu","Os salgadinhos estão prontos! Cuidado, está quente!","Закуски готовы! Осторожно, горячо!"],
+ ["d","Ai, queimei a língua! Mas valeu a pena.","Ай, обожгла язык! Но оно того стоило."],
+ ["dm","Primeira lição de festa brasileira: espera esfriar!","Первый урок бразильского праздника: подожди, пока остынет!"],
+ ["d","Anotado, Dona Marta. Lição aprendida!","Записала, дона Марта. Урок усвоен!"]
+ ],
+ voc:[["ajudar em alguma coisa","помочь чем-нибудь"],["enrolar","скатывать"],["Como assim?","Это как? В смысле?"],["a bolinha","шарик"],["do tamanho de","размером с"],["a uva","виноград"],["o granulado","посыпка"],["a forminha","формочка"],["sobrar","оставаться"],["viciante","затягивающий"],["o salgadinho","солёная закуска"],["o pessoal","народ, ребята"],["a coxinha","кошинья (пирожок с курицей)"],["a empada","эмпада (корзиночка с начинкой)"],["o frango","курица"],["a gota","капля"],["recheado de","с начинкой из"],["o requeijão","сливочный сыр"],["o armário","шкаф"],["a pia","раковина"],["o anjo","ангел"],["o prato preferido","любимое блюдо"],["cozido","варёный"],["avisar","предупреждать"],["dar trabalho","требовать много труда"],["queimar a língua","обжечь язык"],["esfriar","остыть"],["a lição","урок"]],
+ con:[["Posso ajudar em alguma coisa?","Могу чем-нибудь помочь?","Posso ajudar na cozinha?","Могу помочь на кухне?"],
+ ["Como assim?","Это как? В смысле?","Enrolar? Como assim?","Скатать? Это как?"],
+ ["do tamanho de…","размером с…","Faz uma bolinha do tamanho de uma uva.","Сделай шарик размером с виноградину."],
+ ["Senão…","А то… / Иначе…","Come agora, senão esfria.","Ешь сейчас, а то остынет."],
+ ["Quer que eu + глагол?","Хочешь, я…?","Quer que eu leve os copos?","Хочешь, я отнесу стаканы?"],
+ ["Qual é o seu prato preferido?","Какое твоё любимое блюдо?","Qual é a sua música preferida?","Какая твоя любимая песня?"],
+ ["… dá trabalho.","…требует много труда.","Fazer coxinha dá trabalho.","Делать кошинью — много возни."]]
+},
+{t:"Música e parabéns",ru:"Гитара, танцы и торт",e:"🎂",
+ lines:[
+ ["gu","E aí, galera! Quem quer música?","Привет, народ! Кто хочет музыку?"],
+ ["f","Eu! Você toca música turca, Gustavo?","Я! Густаво, ты играешь турецкую музыку?"],
+ ["gu","Turca, não sei. Mas brasileira, toco tudo! O que vocês querem ouvir?","Турецкую не знаю. А бразильскую — всё! Что вы хотите послушать?"],
+ ["d","Você conhece «Garota de Ipanema»?","Ты знаешь «Девушку из Ипанемы»?"],
+ ["gu","Claro! Todo mundo sabe cantar essa. Um, dois, três...","Конечно! Её все умеют петь. Раз, два, три..."],
+ ["d","Que lindo! Eu só sei o refrão, mas vou cantar junto.","Как красиво! Я знаю только припев, но буду подпевать."],
+ ["f","Eu não sei a letra. Vou só bater palmas!","Я не знаю слов. Буду просто хлопать!"],
+ ["gu","Isso aí! Bater palmas também é música.","Вот так! Хлопать — это тоже музыка."],
+ ["ca","Gente, agora um forró! Daria, vem dançar!","Ребята, а теперь форро! Дарья, иди танцевать!"],
+ ["d","Na frente de todo mundo? Não, não, tenho vergonha!","При всех? Нет-нет, мне стыдно!"],
+ ["ca","Vem! Lembra: dois passos para a direita, dois para a esquerda.","Иди! Помни: два шага вправо, два влево."],
+ ["d","Tá bom, mas se eu pisar no seu pé, a culpa é sua!","Ладно, но если наступлю тебе на ногу — сама виновата!"],
+ ["th","Daria, você melhorou muito desde quinta!","Дарья, ты сильно продвинулась с четверга!"],
+ ["d","Sério? Ou você só está sendo gentil?","Правда? Или ты просто вежлив?"],
+ ["th","Sério! Você está mais solta. Já parece carioca.","Правда! Ты стала раскованнее. Уже похожа на кариоку."],
+ ["dm","Atenção, gente! Hora do parabéns! Apaguem as luzes!","Внимание, ребята! Время поздравлений! Выключите свет!"],
+ ["d","Hora do parabéns? O que acontece agora?","Время поздравлений? Что сейчас будет?"],
+ ["ca","A gente canta «Parabéns pra você» e bate palmas. Depois tem o «É pique».","Мы поём «С днём рождения тебя» и хлопаем. Потом будет «É pique»."],
+ ["d","«É pique»? O que é isso?","«É pique»? Что это?"],
+ ["ca","É uma parte gritada, bem rápida. Você só repete o que todo mundo fala!","Это выкрикивают, очень быстро. Ты просто повторяй за всеми!"],
+ ["dm","Com quem será, com quem será que a Luana vai casar?","С кем же, с кем же Луана выйдет замуж?"],
+ ["lu","Mãe! Que vergonha! Para com isso!","Мама! Как стыдно! Перестань!"],
+ ["d","Haha, isso também é tradição?","Ха-ха, это тоже традиция?"],
+ ["ca","É! Todo aniversário alguém canta isso para deixar a pessoa vermelha.","Да! На каждом дне рождения кто-то поёт это, чтобы вогнать человека в краску."],
+ ["lu","Pronto, vou cortar o bolo. O primeiro pedaço é para quem?","Ну всё, режу торт. Первый кусок — кому?"],
+ ["dm","O primeiro pedaço é para a pessoa mais especial!","Первый кусок — самому особенному человеку!"],
+ ["lu","Então é para você, mãe. Sempre.","Тогда тебе, мама. Всегда."],
+ ["d","Que fofo! Na Rússia a gente não tem essa tradição.","Как мило! В России такой традиции нет."],
+ ["lu","E o segundo pedaço é para a minha amiga que veio de mais longe: a Daria!","А второй кусок — моей подруге, которая приехала издалека всех: Дарье!"],
+ ["d","Para mim? Luana, obrigada! Estou emocionada.","Мне? Луана, спасибо! Я растрогана."],
+ ["gu","Fatih, mais uma música! Agora você escolhe.","Фатих, ещё одну песню! Теперь ты выбираешь."],
+ ["f","Então coloco uma turca no celular. Vocês vão aprender a dançar halay!","Тогда я включу турецкую с телефона. Вы научитесь танцевать халай!"]
+ ],
+ voc:[["E aí, galera!","Привет, народ! (разг.)"],["tocar de tudo","играть всё что угодно"],["ouvir","слушать, слышать"],["a música","песня; музыка"],["o refrão","припев"],["cantar junto","подпевать"],["a letra","слова песни"],["Isso aí!","Вот так! Точно!"],["na frente de","перед, при"],["a culpa","вина"],["melhorar","улучшиться, продвинуться"],["solto / solta","раскованный"],["a hora do parabéns","время поздравления с тортом"],["apagar as luzes","выключить свет"],["bater palmas","хлопать в ладоши"],["gritado","выкрикиваемый"],["repetir","повторять"],["casar","жениться, выйти замуж"],["Para com isso!","Перестань!"],["a tradição","традиция"],["deixar vermelho","вогнать в краску"],["cortar","резать"],["o pedaço","кусок"],["especial","особенный"],["emocionado / emocionada","растроганный"],["escolher","выбирать"]],
+ con:[["Só sei o refrão.","Я знаю только припев.","Só sei o refrão dessa música.","Я знаю только припев этой песни."],
+ ["Você conhece alguma…?","Ты знаешь какую-нибудь…?","Você conhece alguma música russa?","Ты знаешь какую-нибудь русскую песню?"],
+ ["Na frente de todo mundo?","При всех?","Cantar na frente de todo mundo? Nunca!","Петь при всех? Никогда!"],
+ ["… a culpa é sua!","…ты сам(а) виноват(а)!","Se eu errar, a culpa é sua!","Если я ошибусь — ты виновата!"],
+ ["Você melhorou muito!","Ты сильно продвинулся(лась)!","Seu português melhorou muito!","Твой португальский сильно улучшился!"],
+ ["O que acontece agora?","Что сейчас будет?","E depois do bolo, o que acontece?","А после торта что будет?"],
+ ["Para com isso!","Перестань!","Para com isso, que vergonha!","Перестань, как стыдно!"]]
+},
+{t:"A despedida",ru:"Прощание: номера, Инстаграм и планы",e:"👋",
+ lines:[
+ ["f","Daria, já é uma da manhã. Vamos?","Дарья, уже час ночи. Пойдём?"],
+ ["d","Já? Passou tão rápido! Tá bom, vamos nos despedir.","Уже? Так быстро пролетело! Ладно, давай прощаться."],
+ ["th","Vocês já vão? Mas a festa está só começando!","Вы уже уходите? Но вечеринка только начинается!"],
+ ["d","Amanhã a gente acorda cedo para ir a Petrópolis.","Завтра мы рано встаём, чтобы поехать в Петрополис."],
+ ["th","Então me passa o seu número. Para combinar o almoço na casa da minha avó.","Тогда дай мне свой номер. Чтобы договориться про обед у моей бабушки."],
+ ["d","Claro! Você tem WhatsApp?","Конечно! У тебя есть WhatsApp?"],
+ ["th","Tenho. Todo brasileiro tem! Fala o número.","Есть. У каждого бразильца есть! Говори номер."],
+ ["d","É mais nove, zero, cinco, três, dois...","Плюс девять, ноль, пять, три, два..."],
+ ["th","Espera, mais nove zero é da Turquia?","Подожди, плюс девяносто — это Турция?"],
+ ["d","É. Mas eu tenho um chip brasileiro também. Vou te mandar uma mensagem agora.","Да. Но у меня есть и бразильская сим-карта. Сейчас пришлю тебе сообщение."],
+ ["th","Chegou! Salvei como «Daria do Forró».","Пришло! Сохранил как «Дарья с форро»."],
+ ["d","Haha, perfeito. E você tem Instagram?","Ха-ха, идеально. А у тебя есть Инстаграм?"],
+ ["th","Tenho, é arroba thiago ponto sorriso. Sou dentista, né!","Есть: собачка thiago точка sorriso. Я же стоматолог!"],
+ ["d","Que criativo! Já te segui.","Как креативно! Уже подписалась."],
+ ["ca","Daria! Não vai embora sem falar comigo!","Дарья! Не уходи, не попрощавшись со мной!"],
+ ["d","Nunca! Carol, obrigada por tudo. Você foi a primeira amiga que fiz aqui.","Ни за что! Карол, спасибо за всё. Ты первая подруга, которую я тут нашла."],
+ ["ca","Ah, para, vou chorar! Quinta tem forró, você vem?","Ой, перестань, я сейчас заплачу! В четверг форро, ты придёшь?"],
+ ["d","Vou tentar. Se não der, a gente se fala pelo WhatsApp.","Постараюсь. Если не получится, спишемся в WhatsApp."],
+ ["ca","E quando você voltar para a Turquia, não some, hein!","И когда вернёшься в Турцию, не пропадай, слышишь!"],
+ ["d","Prometo! E você vai me visitar em Antália um dia.","Обещаю! А ты когда-нибудь приедешь ко мне в Анталию."],
+ ["ca","Combinado! Vou juntar dinheiro desde já.","Договорились! Начну копить прямо сейчас."],
+ ["lu","Vocês vão embora? Que pena!","Вы уходите? Как жаль!"],
+ ["f","Obrigado pela festa, Luana. Foi incrível.","Спасибо за праздник, Луана. Было потрясающе."],
+ ["lu","Eu que agradeço! O halay foi o momento mais divertido da noite.","Это я вас благодарю! Халай был самым весёлым моментом вечера."],
+ ["dm","Daria, não esquece: você me deve uma aula de pelmeni!","Дарья, не забудь: ты должна мне урок пельменей!"],
+ ["d","Não esqueço, Dona Marta! E a senhora me deve uma de coxinha.","Не забуду, дона Марта! А вы мне — урок кошиньи."],
+ ["dm","Fechado! Vai com Deus, meu bem.","Договорились! Ступай с Богом, милая."],
+ ["lu","Como vocês vão voltar? Querem que eu chame um Uber?","Как вы поедете обратно? Вызвать вам Uber?"],
+ ["f","Não precisa, já chamei. Chega em três minutos.","Не нужно, я уже вызвал. Будет через три минуты."],
+ ["lu","Então me avisem quando chegarem no hotel, tá?","Тогда напишите мне, когда доедете до отеля, ладно?"],
+ ["d","Pode deixar. Beijo, Luana! Feliz aniversário mais uma vez!","Обязательно. Целую, Луана! Ещё раз с днём рождения!"],
+ ["lu","Beijo! Amei vocês aqui!","Целую! Я так рада, что вы были здесь!"]
+ ],
+ voc:[["a despedida","прощание"],["se despedir","прощаться"],["já ir","уже уходить"],["acordar cedo","рано вставать"],["passar o número","дать номер"],["combinar","договориться"],["o chip","сим-карта"],["mandar uma mensagem","отправить сообщение"],["salvar","сохранить"],["arroba","собачка, «@»"],["ponto","точка"],["seguir","подписаться; следовать"],["ir embora","уходить"],["fazer amigos","заводить друзей"],["chorar","плакать"],["Se não der…","Если не получится…"],["a gente se fala","спишемся, созвонимся"],["sumir","пропадать"],["prometer","обещать"],["visitar","навестить"],["juntar dinheiro","копить деньги"],["incrível","потрясающий"],["Eu que agradeço!","Это я благодарю!"],["dever","быть должным"],["Vai com Deus!","Ступай с Богом!"],["chamar um Uber","вызвать Uber"],["avisar","дать знать, предупредить"],["Pode deixar.","Обязательно. Положись на меня."],["Amei vocês aqui!","Я так рада, что вы были! (разг.)"]],
+ con:[["Vocês já vão?","Вы уже уходите?","Você já vai? Fica mais um pouco!","Ты уже уходишь? Побудь ещё!"],
+ ["Me passa o seu número.","Дай мне свой номер.","Me passa o seu Instagram?","Дашь свой Инстаграм?"],
+ ["Vou te mandar uma mensagem.","Я тебе напишу.","Vou te mandar uma mensagem amanhã.","Я напишу тебе завтра."],
+ ["Se não der, …","Если не получится, …","Se não der, a gente se fala.","Если не получится, спишемся."],
+ ["Não some, hein!","Не пропадай, слышишь!","Quando voltar, não some, hein!","Когда вернёшься, не пропадай!"],
+ ["Me avisa quando chegar.","Напиши, когда доберёшься.","Me avisem quando chegarem no hotel.","Напишите, когда доедете до отеля."],
+ ["Eu que agradeço!","Это я благодарю!","Obrigada pela festa! — Eu que agradeço!","Спасибо за праздник! — Это я благодарю!"]]
+}
+];
+
+const EX = [
+{ // 1 forró
+exp:[
+ [["de onde","откуда","da"],["você é de onde","ты откуда?","está"],["você é de onde Carol","ты откуда, Карол?","Carola"]],
+ [["primeira aula","первый урок","primeiro"],["a minha primeira aula","мой первый урок","o"],["é a minha primeira aula de forró","это мой первый урок форро","do"]],
+ [["trabalha","работаешь","trabalho"],["você trabalha com o quê","кем ты работаешь?","que"],["e você trabalha com o quê","а ты кем работаешь?","é"]],
+ [["na festa","на вечеринке","no"],["a gente se vê na festa","увидимся на вечеринке","vemos"],["então a gente se vê na festa","значит, увидимся на вечеринке","quando"]]
+],
+sub:[
+ ["Você é de onde?","Ты откуда?","а Луана откуда?","A Luana é de onde?","A Luana são de onde?","A Luana é da onde?","Луана — одна → é. «Откуда» = de onde."],
+ ["Sou russa, mas moro na Turquia.","Я русская, но живу в Турции.","я русская, но живу в Бразилии","Sou russa, mas moro no Brasil.","Sou russa, mas moro na Brasil.","Sou russa, mas moro em o Brasil.","Brasil — мужского рода: em + o = no."],
+ ["Estou fazendo certo?","Я правильно делаю?","я правильно говорю?","Estou falando certo?","Estou falo certo?","Estou falar certo?","В Бразилии «сейчас делаю» = estar + форма на -ndo: falando."],
+ ["Você trabalha com o quê?","Кем ты работаешь?","кем работает твой брат?","O seu irmão trabalha com o quê?","O seu irmão trabalham com o quê?","A seu irmão trabalha com o quê?","irmão — мужского рода → o seu. Один → trabalha."],
+ ["Sábado tem festa. Quer vir?","В субботу вечеринка. Хочешь прийти?","в четверг форро","Quinta tem forró. Quer vir?","Quinta tem forró. Quer vem?","Quinta tem forró. Querer vir?","После quer — начальная форма vir."]
+],
+ant:[
+ ["Очень приятно!","Prazer!","Prazera!","Placer!","Коротко при знакомстве: prazer! (placer — испанский)."],
+ ["Не волнуйся.","Não se preocupe.","Não preocupe-se.","Não se preocupar.","В Бразилии se ставится перед глаголом: não se preocupe."],
+ ["Это от волнения!","É o nervosismo!","É a nervosismo!","É o nervioso!","nervosismo — мужского рода → o nervosismo."],
+ ["Какой тесный мир!","Que mundo pequeno!","Que mundo pequena!","Qual mundo pequeno!","mundo — мужского рода → pequeno. Восклицание — que."],
+ ["Сколько мы вам должны? (с пляжа, урок 1.1)","Quanto a gente te deve?","Quanto a gente te devemos?","Quanto a gente te deber?","a gente → глагол как с «он»: deve."]
+]},
+{ // 2 convite
+exp:[
+ [["às oito","в восемь","as"],["a festa começa às oito","вечеринка начинается в восемь","começam"],["a festa começa às oito em ponto","вечеринка начинается ровно в восемь","pontos"]],
+ [["alguma coisa","что-нибудь","algum"],["levar alguma coisa","принести что-нибудь","levo"],["precisa levar alguma coisa","нужно что-нибудь принести?","preciso"]],
+ [["muita gente","много людей","muito"],["vai ter muita gente","людей будет много?","vão"],["vai ter muita gente na festa","на вечеринке будет много людей?","no"]],
+ [["de falar","говорить","falo"],["tenho vergonha de falar","мне стыдно говорить","tem"],["ainda tenho vergonha de falar português","мне ещё стыдно говорить по-португальски","portuguesa"]]
+],
+sub:[
+ ["Lembra da festa no sábado?","Помнишь про вечеринку в субботу?","про ужин (jantar)","Lembra do jantar no sábado?","Lembra da jantar no sábado?","Lembra de o jantar no sábado?","jantar — мужского рода: de + o = do."],
+ ["Claro que a gente vai!","Конечно, мы придём!","конечно, я приду (vou)","Claro que eu vou!","Claro que eu vai!","Claro que eu ir!","«Я пойду / приду» = eu vou."],
+ ["Precisa levar alguma coisa?","Нужно что-нибудь принести?","нужно что-нибудь купить?","Precisa comprar alguma coisa?","Precisa compra alguma coisa?","Precisa comprar algum coisa?","После precisa — начальная форма. coisa — женского рода → alguma."],
+ ["Vai ter muita gente?","Людей будет много?","будет живая музыка?","Vai ter música ao vivo?","Vai ter músicas ao vivo?","Vão ter música ao vivo?","«Будет (иметься)» — vai ter, не меняется по числу."],
+ ["O que você quer de presente?","Что ты хочешь в подарок?","что твоя мама хочет в подарок?","O que a sua mãe quer de presente?","O que a sua mãe querem de presente?","O que o sua mãe quer de presente?","mãe — женского рода → a sua. Одна → quer."]
+],
+ant:[
+ ["Угадай!","Adivinha!","Adivina!","Adivinhar!","Просьба к другу на «ты»: adivinha! (adivina — испанский)."],
+ ["Ровно в восемь?","Às oito em ponto?","As oito em ponto?","Às oito no ponto?","«В … часов» = às (a + as). Ровно = em ponto."],
+ ["Записала. (Я записала.)","Anotei.","Anotou.","Anotado eu.","«Я записала» = anotei (anotou — «он записал»)."],
+ ["Ты чудо! (разг.)","Você não existe!","Você não está!","Você não é!","Устойчивое выражение: você não existe!"],
+ ["Это приглашение? (из урока 2.1, диалог 4)","Isso é um convite?","Isso é uma convite?","Isso está um convite?","convite — мужского рода → um convite."]
+]},
+{ // 3 chegando
+exp:[
+ [["para você","тебе","pra"],["isso aqui é para você","это тебе","esse"],["isso aqui é para você Luana","это тебе, Луана","Luano",["Luana isso aqui é para você"]]],
+ [["muito de você","много о тебе","muita"],["ouvi falar muito de você","я много о тебе слышал","ouviu"],["eu ouvi falar muito de você","я много о тебе слышал","ele"]],
+ [["à vontade","как дома","a"],["fiquem à vontade","чувствуйте себя как дома","ficam"],["fiquem à vontade tá","чувствуйте себя как дома, ладно?","está"]],
+ [["experimentar","попробовать","experimento"],["sempre quis experimentar","всегда хотел попробовать","quer"],["sempre quis experimentar guaraná","всегда хотел попробовать гуарану","a"]]
+],
+sub:[
+ ["Isso aqui é para você.","Это тебе.","это для твоей мамы","Isso aqui é para a sua mãe.","Isso aqui é para o sua mãe.","Isso aqui é para sua a mãe.","mãe — женского рода → a sua mãe."],
+ ["Essa é a Carol.","Это Карол.","это Тиаго","Esse é o Thiago.","Essa é o Thiago.","Esse é a Thiago.","Тиаго — мужчина → esse é o."],
+ ["Ouvi falar muito de você.","Я много о тебе слышала.","о Рио","Ouvi falar muito do Rio.","Ouvi falar muito da Rio.","Ouvi falar muito de o Rio.","Rio — мужского рода: de + o = do."],
+ ["Sempre quis experimentar guaraná.","Всегда хотел попробовать гуарану.","всегда хотела научиться (aprender) самбе","Sempre quis aprender samba.","Sempre quis aprendo samba.","Sempre quero aprender samba.","«Всегда хотела» — прошлое quis + начальная форма aprender."],
+ ["Você está um arraso!","Ты выглядишь потрясающе!","вы (двое) выглядите потрясающе","Vocês estão um arraso!","Vocês está um arraso!","Vocês estão uns arraso!","vocês → estão. Выражение «um arraso» не меняется."]
+],
+ant:[
+ ["Вы пришли!","Vocês vieram!","Vocês veio!","Vocês vinham!","vocês → vieram (пришли)."],
+ ["С днём рождения! (Поздравляю!)","Parabéns!","Parabém!","Felicidade!","Поздравление всегда во мн. числе: parabéns!"],
+ ["Обними меня!","Me dá um abraço!","Me dá uma abraço!","Me dar um abraço!","abraço — мужского рода → um. Просьба: me dá."],
+ ["Чувствуйте себя как дома!","Fiquem à vontade!","Ficam à vontade!","Fiquem a vontade!","Просьба к нескольким → fiquem. Устойчиво: à vontade."],
+ ["Вы очень любезны (сеньора).","A senhora é muito gentil.","A senhora está muito gentil.","O senhora é muito gentil.","Черта характера → é. senhora — женского рода → a."]
+]},
+{ // 4 varanda
+exp:[
+ [["de novo","снова","nova"],["que bom te ver de novo","рад снова тебя видеть","bem"],["Daria que bom te ver de novo","Дарья, рад снова тебя видеть","Dario",["que bom te ver de novo Daria"]]],
+ [["o mundo","мир","a"],["o mundo inteiro","весь мир","inteira"],["você deve conhecer o mundo inteiro","ты, наверное, знаешь весь мир","deves"]],
+ [["juntos","вместе","junto"],["vocês moram juntos","вы живёте вместе","moram-se"],["vocês moram juntos há quanto tempo","как давно вы живёте вместе?","quanta"]],
+ [["do mar","моря (у моря)","da"],["perto do mar","у моря","longe"],["moramos num apartamento perto do mar","мы живём в квартире у моря","numa"]]
+],
+sub:[
+ ["E você, faz o quê?","А ты чем занимаешься?","а твоя сестра?","E a sua irmã, faz o quê?","E a sua irmã, fazem o quê?","E o sua irmã, faz o quê?","irmã — женского рода → a sua. Одна → faz."],
+ ["Você deve conhecer o mundo inteiro.","Ты, наверное, знаешь весь мир.","ты, наверное, устал (estar cansado)","Você deve estar cansado.","Você deve está cansado.","Você deves estar cansado.","После deve — начальная форма estar. você → deve."],
+ ["Você mora no Rio há quanto tempo?","Как давно ты живёшь в Рио?","в Турции","Você mora na Turquia há quanto tempo?","Você mora no Turquia há quanto tempo?","Você mora em a Turquia há quanto tempo?","Turquia — женского рода: em + a = na."],
+ ["O clima é parecido com o do Rio.","Климат похож на климат Рио.","еда похожа на турецкую (da Turquia)","A comida é parecida com a da Turquia.","A comida é parecido com a da Turquia.","A comida é parecida com o da Turquia.","comida — женского рода → parecida и a da."],
+ ["Ela vai adorar, pode ter certeza.","Ей понравится, можешь не сомневаться.","ему понравится","Ele vai adorar, pode ter certeza.","Ele vai adora, pode ter certeza.","Ele vão adorar, pode ter certeza.","После vai — начальная форма adorar. Он один → vai."]
+],
+ant:[
+ ["Круто!","Que máximo!","Que máxima!","Qual máximo!","Устойчивое восклицание: que máximo!"],
+ ["Да ладно! (Не может быть!)","Mentira!","Mentiroso!","Mentir!","Короткое удивление: mentira! (mentiroso = «лжец»)."],
+ ["Это приглашение?","Isso é um convite?","Isso é uma convite?","Isso está um convite?","convite — мужского рода → um convite."],
+ ["Да что ты! (Ничего подобного!)","Que nada!","Que nado!","Qual nada!","Устойчивое выражение: que nada!"],
+ ["Чувствуйте себя как дома!","Fiquem à vontade!","Ficam à vontade!","Fiquem a vontade!","Просьба к нескольким → fiquem. Устойчиво: à vontade."]
+]},
+{ // 5 cozinha
+exp:[
+ [["alguma coisa","что-нибудь","algum"],["ajudar em alguma coisa","помочь чем-нибудь","ajudo"],["posso ajudar em alguma coisa","могу чем-нибудь помочь?","possa"]],
+ [["uma uva","виноградина","um"],["do tamanho de uma uva","размером с виноградину","da"],["faz uma bolinha do tamanho de uma uva","сделай шарик размером с виноградину","fazes"]],
+ [["os copos","стаканы","as"],["leve os copos","отнести стаканы","levo"],["quer que eu leve os copos","хочешь, я отнесу стаканы?","levar"]],
+ [["preferido","любимое","preferida"],["o seu prato preferido","твоё любимое блюдо","a"],["qual é o seu prato preferido","какое твоё любимое блюдо?","quais"]]
+],
+sub:[
+ ["Posso ajudar em alguma coisa?","Могу чем-нибудь помочь?","могу помочь на кухне?","Posso ajudar na cozinha?","Posso ajudar no cozinha?","Posso ajudo na cozinha?","cozinha — женского рода: em + a = na. После posso — начальная форма."],
+ ["Come agora, senão esfria.","Ешь сейчас, а то остынет.","ешь сейчас, а то закончится (acabar)","Come agora, senão acaba.","Come agora, senão acabar.","Come agora, se não acaba.","«А то» = senão (одним словом). Глагол в форме «он»: acaba."],
+ ["Quer que eu leve os copos?","Хочешь, я отнесу стаканы?","хочешь, я помогу (ajude)?","Quer que eu ajude?","Quer que eu ajudo?","Quer que eu ajudar?","После quer que eu — особая форма: ajude (как leve)."],
+ ["Qual é o seu prato preferido?","Какое твоё любимое блюдо?","какая твоя любимая песня?","Qual é a sua música preferida?","Qual é o sua música preferida?","Qual é a sua música preferido?","música — женского рода → a sua … preferida."],
+ ["Fazer coxinha dá trabalho.","Делать кошинью — много возни.","учить язык — много труда","Aprender uma língua dá trabalho.","Aprender uma língua dão trabalho.","Aprender um língua dá trabalho.","língua — женского рода → uma. Выражение dá trabalho не меняется."]
+],
+ant:[
+ ["Это как? (В смысле?)","Como assim?","Como assi?","Qual assim?","Устойчивый вопрос: como assim?"],
+ ["Можно попробовать одну?","Posso provar um?","Posso provo um?","Possa provar um?","«Можно мне» = posso + начальная форма provar."],
+ ["Ты ангел.","Você é um anjo.","Você é uma anjo.","Você está um anjo.","anjo — мужского рода → um. Черта → é."],
+ ["Ай, обожгла язык!","Ai, queimei a língua!","Ai, queimou a língua!","Ai, queimei o língua!","«Я обожгла» = queimei. língua — женского рода → a."],
+ ["Ты откуда?","Você é de onde?","Você está de onde?","Você é da onde?","Происхождение → é. «Откуда» = de onde."]
+]},
+{ // 6 música
+exp:[
+ [["o refrão","припев","a"],["só sei o refrão","знаю только припев","sabe"],["eu só sei o refrão dessa música","я знаю только припев этой песни","desse"]],
+ [["todo mundo","все","toda"],["na frente de todo mundo","при всех","no"],["dançar na frente de todo mundo","танцевать при всех","danço"]],
+ [["muito","сильно","muita"],["você melhorou muito","ты сильно продвинулась","melhoro"],["você melhorou muito desde quinta","ты сильно продвинулась с четверга","de"]],
+ [["agora","сейчас","ontem"],["o que acontece agora","что сейчас будет?","acontecem"],["e o que acontece agora","а что сейчас будет?","é"]]
+],
+sub:[
+ ["Você conhece alguma música brasileira?","Ты знаешь какую-нибудь бразильскую песню?","русскую","Você conhece alguma música russa?","Você conhece algum música russa?","Você conhece alguma música russo?","música — женского рода → alguma … russa."],
+ ["Cantar na frente de todo mundo? Nunca!","Петь при всех? Никогда!","танцевать","Dançar na frente de todo mundo? Nunca!","Dança na frente de todo mundo? Nunca!","Dançar no frente de todo mundo? Nunca!","Начальная форма dançar. Устойчиво: na frente de."],
+ ["Se eu errar, a culpa é sua!","Если я ошибусь — сам виноват!","если я наступлю (pisar) тебе на ногу","Se eu pisar no seu pé, a culpa é sua!","Se eu piso no seu pé, a culpa é sua!","Se eu pisar na seu pé, a culpa é sua!","После se eu — форма pisar (как errar). pé — мужского рода → no seu."],
+ ["Seu português melhorou muito!","Твой португальский сильно улучшился!","твой испанский","Seu espanhol melhorou muito!","Sua espanhol melhorou muito!","Seu espanhol melhoraram muito!","espanhol — мужского рода → seu. Один → melhorou."],
+ ["Para com isso!","Перестань!","перестань (с этим), как стыдно!","Para com isso, que vergonha!","Para com isso, que vergonho!","Parar com isso, que vergonha!","Просьба другу: para com isso! vergonha — женского рода."]
+],
+ant:[
+ ["Вот так! (Точно!)","Isso aí!","Isso ali!","Esse aí!","Устойчивое одобрение: isso aí!"],
+ ["Хлопать — это тоже музыка.","Bater palmas também é música.","Bater palma também está música.","Batendo palmas também é música.","Устойчиво: bater palmas. Определение → é."],
+ ["Перестань!","Para com isso!","Pare com isto-se!","Para de isso!","Устойчиво: para com isso!"],
+ ["Я растрогана.","Estou emocionada.","Estou emocionado.","Sou emocionada.","Ты женщина → emocionada. Состояние сейчас → estou."],
+ ["Можешь не сомневаться.","Pode ter certeza.","Pode ter certo.","Pode tem certeza.","Устойчиво: pode ter certeza."]
+]},
+{ // 7 despedida
+exp:[
+ [["já vão","уже уходите","vai"],["vocês já vão","вы уже уходите?","vamos"],["vocês já vão embora","вы уже уходите?","embaixo"]],
+ [["o seu número","свой номер","a"],["me passa o seu número","дай мне свой номер","passo"],["me passa o seu número de WhatsApp","дай мне свой номер WhatsApp","do"]],
+ [["uma mensagem","сообщение","um"],["vou te mandar uma mensagem","я тебе напишу","vai"],["vou te mandar uma mensagem amanhã","я напишу тебе завтра","ontem"]],
+ [["no hotel","до отеля","na"],["quando chegarem no hotel","когда доедете до отеля","chegam"],["me avisem quando chegarem no hotel","напишите, когда доедете до отеля","avisam"]]
+],
+sub:[
+ ["Você já vai?","Ты уже уходишь?","вы (двое) уже уходите?","Vocês já vão?","Vocês já vai?","Vocês já vamos?","vocês → vão (vamos = «мы»)."],
+ ["Me passa o seu número.","Дай мне свой номер.","свой Инстаграм","Me passa o seu Instagram.","Me passa a seu Instagram.","Me passo o seu Instagram.","Instagram — мужского рода → o seu. Просьба: me passa."],
+ ["Se não der, a gente se fala.","Если не получится, спишемся.","если не получится, увидимся (se vê)","Se não der, a gente se vê.","Se não der, a gente se vemos.","Se não dar, a gente se vê.","a gente → se vê. Устойчиво: se não der."],
+ ["Quando voltar, não some, hein!","Когда вернёшься, не пропадай!","когда уедешь (for embora)","Quando for embora, não some, hein!","Quando ir embora, não some, hein!","Quando vai embora, não some, hein!","В будущем после quando — особая форма: for (как voltar)."],
+ ["Me avisa quando chegar.","Напиши, когда доберёшься.","напиши, когда проснёшься (acordar)","Me avisa quando acordar.","Me avisa quando acordo.","Me avisa quando acorda-se.","После quando о будущем — форма acordar (как chegar)."]
+],
+ant:[
+ ["Если не получится, спишемся.","Se não der, a gente se fala.","Se não dar, a gente se fala.","Se não der, a gente se falamos.","Устойчиво: se não der. a gente → se fala."],
+ ["Не пропадай, слышишь!","Não some, hein!","Não soma, hein!","Não sumir, hein!","Просьба другу: não some!"],
+ ["Это я благодарю!","Eu que agradeço!","Eu que agradece!","Eu é agradeço!","«Это я…» = eu que + форма «я»: agradeço."],
+ ["Обязательно. (Положись на меня.)","Pode deixar.","Pode deixa.","Pode deixando.","Устойчиво: pode deixar."],
+ ["Ступай с Богом!","Vai com Deus!","Vá com Dios!","Vai em Deus!","Устойчиво: vai com Deus! (Dios — испанский)."]
+]}
+];
+
+const DICT={"abanava": "качалось, трясло", "abraço": "объятие", "acaba": "заканчивается", "acabar": "закончиться", "achando": "(бразильская форма: estou achando)", "achar": "думать, находить; estar a achar — как тебе", "achas": "думаешь? считаешь?", "acompanhar": "подыграть, аккомпанировать", "acontece-se": "(ошибка)", "acontecem": "происходят", "aconteceu": "произошло, было", "acorda": "просыпается", "acorda-se": "(ошибка)", "acordo": "просыпаюсь", "adeus": "прощайте", "adivina": "(исп.) угадай", "adivinha": "угадай!", "adivinhar": "угадывать", "adora": "обожает", "adoram": "обожают", "adorei": "я обожаю, мне очень понравилось", "adorá-lo": "полюбить его", "aeroportos": "аэропорты", "agradece": "благодарит", "agradecemos": "благодарим", "agradeço": "благодарю", "agência": "агентство; agência de viagens — турагентство", "ajudam-me": "помогаете мне", "ajude": "помогу (quer que eu ajude — хочешь, я помогу)", "ajudo": "помогаю", "ajudou": "помог(ли)", "aldeia": "деревня", "alegre": "весёлый", "alemão": "немецкий", "algo": "что-нибудь", "algumas": "некоторые", "alma": "душа; a alma da festa — душа компании", "almoço": "обед", "altura": "время, момент; nessa altura — тогда", "alívio": "облегчение", "alô": "алло (Бразилия)", "ambiente": "атмосфера", "amei": "я обожаю; amei vocês aqui — так рада, что вы были", "amiga": "подруга", "amigo": "друг", "amizade": "дружба", "anfitrião": "хозяин (принимающий гостей)", "aniversário": "день рождения", "anjo": "ангел", "ano": "год", "anotou": "записал", "ansiosa": "с нетерпением ждущая", "ansioso": "с нетерпением ждущий", "antes": "раньше; antes de — перед", "antigas": "старые", "apagamos": "выключаем", "apaguem": "выключите", "apaixonada": "влюблённая", "apaixonada-se": "(ошибка)", "apaixonado": "влюблённый", "aperto": "сжатие; aperto de mão — рукопожатие", "aprende-se": "(ошибка)", "aprendes": "учишь", "aprendida": "усвоенная", "apresentar": "знакомить, представлять", "aquele": "тот", "armário": "шкаф", "arraso": "estar um arraso — выглядеть потрясающе", "arrepiada": "в мурашках (о женщине)", "arrepiado": "в мурашках (о мужчине)", "arroba": "собачка «@»", "assi": "(ошибка: верно assim)", "aterrorizados": "в ужасе", "atrasados": "опоздавшие", "atraso": "опоздание", "aula": "урок, занятие", "avisa": "напиши, предупреди", "avisam": "предупреждают", "avisem": "напишите, дайте знать (вы)", "aviso": "предупреждаю", "avó": "бабушка", "azulejos": "изразцы азулежу", "aérea": "воздушная; companhia aérea — авиакомпания", "barata": "Барата (улица); дешёвая", "barbudo": "бородатый", "barca": "паром", "barco": "корабль, лодка", "barcos": "лодки", "barriga": "живот", "batendo": "хлопая; бьющий", "bater": "бить; bater palmas — хлопать", "bebida": "напиток", "bebidas": "напитки", "beija": "целует", "beijam": "целуют(ся)", "beijinho": "поцелуйчик (в щёку)", "beijinhos": "поцелуйчики; целую!", "beijo": "поцелуй; целую!", "beto": "Бето (имя)", "bocado": "um bocado — немного (Португалия)", "bolinha": "шарик", "bolo": "торт", "bonita": "красивая", "bons": "хорошие", "borges": "Боржеш (фамилия, улица)", "brasileira": "бразильская", "brasileiros": "бразильцы", "breve": "em breve — скоро", "breves": "(ошибка: верно breve)", "brigadeiro": "бригадейру (конфета)", "brigadeiros": "бригадейру (мн. ч.)", "brincar": "шутить; играть", "cabelo": "волосы", "cacheado": "кудрявый", "cair": "падать; a cair — разваливающийся", "caiu": "упал", "calada": "молчащая", "caladas": "молчащие", "calados-se": "(ошибка)", "campo": "поле; Campo de Ourique — район Лиссабона", "cansado": "уставший", "canta": "пой!; поёт", "cantar": "петь", "cantas": "поёшь", "canto": "пою", "carga": "груз", "cariocas": "кариоки (жители Рио)", "carol": "Карол (имя)", "carola": "(ошибка: верно Carol)", "casal": "пара", "casamento": "свадьба", "casar": "жениться, выйти замуж", "caseiro": "домашний", "causa": "причина; por causa de — из-за", "cerejas": "черешня", "certa": "правильная; na hora certa — как раз вовремя", "chama-me": "(ошибка: верно chamo-me)", "chama-se": "его/её зовут", "chamam": "зовут; называют", "chame": "вызову (quer que eu chame — вызвать?)", "chamei": "я вызвал", "chamo": "зову; называю", "chamo-me": "меня зовут", "chegar": "прийти, приехать", "chegarem": "доедете (когда)", "chegaste": "ты пришёл, пришла", "chegaste-vos": "(ошибка)", "cheguei": "я пришла", "chip": "сим-карта", "chorar": "плакать", "chão": "пол, земля", "cidades": "города", "cinzento": "серый", "clínica": "клиника", "coberto": "покрытый", "coco": "кокос; água de coco — кокосовая вода", "code": "dress code — дресс-код", "coloca": "положи", "coloco": "ставлю, включаю", "combinar": "договориться", "combinarmos": "чтобы мы договорились", "comecei": "я начала", "comeram": "ели", "começa": "начинается; начинай", "começam": "начинаются", "começando": "начинается (сейчас)", "começar": "начать", "começo": "начало; no começo — в начале", "complicado": "сложный", "compra": "покупает", "concentrem-se": "сосредоточьтесь", "conhecer": "знать; узнать, познакомиться", "conheces": "знаешь (Португалия)", "conheceu": "познакомилась", "conheci": "я познакомилась", "contar": "рассказывать", "contato": "контакт; lente de contato dental — винир", "conte": "расскажите", "contente": "довольный", "continua": "продолжается; остаётся", "continuam": "продолжаются", "continuo": "продолжаю", "continuou": "продолжил, остался", "contou": "рассказал(а)", "contra": "против", "conversa": "разговор", "convidou": "пригласил(а)", "convite": "приглашение", "convosco": "с вами (Португалия)", "copos": "стаканы", "cordas": "струны", "cores": "цвета", "cortar": "резать", "cortiça": "пробка (материал)", "couve": "капуста", "coxinha": "кошинья (пирожок с курицей)", "cozido": "варёный", "cozinhar": "готовить (еду)", "cozinheiro": "повар, кок", "criativo": "креативный", "culpa": "вина", "cumprimento": "приветствие", "cumpro": "выполняю, сдерживаю (слово)", "cão": "собака", "damos": "даём", "danço": "танцую", "daquela": "той (de + aquela)", "dar-me": "дать мне", "dario": "(ошибка: верно Daria)", "deixa-se": "(ошибка)", "deixando": "оставляя", "dela": "её", "delicioso": "очень вкусный", "demais": "слишком", "dental": "зубной", "dentista": "стоматолог", "dentária": "зубная; clínica dentária — стоматология (Португалия)", "der": "se não der — если не получится", "descansando": "отдыхает (сейчас)", "desconhecidos": "незнакомцы", "desculpam": "извиняют", "desculpas": "извинения", "desculpem": "простите (вы)", "desde": "с (какого-то времени)", "desenho": "рисунок", "despedir": "se despedir — прощаться", "dessa": "этой", "desse": "этого", "deve-se": "(ошибка)", "deves": "ты, наверное…; должен", "dezanove": "девятнадцать (Португалия)", "dias": "дни", "dios": "(исп.) Бог", "disto-se": "(ошибка)", "divinal": "божественный", "dizem": "говорят", "dizemos": "говорим", "docinho": "сладость", "doem": "болят", "douro": "Дору (река, регион)", "doze": "двенадцать", "dress": "dress code — дресс-код", "duarta": "(ошибка: верно Duarte)", "duarte": "Дуарте (имя)", "dura": "напряжённая, зажатая", "durante": "во время", "dá-me": "дай мне", "dás-me": "(ошибка)", "educado": "воспитанный", "ei": "эй!", "embaixo": "внизу (ошибка: верно embora)", "emocionada": "растроганная", "emocionado": "растроганный", "empada": "эмпада (корзиночка)", "encontrarem": "найдёте (если)", "enfermeira": "медсестра", "enferrujada": "заржавевшая", "enganar-me": "путаться, ошибаться", "engano": "ошибаюсь, путаюсь", "engraçado": "смешной", "enrolar": "скатывать", "ensina": "учит; научи", "ensinar": "учить, научить", "ensinas-me": "научишь меня?", "ensino": "научу", "ensinou": "научил(а)", "entrem": "заходите", "era": "был(а)", "errar": "ошибиться", "ervilhas": "горошек", "escola": "школа", "escolhe": "выбирай; выбирает", "escondido": "спрятанный; тайком", "escreve": "напиши", "escrevemos": "пишем", "escrever": "писать", "escreveram": "написали", "esfria": "остывает", "esfriar": "остыть", "espanhol": "испанский", "espaço": "место", "especial": "особенный", "espera": "подожди", "esquece": "забывает; esquece! — забудь", "esquecendo-me": "(бразильская форма)", "esquecer-me": "забыть", "esqueceste-te": "ты забыла", "esqueceu": "забыл", "esqueci": "забыл(а); nunca me esqueci — никогда не забыл", "esquerdo": "левый; terceiro esquerdo — третий этаж, слева", "esquerdos": "левые", "esqueças": "não te esqueças — не забудь", "esqueço": "забываю; não esqueço — не забуду", "esqueço-me": "не забуду (Португалия)", "esses": "эти", "esso": "(ошибка: верно isso)", "estar-te": "(ошибка)", "estas": "эти (ж. р.)", "estes": "эти (м. р.)", "estive": "я был", "estrangeiros": "иностранцы", "estuda-se": "(ошибка)", "estudas": "учишь", "estávamos": "мы были", "exata": "точная", "exato": "точный", "existe": "существует; você não existe — ты чудо", "experimentaram": "попробовали", "experimento": "пробую", "face": "щека", "faculdade": "университет (Бразилия)", "falamos": "говорим", "falando": "говоря, говорю (сейчас)", "falar": "говорить", "falava": "говорил", "fama": "слава; ter fama de — славиться", "família": "семья", "fantástico": "фантастический", "fazendo": "делаю (сейчас)", "fechem": "закройте", "feijoada": "фейжоада", "felicidade": "счастье", "felicidades": "счастья! (пожелание)", "feliz": "счастливый; feliz aniversário — с днём рождения", "felizmente": "к счастью", "ferreira": "Феррейра (фамилия, улица)", "festas": "праздники, вечеринки", "fez": "сделал(а)", "fique": "оставайся; fique à vontade — будь как дома", "fiquei-me": "(ошибка)", "fizeste": "ты сделала, занималась", "flores": "цветы", "fofa": "милая", "fofo": "милый; пышный", "folha": "лист", "for": "когда уедешь (quando for embora)", "foram": "были", "forma": "форма", "formam": "образуют; formam um casal — составляют пару", "forminha": "формочка", "forró": "форро (танец)", "foste": "ты был", "francês": "французский", "frango": "курица", "fria": "холодная", "fruta": "фрукты", "fundos": "(ошибка: верно fundo)", "fundão": "Фундан (город)", "gaivotas": "чайки", "galera": "народ, ребята (разг.)", "garota": "девушка", "gerente": "менеджер (Бразилия)", "gestora": "менеджер (женщина, Португалия)", "gostas": "тебе нравится", "gostava": "нравилось", "gostei": "мне понравилось", "gostámos": "нам понравилось", "gota": "капля", "gourmet": "гурме", "granulado": "посыпка", "gravata": "галстук", "gravação": "запись", "grego": "греческий", "gritada": "выкрикиваемая", "gritou": "закричал", "grupo": "группа", "guaraná": "гуарана", "guardei": "я сохранила", "guio": "веду (в танце)", "guitarra": "гитара (Португалия)", "gustavo": "Густаво (имя)", "habituar-se": "привыкнуть", "habituar-te": "привыкнуть (ты)", "habituei": "привыкла (não me habituei — не привыкла)", "halay": "халай (турецкий танец)", "história": "история", "homens": "мужчины", "houve": "был(о)", "ia": "шёл, шло", "imagino": "представляю", "imbatível": "непревзойдённый", "imensa": "огромная", "imenso": "очень много (Португалия)", "implante": "имплант", "incomodar": "se incomodar — быть против", "incrível": "потрясающий", "informal": "неформальный", "inglês": "английский", "iniciante": "начинающий", "instagram": "Инстаграм", "inteiro": "весь, целый", "inês": "Инеш (имя)", "ioga": "йога", "iogas": "(ошибка: верно ioga)", "ipanema": "Ипанема (район Рио)", "ires": "antes de ires — перед тем как уйдёшь", "irmã": "сестра", "irmão": "брат", "isto-se": "(ошибка)", "jamais": "никогда", "joaquim": "Жоакин (имя)", "juntar": "копить; собирать", "junto": "вместе; cantar junto — подпевать", "juntos": "вместе", "jurado": "(ошибка: верно juro)", "juras": "клянёшься", "juro": "клянусь", "lembra": "помнишь?", "lembrancinha": "маленький сувенир", "lembras-te": "помнишь? (Португалия)", "lembro": "помню", "lembro-me": "помню (Португалия)", "lentes": "линзы; lentes de contato dental — виниры", "letra": "слова песни; буква", "levou": "пронёс, взял", "levávamos": "мы везли", "ligar-te": "(ошибка)", "ligas": "звонишь; обращаешь внимание", "ligou-me": "позвонил(а) мне", "ligues": "não ligues — не обращай внимания", "lisboetas": "лиссабонцы", "lição": "урок", "luano": "(ошибка: верно Luana)", "luzes": "огни, свет", "língua": "язык", "línguas": "языки", "ló": "pão de ló — бисквит", "magia": "волшебство", "maionese": "майонез", "maior": "крупнейший, больший", "mandar": "отправить", "mando-te": "пришлю тебе", "marinheiro": "моряк", "marta": "Марта (имя)", "mata": "убивает", "mau": "плохой", "mau-olhado": "сглаз", "meda": "(ошибка: верно medo)", "medo": "страх; ter medo — бояться", "medovik": "медовик (русский торт)", "mel": "мёд", "melhoraram": "улучшились", "melhoro": "улучшаюсь", "melhorou": "улучшился, продвинулась", "melodia": "мелодия", "menor": "меньше", "mensagem": "сообщение", "mentir": "лгать", "mentira": "ложь; mentira! — да ладно!", "mentiroso": "лжец", "mercado": "рынок", "mesquitas": "мечети", "milagra": "(ошибка: верно milagre)", "milagre": "чудо", "minas": "Минас-Жерайс (штат)", "misturo": "путаю, смешиваю", "morada": "адрес (Португалия)", "moradas": "адреса", "moram": "живут", "moram-se": "(ошибка)", "moramos": "живём", "máxima": "(ошибка: верно máximo)", "máximo": "que máximo! — круто!", "mãe": "мама", "música": "песня; музыка", "músicas": "песни", "nadie": "(исп.) никто", "nado": "плаваю", "namorado": "парень, бойфренд", "navio": "корабль", "nazar": "назар (оберег)", "nenhuma": "ни одной", "nervioso": "(исп.) нервный", "nervosismo": "волнение", "nessa": "в этой; nessa altura — тогда", "nesse": "в этом", "niterói": "Нитерой (город)", "normal": "обычный", "nova": "новая", "novecentos": "девятьсот", "numa": "в одной (em + uma)", "odontológica": "стоматологическая", "ofereceu-nos": "угостил нас", "oitocentos": "восемьсот", "olhar": "смотреть", "olho": "глаз", "olhos": "глаза", "olivier": "Оливье (салат)", "ombros": "плечи", "ora": "так вот (Португалия)", "orgulhoso": "гордый", "ourique": "Орике (Campo de Ourique — район)", "outubro": "октябрь", "ouve": "слышно, слышит", "ouvir": "слышать, слушать", "ouviram": "слышали", "ouviste": "слышал?", "ouviu": "слышал", "pacientes": "пациенты", "paciência": "терпение", "palavras": "слова", "palmas": "ладони; bater palmas — хлопать", "panela": "кастрюля", "papagaio": "попугай", "par": "пара (в танце)", "parabém": "(ошибка: верно parabéns)", "parabéns": "поздравляю! с днём рождения!", "pare": "(форма «вы»: остановитесь)", "parecem": "кажутся, похожи", "parecido": "похожий", "passageiro": "пассажир", "passaram": "прошли, пролетели", "passos": "шаги", "pato": "утка", "paulo": "Паулу (São Paulo — Сан-Паулу)", "paz": "покой, мир", "países": "страны", "pedaço": "кусок", "pedir-te": "попросить у тебя", "pelas": "по, через (por + as)", "pelmeni": "пельмени", "pendurar": "повесить", "pera": "груша", "percebe": "понимает", "percebemos": "мы поняли", "percebeu": "понял", "percebi": "я поняла", "percebi-mos": "(ошибка)", "pernas": "ноги", "pessoal": "народ, ребята", "petrópolis": "Петрополис (город)", "peço-te": "(ошибка порядка: верно pedir-te)", "pia": "раковина", "pique": "«É pique» — часть праздничной песни", "pisar": "наступить", "pisei": "я наступила", "piso": "наступаю", "pisou": "наступила", "placer": "(исп.) удовольствие", "plano": "план", "pontos": "точки", "portugueses": "португальцы", "portunhol": "смесь португальского и испанского", "prazer": "удовольствие; prazer! — очень приятно", "prazera": "(ошибка: верно prazer)", "precisas": "тебе нужно", "preferida": "любимая", "preferido": "любимый", "preguiçoso": "ленивый", "preocupe-se": "(ошибка порядка в Бразилии)", "presente": "подарок", "presença": "присутствие", "prima": "кузина", "primavera": "весна", "primeiros": "первые", "primo": "двоюродный брат", "produtor": "производитель", "promessa": "обещание", "promete": "обещает", "prometeste": "ты обещала", "prometeu": "обещал", "prometi": "я обещал(а)", "prometida": "обещанная", "prometido": "обещаю! обещано", "prontos": "готовы", "protege": "защищает", "prova": "попробуй", "provo": "пробую", "publico": "выкладываю, публикую", "pêssegos": "персики", "quem": "кто", "queres": "хочешь", "querida": "дорогая", "querido": "дорогой; que querido! — как мило!", "queridos-se": "(ошибка)", "quinhentos": "пятьсот", "quis": "хотел(а)", "quiseres": "захочешь", "rabo": "хвост; таз (разг.)", "rapaz": "парень (Португалия)", "raras": "редкие", "recebi": "я получила", "receita": "рецепт", "recheada": "с начинкой", "refrigerante": "газировка", "refrão": "припев", "regressa": "возвращается", "regresso": "возвращение; bom regresso — хорошей дороги домой", "relaxa": "расслабься", "repete": "повторяй", "requeijão": "сливочный сыр", "respeito": "уважение", "respiram": "дышат", "respiração": "дыхание", "respirem": "вдохните, дышите", "riam": "не se riam — не смейтесь", "rias": "não te rias — не смейся", "ribeira": "Рибейра (рынок)", "ribeiro": "Рибейру (улица)", "riem": "смеются", "ris": "смеёшься", "rolhas": "пробки (бутылочные)", "rosto": "лицо, щека", "russa": "русская", "russo": "русский", "rápida": "быстрая", "rússia": "Россия", "sabia": "знала", "salgadinhos": "солёные закуски", "salvei": "я сохранил", "sandália": "сандалия", "segredo": "секрет", "segues-me": "подпишешься на меня?", "segui": "я подписалась", "sendo": "будучи; está sendo gentil — вежлив", "sentam-se": "садятся", "sente-se": "чувствуется; его чувствуют", "senti": "я почувствовала", "senti-me": "я почувствовала себя", "senão": "а то, иначе", "serem": "быть (что они…)", "será": "будет", "setenta": "семьдесят", "seus": "твои, ваши", "sigo": "подписываюсь, следую", "silêncio": "тишина", "simpáticas": "приятные", "simpático": "приятный", "sinal": "знак", "sobra": "остаётся", "solta": "раскованная", "som": "звук; fazer um som — поиграть музыку", "soma": "сумма (ошибка)", "some": "пропадает; não some — не пропадай", "sopa": "суп", "sorrir": "улыбаться", "sorriso": "улыбка", "sotaque": "акцент", "subi": "я поднялась", "sumir": "пропасть", "surf": "сёрфинг", "surfe": "(ошибка)", "sábados": "субботы", "século": "век", "tamanho": "размер", "tanta": "столько", "tapete": "коврик", "tapetes": "ковры", "tempestade": "шторм", "tens": "у тебя есть", "tentar": "попытаться", "tentei": "я пыталась", "tento": "пытаюсь, попробую", "terem": "por terem vindo — что вы пришли", "teres": "por teres vindo — что ты пришёл", "teu": "твой", "thiago": "Тиаго (имя)", "ti": "тебя, тебе; para ti — тебе", "ti-te": "(ошибка)", "tido": "имевший", "tinham": "имели", "tiveram": "было (вам); tiveram medo — вам было страшно", "tiveste": "тебе было; tiveste medo — тебе было страшно", "toalha": "полотенце", "toca": "играет; сыграй", "toco": "играю", "todas": "все (ж. р.)", "toque": "сыграет (talvez ele toque)", "trabalha": "работает", "trabalham": "работают", "trabalhava": "работал", "trabalhou": "работал", "tradição": "традиция", "tragam": "принесите", "trago": "принесу, привезу", "trago-lhe": "привезу вам", "trazíamos": "мы привозили", "tristes": "грустные", "troquem": "поменяйтесь", "trouxemos": "мы принесли", "trouxeste": "ты принёс?", "tua": "твоя", "tuas": "твои; saudades tuas — по тебе", "turca": "турецкая", "turcos": "турки", "tímida": "застенчивая", "tímidos": "застенчивые", "umas": "около, примерно", "uva": "виноград", "varanda": "балкон, веранда", "vejo-te": "(ошибка)", "vela": "свеча", "vem-te": "(ошибка)", "vemo-nos": "увидимся (Португалия)", "vemos": "видим", "vemos-nos": "(ошибка: верно vemo-nos)", "venho": "прихожу, приезжаю", "vens": "приходишь, приехал", "ver-te": "видеть тебя", "ver-vos": "видеть вас", "vergonha": "стыд; ter vergonha — стесняться", "vergonho": "(ошибка: верно vergonha)", "vestido": "платье", "vi": "я видела", "via": "видел", "viajar": "путешествовать", "viajo": "путешествую", "vicia": "подсаживается", "viciante": "затягивающий", "viciar": "подсесть", "vida": "жизнь", "vieste": "ты пришла, приехала", "vinda": "(ошибка: верно vindo)", "vindo": "пришедший; por terem vindo — что пришли", "vinha": "приходил(а)", "vinham": "приходили", "violão": "гитара (Бразилия)", "vir": "прийти", "visitamos": "навещаем; принимаем у себя", "vivemos": "живём", "vives": "живёшь", "vivo": "живу; живой", "vivos": "живые", "vizinho": "сосед", "voando": "летя (бразильская форма)", "voar": "лететь; passar a voar — пролететь", "vontade": "желание; à vontade — как дома", "vossa": "ваша", "voz": "голос", "vá": "иди (форма «вы»)", "vés": "(ошибка: верно vens)", "vês": "видишь?", "vós": "вы (устар.)", "whatsapp": "WhatsApp", "ya": "(ошибка)", "zero": "ноль", "área": "область, сфера", "és": "ты есть", "íntimo": "близкий", "ó": "эй (обращение)", "abana": "трясёт, качает", "abre": "открывает(ся)", "abrem": "открывают(ся)", "abres": "открываешь; разрезаешь", "acabaram": "закончили; acabaram de — только что", "acabou": "закончил(ся); acabou de — только что", "aceitas": "принимаешь", "acordar": "просыпаться", "adorar": "обожать; estar a adorar — быть в восторге", "adoro": "обожаю", "ai": "ой! ай!", "ajuda": "помощь", "alameda": "Аламеда (станция метро)", "alfama": "Алфама (старый район Лиссабона)", "alguns": "некоторые", "alguém": "кто-то", "alto": "высокий; no alto — наверху", "amarela": "жёлтая", "amarelo": "жёлтый", "amigos": "друзья", "andamos": "ходим, идём", "anos": "годы, лет", "anotado": "записано", "antiga": "старинная", "aos": "к, в (a + os)", "apanham": "садятся (на транспорт)", "apanhamos": "садимся (на транспорт)", "apanhem": "садитесь (на транспорт)", "apartamento": "квартира", "aprender": "учить, изучать", "aprendeu": "выучил(а), выучили", "aprendi": "я выучила", "aprendo": "учу", "aproxime": "приложите (карту)", "aquela": "та", "aquí": "(исп.) здесь", "areia": "песок", "arroz": "рис; arroz doce — рисовый пудинг", "assadas": "жареные (на гриле)", "atenção": "внимание! осторожно", "atlântico": "Атлантический", "autocarro": "автобус (Португалия)", "autocarros": "автобусы", "azeitonas": "оливки", "azul": "синий", "baba": "слюна; baba de camelo — десерт", "bacalhau": "треска", "baixo": "низ; em baixo — внизу; por baixo — под", "banho": "купание; fato de banho — купальник; casa de banho — ванная", "barulho": "шум", "batata": "картофель", "batato": "(ошибка: верно batata)", "baunilha": "ваниль", "bebe": "пьёт", "bebem": "пьют", "bem-se": "(ошибка порядка слов)", "bem-vindo": "добро пожаловать (мужчине)", "bica": "маленький кофе (Лиссабон)", "bilhete": "билет", "bilhetes": "билеты", "blog": "блог", "boas": "хорошие; boas férias — хорошего отпуска", "bocadinho": "немножко", "bolas": "шарики", "bolso": "карман", "botão": "кнопка", "brás": "Браш (bacalhau à Brás — блюдо)", "camelo": "верблюд", "campainha": "звонок", "canela": "корица", "canelas": "(ошибка: верно canela)", "cara": "лицо; парень, приятель (Бразилия)", "carregam": "нажимают; пополняют", "carregar": "пополнить (карту); нажать (кнопку)", "carregue": "нажмите", "carreguem": "нажмите (вы двое)", "carteiras": "кошельки", "carteiristas": "карманники", "cartões": "карты", "casaco": "куртка", "casas": "дома", "cascais": "Кашкайш (город у моря)", "castelo": "замок", "caí": "я упала", "cebola": "лук", "cedo": "рано", "cem": "сто", "centímetros": "сантиметры", "cerca": "cerca de — около", "certeza": "уверенность; com certeza — конечно", "certo": "правильно; верно?", "chamamos-lhe": "мы называем его", "chave": "ключ", "chaves": "ключи", "chegadas": "зона прилёта", "chegámos": "мы прибыли, приехали", "cheiro": "запах", "chocolate": "шоколад", "choque": "шок", "chá": "чай", "cidade": "город", "cimbalino": "маленький кофе (Порту)", "clima": "климат", "coincidência": "совпадение", "colinas": "холмы", "colorido": "яркий, разноцветный", "comboio": "поезд (Португалия)", "comem": "едят", "comerem": "съедите (если)", "comprei": "я купила", "comprem": "купите", "comprou": "купил(а), купили", "condensado": "сгущённый; leite condensado — сгущёнка", "cone": "рожок", "confusão": "путаница", "conseguimos": "успели, смогли", "contentor": "мусорный контейнер", "contentores": "мусорные контейнеры", "contigo": "с тобой; isso é contigo — это твоё дело", "contigos": "(ошибка: верно contigo)", "conto": "рассказ (ошибка: верно conta)", "contribuinte": "налогоплательщик; número de contribuinte — ИНН", "convence-me": "убеждает меня", "convidados": "гости, приглашённые", "copo": "стакан; стаканчик", "cor": "цвет; cor de laranja — оранжевый", "corajoso": "смелый", "corda": "верёвка", "corra-te": "(ошибка)", "corre": "беги!; бежит", "corre-se": "(ошибка)", "corredor": "коридор", "couvert": "куверт (платные закуски)", "cozida": "варёная, отварная", "cozinha": "кухня; готовит", "cozinho": "я готовлю", "creme": "крем", "curto": "короткий, маленький", "curvas": "повороты", "custava": "стоило бы; стоило", "cá": "здесь; de cá — местный; cá fora — снаружи", "céu": "небо", "cêntimos": "центы", "daquele": "того (de + aquele)", "debaixo": "debaixo de — под", "degrau": "ступенька", "deitamos": "выбрасываем (мусор)", "deixem": "оставьте", "demora": "длится, занимает (время)", "demoram": "длятся", "dentra": "(ошибка: верно dentro)", "dentro": "внутри", "depois": "потом, после", "desculpe": "простите, извините", "desfiado": "разобранный волокнами", "dezassete": "семнадцать (Португалия)", "dica": "совет, подсказка", "dico": "(ошибка: верно dica)", "difíceis": "трудные", "disse": "сказал(а)", "divirtam-se": "развлекайтесь", "diz": "говорит; написано", "dizer": "сказать", "dobro": "вдвое больше, двойной", "doce": "сладкий", "dona": "дона (уважительно к женщине)", "dão": "дают; выходят на", "eles": "они", "elevador": "лифт", "elevadora": "(ошибка: верно elevador)", "elétrico": "трамвай", "ementa": "меню (Португалия)", "empurrar": "толкать", "empurro": "толкаю", "enorme": "огромный", "entrar": "войти, зайти", "escadas": "лестница", "escrita": "написана", "esperam": "ждёте", "espinha": "рыбья косточка", "espinhas": "рыбьи косточки", "esplanada": "веранда, летнее кафе", "esta": "эта", "estadia": "пребывание", "estadio": "(ошибка: верно estadia)", "estaladiça": "хрустящая", "estar": "быть, находиться; estar a — делать сейчас", "estava": "было", "estação": "станция", "estações": "станции", "este": "этот", "estendemos": "развешиваем (бельё)", "estreitas": "узкие", "estás": "ты (сейчас); estás a — ты делаешь", "euro": "евро", "euros": "евро (мн. ч.)", "exatamente": "точно, именно", "experimenta": "попробуй", "expresso": "эспрессо", "fado": "фаду (португальская песня)", "fala": "говорит; вы говорите", "falas": "говоришь", "falta": "не хватает; осталось", "faltam": "осталось (мн. ч.)", "famosa": "знаменитая", "fatias": "ломти", "fato": "костюм; fato de banho — купальник", "fatura": "счёт-фактура, чек", "fazes": "делаешь", "façam": "делайте", "fecha": "закрывается", "fechada": "закрыта", "festa": "праздник; o melhor da festa — самое лучшее", "filmes": "фильмы", "fim": "конец", "fixe": "классно (Португалия)", "fizeram": "сделали; fizeram boa viagem — хорошо доехали", "fome": "голод; estar com fome — быть голодным", "fora-se": "(ошибка)", "forno": "печь, духовка", "força": "сила; com força — сильно", "fotos": "фотографии", "fresca": "холодная, свежая", "frigorífico": "холодильник (Португалия)", "frio": "холодный; холодно", "fuera": "(исп.) снаружи", "fundo": "дно; ao fundo — в конце", "galão": "кофе с молоком в стакане", "garrafa": "бутылка", "garrafo": "(ошибка: верно garrafa)", "geladíssima": "ледяная", "gelataria": "кафе-мороженое", "ginásio": "спортзал", "giro": "милый, симпатичный (Португалия)", "gostamos": "любим, нравится", "gostar": "нравиться; estar a gostar — нравится (сейчас)", "graus": "градусы", "graça": "Граса (район); Graça — имя", "grossas": "толстые", "gás": "газ; com/sem gás — с газом / без газа", "hai": "(ошибка)", "há": "есть, имеется", "há-se": "(ошибка)", "hão": "(ошибка: верно há)", "ido": "ушедший (ошибка: верно ida)", "igreja": "церковь", "igualmente": "и вам тоже", "iniciático": "посвятительный", "isto": "это", "justo": "справедливый", "laranja": "апельсин; cor de laranja — оранжевый", "lavar": "стирать, мыть", "leio": "читаю", "ler": "читать", "levas": "несёшь, берёшь", "ligam-me": "(ошибка)", "ligue-me": "позвоните мне", "liguem-me": "позвоните мне (вы двое)", "linha": "линия; путь (на вокзале)", "lisboa": "Лиссабон", "lisboeta": "лиссабонец", "livre": "свободный", "livres": "свободные", "livro": "книга", "lixa": "(ошибка: верно lixo)", "lixo": "мусор", "longo": "длинный", "loucura": "безумие", "lugar": "место", "lugares": "места", "luz": "свет", "madeira": "дерево (материал)", "mandem-me": "пришлите мне", "manga": "манго", "mantém": "держи", "manténs": "держишь", "manuel": "Мануэл", "mapa": "карта города", "maravilha": "чудо; que maravilha — прелесть", "marcar": "назначить; marcar férias — запланировать отпуск", "marquês": "Маркеш (станция метро)", "martim": "Мартин (Martim Moniz — станция метро)", "massa": "тесто", "melhora": "улучшение", "menina": "девушка (обращение)", "menos": "меньше", "mercearia": "продуктовая лавка", "merecemos": "заслуживаем", "mergulha": "ныряй", "mesa": "стол, столик", "mesma": "та же самая", "metro": "метро (Португалия)", "meus": "мои", "miradouro": "смотровая площадка", "mochila": "рюкзак", "moniz": "Мониш (Martim Moniz — станция метро)", "montanhas": "горы", "mora": "живёт", "mostramos-te": "покажем тебе", "mouros": "мавры; Castelo dos Mouros — Мавританский замок", "mousse": "мусс", "mudam": "пересаживаетесь; меняют", "mudando-se": "(бразильская форма)", "mudar": "пересесть; меняться", "mude": "(ошибка)", "mudem": "пересядьте", "muitas": "много (ж. р. мн. ч.)", "muitos": "много (м. р. мн. ч.)", "máquina": "автомат; машина", "mãos": "руки", "naquela": "в той, за той (em + aquela)", "nas": "в, на (em + as)", "nata": "сливки; pastel de nata — пирожное с кремом", "natural": "комнатной температуры; натуральный", "nem": "даже не; nem pensar — и не думай", "nevoeiro": "туман", "nos": "в, на (em + os)", "nota-se": "заметно", "novembro": "ноябрь", "nós": "мы", "oceano": "океан", "ocupado": "занят", "oferta": "подарок", "oh": "о!", "ok": "ок, ладно", "olhe": "посмотрите", "olhem": "посмотрите (вы двое)", "olá": "здравствуйте, привет", "onze": "одиннадцать", "ouvi": "я слышал(а)", "ovo": "яйцо", "paga-se": "платят, оплачивается", "pagam": "платите", "pagaste": "ты заплатил", "palavra": "слово", "palavra-passe": "пароль (Португалия)", "palha": "солома; batata palha — картофель-соломка", "palácio": "дворец", "papel": "бумага", "para": "для; в, к; para mim — мне", "paragem": "остановка (Португалия)", "parecida": "похожая", "paredes": "стены", "parte": "отправляется", "partem": "отправляются", "passa": "проходит", "passamos": "прикладываем (карту); проходим", "pastel": "пирожное", "pastelaria": "кондитерская", "pastéis": "пирожные", "pede-se": "заказывают", "pedes": "просишь, заказываешь", "pedi-se": "(ошибка)", "pela": "через, по (por + a)", "pene": "(ошибка)", "pensa": "думает", "pensado": "продуманный", "pensar": "думать; nem pensar — и не думай", "pequena": "маленькая", "percam": "пропустите", "perco": "теряю, пропускаю", "perdi": "я пропустила, потеряла", "pessoa": "человек", "pior": "хуже", "plástico": "пластик", "podes": "можешь", "podia": "могло бы", "ponham": "положите", "ponho": "кладу, посыпаю", "porquê": "почему?", "porta": "дверь", "porto": "Порту (город)", "portugal": "Португалия", "portuguesa": "португальская", "poço": "колодец", "praias": "пляжи", "precisam": "вам нужно", "preocupem": "волнуйтесь (não se preocupem — не волнуйтесь)", "presa": "застрявшая; ficar presa — заедать", "prometo": "обещаю", "provar": "попробовать", "prédio": "здание, дом", "próprio": "собственный", "próximo": "следующий", "puxa": "тяни, дёрни", "puxei": "я дёрнула", "pá": "приятель (разг., Португалия)", "pó": "пыль; açúcar em pó — сахарная пудра", "pôr-se": "садиться (о солнце)", "põe": "положи, посыпь", "põem": "кладут", "pões": "кладёшь", "quatrocentos": "четыреста", "quentinhos": "тёпленькие", "quinta": "усадьба", "quê": "что", "recebem-me": "примете меня", "regaleira": "Регалейра (Quinta da Regaleira)", "regras": "правила", "roupa": "одежда, бельё", "ruas": "улицы", "rui": "Руй (имя)", "sabem": "знаете", "sabes": "знаешь", "sabor": "вкус", "sabores": "вкусы", "sai": "выходит", "saiam": "выходите", "saio": "выхожу", "sair": "выходить", "sala": "гостиная", "salada": "салат", "saladas": "салаты", "sardinha": "сардина", "sardinhas": "сардины", "saudades": "тоска; ter saudades — скучать", "saí": "я уехала, вышла", "saída": "выход", "saímos": "выходим", "saúde": "здоровье", "secar": "сушить", "sede": "жажда; estar com sede — хотеть пить", "sedo": "(ошибка: верно sede)", "seguinta": "(ошибка: верно seguinte)", "seguinte": "следующий", "segura-te": "держись", "segurem": "держите", "segurem-se": "держитесь", "seis": "шесть", "sentar-se": "сесть", "sentem-se": "садитесь", "ser-se": "(ошибка)", "serra": "горы, горный хребет", "setas": "стрелки", "significa": "значит", "simpática": "любезная, милая", "simpáticos": "любезные, милые", "sintra": "Синтра (город)", "sobre": "о, насчёт", "sobremesa": "десерт", "somos": "мы (есть)", "sorvete": "мороженое (Бразилия)", "sozinha": "сама, одна", "sozinho": "сам, один", "subidas": "подъёмы", "subimos": "поднимаемся", "supermercado": "супермаркет", "surpresa": "сюрприз", "tal": "que tal — как насчёт", "tantas": "столько", "tejo": "Тежу (река)", "telemóvel": "мобильный телефон (Португалия)", "tenha": "имейте (tenha um bom dia — хорошего дня)", "terceiro": "третий", "tia": "тётя", "tinhas": "ты имел; tinhas razão — ты был прав", "tipo": "типа, как", "tiras": "вынимаешь", "tiro": "вынимаю; делаю (фото)", "tocar": "трогать", "todos": "все", "toldo": "навес", "toques": "трогай (não toques — не трогай)", "torrada": "тост", "trazer": "принести", "trazes": "приносишь", "trazi": "(ошибка: верно trouxe)", "trem": "поезд (Бразилия)", "tres": "(ошибка: верно três)", "trouxe": "я взяла, принесла", "trouxeram": "принесли", "truque": "хитрость", "tu": "ты", "turco": "турецкий", "turistas": "туристы", "táxi": "такси", "uau": "вау", "uf": "уф", "ufa": "уф!", "vais": "пойдёшь; будешь", "vale": "стоит; vale a pena — оно того стоит", "valem": "стоят", "venham": "пойдёмте, идите", "verdas": "(ошибка: верно verdes)", "verde": "зелёный", "verdes": "зелёные", "verão": "лето", "viagens": "поездки", "vidro": "стекло", "vimos": "мы видели", "vintes": "(ошибка: верно vinte)", "visitar": "навестить", "viste": "видишь? (ты видел?)", "vizinhos": "соседи", "volto": "возвращаюсь", "vosso": "ваш", "vê-lo": "увидеть его", "vêm": "подаются; приходят", "vídeo": "видео", "íman": "магнит", "özlem": "тоска (турецкий)", "a": "артикль ж.р. / к, в / её", "abrir": "открыть", "aceita": "принимает (вы принимаете)", "aceito": "принимаю", "acerola": "ацерола (ягода)", "acha": "думаешь, считаешь (achar)", "achei": "нашла (achar — найти)", "acho": "думаю, считаю", "acontece": "случается", "acredita": "веришь", "acredito": "верю", "adoçante": "сахарозаменитель", "adultos": "взрослые", "agitado": "неспокойный, бурный", "agora": "сейчас, теперь", "ah": "ах, а", "ainda": "ещё; пока", "ajudar": "помочь", "algum": "какой-нибудь", "alguma": "какая-нибудь", "ali": "там, вон там", "alivia": "облегчает, снимает (боль)", "aloe": "алоэ", "amanhã": "завтра", "amor": "любовь; любимый / любимая", "andando": "идя; пешком", "andar": "этаж; идти", "animada": "в предвкушении, воодушевлённая", "anotei": "записала (anotar)", "antigo": "старый, старинный", "antália": "Анталия", "ao": "к, в (a + o)", "aparecer": "появиться", "apetite": "аппетит", "aplaudem": "аплодируют", "aplicativo": "приложение", "aprendendo": "изучаю, учу", "aproveitem": "наслаждайтесь", "aproxima": "приложи(те) (карту)", "aproximar": "приложить (карту)", "aproximação": "приближение; бесконтактно", "aqui": "здесь", "aquilo": "то, вон то", "ar": "воздух", "ardendo": "жжёт, горит (arder)", "arpoador": "Арпоадор (скала-пляж в Рио)", "arte": "искусство", "as": "артикль ж.р. мн.ч.", "assim": "так", "atlântica": "Атлантическая", "até": "до; даже", "avenida": "проспект", "azar": "невезение", "azedinho": "кисловатый", "açaí": "асаи (ягода, десерт)", "açúcar": "сахар", "aí": "тут, там; ну", "babosa": "алоэ (в Бразилии)", "bagagem": "багаж", "bairro": "район", "balcão": "стойка", "banana": "банан", "banco": "банк", "bandeira": "флаг", "barato": "дёшево, недорого", "barraca": "пляжная палатка", "barraqueiro": "хозяин пляжной палатки", "bastante": "достаточно, много", "bate": "бьёт; bater palma — хлопать", "baía": "залив", "bebam": "пейте", "beber": "пить", "bem": "хорошо; очень", "bem-vinda": "добро пожаловать (женщине)", "bem-vindos": "добро пожаловать (мн.ч.)", "biscoito": "печенье", "boa": "хорошая", "bolhas": "волдыри", "bolsa": "сумка", "bom": "хороший; ну, так", "bondinho": "трамвайчик; кабинка канатки", "bordo": "борт", "botina": "Ботина", "brasil": "Бразилия", "brasileiro": "бразильский; бразилец", "cabeça": "голова", "cada": "каждый", "cadeira": "пляжный стул, шезлонг", "cadeiras": "пляжные стулья, шезлонги", "cadê": "где? (разг.)", "café": "кофе; кафе; завтрак", "caixa": "касса", "caju": "кешью (плод)", "calma": "спокойно!", "calor": "жара", "camarão": "креветка", "camila": "Камила", "camiseta": "футболка", "cansados": "уставшие", "carioca": "из Рио; житель Рио", "caro": "дорогой, дорого", "carro": "машина", "carteirinha": "удостоверение, билет (студенческий)", "cartão": "карта; карточка; талон", "casa": "дом; casa de câmbio — обменник", "catorze": "четырнадцать", "celular": "мобильный телефон", "cento": "сто (cento e…)", "chama": "называет; зовёт", "chamar": "позвать; называть", "chapa": "горячая плита", "chapéu": "шляпа", "chapéus": "шляпы", "check-in": "заселение, регистрация", "check-out": "выезд", "chega": "приезжает, прилетит", "chegam": "приходите, приезжаете", "chegamos": "приехали", "chegando": "прибывает, едет", "chegou": "прилетел, прибыл", "cheio": "полный", "cima": "верх; lá de cima — оттуда сверху", "cinco": "пять", "cinquenta": "пятьдесят", "clara": "светлая", "claro": "конечно; светлый", "coado": "фильтрованный (кофе)", "coisa": "вещь, что-то", "coitado": "бедняга", "colado": "приклеен", "colocar": "положить", "com": "с", "combinado": "договорились", "come": "ест; a gente come — мы едим", "comer": "есть, кушать", "comi": "я ела", "comida": "еда", "comigo": "со мной; у меня", "comissário": "бортпроводник (comissário de bordo)", "como": "как", "começou": "началось", "companhia": "компания; авиакомпания", "comprar": "купить", "compras": "покупки", "comprovante": "квитанция", "conheço": "знаю (места, людей)", "consegui": "смогла (conseguir)", "consigo": "могу (получается)", "conta": "счёт", "convidada": "гостья, приглашённая", "copacabana": "Копакабана", "costas": "спина", "cristo": "Христос (статуя)", "crédito": "кредит; кредитная", "cuidado": "осторожно!", "cuido": "присматриваю, забочусь", "curso": "курс", "custa": "стоит", "câmbio": "обмен валюты", "da": "из, от (de + a)", "dança": "танцует", "dançar": "танцевать", "daqui": "отсюда", "daria": "Дарья", "das": "из, от (de + as); с … часов", "de": "из, от; (принадлежность)", "deixa": "оставь; дай (deixa eu ver — дай посмотреть)", "deixar": "оставить", "delícia": "вкуснятина", "dente": "зуб", "deram": "дали; deram sorte — повезло", "desaparece": "исчезает", "desconto": "скидка", "desculpa": "извини", "desidrata": "обезвоживает", "desçam": "выходите (из автобуса)", "deu": "дал; итого (deu … reais)", "deus": "Бог", "devagar": "медленно", "deve": "должен", "dez": "десять", "dia": "день", "diferente": "другой, отличающийся", "difícil": "трудно", "diga": "говорит, написано (subj.)", "dinheiro": "деньги", "direita": "право; à direita — направо", "disso": "этого", "divertido": "весёлый", "divertir": "веселиться (se divertir)", "do": "из, от (de + o)", "documento": "документ", "doendo": "болит (doer)", "dois": "два", "domingo": "воскресенье", "dor": "боль", "dormir": "спать", "duas": "две", "duplo": "двойной, двухместный", "duzentos": "двести", "dá": "даёт; dá pra — можно", "débito": "дебет; дебетовая", "e": "и", "ela": "она", "ele": "он", "em": "в, на", "embarque": "посадка", "embora": "прочь; vamos embora — пойдём", "endereço": "адрес", "enquanto": "пока", "entender": "понять", "entendi": "поняла, понял", "entendo": "понимаю", "entra": "заходи, садись", "entre": "между", "entregam": "доставляете", "entregamos": "доставляем", "então": "тогда, значит", "escala": "пересадка", "escondam": "спрячьте", "escova": "щётка", "esperamos": "ждём", "esperar": "ждать", "esquecer": "забыть", "esquerda": "лево; à esquerda — налево", "esquina": "угол", "essa": "эта", "esse": "этот", "estamos": "мы (находимся)", "esteira": "багажная лента", "estiver": "будет (estar, subj.)", "estou": "я (сейчас)", "estranho": "странный", "estudante": "студент", "estudantes": "студенты", "estudo": "учусь", "está": "находится; есть", "estão": "находятся; есть", "eu": "я", "europa": "Европа", "experimentar": "попробовать", "experimentei": "пробовала", "falam": "говорите", "falei": "говорил(а)", "falo": "говорю", "famoso": "знаменитый", "farmácia": "аптека", "fatih": "Фатих", "fator": "фактор (SPF)", "favor": "одолжение; por favor — пожалуйста", "faz": "делает; já faz — уже прошло", "fazer": "делать", "faço": "делаю", "febre": "температура, жар", "fechado": "закрыто; договорились!", "ferro": "железо; ferro de passar — утюг", "fica": "находится; становится; остаётся", "ficam": "находятся", "ficamos": "остаёмся", "ficar": "остаться; пробыть", "fico": "остаюсь", "ficou": "остался", "fila": "очередь", "final": "конечный", "finalmente": "наконец-то", "fiquei": "я пробыла, осталась", "fiquem": "оставайтесь", "fiscais": "фискальные (notas fiscais — чеки)", "fizemos": "мы сделали", "foi": "был(а); пошёл", "fora": "снаружи", "forte": "крепкий; сильный", "foto": "фото", "fraquinho": "слабенький", "frente": "перед; em frente a — напротив", "fácil": "лёгкий, простой", "férias": "отпуск, каникулы", "gel": "гель", "geladeira": "холодильник", "geladinho": "холодненький", "gelado": "холодный, ледяной", "gelo": "лёд", "gente": "люди; a gente — мы", "gentil": "любезный", "gosto": "люблю, нравится", "gostoso": "вкусный", "gostou": "понравилось?", "grande": "большой", "granola": "гранола", "grave": "серьёзный", "gringo": "иностранец (разг.)", "guanabara": "Гуанабара", "guarda-sol": "пляжный зонт", "guarde": "сохраните", "haha": "ха-ха", "hein": "а? имейте в виду!", "hmm": "ммм", "hoje": "сегодня", "hora": "час; время", "horas": "часы, часов", "horário": "время, часы", "hospedar": "остановиться (в отеле)", "hospital": "больница", "hotel": "отель", "ida": "туда (ida e volta — туда и обратно)", "ideia": "идея", "idosos": "пожилые люди", "imagina": "что ты! не за что! да ладно!", "importante": "важный; главное", "infelizmente": "к сожалению", "ingressos": "билеты (вход)", "instantâneo": "мгновенный", "inteira": "целая, вся", "interessante": "интересный", "ir": "идти, ехать", "isso": "это; да, точно!", "istambul": "Стамбул", "janela": "окно", "jantar": "ужин", "jeito": "способ; de jeito nenhum — ни в коем случае", "juntas": "вместе (о женщинах)", "juros": "проценты", "já": "уже", "kit": "набор", "lado": "сторона", "lanchonete": "закусочная", "legal": "классно, здорово", "leite": "молоко", "leva": "занимает (время)", "levar": "взять", "leve": "лёгкий", "levem": "берите с собой", "licença": "разрешение; com licença — извините", "liga": "обращает внимание; ninguém liga — никому нет дела", "ligar": "позвонить", "ligo": "позвоню", "limão": "лимон", "linda": "красивая", "lindo": "красивый", "lista": "список", "litoral": "побережье", "longa": "долгая", "longe": "далеко", "luana": "Луана", "lá": "там", "mais": "ещё, больше", "mal": "плохо", "mala": "чемодан", "malas": "чемоданы", "manhã": "утро; de manhã — утром", "manteiga": "сливочное масло", "mar": "море", "maracanã": "Маракана (стадион)", "maracujá": "маракуйя", "marcos": "Маркос", "mas": "но", "mate": "мате (чай)", "me": "мне, меня", "meia": "половина (… e meia — с половиной)", "meio": "немного, слегка; половина", "meio-dia": "полдень", "melhor": "лучше, лучший", "melhoras": "поправляйтесь!", "meninas": "девушки, девочки", "mesmo": "действительно; именно", "metrô": "метро", "meu": "мой", "mil": "тысяча", "mim": "мне, меня", "minha": "моя", "minhas": "мои", "minutos": "минуты", "molhar": "намочить", "momento": "момент", "moro": "живу", "motivo": "причина, повод; цель", "moço": "молодой человек", "muita": "много, многая", "muito": "очень; много", "mundo": "мир; todo mundo — все", "mão": "рука", "médico": "врач", "na": "в, на (em + a)", "nada": "ничего", "nadar": "плавать", "nenhum": "никакой", "nesta": "на этой", "neste": "на этом", "ninguém": "никто", "no": "в, на (em + o)", "noite": "ночь; вечер", "noites": "ночи", "nome": "имя", "nossa": "наша; ого! ничего себе!", "nosso": "наш", "notas": "чеки; купюры", "nove": "девять", "novo": "новый; de novo — снова", "num": "в одном (em + um)", "nunca": "никогда", "não": "нет; не", "né": "да? не так ли? (разг.)", "número": "номер", "o": "артикль м.р. / его", "obrigada": "спасибо (говорит женщина)", "obrigado": "спасибо (говорит мужчина)", "oficial": "официальный", "oi": "привет", "oitenta": "восемьдесят", "oito": "восемь", "olha": "смотри!", "onde": "где", "online": "онлайн", "ontem": "вчера", "opa": "опа! эй!", "os": "артикль м.р. мн.ч.", "ou": "или", "outra": "другая", "outro": "другой", "pacote": "пачка", "padaria": "пекарня", "paga": "платит", "pagamento": "платёж", "pagar": "платить", "pago": "оплачено; плачу", "palma": "ладонь; bater palma — хлопать", "parar": "перестать; остановиться", "parcelar": "платить в рассрочку", "parece": "кажется, похоже", "parou": "остановилась", "partir": "a partir de — начиная с", "passagem": "проезд, билет", "passaporte": "паспорт", "passar": "пройти; наносить; гладить", "passe": "наносите", "passei": "нанесла", "passeios": "прогулки, экскурсии", "passem": "наносите", "passou": "прошло, пролетело", "pedir": "попросить, заказать", "pedra": "камень", "pega": "берёшь", "pegar": "сесть (на транспорт); взять", "pele": "кожа", "pelo": "за; через (por + o)", "pena": "жаль", "pequeno": "маленький", "pequenos": "маленькие", "perdida": "потерявшаяся, заблудилась", "perfeito": "идеально, отлично", "pergunta": "вопрос", "perguntar": "спросить", "perto": "близко, рядом", "pesa": "взвешиваешь", "peso": "вес", "pessoas": "люди", "pingado": "кофе с капелькой молока", "piorar": "ухудшиться", "piscina": "бассейн", "pix": "Pix (мгновенный платёж)", "pode": "можно; можешь", "podem": "можете", "podemos": "можем", "pois": "pois é — вот именно", "polvilho": "крахмал (маниоки)", "ponto": "остановка; точка", "por": "за, через; por favor — пожалуйста", "porta-malas": "багажник", "português": "португальский", "posso": "могу", "pouco": "мало, немного", "pouquinho": "капелька, чуть-чуть", "pra": "для; в, к (разг. para)", "praia": "пляж", "prato": "тарелка; блюдо", "precisa": "нужно", "precisar": "понадобиться", "preciso": "мне нужно", "prefiro": "предпочитаю", "preocupe": "беспокойтесь (não se preocupe)", "primeira": "первая", "primeiro": "первый", "principalmente": "особенно", "pro": "для, в, к (para + o)", "problema": "проблема", "processo": "дело; номер заявки", "procura": "ищешь", "procure": "обратитесь, ищите", "procurem": "ищите", "pronto": "готов; всё, готово", "protetor": "защитный крем (protetor solar)", "próxima": "следующая", "putz": "блин! (разг.)", "pão": "хлеб", "pé": "нога; a pé — пешком", "pés": "ноги, ступни", "pós-sol": "после солнца", "pôr": "закат (pôr do sol)", "quadras": "кварталы", "qual": "какой", "qualquer": "любой", "quando": "когда", "quanto": "сколько", "quantos": "сколько (шт.)", "quarenta": "сорок", "quarto": "номер, комната", "quase": "почти", "quatro": "четыре", "que": "что; который; какой!", "queijo": "сыр", "queimei": "обгорела (me queimei)", "quente": "горячий, жаркий", "quentinho": "тёпленький", "quer": "хочешь", "querem": "хотите", "queremos": "хотим", "querer": "хотеть; брать (vão querer)", "quero": "хочу", "quilo": "килограмм", "quinze": "пятнадцать", "quiser": "захочешь", "quiserem": "захотите", "rachar": "делить пополам", "razão": "причина; ter razão — быть правым", "reais": "реалы (валюта)", "recepção": "ресепшн", "recomenda": "советуешь", "recomendo": "советую", "reembolsa": "возмещает (деньги)", "reserva": "бронь", "restaurante": "ресторан", "reto": "прямо", "rio": "Рио; река", "rir": "смеяться", "roda": "круг", "rua": "улица", "rápido": "быстро", "sabe": "знает", "saem": "уходите, выходите", "saiu": "вышел, выехал", "sal": "соль", "salvou": "спасла", "samba": "самба", "santa": "святая", "saudade": "тоска (que saudade — как я скучала)", "se": "себя (возвр.); если", "segundo": "второй", "sei": "знаю", "seja": "будь(те)", "sejam": "будьте", "sem": "без", "semanas": "недели", "sempre": "всегда", "senha": "пароль", "senhor": "сеньор, вы (вежливо)", "senhora": "сеньора", "sentar": "сесть", "sentir": "почувствовать", "ser": "быть", "sete": "семь", "seu": "ваш, твой; Seu — сеньор (обращение)", "shopping": "торговый центр", "siga": "идите", "sigam": "идите (мн.ч.)", "sim": "да", "sinto": "чувствую; sinto muito — мне очень жаль", "sobe": "поднимается", "sol": "солнце", "solar": "солнечный, солнцезащитный", "sombra": "тень", "sonho": "мечта", "sorte": "удача", "sou": "я (есть)", "sua": "ваша, твоя", "subir": "подняться", "suco": "сок", "sábado": "суббота", "são": "(они) есть; итого", "sério": "серьёзно?", "só": "только", "talvez": "может быть", "também": "тоже", "tarde": "день, после обеда; поздно", "te": "тебя, тебе", "telefone": "телефон", "tem": "есть, имеется", "temos": "у нас есть", "tempo": "время", "tenho": "у меня есть", "ter": "иметь", "teresa": "Тереза", "terraço": "терраса", "tinha": "имел(а); tinha razão — был прав", "tira": "сними, сделай (фото)", "tirando": "снимаю, фотографирую", "todo": "весь, каждый", "tomar": "выпить; tomar café — завтракать", "tomara": "надеюсь! хоть бы!", "total": "итог", "trabalho": "работа", "tranquilo": "спокойно; без проблем", "trinta": "тридцать", "troca": "меняет, меняем", "trânsito": "пробки, движение", "três": "три", "tudo": "всё", "turismo": "туризм", "turquia": "Турция", "tá": "есть, находится (разг. está); ок", "tão": "(разг. estão) — находятся", "têm": "имеете", "tô": "я (разг. estou)", "uber": "Uber (такси)", "um": "один, какой-то", "uma": "одна, какая-то", "uns": "около, примерно", "upa": "пункт неотложной помощи", "urca": "Урка (район)", "usa": "пользуется", "usar": "пользоваться", "uso": "использую", "vai": "пойдёт; будет", "valeu": "спасибо! (разг.)", "vamos": "пойдём; давай(те)", "veio": "пришёл; a gente veio — мы приехали", "vendendo": "продаёт", "vendo": "вижу", "ver": "видеть, посмотреть", "vera": "вера (aloe vera)", "verdade": "правда", "vermelha": "красная", "vermelho": "красный", "vez": "раз", "vezes": "раза, раз; платежа", "viagem": "поездка, путешествие", "viajou": "путешествовал(и), летели", "vieram": "приехали, прилетели", "vim": "я приехал", "vinte": "двадцать", "vire": "поверните", "virem": "поверните (мн.ч.)", "vista": "вид", "viu": "видишь? (видел?)", "você": "ты, вы", "vocês": "вы (мн.ч.)", "volta": "обратно; возвращаемся", "voltam": "вернётесь", "voltamos": "вернёмся", "voltar": "вернуться", "voo": "рейс", "vou": "я пойду; я буду", "vão": "пойдут; будете; езжайте", "vê": "видит; me vê — дайте мне", "wi-fi": "вай-фай", "zé": "Зе (имя)", "à": "к, в (a + a)", "às": "в (… часов)", "água": "вода", "é": "есть, является; да", "ótimo": "отлично", "ônibus": "автобус", "último": "последний", "bonito": "красивый, красиво", "chegaram": "прилетели, прибыли (они)", "semana": "неделя", "vejo": "вижу", "fiz": "я сделал(а)", "preocupar": "беспокоиться (se preocupar)", "fazem": "делают", "minuto": "минута", "possa": "мог бы (subj.)", "pouca": "мало (ж.р.)", "quanta": "сколько (ж.р.)", "levam": "занимают; берут (они)", "quilos": "килограммы", "procurou": "искал(а)", "tirar": "снять, сделать (фото)", "aeroporto": "аэропорт", "conhece": "знает", "vistas": "виды", "usamos": "пользуемся", "quais": "какие", "trocar": "поменять", "troco": "сдача; меняю", "trocamos": "меняем", "prefere": "предпочитает", "subo": "поднимаюсь", "dos": "из, от (de + os)", "peço": "прошу, заказываю", "fazemos": "делаем", "dar": "дать", "quantas": "сколько (ж.р. мн.ч.)", "abro": "открываю", "gosta": "любит, нравится (ему/ей)", "pedimos": "просим, заказываем", "porque": "потому что", "convido": "приглашаю, угощаю", "convida": "приглашает", "racha": "делит пополам", "rachamos": "делим пополам", "experimentou": "попробовал(а), пробовали", "finais": "конечные", "viram": "увидели; поворачивают", "seguem": "идут, следуют", "vem": "приходит", "parcela": "платёж (часть суммы)", "última": "последняя", "passo": "наношу; шаг", "queimou": "обжёг(ла)", "aparecemos": "появляемся", "procurei": "искала", "grandes": "большие", "levo": "беру", "arder": "жечь", "ardeu": "обожгло", "procuro": "ищу", "doer": "болеть", "melhores": "лучшие", "tomará": "возьмёт", "toda": "вся", "consegue": "может, получается (у него)", "deixo": "оставляю", "custam": "стоят", "devemos": "должны (мы)", "deber": "(исп.) быть должным"};
+</script>
+<script>
+(function(){
+const app=document.getElementById('app');
+const LSK=META.lsk;
+function lsGet(k,d){try{const v=localStorage.getItem(LSK+k);return v===null?d:JSON.parse(v)}catch(e){return d}}
+function lsSet(k,v){try{localStorage.setItem(LSK+k,JSON.stringify(v))}catch(e){}}
+let opt={auto:lsGet('auto',true),sound:lsGet('sound',true),subs:lsGet('subs',false)};
+let done=lsGet('done',[]);
+let CUR={i:-1,k:'home'};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const WRE=/[A-Za-zÀ-ÿ]+(?:-[A-Za-zÀ-ÿ]+)*/g;
+function wordsHTML(t){let out='',last=0;t.replace(WRE,(m,i)=>{out+=esc(t.slice(last,i))+'<span class="w" data-w="'+esc(m)+'">'+esc(m)+'</span>';last=i+m.length;return m});return out+esc(t.slice(last))}
+
+/* ---------- SPEECH ---------- */
+const S=window.speechSynthesis;let voices=[];
+function loadV(){try{const all=S.getVoices();const re=META.tts==='pt-PT'?/^pt[-_]PT/i:/^pt[-_]BR/i;voices=all.filter(v=>re.test(v.lang));if(!voices.length)voices=all.filter(v=>/^pt/i.test(v.lang))}catch(e){}}
+if(S){loadV();S.onvoiceschanged=loadV}
+const FEM=/luciana|francisca|fernanda|vit[oó]ria|maria|thalita|leila|raquel|joana|catarina|in[eê]s|google portugu|female|feminin/i;
+const MAL=/felipe|daniel|ant[oô]nio|ricardo|donato|f[aá]bio|humberto|j[uú]lio|duarte|cristiano|male|masculin/i;
+function pickVoice(g){const f=voices.filter(v=>FEM.test(v.name)&&!MAL.test(v.name)),m=voices.filter(v=>MAL.test(v.name)&&!/female/i.test(v.name));
+ if(g==='m'&&m.length)return{v:m[0],p:1};if(g==='f'&&f.length)return{v:f[0],p:1};
+ return{v:voices[0]||null,p:g==='m'?0.8:1.15}}
+function clean(t){return t.replace(/[^\p{L}\p{N}\s.,!?;:'\-]/gu,' ').replace(/\s+/g,' ').trim()}
+let tok=0,safety=null;
+function stopSpeech(){tok++;clearTimeout(safety);try{S&&S.cancel()}catch(e){}}
+function say(text,g,cb){const my=++tok;clearTimeout(safety);
+ const fin=()=>{if(my!==tok)return;clearTimeout(safety);cb&&cb()};
+ const txt=clean(text);
+ if(!opt.sound||!S||!txt){safety=setTimeout(fin,Math.max(1400,txt.split(' ').length*430));return}
+ try{S.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang=META.tts;const pv=pickVoice(g);if(pv.v)u.voice=pv.v;u.pitch=pv.p;u.rate=0.88;
+  u.onend=fin;u.onerror=fin;S.speak(u)}catch(e){}
+ safety=setTimeout(fin,txt.length*110+4000)}
+
+/* ---------- PLAYER (generic over items on page) ---------- */
+let P={items:[],cur:0,playing:false,onEnd:null};
+function setCur(i,scroll){P.items.forEach((it,k)=>{it.el.classList.toggle('cur',k===i);const t=it.el.querySelector('.tr');if(t&&!t.dataset.man)t.hidden=!(opt.subs&&k===i)});P.cur=i;
+ if(scroll&&P.items[i])P.items[i].el.scrollIntoView({block:'center',behavior:'smooth'});updBar()}
+function playFrom(i){if(i>=P.items.length){P.playing=false;setCur(-1);updBar();P.onEnd&&P.onEnd();return}
+ P.playing=true;setCur(i,true);const it=P.items[i];
+ say(it.say,it.g,()=>{if(!P.playing)return;if(opt.auto)setTimeout(()=>{if(P.playing&&P.cur===i)playFrom(i+1)},650);else{P.playing=false;P.cur=Math.min(i+1,P.items.length-1);setCur(P.cur);updBar()}})}
+function pause(){P.playing=false;stopSpeech();updBar()}
+function toggle(){if(P.playing)pause();else playFrom(Math.max(0,P.cur))}
+function playOne(i){P.playing=false;setCur(i,false);say(P.items[i].say,P.items[i].g,()=>{})}
+function updBar(){const pb=document.getElementById('pp');if(pb)pb.textContent=P.playing?'⏸':'▶';
+ const c=document.getElementById('cnt');if(c)c.textContent=(P.cur>=0?P.cur+1:0)+'/'+P.items.length;
+ const a=document.getElementById('autoB');if(a){a.classList.toggle('on',opt.auto);a.setAttribute('aria-pressed',opt.auto)}
+ const sb=document.getElementById('subB');if(sb){sb.classList.toggle('on',opt.subs);sb.setAttribute('aria-pressed',opt.subs)}
+ const s=document.getElementById('sndB');if(s){s.textContent=opt.sound?'🔊 Звук':'🔇 Без звука';s.classList.toggle('on',opt.sound);s.setAttribute('aria-pressed',opt.sound)}}
+
+function barHTML(title,backLabel){return `<div class="bar gut"><div class="col">
+ <div class="r1"><button class="ib" id="backB">${backLabel}</button><button class="ttl navB" aria-label="Навигация: все диалоги и упражнения"><span class="tt">${title}</span><span class="car">▾</span></button><button class="ib" id="vocB" aria-label="Слова и конструкции">📚</button></div>
+ <div class="r2"><button class="ib" id="prevB" aria-label="Предыдущая фраза">⏮</button><button class="ib play" id="pp" aria-label="Пауза / слушать">▶</button><button class="ib" id="nextB" aria-label="Следующая фраза">⏭</button><button class="ib" id="rptB" aria-label="Сначала">🔁</button><span class="cnt" id="cnt"></span></div>
+ <div class="r3"><button class="ib" id="autoB" aria-pressed="true">▶▶ Авто</button><button class="ib" id="sndB" aria-pressed="true">🔊 Звук</button><button class="ib" id="subB" aria-pressed="false">💬 Субтитры</button></div>
+</div></div>`}
+function bindBar(onBack,onVoc){
+ document.getElementById('backB').onclick=()=>{pause();onBack()};
+ document.getElementById('vocB').onclick=()=>{pause();onVoc()};
+ document.getElementById('pp').onclick=toggle;
+ document.getElementById('prevB').onclick=()=>{const i=Math.max(0,P.cur-1);if(P.playing)playFrom(i);else playOne(i)};
+ document.getElementById('nextB').onclick=()=>{const i=Math.min(P.items.length-1,P.cur+1);if(P.playing)playFrom(i);else playOne(i)};
+ document.getElementById('rptB').onclick=()=>{playFrom(0)};
+ document.getElementById('autoB').onclick=()=>{opt.auto=!opt.auto;lsSet('auto',opt.auto);updBar()};
+ document.getElementById('sndB').onclick=()=>{opt.sound=!opt.sound;lsSet('sound',opt.sound);if(!opt.sound)try{S&&S.cancel()}catch(e){};if(P.playing)playFrom(P.cur);updBar()};
+ document.getElementById('subB').onclick=()=>{opt.subs=!opt.subs;lsSet('subs',opt.subs);setCur(P.cur)};
+ updBar()}
+
+/* ---------- WORD POPUP ---------- */
+let popEl=null,selW=null;
+function closePop(){if(popEl){popEl.remove();popEl=null}if(selW){selW.classList.remove('sel');selW=null}}
+function showWord(span){closePop();const w=span.dataset.w,k=w.toLowerCase();const tr=DICT[k]||'—';
+ selW=span;span.classList.add('sel');
+ popEl=document.createElement('div');popEl.className='pop';popEl.setAttribute('role','dialog');
+ popEl.innerHTML=`<button class="sb" aria-label="Послушать слово">🔊</button><div style="flex:1;min-width:0"><div class="pw">${esc(w)}</div><div class="pr">${esc(tr)}</div></div><button class="x" aria-label="Закрыть">✕</button>`;
+ document.body.appendChild(popEl);
+ const r=span.getBoundingClientRect(),pw=popEl.offsetWidth,ph=popEl.offsetHeight,vw=innerWidth;
+ let left=Math.min(Math.max(16,r.left+r.width/2-pw/2),vw-16-pw);let top=r.bottom+8;if(top+ph>innerHeight-10)top=r.top-ph-8;
+ popEl.style.left=left+'px';popEl.style.top=top+'px';
+ popEl.querySelector('.sb').onclick=e=>{e.stopPropagation();const was=P.playing;if(was)pause();say(w,'f',()=>{})};
+ popEl.querySelector('.x').onclick=e=>{e.stopPropagation();closePop()};
+ if(opt.sound){if(P.playing)pause();say(w,'f',()=>{})}}
+document.addEventListener('click',e=>{const w=e.target.closest('.w');if(w){e.stopPropagation();showWord(w);return}
+ if(popEl&&!e.target.closest('.pop'))closePop()},true);
+addEventListener('scroll',()=>{if(popEl)closePop()},{passive:true});
+
+/* ---------- HOME ---------- */
+function home(){CUR={i:-1,k:'home'};pause();closePop();P={items:[],cur:0,playing:false,onEnd:null};
+ app.innerHTML=`<div class="gut"><div class="col home">
+ <div class="brandrow"><div class="brand"><span class="logo">DB</span>Daria Botina</div><button class="pill" id="a2h">📲 Добавить на экран</button></div>
+ <button class="skip" id="skipH">⏭ Пропустить эту страницу</button>
+ <div class="hero"><div class="eyebrow">${META.eyebrow}</div><h1>${META.h1}</h1><p class="sub">${META.sub}</p></div>
+ <div class="hint">👆 Нажми на любое слово — увидишь перевод. 🌐 под фразой — перевод всей фразы. Вверху: ▶▶ Авто — диалог читается сам, 🔊 — звук вкл/выкл, 💬 Субтитры — перевод фразы появляется, пока её читают. После каждого диалога — 🏋️ упражнения на его слова.</div>
+ <button class="big sec navB" id="navH"><span style="font-size:22px">🧭</span><span>Перейти: любой диалог или упражнение</span></button>
+ <button class="big" id="prepB"><span style="font-size:22px">📚</span><span>Подготовиться: слова и конструкции</span></button>
+ <div class="list">${DLG.map((d,i)=>`<button class="dcard" data-i="${i}"><span class="em">${d.e}</span><span class="tx"><b>${i+1}. ${esc(d.t)}</b><span>${esc(d.ru)} · ${d.lines.length} реплик · 🏋️ 3 упражнения</span></span>${done.includes(i)?'<span class="ok">✓</span>':''}</button>`).join('')}</div>
+ <button class="big sec" id="revB"><span style="font-size:22px">🏁</span><span>В конце: повторить слова и конструкции</span></button>
+ <button class="big sec" id="myA"><span style="font-size:22px">📋</span><span>Мои ответы</span></button>
+ <div class="own">© Daria Botina</div>
+ </div></div>`;
+ scrollTo(0,0);
+ app.querySelectorAll('.dcard').forEach(b=>b.onclick=()=>openDlg(+b.dataset.i));
+ document.getElementById('prepB').onclick=()=>vocab(-1,home);
+ document.getElementById('revB').onclick=()=>vocab(-1,home);
+ document.getElementById('skipH').onclick=()=>openDlg(0);
+ document.getElementById('a2h').onclick=a2h;
+ document.getElementById('myA').onclick=()=>myAnswers(home);}
+
+function a2h(){const ov=document.createElement('div');ov.className='ov';
+ ov.innerHTML=`<div class="mbox" role="dialog" aria-modal="true"><button class="x" aria-label="Закрыть">✕</button><h3>📲 Добавить на экран</h3>
+ <p style="margin:0;font-size:14.5px">Урок будет открываться одним касанием, как приложение.</p>
+ <b>iPhone (Safari)</b><ol><li>Нажми «Поделиться» ⬆️ внизу экрана.</li><li>Выбери «На экран „Домой“».</li><li>Нажми «Добавить».</li></ol>
+ <b>Android (Chrome)</b><ol><li>Нажми ⋮ вверху справа.</li><li>Выбери «Добавить на главный экран».</li></ol>
+ <button class="big" id="okA">Понятно</button></div>`;
+ document.body.appendChild(ov);const c=()=>ov.remove();ov.querySelector('.x').onclick=c;ov.querySelector('#okA').onclick=c;ov.onclick=e=>{if(e.target===ov)c()}}
+
+/* ---------- DIALOGUE ---------- */
+function openDlg(i){CUR={i,k:'dlg'};closePop();const d=DLG[i];
+ app.innerHTML=barHTML(`${i+1}/${DLG.length} · ${esc(d.t)}`,'← Меню')+`<div class="gut"><div class="col page">
+ <div class="prep"><button class="skip" id="skipD">⏭ Пропустить эту страницу</button><span style="display:flex;gap:6px"><button class="pill" id="prepD">📚 Слова</button><button class="pill" id="exD">🏋️ Упражнения</button></span></div>
+ <div class="chat">${d.lines.map((l,k)=>{const s=SPK[l[0]];return `<div class="ln${s.me?' me':''}" data-k="${k}"><div class="av" aria-hidden="true">${s.e}</div><div class="bb"><div class="nm">${esc(s.n)}</div><div class="pt">${wordsHTML(l[1])}</div><div class="tr" hidden>${esc(l[2])}</div><div class="acts"><button class="sb say" aria-label="Послушать">🔊</button><button class="sb glob" aria-label="Перевод фразы">🌐</button></div></div></div>`}).join('')}</div>
+ <div class="end" id="endB"><h2>🎉 Диалог пройден!</h2>
+  <button class="big" id="endEx"><span>🏋️</span><span>Упражнения к диалогу (3)</span></button>
+  <button class="big sec" id="endVoc"><span>📚</span><span>Слова и конструкции этого диалога</span></button>
+  <button class="big sec" id="endRe"><span>🔁</span><span>Послушать ещё раз</span></button>
+  ${i<DLG.length-1?`<button class="big sec" id="endNext"><span>${DLG[i+1].e}</span><span>Дальше: ${i+2}. ${esc(DLG[i+1].t)} →</span></button>`:`<button class="big" id="endAll"><span>🏁</span><span>Повторить все слова и конструкции</span></button><button class="big sec" id="endMenu"><span>🏠</span><span>В меню</span></button>`}
+ </div></div></div>`;
+ scrollTo(0,0);
+ const lines=[...app.querySelectorAll('.ln')];
+ P={items:lines.map((el,k)=>({el,say:d.lines[k][1],g:SPK[d.lines[k][0]].g})),cur:0,playing:false,onEnd:()=>finish(i)};
+ lines.forEach((el,k)=>{el.querySelector('.say').onclick=()=>playOne(k);
+  el.querySelector('.glob').onclick=()=>{const t=el.querySelector('.tr');t.hidden=!t.hidden;if(t.hidden)delete t.dataset.man;else t.dataset.man='1'}});
+ bindBar(home,()=>vocab(i,()=>openDlg(i)));
+ document.getElementById('skipD').onclick=()=>{pause();i<DLG.length-1?openDlg(i+1):home()};
+ document.getElementById('prepD').onclick=()=>{pause();vocab(i,()=>openDlg(i))};
+ document.getElementById('endVoc').onclick=()=>{pause();vocab(i,()=>openDlg(i))};
+ document.getElementById('endRe').onclick=()=>playFrom(0);
+ document.getElementById('endEx').onclick=()=>{pause();exMenu(i)};
+ document.getElementById('exD').onclick=()=>{pause();exMenu(i)};
+ const n=document.getElementById('endNext');if(n)n.onclick=()=>{pause();openDlg(i+1)};
+ const a=document.getElementById('endAll');if(a)a.onclick=()=>{pause();vocab(-1,home)};
+ const m=document.getElementById('endMenu');if(m)m.onclick=home;
+ setCur(0);
+ if(opt.auto)playFrom(0);}
+function finish(i){if(!done.includes(i)){done.push(i);lsSet('done',done)}
+ const e=document.getElementById('endB');if(e)e.scrollIntoView({block:'end',behavior:'smooth'});
+ if(i===DLG.length-1&&!evDone){evDone=true;sendEvent('lessonDone',document.title,'Все 7 диалогов прослушаны')}}
+
+/* ---------- VOCAB ---------- */
+function vocBlock(d,i){return `<div class="sec-h">Слова</div><div class="vgrid">${d.voc.map(v=>`<div class="vrow" data-say="${esc(v[0])}"><button class="sb say" aria-label="Послушать">🔊</button><span class="pt2">${esc(v[0])}</span><span class="ru2">${esc(v[1])}</span></div>`).join('')}</div>
+ <div class="sec-h">Конструкции</div>${d.con.map(c=>`<div class="ccard" data-say="${esc(c[2])}"><div class="pat">${esc(c[0])}</div><div class="mean">${esc(c[1])}</div><div class="ex"><div class="pt">${wordsHTML(c[2])}</div><button class="sb say" aria-label="Послушать">🔊</button><button class="sb glob" aria-label="Перевод фразы">🌐</button></div><div class="tr" hidden>${esc(c[3])}</div></div>`).join('')}`}
+function vocab(i,back){CUR={i,k:'voc'};closePop();
+ const title=i<0?'📚 Все слова и конструкции':`📚 ${i+1}. ${esc(DLG[i].t)}: слова`;
+ const body=i<0?DLG.map((d,k)=>`<details class="vd"${k===0?' open':''}><summary><span>${d.e}</span><span>${k+1}. ${esc(d.t)}</span></summary><div class="vbody">${vocBlock(d,k)}</div></details>`).join(''):vocBlock(DLG[i],i);
+ app.innerHTML=barHTML(title,'← Назад')+`<div class="gut"><div class="col page">
+ <button class="skip" id="skipV">⏭ Пропустить эту страницу</button>
+ ${i<0?'<div class="hint">Открой нужный диалог. ▶ читает вслух слова и примеры по порядку.</div>':''}
+ ${body}
+ <div class="end" id="endV"><h2>✅ Готово!</h2>${i<0?'<button class="big" id="vGo"><span>✈️</span><span>К диалогам</span></button>':`<button class="big" id="vGo"><span>${DLG[i].e}</span><span>К диалогу ${i+1}. ${esc(DLG[i].t)}</span></button>`}</div>
+ </div></div>`;
+ scrollTo(0,0);
+ const collect=()=>{const els=[...app.querySelectorAll('.vrow,.ccard')].filter(el=>!el.closest('details:not([open])'));return els.map(el=>({el,say:el.dataset.say,g:'f'}))};
+ P={items:collect(),cur:0,playing:false,onEnd:()=>{const e=document.getElementById('endV');e&&e.scrollIntoView({block:'end',behavior:'smooth'})}};
+ app.querySelectorAll('details').forEach(dt=>dt.addEventListener('toggle',()=>{pause();P.items=collect();P.cur=0;setCur(-1);updBar()}));
+ app.querySelector('.page').addEventListener('click',e=>{const b=e.target.closest('.say');if(b&&b.closest('.page')){const el=b.closest('.vrow,.ccard');const k=P.items.findIndex(it=>it.el===el);if(k>=0)playOne(k)}
+  const g=e.target.closest('.glob');if(g){const t=g.closest('.ccard').querySelector('.tr');t.hidden=!t.hidden;if(t.hidden)delete t.dataset.man;else t.dataset.man='1'}});
+ bindBar(back,()=>{});document.getElementById('vocB').hidden=true;
+ document.getElementById('skipV').onclick=()=>{pause();back()};
+ document.getElementById('vGo').onclick=()=>{pause();i<0?openDlg(0):openDlg(i)};
+ setCur(0);
+ if(opt.auto)playFrom(0);}
+
+/* ---------- EXERCISES ---------- */
+const XT=[
+ {k:'exp',n:'➕ Расширяем фразу',d:'Фраза растёт кусочек за кусочком — собери её из слов'},
+ {k:'sub',n:'🔄 Замени слово',d:'Берём фразу-образец, меняем одну часть — выбери верный вариант'},
+ {k:'ant',n:'🎯 Скажи раньше, чем услышишь',d:'Скажи фразу вслух сама, потом выбери и сверь'}];
+let ans=lsGet('ans',{}),xs=lsGet('xs',{});
+let X=null,cdT=null;
+const norm=t=>t.toLowerCase().replace(/[.,!?;:«»"]/g,'').replace(/\s+/g,' ').trim();
+const toks=t=>norm(t).split(' ');
+function shuf(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+function cap(t){return t.charAt(0).toUpperCase()+t.slice(1)}
+function sayList(list,i,done){if(i>=list.length){done&&done();return}const it=list[i];
+ document.querySelectorAll('.rd').forEach(e=>e.classList.remove('rd'));if(it.el)it.el.classList.add('rd');
+ say(it.t,'f',()=>setTimeout(()=>sayList(list,i+1,done),350))}
+function clearRd(){document.querySelectorAll('.rd').forEach(e=>e.classList.remove('rd'))}
+
+function simpleBar(title,back){return `<div class="bar gut"><div class="col"><div class="r1"><button class="ib" id="backB">${back}</button><button class="ttl navB" aria-label="Навигация: все диалоги и упражнения"><span class="tt">${title}</span><span class="car">▾</span></button></div></div></div>`}
+
+function exMenu(i){CUR={i,k:'menu'};closePop();stopSpeech();clearTimeout(cdT);
+ app.innerHTML=simpleBar(`🏋️ ${i+1}. ${esc(DLG[i].t)}: упражнения`,'← К диалогу')+`<div class="gut"><div class="col page">
+ <button class="skip" id="skipM">⏭ Пропустить эту страницу</button>
+ <div class="list">${XT.map((t,k)=>{const n=t.k==='exp'?EX[i].exp.length:EX[i][t.k].length;const sc=xs[i+'-'+t.k];
+  return `<button class="xcard" data-k="${t.k}"><span class="tx"><b>${t.n}</b><span>${t.d} · ${n} заданий</span></span>${sc?`<span class="sc">✓ ${sc}</span>`:''}</button>`}).join('')}</div>
+ <button class="big sec" id="myM"><span>📋</span><span>Мои ответы</span></button>
+ ${i<DLG.length-1?`<button class="big" id="nxM"><span>${DLG[i+1].e}</span><span>Дальше: ${i+2}. ${esc(DLG[i+1].t)} →</span></button>`:`<button class="big" id="nxM"><span>🏁</span><span>Повторить все слова и конструкции</span></button>`}
+ </div></div>`;
+ scrollTo(0,0);
+ document.getElementById('backB').onclick=()=>openDlgQuiet(i);
+ app.querySelectorAll('.xcard').forEach(b=>b.onclick=()=>runEx(i,b.dataset.k));
+ document.getElementById('myM').onclick=()=>myAnswers(()=>exMenu(i));
+ document.getElementById('skipM').onclick=()=>{i<DLG.length-1?openDlg(i+1):vocab(-1,home)};
+ document.getElementById('nxM').onclick=()=>{i<DLG.length-1?openDlg(i+1):vocab(-1,home)};}
+function openDlgQuiet(i){const a=opt.auto;opt.auto=false;openDlg(i);opt.auto=a;updBar()}
+
+function runEx(i,k,list,mode){const all=EX[i][k].map((_,n)=>n);
+ X={i,k,list:list||all,pos:0,stage:0,first:{},wrong:[],mode:mode||'main'};renderTask()}
+
+function exBar(){const t=XT.find(t=>t.k===X.k);return `<div class="bar gut"><div class="col">
+ <div class="r1"><button class="ib" id="backB">← Назад</button><button class="ttl navB" aria-label="Навигация: все диалоги и упражнения"><span class="tt">${t.n}${X.mode==='fix'?' · ошибки':''}</span><span class="car">▾</span></button><button class="ib" id="myB" aria-label="Мои ответы">📋</button></div>
+ <div class="r2"><button class="ib" id="prevB" aria-label="Предыдущее задание">⏮</button><button class="ib play" id="sayB" aria-label="Послушать снова">🔊</button><button class="ib" id="nextB" aria-label="Следующее задание">⏭</button><button class="ib" id="rptB" aria-label="Начать упражнение заново">🔁</button><span class="cnt">${X.pos+1}/${X.list.length}</span></div>
+ <div class="r3"><button class="ib" id="autoB">▶▶ Авто</button><button class="ib" id="sndB">🔊 Звук</button></div>
+</div></div>`}
+function bindExBar(speakFn){
+ document.getElementById('backB').onclick=()=>{stopSpeech();clearTimeout(cdT);exMenu(X.i)};
+ document.getElementById('myB').onclick=()=>{stopSpeech();clearTimeout(cdT);const s={...X};myAnswers(()=>{X=s;renderTask()})};
+ document.getElementById('prevB').onclick=()=>{if(X.pos>0){X.pos--;X.stage=0;renderTask()}};
+ document.getElementById('nextB').onclick=()=>{X.pos++;X.stage=0;renderTask()};
+ document.getElementById('rptB').onclick=()=>runEx(X.i,X.k,null,'main');
+ document.getElementById('sayB').onclick=()=>speakFn&&speakFn();
+ document.getElementById('autoB').onclick=()=>{opt.auto=!opt.auto;lsSet('auto',opt.auto);updBar()};
+ document.getElementById('sndB').onclick=()=>{opt.sound=!opt.sound;lsSet('sound',opt.sound);if(!opt.sound)stopSpeech();updBar()};
+ updBar()}
+function record(idx,ok,q,a,c){if(!(idx in X.first)){X.first[idx]=ok;if(!ok)X.wrong.push(idx)}
+ ans[X.i+'-'+X.k+'-'+idx]={q,a,ok,c};lsSet('ans',ans)}
+
+function renderTask(){CUR={i:X.i,k:X.k};closePop();stopSpeech();clearTimeout(cdT);
+ if(X.pos>=X.list.length)return exEnd();
+ const idx=X.list[X.pos],it=EX[X.i][X.k][idx];
+ app.innerHTML=exBar()+`<div class="gut"><div class="col page"><button class="skip" id="skipT">⏭ Пропустить эту страницу</button><div class="task" id="task"></div></div></div>`;
+ scrollTo(0,0);
+ document.getElementById('skipT').onclick=()=>{X.pos++;X.stage=0;renderTask()};
+ const box=document.getElementById('task');
+ if(X.k==='exp')taskExp(box,idx,it);else if(X.k==='sub')taskSub(box,idx,it);else taskAnt(box,idx,it)}
+
+function wrongBox(box,html,retry,next,speakOk){const fb=box.querySelector('.fb');
+ fb.innerHTML=`<div class="fbm bad">${html}</div><div class="btnrow"><button class="big sec" id="again">🔁 Ещё раз</button><button class="big" id="goOn">Дальше →</button></div>`;
+ fb.scrollIntoView({block:'end',behavior:'smooth'});
+ document.getElementById('again').onclick=retry;document.getElementById('goOn').onclick=next;
+ setTimeout(()=>speakOk&&speakOk(),900)}
+function okBox(box,txt,next){const fb=box.querySelector('.fb');fb.innerHTML=`<div class="fbm ok">✅ ${txt}</div>`;fb.scrollIntoView({block:'end',behavior:'smooth'});next()}
+
+/* exp: build the growing phrase */
+function taskExp(box,idx,chain){const st=chain[X.stage],prev=X.stage>0?chain[X.stage-1]:null;
+ const tgt=st[0].split(' ').filter(Boolean);const tl=tgt.map(w=>w.replace(/[.,!?]/g,''));
+ let tiles;const pv=prev?prev[0].split(' '):null;let pos=-1;
+ if(pv){for(let a=0;a+pv.length<=tl.length;a++){if(pv.every((w,j)=>tl[a+j]===w)){pos=a;break}}}
+ if(pos>=0)tiles=[...tl.slice(0,pos),pv.join(' '),...tl.slice(pos+pv.length)];else tiles=tl.slice();
+ const chunkTxt=pos>=0?pv.join(' '):null;
+ tiles.push(st[2]);
+ let order=shuf(tiles.map((t,n)=>n));let tries=0;while(tries++<8&&order.slice(0,tiles.length-1).every((v,n)=>v===n))order=shuf(order);
+ box.innerHTML=`<div class="steps">${chain.map((_,n)=>`<span class="dot${n<=X.stage?' on':''}"></span>`).join('')}<span>Шаг ${X.stage+1} из ${chain.length} · задание ${X.pos+1} из ${X.list.length}</span></div>
+ ${prev?`<div class="model"><div class="q">Было:</div><div class="row"><div class="pt">${wordsHTML(prev[0])}</div><button class="sb" id="pvS" aria-label="Послушать">🔊</button><button class="sb" id="pvG" aria-label="Перевод фразы">🌐</button></div><div class="tr" hidden>${esc(prev[1])}</div></div>`:''}
+ <div class="q">Собери по-португальски:<br><b>«${esc(st[1])}»</b></div>
+ <div class="ansbox" id="ab" aria-live="polite"></div>
+ <div class="tiles" id="tl">${order.map(n=>`<button class="tile${tiles[n]===chunkTxt?' chunk':''}" data-n="${n}">${esc(tiles[n])}</button>`).join('')}</div>
+ <div class="fb"></div>`;
+ const ab=box.querySelector('#ab'),tlb=box.querySelector('#tl');let placed=[];
+ const need=tl.length;
+ const count=()=>placed.reduce((s,n)=>s+tiles[n].split(' ').length,0);
+ const speakPrev=()=>{if(prev)say(prev[0],'f',()=>{})};
+ bindExBar(speakPrev);
+ if(prev){box.querySelector('#pvS').onclick=speakPrev;box.querySelector('#pvG').onclick=()=>{const t=box.querySelector('.model .tr');t.hidden=!t.hidden}}
+ const nextStage=()=>{if(X.stage<chain.length-1){X.stage++;renderTask()}else{X.stage=0;X.pos++;renderTask()}};
+ const check=()=>{const a=placed.map(n=>tiles[n]).join(' ');const okList=[st[0],...(st[3]||[])].map(norm);const ok=okList.includes(norm(a));
+  tlb.querySelectorAll('.tile').forEach(b=>b.disabled=true);ab.querySelectorAll('.tile').forEach(b=>b.disabled=true);
+  if(X.stage===chain.length-1||!ok)record(idx,ok&&!(idx in X.first&&!X.first[idx]),`${chain[chain.length-1][1]}`,ok?st[0]:a,st[0]);
+  if(ok){ab.classList.add('ok');okBox(box,'Верно: '+esc(cap(st[0])),()=>say(st[0],'f',()=>setTimeout(nextStage,700)))}
+  else{ab.classList.add('bad');const extra=placed.map(n=>tiles[n]).includes(st[2])?`<br>Лишнее слово: <b>${esc(st[2])}</b>`:'';
+   wrongBox(box,`Правильно: <b>${esc(cap(st[0]))}</b>${extra}`,()=>renderTask(),nextStage,()=>say(st[0],'f',()=>{}))}};
+ const draw=()=>{ab.innerHTML=placed.map(n=>`<button class="tile${tiles[n]===chunkTxt?' chunk':''}" data-n="${n}">${esc(tiles[n])}</button>`).join('');
+  tlb.querySelectorAll('.tile').forEach(b=>b.hidden=placed.includes(+b.dataset.n));if(count()>=need)check()};
+ tlb.onclick=e=>{const b=e.target.closest('.tile');if(!b||b.disabled)return;placed.push(+b.dataset.n);say(tiles[+b.dataset.n],'f',()=>{});draw()};
+ ab.onclick=e=>{const b=e.target.closest('.tile');if(!b||b.disabled)return;placed=placed.filter(n=>n!==+b.dataset.n);draw()};
+ if(opt.auto&&prev)setTimeout(speakPrev,300)}
+
+/* options shared by sub & ant */
+function buildOpts(okT,bads){const opts=[okT,...bads];let ord=shuf([0,1,2]);if(ord[0]===0)ord=[ord[1],ord[0],ord[2]];return ord.map(n=>({t:opts[n],ok:n===0}))}
+function optsHTML(o){return `<div class="opts">${o.map((x,n)=>`<div class="orow"><button class="opt" data-n="${n}">${esc(x.t)}</button><button class="sb osay" data-n="${n}" aria-label="Послушать вариант">🔊</button></div>`).join('')}</div>`}
+function bindOpts(box,o,idx,q,okT,why,readFirst){const els=[...box.querySelectorAll('.opt')];
+ const readAll=()=>{const l=(readFirst?[{t:readFirst.t,el:readFirst.el}]:[]).concat(els.map((el,n)=>({t:o[n].t,el})));sayList(l,0,()=>{clearRd();box.querySelector('.opts').scrollIntoView({block:'nearest',behavior:'smooth'})})};
+ box.querySelectorAll('.osay').forEach(b=>b.onclick=()=>{stopSpeech();clearRd();say(o[+b.dataset.n].t,'f',()=>{})});
+ els.forEach((b,n)=>b.onclick=()=>{stopSpeech();clearRd();els.forEach(e=>e.disabled=true);const ok=o[n].ok;
+  record(idx,ok,q,o[n].t,okT);
+  if(ok){b.classList.add('ok');okBox(box,'Верно!',()=>say(okT,'f',()=>setTimeout(()=>{X.pos++;renderTask()},700)))}
+  else{b.classList.add('bad');els[o.findIndex(x=>x.ok)].classList.add('ok');
+   wrongBox(box,`Правильно: <b>${esc(okT)}</b><br>💡 ${esc(why)}`,()=>renderTask(),()=>{X.pos++;renderTask()},()=>say(okT,'f',()=>{}))}});
+ return readAll}
+
+/* sub: substitution drill */
+function taskSub(box,idx,it){const [m,mru,cue,okT,b1,b2,why]=it;const o=buildOpts(okT,[b1,b2]);
+ box.innerHTML=`<div class="model"><div class="q">Образец:</div><div class="row"><div class="pt" id="mT">${wordsHTML(m)}</div><button class="sb" id="mS" aria-label="Послушать">🔊</button><button class="sb" id="mG" aria-label="Перевод фразы">🌐</button></div><div class="tr" hidden>${esc(mru)}</div></div>
+ <div class="q">Замени на: <b>${esc(cue)}</b></div>${optsHTML(o)}<div class="fb"></div>`;
+ const readAll=bindOpts(box,o,idx,`${m} → ${cue}`,okT,why,{t:m,el:box.querySelector('.model')});
+ box.querySelector('#mS').onclick=()=>say(m,'f',()=>{});
+ box.querySelector('#mG').onclick=()=>{const t=box.querySelector('.model .tr');t.hidden=!t.hidden};
+ bindExBar(readAll);if(opt.auto)setTimeout(readAll,300)}
+
+/* ant: anticipation — say it first, then check */
+function taskAnt(box,idx,it){const [ru,okT,b1,b2,why]=it;const o=buildOpts(okT,[b1,b2]);
+ box.innerHTML=`<div class="q">${META.antQ||'Как сказать по-португальски?'}</div><div class="rucard">${esc(ru)}</div>
+ <div class="cd" id="cd"><b id="cdn">4</b><span>🗣 Скажи вслух сама…</span><button class="pill" id="cdSkip">Показать варианты</button></div>
+ <div id="ow" hidden>${optsHTML(o)}</div><div class="fb"></div>`;
+ const readAll=bindOpts(box,o,idx,ru,okT,why,null);
+ let n=4;const show=()=>{clearTimeout(cdT);box.querySelector('#cd').hidden=true;box.querySelector('#ow').hidden=false;if(opt.auto)readAll()};
+ const tick=()=>{n--;const c=box.querySelector('#cdn');if(!c)return;if(n<=0)return show();c.textContent=n;cdT=setTimeout(tick,1000)};
+ cdT=setTimeout(tick,1000);box.querySelector('#cdSkip').onclick=show;
+ bindExBar(()=>{if(!box.querySelector('#ow').hidden)readAll()})}
+
+function exEnd(){const tot=X.list.length,good=X.list.filter(i=>X.first[i]===true).length;
+ if(X.mode==='main'){xs[X.i+'-'+X.k]=good+'/'+tot;lsSet('xs',xs)}
+ const t=XT.find(t=>t.k===X.k);const ki=XT.findIndex(t=>t.k===X.k);
+ app.innerHTML=simpleBar(t.n,'← Назад')+`<div class="gut"><div class="col page">
+ <button class="skip" id="skipE">⏭ Пропустить эту страницу</button>
+ <div class="end"><h2>${good===tot?'🎉 Всё верно!':'💪 Готово!'}</h2><div style="font-size:17px">Верно с первого раза: <b>${good} из ${tot}</b></div>
+ ${X.wrong.length?`<div class="fbm bad">Работа над ошибками? Повторим ${X.wrong.length} ${X.wrong.length===1?'задание':'задания'} с ошибкой.</div><div class="btnrow"><button class="big" id="fixY">Да</button><button class="big sec" id="fixN">Нет</button></div>`:''}
+ <div id="after" ${X.wrong.length?'hidden':''} style="display:flex;flex-direction:column;gap:8px">
+ ${ki<XT.length-1?`<button class="big" id="nxE"><span>➡️</span><span>Следующее: ${XT[ki+1].n}</span></button>`:''}
+ <button class="big ${ki<XT.length-1?'sec':''}" id="mnE"><span>🏋️</span><span>К упражнениям диалога</span></button></div>
+ </div></div></div>`;
+ scrollTo(0,0);const i=X.i,w=X.wrong.slice(),k=X.k;
+ const after=()=>{const a=document.getElementById('after');a.hidden=false;const y=document.getElementById('fixY');if(y)y.closest('.btnrow').remove();a.scrollIntoView({block:'end',behavior:'smooth'})};
+ document.getElementById('backB').onclick=()=>exMenu(i);
+ document.getElementById('skipE').onclick=()=>exMenu(i);
+ const y=document.getElementById('fixY');if(y){y.onclick=()=>runEx(i,k,w,'fix');document.getElementById('fixN').onclick=after}
+ const nx=document.getElementById('nxE');if(nx)nx.onclick=()=>runEx(i,XT[ki+1].k);
+ document.getElementById('mnE').onclick=()=>exMenu(i)}
+
+function myAnswers(back){closePop();stopSpeech();
+ const keys=Object.keys(ans);
+ const body=DLG.map((d,i)=>{const parts=XT.map(t=>{const ks=keys.filter(k=>k.startsWith(i+'-'+t.k+'-')).sort((a,b)=>+a.split('-')[2]-+b.split('-')[2]);if(!ks.length)return'';
+   return `<div class="q"><b>${t.n}</b></div>`+ks.map(k=>{const a=ans[k];return `<div class="mya">${a.ok?'✅':'❌'} ${esc(a.q)}<br>Мой ответ: ${esc(a.a)}${a.ok?'':`<br><span class="c">Правильно: ${esc(a.c)}</span>`}</div>`}).join('')}).join('');
+  return parts?`<div class="sec-h">${d.e} ${i+1}. ${esc(d.t)}</div><div class="myl">${parts}</div>`:''}).join('');
+ app.innerHTML=simpleBar('📋 Мои ответы','← Назад')+`<div class="gut"><div class="col page">
+ <button class="skip" id="skipA">⏭ Пропустить эту страницу</button>
+ ${body||'<div class="hint">Здесь появятся твои ответы из упражнений: что верно, где ошибка и правильный вариант. При повторном прохождении ответ перезаписывается.</div>'}
+ </div></div>`;
+ scrollTo(0,0);document.getElementById('backB').onclick=back;document.getElementById('skipA').onclick=back}
+
+/* ---------- NAVIGATION (from any page to any dialogue / exercise) ---------- */
+function navPop(){closePop();stopSpeech();if(typeof pause==='function')pause();clearTimeout(cdT);
+ const old=document.querySelector('.ov');if(old)old.remove();
+ const ov=document.createElement('div');ov.className='ov';
+ const cell=(i,k,ic,lbl)=>{const here=CUR.i===i&&CUR.k===k;const dn=k==='dlg'?done.includes(i):!!xs[i+'-'+k];
+  return `<button class="nb ex${here?' here':''}${dn?' dn':''}" data-i="${i}" data-k="${k}" aria-label="${lbl} ${i+1}">${ic}</button>`};
+ ov.innerHTML=`<div class="mbox" role="dialog" aria-modal="true"><button class="x" aria-label="Закрыть">✕</button><h3>🧭 Куда перейти?</h3>
+ <div class="navtop"><button class="big sec" data-go="home">🏠 Меню</button><button class="big sec" data-go="all">📚 Все слова</button><button class="big sec" data-go="my">📋 Ответы</button></div>
+ <div class="nav"><span class="hd l">Диалог</span><span class="hd">➕</span><span class="hd">🔄</span><span class="hd">🎯</span><span class="hd">📚</span>
+ ${DLG.map((d,i)=>`<button class="nb dl${CUR.i===i&&CUR.k==='dlg'?' here':''}${done.includes(i)?' dn':''}" data-i="${i}" data-k="dlg"><span>${d.e}</span><span class="nt">${i+1}. ${esc(d.t)}</span></button>${cell(i,'exp','➕','Расширяем фразу')}${cell(i,'sub','🔄','Замени слово')}${cell(i,'ant','🎯','Скажи раньше')}${cell(i,'voc','📚','Слова')}`).join('')}
+ </div>
+ <div class="legend">➕ Расширяем фразу · 🔄 Замени слово · 🎯 Скажи раньше, чем услышишь · 📚 Слова и конструкции · ✓ пройдено</div></div>`;
+ document.body.appendChild(ov);
+ const c=()=>ov.remove();ov.querySelector('.x').onclick=c;ov.onclick=e=>{if(e.target===ov)c()};
+ ov.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{c();const g=b.dataset.go;if(g==='home')home();else if(g==='all')vocab(-1,home);else myAnswers(home)});
+ ov.querySelectorAll('.nb').forEach(b=>b.onclick=()=>{c();const i=+b.dataset.i,k=b.dataset.k;
+  if(k==='dlg')openDlg(i);else if(k==='voc')vocab(i,()=>openDlg(i));else runEx(i,k)});}
+document.addEventListener('click',e=>{if(e.target.closest('.navB')){e.preventDefault();navPop()}});
+
+function normCode(v){let t=String(v||'').toLowerCase().replace(/[\s.\-_]/g,'');
+ t=t.replace(/^(дарья|дария|дариа|даря|дарjа|дарjа)/,'daria').replace(/^(darja|darya|darija|dariya|daria)/,'daria');
+ t=t.replace(/[бвbв]2$/,'b2').replace(/[вb]$/,'b');return t}
+const TEACHER='dariab2';
+const CODES=[TEACHER].concat((META.codes||[]).map(normCode));
+function gateOk(){return CODES.includes(normCode(lsGet('code','')))}
+function showGate(){const g=document.createElement('div');g.className='gate';
+ g.innerHTML=`<form class="gb" id="gf" autocomplete="off"><div class="gi">🔒</div><h2>${META.h1}</h2><p>Введи, пожалуйста, свой код, чтобы открыть урок.</p>
+ <input id="gc" type="text" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Код" placeholder="Код">
+ <p class="err" id="ge" aria-live="polite"></p><button class="big" type="submit">Открыть урок</button><div class="own">© Daria Botina</div></form>`;
+ document.body.appendChild(g);
+ g.querySelector('#gf').addEventListener('submit',e=>{e.preventDefault();const v=g.querySelector('#gc').value.trim();
+  if(CODES.includes(normCode(v))){lsSet('code',v);g.remove();home()}
+  else{g.querySelector('#ge').textContent=v?'Код не подходит. Проверь, пожалуйста, и попробуй ещё раз.':'Введи, пожалуйста, код.'}})}
+if(META.gate&&!gateOk())showGate();else home();
+})();
+</script>
+
+</body>
+</html>
