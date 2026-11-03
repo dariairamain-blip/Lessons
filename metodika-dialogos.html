@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Методика Diálogos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta http-equiv="content-language" content="ru">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: one reading column; hero promise → numbered benefit cards → science strip → call to action */
+:root{
+  --bg:#f1f6f3; --card:#ffffff; --ink:#10302a; --muted:#52695f; --accent:#0a7a5a; --accent-ink:#ffffff; --line:#d2e1d9;
+  --sun:#f2c12e; --soft:#dcf1e6;
+  --display:"Bricolage Grotesque",system-ui,sans-serif; --body:"Nunito Sans",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c1916; --card:#14261f; --ink:#e5f0eb; --muted:#97b0a6; --accent:#3cc393; --accent-ink:#06281d; --line:#24403a;
+  --sun:#f2c12e; --soft:#1a3a2d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1916; --card:#14261f; --ink:#e5f0eb; --muted:#97b0a6; --accent:#3cc393; --accent-ink:#06281d; --line:#24403a;
+  --sun:#f2c12e; --soft:#1a3a2d; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+ padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.w{max-width:680px;margin:0 auto;padding-block:20px 40px;display:flex;flex-direction:column;gap:14px}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:15px}
+.logo{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:13px}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px 18px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:var(--sun);opacity:.3}
+.eyebrow{font-size:12.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:800;position:relative}
+h1{font-family:var(--display);font-weight:800;font-size:31px;line-height:1.1;margin:0;text-wrap:balance;position:relative}
+.lead{margin:0;color:var(--muted);max-width:62ch;position:relative;font-size:17px}
+h2{font-family:var(--display);font-weight:800;font-size:22px;margin:12px 0 0;text-wrap:balance}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:flex;gap:12px}
+.card .ic{font-size:28px;line-height:1;flex:none;width:40px;height:40px;display:grid;place-items:center;background:var(--soft);border-radius:12px}
+.card .tx{display:flex;flex-direction:column;gap:5px;min-width:0}
+.card h3{margin:0;font-size:18px;line-height:1.3;text-wrap:balance}
+.card p{margin:0}
+.where{font-size:14.5px;color:var(--muted)}
+.where b{color:var(--ink)}
+.sci{background:var(--soft);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.sci h3{margin:0;font-size:17px}
+.sci ul{margin:0;padding-left:18px;font-size:14px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+.sci a{color:var(--accent);font-weight:700;overflow-wrap:anywhere}
+.cta{background:var(--accent);color:var(--accent-ink);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:6px}
+.cta h2{margin:0;color:inherit}
+.cta p{margin:0}
+.own{font-size:12.5px;color:var(--muted);text-align:center;margin-top:8px}
+</style>
+
+<div class="w">
+ <div class="brand"><span class="logo">DB</span>Daria Botina</div>
+
+ <div class="hero">
+  <div class="eyebrow">Diálogos · 🇧🇷 Бразилия · 🇵🇹 Португалия</div>
+  <h1>Заговори по-португальски так, как говорят на улицах Рио и Лиссабона</h1>
+  <p class="lead">Никаких скучных списков слов. Ты попадаешь в живую ситуацию: аэропорт, вечеринка, таверна у моря. Каждый шаг урока построен на том, как на самом деле работает память.</p>
+ </div>
+
+ <h2>Что делает эти уроки особенными</h2>
+
+ <div class="card"><div class="ic">💬</div><div class="tx">
+  <h3>Ты учишь фразы, которые реально звучат вокруг</h3>
+  <p>Носители не собирают речь из отдельных слов, они говорят готовыми кусками: «Pode ser no cartão?», «Que saudade!», «Fiquem à vontade!». Ты запоминаешь их сразу в ситуации, и они сами всплывают, когда нужно.</p>
+  <div class="where">В уроке: <b>7 живых диалогов по 30+ реплик</b> и раздел 📚 «Конструкции».</div></div></div>
+
+ <div class="card"><div class="ic">🎧</div><div class="tx">
+  <h3>Ухо привыкает к настоящей речи</h3>
+  <p>Ты слышишь каждую реплику и одновременно видишь её на португальском. Звук и текст вместе помогают понимать на слух быстрее и запоминать больше слов.</p>
+  <div class="where">В уроке: <b>▶▶ Авто</b> читает диалог разными голосами, реплика, которая звучит сейчас, подсвечена. 💬 Субтитры на русском включаются, когда хочешь проверить смысл.</div></div></div>
+
+ <div class="card"><div class="ic">👆</div><div class="tx">
+  <h3>Ни одного непонятного слова</h3>
+  <p>Нажми на любое слово, и сразу увидишь перевод и услышишь произношение. Не нужно отвлекаться на словарь, а слова, которые ты смотришь прямо в тексте, запоминаются лучше.</p>
+  <div class="where">В уроке: <b>перевод любого слова одним касанием</b> и 🌐 перевод всей фразы.</div></div></div>
+
+ <div class="card"><div class="ic">🎯</div><div class="tx">
+  <h3>Ты не перечитываешь, а вспоминаешь</h3>
+  <p>Когда ты сама пытаешься вспомнить фразу, память укрепляется сильнее, чем от многократного чтения. Поэтому ты сначала говоришь, а потом проверяешь себя.</p>
+  <div class="where">В уроке: упражнение <b>«Скажи раньше, чем услышишь»</b>: видишь фразу по-русски, говоришь вслух по-португальски и сверяешься.</div></div></div>
+
+ <div class="card"><div class="ic">➕</div><div class="tx">
+  <h3>Длинные фразы складываются сами</h3>
+  <p>Фраза растёт по кусочку: «a minha mala» → «a minha mala vermelha» → «a minha mala vermelha não chegou». Длинная фраза перестаёт пугать, потому что ты строишь её из знакомых частей.</p>
+  <div class="where">В уроке: <b>➕ «Собери фразу»</b> после каждого диалога.</div></div></div>
+
+ <div class="card"><div class="ic">🔄</div><div class="tx">
+  <h3>Одна фраза работает в сотне ситуаций</h3>
+  <p>Ты берёшь готовую конструкцию и меняешь в ней одно слово: «A gente veio de Antália» → «A gente veio de Istambul». Так одна фраза становится твоим инструментом на все случаи.</p>
+  <div class="where">В уроке: <b>🔄 «Замени слово»</b>, приём из методов Пимслера и аудиолингвального подхода.</div></div></div>
+
+ <div class="card"><div class="ic">🔁</div><div class="tx">
+  <h3>Слова не забываются через неделю</h3>
+  <p>Выученное возвращается к тебе через промежутки времени. Именно такие повторения переводят слова в долгую память.</p>
+  <div class="where">В уроке: <b>последнее задание каждого упражнения</b> берётся из прошлого диалога.</div></div></div>
+
+ <div class="card"><div class="ic">✅</div><div class="tx">
+  <h3>Ошибка сразу становится уроком</h3>
+  <p>Ошиблась? Ты сразу видишь правильный вариант и короткое объяснение «почему», без долгих правил. А потом можешь пройти именно трудные задания ещё раз.</p>
+  <div class="where">В уроке: <b>объяснение после ошибки, 🔁 «Ещё раз» и «Работа над ошибками»</b>, а все ответы видны в 📋 «Мои ответы».</div></div></div>
+
+ <div class="card"><div class="ic">🇧🇷🇵🇹</div><div class="tx">
+  <h3>Две страны, два португальских</h3>
+  <p>Каждая тема есть в двух версиях: с бразильским и с европейским португальским. Свои голоса, свои слова (ônibus и autocarro, sorvete и gelado) и свои традиции: один поцелуй в щёку в Рио и два в Лиссабоне.</p>
+  <div class="where">В уроке: <b>X.1 🇧🇷 Бразилия и X.2 🇵🇹 Португалия</b>.</div></div></div>
+
+ <div class="sci">
+  <h3>🔬 На чём это основано</h3>
+  <ul>
+   <li>Вспоминание вместо перечитывания: Roediger &amp; Karpicke (2006), <i>Psychological Science</i></li>
+   <li>Повторение через промежутки: Cepeda и соавт. (2006), <i>Psychological Bulletin</i></li>
+   <li>Перевод слова прямо в тексте: Abraham (2008), <i>Computer Assisted Language Learning</i></li>
+   <li>Звук вместе с текстом на изучаемом языке: Montero Perez и соавт. (2013), <i>System</i>; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2775720" target="_blank" rel="noopener">Mitterer &amp; McQueen (2009)</a></li>
+   <li>Исправление ошибок с объяснением: <a href="https://www.cambridge.org/core/product/4999EE1C8379B2BF026B148EAF373CA1" target="_blank" rel="noopener">Lyster &amp; Saito (2010)</a></li>
+   <li>Готовые фразы и беглость речи: Boers и соавт. (2006), <i>Language Teaching Research</i></li>
+  </ul>
+ </div>
+
+ <div class="cta">
+  <h2>Попробуй прямо сейчас</h2>
+  <p>Открой первый диалог, нажми ▶▶ Авто и просто послушай. Уже через 10 минут у тебя в голове будут первые живые фразы.</p>
+ </div>
+
+ <div class="own">© Daria Botina</div>
+</div>
+
+</body>
+</html>
