@@ -1,0 +1,197 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta http-equiv="content-language" content="ru"><title>Мой португальский мир</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: one phone-sized card per page, emoji tiles in a grid, sticky nav at the bottom */
+:root{
+  --bg:#eef3f7; --card:#ffffff; --ink:#14233a; --muted:#5c6b80;
+  --sea:#1f5fa8; --sun:#f2b632; --sel:#e3eefb; --line:#d5dfea;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Nunito Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd;
+  --sea:#6ea8ef; --sun:#f2b632; --sel:#1d3657; --line:#2a3b55; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd;
+  --sea:#6ea8ef; --sun:#f2b632; --sel:#1d3657; --line:#2a3b55; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:520px;margin:0 auto;padding-block:12px 96px;display:flex;flex-direction:column;gap:10px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:15px}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--sea);color:#fff;display:grid;place-items:center;font-size:13px;letter-spacing:.5px}
+.prog{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden;max-width:160px}
+.prog i{display:block;height:100%;background:var(--sun);transition:width .3s}
+.eyebrow{font-size:12.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--sea);font-weight:700}
+h1{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.15;margin:2px 0 0;text-wrap:balance}
+.sub{color:var(--muted);margin:2px 0 0;line-height:1.4}
+.grp{font-weight:700;margin:6px 0 0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.grid.g4{grid-template-columns:repeat(4,1fr)}
+.tile{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:7px 4px 6px;
+  display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;font:inherit;color:inherit;
+  font-size:12.5px;line-height:1.2;text-align:center;position:relative;min-width:0}
+.tile .e{font-size:28px;line-height:1.1}
+.g4 .tile .e{font-size:24px}
+.g4 .tile{font-size:12.5px}
+@media (max-width:420px){.grid.g4{grid-template-columns:repeat(3,1fr)}}
+.tile[aria-pressed="true"]{border-color:var(--sea);background:var(--sel)}
+.tile[aria-pressed="true"]::after{content:"✓";position:absolute;top:3px;right:5px;width:17px;height:17px;border-radius:50%;
+  background:var(--sea);color:var(--card);font-size:12px;display:grid;place-items:center;font-weight:700}
+.tile:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+input[type=text],textarea{width:100%;box-sizing:border-box;border:2px solid var(--line);border-radius:10px;
+  background:var(--card);color:var(--ink);font:inherit;padding:9px 11px}
+textarea{min-height:90px;resize:vertical}
+.skip{align-self:flex-start;background:none;border:0;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:2px 0;text-decoration:underline}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.nav div{max-width:520px;margin:0 auto;display:flex;gap:10px}
+.btn{flex:1;border:0;border-radius:12px;padding:13px;font:inherit;font-weight:700;font-size:16px;cursor:pointer}
+.btn.pri{background:var(--sea);color:var(--card)}
+.btn.sec{background:var(--card);color:var(--ink);border:2px solid var(--line);flex:0 0 32%}
+.hero{background:var(--card);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;border:1px solid var(--line)}
+.hero .big{font-size:46px}
+.steps{display:flex;flex-wrap:wrap;gap:6px}
+.steps span{background:var(--sel);border-radius:999px;padding:5px 10px;font-size:13px}
+.res{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;font-size:13px;line-height:1.45;max-height:46vh;overflow:auto}
+.copied{color:var(--sea);font-weight:700;min-height:1.2em}
+.own{font-size:12.5px;color:var(--muted);text-align:center;margin-top:6px}
+@media (prefers-reduced-motion:reduce){.prog i{transition:none}}
+.gate{position:fixed;inset:0;z-index:50;background:var(--bg,#FFF8EE);display:grid;place-items:center;padding:16px}
+.gate .gbox{max-width:380px;width:100%;display:grid;gap:12px;text-align:center}.gate .big{font-size:44px}.gate input{font:inherit;font-size:20px;text-align:center;letter-spacing:.15em;padding:12px;border-radius:14px;border:2px solid var(--line,#ddd)}
+.gate .err{color:#C2410C;font-weight:700;min-height:1.2em;margin:0}
+.grid.g2{grid-template-columns:repeat(2,1fr)}
+.g2 .tile{flex-direction:row;justify-content:flex-start;text-align:left;gap:6px;font-size:12.5px;padding:8px}
+.g2 .tile .e{font-size:20px}
+.mine{flex:none;border:2px solid var(--line);background:var(--card);color:var(--ink);font:700 12.5px var(--body);border-radius:999px;padding:5px 10px;cursor:pointer}
+.ov{position:fixed;inset:0;z-index:40;background:#0009;display:grid;place-items:center;padding:16px}
+.ov .box{background:var(--card);color:var(--ink);border-radius:18px;padding:16px;max-width:460px;width:100%;max-height:86vh;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.ov h1{font-size:21px;margin:0}
+.note{background:var(--sel);border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.45}
+.more{background:var(--card);border:2px dashed var(--sea);color:var(--sea);border-radius:12px;padding:10px;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
+[hidden]{display:none!important}
+.tile{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+</style>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="logo">DB</span>Daria Botina</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <button class="mine" id="mine" type="button">📋 Мои ответы</button>
+  </div>
+  <main id="page"></main>
+  <div class="own">© Daria Botina</div>
+</div>
+<nav class="nav"><div>
+  <button class="btn sec" id="back" type="button">← Назад</button>
+  <button class="btn pri" id="next" type="button">Далее →</button>
+</div></nav>
+<script>
+const EV_WHO = "Дарья";
+function sendEvent(type, title, detail){ try{ if(location.origin !== "https://dariairamain-blip.github.io") return; fetch("https://daria-talk.daria-iramain.workers.dev/event", {method: "POST", headers: {"content-type": "application/json"}, keepalive: true,
+  body: JSON.stringify({type, who: EV_WHO, title: String(title || "").slice(0, 120), detail: String(detail || "").slice(0, 3000)})}).catch(() => {}); }catch(e){} }
+setTimeout(() => sendEvent("visit", document.title), 1500);
+let evForm = false;
+</script>
+<script>
+const PAGES=[{"intro": true},{"lvl": "1 · Португалия и Бразилия","t": "Куда тебя тянет?","s": "Отметь всё, что подходит, — эти места станут декорациями твоих уроков.","groups": [{"q": "🇵🇹 Португалия","items": [["🏛️","Лиссабон"],["🍷","Порту"],["🏖️","Алгарве"],["🌺","Мадейра"],["🌋","Азорские острова"],["🏰","Синтра / Кашкайш"]],"more": [["🎓","Коимбра"],["⛪","Брага"],["🌾","Эвора / Алентежу"],["🌊","Назаре (большие волны)"],["⛵","Лагуш"],["🍇","Долина Дору"],["🏄","Эрисейра"],["🌲","Север Португалии"]]},{"q": "🇧🇷 Бразилия","items": [["🌴","Рио-де-Жанейро"],["🏙️","Сан-Паулу"],["🏝️","Флорианополис"],["🥁","Салвадор / Баия"],["🌳","Амазония"],["💦","Водопады Игуасу"]],"more": [["🏖️","Ресифи / Порту-ди-Галиньяс"],["☀️","Форталеза"],["🦀","Натал"],["⛰️","Минас-Жерайс"],["🏛️","Бразилиа"],["🐆","Пантанал"],["🏝️","Фернанду-ди-Норонья"],["🌉","Порту-Алегри"]]}],"text": "Другое место…"},{"lvl": "1 · Португалия и Бразилия","t": "Как ты связана с португальским?","s": "Это определит, какие ситуации будут в уроках первыми.","groups": [{"items": [["✈️","Хочу поехать в отпуск"],["🏡","Думаю о переезде"],["🦷","Пациенты / клиенты оттуда"],["🤝","Друзья и знакомые"],["📺","Сериалы и музыка"],["💼","Бизнес-идея"],["🧠","Тренировка мозга"],["❤️","Просто люблю язык"]],"more": [["👩‍🏫","Хочу сама преподавать"],["📱","Блог на португальском"],["🏠","Дом у моря за границей"],["🌍","Работа в международной компании"],["🎓","Учёба / курсы"],["👨‍👩‍👧","Дети будут говорить на нём"],["🗺️","Путешествия по Латинской Америке"],["🤩","Вызов самой себе"]]}],"text": "Своя причина…"},{"lvl": "2 · Работа","t": "Какие рабочие ситуации нужны на португальском?","s": "Ты пациент-менеджер в стоматологии: отметь, что пригодится с пациентами из Бразилии и Португалии.","groups": [{"items": [["👋","Встретить пациента"],["🦷","Объяснить план лечения"],["💶","Цены и оплата"],["📅","Записать / перенести приём"],["🚐","Трансфер и отель"],["💬","Сообщения в WhatsApp"],["📞","Звонок пациенту"],["😌","Успокоить волнующегося"],["⚠️","Жалоба или проблема"],["⭐","Отзыв и рекомендация"],["🎁","Предложить пакет лечения"],["🗣️","Переводить для врача"]],"more": [["💉","Анестезия и боль простыми словами"],["🦷","Импланты, виниры, коронки"],["🛡️","Гарантия"],["💳","Рассрочка"],["📄","Документы и выписка"],["📸","Фото до / после"],["🗺️","Экскурсии для пациентов"],["🛬","Встреча в аэропорту"],["🔁","Контрольный визит"],["💻","Онлайн-консультация по видео"],["📣","Реклама клиники в соцсетях"],["🤝","Переговоры с агентствами"],["📧","Письма партнёрам"],["🎤","Презентация клиники"],["☕","Small talk с пациентом"],["🙏","Прощание и благодарность"],["✈️","Перенос из-за рейса"],["🧾","Счёт и чек"]]}],"text": "Ещё рабочая ситуация…"},{"lvl": "3 · Жизнь и поездки","t": "Где тебе нужен португальский вне работы?","s": "Самое нужное пойдёт в уроки первым.","groups": [{"items": [["🏨","Отель"],["🍽️","Ресторан"],["☕","Кафе / пастелария"],["🚕","Такси / Uber"],["✈️","Аэропорт"],["🗺️","Спросить дорогу"],["🛒","Магазин / рынок"],["💊","Аптека"],["🏖️","Пляж"],["🚗","Аренда машины"],["🎟️","Экскурсия"],["🏦","Банк / обмен денег"]],"more": [["🔑","Снять квартиру"],["🏘️","Агентство недвижимости"],["📑","Документы (NIF / CPF)"],["📱","Мобильная связь"],["🩺","Врач"],["🏋️","Спортзал"],["💆","Салон красоты / массаж"],["👋","Соседи"],["🛠️","Ремонт, мастер"],["🎉","Вечеринка у друзей"],["🎭","Фестиваль / карнавал"],["⚽","Футбол на стадионе"],["⛵","Лодка / яхта"],["🏄","Урок сёрфинга"],["🐎","Конная прогулка"],["🧘","Йога-класс"],["🏫","Школа для детей"],["🐶","Ветеринар"]]}],"text": "Ещё где…","cols4": true},{"lvl": "4 · Люди","t": "Кого взять героями в истории уроков?","s": "Отметь — и ниже напиши имена и пару слов о каждом. Только то, что тебе приятно видеть в уроках.","groups": [{"items": [["❤️","Мой мужчина"],["👧","Мои дети"],["👩","Дочь"],["👭","Сестра"],["👵","Мама / папа"],["💃","Подруги"],["🧑‍💼","Коллеги"],["🦷","Пациенты"],["👩‍🏫","Мои ученики"],["🐱","Домашние животные"]],"more": [["👦","Племянник"],["🧑‍⚕️","Врачи клиники"],["✈️","Друзья-путешественники"],["🏖️","Соседи"],["🧑‍🍳","Знакомый повар / бариста"],["🎭","Выдуманный герой-португалец"],["🇧🇷","Выдуманная подруга-бразильянка"],["🤖","Смешной робот-помощник"]]}],"area": "Например: Фатих — мой мужчина, бортпроводник, любит футбол; Сыла — дочь, студентка…"},{"lvl": "5 · Мой португальский","t": "Что уже получается?","s": "Честно — так уроки будут ни слишком лёгкими, ни слишком трудными.","groups": [{"q": "Уже могу","items": [["👋","Поздороваться и представиться"],["🔢","Числа и цены"],["☕","Заказать кофе"],["🗺️","Спросить дорогу"],["💼","Рассказать о работе"],["👨‍👩‍👧","Рассказать о семье"],["🕒","Время и дни недели"],["❤️","Сказать, что люблю"]],"more": [["⏮️","Рассказать о вчерашнем дне"],["⏭️","Рассказать о планах"],["📞","Понять короткий звонок"],["🎬","Понять простое видео"],["✍️","Написать короткое сообщение"],["🗣️","Поддержать small talk"]]},{"q": "Хочу прокачать первым","items": [["👂","Понимать на слух"],["🗣️","Говорить"],["👄","Произношение"],["📖","Чтение"],["✍️","Письмо"],["🧠","Слова"]],"more": [["📐","Грамматику"],["⚡","Отвечать быстро"],["☎️","Звонки"],["🇧🇷🇵🇹","Различать Бразилию и Португалию"]]}]},{"lvl": "6 · Уроки","t": "Какие задания тебе нравятся больше всего?","s": "Их будет больше. Что скучно — напиши ниже, будет меньше.","groups": [{"items": [["🎬","Мультики-истории"],["💬","Диалоги"],["📱","Чтение сообщений"],["⏱️","Спринт 60 секунд"],["🎡","Колесо фортуны"],["🧩","Квесты и загадки"],["👄","Произношение"],["🦸","Разговор с героем"],["🃏","Карточки слов"],["🎵","Песни"],["🌍","Культура"],["📐","Грамматика с примерами"]],"more": [["🎧","Аудирование"],["✍️","Написать самой"],["🔁","Повторение старого"],["🗣️","«Поговорим о тебе»"],["😂","Шутки и мемы"],["🏆","Очки и награды"],["🎯","Работа над ошибками"],["📊","Видеть свой прогресс"]]}],"text": "Что скучно или неудобно…","cols4": true},{"lvl": "7 · Истории","t": "О чём тебе интересно читать и слушать?","s": "Из этого будут сюжеты уроков.","groups": [{"items": [["💼","Случаи на работе"],["✈️","Путешествия и приключения"],["💕","Романтика"],["🕵️","Детектив"],["🍲","Еда и кухня"],["🌊","Море и лодки"],["🐾","Животные"],["🚀","Бизнес и успех"],["🤪","Абсурдный юмор"],["😅","Культурные шоки"],["👗","Мода и красота"],["🧘","Здоровье и спорт"]],"more": [["👻","Мистика"],["🏛️","История"],["🎭","Сериалы-новеллы"],["🎤","Звёзды и шоу"],["🏡","Дом и уют"],["👶","Дети и семья"],["🎉","Праздники"],["🧑‍💻","Технологии и ИИ"],["🐎","Лошади"],["🌿","Природа"],["📚","Книги и писатели"],["🗞️","Новости простыми словами"]]}],"text": "Своя тема…","cols4": true},{"lvl": "8 · Культура","t": "Что из культуры тебе интереснее?","s": "Культурные заметки в уроках будут про это.","groups": [{"items": [["🎶","Фаду"],["🎷","Босса-нова и самба"],["⚽","Футбол"],["🎭","Карнавал"],["🥮","Паштел-де-ната"],["🍲","Фейжоада"],["🐟","Бакаляу"],["🍧","Асаи"],["🧱","Азулежу"],["⛵","Мореплаватели"],["📺","Теленовеллы"],["🏖️","Пляжная жизнь"]],"more": [["🤸","Капоэйра"],["📖","Фернанду Пессоа"],["🌳","Амазония"],["🎉","Праздники святых (Санту-Антониу)"],["☕","Кофейная культура"],["🚋","Трамвай 28"],["🍞","Пан-де-кейжу"],["🧀","Сыры и рынки"],["🗣️","Сленг и жесты"],["👋","Как здороваются и целуются"],["⏰","Отношение ко времени"],["🙏","Вежливость: você, tu, o senhor"]]}],"text": "Ещё интересно…","cols4": true},{"lvl": "9 · Цели","t": "Когда португальский понадобится по-настоящему?","s": "Уроки выстроим к этому сроку.","groups": [{"q": "Срок","items": [["📅","Через 1–2 месяца"],["🗓️","Через полгода"],["🎯","Через год"],["🌊","Пока без срока"]]},{"q": "К этому времени хочу","items": [["🍽️","Спокойно общаться в кафе и отеле"],["🦷","Говорить с пациентами"],["📞","Звонить без страха"],["🎬","Смотреть видео без субтитров"],["🤝","Знакомиться и болтать"],["🏡","Решать бытовые вопросы"]],"more": [["💼","Проводить встречи"],["✍️","Писать сообщения и письма"],["🎤","Выступить / провести презентацию"],["👩‍🏫","Начать преподавать"],["📱","Вести блог"]]}],"text": "Даты поездок или планы…"},{"lvl": "10 · Мои слова","t": "Какие слова и фразы ты хочешь знать уже завтра?","s": "Напиши по-русски то, что говоришь каждый день — на работе, дома, с Фатихом, с пациентами. Это станет твоим личным словарём.","area": "Например: «Как вы себя чувствуете после процедуры?», «Я опаздываю на пять минут», «Что приготовить на ужин?»…"},{"final": true}];
+let ans={},i=0;
+try{ans=JSON.parse(localStorage.getItem("daria-anket-pt2")||"{}");i=+localStorage.getItem("daria-anket-pt2-i")||0}catch(e){}
+if(i>=PAGES.length)i=0;
+const $=s=>document.querySelector(s);
+function save(){try{localStorage.setItem("daria-anket-pt2",JSON.stringify(ans));localStorage.setItem("daria-anket-pt2-i",i)}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function summary(){
+  let out="📝 Дарья — подробная анкета для португальского\n";
+  PAGES.forEach((p,pi)=>{
+    if(!p.t)return;
+    const a=ans[pi]||{};const sel=(a.sel||[]);const txt=(a.txt||"").trim();
+    if(!sel.length&&!txt)return;
+    out+="\n▸ "+p.t+"\n";
+    if(sel.length)out+=sel.join(", ")+"\n";
+    if(txt)out+="✍️ "+txt+"\n";
+  });
+  return out;
+}
+function render(){
+  const p=PAGES[i];
+  $("#bar").style.width=(i/(PAGES.length-1)*100)+"%";
+  $("#back").hidden=i===0;
+  $("#next").textContent=p.intro?"Начнём →":p.final?"Сначала ↺":"Далее →";
+  let h="";
+  if(p.intro){
+    h=`<div class="hero"><div class="big">👋🇵🇹🇧🇷</div>
+      <h1>Olá, Daria!</h1>
+      <p class="sub">Это подробная анкета: по ней будут <b>следующие уроки португальского</b> — твоя работа с пациентами, поездки, люди и истории, которые тебе интересны.</p>
+      <p class="sub">Отметь картинки, которые про тебя, — около 10 минут.</p>
+      <p class="sub">Вопросы: Португалия и Бразилия, работа, жизнь и поездки, люди для историй, твой уровень, любимые задания, темы, культура, цели и твои слова.</p>
+      <p class="sub">Правильных и неправильных ответов нет.</p>\n      <div class="note">⏸ <b>Не обязательно всё сразу.</b> Ответы сохраняются на этом телефоне. Можно пропустить вопрос, закрыть анкету и вернуться в другой раз — продолжишь с того же места.<br>📋 В любой момент нажми «Мои ответы» вверху, скопируй и пришли в чат Claude. Дописала что-то позже — просто пришли ещё раз, повторы не страшны. Ответы можно менять: новые заменят старые.</div></div>`;
+  }else if(p.final){
+    const s=summary();
+    if(!evForm){ evForm = true; sendEvent("form_done", document.title, s); }
+    h=`<div class="eyebrow">Готово 🎉</div><h1>Obrigada, Daria!</h1>
+      <p class="sub">Скопируй результат и пришли его Даше. По нему соберу твой личный словарь и следующие уроки португальского. Захочешь что-то дописать или поменять — вернись в любой момент и пришли заново.</p>
+      <div class="res" id="res">${esc(s)}</div>
+      <button class="btn pri" id="copy" type="button">📋 Скопировать результат</button>
+      <div class="copied" id="copied" aria-live="polite"></div>`;
+  }else{
+    const a=ans[i]||(ans[i]={sel:[],txt:""});
+    h=`<div class="eyebrow">${/^\d/.test(p.lvl)?"Уровень ":""}${p.lvl}</div><h1>${p.t}</h1><p class="sub">${p.s}</p>`;
+    (p.groups||[]).forEach(g=>{
+      if(g.q)h+=`<p class="grp">${g.q}</p>`;
+      const all=g.items.concat(g.more||[]),base=g.items.length;
+      h+=`<div class="grid${p.cols4?" g4":p.cols2?" g2":""}" data-per="${p.cols4?16:12}">`+all.map(([e,l],n)=>{
+        const k=(g.q?g.q+": ":"")+l,on=a.sel.includes(k);
+        return `<button type="button" class="tile${n>=base?" x":""}" data-k="${esc(k)}" aria-pressed="${on}"${n>=base&&!on?" hidden":""}><span class="e">${e}</span>${esc(l)}</button>`}).join("")+`</div>`;
+      if(all.length>base)h+=`<button type="button" class="more">➕ Ещё картинки</button>`;
+    });
+    if(p.text||!p.area)h+=`<input type="text" id="t${i}" placeholder="${esc(p.text?("✍️ "+p.text):"✍️ Другое — напиши своё…")}" value="${esc(a.txt)}">`;
+    if(p.area)h+=`<textarea id="t${i}" placeholder="${esc(p.area)}">${esc(a.txt)}</textarea>`;
+    h+=`<button type="button" class="skip" id="skip">⏭ Пропустить эту страницу</button>`;
+  }
+  const m=$("#page");m.innerHTML=`<div style="display:flex;flex-direction:column;gap:9px">${h}</div>`;
+  m.querySelectorAll(".tile").forEach(b=>b.onclick=()=>{
+    const a=ans[i],k=b.dataset.k,on=a.sel.includes(k);
+    a.sel=on?a.sel.filter(x=>x!==k):[...a.sel,k];b.setAttribute("aria-pressed",!on);save();
+  });
+  m.querySelectorAll(".more").forEach(btn=>{const grid=btn.previousElementSibling,per=+grid.dataset.per;
+    const upd=()=>{const left=grid.querySelectorAll(".tile.x[hidden]").length;btn.textContent=left?`➕ Ещё картинки (${left})`:"▲ Свернуть";};upd();
+    btn.onclick=()=>{const hid=[...grid.querySelectorAll(".tile.x[hidden]")];
+      if(hid.length){hid.slice(0,per).forEach(t=>t.hidden=false)}else{grid.querySelectorAll(".tile.x").forEach(t=>{if(t.getAttribute("aria-pressed")!=="true")t.hidden=true});btn.scrollIntoView({block:"nearest"})}upd()}});
+  const t=$("#t"+i);if(t)t.oninput=()=>{ans[i].txt=t.value;save()};
+  const sk=$("#skip");if(sk)sk.onclick=()=>go(1);
+  const c=$("#copy");if(c)c.onclick=()=>{
+    const s=summary();
+    const done=()=>{$("#copied").textContent="✅ Скопировано! Отправь в чат Claude."};
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents($("#res"));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);
+      $("#copied").textContent="Текст выделен — нажми и удерживай, затем «Скопировать»."};
+    try{navigator.clipboard.writeText(s).then(done,fallback)}catch(e){fallback()}
+  };
+  window.scrollTo(0,0);
+}
+function go(d){i=Math.max(0,Math.min(PAGES.length-1,i+d));save();render()}
+$("#next").onclick=()=>{if(PAGES[i].final){i=0;save();render()}else go(1)};
+$("#back").onclick=()=>go(-1);
+function ov(html){const o=document.createElement("div");o.className="ov";o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");o.innerHTML=`<div class="box">${html}</div>`;o.onclick=e=>{if(e.target===o)o.remove()};document.body.append(o);return o}
+function doneCount(){return Object.values(ans).filter(a=>a&&((a.sel&&a.sel.length)||(a.txt&&a.txt.trim()))).length}
+function copyText(s,msg){const done=()=>{msg.textContent="✅ Скопировано! Отправь в чат Claude."};
+  const fb=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("res2"));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);msg.textContent="Текст выделен — нажми и удерживай, затем «Скопировать»."};
+  try{navigator.clipboard.writeText(s).then(done,fb)}catch(e){fb()}}
+$("#mine").onclick=()=>{const n=doneCount(),s=summary();
+  const o=ov(`<h1>📋 Мои ответы</h1><p class="sub">Заполнено вопросов: ${n}. Хочешь что-то поменять — открой вопрос и отметь заново, ответ перезапишется.</p>
+   ${n?`<div class="res" id="res2">${esc(s)}</div><button class="btn pri" id="cp2" type="button">📋 Скопировать и отправить в чат Claude</button><div class="copied" id="cm2" aria-live="polite"></div>`:`<p class="sub">Пока нет ответов.</p>`}
+   <button class="btn sec" id="cl2" type="button">Закрыть</button>`);
+  const c=o.querySelector("#cp2");if(c)c.onclick=()=>copyText(s,o.querySelector("#cm2"));o.querySelector("#cl2").onclick=()=>o.remove()};
+function welcome(){const p=PAGES[i];if(!(i>0&&!p.final))return;
+  const o=ov(`<div style="font-size:40px">👋</div><h1>С возвращением, Daria!</h1><p class="sub">Все ответы сохранены (заполнено вопросов: ${doneCount()}). Продолжим с места, где ты остановилась: «${esc(p.t||"")}».</p>
+   <button class="btn pri" id="w1" type="button">▶ Продолжить</button><button class="btn sec" id="w2" type="button">📋 Мои ответы</button>
+   <button class="skip" id="w3" type="button">↩ К началу анкеты (ответы останутся)</button>`);
+  o.querySelector("#w1").onclick=()=>o.remove();o.querySelector("#w2").onclick=()=>{o.remove();$("#mine").click()};
+  o.querySelector("#w3").onclick=()=>{o.remove();i=0;save();render()}}
+render();
+if(document.getElementById("gate")){const g=document.getElementById("gate");new MutationObserver((m,ob)=>{if(!document.getElementById("gate")){ob.disconnect();welcome()}}).observe(document.body,{childList:true})}else welcome();
+</script>
+
+</body></html>
