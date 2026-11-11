@@ -198,7 +198,9 @@ function sendEvent(type, title, detail){ try{ if(location.origin !== "https://da
   body: JSON.stringify({type, who: WHO, title: String(title || "").slice(0, 120), detail: String(detail || "").slice(0, 3000)})}).catch(() => {}); }catch(e){} }
 const CODEKEY = "nastya_code";
 const MODEL = () => { try{ return localStorage.getItem("nastya_model") || "sonnet"; }catch(e){ return "sonnet"; } };
-const getCode = () => { try{ return localStorage.getItem(CODEKEY) || ""; }catch(e){ return ""; } };
+const CYRL = {А:"A",Б:"B",В:"V",Г:"G",Д:"D",Е:"E",Ё:"E",Ж:"ZH",З:"Z",И:"I",Й:"Y",К:"K",Л:"L",М:"M",Н:"N",О:"O",П:"P",Р:"R",С:"S",Т:"T",У:"U",Ф:"F",Х:"H",Ц:"TS",Ч:"CH",Ш:"SH",Щ:"SCH",Ы:"Y",Э:"E",Ю:"YU",Я:"YA",Ь:"",Ъ:"",İ:"I",Ş:"S",Ğ:"G",Ü:"U",Ö:"O",Ç:"C",Â:"A",Î:"I",Û:"U"};
+const normCode = v => String(v || "").toUpperCase().replace(/[А-ЯЁİŞĞÜÖÇÂÎÛ]/g, c => CYRL[c] ?? "").replace(/[^A-Z0-9]/g, "").replace(/^ANASTASIYA$/, "ANASTASIA");
+const getCode = () => { try{ return normCode(localStorage.getItem(CODEKEY)); }catch(e){ return ""; } };
 function askCode(msg){
   return new Promise(res => {
     const m = h("div", "modal"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true");
@@ -206,7 +208,7 @@ function askCode(msg){
     const inp = h("input"); inp.type = "text"; inp.autocomplete = "off"; inp.setAttribute("autocapitalize", "characters"); inp.setAttribute("aria-label", "Код");
     const err = h("p", ""); err.style.color = "#C2410C"; err.style.fontWeight = "800";
     const ok = h("button", "ok", "Войти →"); ok.type = "button";
-    const go = () => { const v = inp.value.trim(); if(!v){ err.textContent = "Введи код."; return; } try{ localStorage.setItem(CODEKEY, v); }catch(e){} m.remove(); res(v); };
+    const go = () => { const v = normCode(inp.value); if(!v){ err.textContent = "Введи код."; return; } try{ localStorage.setItem(CODEKEY, v); }catch(e){} m.remove(); res(v); };
     ok.onclick = go; inp.onkeydown = e => { if(e.key === "Enter") go(); };
     b.append(inp, err, ok); m.append(b); document.body.append(m); inp.focus({preventScroll:true});
   });
