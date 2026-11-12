@@ -147,6 +147,7 @@ h1{font:800 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
 .opts .hd{font:800 12.5px var(--body);color:var(--muted);letter-spacing:.02em}
 .opts button.hint{align-self:flex-start;border:2px dashed var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:800 13.5px var(--body);cursor:pointer}
 .tgt{max-width:560px;margin:0 auto 8px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:#E9F7EF;border:2px solid #2E9E6A;color:#14532D;border-radius:14px;padding:8px 10px;font:800 14.5px var(--body)}
+.melisten{align-self:center;flex:none;width:40px;height:40px;margin-right:6px;border:2px solid var(--line);border-radius:999px;background:var(--card);font-size:18px;cursor:pointer}
 .mlisten{margin-top:6px;border:0;border-radius:999px;background:rgba(255,255,255,.22);color:inherit;font:800 13px var(--body);padding:4px 10px;cursor:pointer}
 .tgt span{flex:1 1 180px}.tgt button{border:2px solid #2E9E6A;background:#fff;color:#14532D;border-radius:999px;font:800 13.5px var(--body);padding:5px 10px;cursor:pointer}
 .warn{background:var(--fix);color:var(--fixink);border-radius:14px;padding:12px;font-size:14.5px}
@@ -357,7 +358,8 @@ async function send(){
   (S.ins || []).forEach(x => { if(msg.includes(x[1]) && !newW.some(y => y[0] === x[0])) newW.push(x); }); S.ins = [];
   document.querySelectorAll(".opts").forEach(x => x.remove());
   const mb = bubble("me", msg); if(S.usedStt){ mb.append(h("small", "mtag", "🎧 " + S.usedStt)); S.usedStt = null; }
-  if(S.target){ const sc = simil(S.target, msg); mb.append(h("small", "mtag", S.asIs ? "💡 Из подсказки" : sc >= .75 ? "✅ Отлично сказала!" : "🎯 Цель была: «" + S.target + "»")); S.asIs = false; const tt = S.target, lb = h("button", "mlisten", "🔊 Послушать"); lb.type = "button"; lb.onclick = () => say(tt, lang()); mb.append(lb); tgtHide(); }
+  if(S.target){ const sc = simil(S.target, msg); mb.append(h("small", "mtag", S.asIs ? "💡 Из подсказки" : sc >= .75 ? "✅ Отлично сказала!" : "🎯 Цель была: «" + S.target + "»")); S.asIs = false; tgtHide(); }
+  { const ls = h("button", "melisten", "🔊"); ls.type = "button"; ls.setAttribute("aria-label", "Послушать моё сообщение"); ls.onclick = () => say(msg, lang()); mb.parentElement.insertBefore(ls, mb); ttsPrefetch([msg]); }
   if(newW.length){ const ptd = mb.querySelector(".pt"); ptd.textContent = "";
     let rest = msg; const marks = newW.map(x => x[1]);
     const re = new RegExp("(" + marks.map(m => m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")");
@@ -674,22 +676,31 @@ mic = function(btn, lng, label){ if(OAI() && STT() === "openai") return recOAI(b
 // microphone stream kept ready during the conversation: no 0.5–1.5 s start-up on every tap
 let MIC = null, micT = 0;
 async function micStream(){ clearTimeout(micT); if(MIC && MIC.getTracks().some(t => t.readyState === "live")) return MIC; MIC = await navigator.mediaDevices.getUserMedia({audio: {echoCancellation: true, noiseSuppression: true}}); return MIC; }
-function micRelease(){ clearTimeout(micT); try{ MIC && MIC.getTracks().forEach(t => t.stop()); }catch(e){} MIC = null; }
-function micIdle(){ clearTimeout(micT); micT = setTimeout(micRelease, 120000); }
+function micRelease(){ clearTimeout(micT); try{ MIC && MIC.getTracks().forEach(t => t.stop()); }catch(e){} MIC = null; setTimeout(() => aSess("playback"), 150); }
+function micIdle(){ micRelease(); }
+let ACX = null;
+function aSess(t){ try{ if(navigator.audioSession) navigator.audioSession.type = t; }catch(e){} }
+aSess("playback");
 async function recOAI(btn, lng){
   if(recO){ if(recO.btn !== btn) recO.next = btn; recO.stop(); return; }
-  btn.textContent = "⏳ Включаю микрофон…"; let stream; try{ stream = await micStream(); }catch(e){ btn.textContent = btn.id === "micru" ? "🆘 Скажу по-русски" : "🎤 Говорить"; micHelpOnce(); return; }
+  try{ ACX = ACX || new (window.AudioContext || window.webkitAudioContext)(); if(ACX.state !== "running") ACX.resume(); }catch(e){ ACX = null; }
+  aSess("play-and-record"); btn.textContent = "⏳ Включаю микрофон…"; let stream; try{ stream = await micStream(); }catch(e){ btn.textContent = btn.id === "micru" ? "🆘 Скажу по-русски" : "🎤 Говорить"; micHelpOnce(); return; }
   const mime = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"].find(t => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || "";
   let mr; try{ mr = new MediaRecorder(stream, mime ? {mimeType: mime} : undefined); }catch(e){ micRelease(); micMsg("🎤 Этот браузер не умеет записывать звук. Открой страницу в Safari или переключи «🎧 Распознавание» на iPhone."); return; }
   const chunks = [], label = btn.id === "micru" ? "🆘 Скажу по-русски" : "🎤 Говорить";
   try{ speechSynthesis.cancel(); }catch(e){} try{ AUD.pause(); }catch(e){}
+  let peak = 0, meter = null, an = null, src = null; try{ if(ACX){ src = ACX.createMediaStreamSource(stream); an = ACX.createAnalyser(); an.fftSize = 1024; src.connect(an); const buf = new Float32Array(an.fftSize);
+    meter = setInterval(() => { an.getFloatTimeDomainData(buf); let m = 0; for(const v of buf) m = Math.max(m, Math.abs(v)); peak = Math.max(peak, m); }, 80); } }catch(e){ meter = null; }
+  const diag = blob => "🔧 " + (t0 ? ((Date.now() - t0) / 1000).toFixed(1) : "0") + " сек · " + Math.round((blob ? blob.size : 0) / 1024) + " КБ · громкость " + (meter && ACX && ACX.state === "running" ? Math.round(peak * 100) + "%" : "?");
   btn.classList.add("on"); let t0 = 0; mr.onstart = () => { t0 = Date.now(); btn.textContent = btn.id === "micru" ? "🔴 Говори по-русски… дальше — 🎤" : "🔴 Говори! Закончила — нажми"; try{ navigator.vibrate && navigator.vibrate(30); }catch(e){} };
   mr.ondataavailable = e => { if(e.data && e.data.size) chunks.push(e.data); };
   mr.onstop = async () => {
-    micIdle(); const nx = recO && recO.next; recO = null; if(nx) setTimeout(() => mic(nx, "", ""), 0); btn.classList.remove("on"); btn.textContent = "⏳ OpenAI распознаёт…"; btn.disabled = true;
+    const dur = t0 ? Date.now() - t0 : 0; try{ clearInterval(meter); src && src.disconnect(); }catch(e){} micIdle(); const nx = recO && recO.next; recO = null; if(nx) setTimeout(() => mic(nx, "", ""), 0); btn.classList.remove("on"); btn.textContent = "⏳ OpenAI распознаёт…"; btn.disabled = true;
     try{
       const blob = new Blob(chunks, {type: mr.mimeType || mime || "audio/webm"});
-      if(!t0 || Date.now() - t0 < 500 || blob.size < 200) throw {code: "short"};
+      S.lastDiag = diag(blob);
+      if(!t0 || dur < 500 || blob.size < 200) throw {code: "short"};
+      if(meter && ACX && ACX.state === "running" && peak < 0.02) throw {code: "silent"};
       const r = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": lng, "x-prompt": sttPrompt()}, body: blob});
       const j = await r.json().catch(() => ({})); if(r.status === 429 && j.error === "limit") throw {code: "limit", scope: j.scope}; if(!r.ok) throw {code: "stt"}; checkLeft(r);
       let t = String(j.text || "").trim();
@@ -698,8 +709,8 @@ async function recOAI(btn, lng){
       if(BAD(t)){ let ok = ""; for(const L of (lng ? [lng] : ["ru", "pt"])){ const r2 = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": L, "x-prompt": sttPrompt()}, body: blob}); const j2 = await r2.json().catch(() => ({})); const t2 = r2.ok ? String(j2.text || "").trim() : ""; if(t2 && !BAD(t2)){ ok = t2; break; } } t = ok; if(!t) throw {code: "stt"}; }
       if(!t) throw {code: "empty"};
       if(echoHero(t)) throw {code: "echo"};
-      if(t){ const box = $("#box"); box.value = (box.value && !/\s$/.test(box.value) ? box.value + " " : box.value) + t + " "; S.usedStt = "OpenAI"; renderChips(); if(!nx && !recO) previewSend(); }
-    }catch(e){ if(!(e && e.code === "paused")) micMsg(e && e.code === "limit" ? limitMsg(e.scope) : e && e.code === "short" ? "🎤 Запись получилась слишком короткой или тихой. Нажми кнопку, скажи фразу, потом нажми ещё раз." : e && e.code === "empty" ? "🎤 Не расслышал. Попробуй ещё раз чуть громче." : e && e.code === "echo" ? "🎤 Не расслышал тебя — распознался текст героя. Скажи ещё раз чуть громче и ближе к микрофону." : e && e.code === "network" ? "📶 Нет интернета или связь прервалась. Попробуй ещё раз." : "OpenAI не смог распознать — попробуй ещё раз или переключи «🎧 Распознавание» на iPhone."); }
+      if(t){ const box = $("#box"); box.value = (box.value && !/\s$/.test(box.value) ? box.value + " " : box.value) + t + " "; S.usedStt = "OpenAI"; S.lastDiag = ""; renderChips(); if(!nx && !recO) previewSend(); }
+    }catch(e){ if(!(e && e.code === "paused")) micMsg(e && e.code === "limit" ? limitMsg(e.scope) : e && e.code === "short" ? "🎤 Запись получилась слишком короткой. Нажми 🎤, дождись «🔴 Говори!», скажи фразу и нажми ещё раз." : e && e.code === "silent" ? "🎤 Микрофон записал тишину. Дождись «🔴 Говори!» и говори ближе к телефону." : e && e.code === "empty" ? "🎤 Не расслышал. Попробуй ещё раз чуть громче." : e && e.code === "echo" ? "🎤 Не расслышал тебя — распознался текст героя. Скажи ещё раз чуть громче и ближе к микрофону." : e && e.code === "network" ? "📶 Нет интернета или связь прервалась. Попробуй ещё раз." : "OpenAI не смог распознать — попробуй ещё раз или переключи «🎧 Распознавание» на iPhone."); }
     finally{ btn.disabled = false; btn.textContent = label; }
   };
   recO = {btn, stop: () => { if(recO && recO.stopping) return; if(recO) recO.stopping = true; btn.textContent = "⏳ …"; setTimeout(() => { try{ mr.stop(); }catch(e){} }, 500); }}; const myRec = recO; setTimeout(() => { if(recO === myRec) recO.stop(); }, 30000);
@@ -713,16 +724,28 @@ const SILENT = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AA
 let audUnlocked = false;
 document.addEventListener("click", () => { if(audUnlocked) return; audUnlocked = true; try{ AUD.src = SILENT; AUD.play().catch(() => {}); }catch(e){} }, true);
 const TTSC = new Map(); let ttsSeq = 0;
+function ttsKey(text, rate){ const voice = (S.hero && PERS.voice(S.hero)) || "ash", speed = rate && rate < .8 ? .7 : 1; return [voice, speed, voice + "|" + speed + "|" + text]; }
+const TTSP = new Map();
+function ttsGet(text, rate){ const [voice, speed, key] = ttsKey(text, rate); if(TTSC.get(key)) return Promise.resolve(TTSC.get(key)); if(TTSP.get(key)) return TTSP.get(key);
+  const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), 12000);
+  const p = wfetch("/tts", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({text, voice, speed}), signal: ctl.signal})
+    .then(async r => { if(!r.ok) throw {why: "сервер ответил " + r.status}; const u = URL.createObjectURL(await r.blob()); TTSC.set(key, u); return u; })
+    .catch(e => { throw {why: e && e.why ? e.why : e && e.code === "network" ? (ctl.signal.aborted ? "не загрузился за 12 сек" : "нет связи") : "ошибка"}; })
+    .finally(() => { clearTimeout(tm); TTSP.delete(key); });
+  TTSP.set(key, p); return p; }
+function ttsPrefetch(list){ if(!(OAI() && TTS() === "openai") || S.mute) return; let i = 0; const next = () => { if(i >= list.length) return; const t = String(list[i++] || "").trim(); if(!t) return next(); ttsGet(t).catch(() => {}).finally(next); }; next(); }
+function voiceNote(t){ document.querySelectorAll(".vnote").forEach(x => x.remove()); if(!t) return; const d = h("div", "modal repm vnote"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.textContent = t; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 5000); }
 async function sayOAI(t, rate){
   const text = String(t || "").replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, "").trim(); if(!text) return;
-  const voice = (S.hero && PERS.voice(S.hero)) || "ash", speed = rate && rate < .8 ? .7 : 1, key = voice + "|" + speed + "|" + text, my = ++ttsSeq;
+  const my = ++ttsSeq;
   try{ speechSynthesis.cancel(); }catch(e){}
-  try{
-    let url = TTSC.get(key);
-    if(!url){ const r = await wfetch("/tts", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({text, voice, speed})}); if(!r.ok) throw 0; url = URL.createObjectURL(await r.blob()); TTSC.set(key, url); }
-    if(my !== ttsSeq) return;
-    AUD.src = url; await AUD.play();
-  }catch(e){ if(gOK(lang())) _say(t, lang(), rate); else gWarn(); }
+  const slow = setTimeout(() => { if(my === ttsSeq) voiceNote("⏳ Загружаю голос…"); }, 700);
+  let url;
+  try{ url = await ttsGet(text, rate); }
+  catch(e){ clearTimeout(slow); if(my !== ttsSeq) return; if(gOK(lang())){ voiceNote(""); _say(t, lang(), rate); } else voiceNote("🔇 Голос не загрузился (" + (e && e.why || "ошибка") + "). Нажми 🔊 ещё раз."); return; }
+  clearTimeout(slow); if(my !== ttsSeq) return; voiceNote("");
+  try{ if(!MIC) aSess("playback"); AUD.src = url; await AUD.play(); }
+  catch(e){ voiceNote("🔇 Телефон не дал включить звук. Нажми 🔊 ещё раз — теперь сразу заиграет."); }
 }
 const _say = say;
 let gWarned = false;
@@ -1002,7 +1025,7 @@ const W1 = (w, ctx) => `Translate the Portuguese word "${w}" into Russian as it 
 async function cheap(prompt){ try{ return await sample.json(prompt, {modelTier: "quick", model: "haiku"}); }catch(e){ if(e && (e.code === "network" || e.code === "badcode")) throw e; return await sample.json(prompt, {modelTier: "quick"}); } }
 const W1C = {};
 async function oneWord(w, ctx){ const k = w.toLowerCase() + "|" + ctx; if(W1C[k]) return W1C[k]; const r = await cheap(W1(w, ctx)); const t = String(r.tr || "").trim(); if(!t) throw 0; return W1C[k] = t; }
-function micMsg(t){ document.querySelectorAll(".micmsg").forEach(x => x.remove()); const d = h("div", "modal repm micmsg"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.style.border = "2px solid #F2B632"; x.textContent = t; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 6000); }
+function micMsg(t){ if(S.lastDiag && /^🎤|^OpenAI/.test(String(t))){ t = t + "\n" + S.lastDiag; S.lastDiag = ""; } document.querySelectorAll(".micmsg").forEach(x => x.remove()); const d = h("div", "modal repm micmsg"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.style.border = "2px solid #F2B632"; x.style.whiteSpace = "pre-line"; x.textContent = t; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 6000); }
 // ---- ✕ for every window (except the code window)
 new MutationObserver(() => { document.querySelectorAll(".modal > .box").forEach(b => { if(b.querySelector(":scope > .mx") || b.classList.contains("codebox") || b.classList.contains("nox") || b.closest(".modal").style.pointerEvents === "none" || b.closest(".modal").style.background === "transparent") return;
   const x = h("button", "mx", "✕"); x.type = "button"; x.setAttribute("aria-label", "Закрыть окно"); x.onclick = () => b.closest(".modal").remove(); b.prepend(x); }); }).observe(document.body, {childList: true});
@@ -1147,10 +1170,11 @@ function limitMsg(scope){ return scope === "week"
   : "🌙 На сегодня лимит разговора исчерпан — ты отлично позанималась! Герои отдыхают, завтра снова здесь. А пока можно повторить сегодняшние слова в 🃏 Карточках."; }
 function checkLeft(r){ try{ const v = r.headers.get("x-left"); if(v == null) return; const left = +v, key = "daria_warned", day = new Date().toDateString();
   if(left <= 10 && left > 0 && localStorage.getItem(key) !== day){ localStorage.setItem(key, day); micMsg("⏳ На сегодня осталось примерно " + left + " минут 🙂"); } }catch(e){} }
-function echoHero(t){ try{ const w = String(t).trim().split(/\s+/).length; if(w < 4) return false;
+const PROMPT_ECHO = /speaker is|russian-speaking|cyrillic|latin letters|do not translate|the other person|###|beginner in portuguese/i;
+function echoHero(t){ if(PROMPT_ECHO.test(String(t))) return true; try{ const w = String(t).trim().split(/\s+/).length; if(w < 4) return false;
   return S.turns.filter(x => x.role === "assistant").slice(-4).some(x => { let p = ""; try{ p = JSON.parse(x.content).pt || ""; }catch(e){} return p && simil(t, p) >= .8; }); }catch(e){ return false; } }
 function sttPrompt(){ let pt = ""; try{ const a = [...S.turns].reverse().find(x => x.role === "assistant"); if(a) pt = String(JSON.parse(a.content).pt || ""); }catch(e){}
-  return encodeURIComponent(("The speaker is a Russian-speaking woman, a beginner in Portuguese; she often mixes Portuguese and Russian (sometimes English) in one sentence. Write Russian words in Cyrillic letters and Portuguese words in Latin letters, exactly as said; do not translate.").slice(0, 600)); }
+  return ""; }
 function blockPaused(){ if(document.getElementById("paused")) return;
   const m = h("div", "modal"); m.id = "paused"; m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true"); m.style.background = "var(--bg)";
   const b = h("div", "box nox"); b.style.textAlign = "center";
@@ -1170,11 +1194,11 @@ function showOpts(list){
     const g = h("button", "tr", "🌐"); g.type = "button"; g.setAttribute("aria-label", "Перевод"); g.onclick = () => { sm.hidden = !sm.hidden; };
     const l = h("button", "tr", "🔊"); l.type = "button"; l.setAttribute("aria-label", "Послушать"); l.onclick = () => say(String(tr), lang());
     b.onclick = () => pickOpt(String(tr)); row.append(b, l, g); inner.append(row); });
-  hb.onclick = () => { inner.hidden = !inner.hidden; hb.textContent = inner.hidden ? "💡 Подсказка: как можно ответить" : "💡 Скрыть подсказку"; if(!inner.hidden) show(box); };
+  hb.onclick = () => { inner.hidden = !inner.hidden; hb.textContent = inner.hidden ? "💡 Подсказка: как можно ответить" : "💡 Скрыть подсказку"; if(!inner.hidden){ show(box); ttsPrefetch(L.map(x => x[0])); } };
   box.append(inner); $("#chat").append(box); show(box);
 }
 function tgtHide(){ S.target = ""; $("#tgt").hidden = true; fitDock(); }
-function pickOpt(tr){
+function pickOpt(tr){ ttsPrefetch([tr]);
   S.target = tr; $("#tgtt").textContent = "🎯 Скажи вслух: «" + tr + "»"; $("#tgt").hidden = false; fitDock();
 }
 $("#tgtl").onclick = () => say(S.target, lang());
