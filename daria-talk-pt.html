@@ -196,13 +196,14 @@ How to reply:
 - LEVEL: speak simply, about A2-, and match what you see in her messages. At most ONE new word per reply; if you use one, put it into "new" with its Russian meaning.
 - Usually end with ONE short, easy question.
 - Every time vary your words: never reuse a sentence you already said in this chat.
-- If her last message has a mistake, in "fix" show the corrected Portuguese phrase and explain in max 12 Russian words why. She is a woman: obrigada, cansada, ocupada. If she used a Spanish word or form, say so gently («это по-испански»). If no mistake, "fix" is "" (praise briefly only every few turns).
+- If her last message has a mistake, in "fix" show the corrected Portuguese phrase and explain in max 12 Russian words why. She is a woman: obrigada, cansada, ocupada. If she TYPED a Spanish word or form, say so gently («это по-испански»); never say «по-итальянски». If no mistake, "fix" is "" (praise briefly only every few turns).
 - Her messages often come from speech recognition: Portuguese and Russian (sometimes English or Spanish) can be mixed, and some words can be garbled or written in the wrong alphabet (a Russian word in Latin letters, a Portuguese word in Cyrillic). Guess what she meant from the context and answer normally. If you had to guess, in "fix" write «Ты, наверное, хотела сказать: …» with the correct Portuguese phrase.
+- "fixw": if she made a mistake — ONLY the corrected Portuguese word(s), comma-separated (e.g. «me, bem»); otherwise "". "fixs": if she made a mistake — her WHOLE sentence corrected in Portuguese (e.g. «Eu me sinto bem.»); otherwise "". Never put Russian into "fixw"/"fixs".
 - If she wrote a word in Russian, use the Portuguese word naturally in your reply and mention it in "fix" («устала» — cansada).
 - If her message ends with a note about words she did not know (said in Russian), often — about 2 times out of 3, not always — ask her a short question that uses one of those Portuguese words, so the word sticks.
 - "opts": exactly 10 different short answers SHE could say now (max 7 words each, varied: different ideas and words), simple, correct and natural, in the same variant of Portuguese, with female forms; with Russian translations.
 Inside text values use « » for quotes, never the double-quote character.
-Reply with only JSON: {"pt": "your reply in Portuguese", "ru": "Russian translation of your reply", "fix": "correction in Russian or empty string", "new": ["new Portuguese word", "Russian"] or [], "opts": [["Portuguese answer 1", "Russian"], ["Portuguese answer 2", "Russian"], ["Portuguese answer 3", "Russian"], … 10 items in total]}`;
+Reply with only JSON: {"pt": "your reply in Portuguese", "ru": "Russian translation of your reply", "fix": "correction in Russian or empty string", "fixw": "corrected Portuguese word(s) or empty", "fixs": "whole corrected Portuguese sentence or empty", "new": ["new Portuguese word", "Russian"] or [], "opts": [["Portuguese answer 1", "Russian"], ["Portuguese answer 2", "Russian"], ["Portuguese answer 3", "Russian"], … 10 items in total]}`;
 const MORE = (w, ctx, pt) => `A Russian-speaking beginner learner of ${S.hero && S.hero.eu ? "European" : "Brazilian"} Portuguese (about A2-, she also speaks Spanish) tapped the word "${w}" in this sentence: "${ctx}".
 Explain it briefly and simply in Russian. Reply with only JSON:
 {"lemma": "dictionary form (infinitive for verbs, base form for adjectives/nouns)", "tr": "main Russian meaning(s)", "grammar": "1–2 short sentences in Russian: what form this is and why it is used here; if it is very different from Spanish, say so; empty string if nothing to say", "examples": [["simple Portuguese example 1", "Russian translation"], ["example 2", "translation"], ["example 3", "translation"]]}
@@ -357,9 +358,9 @@ async function send(){
   }
   (S.ins || []).forEach(x => { if(msg.includes(x[1]) && !newW.some(y => y[0] === x[0])) newW.push(x); }); S.ins = [];
   document.querySelectorAll(".opts").forEach(x => x.remove());
-  const mb = bubble("me", msg); if(S.usedStt){ mb.append(h("small", "mtag", "🎧 " + S.usedStt)); S.usedStt = null; }
+  const viaVoice = !!S.usedStt; const mb = bubble("me", msg); if(S.usedStt){ mb.append(h("small", "mtag", "🎧 " + S.usedStt)); S.usedStt = null; }
   if(S.target){ const sc = simil(S.target, msg); mb.append(h("small", "mtag", S.asIs ? "💡 Из подсказки" : sc >= .75 ? "✅ Отлично сказала!" : "🎯 Цель была: «" + S.target + "»")); S.asIs = false; tgtHide(); }
-  { const ls = h("button", "melisten", "🔊"); ls.type = "button"; ls.setAttribute("aria-label", "Послушать моё сообщение"); ls.onclick = () => say(msg, lang()); mb.parentElement.insertBefore(ls, mb); ttsPrefetch([msg]); }
+  { const ls = h("button", "melisten", "🔊"); ls.type = "button"; ls.setAttribute("aria-label", "Послушать моё сообщение"); ls.hidden = true; ls.onclick = () => say(mb.dataset.say || msg, lang()); mb.parentElement.insertBefore(ls, mb); S.lastMe = {mb, ls}; }
   if(newW.length){ const ptd = mb.querySelector(".pt"); ptd.textContent = "";
     let rest = msg; const marks = newW.map(x => x[1]);
     const re = new RegExp("(" + marks.map(m => m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")");
@@ -370,7 +371,7 @@ async function send(){
   if(!sample){ const b = bubble("hero", "…", "", ""); b.innerHTML = ""; b.append(h("div", "warn", "Разговор работает только внутри Claude (в приложении или на claude.ai). Открой эту страницу там.")); return; }
   S.busy = true; $("#send").disabled = true;
   REP.me(msg, newW); PERS.act(true); newW.forEach(x => PERS.addCard(x[1], x[0].replace(/\*/g, "")));
-  S.turns.push({role:"user", content: newW.length ? msg + "\n(She did not know these words and said them in Russian: " + newW.map(x => x[0] + " → " + x[1]).join("; ") + ")" : msg});
+  S.turns.push({role:"user", content: (newW.length ? msg + "\n(She did not know these words and said them in Russian: " + newW.map(x => x[0] + " → " + x[1]).join("; ") + ")" : msg) + (viaVoice ? "\n(SPOKEN, written by speech recognition: she speaks Portuguese with an accent, so words that look Italian or Spanish — «che», «sono», «mi», «ben», «molto» — are almost always misheard Portuguese words. Never say she spoke Italian or Spanish; just take the Portuguese she most likely said and correct only real grammar/word mistakes.)" : "")});
   const b = bubble("hero", "", "", ""); b.innerHTML = ""; const ty = h("div", "typing", (S.hero.id === "custom" ? S.hero.n : S.hero.n.split(" ").slice(1).join(" ") || S.hero.n) + " печатает…"); b.append(ty);
   const turns = [{role:"user", content: RULES(S.hero) + PERS.ctx(S.hero) + REP.memo(S.hero) + "\n\n(The conversation starts now. Your first line was already sent.)"}].concat(S.turns.slice(-60));
   try{
@@ -381,7 +382,11 @@ async function send(){
     S.turns.push({role:"assistant", content: JSON.stringify({pt, ru, fix})}); REP.hero(pt, fix);
     if(Array.isArray(r.new) && r.new[0]){ try{ PERS.addCard(String(r.new[0]), String(r.new[1] || "")); }catch(e){} }
     showOpts(r.opts);
-    if(S.auto) say(pt, lang(), 0, true);
+    const fw = String(r.fixw || "").trim(), fs = String(r.fixs || "").trim(), corr = [fw, fs].filter(x => x && !/[а-яё]/i.test(x)).map(x => x.replace(/[.!?…\s]+$/, "")).join(". … ");
+    if(corr){ const fx = hb.querySelector(".fix"); if(fx){ const cb = h("button", "mlisten", "🔊 Как правильно"); cb.type = "button"; cb.style.background = "var(--card)"; cb.style.border = "2px solid var(--line)"; cb.style.display = "block"; cb.onclick = () => say(corr, lang()); fx.append(cb); } }
+    const mine = corr || String(msg || "").replace(/[.!?…\s]+$/, "");
+    if(S.lastMe && S.lastMe.mb === mb){ mb.dataset.say = fs && !/[а-яё]/i.test(fs) ? fs : msg; S.lastMe.ls.hidden = false; if(fs) S.lastMe.ls.title = "Послушать правильный вариант"; }
+    if(S.auto) say(mine && !/[а-яё]/i.test(mine) ? mine + ". … " + pt : pt, lang(), 0, true);
   }catch(e){
     S.turns.pop();
     b.innerHTML = ""; b.append(h("div", "warn", e && e.code === "not_granted" ? "Без разрешения Claude герой не может отвечать. Обнови страницу и нажми «Разрешить»." :
