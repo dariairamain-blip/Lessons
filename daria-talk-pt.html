@@ -277,7 +277,7 @@ const lang = () => S.hero && S.hero.eu ? "pt-PT" : "pt-BR";
 $("#mute").onclick = () => { S.mute = !S.mute; $("#mute").textContent = S.mute ? "🔇 Звук: выкл" : "🔊 Звук: вкл"; $("#mute").classList.toggle("on", S.mute); if(S.mute) try{ speechSynthesis.cancel(); }catch(e){} };
 $("#auto").onclick = () => { S.auto = !S.auto; $("#auto").textContent = "🗣 Автоозвучка: " + (S.auto ? "вкл" : "выкл"); $("#auto").classList.toggle("on", S.auto); };
 
-function pick(){
+function pick(){ try{ micAllStop(); }catch(e){}
   S.hero = null; S.turns = []; { const own1 = document.querySelector(".own"); if(own1) own1.hidden = false; } const hp = $("#helps"); if(hp) hp.innerHTML = ""; const cp = $("#chips"); if(cp){ cp.innerHTML = ""; cp.hidden = true; } $("#dock").hidden = true; fitDock(); $("#who").textContent = "Разговор с героем"; $("#who").className = "tag"; const bk = document.getElementById("bk"); if(bk) bk.hidden = true; const fb = document.getElementById("fin"); if(fb) fb.hidden = true; scrollTo(0, 0);
   const a = $("#app"); a.innerHTML = "";
   a.append(h("h1", "", "С кем хочешь поговорить сейчас?"), h("p", "sub", "Выбери героя: 🇧🇷 — бразильский португальский, 🇵🇹 — европейский. Отвечай по-португальски — герой поддержит разговор и мягко исправит ошибки. Если не знаешь, что сказать, — нажми «💡 Подсказка»."));
@@ -511,7 +511,7 @@ function micHelp(){
 if(REC){ $("#micpt").onclick = () => { if(recNow && recNow.btn.id === "micru"){ recNow.manual = true; try{ recNow.r.stop(); }catch(e){} recNow = null; listen("pt", 0); } else mic($("#micpt"), lang(), ""); };
   $("#micru").onclick = () => { if(recNow && recNow.btn.id === "micpt"){ recNow.manual = true; try{ recNow.r.stop(); }catch(e){} recNow = null; listen("ru", 0); } else mic($("#micru"), "ru-RU", ""); }; }
 $("#send").addEventListener("click", micStop, true);
-function micAllStop(){ try{ if(recO) recO.stop(); }catch(e){} try{ if(recNow){ recNow.manual = true; recNow.r.stop(); recNow = null; } }catch(e){} }
+function micAllStop(){ try{ micRelease(); }catch(e){} try{ if(recO) recO.stop(); }catch(e){} try{ if(recNow){ recNow.manual = true; recNow.r.stop(); recNow = null; } }catch(e){} }
 document.addEventListener("visibilitychange", () => { if(document.hidden) micAllStop(); });
 addEventListener("pagehide", micAllStop);
 $("#send").onclick = send;
@@ -670,21 +670,26 @@ async function wfetch(path, init){
 // ---- recording for OpenAI
 let recO = null;
 const _mic = mic;
-mic = function(btn, lng, label){ if(OAI() && STT() === "openai") return recOAI(btn, btn.id === "micru" ? NATIVE : ""); if(REC) return _mic(btn, lng, label); };
+mic = function(btn, lng, label){ if(OAI() && STT() === "openai") return recOAI(btn, btn.id === "micru" ? NATIVE : "pt"); if(REC) return _mic(btn, lng, label); };
+// microphone stream kept ready during the conversation: no 0.5–1.5 s start-up on every tap
+let MIC = null, micT = 0;
+async function micStream(){ clearTimeout(micT); if(MIC && MIC.getTracks().some(t => t.readyState === "live")) return MIC; MIC = await navigator.mediaDevices.getUserMedia({audio: {echoCancellation: true, noiseSuppression: true}}); return MIC; }
+function micRelease(){ clearTimeout(micT); try{ MIC && MIC.getTracks().forEach(t => t.stop()); }catch(e){} MIC = null; }
+function micIdle(){ clearTimeout(micT); micT = setTimeout(micRelease, 120000); }
 async function recOAI(btn, lng){
   if(recO){ if(recO.btn !== btn) recO.next = btn; recO.stop(); return; }
-  let stream; try{ stream = await navigator.mediaDevices.getUserMedia({audio: true}); }catch(e){ micHelpOnce(); return; }
+  btn.textContent = "⏳ Включаю микрофон…"; let stream; try{ stream = await micStream(); }catch(e){ btn.textContent = btn.id === "micru" ? "🆘 Скажу по-русски" : "🎤 Говорить"; micHelpOnce(); return; }
   const mime = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"].find(t => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || "";
-  let mr; try{ mr = new MediaRecorder(stream, mime ? {mimeType: mime} : undefined); }catch(e){ stream.getTracks().forEach(t => t.stop()); micMsg("🎤 Этот браузер не умеет записывать звук. Открой страницу в Safari или переключи «🎧 Распознавание» на iPhone."); return; }
+  let mr; try{ mr = new MediaRecorder(stream, mime ? {mimeType: mime} : undefined); }catch(e){ micRelease(); micMsg("🎤 Этот браузер не умеет записывать звук. Открой страницу в Safari или переключи «🎧 Распознавание» на iPhone."); return; }
   const chunks = [], label = btn.id === "micru" ? "🆘 Скажу по-русски" : "🎤 Говорить";
   try{ speechSynthesis.cancel(); }catch(e){} try{ AUD.pause(); }catch(e){}
-  btn.classList.add("on"); btn.textContent = btn.id === "micru" ? "● Слушаю по-русски… дальше — 🎤" : "● Слушаю · закончила — нажми, отправлю";
+  btn.classList.add("on"); let t0 = 0; mr.onstart = () => { t0 = Date.now(); btn.textContent = btn.id === "micru" ? "🔴 Говори по-русски… дальше — 🎤" : "🔴 Говори! Закончила — нажми"; try{ navigator.vibrate && navigator.vibrate(30); }catch(e){} };
   mr.ondataavailable = e => { if(e.data && e.data.size) chunks.push(e.data); };
   mr.onstop = async () => {
-    stream.getTracks().forEach(t => t.stop()); const nx = recO && recO.next; recO = null; if(nx) setTimeout(() => mic(nx, "", ""), 0); btn.classList.remove("on"); btn.textContent = "⏳ OpenAI распознаёт…"; btn.disabled = true;
+    micIdle(); const nx = recO && recO.next; recO = null; if(nx) setTimeout(() => mic(nx, "", ""), 0); btn.classList.remove("on"); btn.textContent = "⏳ OpenAI распознаёт…"; btn.disabled = true;
     try{
       const blob = new Blob(chunks, {type: mr.mimeType || mime || "audio/webm"});
-      if(blob.size < 800) throw {code: "short"};
+      if(!t0 || Date.now() - t0 < 500 || blob.size < 200) throw {code: "short"};
       const r = await wfetch("/stt", {method: "POST", headers: {"content-type": blob.type, "x-lang": lng, "x-prompt": sttPrompt()}, body: blob});
       const j = await r.json().catch(() => ({})); if(r.status === 429 && j.error === "limit") throw {code: "limit", scope: j.scope}; if(!r.ok) throw {code: "stt"}; checkLeft(r);
       let t = String(j.text || "").trim();
@@ -697,7 +702,7 @@ async function recOAI(btn, lng){
     }catch(e){ if(!(e && e.code === "paused")) micMsg(e && e.code === "limit" ? limitMsg(e.scope) : e && e.code === "short" ? "🎤 Запись получилась слишком короткой или тихой. Нажми кнопку, скажи фразу, потом нажми ещё раз." : e && e.code === "empty" ? "🎤 Не расслышал. Попробуй ещё раз чуть громче." : e && e.code === "echo" ? "🎤 Не расслышал тебя — распознался текст героя. Скажи ещё раз чуть громче и ближе к микрофону." : e && e.code === "network" ? "📶 Нет интернета или связь прервалась. Попробуй ещё раз." : "OpenAI не смог распознать — попробуй ещё раз или переключи «🎧 Распознавание» на iPhone."); }
     finally{ btn.disabled = false; btn.textContent = label; }
   };
-  recO = {btn, stop: () => { try{ mr.stop(); }catch(e){} }}; const myRec = recO; setTimeout(() => { if(recO === myRec) recO.stop(); }, 30000);
+  recO = {btn, stop: () => { if(recO && recO.stopping) return; if(recO) recO.stopping = true; btn.textContent = "⏳ …"; setTimeout(() => { try{ mr.stop(); }catch(e){} }, 500); }}; const myRec = recO; setTimeout(() => { if(recO === myRec) recO.stop(); }, 30000);
   mr.start();
 }
 function micErr(){ const d = h("div", "modal repm"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto"; x.textContent = "OpenAI не смог распознать — попробуй ещё раз или переключи «🎧 Распознавание» на iPhone."; d.append(x); document.body.append(d); setTimeout(() => d.remove(), 4500); }
@@ -1110,9 +1115,14 @@ Reply in Russian with only JSON: {"level": "level of the day, e.g. A2-", "praise
 
 // ---- 3-second preview of the recognised phrase: «✏️ Исправить» stops the timer, ➤ sends at once
 let pvTimer = null;
-function pvStop(){ if(pvTimer){ clearInterval(pvTimer); pvTimer = null; } $("#pv").hidden = true; fitDock(); }
-function previewSend(){
-  pvStop(); let left = 3; const t = () => { $("#pvt").textContent = "Отправлю через " + left + " сек… Проверь текст ↓"; };
+function pvStop(){ const pn = document.getElementById("pvn"); if(pn) pn.remove(); if(pvTimer){ clearInterval(pvTimer); pvTimer = null; } $("#pv").hidden = true; fitDock(); }
+async function previewSend(){
+  pvStop(); const box = $("#box"); const parts = ruParts(box.value);
+  if(parts.length && sample){ $("#pvt").textContent = "⏳ Перевожу русские слова…"; $("#pv").hidden = false; fitDock(); const src = box.value;
+    const res = await Promise.all(parts.map(p => trPart(p, src).then(r => [p, r.pt]).catch(() => null)));
+    if(box.value !== src) return; let v = src; res.forEach(x => { if(x && x[1]){ v = v.split(x[0]).join(x[1]); (S.ins = S.ins || []).push(x); } }); box.value = v.replace(/([.!?…])\s*([.!?])(?=\s|$)/g, "$1"); renderChips();
+    const nt = res.filter(Boolean).map(x => "🇷🇺 " + x[0] + " → " + x[1]).join(" · "); if(nt){ let m = $("#pvn"); if(!m){ m = h("div", "mtag"); m.id = "pvn"; $("#pv").append(m); } m.textContent = nt; } }
+  let left = 5; const t = () => { $("#pvt").textContent = "Отправлю через " + left + " сек… Проверь текст ↓"; };
   t(); $("#pv").hidden = false; fitDock();
   pvTimer = setInterval(() => { left--; if(left <= 0){ pvStop(); send(); } else t(); }, 1000);
 }
