@@ -154,7 +154,7 @@ h1{font:800 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
 </style>
 <div class="wrap" id="wrap">
   <div class="bar"><div class="top"><span class="tag" id="who">Разговор с героем</span>
-    <div class="snd"><button type="button" id="hlp" aria-label="Как говорить с героем">❓</button><button type="button" id="mdl" hidden>🧠 Sonnet</button><button type="button" id="sttb" hidden>🎧 Распознавание: iPhone</button><button type="button" id="ttsb" hidden>🗣 Голос героя: iPhone</button><button type="button" id="mute">🔊 Звук: вкл</button><button type="button" id="auto" class="on">🗣 Автоозвучка: вкл</button></div></div></div>
+    <div class="snd"><button type="button" id="hlp" aria-label="Как говорить с героем">❓</button><button type="button" id="mdl" hidden>🧠 Sonnet</button><button type="button" id="sttb" hidden>🎧 Распознавание: iPhone</button><button type="button" id="ttsb" hidden>🗣 Голос героя: iPhone</button><button type="button" id="mute">🔊 Звук: вкл</button><button type="button" id="auto" class="on">🗣 Автоозвучка: вкл</button><button type="button" id="spd" aria-label="Скорость голоса">⏩ 1.5×</button></div></div></div>
   <div id="app"></div>
   <p class="own" style="text-align:center;font-size:12.5px;color:var(--muted);margin:18px 0 0">© Daria Botina</p>
 </div>
@@ -273,7 +273,7 @@ function pickVoice(lang){ const all = speechSynthesis.getVoices(); const L = lan
   const byL = all.filter(x => x.lang && x.lang.replace("_","-").toLowerCase().startsWith(L)), en = all.filter(x => x.lang && x.lang.toLowerCase().startsWith("en"));
   const want = heroG() === "m" ? MALEV : FEMV, avoid = heroG() === "m" ? FEMV : MALEV;
   return byL.find(x => want.test(x.name) && !(heroG() === "f" && MALEV.test(x.name))) || byL.find(x => !avoid.test(x.name)) || byL[0] || null; }
-function say(t, lang, rate, queue){ if(S.mute || !("speechSynthesis" in window)) return; try{ if(!queue) speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, "")); u.lang = lang; u.rate = rate || .85;
+function say(t, lang, rate, queue){ if(S.mute || !("speechSynthesis" in window)) return; try{ if(!queue) speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, "")); u.lang = lang; u.rate = rate || Math.min(1.6, .9 * SPD);
   const v = pickVoice(lang); if(v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
 const lang = () => S.hero && S.hero.eu ? "pt-PT" : "pt-BR";
 $("#mute").onclick = () => { S.mute = !S.mute; $("#mute").textContent = S.mute ? "🔇 Звук: выкл" : "🔊 Звук: вкл"; $("#mute").classList.toggle("on", S.mute); if(S.mute) try{ speechSynthesis.cancel(); }catch(e){} };
@@ -726,6 +726,12 @@ function micErr(){ const d = h("div", "modal repm"); d.style.background = "trans
 if(!REC && window.MediaRecorder){ $("#micpt").onclick = () => mic($("#micpt"), lang(), ""); $("#micru").onclick = () => mic($("#micru"), "ru-RU", ""); }
 // ---- OpenAI voice (one audio element, unlocked by the first tap — needed on iPhone)
 const AUD = new Audio(); AUD.preload = "auto";
+const SPDS = [1, 1.25, 1.5, 1.75];
+let SPD = (() => { try{ const v = +localStorage.getItem("daria_speed"); return SPDS.includes(v) ? v : 1.5; }catch(e){ return 1.5; } })();
+function spdLabel(){ const b = document.getElementById("spd"); if(b) b.textContent = "⏩ " + SPD + "×"; }
+function audRate(rate){ const r = rate && rate < .8 ? .75 : SPD; try{ AUD.preservesPitch = true; AUD.webkitPreservesPitch = true; }catch(e){} try{ AUD.defaultPlaybackRate = r; AUD.playbackRate = r; }catch(e){} }
+document.addEventListener("DOMContentLoaded", spdLabel); setTimeout(spdLabel, 0);
+document.addEventListener("click", e => { if(!e.target.closest || !e.target.closest("#spd")) return; SPD = SPDS[(SPDS.indexOf(SPD) + 1) % SPDS.length]; try{ localStorage.setItem("daria_speed", String(SPD)); }catch(e){} spdLabel(); });
 const SILENT = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
 let audUnlocked = false;
 document.addEventListener("click", () => { if(audUnlocked) return; audUnlocked = true; try{ AUD.src = SILENT; AUD.play().catch(() => {}); }catch(e){} }, true);
@@ -752,7 +758,7 @@ async function sayOAI(t, rate){
     try{ url = await ps[i]; }
     catch(e){ clearTimeout(slow); if(my !== ttsSeq) return; if(i === 0 && gOK(lang())){ voiceNote(""); _say(t, lang(), rate); } else voiceNote("🔇 Голос не загрузился (" + (e && e.why || "ошибка") + "). Нажми 🔊 ещё раз."); return; }
     clearTimeout(slow); if(my !== ttsSeq) return; if(i === 0) voiceNote("");
-    try{ if(!MIC) aSess("playback"); AUD.src = url; await AUD.play(); }
+    try{ if(!MIC) aSess("playback"); AUD.src = url; audRate(rate); await AUD.play(); audRate(rate); }
     catch(e){ voiceNote("🔇 Телефон не дал включить звук. Нажми 🔊 ещё раз — теперь сразу заиграет."); return; }
     const how = await new Promise(ok => { AUD.onended = () => ok("end"); AUD.onerror = () => ok("err"); AUD.onpause = () => ok(AUD.ended ? "end" : "pause"); });
     AUD.onended = AUD.onerror = AUD.onpause = null;
