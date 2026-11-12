@@ -192,8 +192,8 @@ const RULES = h => `${h.role}
 You are a conversation partner for Daria (Дарья). ABOUT HER (use naturally, one topic at a time, never list it all): a Russian-speaking woman who lives in Antalya, Turkey, by the sea; she works as a patient manager at a dental clinic (most patients come from the UK) and teaches Spanish online; she speaks English, Spanish, German, Turkish and French; she loves the sea, yoga, dancing, travel, good food and coffee. She is a BEGINNER in Portuguese (started in October 2026, about A1+/A2-): she knows the present tense, ir + infinitive, estar + gerund / estar a + infinitive, the past tense (pretérito perfeito) and a little imperfeito.
 How to reply:
 - Stay in character. Reply ONLY in ${h.eu ? "European Portuguese from Portugal (tu with friends, polite forms with strangers, «estar a + infinitivo», European words: pequeno-almoço, autocarro, telemóvel, bica)" : "Brazilian Portuguese (você, «estar + gerúndio», Brazilian words: café da manhã, ônibus, celular)"}. Never write English or Russian in "pt".
-- LENGTH: 1–3 short, simple sentences (max 12 words each).
-- LEVEL: speak simply, about A2-, and match what you see in her messages. At most ONE new word per reply; if you use one, put it into "new" with its Russian meaning.
+- LENGTH: 2–3 sentences (max 15 words each).
+- LEVEL: a bit ABOVE her level (she wants a challenge), about A2+; up to TWO new words per reply; put the most useful one into "new" with its Russian meaning.
 - Usually end with ONE short, easy question.
 - Every time vary your words: never reuse a sentence you already said in this chat.
 - If her last message has a mistake, in "fix" show the corrected Portuguese phrase and explain in max 12 Russian words why. She is a woman: obrigada, cansada, ocupada. If she TYPED a Spanish word or form, say so gently («это по-испански»); never say «по-итальянски». If no mistake, "fix" is "" (praise briefly only every few turns).
@@ -338,7 +338,7 @@ function start(x){ sendEvent("visit", "Герои: " + (x && x.n ? x.n : "")); c
   if(x.id === "psy") a.append(h("p", "note", ""));
   if(x.scene) a.append(PERS.banner(x.scene)); const c = h("div", "chat"); c.id = "chat"; a.append(c);
   const cb = x.scene ? null : REP.callback(x); const hi = cb ? cb.pt : x.hi, hiru = cb ? cb.ru : x.hiru, hw = cb ? cb.words : x.words;
-  bubble("hero", hi, hiru, "", hw); S.turns.push({role:"assistant", content: JSON.stringify({pt:hi, ru:hiru, fix:""})}); tgtHide(); showOpts(cb ? cb.opts : x.opts);
+  bubble("hero", hi, hiru, "", hw); S.turns.push({role:"assistant", content: JSON.stringify({pt:hi, ru:hiru, fix:""})}); tgtHide(); showOpts(cb ? cb.opts : x.opts, hi);
   if(S.auto) say(hi, lang());
   REP.begin(x, hi);
   $("#dock").hidden = false; $("#mics").hidden = !(REC || (window.MediaRecorder && WORKER && !window.claude)); fitDock();
@@ -381,7 +381,7 @@ async function send(){
     b.parentElement.remove(); const hb = bubble("hero", pt, ru, fix, words); if(sample === viaWorker) hb.append(h("small", "mtag", mdlLabel() + " · 🗣 " + (TTS() === "openai" ? "OpenAI" : "iPhone")));
     S.turns.push({role:"assistant", content: JSON.stringify({pt, ru, fix})}); REP.hero(pt, fix);
     if(Array.isArray(r.new) && r.new[0]){ try{ PERS.addCard(String(r.new[0]), String(r.new[1] || "")); }catch(e){} }
-    showOpts(r.opts);
+    showOpts(r.opts, pt);
     const fw = String(r.fixw || "").trim(), fs = String(r.fixs || "").trim(), corr = [fw, fs].filter(x => x && !/[а-яё]/i.test(x)).map(x => x.replace(/[.!?…\s]+$/, "")).join(". … ");
     if(corr){ const fx = hb.querySelector(".fix"); if(fx){ const cb = h("button", "mlisten", "🔊 Как правильно"); cb.type = "button"; cb.style.background = "var(--card)"; cb.style.border = "2px solid var(--line)"; cb.style.display = "block"; cb.onclick = () => say(corr, lang()); fx.append(cb); } }
     const mine = corr || String(msg || "").replace(/[.!?…\s]+$/, "");
@@ -548,6 +548,7 @@ Write a short, warm, motivating report in Russian. Be honest about the level. In
  "tip": "one concrete thing to practise next, in Russian, max 15 words",
  "callback_pt": "1–2 short Portuguese sentences the same hero (${ses.hero}) can say next time: recall what she told about and ask a question that invites her to use one corrected form or new word",
  "callback_ru": "Russian translation of callback_pt",
+ "callback_opts": [["10 different short Portuguese answers she could say to callback_pt (max 7 words, female forms)", "Russian"]],
  "facts": ["NEW lasting facts about Daria's life that she told in this talk (work events, people, plans, trips, likes), short Portuguese sentences, max 5; [] if none. Do NOT repeat what is already known: ${typeof PERS !== "undefined" ? PERS.factsLine() : ""}"]${ses.scene && ses.scene.goal ? `,
  "mission_done": true or false — did she complete this mission: ${ses.scene.t}; goal: she must use ${ses.scene.goal},
  "mission_note": "1 short Russian sentence: which target phrases she used and which are missing"` : ""}}`;
@@ -566,7 +567,7 @@ Reply with only JSON: {"drill": [{"q": "short Russian instruction or an Portugue
     ses.report = {level: String(r.level || "—"), praise: String(r.praise || ""), topic: String(r.topic || ""),
       mistakes: Array.isArray(r.mistakes) ? r.mistakes.slice(0, 3) : [], words: Array.isArray(r.words) ? r.words.slice(0, 6) : [],
       tip: String(r.tip || ""), drill: Array.isArray(r.drill) ? r.drill.filter(d => d && Array.isArray(d.opts) && d.opts.includes(d.a)).slice(0, 5) : [],
-      facts: Array.isArray(r.facts) ? r.facts.map(String).filter(Boolean).slice(0, 5) : [], mission: ses.scene && ses.scene.goal ? {done: r.mission_done === true || r.mission_done === "true", note: String(r.mission_note || "")} : null, cb: r.callback_pt ? {pt: String(r.callback_pt), ru: String(r.callback_ru || ""), words: r.callback_words && typeof r.callback_words === "object" ? r.callback_words : {}} : null};
+      facts: Array.isArray(r.facts) ? r.facts.map(String).filter(Boolean).slice(0, 5) : [], mission: ses.scene && ses.scene.goal ? {done: r.mission_done === true || r.mission_done === "true", note: String(r.mission_note || "")} : null, cb: r.callback_pt ? {pt: String(r.callback_pt), ru: String(r.callback_ru || ""), opts: Array.isArray(r.callback_opts) ? r.callback_opts.filter(x => Array.isArray(x) && x[0] && !/^10 different/.test(x[0])).slice(0, 10) : [], words: r.callback_words && typeof r.callback_words === "object" ? r.callback_words : {}} : null};
     const a = all().filter(x => x.id !== ses.id); a.push(ses); store(KEY, a.slice(-120)); try{ sendEvent("talk_report", ses.hero, text(ses).split("\n").slice(1).join("\n")); }catch(e){} try{ PERS.afterReport(ses); }catch(e){} return ses;
   }
   const text = ses => { const r = ses.report; return `🏁 Итог разговора — ${dstr(ses.date)}, ${ses.hero}\nУровень: ${r.level} · реплик: ${ses.log.filter(x => x.me).length}\n🎉 ${r.praise}` +
@@ -744,14 +745,23 @@ async function sayOAI(t, rate){
   const text = String(t || "").replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, "").trim(); if(!text) return;
   const my = ++ttsSeq;
   try{ speechSynthesis.cancel(); }catch(e){}
+  const parts = splitSent(text), ps = parts.map(p => ttsGet(p, rate)); ps.forEach(p => p.catch(() => {}));
   const slow = setTimeout(() => { if(my === ttsSeq) voiceNote("⏳ Загружаю голос…"); }, 700);
-  let url;
-  try{ url = await ttsGet(text, rate); }
-  catch(e){ clearTimeout(slow); if(my !== ttsSeq) return; if(gOK(lang())){ voiceNote(""); _say(t, lang(), rate); } else voiceNote("🔇 Голос не загрузился (" + (e && e.why || "ошибка") + "). Нажми 🔊 ещё раз."); return; }
-  clearTimeout(slow); if(my !== ttsSeq) return; voiceNote("");
-  try{ if(!MIC) aSess("playback"); AUD.src = url; await AUD.play(); }
-  catch(e){ voiceNote("🔇 Телефон не дал включить звук. Нажми 🔊 ещё раз — теперь сразу заиграет."); }
+  for(let i = 0; i < parts.length; i++){
+    let url;
+    try{ url = await ps[i]; }
+    catch(e){ clearTimeout(slow); if(my !== ttsSeq) return; if(i === 0 && gOK(lang())){ voiceNote(""); _say(t, lang(), rate); } else voiceNote("🔇 Голос не загрузился (" + (e && e.why || "ошибка") + "). Нажми 🔊 ещё раз."); return; }
+    clearTimeout(slow); if(my !== ttsSeq) return; if(i === 0) voiceNote("");
+    try{ if(!MIC) aSess("playback"); AUD.src = url; await AUD.play(); }
+    catch(e){ voiceNote("🔇 Телефон не дал включить звук. Нажми 🔊 ещё раз — теперь сразу заиграет."); return; }
+    const how = await new Promise(ok => { AUD.onended = () => ok("end"); AUD.onerror = () => ok("err"); AUD.onpause = () => ok(AUD.ended ? "end" : "pause"); });
+    AUD.onended = AUD.onerror = AUD.onpause = null;
+    if(how !== "end" || my !== ttsSeq) return;
+  }
 }
+// sentences of a reasonable size: very short pieces are joined with the next one
+function splitSent(text){ const raw = String(text).split(/(?<=[.!?…])\s+/).map(x => x.replace(/^…\s*/, "").trim()).filter(x => x && /\p{L}/u.test(x)); const out = [];
+  raw.forEach(x => { if(out.length && out[out.length - 1].length < 18) out[out.length - 1] += " " + x; else out.push(x); }); return out.length ? out : [String(text)]; }
 const _say = say;
 let gWarned = false;
 function gWarn(){ if(gWarned) return; gWarned = true; const d = h("div", "modal repm"); d.style.background = "transparent"; d.style.pointerEvents = "none"; d.style.alignItems = "start"; const x = h("div", "box"); x.style.pointerEvents = "auto";
@@ -989,7 +999,8 @@ const PERS = (() => {
   }
   function ctx(hero){
     const lv = level(), F = facts().slice(-25);
-    let t = "\n- HER CURRENT LEVEL (measured automatically from her recent talks): " + lv.lv + ". Speak at this level; at most 5% of your words and grammar may be one level higher. This overrides the level written above.";
+    const up = ORDER[Math.min(ORDER.length - 1, Math.max(0, ORDER.indexOf(lv.lv)) + 2)];
+    let t = "\n- HER CURRENT LEVEL (measured automatically from her recent talks): " + lv.lv + ". She asked for MORE CHALLENGE (about 50% harder): speak at about " + up + " — richer vocabulary, past tenses (perfeito and imperfeito), ir + infinitive, common colloquial expressions; 2–3 sentences, up to 15 words each; up to TWO new words per reply (put the most useful one into \"new\"). The 10 ready answers in \"opts\" may be up to 10 words and a bit more varied. This overrides the level written above.";
     if(F.length) t += "\n- WHAT YOU ALREADY KNOW ABOUT ANASTASIA from earlier talks (all heroes share this knowledge; use it naturally, do not list it): " + F.map(f => f.t).join("; ") + ".";
     const sc = hero && hero.scene;
     if(sc && sc.kind === "sit") t += "\n- TODAY'S SITUATION (role-play): " + sc.task + " Play this situation from your first line on.";
@@ -1162,7 +1173,7 @@ $("#send").addEventListener("click", () => { if(pvTimer) pvStop(); }, true);
 function soundUnlock(){ try{ if(AUD.paused){ AUD.src = SILENT; AUD.play().catch(() => {}); } }catch(e){} try{ if(!speechSynthesis.speaking){ const u = new SpeechSynthesisUtterance(" "); u.volume = 0; speechSynthesis.speak(u); } }catch(e){} }
 ["#micpt", "#micru", "#send"].forEach(id => $(id).addEventListener("click", soundUnlock, true));
 // ---- ⏹ Stop inside the hero's message: «🔊 Ещё раз» turns into «⏹ Стоп» while this message is being spoken
-function stopVoice(){ try{ AUD.pause(); }catch(e){} try{ speechSynthesis.cancel(); }catch(e){} S.spk = ""; }
+function stopVoice(){ ttsSeq++; try{ AUD.pause(); }catch(e){} try{ speechSynthesis.cancel(); }catch(e){} S.spk = ""; }
 const _sayStop = say; say = function(t, ...a){ S.spk = String(t || ""); return _sayStop(t, ...a); };
 setInterval(() => { let on = false; try{ on = (!AUD.paused && !AUD.ended && AUD.currentTime > 0 && AUD.src.indexOf("data:") !== 0) || speechSynthesis.speaking; }catch(e){}
   const btns = [...document.querySelectorAll(".bub .tools button.rep1")]; const cur = on && S.spk ? btns.find(b => b.dataset.pt === S.spk) : null;
@@ -1189,9 +1200,15 @@ function blockPaused(){ if(document.getElementById("paused")) return;
 
 
 // ---- 3 ready answers under the hero's line, hidden behind «💡 Подсказка»: tap one → say it aloud (🎤 starts), or send as it is
-function showOpts(list){
+function showOpts(list, heroLine){
   document.querySelectorAll(".opts").forEach(x => x.remove());
-  const L = (Array.isArray(list) ? list : []).filter(x => Array.isArray(x) && x[0]).slice(0, 10); if(!L.length) return;
+  const L = (Array.isArray(list) ? list : []).filter(x => Array.isArray(x) && x[0]).slice(0, 10);
+  if(!L.length){ if(!heroLine || !sample) return; const box = h("div", "opts"); const hb = h("button", "hint", "💡 Подсказка: как можно ответить"); hb.type = "button"; box.append(hb);
+    hb.onclick = async () => { hb.disabled = true; hb.textContent = "⏳ Подбираю ответы… (около 5 сек)";
+      try{ const r = await sample.json([{role: "user", content: `A Russian-speaking woman, a beginner in ${S.hero && S.hero.eu ? "European" : "Brazilian"} Portuguese (about A2-), is talking with ${S.hero ? S.hero.n : "a friend"}. He/she just said: "${heroLine}". Give exactly 10 different answers SHE could say now (max 10 words each, a bit challenging, simple, correct, natural, female forms, same variant of Portuguese), with Russian translations. Reply with only JSON: {"opts": [["Portuguese", "Russian"], ...]}`}], {modelTier: "quick", cache: false});
+        if(box.isConnected){ box.remove(); showOpts(r.opts, ""); const nb = document.querySelector(".opts button.hint"); if(nb) nb.click(); } }
+      catch(e){ hb.disabled = false; hb.textContent = "💡 Не получилось — нажми ещё раз"; } };
+    $("#chat").append(box); show(box); return; }
   const box = h("div", "opts"); const hb = h("button", "hint", "💡 Подсказка: как можно ответить"); hb.type = "button"; box.append(hb);
   const inner = h("div", "opts-in"); inner.hidden = true; inner.style.display = "flex"; inner.style.flexDirection = "column"; inner.style.gap = "6px";
   inner.append(h("div", "hd", "Нажми и скажи вслух:"));
