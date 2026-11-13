@@ -93,6 +93,12 @@ h1{font:800 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
 .modal .mx{position:sticky;top:0;justify-self:end;margin:-6px -6px -40px 0;width:38px;height:38px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--ink);font:900 17px var(--body);cursor:pointer;z-index:2}
 .modal .box > .ok:last-child{position:sticky;bottom:-16px;box-shadow:0 -8px 12px var(--card)}
 .modal .ok{border:0;border-radius:14px;background:#6C3BF5;color:#fff;font:900 16px var(--body);padding:12px;cursor:pointer}
+.topicrow{max-width:560px;margin:0 auto 6px;display:flex;justify-content:flex-end}
+#topicb{border:2px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font:800 13.5px var(--body);padding:5px 12px;cursor:pointer}
+.tlist{display:grid;gap:6px}.tlist button{text-align:left;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:700 14.5px var(--body);padding:8px 10px;cursor:pointer}
+.tlist button small{display:block;color:var(--muted);font-weight:600;font-size:13px}
+.town{display:flex;gap:6px}.town input{flex:1;min-width:0;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:600 15px var(--body);padding:8px 10px}
+.tdiv{text-align:center;color:var(--muted);font-size:13px;font-weight:800;margin:6px 0}
 .mics{max-width:560px;margin:0 auto 8px;display:grid;grid-template-columns:1.6fr 1fr;gap:8px}
 .mic{border:2px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);font:900 15px var(--body);min-height:48px;padding:6px 10px;cursor:pointer}
 .mic.on{background:#E2482F;border-color:#E2482F;color:#fff;animation:pulse 1.2s ease-in-out infinite}
@@ -158,7 +164,7 @@ h1{font:800 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
   <div id="app"></div>
   <p class="own" style="text-align:center;font-size:12.5px;color:var(--muted);margin:18px 0 0">© Daria Botina</p>
 </div>
-<div class="dock" id="dock" hidden><div class="helps" id="helps"></div><div class="chips" id="chips" hidden></div><div class="tgt" id="tgt" hidden><span id="tgtt"></span><button type="button" id="tgtl">🔊</button><button type="button" id="tgtw">🐢</button><button type="button" id="tgtm">🎤 Сказать</button><button type="button" id="tgts">➤ Отправить так</button><button type="button" id="tgtx">✕</button></div><div class="pv" id="pv" hidden><span id="pvt"></span><button type="button" id="pved">✏️ Исправить</button></div><div class="mics" id="mics" hidden><button class="mic" id="micpt" type="button">🎤 Говорить</button><button class="mic" id="micru" type="button">🆘 Скажу по-русски</button></div><div class="in">
+<div class="dock" id="dock" hidden><div class="topicrow"><button type="button" id="topicb">🔀 Сменить тему</button></div><div class="helps" id="helps"></div><div class="chips" id="chips" hidden></div><div class="tgt" id="tgt" hidden><span id="tgtt"></span><button type="button" id="tgtl">🔊</button><button type="button" id="tgtw">🐢</button><button type="button" id="tgtm">🎤 Сказать</button><button type="button" id="tgts">➤ Отправить так</button><button type="button" id="tgtx">✕</button></div><div class="pv" id="pv" hidden><span id="pvt"></span><button type="button" id="pved">✏️ Исправить</button></div><div class="mics" id="mics" hidden><button class="mic" id="micpt" type="button">🎤 Говорить</button><button class="mic" id="micru" type="button">🆘 Скажу по-русски</button></div><div class="in">
   <textarea id="box" rows="1" placeholder="Escreve… (пиши по-португальски)" aria-label="Твоё сообщение"></textarea>
   <button class="send" id="send" type="button" aria-label="Отправить">➤</button></div></div>
 <script>
@@ -280,7 +286,7 @@ $("#mute").onclick = () => { S.mute = !S.mute; $("#mute").textContent = S.mute ?
 $("#auto").onclick = () => { S.auto = !S.auto; $("#auto").textContent = "🗣 Автоозвучка: " + (S.auto ? "вкл" : "выкл"); $("#auto").classList.toggle("on", S.auto); };
 
 function pick(){ try{ micAllStop(); }catch(e){}
-  S.hero = null; S.turns = []; { const own1 = document.querySelector(".own"); if(own1) own1.hidden = false; } const hp = $("#helps"); if(hp) hp.innerHTML = ""; const cp = $("#chips"); if(cp){ cp.innerHTML = ""; cp.hidden = true; } $("#dock").hidden = true; fitDock(); $("#who").textContent = "Разговор с героем"; $("#who").className = "tag"; const bk = document.getElementById("bk"); if(bk) bk.hidden = true; const fb = document.getElementById("fin"); if(fb) fb.hidden = true; scrollTo(0, 0);
+  S.hero = null; S.turns = []; S.topic = ""; { const own1 = document.querySelector(".own"); if(own1) own1.hidden = false; } const hp = $("#helps"); if(hp) hp.innerHTML = ""; const cp = $("#chips"); if(cp){ cp.innerHTML = ""; cp.hidden = true; } $("#dock").hidden = true; fitDock(); $("#who").textContent = "Разговор с героем"; $("#who").className = "tag"; const bk = document.getElementById("bk"); if(bk) bk.hidden = true; const fb = document.getElementById("fin"); if(fb) fb.hidden = true; scrollTo(0, 0);
   const a = $("#app"); a.innerHTML = "";
   a.append(h("h1", "", "С кем хочешь поговорить сейчас?"), h("p", "sub", "Выбери героя: 🇧🇷 — бразильский португальский, 🇵🇹 — европейский. Отвечай по-португальски — герой поддержит разговор и мягко исправит ошибки. Если не знаешь, что сказать, — нажми «💡 Подсказка»."));
   const g = h("div", "grid");
@@ -345,6 +351,48 @@ function start(x){ sendEvent("visit", "Герои: " + (x && x.n ? x.n : "")); c
   let seen = false; try{ seen = localStorage.getItem("daria_howto_seen") === "1"; localStorage.setItem("daria_howto_seen", "1"); }catch(e){}
   if(!seen) howTo(); else if(!matchMedia("(pointer: coarse)").matches) $("#box").focus();
 }
+function topicNote(){ return S.topic ? "\n- CURRENT TOPIC — she chose it herself with the «Change topic» button: «" + S.topic + "». Talk about THIS topic now, from your own character's point of view. Do NOT return to the previous topic (or your mission topic) unless she brings it back herself." : ""; }
+const TOPIC0 = [["A praia e o mar", "Море и пляж"], ["Viagens", "Путешествия"], ["Comida favorita", "Любимая еда"], ["O fim de semana", "Выходные"], ["Filmes e séries", "Фильмы и сериалы"], ["Trabalho e clientes", "Работа и клиенты"], ["Dança e música", "Танцы и музыка"], ["Família", "Семья"], ["Planos para o futuro", "Планы на будущее"], ["Animais", "Животные"]];
+function topicPick(){
+  if(!S.hero) return;
+  document.querySelectorAll(".modal.topm").forEach(x => x.remove());
+  const m = h("div", "modal topm"); m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true"); const b = h("div", "box"); m.append(b); m.onclick = e => { if(e.target === m) m.remove(); };
+  b.append(h("h2", "", "🔀 О чём поговорим?"), h("p", "", "Выбери тему или напиши свою — " + (S.hero.n || "герой") + " сразу перейдёт на неё."));
+  const own = h("div", "town"); const inp = document.createElement("input"); inp.placeholder = "Своя тема (можно по-русски)"; inp.setAttribute("aria-label", "Своя тема");
+  const go = h("button", "ok", "➤"); go.type = "button"; go.setAttribute("aria-label", "Поговорить об этом"); own.append(inp, go);
+  go.onclick = () => { const v = inp.value.trim(); if(!v){ inp.focus(); return; } m.remove(); topicSet(v, v); };
+  inp.onkeydown = e => { if(e.key === "Enter"){ e.preventDefault(); go.onclick(); } };
+  const list = h("div", "tlist"); const wait = h("p", "tdiv", "⏳ Подбираю темы под героя…"); list.append(wait);
+  b.append(own, list); document.body.append(m);
+  const draw = L => { list.innerHTML = ""; L.slice(0, 10).forEach(x => { const t = h("button", ""); t.type = "button"; t.append(document.createTextNode(String(x[1] || x[0]))); t.append(h("small", "", String(x[0]))); t.onclick = () => { m.remove(); topicSet(String(x[0]), String(x[1] || x[0])); }; list.append(t); }); };
+  if(!sample){ draw(TOPIC0); return; }
+  const recent = S.turns.slice(-6).map(x => { try{ return JSON.parse(x.content).pt || ""; }catch(e){ return String(x.content).slice(0, 200); } }).join(" | ");
+  const q = `You are helping a Russian-speaking learner of ${S.hero.eu ? "European" : "Brazilian"} Portuguese (about A2) who talks with the character "${S.hero.n}" (${S.hero.d || S.hero.r || ""}). She wants to CHANGE THE TOPIC — the current talk was: ${recent}. Suggest exactly 10 NEW, different, lively everyday topics that this character could naturally chat about with her (her interests: sea, travel, food, dancing, yoga, films, work with clients and patients, family, weekends, plans) — none about the current topic. Reply with only JSON: {"topics": [["short Portuguese topic (2–5 words)", "the same in Russian"], ...10 items]}`;
+  let done = false; const tm = setTimeout(() => { if(!done){ done = true; draw(TOPIC0); } }, 7000);
+  cheap(q).then(r => { if(done) return; done = true; clearTimeout(tm); const L = (r && Array.isArray(r.topics) ? r.topics : []).filter(x => Array.isArray(x) && x[0]); draw(L.length >= 5 ? L : TOPIC0); })
+    .catch(() => { if(done) return; done = true; clearTimeout(tm); draw(TOPIC0); });
+}
+async function topicSet(topic, label){
+  if(!S.hero) return;
+  for(let i = 0; i < 40 && S.busy; i++) await new Promise(r => setTimeout(r, 250));
+  stopVoice(); S.topic = topic; document.querySelectorAll(".opts").forEach(x => x.remove()); $("#helps").innerHTML = ""; tgtHide();
+  const dv = h("div", "tdiv", "🔀 Новая тема: " + label); $("#chat").append(dv);
+  if(!sample) return;
+  S.busy = true; $("#send").disabled = true;
+  S.turns.push({role:"user", content: "(She pressed the «Change topic» button. Drop the previous topic completely — no more about it. New topic: «" + topic + "». Start this new topic naturally in one or two short sentences and ask her one easy question about it.)"});
+  const b = bubble("hero", "", "", ""); b.innerHTML = ""; b.append(h("div", "typing", "…"));
+  const turns = [{role:"user", content: RULES(S.hero) + PERS.ctx(S.hero) + REP.memo(S.hero) + topicNote() + "\n\n(The conversation starts now. Your first line was already sent.)"}].concat(S.turns.slice(-60));
+  try{
+    const r = await sample.json(turns, {modelTier:"quick", cache:false});
+    const pt = String(r.pt || "").trim() || "Vamos falar de outra coisa!", ru = String(r.ru || "");
+    const words = {}; if(r.words && typeof r.words === "object") Object.entries(r.words).forEach(([k, v]) => { words[String(k).toLowerCase()] = String(v); });
+    b.parentElement.remove(); bubble("hero", pt, ru, "", words);
+    S.turns.push({role:"assistant", content: JSON.stringify({pt, ru, fix:""})}); REP.hero(pt, "");
+    showOpts(r.opts, pt); if(S.auto) say(pt, lang());
+  }catch(e){ S.turns.pop(); S.topic = topic; b.innerHTML = ""; b.append(h("div", "warn", "Не получилось сменить тему — проверь интернет и нажми «🔀 Сменить тему» ещё раз.")); }
+  finally{ S.busy = false; $("#send").disabled = false; }
+}
+document.addEventListener("click", e => { if(e.target.closest && e.target.closest("#topicb")) topicPick(); });
 async function send(){
   const box = $("#box"); const t = box.value.trim(); if(!t || S.busy) return;
   box.value = ""; $("#helps").innerHTML = ""; renderChips();
@@ -373,7 +421,7 @@ async function send(){
   REP.me(msg, newW); PERS.act(true); newW.forEach(x => PERS.addCard(x[1], x[0].replace(/\*/g, "")));
   S.turns.push({role:"user", content: (newW.length ? msg + "\n(She did not know these words and said them in Russian: " + newW.map(x => x[0] + " → " + x[1]).join("; ") + ")" : msg) + (viaVoice ? "\n(SPOKEN, written by speech recognition: she speaks Portuguese with an accent, so words that look Italian or Spanish — «che», «sono», «mi», «ben», «molto» — are almost always misheard Portuguese words. Never say she spoke Italian or Spanish; just take the Portuguese she most likely said and correct only real grammar/word mistakes.)" : "")});
   const b = bubble("hero", "", "", ""); b.innerHTML = ""; const ty = h("div", "typing", (S.hero.id === "custom" ? S.hero.n : S.hero.n.split(" ").slice(1).join(" ") || S.hero.n) + " печатает…"); b.append(ty);
-  const turns = [{role:"user", content: RULES(S.hero) + PERS.ctx(S.hero) + REP.memo(S.hero) + "\n\n(The conversation starts now. Your first line was already sent.)"}].concat(S.turns.slice(-60));
+  const turns = [{role:"user", content: RULES(S.hero) + PERS.ctx(S.hero) + REP.memo(S.hero) + topicNote() + "\n\n(The conversation starts now. Your first line was already sent.)"}].concat(S.turns.slice(-60));
   try{
     const r = await sample.json(turns, {modelTier:"quick", cache:false});
     const pt = String(r.pt || "").trim() || "Hmm… pode repetir?", ru = String(r.ru || ""), fix = String(r.fix || "");
