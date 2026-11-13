@@ -99,6 +99,7 @@ h1{font:800 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
 .tlist button small{display:block;color:var(--muted);font-weight:600;font-size:13px}
 .town{display:flex;gap:6px}.town input{flex:1;min-width:0;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:600 15px var(--body);padding:8px 10px}
 .tdiv{text-align:center;color:var(--muted);font-size:13px;font-weight:800;margin:6px 0}
+.fixfull{margin-top:6px;font-weight:800;color:inherit}
 .mics{max-width:560px;margin:0 auto 8px;display:grid;grid-template-columns:1.6fr 1fr;gap:8px}
 .mic{border:2px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);font:900 15px var(--body);min-height:48px;padding:6px 10px;cursor:pointer}
 .mic.on{background:#E2482F;border-color:#E2482F;color:#fff;animation:pulse 1.2s ease-in-out infinite}
@@ -431,7 +432,7 @@ async function send(){
     if(Array.isArray(r.new) && r.new[0]){ try{ PERS.addCard(String(r.new[0]), String(r.new[1] || "")); }catch(e){} }
     showOpts(r.opts, pt);
     const fw = String(r.fixw || "").trim(), fs = String(r.fixs || "").trim(), corr = [fw, fs].filter(x => x && !/[а-яё]/i.test(x)).map(x => x.replace(/[.!?…\s]+$/, "")).join(". … ");
-    if(corr){ const fx = hb.querySelector(".fix"); if(fx){ const cb = h("button", "mlisten", "🔊 Как правильно"); cb.type = "button"; cb.style.background = "var(--card)"; cb.style.border = "2px solid var(--line)"; cb.style.display = "block"; cb.onclick = () => say(corr, lang()); fx.append(cb); } }
+    if(corr){ const fx = hb.querySelector(".fix"); if(fx){ const cb = h("button", "mlisten", "🔊 Как правильно"); cb.type = "button"; cb.style.background = "var(--card)"; cb.style.border = "2px solid var(--line)"; cb.style.display = "block"; cb.onclick = () => say(corr, lang()); const ff = fs && !/[а-яё]/i.test(fs) ? fs : ""; if(ff){ const fl = h("div", "fixfull"); fl.append(h("b", "", "✅ Правильно: "), document.createTextNode(ff)); fx.append(fl); } fx.append(cb); } }
     const mine = corr || String(msg || "").replace(/[.!?…\s]+$/, "");
     if(S.lastMe && S.lastMe.mb === mb){ mb.dataset.say = fs && !/[а-яё]/i.test(fs) ? fs : msg; S.lastMe.ls.hidden = false; if(fs) S.lastMe.ls.title = "Послушать правильный вариант"; }
     if(S.auto) say(mine && !/[а-яё]/i.test(mine) ? mine + ". … " + pt : pt, lang(), 0, true);
