@@ -1,0 +1,18 @@
+{
+ "name": "Diálogos 🇧🇷",
+ "short_name": "Diálogos",
+ "icons": [
+  {
+   "src": "icon-dialogos-br.png",
+   "sizes": "180x180",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-dialogos-br-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  }
+ ],
+ "background_color": "#ffffff",
+ "theme_color": "#0a7a5a"
+}
