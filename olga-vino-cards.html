@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Otoño 🍇">
+<link rel="apple-touch-icon" href="olga-vino-icon.png">
+<link rel="icon" type="image/png" href="olga-vino-icon.png">
+<title>Otoño en el pueblo — карточки</title>
+<style>
+:root{
+  --bg:#f4ecdc;--card:#fffaf0;--ink:#3b2a1e;--muted:#6f5b47;--wine:#7b1e3a;--olive:#55652a;--terra:#b9572f;
+  --line:#e0d0b2;--ok:#2f7d3a;--bad:#b3261e;--okbg:#e2f1dc;--badbg:#fbe2de;--hl:#f6c26b;--btn:#7b1e3a;--btnink:#fff7ea;
+  --chip:#efe3cb;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#1c1612;--card:#2a201a;--ink:#f3e8d8;--muted:#c9b69e;--wine:#ec8ea8;--olive:#bccb72;--terra:#f2a47e;
+  --line:#4b3a2d;--ok:#86d892;--bad:#ff8f86;--okbg:#1f3b25;--badbg:#4b211d;--hl:#8a5c14;--btn:#a8395b;--btnink:#fff7ea;--chip:#3a2c22;}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif;font-size:17px;line-height:1.4;
+  background-image:radial-gradient(circle at 12% 8%,rgba(123,30,58,.07) 0 60px,transparent 61px),radial-gradient(circle at 92% 96%,rgba(85,101,42,.08) 0 80px,transparent 81px);
+  min-height:100vh;overflow-x:hidden}
+.wrap{max-width:480px;margin:0 auto;padding:10px 14px 28px}
+button{font-family:inherit;font-size:16px;color:inherit;cursor:pointer}
+.sans{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+h1{font-size:26px;margin:6px 0 2px;color:var(--wine);line-height:1.15}
+h2{font-size:21px;margin:4px 0 8px;color:var(--wine)}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 2px 0 rgba(0,0,0,.04)}
+.big-btn{display:block;width:100%;border:0;border-radius:14px;padding:13px 14px;background:var(--btn);color:var(--btnink);font-size:17px;font-weight:bold;margin-top:10px}
+.ghost{display:block;width:100%;border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:11px 14px;margin-top:8px;text-align:left}
+.ghost .r{float:right}
+.row{display:flex;gap:8px;align-items:center}
+/* top bar */
+.bar{position:sticky;top:0;z-index:20;background:var(--bg);padding:6px 0 6px;display:flex;gap:4px;justify-content:space-between;border-bottom:1px solid var(--line);margin-bottom:8px}
+.bar button{border:1px solid var(--line);background:var(--card);border-radius:10px;min-width:40px;height:38px;font-size:16px;padding:0 6px}
+.bar button.on{background:var(--chip)}
+.bar button.off{opacity:.55}
+.prog{font-size:13px;color:var(--muted);margin:2px 0 6px}
+.skip{display:block;margin:14px auto 0;border:0;background:none;color:var(--muted);font-size:14px;text-decoration:underline}
+/* learn card */
+.word{font-size:32px;font-weight:bold;margin:6px 0 2px;color:var(--ink)}
+.art{color:var(--olive);font-weight:normal}
+.snd{border:1.5px solid var(--line);background:var(--chip);border-radius:999px;padding:6px 12px;font-size:15px;margin:4px 3px}
+.tr{display:none;margin-top:6px;color:var(--terra);font-style:italic;font-size:17px}
+.tr.show{display:block}
+.mini{border:1px solid var(--line);background:var(--card);border-radius:999px;font-size:13px;padding:3px 9px;margin-top:6px}
+/* flip card */
+.flip{perspective:1000px;margin-top:4px}
+.flip-in{position:relative;height:330px;transition:transform .6s;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;cursor:pointer}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;border:2px solid var(--line);
+ background-color:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;text-align:center;
+ box-shadow:0 6px 0 var(--line);background-image:repeating-linear-gradient(0deg,transparent 0 27px,rgba(123,30,58,.05) 27px 28px)}
+.face.front{-webkit-transform:rotateY(0deg) translateZ(1px);transform:rotateY(0deg) translateZ(1px)}
+.face.back{-webkit-transform:rotateY(180deg) translateZ(1px);transform:rotateY(180deg) translateZ(1px);background-color:var(--chip)}
+.face .emo{font-size:76px;line-height:1.1}
+.corner{position:absolute;top:10px;left:12px;font-size:13px;color:var(--muted)}
+.turn{position:absolute;bottom:10px;left:0;right:0;font-size:13px;color:var(--muted)}
+.back .ru{font-size:26px;font-weight:bold;color:var(--terra);margin-bottom:10px}
+.back .exb{font-size:18px;text-align:left;background:var(--card);border-radius:12px;padding:10px 12px;width:100%}
+/* memory */
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.mc{height:92px;cursor:pointer;position:relative}
+.mf{position:absolute;inset:0;border-radius:14px;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px;border:2px solid var(--line)}
+.mfront{background:var(--btn);color:var(--btnink);font-size:30px;border-color:var(--btn)}
+.mback{background:var(--card);display:none}
+.mc.on .mfront{display:none}
+.mc.on .mback{display:flex}
+.mback.es{font-size:15px;font-weight:bold;color:var(--ink)}
+.mc.ok .mback{background:var(--okbg);border-color:var(--ok)}
+.mc.anim{animation:mflip .28s ease-out}
+@keyframes mflip{0%{transform:scaleX(.05)}100%{transform:scaleX(1)}}
+/* help */
+.prog{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.help{border:1.5px solid var(--line);background:var(--card);border-radius:999px;font-size:13px;padding:4px 10px;white-space:nowrap;color:var(--ink)}
+.htab{width:100%;border-collapse:collapse;font-size:14px;line-height:1.3}
+.htab th{background:var(--btn);color:var(--btnink);text-align:left;padding:7px 8px;font-size:13px}
+.htab th:first-child{border-radius:10px 0 0 0}.htab th:last-child{border-radius:0 10px 0 0}
+.htab td{border-bottom:1px solid var(--line);padding:6px 7px;vertical-align:top;width:50%}
+.htab tr:nth-child(even) td{background:var(--chip)}
+.hok{position:sticky;bottom:-16px;background:var(--card);padding:2px 0 4px}
+/* tasks */
+.q{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.stem{font-size:21px;margin:2px 0 6px}
+.gap{display:inline-block;min-width:70px;border-bottom:2.5px dashed var(--terra);text-align:center;color:var(--terra)}
+.opts{margin-top:10px}
+.opt{display:block;width:100%;text-align:left;border:2px solid var(--line);background:var(--card);border-radius:14px;padding:11px 13px;margin:0 0 4px;font-size:19px;transition:background .2s}
+.opt.speaking,.speaking{background:var(--hl)}
+.opt.right{background:var(--okbg);border-color:var(--ok)}
+.opt.wrong{background:var(--badbg);border-color:var(--bad)}
+.optwrap{margin-bottom:8px}
+.otr{border:0;background:none;color:var(--muted);font-size:12px;padding:0 4px}
+.otr-t{display:none;font-size:13px;color:var(--terra);margin-left:6px}
+.otr-t.show{display:inline}
+.listen{display:block;margin:10px auto;border:0;background:var(--olive);color:#fff;border-radius:999px;width:96px;height:96px;font-size:40px}
+.fb{margin-top:10px;border-radius:12px;padding:10px 12px;font-size:16px}
+.fb.ok{background:var(--okbg);color:var(--ok)}
+.fb.bad{background:var(--badbg);color:var(--ink);border:1.5px solid var(--bad)}
+.fbbtns{display:flex;gap:8px;margin-top:8px}
+.fbbtns button{flex:1;border-radius:12px;padding:11px;border:0;font-weight:bold}
+.b-again{background:var(--chip);color:var(--ink);border:1.5px solid var(--line)!important}
+.b-next{background:var(--btn);color:var(--btnink)}
+/* pairs */
+.pairs{display:flex;gap:8px;margin-top:8px}
+.pcol{flex:1;display:flex;flex-direction:column;gap:7px}
+.pc{border:2px solid var(--line);background:var(--card);border-radius:12px;padding:10px 6px;font-size:16px;min-height:48px}
+.pc.sel{border-color:var(--terra);background:var(--chip)}
+.pc.done{border-color:var(--ok);background:var(--okbg);opacity:.6}
+.pc.no{border-color:var(--bad);background:var(--badbg)}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.mbox{background:var(--card);border-radius:18px;padding:16px;max-width:400px;width:100%;position:relative;max-height:85vh;overflow:auto}
+.x{position:absolute;top:8px;right:8px;border:0;background:var(--chip);border-radius:999px;width:34px;height:34px;font-size:16px}
+input.code{width:100%;font-size:20px;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);font-family:inherit}
+.err{color:var(--bad);font-size:15px;min-height:20px;margin-top:6px}
+.owner{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
+.ans{border-bottom:1px solid var(--line);padding:8px 0;font-size:15px}
+.hero{text-align:center;padding:18px 10px 12px}
+.hero .emo{font-size:52px}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.shake{animation:shake .25s 2}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div id="modal"></div>
+<script>
+(function(){
+"use strict";
+var LESSON='olga-vino-cards';
+var STUDENT='Ольга';
+var EVENT_URL='https://daria-talk.daria-iramain.workers.dev/event';
+var LS='olgaVino_';
+function lsGet(k,d){try{var v=localStorage.getItem(LS+k);return v?JSON.parse(v):d}catch(e){return d}}
+function lsSet(k,v){try{localStorage.setItem(LS+k,JSON.stringify(v))}catch(e){}}
+
+/* ---------- words ---------- */
+var W={
+ racimo:{emo:'🍇',art:'el',w:'racimo',ru:'гроздь (винограда)',ex:'Este racimo está perfecto: grande y muy dulce.',exRu:'Эта гроздь идеальная: большая и очень сладкая.'},
+ vid:{emo:'🌿',art:'la',w:'vid',ru:'виноградная лоза',ex:'La vid de mi abuelo tiene cincuenta años.',exRu:'Лозе моего дедушки пятьдесят лет.'},
+ colina:{emo:'⛰️',art:'la',w:'colina',ru:'холм',ex:'El viñedo está en una colina, cerca del pueblo.',exRu:'Виноградник на холме, недалеко от деревни.'},
+ recoger:{emo:'🤲',art:'',w:'recoger',ru:'собирать (урожай)',ex:'Por la mañana recogemos las uvas a mano.',exRu:'Утром мы собираем виноград руками.'},
+ cesta:{emo:'🧺',art:'la',w:'cesta',ru:'корзина',ex:'Mi cesta ya está llena de uvas.',exRu:'Моя корзина уже полна винограда.'},
+ maduro:{emo:'🟣',art:'',w:'maduro / madura',ru:'спелый / спелая',ex:'Las uvas todavía no están maduras.',exRu:'Виноград ещё не спелый.'},
+ vendimia:{emo:'👩‍🌾',art:'la',w:'vendimia',ru:'сбор винограда',ex:'La vendimia empieza en septiembre.',exRu:'Сбор винограда начинается в сентябре.'},
+ pisar:{emo:'🦶',art:'',w:'pisar',ru:'давить ногами, топтать',ex:'En la fiesta, los niños pisan las uvas descalzos.',exRu:'На празднике дети давят виноград босыми ногами.'},
+ bodega:{emo:'🏚️',art:'la',w:'bodega',ru:'винный погреб, винодельня',ex:'La bodega está debajo de la casa y allí siempre hace fresco.',exRu:'Винный погреб под домом, и там всегда прохладно.'},
+ barrica:{emo:'🛢️',art:'la',w:'barrica',ru:'(дубовая) бочка',ex:'El vino descansa dos años en barricas de roble.',exRu:'Вино отдыхает два года в дубовых бочках.'},
+ botella:{emo:'🍾',art:'la',w:'botella',ru:'бутылка',ex:'Mi vecino está llenando botellas con su propio vino.',exRu:'Мой сосед разливает своё вино по бутылкам.'},
+ cosecha:{emo:'🌾',art:'la',w:'cosecha',ru:'урожай',ex:'Este año la cosecha es muy buena.',exRu:'В этом году урожай очень хороший.'},
+ tinto:{emo:'🍷',art:'el',w:'vino tinto',ru:'красное вино',ex:'Con el queso, prefiero un vino tinto.',exRu:'С сыром я предпочитаю красное вино.'},
+ brindar:{emo:'🥂',art:'',w:'brindar',ru:'поднимать бокалы, произносить тост',ex:'Brindamos por la cosecha: ¡salud!',exRu:'Поднимаем бокалы за урожай: за здоровье!'},
+ oler:{emo:'👃',art:'',w:'oler (huele)',ru:'нюхать; пахнуть (пахнет)',ex:'Este vino huele a fruta y a madera.',exRu:'Это вино пахнет фруктами и деревом.'},
+ sabor:{emo:'😋',art:'el',w:'sabor',ru:'вкус',ex:'Me encanta el sabor de este vino: suave y afrutado.',exRu:'Обожаю вкус этого вина: мягкий и фруктовый.'},
+ probar:{emo:'🤏',art:'',w:'probar (prueba)',ru:'пробовать (пробует)',ex:'¿Quieres probar el vino nuevo?',exRu:'Хотите попробовать молодое вино?'},
+ tapa:{emo:'🫒',art:'la',w:'tapa',ru:'тапа, закуска к напитку',ex:'En el bar del pueblo, con cada vino te dan una tapa.',exRu:'В деревенском баре к каждому вину дают закуску.'}
+};
+function full(k){var o=W[k];return (o.art?o.art+' ':'')+o.w}
+
+/* ---------- parts & tasks ---------- */
+var PARTS=[
+ {id:'p1',emo:'🍇',es:'En el viñedo',ru:'В винограднике',steps:[
+  {learn:['racimo','vid','colina']},
+  {game:'p1a',name:'Игра 1',tasks:[
+   {id:'p1a1',type:'emoji',emo:'🍇',opts:['el racimo','la colina','la vid'],ru:['гроздь','холм','лоза'],a:0,why:'🍇 — это гроздь: el racimo.'},
+   {id:'p1a2',type:'listen',es:'La vid de mi abuelo tiene cincuenta años.',opts:['Лозе моего дедушки пятьдесят лет.','Мой дедушка покупает лозу за пятьдесят евро.','Холму у деревни пятьдесят лет.'],a:0,why:'la vid = лоза, mi abuelo = мой дедушка, tiene cincuenta años = ему пятьдесят лет.'},
+   {id:'p1a3',type:'gap',es:'Desde la ___ vemos todo el pueblo.',tr:'С холма мы видим всю деревню.',opts:['colina','racimo','vid'],ru:['холм','гроздь','лоза'],a:0,why:'Видеть всю деревню можно только с холма. И перед «racimo» нужно «el», а не «la».'},
+   {id:'p1a4',type:'gap',es:'Este ___ pesa casi un kilo.',tr:'Эта гроздь весит почти килограмм.',opts:['racimo','colina','vid'],ru:['гроздь','холм','лоза'],a:0,why:'«Este» — мужской род, подходит только el racimo (colina и vid — женского рода).'},
+   {id:'p1a5',type:'pairs',words:['racimo','vid','colina']}
+  ]},
+  {learn:['recoger','cesta','maduro']},
+  {game:'p1b',name:'Игра 2',tasks:[
+   {id:'p1b1',type:'emoji',emo:'🧺',opts:['la cesta','la colina','el racimo'],ru:['корзина','холм','гроздь'],a:0,why:'🧺 — корзина: la cesta.'},
+   {id:'p1b2',type:'gap',es:'Por la mañana ___ las uvas a mano.',tr:'Утром мы собираем виноград руками.',opts:['recogemos','maduras','cesta'],ru:['собираем','спелые','корзина'],a:0,why:'Нужен глагол «мы собираем» — recogemos.'},
+   {id:'p1b3',type:'gap',es:'Las uvas todavía no están ___: son verdes y ácidas.',tr:'Виноград ещё не спелый: зелёный и кислый.',opts:['maduras','maduros','recogemos'],ru:['спелые (ж. р.)','спелые (м. р.)','собираем'],a:0,why:'«Las uvas» — женский род, множественное число, поэтому maduras.'},
+   {id:'p1b4',type:'listen',es:'Mi cesta ya está llena de uvas.',opts:['Моя корзина уже полна винограда.','Моя корзина ещё пустая.','Мой холм весь в винограде.'],a:0,why:'mi cesta = моя корзина, ya está llena = уже полна, de uvas = винограда.'},
+   {id:'p1b5',type:'gap',es:'El viñedo está en una ___, cerca del pueblo.',tr:'Виноградник на холме, недалеко от деревни.',opts:['colina','cesta','racimo'],ru:['холм','корзина','гроздь'],a:0,why:'Виноградник может быть на холме, а не в корзине. И «una racimo» — ошибка: el racimo мужского рода.'},
+   {id:'p1b6',type:'pairs',words:['recoger','cesta','maduro','racimo','vid']}
+  ]}
+ ]},
+ {id:'p2',emo:'🛢️',es:'La vendimia y la bodega',ru:'Сбор винограда и погреб',steps:[
+  {learn:['vendimia','pisar','bodega']},
+  {game:'p2a',name:'Игра 1',tasks:[
+   {id:'p2a1',type:'emoji',emo:'🦶',opts:['pisar','la bodega','la vendimia'],ru:['давить ногами','погреб','сбор винограда'],a:0,why:'🦶 — нога: pisar — давить ногами.'},
+   {id:'p2a2',type:'gap',es:'La ___ empieza en septiembre: todo el pueblo recoge uvas.',tr:'Сбор винограда начинается в сентябре: вся деревня собирает виноград.',opts:['vendimia','bodega','pisar'],ru:['сбор винограда','погреб','давить ногами'],a:0,why:'Вся деревня собирает виноград — это la vendimia.'},
+   {id:'p2a3',type:'listen',es:'La bodega está debajo de la casa.',opts:['Винный погреб находится под домом.','Винный погреб находится рядом с церковью.','Винодельня находится над домом.'],a:0,why:'debajo de la casa = под домом.'},
+   {id:'p2a4',type:'gap',es:'En la fiesta, los niños ___ las uvas descalzos.',tr:'На празднике дети давят виноград босыми ногами.',opts:['pisan','pisa','bodega'],ru:['давят','давит','погреб'],a:0,why:'«Los niños» — они, множественное число: pisan.'},
+   {id:'p2a5',type:'gap',es:'Las uvas ya están ___. ¡Podemos recogerlas!',tr:'Виноград уже спелый. Можем его собирать!',opts:['maduras','maduros','colinas'],ru:['спелые (ж. р.)','спелые (м. р.)','холмы'],a:0,why:'«Las uvas» — женский род, множественное число: maduras.'},
+   {id:'p2a6',type:'pairs',words:['vendimia','pisar','bodega','cesta']}
+  ]},
+  {learn:['barrica','botella','cosecha']},
+  {game:'p2b',name:'Игра 2',tasks:[
+   {id:'p2b1',type:'emoji',emo:'🛢️',opts:['la barrica','la botella','la cosecha'],ru:['бочка','бутылка','урожай'],a:0,why:'🛢️ — бочка: la barrica.'},
+   {id:'p2b2',type:'emoji',emo:'🍾',opts:['la botella','la barrica','la vendimia'],ru:['бутылка','бочка','сбор винограда'],a:0,why:'🍾 — бутылка: la botella.'},
+   {id:'p2b3',type:'gap',es:'El vino descansa dos años en ___ de roble.',tr:'Вино отдыхает два года в дубовых бочках.',opts:['barricas','botellas','cosechas'],ru:['бочки','бутылки','урожаи'],a:0,why:'Из дуба (de roble) делают бочки, а бутылки — из стекла.'},
+   {id:'p2b4',type:'listen',es:'Mi vecino está llenando botellas con su propio vino.',opts:['Мой сосед разливает своё вино по бутылкам.','Мой сосед покупает вино в магазине.','Мой сосед моет бочки во дворе.'],a:0,why:'está llenando botellas = наполняет бутылки, con su propio vino = своим собственным вином.'},
+   {id:'p2b5',type:'gap',es:'Este año la ___ es muy buena: tenemos muchas uvas.',tr:'В этом году урожай очень хороший: у нас много винограда.',opts:['cosecha','botella','barrica'],ru:['урожай','бутылка','бочка'],a:0,why:'Много винограда — значит хороший урожай: la cosecha.'},
+   {id:'p2b6',type:'listen',es:'Por la mañana recogemos las uvas a mano.',opts:['Утром мы собираем виноград руками.','Утром мы давим виноград ногами.','Вечером мы покупаем виноград.'],a:0,why:'por la mañana = утром, recogemos = собираем, a mano = руками.'},
+   {id:'p2b7',type:'pairs',words:['barrica','botella','cosecha','pisar','colina']}
+  ]}
+ ]},
+ {id:'p3',emo:'🥂',es:'La fiesta del pueblo',ru:'Деревенский праздник',steps:[
+  {learn:['tinto','brindar','oler']},
+  {game:'p3a',name:'Игра 1',tasks:[
+   {id:'p3a1',type:'emoji',emo:'🍷',opts:['el vino tinto','la cesta','la barrica'],ru:['красное вино','корзина','бочка'],a:0,why:'🍷 — бокал красного вина: el vino tinto.'},
+   {id:'p3a2',type:'gap',es:'Este vino ___ a fruta y a madera.',tr:'Это вино пахнет фруктами и деревом.',opts:['huele','oler','olemos'],ru:['пахнет','пахнуть','мы нюхаем'],a:0,why:'«Este vino» — оно, 3-е лицо: huele (oler → huele).'},
+   {id:'p3a3',type:'gap',es:'Levantamos las copas y ___ por la cosecha: ¡salud!',tr:'Поднимаем бокалы и пьём за урожай: за здоровье!',opts:['brindamos','pisamos','olemos'],ru:['произносим тост','давим ногами','нюхаем'],a:0,why:'За урожай поднимают бокалы: brindamos por… = пьём за…'},
+   {id:'p3a4',type:'listen',es:'Con el queso, prefiero un vino tinto.',opts:['С сыром я предпочитаю красное вино.','С сыром я предпочитаю белое вино.','С рыбой я пью красное вино.'],a:0,why:'con el queso = с сыром, prefiero = я предпочитаю, vino tinto = красное вино.'},
+   {id:'p3a5',type:'gap',es:'El vino descansa en la ___, debajo de la casa.',tr:'Вино отдыхает в погребе, под домом.',opts:['bodega','colina','cesta'],ru:['погреб','холм','корзина'],a:0,why:'Под домом находится погреб: la bodega.'},
+   {id:'p3a6',type:'pairs',words:['tinto','brindar','oler','botella','vendimia']}
+  ]},
+  {learn:['sabor','probar','tapa']},
+  {game:'p3b',name:'Игра 2',tasks:[
+   {id:'p3b1',type:'emoji',emo:'🫒',opts:['la tapa','el sabor','la cesta'],ru:['закуска','вкус','корзина'],a:0,why:'🫒 оливки — типичная закуска к вину: la tapa.'},
+   {id:'p3b2',type:'gap',es:'¿Quieres ___ el vino nuevo?',tr:'Хотите попробовать молодое вино?',opts:['probar','pruebas','sabor'],ru:['попробовать','пробуешь','вкус'],a:0,why:'После «quieres» — неопределённая форма: quieres probar.'},
+   {id:'p3b3',type:'gap',es:'Me encanta el ___ de este vino: suave y afrutado.',tr:'Обожаю вкус этого вина: мягкий и фруктовый.',opts:['sabor','tapa','probar'],ru:['вкус','закуска','пробовать'],a:0,why:'Мягкий и фруктовый — это вкус: el sabor. «El tapa» — ошибка, правильно la tapa.'},
+   {id:'p3b4',type:'listen',es:'En el bar del pueblo, con cada vino te dan una tapa.',opts:['В деревенском баре к каждому вину дают закуску.','В деревенском баре закуски очень дорогие.','В деревенском баре вино без закуски.'],a:0,why:'con cada vino = к каждому вину, te dan una tapa = тебе дают закуску.'},
+   {id:'p3b5',type:'gap',es:'Ella ___ el vino y sonríe: ¡está buenísimo!',tr:'Она пробует вино и улыбается: очень вкусно!',opts:['prueba','probar','pruebo'],ru:['пробует','пробовать','я пробую'],a:0,why:'«Ella» — она: prueba (probar → prueba).'},
+   {id:'p3b6',type:'listen',es:'La vendimia empieza en septiembre.',opts:['Сбор винограда начинается в сентябре.','Сбор винограда заканчивается в сентябре.','Сбор винограда начинается в октябре.'],a:0,why:'empieza = начинается, en septiembre = в сентябре.'},
+   {id:'p3b7',type:'pairs',words:['sabor','probar','tapa','brindar','oler']}
+  ]}
+ ]},
+ {id:'fin',emo:'🏆',es:'Gran final',ru:'Все 18 слов вперемешку',steps:[
+  {game:'fin',name:'Финал',tasks:[
+   {id:'f1',type:'listen',es:'Las uvas todavía no están maduras.',opts:['Виноград ещё не спелый.','Виноград уже спелый.','Виноград очень сладкий.'],a:0,why:'todavía no = ещё не, maduras = спелые.'},
+   {id:'f2',type:'gap',es:'Mi ___ ya está llena de uvas.',tr:'Моя корзина уже полна винограда.',opts:['cesta','racimo','sabor'],ru:['корзина','гроздь','вкус'],a:0,why:'«Llena» — женский род, и полной винограда бывает корзина: la cesta.'},
+   {id:'f3',type:'emoji',emo:'🏚️',opts:['la bodega','la colina','la tapa'],ru:['погреб','холм','закуска'],a:0,why:'🏚️ — старый дом с погребом: la bodega.'},
+   {id:'f4',type:'gap',es:'Mi vecino está ___ botellas con su vino.',tr:'Мой сосед (сейчас) наполняет бутылки своим вином.',opts:['llenando','llena','llenar'],ru:['наполняя','наполняет','наполнять'],a:0,why:'Estar + gerundio: está llenando — сейчас наполняет.'},
+   {id:'f5',type:'gap',es:'Los niños ___ las uvas en la fiesta.',tr:'Дети давят виноград на празднике.',opts:['pisan','pisa','pisar'],ru:['давят','давит','давить'],a:0,why:'«Los niños» — они: pisan.'},
+   {id:'f6',type:'listen',es:'Brindamos por la cosecha: ¡salud!',opts:['Поднимаем бокалы за урожай: за здоровье!','Собираем урожай: какая удача!','Продаём урожай на рынке.'],a:0,why:'brindamos por = поднимаем бокалы за, la cosecha = урожай.'},
+   {id:'f7',type:'gap',es:'Desde la ___ vemos todo el pueblo.',tr:'С холма мы видим всю деревню.',opts:['colina','bodega','barrica'],ru:['холм','погреб','бочка'],a:0,why:'Всю деревню видно только сверху — с холма. Погреб под землёй, а из бочки ничего не видно 🙂'},
+   {id:'f8',type:'pairs',words:['vid','recoger','barrica','cosecha','sabor']}
+  ]}
+ ]}
+];
+
+/* ---------- state ---------- */
+var WHO=null, soundOn=lsGet('sound',true), autoOn=lsGet('auto',true);
+var answers=lsGet('answers',{}), done=lsGet('done',{});
+var pages=[], pos=0, curPart=null, errs={}, offered={};
+var app=document.getElementById('app'), modal=document.getElementById('modal');
+
+/* ---------- events to teacher ---------- */
+function sendEvent(type,extra){
+  try{
+    if(location.hostname!=='dariairamain-blip.github.io')return;
+    var body={who:WHO,type:type,lesson:LESSON,page:location.pathname,ts:new Date().toISOString()};
+    if(extra)for(var k in extra)body[k]=extra[k];
+    fetch(EVENT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(body),keepalive:true}).catch(function(){});
+  }catch(e){}
+}
+
+/* ---------- speech ---------- */
+var esVoice=null;
+function pickVoice(){
+  try{var v=speechSynthesis.getVoices();
+    esVoice=v.find(function(x){return /^es[-_]ES/i.test(x.lang)})||v.find(function(x){return /^es/i.test(x.lang)})||null;}catch(e){}
+}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function clean(t){
+  return String(t).replace(/_{2,}/g,', ').replace(/\p{Extended_Pictographic}|️|‍/gu,'').replace(/[=→/()]/g,' ').replace(/\s+/g,' ').trim();
+}
+var tok=0;
+function stopSpeak(){tok++;try{speechSynthesis.cancel()}catch(e){}clearSpeaking();}
+function clearSpeaking(){var s=document.querySelectorAll('.speaking');for(var i=0;i<s.length;i++)s[i].classList.remove('speaking');}
+function sayOne(text,el,cb){
+  var fired=false;function end(){if(fired)return;fired=true;if(el)el.classList.remove('speaking');cb&&cb();}
+  if(!soundOn||!('speechSynthesis' in window)){setTimeout(end,150);return;}
+  var c=clean(text);if(!c){end();return;}
+  try{
+    var u=new SpeechSynthesisUtterance(c);u.lang='es-ES';if(esVoice)u.voice=esVoice;u.rate=0.88;
+    u.onend=end;u.onerror=end;if(el)el.classList.add('speaking');
+    speechSynthesis.speak(u);setTimeout(end,1800+c.length*110);
+  }catch(e){end();}
+}
+function speakSeq(items,done){
+  stopSpeak();var my=tok,i=0;
+  (function nx(){if(my!==tok)return;if(i>=items.length){done&&done();return;}var it=items[i++];sayOne(it.t,it.el,function(){if(my!==tok)return;setTimeout(nx,300)});})();
+}
+function say(t,el){speakSeq([{t:t,el:el}]);}
+
+/* ---------- helpers ---------- */
+function h(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function orderNoFirst(n,correct){
+  var idx=[];for(var i=0;i<n;i++)idx.push(i);
+  for(var k=0;k<20;k++){idx=shuffle(idx);if(idx[0]!==correct)break;}
+  return idx;
+}
+function scrollTo(el){if(!el)return;try{el.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(e){}}
+function closeModal(){modal.innerHTML='';}
+function showModal(html){modal.innerHTML='<div class="modal"><div class="mbox"><button class="x" data-x>✕</button>'+html+'</div></div>';
+  modal.querySelector('[data-x]').onclick=closeModal;modal.querySelector('.modal').onclick=function(e){if(e.target.classList.contains('modal'))closeModal();};}
+
+/* ---------- gate ---------- */
+var LOOK={'а':'a','в':'b','е':'e','о':'o','р':'p','с':'c','к':'k','х':'x','і':'i','т':'t','м':'m','н':'h'};
+function norm(s){return String(s||'').toLowerCase().replace(/[\s\-_.]/g,'');}
+function lookalike(s){return s.replace(/[авеорскхітмн]/g,function(c){return LOOK[c]||c});}
+var TEACHER=['dariab2','darjab2','дарьяв2','дарияв2','дарьяб2','дарияб2','дарьяb2','дарияb2','dariaв2','darjaв2'];
+var STUD=['olga2026','ольга2026','olha2026'];
+function checkCode(raw){var a=norm(raw),b=lookalike(a);
+  if(TEACHER.indexOf(a)>=0||TEACHER.indexOf(b)>=0)return 'Дарья (тест)';
+  if(STUD.indexOf(a)>=0||STUD.indexOf(b)>=0)return STUDENT;return null;}
+function renderGate(){
+  stopSpeak();
+  app.innerHTML='<div class="hero"><div class="emo">🍇</div><h1>Otoño en el pueblo</h1><div class="muted">Осень в деревне: виноград и вино</div></div>'+
+  '<div class="card"><label for="cd" class="sans small muted">Пожалуйста, введите ваш код</label><input id="cd" class="code" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Код" value="'+h(lsGet('code',''))+'"><div class="err" id="er"></div><button class="big-btn" id="go">Войти</button></div>'+
+  '<div class="owner">© Daria Botina</div>';
+  var go=function(){var c=document.getElementById('cd').value;var who=checkCode(c);
+    if(!who){document.getElementById('er').textContent='Код не подошёл. Пожалуйста, проверьте и попробуйте ещё раз.';return;}
+    WHO=who;lsSet('code',c);sendEvent('visit');renderHome();};
+  document.getElementById('go').onclick=go;
+  document.getElementById('cd').onkeydown=function(e){if(e.key==='Enter')go();};
+}
+
+/* ---------- home ---------- */
+function renderHome(){
+  stopSpeak();
+  var html='<div class="hero"><div class="emo">🍇🧺🛢️</div><h1>Otoño en el pueblo</h1><div class="muted">Осень в деревне: виноград и вино</div></div>'+
+  '<div class="card small sans" style="font-size:15px">Ольга, здесь 18 слов о деревенской осени: виноградник, сбор урожая, погреб и праздник. В каждой части — карточки со словами: нажмите на карточку, и она перевернётся — на обороте перевод и пример. После карточек — игры: угадать по картинке, понять на слух, вставить слово, соединить пары. Нажимайте <b>🔊</b>, чтобы послушать, и <b>🌐</b>, чтобы увидеть перевод. Непонятно — просто нажимайте кнопки: всё можно пройти заново, ответ перезапишется.</div>';
+  PARTS.forEach(function(p,i){
+    html+='<button class="ghost" data-p="'+i+'"><span style="font-size:22px">'+p.emo+'</span> <b>'+h(p.es)+'</b><span class="r">'+(done[p.id]?'✅':'›')+'</span><br><span class="muted small">'+h(p.ru)+'</span></button>';
+  });
+  html+='<button class="ghost" id="crd"><span style="font-size:22px">🃏</span> <b>Тренировка с карточками</b><span class="r">›</span><br><span class="muted small">Колода, обратные карточки, на слух, мемори</span></button><button class="ghost" id="ans">📒 Мои ответы</button><button class="ghost" id="add">📲 Добавить на экран «Домой»</button>';
+  html+='<div class="owner">© Daria Botina</div>';
+  app.innerHTML=html;
+  [].forEach.call(app.querySelectorAll('[data-p]'),function(b){b.onclick=function(){startPart(+b.getAttribute('data-p'))};});
+  document.getElementById('ans').onclick=renderAnswers;document.getElementById('crd').onclick=renderCardsMenu;
+  document.getElementById('add').onclick=function(){showModal('<h2>📲 На экран «Домой»</h2><div class="sans" style="font-size:15px"><b>iPhone (Safari):</b> внизу нажмите «Поделиться» ⬆️ → «На экран Домой» → «Добавить».<br><br><b>Android (Chrome):</b> нажмите ⋮ вверху справа → «Добавить на главный экран».<br><br>Появится значок с виноградом — урок будет открываться одним нажатием.</div><button class="big-btn" data-ok>Понятно</button>');modal.querySelector('[data-ok]').onclick=closeModal;};
+  window.scrollTo(0,0);
+}
+
+/* ---------- part flow ---------- */
+function startPart(i){
+  curPart=PARTS[i];pages=[];pos=0;errs={};offered={};
+  curPart.steps.forEach(function(s){
+    if(s.learn)s.learn.forEach(function(k,n){pages.push({k:'learn',w:k,n:n+1,of:s.learn.length});});
+    if(s.game){s.tasks.forEach(function(t,n){pages.push({k:'task',t:t,g:s.game,gname:s.name,n:n+1,of:s.tasks.length});});pages.push({k:'gend',g:s.game});}
+  });
+  pages.push({k:'pend'});
+  renderPage();
+}
+function go(d){stopSpeak();closeModal();pos+=d;if(pos<0){renderHome();return;}if(pos>=pages.length){renderHome();return;}renderPage();}
+function bar(){
+  return '<div class="bar sans"><button data-b="home" aria-label="Меню">☰</button><button data-b="prev" aria-label="Назад">⏮</button><button data-b="rep" aria-label="Повторить звук">🔁</button><button data-b="next" aria-label="Вперёд">⏭</button>'+
+  '<button data-b="snd" class="'+(soundOn?'on':'off')+'" aria-label="Звук">'+(soundOn?'🔊':'🔇')+'</button><button data-b="auto" class="'+(autoOn?'on':'off')+'" style="font-size:13px">Авто '+(autoOn?'вкл':'выкл')+'</button></div>';
+}
+var replay=function(){};
+function wireBar(){
+  [].forEach.call(app.querySelectorAll('[data-b]'),function(b){b.onclick=function(){var a=b.getAttribute('data-b');
+    if(a==='home'){stopSpeak();renderHome();}
+    else if(a==='prev')go(-1);else if(a==='next')go(1);else if(a==='rep')replay();
+    else if(a==='snd'){soundOn=!soundOn;lsSet('sound',soundOn);if(!soundOn)stopSpeak();b.textContent=soundOn?'🔊':'🔇';b.className=soundOn?'on':'off';}
+    else if(a==='auto'){autoOn=!autoOn;lsSet('auto',autoOn);b.textContent='Авто '+(autoOn?'вкл':'выкл');b.className=autoOn?'on':'off';}
+  };});
+  var sk=app.querySelector('[data-skip]');if(sk)sk.onclick=function(){go(1)};
+}
+var SKIP='<button class="skip sans" data-skip>⏭ Пропустить эту страницу</button>';
+function renderPage(){
+  var p=pages[pos];window.scrollTo(0,0);
+  if(p.k==='learn')renderLearn(p);else if(p.k==='fc')renderFlash(p);else if(p.k==='memo')renderMemo(p);else if(p.k==='cend')renderCardsEnd(p);else if(p.k==='task')renderTask(p);else if(p.k==='gend')renderGameEnd(p);else renderPartEnd();
+}
+
+/* ---------- how-to-play help (table) ---------- */
+var HELP={
+ learn:{t:'🃏 Карточка со словом',r:[
+  ['Смотрите на карточку','Картинка и испанское слово. Слово звучит само'],
+  ['Нажимаете «🔊 Слушать»','Слово звучит ещё раз'],
+  ['Нажимаете на карточку','Карточка переворачивается: перевод и пример'],
+  ['Нажимаете 🌐 под примером','Появляется перевод примера'],
+  ['Нажимаете «Дальше →»','Следующая карточка']]},
+ emoji:{t:'🖼 Что на картинке?',r:[
+  ['Смотрите на картинку','Под ней 3 испанских слова, они звучат по очереди'],
+  ['Нажимаете маленькую 🌐 под словом (по желанию)','Перевод этого слова'],
+  ['Нажимаете слово','✅ Верно — зелёное, дальше само<br>❌ Ошибка — красное, рядом правильный ответ и «почему»'],
+  ['После ошибки: «↩ Ещё раз» или «Дальше →»','Попробовать снова или перейти к следующему']]},
+ listen:{t:'🎧 Послушайте и выберите перевод',r:[
+  ['Слушаете испанскую фразу','Она звучит сама. Большая 🔊 — ещё раз'],
+  ['Выбираете перевод из трёх','✅ Верно — зелёный, дальше само<br>❌ Ошибка — правильный ответ и «почему»'],
+  ['После ответа','Фраза появляется текстом — можно прочитать'],
+  ['После ошибки: «↩ Ещё раз» или «Дальше →»','Попробовать снова или перейти к следующему']]},
+ gap:{t:'✏️ Вставьте слово',r:[
+  ['Читаете фразу с пропуском <span class="gap">?</span>','Фраза и 3 слова звучат по очереди'],
+  ['Нажимаете 🌐 рядом с фразой (по желанию)','Перевод фразы — подсказка'],
+  ['Нажимаете подходящее слово','✅ Верно — слово встаёт в пропуск, дальше само<br>❌ Ошибка — правильный ответ и «почему»'],
+  ['После ошибки: «↩ Ещё раз» или «Дальше →»','Попробовать снова или перейти к следующему']]},
+ pairs:{t:'🔗 Соедините пары',r:[
+  ['Нажимаете испанское слово слева','Оно выделяется рамкой и звучит'],
+  ['Нажимаете его перевод справа','✅ Пара — обе кнопки зеленеют<br>❌ Не пара — перевод мигает красным, пробуйте другой'],
+  ['Все пары найдены','Дальше само']]},
+ deck:{t:'🃏 Колода: знаю / ещё учу',r:[
+  ['Смотрите на испанское слово','Вспоминаете перевод (оно звучит само)'],
+  ['Нажимаете на карточку','Перевод и пример — проверяете себя'],
+  ['Нажимаете «✅ Знаю»','Карточка уходит из колоды'],
+  ['Нажимаете «😅 Ещё учу»','Карточка вернётся в конце колоды'],
+  ['«Осталось карточек: 0»','Колода пройдена 🎉']]},
+ rev:{t:'🔄 Обратные карточки',r:[
+  ['Видите русское слово и картинку','Вспоминаете, как это по-испански (можно вслух)'],
+  ['Нажимаете на карточку','Испанское слово и пример — они звучат'],
+  ['Нажимаете «Дальше →»','Следующая карточка']]},
+ aud:{t:'🎧 Карточки на слух',r:[
+  ['Слушаете испанское слово','Оно звучит само. Большая 🔊 — ещё раз'],
+  ['Вспоминаете, что оно значит','Карточка пока закрыта'],
+  ['Нажимаете на карточку','Картинка, слово, перевод и пример — проверяете себя'],
+  ['Нажимаете «Дальше →»','Следующая карточка']]},
+ memo:{t:'🧠 Мемори',r:[
+  ['Смотрите на поле','12 закрытых карточек 🍇. Под ними 6 пар: слово + картинка, например <b>la cesta</b> + 🧺'],
+  ['Нажимаете одну карточку','Она открывается (слово звучит)'],
+  ['Нажимаете вторую','✅ Пара — обе остаются открытыми, зелёные<br>❌ Не пара — видно 2 секунды, потом закрываются. Запомните, где что лежит!'],
+  ['Нашли все 6 пар','Победа! «🎲 Новая игра» — другие слова']]}
+};
+function helpBtn(type){return '<button class="help sans" data-help="'+type+'">❓ Как играть</button>';}
+function showHelp(type,first){
+  var o=HELP[type];if(!o)return;stopSpeak();
+  var rows=o.r.map(function(r,i){return '<tr><td><b>'+(i+1)+'.</b> '+r[0]+'</td><td>'+r[1]+'</td></tr>';}).join('');
+  showModal('<h2 style="padding-right:36px">'+o.t+'</h2><table class="htab sans"><thead><tr><th>Что вы делаете</th><th>Что происходит</th></tr></thead><tbody>'+rows+'</tbody></table><div class="hok"><button class="big-btn" data-ok>'+(first?'Понятно, начинаем ▶':'Понятно')+'</button></div>');
+  var fin=function(){closeModal();if(first&&autoOn)replay();};
+  modal.querySelector('[data-ok]').onclick=fin;modal.querySelector('[data-x]').onclick=fin;
+  modal.querySelector('.modal').onclick=function(e){if(e.target.classList.contains('modal'))fin();};
+}
+function wireHelp(){[].forEach.call(app.querySelectorAll('[data-help]'),function(b){b.onclick=function(){showHelp(b.getAttribute('data-help'),false)};});}
+function autoHelp(type){wireHelp();if(lsGet('seen_'+type,false))return false;lsSet('seen_'+type,true);showHelp(type,true);return true;}
+
+/* learn card: flip card */
+function renderLearn(p){
+  var o=W[p.w];
+  app.innerHTML=bar()+'<div class="prog sans"><span>'+curPart.emo+' '+h(curPart.es)+' · карточка '+p.n+' из '+p.of+'</span>'+helpBtn('learn')+'</div>'+
+  '<div class="flip" id="fl"><div class="flip-in" id="fi">'+
+   '<div class="face front"><span class="corner sans">'+p.n+' / '+p.of+'</span><div class="emo">'+o.emo+'</div><div class="word" id="wd">'+(o.art?'<span class="art">'+o.art+'</span> ':'')+h(o.w)+'</div>'+
+   '<button class="snd sans" id="sw">🔊 Слушать</button><div class="turn sans">👆 Нажмите на карточку, чтобы перевернуть</div></div>'+
+   '<div class="face back"><div class="ru">'+h(o.ru)+'</div><div class="exb"><span class="small muted sans">Пример</span><br><span id="exs">'+h(o.ex)+'</span><br><button class="mini sans" id="se">🔊</button> <button class="mini sans" id="te">🌐</button><div class="tr" id="tre" style="font-size:16px">'+h(o.exRu)+'</div></div><div class="turn sans">👆 Нажмите, чтобы перевернуть обратно</div></div>'+
+  '</div></div>'+
+  '<button class="big-btn" id="nx">Дальше →</button>'+SKIP;
+  wireBar();
+  var w=document.getElementById('wd'),ex=document.getElementById('exs'),fl=document.getElementById('fl');
+  function stop(e){e.stopPropagation();}
+  document.getElementById('fi').onclick=function(){fl.classList.toggle('on');if(fl.classList.contains('on')&&autoOn)say(o.ex,ex);};
+  document.getElementById('sw').onclick=function(e){stop(e);say(full(p.w),w)};
+  document.getElementById('se').onclick=function(e){stop(e);say(o.ex,ex)};
+  document.getElementById('te').onclick=function(e){stop(e);document.getElementById('tre').classList.toggle('show')};
+  document.getElementById('nx').onclick=function(){go(1)};
+  replay=function(){if(fl.classList.contains('on'))say(o.ex,ex);else say(full(p.w),w);};
+  if(!autoHelp('learn')&&autoOn)replay();
+}
+
+/* tasks */
+function record(t,label,your,ok,right){
+  answers[t.id]={part:curPart.es,q:label,your:your,ok:ok,right:right,ts:Date.now()};lsSet('answers',answers);
+  if(!ok){errs[pagesG()]=errs[pagesG()]||{};errs[pagesG()][t.id]=t;}
+}
+function pagesG(){return pages[pos].g;}
+function renderTask(p){
+  var t=p.t;
+  var head=bar()+'<div class="prog sans"><span>'+curPart.emo+' '+h(p.gname||'')+(p.redo?' · работа над ошибками':'')+' · '+p.n+' / '+p.of+'</span>'+helpBtn(t.type)+'</div>';
+  if(t.type==='pairs')return renderPairs(p,head);
+  var order=orderNoFirst(t.opts.length,t.a),html=head+'<div class="card">';
+  if(t.type==='emoji')html+='<div class="q sans">Что на картинке?</div><div style="text-align:center;font-size:72px;line-height:1.2">'+t.emo+'</div>';
+  if(t.type==='gap')html+='<div class="q sans">Вставьте слово</div><div class="stem" id="stem">'+h(t.es).replace('___','<span class="gap">?</span>')+'</div><button class="mini sans" id="tg">🌐</button><span class="tr" id="trg" style="font-size:15px">'+h(t.tr)+'</span>';
+  if(t.type==='listen')html+='<div class="q sans">Послушайте и выберите перевод</div><button class="listen" id="ls" aria-label="Слушать">🔊</button><div class="stem" id="stem" style="display:none;text-align:center">'+h(t.es)+'</div>';
+  html+='<div class="opts" id="opts">';
+  order.forEach(function(i){
+    html+='<div class="optwrap"><button class="opt" data-i="'+i+'">'+h(t.opts[i])+'</button>'+
+      (t.ru?'<button class="otr sans" data-tr="'+i+'">🌐</button><span class="otr-t sans" id="ot'+i+'">'+h(t.ru[i])+'</span>':'')+'</div>';
+  });
+  html+='</div><div id="fb"></div></div>'+SKIP;
+  app.innerHTML=html;wireBar();
+  var tg=document.getElementById('tg');if(tg)tg.onclick=function(){document.getElementById('trg').classList.toggle('show')};
+  [].forEach.call(app.querySelectorAll('[data-tr]'),function(b){b.onclick=function(){document.getElementById('ot'+b.getAttribute('data-tr')).classList.toggle('show')};});
+  var optEls={};[].forEach.call(app.querySelectorAll('.opt'),function(b){optEls[b.getAttribute('data-i')]=b;});
+  var stem=document.getElementById('stem'),ls=document.getElementById('ls');
+  if(ls)ls.onclick=function(){say(t.es)};
+  var label=t.type==='emoji'?(t.emo+' — что на картинке?'):t.type==='listen'?('🎧 '+t.es):t.es;
+  replay=function(){
+    var seq=[];
+    if(t.type==='listen')seq.push({t:t.es});
+    else{if(t.type==='gap')seq.push({t:t.es,el:stem});order.forEach(function(i){seq.push({t:t.opts[i],el:optEls[i]})});}
+    speakSeq(seq,function(){scrollTo(document.getElementById('opts'))});
+  };
+  var locked=false;
+  [].forEach.call(app.querySelectorAll('.opt'),function(b){b.onclick=function(){
+    if(locked)return;locked=true;stopSpeak();
+    var i=+b.getAttribute('data-i'),ok=i===t.a,right=t.opts[t.a];
+    record(t,label,t.opts[i],ok,right);
+    optEls[t.a].classList.add('right');if(!ok)b.classList.add('wrong');
+    if(stem&&t.type==='listen')stem.style.display='block';
+    if(stem&&t.type==='gap')stem.innerHTML=h(t.es).replace('___','<b style="color:var(--ok)">'+h(right)+'</b>');
+    var fb=document.getElementById('fb'),sayT=t.type==='listen'?t.es:(t.type==='gap'?t.es.replace('___',right):right);
+    if(ok){
+      fb.innerHTML='<div class="fb ok sans">✅ ¡Muy bien!</div>';
+      var mv=false;function adv(){if(mv)return;mv=true;if(pages[pos]===p)go(1);}
+      speakSeq([{t:sayT}],function(){setTimeout(adv,500)});if(!soundOn)setTimeout(adv,1100);
+    }else{
+      setTimeout(function(){
+        fb.innerHTML='<div class="fb bad sans">Правильно: <b>'+h(right)+'</b><br>'+h(t.why)+'<div class="fbbtns"><button class="b-again" id="ag">↩ Ещё раз</button><button class="b-next" id="nx">Дальше →</button></div></div>';
+        document.getElementById('ag').onclick=function(){stopSpeak();renderPage();};
+        document.getElementById('nx').onclick=function(){go(1)};
+        scrollTo(document.getElementById('nx'));
+        say(sayT);
+      },1000);
+    }
+  };});
+  if(autoHelp(t.type)){}else if(autoOn)replay();else if(t.type==='listen')setTimeout(function(){say(t.es)},300);
+}
+
+function renderPairs(p,head){
+  var t=p.t,keys=t.words,left=shuffle(keys),right=shuffle(keys),sel=null,left_done=0,mist=0;
+  var html=head+'<div class="card"><div class="q sans">Соедините пары</div><div class="small muted sans">Нажмите испанское слово, потом его перевод.</div><div class="pairs"><div class="pcol">';
+  left.forEach(function(k){html+='<button class="pc" data-l="'+k+'">'+h(full(k))+'</button>';});
+  html+='</div><div class="pcol">';
+  right.forEach(function(k){html+='<button class="pc sans" data-r="'+k+'" style="font-size:15px">'+h(W[k].ru)+'</button>';});
+  html+='</div></div><div id="fb"></div></div>'+SKIP;
+  app.innerHTML=html;wireBar();
+  replay=function(){var seq=[];left.forEach(function(k){seq.push({t:full(k),el:app.querySelector('[data-l="'+k+'"]')})});speakSeq(seq);};autoHelp('pairs');
+  [].forEach.call(app.querySelectorAll('[data-l]'),function(b){b.onclick=function(){
+    if(b.classList.contains('done'))return;
+    [].forEach.call(app.querySelectorAll('[data-l]'),function(x){x.classList.remove('sel')});
+    b.classList.add('sel');sel=b.getAttribute('data-l');say(full(sel));};});
+  [].forEach.call(app.querySelectorAll('[data-r]'),function(b){b.onclick=function(){
+    if(b.classList.contains('done')||!sel)return;var k=b.getAttribute('data-r'),L=app.querySelector('[data-l="'+sel+'"]');
+    if(k===sel){L.classList.remove('sel');L.classList.add('done');b.classList.add('done');sel=null;left_done++;
+      if(left_done===keys.length){
+        var ok=mist===0;
+        answers[t.id]={part:curPart.es,q:'Соедините пары: '+keys.map(full).join(', '),your:ok?'все пары верно':'ошибок: '+mist,ok:ok,right:'все пары',ts:Date.now()};lsSet('answers',answers);
+        if(!ok){errs[p.g]=errs[p.g]||{};errs[p.g][t.id]=t;}
+        document.getElementById('fb').innerHTML='<div class="fb ok sans">✅ ¡Perfecto! Все пары найдены.</div>';
+        setTimeout(function(){if(pages[pos]===p)go(1)},1200);
+      }
+    }else{mist++;b.classList.add('no','shake');setTimeout(function(){b.classList.remove('no','shake')},600);}
+  };});
+}
+
+function renderGameEnd(p){
+  stopSpeak();
+  var e=errs[p.g]?Object.keys(errs[p.g]):[];
+  if(e.length){
+    app.innerHTML=bar()+'<div class="card hero"><div class="emo">🧐</div><h2>Работа над ошибками?</h2><div class="sans">Ошибок в этой игре: '+e.length+'. Хотите пройти эти задания ещё раз?</div><div class="fbbtns"><button class="b-again" id="no">Нет, дальше</button><button class="b-next" id="yes">Да</button></div></div>'+SKIP;
+    wireBar();replay=function(){};
+    document.getElementById('yes').onclick=function(){
+      var list=e.map(function(id){return errs[p.g][id]});errs[p.g]={};
+      var ins=list.map(function(t,n){return {k:'task',t:t,g:p.g,gname:'',redo:true,n:n+1,of:list.length}});
+      ins.push({k:'gend',g:p.g});pages.splice.apply(pages,[pos+1,0].concat(ins));go(1);};
+    document.getElementById('no').onclick=function(){errs[p.g]={};go(1)};
+  }else{
+    app.innerHTML=bar()+'<div class="card hero"><div class="emo">🎉</div><h2>¡Muy bien!</h2><div class="sans">Игра пройдена.</div><button class="big-btn" id="nx">Дальше →</button></div>';
+    wireBar();replay=function(){};document.getElementById('nx').onclick=function(){go(1)};
+  }
+}
+function renderPartEnd(){
+  stopSpeak();done[curPart.id]=true;lsSet('done',done);
+  var all=PARTS.every(function(p){return done[p.id]});
+  if(all&&!lsGet('sent_'+WHO,false)){sendEvent('lessonDone');lsSet('sent_'+WHO,true);}
+  var i=PARTS.indexOf(curPart),nxt=PARTS[i+1];
+  app.innerHTML=bar()+'<div class="card hero"><div class="emo">'+curPart.emo+'🎉</div><h2>¡Enhorabuena!</h2><div class="sans">Часть «'+h(curPart.es)+'» пройдена.</div>'+
+   (nxt?'<button class="big-btn" id="np">'+nxt.emo+' Дальше: '+h(nxt.es)+'</button>':'<div class="sans" style="margin-top:8px">Все 18 слов ваши! 🍇</div>')+
+   '<button class="ghost sans" id="hm" style="text-align:center">☰ В меню</button></div>';
+  wireBar();replay=function(){};
+  if(nxt)document.getElementById('np').onclick=function(){startPart(i+1)};
+  document.getElementById('hm').onclick=renderHome;
+}
+
+/* ---------- card training ---------- */
+var MODES={
+ deck:{emo:'🃏',es:'Колода: знаю / ещё учу',ru:'Переверните карточку и отметьте: знаю или ещё учу. «Ещё учу» вернутся в конец колоды.'},
+ rev:{emo:'🔄',es:'Обратные карточки',ru:'Видите русское слово — вспомните испанское и переверните карточку.'},
+ aud:{emo:'🎧',es:'Карточки на слух',ru:'Слушаете испанское слово — вспомните перевод и переверните карточку.'},
+ memo:{emo:'🧠',es:'Мемори',ru:'Откройте по две карточки и найдите пары: испанское слово + картинка.'}
+};
+function renderCardsMenu(){
+  stopSpeak();
+  var html='<div class="bar sans"><button id="bk">☰ Меню</button></div><h2>🃏 Тренировка с карточками</h2><div class="sans small muted">Все 18 слов модуля. Выберите игру:</div>';
+  ['deck','rev','aud','memo'].forEach(function(m){var o=MODES[m];
+    html+='<button class="ghost" data-m="'+m+'"><span style="font-size:22px">'+o.emo+'</span> <b>'+h(o.es)+'</b><span class="r">'+(done['c_'+m]?'✅':'›')+'</span><br><span class="muted small sans">'+h(o.ru)+'</span></button>';});
+  app.innerHTML=html;window.scrollTo(0,0);
+  document.getElementById('bk').onclick=renderHome;
+  [].forEach.call(app.querySelectorAll('[data-m]'),function(b){b.onclick=function(){startCards(b.getAttribute('data-m'))};});
+}
+function startCards(m){
+  curPart={id:'c_'+m,emo:MODES[m].emo,es:MODES[m].es,cards:true};pages=[];pos=0;errs={};
+  if(m==='memo')pages.push({k:'memo'});
+  else shuffle(Object.keys(W)).forEach(function(k){pages.push({k:'fc',mode:m,w:k});});
+  pages.push({k:'cend',mode:m});
+  renderPage();
+}
+function renderFlash(p){
+  var o=W[p.w],m=p.mode,left=pages.slice(pos).filter(function(x){return x.k==='fc'}).length;
+  var word=(o.art?'<span class="art">'+o.art+'</span> ':'')+h(o.w);
+  var front,back;
+  if(m==='deck'){front='<div class="emo">'+o.emo+'</div><div class="word" id="wd">'+word+'</div><button class="snd sans" id="sw">🔊 Слушать</button>';
+    back='<div class="ru">'+h(o.ru)+'</div>';}
+  else if(m==='rev'){front='<div class="emo">'+o.emo+'</div><div class="ru" style="font-size:26px;font-weight:bold;color:var(--terra)">'+h(o.ru)+'</div><div class="sans small muted" style="margin-top:8px">Как это по-испански?</div>';
+    back='<div class="word" id="wd">'+word+'</div><button class="snd sans" id="sw">🔊 Слушать</button>';}
+  else{front='<button class="listen" id="sw" aria-label="Слушать">🔊</button><div class="sans small muted">Что это значит?</div>';
+    back='<div class="emo" style="font-size:48px">'+o.emo+'</div><div class="word" id="wd" style="font-size:26px">'+word+'</div><div class="ru">'+h(o.ru)+'</div>';}
+  back+='<div class="exb"><span class="small muted sans">Пример</span><br><span id="exs">'+h(o.ex)+'</span><br><button class="mini sans" id="se">🔊</button> <button class="mini sans" id="te">🌐</button><div class="tr" id="tre" style="font-size:16px">'+h(o.exRu)+'</div></div>';
+  var btns=m==='deck'?'<div class="fbbtns" id="kb" style="visibility:hidden"><button class="b-again" id="learn">😅 Ещё учу</button><button class="b-next" id="know">✅ Знаю</button></div>':'<button class="big-btn" id="nx">Дальше →</button>';
+  app.innerHTML=bar()+'<div class="prog sans"><span>'+MODES[m].emo+' '+h(MODES[m].es)+' · осталось: '+left+'</span>'+helpBtn(m)+'</div>'+
+   '<div class="flip" id="fl"><div class="flip-in" id="fi"><div class="face front">'+front+'<div class="turn sans">👆 Нажмите на карточку, чтобы перевернуть</div></div>'+
+   '<div class="face back">'+back+'<div class="turn sans">👆 Нажмите, чтобы перевернуть обратно</div></div></div></div>'+btns+SKIP;
+  wireBar();
+  var fl=document.getElementById('fl'),ex=document.getElementById('exs');
+  function stop(e){e.stopPropagation();}
+  function wd(){return document.getElementById('wd');}
+  document.getElementById('fi').onclick=function(){fl.classList.toggle('on');var on=fl.classList.contains('on');
+    var kb=document.getElementById('kb');if(kb&&on){kb.style.visibility='visible';scrollTo(kb);}
+    if(on&&autoOn){if(m==='deck')say(o.ex,ex);else speakSeq([{t:full(p.w),el:wd()},{t:o.ex,el:ex}]);}};
+  [].forEach.call(app.querySelectorAll('#sw'),function(b){b.onclick=function(e){stop(e);say(full(p.w),wd())};});
+  document.getElementById('se').onclick=function(e){stop(e);say(o.ex,ex)};
+  document.getElementById('te').onclick=function(e){stop(e);document.getElementById('tre').classList.toggle('show')};
+  if(m==='deck'){
+    document.getElementById('know').onclick=function(){go(1)};
+    document.getElementById('learn').onclick=function(){pages.splice(pages.length-1,0,{k:'fc',mode:m,w:p.w});go(1)};
+  }else document.getElementById('nx').onclick=function(){go(1)};
+  replay=function(){if(fl.classList.contains('on'))speakSeq([{t:full(p.w),el:wd()},{t:o.ex,el:ex}]);else if(m!=='rev')say(full(p.w),wd());};
+  if(!autoHelp(m)&&autoOn&&m!=='rev')say(full(p.w),wd());
+}
+function flipM(el,on){el.classList.remove('anim');void el.offsetWidth;el.classList.add('anim');el.classList.toggle('on',on);}
+function renderMemo(p){
+  var keys=shuffle(Object.keys(W)).slice(0,6),cards=[];
+  keys.forEach(function(k){cards.push({k:k,t:'es'});cards.push({k:k,t:'emo'});});
+  cards=shuffle(cards);var open=[],found=0,moves=0,lock=false;
+  var html=bar()+'<div class="prog sans"><span>🧠 Мемори · найдите 6 пар</span>'+helpBtn('memo')+'</div><div class="mgrid">';
+  cards.forEach(function(c,i){html+='<div class="mc" data-i="'+i+'"><div class="mf mfront">🍇</div><div class="mf mback'+(c.t==='es'?' es':'')+'">'+(c.t==='es'?h(full(c.k)):'<span style="font-size:38px">'+W[c.k].emo+'</span>')+'</div></div>';});
+  html+='</div><div id="fb" class="sans small muted" style="text-align:center;margin-top:8px">Ходов: 0</div>'+SKIP;
+  app.innerHTML=html;wireBar();replay=function(){};autoHelp('memo');
+  [].forEach.call(app.querySelectorAll('.mc'),function(el){el.onclick=function(){
+    if(lock||el.classList.contains('on'))return;var c=cards[+el.getAttribute('data-i')];
+    flipM(el,true);if(c.t==='es')say(full(c.k));open.push({el:el,c:c});
+    if(open.length===2){moves++;lock=true;var a=open[0],b=open[1];open=[];
+      document.getElementById('fb').textContent='Ходов: '+moves;
+      if(a.c.k===b.c.k){setTimeout(function(){a.el.classList.add('ok');b.el.classList.add('ok');say(full(a.c.k));lock=false;found++;
+        if(found===6){document.getElementById('fb').innerHTML='<div class="fb ok">✅ ¡Perfecto! Все пары найдены за '+moves+' ходов.</div><div class="fbbtns"><button class="b-again" id="again">🎲 Новая игра</button><button class="b-next" id="nx">Дальше →</button></div>';
+          document.getElementById('again').onclick=function(){renderPage()};document.getElementById('nx').onclick=function(){go(1)};scrollTo(document.getElementById('nx'));}
+      },350);}
+      else setTimeout(function(){flipM(a.el,false);flipM(b.el,false);lock=false;},2000);
+    }
+  };});
+}
+function renderCardsEnd(p){
+  stopSpeak();done[curPart.id]=true;lsSet('done',done);
+  app.innerHTML=bar()+'<div class="card hero"><div class="emo">'+MODES[p.mode].emo+'🎉</div><h2>¡Muy bien!</h2><div class="sans">«'+h(MODES[p.mode].es)+'» пройдено.</div>'+
+   '<button class="big-btn" id="ag">🔁 Ещё раз</button><button class="ghost sans" id="cm" style="text-align:center">🃏 Другие игры с карточками</button></div>';
+  wireBar();replay=function(){};
+  document.getElementById('ag').onclick=function(){startCards(p.mode)};
+  document.getElementById('cm').onclick=renderCardsMenu;
+}
+
+/* my answers */
+function renderAnswers(){
+  stopSpeak();
+  var ids=Object.keys(answers),html='<div class="bar sans"><button id="bk">☰ Меню</button></div><h2>📒 Мои ответы</h2>';
+  if(!ids.length)html+='<div class="card sans">Пока здесь пусто. Ответы появятся, когда вы начнёте игры.</div>';
+  else{
+    var okN=ids.filter(function(k){return answers[k].ok}).length;
+    html+='<div class="sans small muted">Верно: '+okN+' из '+ids.length+'. При повторном прохождении ответ перезаписывается.</div>';
+    PARTS.forEach(function(p){
+      var list=ids.filter(function(k){return answers[k].part===p.es});if(!list.length)return;
+      html+='<h3 style="color:var(--olive);margin:14px 0 4px">'+p.emo+' '+h(p.es)+'</h3><div class="card">';
+      list.forEach(function(k){var a=answers[k];
+        html+='<div class="ans">'+(a.ok?'✅':'❌')+' '+h(a.q)+'<br><span class="sans small">Ваш ответ: <b>'+h(a.your)+'</b>'+(a.ok?'':' · правильно: <b>'+h(a.right)+'</b>')+'</span></div>';});
+      html+='</div>';
+    });
+  }
+  app.innerHTML=html;document.getElementById('bk').onclick=renderHome;window.scrollTo(0,0);
+}
+
+renderGate();
+})();
+</script>
+</body>
+</html>
