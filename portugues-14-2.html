@@ -656,6 +656,13 @@ button{font:inherit;color:inherit;cursor:pointer}
 <div id="wm-bar" hidden></div>
 
 <script>
+/* 19.11: «Работа над ошибками» — вопросы к разговору/диалогу/тексту находят свой текст в полном уроке */
+function withCtx(list, orig){
+  try{ Object.defineProperty(list, "find", {value: function(f){ const r = Array.prototype.find.call(this, f); return r !== undefined ? r : Array.prototype.find.call(orig || [], f); }, configurable: true}); }catch(e){}
+  return list;
+}
+</script>
+<script>
 // progress for the teacher (Telegram report + Google table): silent, never blocks the lesson
 const EV_WHO = "Дарья";
 function sendEvent(type, title, detail){ try{ if(location.origin !== "https://dariairamain-blip.github.io") return; fetch("https://daria-talk.daria-iramain.workers.dev/event", {method: "POST", headers: {"content-type": "application/json"}, keepalive: true,
@@ -1384,7 +1391,7 @@ function render(){
   $("#bar-fill").style.width = (idx / L.items.length * 100) + "%";
   stage.innerHTML = ""; window.scrollTo(0, 0);
   P.pos = {li: LI, idx: idx}; save();
-  const it = L.items[idx]; curIt = it; curQ = descQ(it); curA = "—"; R[it.t](it);
+  const it = L.items[idx]; curIt = it; curQ = descQ(it); curA = "—"; try{ R[it.t](it); }catch(e){ try{ console.error(e); }catch(_){} stage.append(el("p", "q-hint", "⚠️ Это задание не открылось. Нажми «⏭ Пропустить», чтобы идти дальше.")); }
   { const isEx = SKIPPABLE.includes(it.t); const sk = el("button", "btn ghost wide skip-ex", isEx ? "⏭ Пропустить задание" : "⏭ Пропустить эту страницу"); sk.onclick = () => { if(isEx) skipItem(); else { clearTimer(); if(window.speechSynthesis) speechSynthesis.cancel(); next(); } }; stage.append(sk); }
   appendVocab(it); autoSay(it);
   { const bar = el("div", "speed-bar"); bar.append(el("span", "", "🐢 Скорость:"));
@@ -3815,6 +3822,118 @@ autoUnlock();
   const _st = startLevel; startLevel = function(){ RETRY = null; return _st.apply(this, arguments); };
   /* «Мои ответы»: показать вторую попытку */
   if(typeof descA === "function"){ const _da = descA; descA = function(it){ return _da.apply(this, arguments); }; }
+})();
+</script>
+<script>
+/* 17.11: iPhone не даёт звуку включиться, пока не было касания внутри обработчика. Код урока теперь запоминается и экран кода пропускается —
+   поэтому «включаем» голос на ПЕРВОМ касании любой кнопки (уровень на карте и т. п.); дальше автоозвучка работает сама. Ученик ничего не видит. */
+(function(){
+  if(!("speechSynthesis" in window)) return;
+  let primed = false; const EV = ["touchend", "click", "keydown"];
+  const prime = () => { if(primed) return; primed = true;
+    try{ const u = new SpeechSynthesisUtterance("a"); u.volume = 0; u.rate = 2; u.lang = "pt-BR"; speechSynthesis.speak(u); }catch(e){}
+    try{ speechSynthesis.getVoices(); }catch(e){}
+    EV.forEach(ev => removeEventListener(ev, prime, true)); };
+  EV.forEach(ev => addEventListener(ev, prime, true));
+})();
+</script>
+<script>
+/* 17.11: большая кнопка «▶ Начать прослушивание диалога» — iPhone включает звук только по нажатию.
+   Диалог звучит реплика за репликой, каждая реплика появляется, когда звучит. */
+(function(){
+  if(typeof R === "undefined" || !R.dialog) return;
+  const st = document.createElement("style");
+  st.textContent = ".dlg-play{font-size:18px;padding:16px 14px;margin:6px 0 12px}.dl-line.dl-now{outline:3px solid #FF9F1C;outline-offset:2px;border-radius:14px}";
+  document.head.append(st);
+  const _d = R.dialog;
+  R.dialog = function(it){
+    const r = _d.apply(this, arguments);
+    try{
+      const box = stage.querySelector(".dlg"); if(!box) return r;
+      const plainT = x => String(x).replace(/\*\*/g, "");
+      const b = el("button", "btn wide dlg-play", "▶ Начать прослушивание диалога"); b.type = "button";
+      let run = 0, pos = 0;
+      const clear = () => stage.querySelectorAll(".dl-now").forEach(x => x.classList.remove("dl-now"));
+      b.onclick = () => {
+        if(b.dataset.on){ run++; try{ speechSynthesis.cancel(); }catch(e){} clear(); delete b.dataset.on; b.textContent = "▶ Слушать дальше"; return; }
+        const lines = [...stage.querySelectorAll(".dlg .dl-line")];
+        if(pos >= lines.length) pos = 0;
+        stage.querySelectorAll(".chat-next").forEach(x => { const n = x.nextElementSibling; if(n && /Показать весь диалог/.test(n.textContent)) n.remove(); x.remove(); });
+        const tok = ++run; b.dataset.on = "1"; b.textContent = "⏸ Остановить";
+        const go = () => {
+          if(tok !== run || L.items[idx] !== it) return;
+          clear();
+          if(pos >= lines.length){ delete b.dataset.on; b.textContent = "🔁 Прослушать ещё раз"; return; }
+          const ln = lines[pos]; ln.classList.remove("chat-hid"); ln.classList.add("dl-now");
+          try{ ln.scrollIntoView({block: "nearest", behavior: "smooth"}); }catch(e){}
+          const txt = plainT(it.lines[pos][1]); pos++;
+          speak(txt, () => setTimeout(go, 450));
+        };
+        go();
+      };
+      box.before(b);
+    }catch(e){}
+    return r;
+  };
+})();
+</script>
+<script>
+/* 19.11: 1) в текстах урока нет эмодзи, похожих на кнопки (🎤 🔊 ▶ …); 2) «прочитай про себя»: кнопка «🔊 Прочитать вслух» + 🔊 у каждой фразы */
+(function(){
+  if(typeof R === "undefined") return;
+  const st = document.createElement("style");
+  st.textContent = ".rd-play{font-size:17px;padding:14px 12px;margin:4px 0 10px}.rd-line.rd-now{outline:3px solid #FF9F1C;outline-offset:2px;border-radius:12px}"
+    + ".rd-say{border:0;background:rgba(124,92,255,.14);border-radius:999px;width:30px;height:30px;font-size:15px;line-height:30px;padding:0;margin-left:4px;cursor:pointer;vertical-align:middle}";
+  document.head.append(st);
+  const BTNLIKE = /(\u{1F3A4}|\u{1F399}|\u{1F50A}|\u{1F509}|\u{1F508}|\u{1F507}|▶|⏯|⏸|⏹|⏭|⏮|⏩|⏪|⏺)️?/gu;
+  const clean = s => typeof s !== "string" ? s : s.replace(BTNLIKE, m => /\u{1F3A4}|\u{1F399}/u.test(m) ? "🎶" : /▶|⏩/.test(m) ? "👉" : "").replace(/ {2,}/g, " ").trim();
+  const TXT = {read: [0], dialog: [1], audio: [1]};
+  let done = false;
+  function cleanAll(){
+    if(done || typeof LEVELS === "undefined" || !LEVELS) return; done = true;
+    LEVELS.forEach(lv => (lv.items || []).forEach(it => {
+      if(!it || !TXT[it.t]) return;
+      ["from", "head", "title"].forEach(k => { if(it[k]) it[k] = clean(it[k]); });
+      (it.lines || []).forEach(l => TXT[it.t].forEach(j => { if(Array.isArray(l) && typeof l[j] === "string") l[j] = clean(l[j]); }));
+    }));
+  }
+  if(typeof startLevel === "function"){ const _sl = startLevel; startLevel = function(){ try{ cleanAll(); }catch(e){} return _sl.apply(this, arguments); }; }
+  if(!R.read) return;
+  const _rd = R.read;
+  R.read = function(it){
+    try{ cleanAll(); }catch(e){}
+    const r = _rd.apply(this, arguments);
+    try{
+      const box = stage.querySelector(".rd:not(.rd-sm)"); if(!box) return r;
+      const lines = [...box.querySelectorAll(".rd-line")];
+      const plain = x => String(x).replace(/\*\*/g, "");
+      lines.forEach((ln, i) => {
+        if(ln.querySelector('[aria-label="Прослушать фразу"]') || !it.lines[i]) return;
+        const tx = ln.querySelector(".rd-t"); if(!tx) return;
+        const sb = el("button", "rd-say", "🔊"); sb.type = "button"; sb.setAttribute("aria-label", "Прослушать фразу");
+        sb.onclick = e => { e.stopPropagation(); speak(plain(it.lines[i][0])); };
+        tx.append(" ", sb);
+      });
+      const b = el("button", "btn wide rd-play", "🔊 Прочитать вслух"); b.type = "button";
+      let run = 0, pos = 0;
+      const clear = () => box.querySelectorAll(".rd-now").forEach(x => x.classList.remove("rd-now"));
+      b.onclick = () => {
+        if(b.dataset.on){ run++; try{ speechSynthesis.cancel(); }catch(e){} clear(); delete b.dataset.on; b.textContent = "🔊 Читать дальше"; return; }
+        if(pos >= lines.length) pos = 0;
+        const tok = ++run; b.dataset.on = "1"; b.textContent = "⏸ Остановить";
+        const go = () => {
+          if(tok !== run || L.items[idx] !== it) return;
+          clear();
+          if(pos >= lines.length){ delete b.dataset.on; b.textContent = "🔁 Прочитать ещё раз"; return; }
+          lines[pos].classList.add("rd-now"); const txt = plain(it.lines[pos][0]); pos++;
+          speak(txt, () => setTimeout(go, 400));
+        };
+        go();
+      };
+      box.before(b);
+    }catch(e){}
+    return r;
+  };
 })();
 </script>
 </body>
