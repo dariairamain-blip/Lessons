@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>İspanyolca Dünyam — Mihriban anketi</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: one phone-sized card per page, emoji tiles in a grid, sticky nav at the bottom */
+:root{
+  --bg:#eef3f7; --card:#ffffff; --ink:#14233a; --muted:#5c6b80;
+  --sea:#1f5fa8; --sun:#f2b632; --sel:#e3eefb; --line:#d5dfea;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Nunito Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd;
+  --sea:#6ea8ef; --sun:#f2b632; --sel:#1d3657; --line:#2a3b55; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1724; --card:#16233a; --ink:#e8eef6; --muted:#9aa9bd;
+  --sea:#6ea8ef; --sun:#f2b632; --sel:#1d3657; --line:#2a3b55; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:520px;margin:0 auto;padding-block:12px 96px;display:flex;flex-direction:column;gap:10px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:15px}
+.logo{width:30px;height:30px;border-radius:50%;background:var(--sea);color:#fff;display:grid;place-items:center;font-size:13px;letter-spacing:.5px}
+.prog{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden;max-width:160px}
+.prog i{display:block;height:100%;background:var(--sun);transition:width .3s}
+.eyebrow{font-size:12.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--sea);font-weight:700}
+h1{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.15;margin:2px 0 0;text-wrap:balance}
+.sub{color:var(--muted);margin:2px 0 0;line-height:1.4}
+.grp{font-weight:700;margin:6px 0 0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.grid.g4{grid-template-columns:repeat(4,1fr)}
+.tile{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:7px 4px 6px;
+  display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;font:inherit;color:inherit;
+  font-size:12.5px;line-height:1.2;text-align:center;position:relative;min-width:0}
+.tile .e{font-size:28px;line-height:1.1}
+.g4 .tile .e{font-size:24px}
+.g4 .tile{font-size:12.5px}
+@media (max-width:420px){.grid.g4{grid-template-columns:repeat(3,1fr)}}
+.tile[aria-pressed="true"]{border-color:var(--sea);background:var(--sel)}
+.tile[aria-pressed="true"]::after{content:"✓";position:absolute;top:3px;right:5px;width:17px;height:17px;border-radius:50%;
+  background:var(--sea);color:var(--card);font-size:12px;display:grid;place-items:center;font-weight:700}
+.tile:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+input[type=text],textarea{width:100%;box-sizing:border-box;border:2px solid var(--line);border-radius:10px;
+  background:var(--card);color:var(--ink);font:inherit;padding:9px 11px}
+textarea{min-height:90px;resize:vertical}
+.skip{align-self:flex-start;background:none;border:0;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:2px 0;text-decoration:underline}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.nav div{max-width:520px;margin:0 auto;display:flex;gap:10px}
+.btn{flex:1;border:0;border-radius:12px;padding:13px;font:inherit;font-weight:700;font-size:16px;cursor:pointer}
+.btn.pri{background:var(--sea);color:var(--card)}
+.btn.sec{background:var(--card);color:var(--ink);border:2px solid var(--line);flex:0 0 32%}
+.hero{background:var(--card);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;border:1px solid var(--line)}
+.hero .big{font-size:46px}
+.steps{display:flex;flex-wrap:wrap;gap:6px}
+.steps span{background:var(--sel);border-radius:999px;padding:5px 10px;font-size:13px}
+.res{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;white-space:pre-wrap;font-size:13px;line-height:1.45;max-height:46vh;overflow:auto}
+.copied{color:var(--sea);font-weight:700;min-height:1.2em}
+.own{font-size:12.5px;color:var(--muted);text-align:center;margin-top:6px}
+@media (prefers-reduced-motion:reduce){.prog i{transition:none}}
+.gate{position:fixed;inset:0;z-index:50;background:var(--bg,#FFF8EE);display:grid;place-items:center;padding:16px}
+.gate .gbox{max-width:380px;width:100%;display:grid;gap:12px;text-align:center}.gate .big{font-size:44px}.gate input{font:inherit;font-size:20px;text-align:center;letter-spacing:.15em;padding:12px;border-radius:14px;border:2px solid var(--line,#ddd)}
+.gate .err{color:#C2410C;font-weight:700;min-height:1.2em;margin:0}
+.grid.g2{grid-template-columns:repeat(2,1fr)}
+.g2 .tile{flex-direction:row;justify-content:flex-start;text-align:left;gap:6px;font-size:12.5px;padding:8px}
+.g2 .tile .e{font-size:20px}
+.mine{flex:none;border:2px solid var(--line);background:var(--card);color:var(--ink);font:700 12.5px var(--body);border-radius:999px;padding:5px 10px;cursor:pointer}
+.ov{position:fixed;inset:0;z-index:40;background:#0009;display:grid;place-items:center;padding:16px}
+.ov .box{background:var(--card);color:var(--ink);border-radius:18px;padding:16px;max-width:460px;width:100%;max-height:86vh;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.ov h1{font-size:21px;margin:0}
+.note{background:var(--sel);border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.45}
+.more{background:var(--card);border:2px dashed var(--sea);color:var(--sea);border-radius:12px;padding:10px;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
+[hidden]{display:none!important}
+.tile{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+</style>
+<style>.own{font-size:12.5px}.ov .box{position:relative}.ov .x{position:absolute;top:8px;right:10px;width:34px;height:34px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--ink);font:700 16px var(--body);cursor:pointer;display:grid;place-items:center}.ov h1{padding-right:40px}#res2{max-height:30vh}</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="logo">DB</span>Daria Botina</div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+    <button class="mine" id="mine" type="button">📋 Cevaplarım</button>
+  </div>
+  <main id="page"></main>
+  <div class="own">© Daria Botina</div>
+</div>
+<nav class="nav"><div>
+  <button class="btn sec" id="back" type="button">← Geri</button>
+  <button class="btn pri" id="next" type="button">İleri →</button>
+</div></nav>
+<div class="gate" id="gate"><div class="gbox"><div class="big">🔐🇪🇸</div><h1>¡Hola, Mihriban!</h1><p class="sub">Daria'nın sana gönderdiği kodu yaz.</p>
+<input type="text" id="code" inputmode="text" autocomplete="off" autocapitalize="characters" placeholder="Kod" aria-label="Kod"><button class="btn pri" id="go" type="button">Giriş →</button><p class="err" id="err" aria-live="polite"></p></div></div>
+<script>
+/* Kod: Mihriban2026 (Михрибан2026, Türkçe harfler, boşluk/tire fark etmez) ve Daria'nın kodu DariaB2 */
+const WHO_STUDENT="Mihriban", KEY="mihriban-anket-es";
+function normCode(v){
+  let s=String(v||"").trim().toLocaleLowerCase("tr").replace(/i̇/g,"i").replace(/ı/g,"i").replace(/[\s\-_.]/g,"");
+  const cyr={"а":"a","б":"b","в":"b","г":"g","д":"d","е":"e","ж":"j","з":"z","и":"i","й":"i","к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f","х":"h","ц":"ts","ч":"ch","ш":"sh","ь":"","ъ":"","ы":"i","э":"e","ю":"yu","я":"ya","ё":"e"};
+  s=s.replace(/[а-яё]/g,c=>cyr[c]??c);
+  return s;
+}
+function codeRole(v){const s=normCode(v);
+  if(s==="mihriban2026")return "S";
+  if(/^(dariab2|darjab2|daryab2|daryav2|dariav2)$/.test(s))return "D";
+  return "";}
+function getRole(){try{return localStorage.getItem(KEY+"-role")||""}catch(e){return ""}}
+function WHO(){return getRole()==="D"?"Дарья (тест)":WHO_STUDENT}
+function sendEvent(type,title,detail){try{if(location.origin!=="https://dariairamain-blip.github.io")return;
+  fetch("https://daria-talk.daria-iramain.workers.dev/event",{method:"POST",headers:{"content-type":"application/json"},keepalive:true,
+  body:JSON.stringify({type,who:WHO(),title:String(title||"").slice(0,120),detail:String(detail||"").slice(0,3000)})}).catch(()=>{});}catch(e){}}
+(function(){const g=document.getElementById("gate");
+ if(getRole()){g.remove();setTimeout(()=>sendEvent("visit",document.title),800);return}
+ const tryIt=()=>{const r=codeRole(document.getElementById("code").value);
+   if(r){try{localStorage.setItem(KEY+"-role",r)}catch(e){}g.remove();sendEvent("visit",document.title)}
+   else document.getElementById("err").textContent="Kod hatalı. Lütfen tekrar dene."};
+ document.getElementById("go").onclick=tryIt;document.getElementById("code").onkeydown=e=>{if(e.key==="Enter")tryIt()};})();
+</script>
+<script>
+const PAGES=[{"intro": true}, {"lvl": "1 · Hayatın", "t": "Nerede yaşıyorsun?", "s": "Sana uyanları işaretle.", "groups": [{"q": "Şehir / bölge", "items": [["🕌", "İstanbul"], ["🏛️", "Ankara"], ["🌊", "İzmir"], ["🌴", "Antalya"], ["🏔️", "Bursa"], ["⛵", "Muğla / Bodrum"], ["🇪🇸", "İspanya'da yaşıyorum"], ["🌍", "Başka bir ülkede"], ["📍", "Diğer"]], "more": [["🌾", "Adana"], ["🍋", "Mersin"], ["🎓", "Eskişehir"], ["🕌", "Konya"], ["🏭", "Kocaeli"], ["🌲", "Trabzon"], ["🥙", "Gaziantep"], ["⛷️", "Kayseri"], ["⚓", "Samsun"], ["🧵", "Denizli"], ["🫒", "Aydın"], ["🏺", "Çanakkale"], ["🏛️", "Madrid"], ["🌉", "Barcelona"], ["🍊", "Valencia"], ["☀️", "Málaga"], ["🏖️", "Alicante"], ["💃", "Sevilla"], ["🌋", "Kanarya Adaları"], ["🏝️", "Mallorca"]]}, {"q": "İspanya ile bağın", "items": [["🆕", "Henüz yok"], ["✈️", "Tatile gidiyorum / gideceğim"], ["📦", "Taşınmayı düşünüyorum"], ["🏡", "Orada yaşıyorum"]], "more": [["💼", "İş için"], ["🎓", "Okumak için"], ["❤️", "Ailem / partnerim orada"], ["🌎", "Latin Amerika'ya gitmek istiyorum"], ["🧑‍🤝‍🧑", "İspanyolca konuşan arkadaşlarım var"], ["🤝", "İspanyolca konuşan müşterilerim var"]]}], "text": "Şehir…"}, {"lvl": "1 · Çevre", "t": "Nerede ve kimlerle yaşıyorsun?", "s": "Uyan her şeyi işaretle.", "groups": [{"q": "Ev", "items": [["🏢", "Apartman dairesi"], ["🏡", "Müstakil ev"], ["🏘️", "Site"], ["🌆", "Şehir merkezi"], ["🌊", "Denize yakın"], ["🌳", "Bahçeli / teraslı"]], "more": [["🏙️", "Yüksek bina"], ["🏠", "Küçük kasaba"], ["🌾", "Köy"], ["⛰️", "Dağda"], ["🏖️", "Tatil beldesi"], ["🛏️", "Oda kiralıyorum"], ["🔑", "Kendi evim"], ["📄", "Kiracıyım"], ["📦", "Yeni taşındım"], ["🏊", "Havuzlu"], ["🚗", "Otoparklı"], ["🌲", "Doğaya yakın"], ["🚇", "Metroya yakın"], ["🏢", "Çatı katı"], ["🌇", "Deniz manzaralı"], ["🆕", "Yeni bina"], ["🧱", "Eski bina"], ["🎓", "Yurtta"]]}, {"q": "Kimlerle?", "items": [["❤️", "Eşimle / partnerimle"], ["👨‍👩‍👧", "Ailemle / çocuklarımla"], ["🙋‍♀️", "Yalnız"], ["🧑‍🤝‍🧑", "Ev arkadaşlarımla"], ["🐱", "Kedi"], ["🐶", "Köpek"]], "more": [["👵", "Annem babamla"], ["🧑‍🤝‍🧑", "Kardeşimle"], ["👶", "Bebeğimle"], ["🧒", "Okul çağındaki çocuklarla"], ["🧑", "Ergen çocukla"], ["🐦", "Kuş"], ["🐠", "Balık"], ["🐢", "Kaplumbağa"], ["🐰", "Tavşan"], ["🪴", "Bir sürü bitki"], ["🧳", "İki evde yaşıyorum"], ["🏨", "Sık sık iş seyahatindeyim"]]}]}, {"lvl": "1 · İspanyolca", "t": "İspanyolcaya hayatta nerede ihtiyacın var?", "s": "En önemlisi: bu durumlar derslerde ilk sırada olacak.", "cols4": true, "groups": [{"items": [["🛒", "Mağaza / pazar"], ["🍽️", "Kafe / restoran"], ["🏨", "Otel / rezervasyon"], ["✈️", "Havalimanı / ulaşım"], ["🏥", "Doktor / eczane"], ["💼", "İş / müşteriler"], ["📞", "Telefon görüşmeleri"], ["💬", "Mesaj / e-posta"], ["🎉", "Arkadaşlar / eğlence"], ["📺", "Dizi / film"], ["🎵", "Müzik"], ["🗺️", "Seyahat"], ["🗂️", "Belgeler / vize"], ["🏦", "Banka"], ["🔑", "Ev kiralama"], ["🎓", "Okul / kurs"]], "more": [["🦷", "Diş hekimi"], ["🚑", "Acil durum"], ["👮", "Polis / şikâyet"], ["🏛️", "Belediye"], ["🧑‍💼", "İş görüşmesi"], ["📑", "Kira sözleşmesi"], ["💡", "Elektrik, su, internet"], ["📱", "Telefon hattı"], ["🧾", "Vergi / muhasebeci"], ["🛂", "Oturma izni"], ["🚙", "Ehliyet"], ["🅿️", "Ceza / otopark"], ["🛠️", "Tamirci çağırmak"], ["🛍️", "Ürün iade / değişim"], ["💇", "Kuaför"], ["🏋️", "Spor salonu"], ["🐶", "Veteriner"], ["👶", "Kreş"], ["🏫", "Üniversite"], ["👋", "Komşularla tanışmak"], ["🗣️", "Asansörde / kafede sohbet"], ["😂", "Esprileri ve dizileri anlamak"], ["💌", "Flört / tanışma"], ["⚽", "Futbol sohbeti"], ["🧳", "İspanyol misafirleri ağırlamak"], ["🌴", "Turistlerle konuşmak (işte)"], ["💻", "Görüntülü görüşmeler"], ["🎫", "Konser / festival"]]}], "text": "İspanyolca olmadan başka nerede zorlanıyorsun?"}, {"lvl": "2 · Davranış", "t": "Ne iş yapıyorsun?", "s": "İşini işaretle ya da kendin yaz.", "groups": [{"items": [["💻", "Online / IT"], ["🏗️", "İnşaat / tadilat"], ["🚚", "Lojistik / şoför"], ["🏨", "Turizm / otel"], ["🍳", "Restoran / mutfak"], ["🛍️", "Satış"], ["🏠", "Emlak"], ["🩺", "Sağlık"], ["🎓", "Öğrenciyim"], ["🏪", "Kendi işim"], ["🔍", "İş arıyorum"], ["🌅", "Emekliyim / dinleniyorum"]], "more": [["⚖️", "Hukuk"], ["🏦", "Banka / finans"], ["🎨", "Tasarım"], ["📣", "Pazarlama"], ["📰", "Medya"], ["🧪", "Bilim"], ["🏭", "Üretim"], ["🚢", "Denizcilik / yat"], ["🚕", "Taksi"], ["🏛️", "Devlet memuru"], ["🦷", "Diş kliniği"], ["💊", "Eczane"], ["🐾", "Veterinerlik"], ["🌾", "Tarım"], ["🎭", "Sanat / sahne"], ["📸", "Foto / video"], ["🗣️", "Çeviri"], ["💇", "Güzellik / kuaför"], ["💆", "Masaj / spa"], ["🧹", "Temizlik"], ["🏋️", "Antrenör"], ["👩‍🏫", "Öğretmen"], ["📊", "Muhasebe"], ["🧑‍💼", "Yönetici"], ["🛒", "Mağaza / ticaret"], ["🏢", "Ofis"], ["👶", "Çocuk bakımı"], ["✍️", "Serbest çalışan"], ["🌍", "Yurt dışı şirkete uzaktan çalışıyorum"], ["✈️", "Havacılık"], ["📦", "Depo"], ["🛵", "Kurye"]]}], "text": "Mesleğin / ne yapıyorsun…"}, {"lvl": "2 · Davranış", "t": "Boş zamanında ne yapmayı seversin?", "s": "En eğlenceli kısım! 😄", "cols4": true, "groups": [{"items": [["⚽", "Futbol"], ["🏋️‍♀️", "Spor salonu"], ["🏊‍♀️", "Deniz / yüzme"], ["🥾", "Doğa yürüyüşü"], ["🚴‍♀️", "Bisiklet"], ["🧘", "Yoga / pilates"], ["👩‍🍳", "Yemek yapmak"], ["🎬", "Film / dizi"], ["🎵", "Müzik"], ["📖", "Kitap"], ["🎮", "Oyun"], ["✈️", "Seyahat"], ["🛍️", "Alışveriş"], ["📷", "Fotoğraf"], ["🎨", "El işi / sanat"], ["🌍", "Diller"]], "more": [["🎾", "Tenis / padel"], ["🏐", "Voleybol"], ["🏀", "Basketbol"], ["🏃‍♀️", "Koşu"], ["🤿", "Dalış"], ["🏄", "Sörf"], ["⛷️", "Kayak"], ["🧗", "Tırmanış"], ["⛺", "Kamp"], ["🌱", "Bahçe"], ["🎸", "Gitar"], ["🎶", "Karaoke"], ["♟️", "Satranç"], ["🧩", "Kutu oyunları"], ["🧁", "Pasta / kek yapmak"], ["🐕", "Köpek gezdirmek"], ["🛶", "Kano / SUP"], ["🏇", "At binmek"], ["🎳", "Bowling"], ["🎭", "Tiyatro"], ["🖼️", "Müzeler"], ["✍️", "Yazı / blog"], ["🎧", "Podcast"], ["📺", "YouTube"], ["🧠", "Kişisel gelişim"], ["🧖‍♀️", "Hamam / sauna"], ["🎟️", "Festivaller"], ["💃", "Dans / salsa / flamenko"], ["🏍️", "Motosiklet"], ["⛵", "Yelken"], ["🍖", "Mangal"], ["🧶", "Örgü / dikiş"], ["💅", "Bakım / güzellik"], ["🌌", "Astronomi"], ["📸", "Instagram / sosyal medya"], ["☕", "Kafe keşfetmek"]]}], "text": "Başka hobin var mı?"}, {"lvl": "2 · Davranış", "t": "Hafta sonların nasıl geçiyor?", "s": "Senin tipik hafta sonun.", "groups": [{"items": [["😴", "Geç kalkmak"], ["🍳", "Uzun kahvaltı"], ["🧑‍🤝‍🧑", "Arkadaşlarla buluşmak"], ["👨‍👩‍👧", "Aile"], ["🏖️", "Plaj"], ["🛍️", "Alışveriş"], ["🚙", "Şehir dışına gezi"], ["⚽", "Maç / spor"], ["🧹", "Ev işleri"], ["📚", "Ders çalışmak"], ["🎫", "Konser / etkinlik"], ["🛋️", "Evde dinlenmek"]], "more": [["🛌", "Bütün gün yatmak"], ["👩‍🍳", "Özel bir yemek yapmak"], ["🧺", "Piknik"], ["🚶‍♀️", "Şehirde yürüyüş"], ["⛰️", "Dağ / doğa"], ["🚤", "Tekne turu"], ["🏊", "Havuz"], ["🏋️", "Antrenman"], ["💆", "Spa / masaj"], ["🎬", "Sinema"], ["📺", "Evde dizi"], ["🎮", "Oyun"], ["🧺", "Semt pazarı"], ["🌇", "Sahilde gün batımı"], ["🏛️", "Gezi / müze"], ["🎨", "Atölye / kurs"], ["👶", "Çocuklarla vakit"], ["🐾", "Evcil hayvanla vakit"], ["💼", "Hafta sonu da çalışıyorum"], ["📖", "Okumak"], ["🧘", "Sessizlik ve dinlenme"], ["✈️", "Kısa bir seyahat"], ["🎂", "Doğum günleri"], ["🥘", "Ailecek uzun yemek"], ["🛠️", "Evde tamir işleri"], ["🚗", "Araba yıkamak"], ["🌳", "Park"], ["🏟️", "Stadyum"], ["☕", "Kafede oturmak"], ["💅", "Kuaför / bakım günü"]]}]}, {"lvl": "1 · Çevre", "t": "Ne yemeyi ve içmeyi seversin?", "s": "Bunları diyaloglarda sipariş edeceğiz 😉", "groups": [{"items": [["☕", "Kahve"], ["🫖", "Çay"], ["🍳", "Kahvaltı"], ["🥘", "Paella"], ["🍤", "Tapas"], ["🥔", "Tortilla (İspanyol omleti)"], ["🐟", "Balık / deniz ürünleri"], ["🥩", "Et / ızgara"], ["🍕", "Pizza / makarna"], ["🥗", "Salata"], ["🍰", "Tatlı / churros"], ["🍉", "Meyve"]], "more": [["🥐", "Hamur işi"], ["🍔", "Hamburger"], ["🍣", "Suşi"], ["🍜", "Uzak Doğu mutfağı"], ["🍲", "Ev yemeği"], ["🧀", "Peynir (manchego)"], ["🦐", "Karides (gambas)"], ["🐙", "Ahtapot"], ["🥖", "Sandviç (bocadillo)"], ["🥣", "Gazpacho"], ["🫒", "Zeytin"], ["🍞", "Pan con tomate"], ["🍮", "Flan"], ["🍦", "Dondurma"], ["🍫", "Sıcak çikolata ve churros"], ["🥤", "Smoothie / meyve suyu"], ["🧃", "Horchata"], ["🍊", "Taze portakal suyu"], ["💧", "Sadece su"], ["🥛", "Sütlü kahve (café con leche)"], ["🌱", "Vejetaryen"], ["🌶️", "Acı"], ["🥦", "Sebze"], ["🍚", "Pilav"], ["🥟", "Mantı (özlüyorum!)"], ["🫓", "Gözleme"], ["🍲", "Çorba"], ["🍗", "Tavuk"], ["🥙", "Döner / dürüm"], ["🧆", "Falafel"]]}]}, {"lvl": "Motivasyon", "t": "İspanyolcayı neden istiyorsun?", "s": "Seni en çok ne motive ediyor?", "groups": [{"items": [["🌍", "Rahatça seyahat etmek"], ["🏆", "Sınav / sertifika (DELE)"], ["💼", "İş / kariyer"], ["🗨️", "Arkadaşlık ve tanışma"], ["👨‍👩‍👧", "Aile / çocuklar"], ["📺", "Dizi / film"], ["🎶", "Müzik"], ["🌎", "Latin Amerika'yı gezmek"], ["🧠", "Kendim için"]], "more": [["🏡", "İspanya'da yaşamak"], ["📞", "Telefonda konuşmaktan korkmamak"], ["🧾", "Belgeleri kendim halletmek"], ["🤝", "İspanyolca konuşan arkadaş edinmek"], ["💑", "Partnerimle / ailesiyle konuşmak"], ["📈", "Daha iyi bir iş bulmak"], ["🏪", "Kendi işimi kurmak"], ["🎓", "İspanya'da okumak"], ["📚", "Kitap okumak"], ["⚽", "Futbol yorumlarını anlamak"], ["😂", "İspanyol mizahını anlamak"], ["🧳", "İspanya'yı gezmek"], ["🧓", "Beynim çalışsın diye"], ["🏆", "Yapabileceğimi kendime kanıtlamak"], ["🌍", "Bir dil daha bilmek"], ["🎶", "İspanyolca şarkı söylemek"], ["📺", "La Casa de Papel'i orijinal dilinde izlemek"], ["🛒", "Mağazada parmakla göstermemek"], ["🤝", "Turistlerle / müşterilerle konuşmak"], ["💃", "Latin dansları ve kültürü"]]}], "text": "Başka bir neden…"}, {"lvl": "İspanyolcan", "t": "Şimdiden neler yapabiliyorsun?", "s": "İspanyolca yapabildiğin her şeyi işaretle. Hiç bilmiyorsan bu sayfayı atlayabilirsin.", "groups": [{"items": [["👋", "Selamlaşmak, kendimi tanıtmak"], ["🛒", "Bir şey almak, fiyat sormak"], ["☕", "Kafede sipariş vermek"], ["🗺️", "Yol sormak"], ["👨‍👩‍👧", "Kendimden ve ailemden bahsetmek"], ["🕒", "Saat ayarlamak"], ["📞", "Telefonda konuşmak"], ["🏥", "Doktora nerem ağrıyor anlatmak"], ["📰", "Haberleri / TV'yi anlamak"], ["💬", "Bir İspanyolla rahatça sohbet"], ["📝", "Mektup / mesaj yazmak"], ["🗣️", "Tartışmak, fikrimi açıklamak"]], "more": [["🔢", "Sayılar, fiyatlar, saat"], ["📅", "Günler, tarihler"], ["🧾", "Hesabı / fişi anlamak"], ["🚌", "Bilet almak"], ["🏨", "Otele giriş yapmak"], ["🍽️", "Restoranda şikâyet etmek"], ["💊", "İlaç almak"], ["🛍️", "Ürün iade etmek"], ["🧑‍🔧", "Ustaya arızayı anlatmak"], ["🏦", "Bankaya gitmek"], ["📄", "Form doldurmak"], ["📧", "E-posta yazmak"], ["💬", "WhatsApp'ta yazışmak"], ["🎬", "Altyazılı dizi izlemek"], ["📻", "Radyoyu anlamak"], ["🗞️", "Haber okumak"], ["😂", "Bir espriyi anlamak"], ["🗣️", "Geçmişte olan bir şeyi anlatmak"], ["🔮", "Planlarımı anlatmak"], ["💭", "«Keşke…, olsaydı…» demek"], ["🧑‍💼", "İş görüşmesine girmek"], ["📊", "Sunum yapmak"], ["🤝", "Pazarlık yapmak"], ["📞", "Telefonla randevu almak"]]}]}, {"lvl": "İspanyolcan", "t": "Senin için en zor olan ne?", "s": "Birkaç tane seçebilirsin.", "groups": [{"items": [["👂", "Hızlı konuşmayı anlamak"], ["🗣️", "Konuşmaya başlamak — korkutucu"], ["🔤", "Az kelime biliyorum"], ["⏳", "Geçmiş zamanlar"], ["🔀", "Ser / estar"], ["🤯", "Subjuntivo"], ["👄", "Telaffuz"], ["✍️", "Hatasız yazmak"]], "more": [["🧠", "Kelimeleri akılda tutmak"], ["📏", "Genel olarak gramer"], ["🔤", "Cinsiyet: el / la (Türkçede yok!)"], ["👥", "Tú mu, usted mi"], ["🗣️", "Hızlı cevap vermek"], ["🎬", "Dizileri anlamak"], ["📞", "Telefonda konuşmak"], ["🌀", "İspanyollar sesleri yutuyor"], ["🗺️", "Aksanlar (Latin Amerika, Endülüs…)"], ["📝", "Edatlar: por / para"], ["🔁", "Dönüşlü fiiller"], ["⏭️", "Gelecek zaman"], ["💭", "Şart kipi"], ["🤐", "Sohbet başlatmak"], ["😶", "Küçük sohbeti sürdürmek"], ["✏️", "Vurgu işaretleri ve ¿¡"], ["🔄", "Düzensiz fiiller"], ["👂", "Sayıları duyarak anlamak"], ["🧾", "Resmî yazışma dili"], ["😂", "Esprileri ve argoyu anlamak"], ["📐", "Kelime sırası (Türkçeden farklı)"], ["🔠", "Artikeller: un / una / el / la"]]}]}, {"lvl": "3 · Yetenekler", "t": "Nasıl daha kolay öğreniyorsun?", "s": "Uyan her şeyi işaretle.", "groups": [{"items": [["👀", "Resimlerle"], ["👂", "Dinleyerek"], ["🗣️", "Sesli tekrar ederek"], ["✍️", "Yazarak"], ["🎬", "Video / dizi"], ["🎵", "Şarkılar"], ["🎮", "Oyunlar"], ["📱", "Telefondan"], ["⏱️", "Kısa derslerle"], ["💬", "Konuşarak"], ["📖", "Hikâyelerle"], ["📏", "Kurallarla"]], "more": [["🃏", "Kartlarla"], ["⏱️", "Her gün biraz"], ["👩‍🏫", "Öğretmenle"], ["👥", "Grupta"], ["🙋‍♀️", "Kendi başıma"], ["🧩", "Bulmacalarla"], ["🎭", "Canlandırmalarla"], ["🚶‍♀️", "Yolda / hareket halinde"], ["🎧", "Kulaklıkla"], ["🌅", "Sabahları"], ["🌙", "Akşamları"], ["🔁", "Çok tekrarla"], ["😂", "Mizahla"], ["🏆", "Yarışarak"], ["📈", "İlerlememi görerek"], ["🗺️", "Gerçek durumlarla"], ["📸", "Fotoğraf ve mimlerle"], ["📼", "Sesimi kaydederek"], ["🗨️", "Sohbet / yazışma"], ["📺", "Kısa videolar"], ["🧠", "Çağrışımlarla"], ["🇹🇷", "Türkçe ile karşılaştırarak"], ["🇬🇧", "İngilizce ile karşılaştırarak"], ["🎲", "Hız oyunlarıyla"]]}]}, {"lvl": "5 · Değerler", "t": "Derste senin için ne önemli?", "s": "İdeal dersin nasıl olmalı?", "groups": [{"items": [["😂", "Mizah"], ["🗣️", "Bol konuşma"], ["📏", "Net kurallar"], ["⚡", "Hızlı sonuç"], ["🎮", "Oyunlar"], ["🧘", "Sakin tempo"], ["🎯", "Benim hayatımdan konular"], ["🔁", "Tekrar"], ["✅", "Hataları hemen düzeltmek"], ["🏆", "İlerlemeyi görmek"], ["🌍", "İspanyol / Latin kültürü"], ["💬", "Canlı günlük dil"]], "more": [["👩‍🏫", "Bana özel ilgi"], ["📋", "Anlaşılır bir plan"], ["🤫", "Konuşurken sözümü kesmemek"], ["🎬", "Video"], ["🎵", "Şarkılar"], ["📖", "Hikâyeler"], ["📝", "Ödev"], ["🙅‍♀️", "Ödevsiz"], ["⏱️", "Kısa"], ["🕐", "Daha uzun ama derin"], ["💼", "İş dili"], ["🤗", "Destek ve övgü"], ["🧾", "Kopya kâğıtları / özetler"], ["🎧", "Bol ses kaydı"], ["🗣️", "Telaffuz"], ["🎯", "Hemen hayatta kullanmak"], ["🧩", "Farklı farklı görevler"], ["🐢", "Acele etmeden"], ["🚀", "Yoğun"], ["📚", "Türkçe açıklamalar"], ["🇪🇸", "Mümkün olduğunca İspanyolca"], ["🃏", "Kelime tekrarı"], ["😂", "Mim ve espriler"], ["🏅", "İlerleme ödülleri"]]}]}, {"lvl": "6 · Kimlik", "t": "İspanyolcada nasıl biri olmak istersin?", "s": "Rahatça konuştuğun günü hayal et.", "groups": [{"items": [["🎩", "Kibar"], ["💼", "Profesyonel"], ["😂", "Esprili"], ["🏘️", "İspanyolların arasında kendi evindeymiş gibi"]], "more": [["🌟", "Kendinden emin"], ["🤗", "Sıcakkanlı"], ["💃", "Enerjik"], ["🧠", "Akıllı ve net"], ["📚", "Hikâye anlatıcısı"], ["🕊️", "Sakin"]]}], "text": "Kendi tarifin…"}, {"lvl": "7 · Misyon", "t": "5 yıl geçti, rahatça İspanyolca konuşuyorsun. Neredesin, ne yapıyorsun?", "s": "Hayal kur! Hoşuna giden her şeyi işaretle.", "cols2": true, "groups": [{"items": [["🏖️", "Deniz kenarında mutlu yaşıyorum"], ["💼", "İspanyolca konuşanlarla eşit çalışıyorum"], ["🏪", "Kendi işimi yürütüyorum"], ["🛂", "İspanya'da oturma izni aldım"], ["🏆", "DELE'yi geçtim"], ["📞", "Korkmadan her yeri arıyorum"], ["🌎", "Latin Amerika'yı geziyorum"], ["😂", "Garsonlarla şakalaşıyorum"], ["🎬", "Filmleri altyazısız izliyorum"], ["👯", "İspanyol arkadaşlarım var"], ["🏡", "İspanya'da ev aldım"], ["✈️", "İspanya'yı baştan sona gezdim"]], "more": [["🎓", "İspanyol üniversitesinde okuyorum"], ["👩‍🏫", "Yeni başlayanlara yardım ediyorum"], ["🗣️", "Arkadaşlarıma çeviri yapıyorum"], ["📖", "Kitapları orijinalinden okuyorum"], ["🎶", "İspanyolca şarkı söylüyorum"], ["💑", "Yeni bir aşk"], ["👶", "Çocuklarım iki dil konuşuyor"], ["🤝", "Müzakere yürütüyorum"], ["📱", "İspanyolca blog yazıyorum"], ["🏄", "Deniz kenarında aktif bir hayat"], ["🎉", "Fiestalarda yerel gibi eğleniyorum"], ["⚽", "İspanyollarla futbol tartışıyorum"], ["📈", "İşte terfi aldım"], ["🌍", "Sıradaki dili öğreniyorum"], ["☕", "Sakin yaşıyor, keyif alıyorum"], ["👩‍🍳", "Arkadaşlarıma İspanyol yemekleri yapıyorum"], ["📊", "İspanyolca sunum yapıyorum"], ["💃", "Flamenko / salsa dans ediyorum"]]}], "text": "Kendi hayalin…"}, {"lvl": "Nasıl rahat", "t": "Günde ne kadar çalışmaya hazırsın?", "s": "Dersleri buna göre ayarlayacağız.", "groups": [{"items": [["⏱️", "10–15 dakika"], ["🕧", "Yaklaşık 30 dakika"], ["🕐", "Bir saat ve daha fazla"], ["📆", "Sadece hafta sonları"]], "more": [["🚌", "Yolda / toplu taşımada"], ["🌅", "Sabah işten önce"], ["🍽️", "Öğle arasında"], ["🌙", "Akşamları"], ["🔀", "Değişiyor"]]}], "text": "Başka…"}, {"lvl": "Son adım", "t": "Birkaç cümleyle kendinden bahset", "s": "Zorunlu değil — atlayıp hemen «İleri»ye basabilir, sonra yazabilirsin. Türkçe yaz (istersen İspanyolca). Yazdığın her şey derslerin konusu olacak: ne kadar kişisel, o kadar ilginç!", "area": "Örneğin: Antalya'da yaşıyorum, … olarak çalışıyorum, hafta sonları…"}, {"final": true}];
+let ans={},i=0;
+try{ans=JSON.parse(localStorage.getItem(KEY)||"{}");i=+localStorage.getItem(KEY+"-i")||0}catch(e){}
+if(i>=PAGES.length)i=0;
+const $=s=>document.querySelector(s);
+function save(){try{localStorage.setItem(KEY,JSON.stringify(ans));localStorage.setItem(KEY+"-i",i)}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function summary(){
+  let out="📝 Mihriban — İspanyolca anketi\n";
+  PAGES.forEach((p,pi)=>{
+    if(!p.t)return;
+    const a=ans[pi]||{};const sel=(a.sel||[]);const txt=(a.txt||"").trim();
+    if(!sel.length&&!txt)return;
+    out+="\n▸ "+p.t+"\n";
+    if(sel.length)out+=sel.join(", ")+"\n";
+    if(txt)out+="✍️ "+txt+"\n";
+  });
+  return out;
+}
+function reportAnswers(){ /* anket sonunda cevaplar sessizce Daria'ya gider; değişmediyse tekrar gönderilmez */
+  const s=summary(); if(s.split("\n").length<3)return;
+  let last="";try{last=localStorage.getItem(KEY+"-sent")||""}catch(e){}
+  if(last===s)return; sendEvent("form_done",document.title,s); try{localStorage.setItem(KEY+"-sent",s)}catch(e){}
+}
+function render(){
+  const p=PAGES[i];
+  $("#bar").style.width=(i/(PAGES.length-1)*100)+"%";
+  $("#back").hidden=i===0;
+  document.querySelector(".own").hidden=!(p.intro||p.final);
+  $("#next").textContent=p.intro?"Başlayalım →":p.final?"Baştan ↺":"İleri →";
+  let h="";
+  if(p.intro){
+    h=`<div class="hero"><div class="big">👋🇪🇸</div>
+      <h1>¡Hola, Mihriban!</h1>
+      <p class="sub">İspanyolca — ders kitabındaki gibi değil, <b>senin hayatından malzemeyle</b>: yaşadığın yer, işin, hobilerin.</p>
+      <p class="sub">Sana uyan resimleri işaretle — yaklaşık 7 dakika.</p>
+      <p class="sub">Sorular hayatın, işin, hobilerin, yemekler, İspanyolcan ve hayallerin hakkında.</p>
+      <p class="sub">Doğru ya da yanlış cevap yok.</p>
+      <div class="note">💾 <b>Hepsini bir kerede doldurmak zorunda değilsin.</b> Cevapların bu telefonda kaydedilir. Bir soruyu atlayabilir, anketi kapatıp başka zaman dönebilirsin — kaldığın yerden devam edersin.<br>📋 İstediğin zaman yukarıdaki «Cevaplarım» düğmesine bas, kopyala ve Daria'ya gönder. Sonradan bir şey eklersen tekrar gönder, tekrarlar sorun değil. Cevaplarını değiştirebilirsin: yenileri eskilerinin yerine geçer.</div></div>`;
+  }else if(p.final){
+    const s=summary(); reportAnswers();
+    h=`<div class="eyebrow">Hazır 🎉</div><h1>¡Gracias, Mihriban!</h1>
+      <p class="sub">Sonucu kopyala ve Daria'ya gönder. Buna göre sana özel kelime listeni ve İspanyolca derslerini hazırlayacağız. Bir şey eklemek ya da değiştirmek istersen istediğin zaman geri dön ve yeniden gönder.</p>
+      <div class="res" id="res">${esc(s)}</div>
+      <button class="btn pri" id="copy" type="button">📋 Sonucu kopyala</button>
+      <div class="copied" id="copied" aria-live="polite"></div>`;
+  }else{
+    const a=ans[i]||(ans[i]={sel:[],txt:""});
+    h=`<div class="eyebrow">${/^\d/.test(p.lvl)?"Seviye ":""}${p.lvl}</div><h1>${p.t}</h1><p class="sub">${p.s}</p>`;
+    (p.groups||[]).forEach(g=>{
+      if(g.q)h+=`<p class="grp">${g.q}</p>`;
+      const all=g.items.concat(g.more||[]),base=g.items.length;
+      h+=`<div class="grid${p.cols4?" g4":p.cols2?" g2":""}" data-per="${p.cols4?16:12}">`+all.map(([e,l],n)=>{
+        const k=(g.q?g.q+": ":"")+l,on=a.sel.includes(k);
+        return `<button type="button" class="tile${n>=base?" x":""}" data-k="${esc(k)}" aria-pressed="${on}"${n>=base&&!on?" hidden":""}><span class="e">${e}</span>${esc(l)}</button>`}).join("")+`</div>`;
+      if(all.length>base)h+=`<button type="button" class="more">➕ Daha fazla resim</button>`;
+    });
+    if(p.text||!p.area)h+=`<input type="text" id="t${i}" placeholder="${esc(p.text?("✍️ "+p.text):"✍️ Diğer — kendin yaz…")}" value="${esc(a.txt)}">`;
+    if(p.area)h+=`<textarea id="t${i}" placeholder="${esc(p.area)}">${esc(a.txt)}</textarea>`;
+    h+=`<button type="button" class="skip" id="skip">⏭ Bu sayfayı atla</button>`;
+  }
+  const m=$("#page");m.innerHTML=`<div style="display:flex;flex-direction:column;gap:9px">${h}</div>`;
+  m.querySelectorAll(".tile").forEach(b=>b.onclick=()=>{
+    const a=ans[i],k=b.dataset.k,on=a.sel.includes(k);
+    a.sel=on?a.sel.filter(x=>x!==k):[...a.sel,k];b.setAttribute("aria-pressed",!on);save();
+  });
+  m.querySelectorAll(".more").forEach(btn=>{const grid=btn.previousElementSibling,per=+grid.dataset.per;
+    const upd=()=>{const left=grid.querySelectorAll(".tile.x[hidden]").length;btn.textContent=left?`➕ Daha fazla resim (${left})`:"▲ Daralt";};upd();
+    btn.onclick=()=>{const hid=[...grid.querySelectorAll(".tile.x[hidden]")];
+      if(hid.length){hid.slice(0,per).forEach(t=>t.hidden=false)}else{grid.querySelectorAll(".tile.x").forEach(t=>{if(t.getAttribute("aria-pressed")!=="true")t.hidden=true});btn.scrollIntoView({block:"nearest"})}upd()}});
+  const t=$("#t"+i);if(t)t.oninput=()=>{ans[i].txt=t.value;save()};
+  const sk=$("#skip");if(sk)sk.onclick=()=>go(1);
+  const c=$("#copy");if(c)c.onclick=()=>{
+    const s=summary();
+    const done=()=>{$("#copied").textContent="✅ Kopyalandı! Daria'ya gönder."};
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents($("#res"));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);
+      $("#copied").textContent="Metin seçildi — basılı tut, sonra «Kopyala»ya dokun."};
+    try{navigator.clipboard.writeText(s).then(done,fallback)}catch(e){fallback()}
+  };
+  window.scrollTo(0,0);
+}
+function go(d){i=Math.max(0,Math.min(PAGES.length-1,i+d));save();render()}
+$("#next").onclick=()=>{if(PAGES[i].final){i=0;save();render()}else go(1)};
+$("#back").onclick=()=>go(-1);
+function ov(html){const o=document.createElement("div");o.className="ov";o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");o.innerHTML=`<div class="box"><button class="x" type="button" aria-label="Kapat">✕</button>${html}</div>`;o.querySelector(".x").onclick=()=>o.remove();o.onclick=e=>{if(e.target===o)o.remove()};document.body.append(o);return o}
+function doneCount(){return Object.values(ans).filter(a=>a&&((a.sel&&a.sel.length)||(a.txt&&a.txt.trim()))).length}
+function copyText(s,msg){const done=()=>{msg.textContent="✅ Kopyalandı! Daria'ya gönder."};
+  const fb=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("res2"));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);msg.textContent="Metin seçildi — basılı tut, sonra «Kopyala»ya dokun."};
+  try{navigator.clipboard.writeText(s).then(done,fb)}catch(e){fb()}}
+$("#mine").onclick=()=>{const n=doneCount(),s=summary();
+  const o=ov(`<h1>📋 Cevaplarım</h1><p class="sub">Doldurulan soru: ${n}. Bir şeyi değiştirmek istersen soruyu aç ve yeniden işaretle, cevap güncellenir.</p>
+   ${n?`<div class="res" id="res2">${esc(s)}</div><button class="btn pri" id="cp2" type="button">📋 Kopyala ve Daria'ya gönder</button><div class="copied" id="cm2" aria-live="polite"></div>`:`<p class="sub">Henüz cevap yok.</p>`}
+   <button class="btn sec" id="cl2" type="button">Kapat</button>`);
+  const c=o.querySelector("#cp2");if(c)c.onclick=()=>copyText(s,o.querySelector("#cm2"));o.querySelector("#cl2").onclick=()=>o.remove()};
+function welcome(){const p=PAGES[i];if(!(i>0&&!p.final))return;
+  const o=ov(`<div style="font-size:40px">👋</div><h1>Tekrar hoş geldin, Mihriban!</h1><p class="sub">Tüm cevapların kaydedildi (doldurulan soru: ${doneCount()}). Kaldığın yerden devam edelim: «${esc(p.t||"")}».</p>
+   <button class="btn pri" id="w1" type="button">▶ Devam et</button><button class="btn sec" id="w2" type="button">📋 Cevaplarım</button>
+   <button class="skip" id="w3" type="button">↩ Anketin başına dön (cevaplar kalır)</button>`);
+  o.querySelector("#w1").onclick=()=>o.remove();o.querySelector("#w2").onclick=()=>{o.remove();$("#mine").click()};
+  o.querySelector("#w3").onclick=()=>{o.remove();i=0;save();render()}}
+render();
+if(document.getElementById("gate")){new MutationObserver((m,ob)=>{if(!document.getElementById("gate")){ob.disconnect();welcome()}}).observe(document.body,{childList:true})}else welcome();
+</script>
+</body>
+</html>
