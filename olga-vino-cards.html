@@ -247,13 +247,18 @@ var pages=[], pos=0, curPart=null, errs={}, offered={};
 var app=document.getElementById('app'), modal=document.getElementById('modal');
 
 /* ---------- events to teacher ---------- */
-function sendEvent(type,extra){
+function sendEvent(type,title,detail){
   try{
     if(location.hostname!=='dariairamain-blip.github.io')return;
-    var body={who:WHO,type:type,lesson:LESSON,page:location.pathname,ts:new Date().toISOString()};
-    if(extra)for(var k in extra)body[k]=extra[k];
+    var body={type:type,who:WHO,title:title||document.title,detail:detail||''};
     fetch(EVENT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(body),keepalive:true}).catch(function(){});
   }catch(e){}
+}
+function doneDetail(){
+  var ids=Object.keys(answers),ok=0,bad=[];
+  ids.forEach(function(k){var a=answers[k];if(a.ok)ok++;else bad.push(a.right==='все пары'?a.q:a.right);});
+  if(!ids.length||!bad.length)return 'Урок пройден полностью';
+  return 'Верно '+ok+' из '+ids.length+'; ошибки: '+bad.slice(0,12).join('; ')+(bad.length>12?' …':'');
 }
 
 /* ---------- speech ---------- */
@@ -314,7 +319,7 @@ function renderGate(){
   '<div class="owner">© Daria Botina</div>';
   var go=function(){var c=document.getElementById('cd').value;var who=checkCode(c);
     if(!who){document.getElementById('er').textContent='Код не подошёл. Пожалуйста, проверьте и попробуйте ещё раз.';return;}
-    WHO=who;lsSet('code',c);sendEvent('visit');renderHome();};
+    WHO=who;lsSet('code',c);sendEvent('visit',document.title);renderHome();};
   document.getElementById('go').onclick=go;
   document.getElementById('cd').onkeydown=function(e){if(e.key==='Enter')go();};
 }
@@ -554,7 +559,7 @@ function renderGameEnd(p){
 function renderPartEnd(){
   stopSpeak();done[curPart.id]=true;lsSet('done',done);
   var all=PARTS.every(function(p){return done[p.id]});
-  if(all&&!lsGet('sent_'+WHO,false)){sendEvent('lessonDone');lsSet('sent_'+WHO,true);}
+  if(all&&!lsGet('sent_'+WHO,false)){sendEvent('lesson_done',document.title,doneDetail());lsSet('sent_'+WHO,true);}
   var i=PARTS.indexOf(curPart),nxt=PARTS[i+1];
   app.innerHTML=bar()+'<div class="card hero"><div class="emo">'+curPart.emo+'🎉</div><h2>¡Enhorabuena!</h2><div class="sans">Часть «'+h(curPart.es)+'» пройдена.</div>'+
    (nxt?'<button class="big-btn" id="np">'+nxt.emo+' Дальше: '+h(nxt.es)+'</button>':'<div class="sans" style="margin-top:8px">Все 18 слов ваши! 🍇</div>')+
