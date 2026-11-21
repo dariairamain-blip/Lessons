@@ -1,0 +1,1183 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="apple-touch-icon" href="icon-dialogos-pt.png">
+<link rel="icon" type="image/png" href="icon-dialogos-pt.png">
+<link rel="manifest" href="dialogos-pt.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Diálogos 6.2">
+</head>
+<body>
+<title>Diálogos 6.2 🇵🇹 Avarias em Aveiro</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta http-equiv="content-language" content="ru">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: phone-first column; sticky control header on dialogue pages; chat bubbles (Daria on the right) */
+:root{
+  --bg:#f1f6f3; --card:#ffffff; --ink:#10302a; --muted:#52695f; --accent:#0a7a5a; --accent-ink:#ffffff;
+  --sun:#f2c12e; --me:#dcf1e6; --line:#d2e1d9; --hl:#fff1bd; --tr:#3d5a50; --err:#c2410c;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Nunito Sans",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c1916; --card:#14261f; --ink:#e5f0eb; --muted:#97b0a6; --accent:#3cc393; --accent-ink:#06281d;
+  --sun:#f2c12e; --me:#1a3a2d; --line:#24403a; --hl:#3b3418; --tr:#b9cec5; --err:#ff8a65; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1916; --card:#14261f; --ink:#e5f0eb; --muted:#97b0a6; --accent:#3cc393; --accent-ink:#06281d;
+  --sun:#f2c12e; --me:#1a3a2d; --line:#24403a; --hl:#3b3418; --tr:#b9cec5; --err:#ff8a65; color-scheme:dark}
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.4;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--card)}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.col{max-width:560px;margin:0 auto}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+
+/* HOME */
+.home{padding-block:14px 28px;display:flex;flex-direction:column;gap:14px}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:15px}
+.logo{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:13px;letter-spacing:.5px}
+.pill{border:2px solid var(--line);background:var(--card);border-radius:999px;padding:6px 11px;font-size:13px;font-weight:700}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:var(--sun);opacity:.35}
+.eyebrow{font-size:12.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:800}
+h1{font-family:var(--display);font-weight:800;font-size:28px;line-height:1.1;margin:0;text-wrap:balance;position:relative}
+.sub{color:var(--muted);margin:0;font-size:14.5px;position:relative}
+.hint{font-size:13.5px;color:var(--muted);background:var(--me);border-radius:12px;padding:9px 12px;line-height:1.45}
+.big{border:0;border-radius:14px;padding:13px 14px;font-weight:800;font-size:16px;background:var(--accent);color:var(--accent-ink);text-align:left;display:flex;gap:10px;align-items:center}
+.big.sec{background:var(--card);color:var(--ink);border:2px solid var(--line)}
+.list{display:flex;flex-direction:column;gap:8px}
+.dcard{display:flex;gap:12px;align-items:center;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 12px}
+.dcard .em{font-size:26px;width:40px;height:40px;display:grid;place-items:center;background:var(--bg);border-radius:12px;flex:none}
+.dcard .tx{display:flex;flex-direction:column;min-width:0;flex:1}
+.dcard b{font-family:var(--display);font-size:17px;font-weight:800}
+.dcard span{font-size:13px;color:var(--muted)}
+.dcard .ok{font-size:13px;font-weight:800;color:var(--accent);flex:none}
+.own{font-size:12.5px;color:var(--muted);text-align:center;margin-top:8px}
+.skip{align-self:flex-start;background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;padding:4px 0}
+
+/* STICKY HEADER */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+.bar .col{padding-block:8px;display:flex;flex-direction:column;gap:6px}
+.r1{display:flex;align-items:center;gap:8px}
+.r1 .ttl{flex:1;min-width:0;font-family:var(--display);font-weight:800;font-size:16px;display:flex;align-items:center;gap:6px;border:2px solid var(--line);background:var(--bg);border-radius:10px;height:36px;padding:0 10px;text-align:left}
+.r1 .ttl .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r1 .ttl .car{flex:none;color:var(--accent);font-size:14px}
+.nav{display:grid;grid-template-columns:minmax(0,1fr) repeat(4,40px);gap:5px;align-items:center}
+.nav .hd{font-size:12.5px;font-weight:800;color:var(--muted);text-align:center}
+.nav .hd.l{text-align:left}
+.nb{height:38px;border:2px solid var(--line);background:var(--card);border-radius:9px;font-size:14px;font-weight:700;padding:0 6px;display:flex;align-items:center;gap:5px;min-width:0;position:relative}
+.nb.dl{justify-content:flex-start;text-align:left}.nb.dl .nt{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13.5px}
+.nb.ex{justify-content:center;padding:0}
+.nb.here{border-color:var(--accent);background:var(--me);box-shadow:0 0 0 2px var(--accent)}
+.nb.dn::after{content:"✓";position:absolute;top:-6px;right:-5px;background:var(--accent);color:var(--accent-ink);border-radius:50%;width:18px;height:18px;font-size:12px;display:grid;place-items:center}
+.navtop{display:flex;gap:6px}.navtop .big{flex:1;padding:9px 10px;font-size:14px;justify-content:center}
+.legend{font-size:12.5px;color:var(--muted);line-height:1.5}
+.ib{border:2px solid var(--line);background:var(--card);border-radius:10px;min-width:38px;height:36px;padding:0 9px;font-size:14px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:4px;flex:none}
+.r2{display:flex;align-items:center;gap:6px}
+.r3{display:flex;gap:6px}.r3 .ib{flex:1 1 0;min-width:0;font-size:13px;padding:0 4px;white-space:nowrap}
+.ib.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.ib.play{min-width:46px;font-size:16px}
+.cnt{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:38px;text-align:center}
+
+/* DIALOGUE */
+.page{padding-block:10px 40px;display:flex;flex-direction:column;gap:10px}
+.prep{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.chat{display:flex;flex-direction:column;gap:10px}
+.ln{display:flex;gap:8px;align-items:flex-end;scroll-margin-top:175px;scroll-margin-bottom:80px}
+.ln.me{flex-direction:row-reverse}
+.av{width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;font-size:17px;flex:none}
+.bb{background:var(--card);border:1px solid var(--line);border-radius:16px 16px 16px 4px;padding:8px 11px 6px;max-width:82%;min-width:0;transition:background .2s,box-shadow .2s}
+.me .bb{background:var(--me);border-radius:16px 16px 4px 16px}
+.ln.cur .bb{box-shadow:0 0 0 3px var(--sun)}
+.nm{font-size:12.5px;font-weight:800;color:var(--accent)}
+.pt{font-size:17.5px;line-height:1.45;overflow-wrap:break-word}
+.w{cursor:pointer;border-radius:4px;-webkit-tap-highlight-color:transparent}
+.w.sel{background:var(--hl)}
+.acts{display:flex;justify-content:flex-end;gap:4px;margin-top:2px}
+.sb{border:0;background:transparent;font-size:15px;width:32px;height:28px;border-radius:8px;padding:0}
+.sb:active{background:var(--bg)}
+.tr{font-size:14.5px;color:var(--tr);font-style:italic;border-top:1px dashed var(--line);margin-top:4px;padding-top:4px}
+.end{background:var(--card);border:2px solid var(--accent);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px;scroll-margin-bottom:20px;scroll-margin-top:175px}
+.end h2{font-family:var(--display);margin:0;font-size:20px}
+
+/* VOCAB */
+.sec-h{font-family:var(--display);font-weight:800;font-size:19px;margin:8px 0 0}
+.vgrid{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.vrow{display:flex;align-items:center;gap:8px;padding:7px 10px;border-top:1px solid var(--line);scroll-margin-top:175px}
+.vrow:first-child{border-top:0}
+.vrow.cur{background:var(--hl)}
+.vrow .pt2{font-weight:800;flex:1 1 50%;min-width:0;font-size:15.5px}
+.vrow .ru2{flex:1 1 50%;min-width:0;color:var(--muted);font-size:14px}
+.ccard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;scroll-margin-top:175px}
+.ccard.cur{box-shadow:0 0 0 3px var(--sun)}
+.ccard .pat{font-weight:800;font-size:16px}
+.ccard .mean{font-size:14px;color:var(--muted)}
+.ccard .ex{display:flex;align-items:flex-start;gap:4px;margin-top:2px}
+.ccard .ex .pt{font-size:16px;flex:1;min-width:0}
+details.vd{background:transparent}
+details.vd>summary{list-style:none;cursor:pointer;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 12px;font-weight:800;display:flex;gap:8px;align-items:center}
+details.vd>summary::-webkit-details-marker{display:none}
+details.vd>summary::after{content:"▾";margin-left:auto;color:var(--muted)}
+details.vd[open]>summary::after{content:"▴"}
+.vbody{display:flex;flex-direction:column;gap:8px;padding-top:8px}
+
+/* POPUPS */
+.pop{position:fixed;z-index:60;background:var(--card);border:2px solid var(--accent);border-radius:12px;padding:8px 10px;box-shadow:0 8px 24px #0004;max-width:min(290px,calc(100vw - 32px));display:flex;gap:8px;align-items:flex-start}
+.pop .pw{font-weight:800}
+.pop .pr{font-size:14.5px}
+.pop .x{border:0;background:none;font-size:16px;padding:0 2px;color:var(--muted)}
+.ov{position:fixed;inset:0;z-index:70;background:#0008;display:grid;place-items:center;padding:16px}
+.mbox{background:var(--card);border-radius:18px;padding:16px;max-width:400px;width:100%;max-height:80vh;overflow:auto;display:flex;flex-direction:column;gap:10px;position:relative}
+.mbox h3{margin:0;font-family:var(--display);font-size:19px;padding-right:30px}
+.mbox .x{position:absolute;top:10px;right:10px;border:0;background:var(--bg);width:32px;height:32px;border-radius:50%;font-size:15px}
+.mbox ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+/* EXERCISES */
+.xcard{display:flex;gap:12px;align-items:center;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:11px 12px}
+.xcard .tx{display:flex;flex-direction:column;flex:1;min-width:0}.xcard b{font-size:16px}.xcard span{font-size:13px;color:var(--muted)}
+.xcard .sc{font-weight:800;color:var(--accent);font-size:14px;flex:none}
+.task{display:flex;flex-direction:column;gap:10px}
+.steps{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--line)}.dot.on{background:var(--accent)}
+.q{font-size:15px;color:var(--muted)}.q b{color:var(--ink);font-size:17px}
+.model{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.model .row{display:flex;gap:4px;align-items:flex-start}.model .pt{flex:1;min-width:0}
+.rucard{background:var(--me);border-radius:14px;padding:14px;font-size:19px;font-weight:700;line-height:1.35}
+.ansbox{min-height:52px;border:2px dashed var(--line);border-radius:14px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;background:var(--card)}
+.ansbox.ok{border-color:var(--accent);border-style:solid}.ansbox.bad{border-color:#d0573f;border-style:solid}
+.tiles{display:flex;flex-wrap:wrap;gap:8px}
+.tile{border:2px solid var(--line);background:var(--card);border-radius:10px;padding:8px 12px;font-size:16.5px;font-weight:700}
+.tile.chunk{background:var(--me);border-color:var(--accent)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.orow{display:flex;gap:6px;align-items:stretch}
+.opt{flex:1;min-width:0;text-align:left;border:2px solid var(--line);background:var(--card);border-radius:12px;padding:10px 12px;font-size:16.5px;font-weight:600}
+.opt.ok{border-color:var(--accent);background:var(--me)}.opt.bad{border-color:#d0573f;text-decoration:line-through;opacity:.8}
+.opt.rd{box-shadow:0 0 0 3px var(--sun)}
+.fb{display:flex;flex-direction:column;gap:8px;scroll-margin-bottom:24px}
+.fbm{border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.45}
+.fbm.ok{background:var(--me);font-weight:800}.fbm.bad{background:var(--hl)}
+.btnrow{display:flex;gap:8px}.btnrow .big{flex:1;justify-content:center}
+.cd{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--muted)}
+.cd b{font-size:26px;color:var(--accent);font-variant-numeric:tabular-nums;width:28px;text-align:center}
+.myl{display:flex;flex-direction:column;gap:6px}
+.mya{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 10px;font-size:14px;line-height:1.4}
+.mya .c{color:var(--accent);font-weight:700}
+/* CODE GATE */
+.gate{position:fixed;inset:0;z-index:90;background:var(--bg);display:grid;place-items:center;padding:16px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+.gate .gb{max-width:380px;width:100%;display:flex;flex-direction:column;gap:12px;text-align:center}
+.gate .gi{font-size:44px}
+.gate h2{font-family:var(--display);font-size:24px;margin:0}
+.gate p{margin:0;color:var(--muted);font-size:15px}
+.gate input{font:inherit;font-size:20px;text-align:center;letter-spacing:.12em;padding:12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+.gate .err{color:var(--err);font-weight:800;min-height:1.3em;margin:0}
+.gate .big{justify-content:center}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+:root{--end:#c2410c;--endbg:#fff1e8;--phl:#ea580c;--phlbg:#fff1e6;--ok:#15803d;--okbg:#e5f6ea;--bad:#b91c1c;--badbg:#fdecec}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--end:#ffa36b;--endbg:#3a2418;--phl:#ff9a52;--phlbg:#3a2418;--ok:#4ade80;--okbg:#123222;--bad:#f87171;--badbg:#3a1616}}
+:root[data-theme="dark"]{--end:#ffa36b;--endbg:#3a2418;--phl:#ff9a52;--phlbg:#3a2418;--ok:#4ade80;--okbg:#123222;--bad:#f87171;--badbg:#3a1616}
+.gcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0;margin-top:12px}
+.gcard h2{font-family:var(--display);font-size:18px;margin:0;font-weight:800}
+.gwhen,.gtip{margin:0;color:var(--muted);font-size:14.5px}
+.gtw{overflow-x:auto}
+.gt{border-collapse:collapse;width:100%;font-size:15px;table-layout:fixed}
+.gt th,.gt td{padding:7px 3px;text-align:left;border-top:1px solid var(--line);vertical-align:middle;overflow-wrap:break-word}
+.gt thead th{border-top:0;font-size:13px;color:var(--muted);font-weight:800}
+.gt thead th b{display:block;color:var(--ink);font-size:16px}
+.gt td.gp,.gt th:first-child{width:19%}.gt td.gp{color:var(--muted);font-weight:700;font-size:13px;line-height:1.25}
+.gt td.gf{font-size:14.5px;letter-spacing:-.1px}
+.gt td.gf{cursor:pointer;font-weight:600;border-radius:6px}
+.ge{color:var(--end);background:var(--endbg);border-radius:4px;padding:0 1px;font-weight:800}
+.gex{display:flex;flex-direction:column;gap:6px}
+.gexl{background:var(--me);border-radius:12px;padding:8px 12px;cursor:pointer}
+.gexl .ru{display:block;color:var(--muted);font-size:14px}
+.gt td.gf.rd,.gexl.rd{outline:2.5px solid var(--phl);background:var(--phlbg)}
+.gflag{display:flex;gap:8px;flex-wrap:wrap}.gflag span{background:var(--me);border-radius:999px;padding:3px 10px;font-size:14px;font-weight:700}
+.gtipb{border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:12px;font-weight:800;font-size:16px;text-align:left}
+.gtips{display:flex;flex-direction:column;gap:8px}
+.glh{background:var(--me);border-radius:12px;padding:9px 12px;display:flex;flex-direction:column;gap:2px;font-size:15px}
+.pz{display:flex;flex-direction:column;gap:12px}
+#pmain{display:flex;flex-direction:column;gap:12px}#pmain[hidden]{display:none}
+.pstart{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 16px;display:flex;flex-direction:column;gap:14px;text-align:center}
+.pstart p{margin:0;color:var(--muted)}.pstart .big{justify-content:center;font-size:19px}
+.pprog{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);font-weight:700}
+.pdots{display:flex;gap:5px}.pdots i{width:9px;height:9px;border-radius:50%;background:var(--line)}.pdots i.on{background:var(--accent)}
+.pstage{font-size:15px;font-weight:800;color:var(--accent)}.phint{margin:0;color:var(--muted);font-size:15px}
+.pspk{font-size:40px;text-align:center;line-height:1}
+.ppair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pw{background:var(--card);border:2.5px solid var(--line);border-radius:18px;padding:16px 8px;text-align:center;display:flex;flex-direction:column;gap:4px;transition:border-color .15s,background .15s,transform .15s;color:var(--ink);min-width:0}
+.pw .pt{font-size:32px;font-weight:800;line-height:1.1;overflow-wrap:anywhere}.pw .acc{color:var(--phl)}
+.pw .ru{font-size:14px;color:var(--muted)}.pw .snd{font-size:12.5px;color:var(--muted);font-weight:700}
+.pw.speak{border-color:var(--phl);background:var(--phlbg);transform:scale(1.03)}
+.pw.ok{border-color:var(--ok);background:var(--okbg)}.pw.bad{border-color:var(--bad);background:var(--badbg)}
+.pfb{min-height:22px;font-weight:700;margin:0}.pfb.ok{color:var(--ok)}.pfb.bad{color:var(--bad)}
+.pwhy{background:var(--me);border-radius:12px;padding:10px 12px;font-size:14.5px}
+.navtop+.navtop{margin-top:-4px}
+.pz [hidden],.gcard [hidden]{display:none!important}
+</style>
+
+<div id="app"></div>
+
+<script>
+let EV_WHO = null;
+function sendEvent(type, title, detail){ try{ if(location.origin !== "https://dariairamain-blip.github.io") return; fetch("https://daria-talk.daria-iramain.workers.dev/event", {method:"POST", headers:{"content-type":"application/json"}, keepalive:true,
+  body: JSON.stringify({type, who: EV_WHO||"?", title: String(title||"").slice(0,120), detail: String(detail||"").slice(0,3000)})}).catch(()=>{}); }catch(e){} }
+let evDone=false;
+</script>
+<script>
+const META={lsk:'dlg6_2_pt_',tts:'pt-PT',dv:'m',eyebrow:'Diálogos · A2 · Portugal 🇵🇹',h1:'6.2 Avarias em Aveiro',sub:'Дома что-то сломалось: 7 живых диалогов — нет горячей воды, газовый баллон, засор, сломанная стиралка, заевшие жалюзи, плесень и расчёт с хозяином.',gate:true,codes:[],antQ:'Как сказать по-португальски (в Португалии)?'};
+const SPK = {
+ ki:{n:"Kira",e:"👩🏻",g:"f",me:1},
+ fe:{n:"Sr. Fernando",e:"👴🏼",g:"m"},
+ gr:{n:"D. Graça",e:"👵🏻",g:"f"},
+ ru:{n:"Rúben",e:"🧑🏽‍🔧",g:"m"},
+ ar:{n:"Sr. Armando",e:"👨🏻‍🔧",g:"m"},
+ va:{n:"Vanessa",e:"👩🏼‍💼",g:"f"},
+ mr:{n:"Sr. Mário",e:"🧔🏻",g:"m"}
+};
+
+const DLG = [
+{t:"Não há água quente",ru:"Нет горячей воды: звонок хозяину",e:"🚿",
+ lines:[
+ ["fe","Estou?","Алло?"],
+ ["ki","Bom dia, Sr. Fernando. Fala a Kira, a inquilina da Rua de Viana.","Доброе утро, сеньор Фернанду. Это Кира, жилица с Руа-де-Виана."],
+ ["fe","Bom dia, Kira! Então, está tudo bem por aí?","Доброе утро, Кира! Ну как, у вас всё в порядке?"],
+ ["ki","Mais ou menos. Hoje de manhã não havia água quente.","Так себе. Сегодня утром не было горячей воды."],
+ ["fe","Não havia? O esquentador não acende?","Не было? Газовая колонка не зажигается?"],
+ ["ki","Não. Faz clique, clique, mas não acende.","Нет. Щёлкает, щёлкает, но не зажигается."],
+ ["fe","Hum. E a chama azul aparece ou não?","Хм. А синее пламя появляется или нет?"],
+ ["ki","Nenhuma chama. Só o barulhinho.","Никакого пламени. Только щелчки."],
+ ["fe","Já viu a bilha de gás?","Вы уже смотрели газовый баллон?"],
+ ["ki","A bilha? Qual bilha?","Баллон? Какой баллон?"],
+ ["fe","A garrafa laranja, debaixo do lava-loiça. O esquentador funciona com gás de bilha.","Оранжевый баллон под мойкой. Колонка работает на баллонном газе."],
+ ["ki","Ah, essa! Pensava que era decoração.","А, этот! Я думала, это для украшения."],
+ ["fe","Decoração! Essa é boa. Abane-a um bocadinho. Parece leve ou pesada?","Для украшения! Вот это да. Покачайте его немного. Он лёгкий или тяжёлый?"],
+ ["ki","Levíssima. Acho que está vazia.","Совсем лёгкий. Думаю, он пустой."],
+ ["fe","Então está explicado. Acabou o gás.","Тогда всё понятно. Закончился газ."],
+ ["ki","E agora? Tenho de comprar outra?","И что теперь? Нужно покупать другой?"],
+ ["fe","Tem de trocar. Leva-se a vazia e paga-se só o gás.","Нужно поменять. Сдаёте пустой и платите только за газ."],
+ ["ki","Onde é que se troca?","Где его меняют?"],
+ ["fe","Na bomba de gasolina ou na drogaria ao pé de si. Ou pede-se ao domicílio.","На заправке или в хозяйственном магазине рядом с вами. Или заказываете на дом."],
+ ["ki","Ao domicílio é melhor. Eu não tenho carro.","На дом лучше. У меня нет машины."],
+ ["fe","Então ligue para o Rúben. Ele entrega no próprio dia. Mando-lhe o número.","Тогда позвоните Рубену. Он привозит в тот же день. Я пришлю вам номер."],
+ ["ki","Obrigada. E quanto custa, mais ou menos?","Спасибо. А сколько это стоит, примерно?"],
+ ["fe","Uns trinta e poucos euros. Mas a primeira bilha é por minha conta.","Тридцать с чем-то евро. Но первый баллон за мой счёт."],
+ ["ki","A sério? Muito obrigada, Sr. Fernando.","Правда? Большое спасибо, сеньор Фернанду."],
+ ["fe","Ora essa. Esqueci-me de lhe dizer quando lhe entreguei as chaves.","Да что вы. Я забыл вам сказать, когда отдавал ключи."],
+ ["ki","E hoje? Duche frio?","А сегодня? Холодный душ?"],
+ ["fe","Hoje, sim, infelizmente. Ou então vá ao ginásio!","Сегодня — да, к сожалению. Или сходите в спортзал!"],
+ ["ki","Boa ideia. Vou tomar banho no ginásio.","Хорошая мысль. Приму душ в спортзале."],
+ ["fe","E Kira, mais uma coisa: se cheirar a gás, não acenda nada e ligue-me logo.","И, Кира, ещё одно: если запахнет газом, ничего не зажигайте и сразу звоните мне."],
+ ["ki","Está bem. Vou ter cuidado.","Хорошо. Буду осторожна."],
+ ["fe","Então até logo, e bom banho no ginásio!","Тогда до встречи, и приятного душа в спортзале!"]
+ ],
+ voc:[["Estou?","Алло? (Португалия)"],["Fala a …","Это … (говорит по телефону)"],["o inquilino / a inquilina","жилец / жилица"],["por aí","у вас там"],["havia","было (имелось)"],["o esquentador","газовая колонка"],["acender","зажигаться; зажечь"],["a chama","пламя"],["o barulhinho","шумок"],["a bilha de gás","газовый баллон"],["laranja","оранжевый"],["o lava-loiça","кухонная мойка (Португалия)"],["pensava que","я думал(а), что"],["Essa é boa.","Вот это да! (ирон.)"],["abanar","качать, трясти"],["leve","лёгкий"],["pesado","тяжёлый"],["vazio","пустой"],["Está explicado.","Всё понятно."],["Tem de …","Нужно …"],["a bomba de gasolina","заправка"],["a drogaria","хозяйственный магазин"],["ao pé de","рядом с"],["ao domicílio","на дом"],["entregar","доставить; отдать"],["no próprio dia","в тот же день"],["e poucos","с чем-то (тридцать с лишним)"],["por minha conta","за мой счёт"],["Ora essa.","Да что вы! Не за что."],["esquecer-se","забыть"],["o duche","душ (Португалия)"],["o ginásio","спортзал (Португалия)"],["cheirar a","пахнуть чем-то"],["logo","сразу; потом"],["ter cuidado","быть осторожным"]],
+ con:[["Fala a …","Это … (по телефону)","Bom dia, Sr. Fernando. Fala a Kira.","Доброе утро, сеньор Фернанду. Это Кира."],
+ ["Não havia …","Не было …","Hoje de manhã não havia água quente.","Сегодня утром не было горячей воды."],
+ ["Pensava que …","Я думала, что …","Ah, essa! Pensava que era decoração.","А, этот! Я думала, это для украшения."],
+ ["Está explicado.","Всё понятно.","Então está explicado. Acabou o gás.","Тогда всё понятно. Закончился газ."],
+ ["Tenho de …?","Мне нужно …?","E agora? Tenho de comprar outra?","И что теперь? Нужно покупать другой?"],
+ ["… é por minha conta.","… за мой счёт.","Mas a primeira bilha é por minha conta.","Но первый баллон за мой счёт."],
+ ["Vou ter cuidado.","Буду осторожна.","Está bem. Vou ter cuidado.","Хорошо. Буду осторожна."]]
+},
+{t:"O gás ao domicílio",ru:"Привезли газ: меняем баллон",e:"🔥",
+ lines:[
+ ["ru","Bom dia! É aqui o gás?","Доброе утро! Газ сюда?"],
+ ["ki","É, é. Bom dia! Entre, se faz favor.","Да-да. Доброе утро! Проходите, пожалуйста."],
+ ["ru","Butano ou propano?","Бутан или пропан?"],
+ ["ki","Ai… não faço ideia. É a laranja.","Ой… понятия не имею. Оранжевый."],
+ ["ru","Laranja é butano. Onde é que está a vazia?","Оранжевый — это бутан. Где пустой?"],
+ ["ki","Debaixo do lava-loiça, na cozinha.","Под мойкой, на кухне."],
+ ["ru","Com licença… Pronto, já está cá fora. Vou buscar a cheia à carrinha.","Разрешите… Всё, достал. Схожу за полным в фургон."],
+ ["gr","Bom dia, menina! Ouvi barulho na escada. Está tudo bem?","Доброе утро, девушка! Слышу шум на лестнице. Всё в порядке?"],
+ ["ki","Bom dia, D. Graça! Está, está. Acabou o gás do esquentador.","Доброе утро, дона Граса! Да-да. Закончился газ для колонки."],
+ ["gr","Ah, isso acontece sempre no inverno. Eu troco a minha todos os meses.","А, это зимой всегда так. Я свой меняю каждый месяц."],
+ ["ki","Todos os meses? Eu nem sabia que tinha uma bilha!","Каждый месяц? А я даже не знала, что у меня есть баллон!"],
+ ["gr","É normal. Nos prédios antigos é tudo a gás.","Это нормально. В старых домах всё на газе."],
+ ["ru","Aqui está a cheia. Agora vou ligar o redutor.","Вот полный. Сейчас подключу редуктор."],
+ ["ki","O redutor?","Редуктор?"],
+ ["ru","Esta peça preta. Liga a bilha ao tubo. Roda-se assim, até ao fim.","Вот эта чёрная деталь. Соединяет баллон со шлангом. Поворачивается вот так, до упора."],
+ ["ki","Deixe-me ver… para a direita?","Дайте посмотреть… вправо?"],
+ ["ru","Para a esquerda. É ao contrário do normal.","Влево. Наоборот, не как обычно."],
+ ["gr","Isso engana toda a gente!","Все на этом попадаются!"],
+ ["ru","Agora vamos ao teste. Abra a água quente, se faz favor.","Теперь проверим. Откройте горячую воду, пожалуйста."],
+ ["ki","Está a sair… ainda fria… Ah! Está a aquecer!","Течёт… ещё холодная… Ах! Нагревается!"],
+ ["ru","Aí está. Clique, chama azul, água quente.","Ну вот. Щелчок, синее пламя, горячая вода."],
+ ["ki","Que maravilha! Quanto é?","Чудесно! Сколько с меня?"],
+ ["ru","São trinta e dois euros. Aceito MB Way.","Тридцать два евро. Принимаю MB Way."],
+ ["ki","O senhorio disse que esta era por conta dele.","Хозяин сказал, что этот баллон за его счёт."],
+ ["ru","O Sr. Fernando? Ele já pagou. Só tem de assinar aqui.","Сеньор Фернанду? Он уже заплатил. Вам нужно только расписаться здесь."],
+ ["ki","Assinado. Muito obrigada, Rúben!","Подписала. Большое спасибо, Рубен!"],
+ ["ru","De nada. Quando acabar, já sabe: liga-me.","Не за что. Когда закончится — вы знаете: звоните мне."],
+ ["gr","E agora, menina, um chazinho lá em casa para comemorar?","А теперь, девушка, чайку у меня, отметить?"],
+ ["ki","Com muito gosto, D. Graça. Mas primeiro, um banho quente!","С удовольствием, дона Граса. Но сначала — горячий душ!"],
+ ["gr","Claro! Eu espero. O chá não foge.","Конечно! Я подожду. Чай не убежит."],
+ ["ki","Até já, então!","Тогда до скорого!"]
+ ],
+ voc:[["Entre.","Проходите. Входите."],["se faz favor","пожалуйста (Португалия)"],["a vazia / a cheia","пустой / полный (баллон)"],["cá fora","снаружи, наружу"],["ir buscar","сходить за"],["a carrinha","фургон (Португалия)"],["a menina","девушка (обращение в Португалии)"],["o barulho","шум"],["a escada","лестница"],["acontecer","случаться"],["o inverno","зима"],["todos os meses","каждый месяц"],["nem sabia","даже не знала"],["antigo","старый, старинный"],["o redutor","редуктор"],["preto","чёрный"],["o tubo","шланг, трубка"],["rodar","поворачивать"],["até ao fim","до упора (Португалия)"],["a esquerda / a direita","лево / право"],["ao contrário","наоборот"],["enganar","обманывать, сбивать с толку"],["toda a gente","все (Португалия)"],["aquecer","нагреваться"],["Aí está.","Ну вот."],["o senhorio","хозяин квартиры (Португалия)"],["assinar","подписать"],["Já sabe.","Вы знаете. Ну, вы поняли."],["o chazinho","чаёк"],["comemorar","отметить, отпраздновать"],["com muito gosto","с удовольствием"],["fugir","убегать"],["Até já!","До скорого!"]],
+ con:[["É aqui …?","… сюда? Это здесь …?","Bom dia! É aqui o gás?","Доброе утро! Газ сюда?"],
+ ["Onde é que está …?","Где …?","Onde é que está a vazia?","Где пустой?"],
+ ["Vou buscar …","Схожу за …","Vou buscar a cheia à carrinha.","Схожу за полным в фургон."],
+ ["Eu nem sabia que …","Я даже не знала, что …","Eu nem sabia que tinha uma bilha!","Я даже не знала, что у меня есть баллон!"],
+ ["É ao contrário.","Наоборот.","Para a esquerda. É ao contrário do normal.","Влево. Наоборот, не как обычно."],
+ ["Está a aquecer!","Нагревается!","Ainda fria… Ah! Está a aquecer!","Ещё холодная… Ах! Нагревается!"],
+ ["Com muito gosto.","С удовольствием.","Com muito gosto, D. Graça.","С удовольствием, дона Граса."]]
+},
+{t:"O lava-loiça entupiu",ru:"Засор: пришёл сантехник",e:"🪠",
+ lines:[
+ ["ar","Bom dia. Armando, canalizador. Foi a menina que ligou?","Доброе утро. Армандо, сантехник. Это вы звонили?"],
+ ["ki","Fui eu. Bom dia! O lava-loiça entupiu e a água não desce.","Я. Доброе утро! Мойка засорилась, и вода не уходит."],
+ ["ar","Deixe ver… Pois, está cheio de água parada.","Дайте посмотреть… Да, полно стоячей воды."],
+ ["ki","Já tentei com água a ferver, mas não resultou.","Я уже пробовала кипятком, но не помогло."],
+ ["ar","Água a ferver às vezes ajuda. Mas aqui o problema é mais fundo.","Кипяток иногда помогает. Но тут проблема глубже."],
+ ["ki","Mais fundo? É grave?","Глубже? Это серьёзно?"],
+ ["ar","Não é grave. Vou desmontar o sifão. Tem um alguidar?","Не серьёзно. Разберу сифон. У вас есть таз?"],
+ ["ki","Um quê?","Что-что?"],
+ ["ar","Um alguidar. Uma bacia, para apanhar a água.","Алгидар. Таз, чтобы собрать воду."],
+ ["ki","Ah, uma bacia! Tenho, tenho. Aqui está.","А, таз! Есть, есть. Вот."],
+ ["ar","Obrigado. Agora vamos ver o que está cá dentro…","Спасибо. Теперь посмотрим, что тут внутри…"],
+ ["ki","Ai! Que cheiro!","Ой! Ну и запах!"],
+ ["ar","Gordura e restos de comida. E… uma colher!","Жир и остатки еды. И… ложка!"],
+ ["ki","Uma colher? Então era aí que estava!","Ложка? Так вот где она была!"],
+ ["ar","Procurou-a muito tempo?","Долго её искали?"],
+ ["ki","Uma semana! Pensava que a tinha deitado fora.","Неделю! Я думала, что выбросила её."],
+ ["ar","Pronto, já está limpo. Agora deite água.","Всё, уже чисто. Теперь налейте воды."],
+ ["ki","A descer… muito bem! Desce tudo!","Уходит… отлично! Всё уходит!"],
+ ["ar","Um conselho: não deite gordura no lava-loiça. Deite no lixo.","Совет: не сливайте жир в мойку. Выбрасывайте в мусор."],
+ ["ki","E o óleo da frigideira?","А масло со сковородки?"],
+ ["ar","O óleo, numa garrafa, e leve ao oleão.","Масло — в бутылку, и несите в «олеан»."],
+ ["ki","Oleão? O que é isso?","Олеан? Что это?"],
+ ["ar","É o contentor para o óleo usado. Há um ao pé do café da esquina.","Это контейнер для использованного масла. Есть один возле кафе на углу."],
+ ["ki","Não sabia. Fica prometido.","Не знала. Обещаю."],
+ ["ar","São quarenta euros, com a deslocação.","Сорок евро, с выездом."],
+ ["ki","Pago eu ou o senhorio?","Плачу я или хозяин?"],
+ ["ar","Entupimento é do inquilino, menina. É do uso.","Засор — дело жильца, девушка. Это от использования."],
+ ["ki","Justo. Fui eu que entupi. Pago por MB Way.","Справедливо. Это я засорила. Плачу через MB Way."],
+ ["ar","Está pago. E a colher, guarde-a bem!","Оплачено. А ложку берегите!"],
+ ["ki","Vou pô-la numa moldura, como recordação!","Повешу её в рамочку, на память!"],
+ ["ar","Ah, ah! Boa! Até à próxima — mas espero que não seja cedo.","Ха-ха! Отлично! До следующего раза — но надеюсь, не скоро."]
+ ],
+ voc:[["o canalizador","сантехник (Португалия)"],["entupir","засориться"],["descer","уходить (о воде); спускаться"],["Deixe ver.","Дайте посмотреть."],["parado","стоячий"],["tentar","пытаться, пробовать"],["a ferver","кипящий"],["resultar","получиться, помочь"],["fundo","глубокий"],["desmontar","разобрать"],["o sifão","сифон"],["o alguidar","таз (Португалия)"],["a bacia","таз, миска"],["apanhar","собрать, поймать"],["cá dentro","здесь внутри"],["o cheiro","запах"],["a gordura","жир"],["os restos","остатки"],["a colher","ложка"],["procurar","искать"],["deitar fora","выбросить"],["deitar","наливать; выбрасывать"],["o conselho","совет"],["o lixo","мусор"],["o óleo","масло (растительное)"],["a frigideira","сковородка"],["o oleão","контейнер для использованного масла"],["o contentor","контейнер"],["usado","использованный"],["Fica prometido.","Обещаю."],["a deslocação","выезд (мастера)"],["o entupimento","засор"],["Justo.","Справедливо."],["guardar","хранить, беречь"],["a moldura","рамка"],["a recordação","память, сувенир"]],
+ con:[["Foi a menina que ligou?","Это вы звонили? (девушке)","Armando, canalizador. Foi a menina que ligou?","Армандо, сантехник. Это вы звонили?"],
+ ["Já tentei …, mas não resultou.","Я уже пробовала …, но не помогло.","Já tentei com água a ferver, mas não resultou.","Я уже пробовала кипятком, но не помогло."],
+ ["Um quê?","Что-что? (не поняла слово)","Tem um alguidar? — Um quê?","У вас есть алгидар? — Что-что?"],
+ ["Então era aí que estava!","Так вот где она была!","Uma colher? Então era aí que estava!","Ложка? Так вот где она была!"],
+ ["Pensava que …","Я думала, что …","Pensava que a tinha deitado fora.","Я думала, что выбросила её."],
+ ["Pago eu ou …?","Плачу я или …?","Pago eu ou o senhorio?","Плачу я или хозяин?"],
+ ["Fui eu que …","Это я …","Justo. Fui eu que entupi.","Справедливо. Это я засорила."]]
+},
+{t:"A máquina avariou",ru:"Сломалась стиральная машина: звонок в сервис",e:"🧺",
+ lines:[
+ ["va","Assistência técnica, Vanessa, bom dia. Em que posso ajudar?","Сервисный центр, Ванесса, доброе утро. Чем могу помочь?"],
+ ["ki","Bom dia. A minha máquina de lavar avariou. Está a deitar água pelo chão.","Доброе утро. У меня сломалась стиральная машина. Льёт воду на пол."],
+ ["va","Lamento. Tem o número de série? Está numa etiqueta atrás da porta.","Сожалею. У вас есть серийный номер? Он на наклейке за дверцей."],
+ ["ki","Um momento… Está aqui: A, sete, quatro, dois, nove.","Минутку… Вот: A, семь, четыре, два, девять."],
+ ["va","Obrigada. A máquina ainda está na garantia, até março.","Спасибо. Машина ещё на гарантии, до марта."],
+ ["ki","Ótimo! Então não pago nada?","Отлично! Значит, я ничего не плачу?"],
+ ["va","Se for um defeito, não paga nada. Se for mau uso, paga a reparação.","Если это дефект — ничего не платите. Если неправильное использование — платите за ремонт."],
+ ["ki","Mau uso? Eu só lavei roupa!","Неправильное? Я просто стирала одежду!"],
+ ["va","Claro, claro. É só a regra. Já desligou a máquina da corrente?","Конечно, конечно. Это просто правило. Вы уже отключили машину от сети?"],
+ ["ki","Já. E fechei a torneira da água.","Да. И перекрыла кран."],
+ ["va","Muito bem. Vamos marcar a visita de um técnico.","Очень хорошо. Давайте запишем визит мастера."],
+ ["ki","Pode ser amanhã?","Можно завтра?"],
+ ["va","Amanhã não temos vagas. Tenho quinta-feira.","На завтра мест нет. Есть четверг."],
+ ["ki","Quinta-feira? E até lá lavo a roupa à mão?","В четверг? А до тех пор стирать руками?"],
+ ["va","Há lavandarias self-service muito práticas.","Есть очень удобные прачечные самообслуживания."],
+ ["ki","Pois. Está bem, quinta-feira. A que horas?","Ну да. Хорошо, четверг. Во сколько?"],
+ ["va","O técnico passa entre as nove e a uma.","Мастер заедет между девятью и часом."],
+ ["ki","Entre as nove e a uma? Não pode dizer uma hora certa?","Между девятью и часом? Нельзя назвать точное время?"],
+ ["va","Infelizmente, não. Mas ele liga meia hora antes.","К сожалению, нет. Но он позвонит за полчаса."],
+ ["ki","Está bem. Trabalho em casa, por isso não há problema.","Хорошо. Я работаю из дома, так что не проблема."],
+ ["va","Confirma a morada? Rua de Viana, número doze, segundo esquerdo?","Подтверждаете адрес? Руа-де-Виана, дом двенадцать, второй этаж, слева?"],
+ ["ki","Confirmo. Segundo esquerdo.","Подтверждаю. Второй этаж, слева."],
+ ["va","E um contacto de telemóvel?","И мобильный номер для связи?"],
+ ["ki","Nove, um, dois, três, quatro, cinco, seis, sete, oito.","Девять, один, два, три, четыре, пять, шесть, семь, восемь."],
+ ["va","Perfeito. A sua referência é o número oitenta e oito trinta.","Отлично. Номер вашей заявки — восемьдесят восемь тридцать."],
+ ["ki","Oitenta e oito trinta. Já anotei.","Восемьдесят восемь тридцать. Записала."],
+ ["va","Se a água voltar a sair, ponha toalhas no chão e não ligue a máquina.","Если вода снова потечёт, положите полотенца на пол и не включайте машину."],
+ ["ki","Não ligo, prometo. Já tenho a cozinha cheia de toalhas!","Не включу, обещаю. У меня уже вся кухня в полотенцах!"],
+ ["va","Coitada. Na quinta fica resolvido. Mais alguma coisa?","Бедняжка. В четверг всё решится. Что-нибудь ещё?"],
+ ["ki","Não, é tudo. Obrigada, Vanessa.","Нет, это всё. Спасибо, Ванесса."],
+ ["va","Obrigada eu. Tenha um bom dia!","Это вам спасибо. Хорошего дня!"]
+ ],
+ voc:[["a assistência técnica","сервисный центр"],["Em que posso ajudar?","Чем могу помочь?"],["a máquina de lavar","стиральная машина"],["avariar","сломаться (о технике, Португалия)"],["deitar água","лить воду"],["o número de série","серийный номер"],["a etiqueta","наклейка, бирка"],["a garantia","гарантия"],["o defeito","дефект"],["a reparação","ремонт (Португалия)"],["a regra","правило"],["a corrente","электросеть, ток"],["a torneira","кран"],["marcar","записать(ся), назначить"],["a visita","визит"],["a vaga","свободное место"],["a quinta-feira","четверг"],["até lá","до тех пор"],["à mão","руками, вручную"],["a lavandaria","прачечная (Португалия)"],["prático","удобный"],["entre … e …","между … и …"],["certo","точный"],["meia hora antes","за полчаса"],["a morada","адрес (Португалия)"],["segundo esquerdo","второй этаж, левая квартира"],["o contacto","контакт (Португалия)"],["o telemóvel","мобильный (Португалия)"],["a referência","номер заявки"],["anotar","записать"],["voltar a …","снова …"],["a toalha","полотенце"],["prometer","обещать"],["Coitada.","Бедняжка."],["Obrigada eu.","Это вам спасибо."]],
+ con:[["Em que posso ajudar?","Чем могу помочь?","Assistência técnica, bom dia. Em que posso ajudar?","Сервисный центр, доброе утро. Чем могу помочь?"],
+ ["… avariou.","… сломалась.","A minha máquina de lavar avariou.","У меня сломалась стиральная машина."],
+ ["Se for …, …","Если это …, то …","Se for um defeito, não paga nada.","Если это дефект — ничего не платите."],
+ ["Pode ser amanhã?","Можно завтра?","Vamos marcar a visita. — Pode ser amanhã?","Давайте запишем визит. — Можно завтра?"],
+ ["Não pode dizer uma hora certa?","Нельзя назвать точное время?","Entre as nove e a uma? Não pode dizer uma hora certa?","Между девятью и часом? Нельзя назвать точное время?"],
+ ["Já anotei.","Записала.","Oitenta e oito trinta. Já anotei.","Восемьдесят восемь тридцать. Записала."],
+ ["Obrigada eu.","Это вам спасибо.","Obrigada eu. Tenha um bom dia!","Это вам спасибо. Хорошего дня!"]]
+},
+{t:"O estore encravou",ru:"Заели жалюзи: хозяин чинит сам",e:"🪟",
+ lines:[
+ ["fe","Bom dia, Kira! Vim ver o tal estore.","Доброе утро, Кира! Пришёл посмотреть на те самые жалюзи."],
+ ["ki","Bom dia, Sr. Fernando! Obrigada por ter vindo tão depressa.","Доброе утро, сеньор Фернанду! Спасибо, что пришли так быстро."],
+ ["fe","Então, o que é que se passa com ele?","Ну, что с ними такое?"],
+ ["ki","Ontem à noite puxei a fita para o fechar e ele ficou encravado a meio.","Вчера вечером я потянула ленту, чтобы их закрыть, и они застряли посередине."],
+ ["fe","A meio? Deixe-me ver… Pois é. Não sobe nem desce.","Посередине? Дайте посмотреть… Да уж. Ни вверх, ни вниз."],
+ ["ki","E agora o quarto está meio às escuras.","И теперь в спальне полутемно."],
+ ["fe","Isto deve ser a fita. Às vezes parte-se lá dentro.","Наверное, это лента. Иногда она рвётся внутри."],
+ ["ki","Partiu-se? Mas eu não puxei com força!","Порвалась? Но я не тянула сильно!"],
+ ["fe","Não foi culpa sua. Esta fita tem uns quinze anos. Gastou-se.","Вы не виноваты. Этой ленте лет пятнадцать. Износилась."],
+ ["ki","E é difícil trocar?","А поменять сложно?"],
+ ["fe","Para mim, não. Já troquei mais de vinte fitas nesta vida.","Для меня — нет. Я в жизни поменял больше двадцати лент."],
+ ["ki","O senhor é um faz-tudo!","Да вы мастер на все руки!"],
+ ["fe","Sou reformado, tenho tempo! Passe-me ali a chave de fendas.","Я на пенсии, время есть! Подайте-ка мне вон ту отвёртку."],
+ ["ki","Esta, a amarela?","Эту, жёлтую?"],
+ ["fe","Essa mesma. Agora vou abrir a caixa do estore.","Её самую. Теперь открою короб жалюзи."],
+ ["ki","Cuidado com o pó!","Осторожно, пыль!"],
+ ["fe","Já está. Olhe aqui: a fita velha, toda desfeita.","Готово. Смотрите: старая лента, вся разлохматилась."],
+ ["ki","Nossa… quer dizer, caramba! Está mesmo desfeita.","Ничего себе… то есть, ну и ну! Совсем разлохматилась."],
+ ["fe","Ah, ah! Ainda fala à brasileira de vez em quando?","Ха-ха! Всё ещё иногда говорите по-бразильски?"],
+ ["ki","Às vezes! Aprendi português com séries brasileiras.","Иногда! Я учила португальский по бразильским сериалам."],
+ ["fe","Não faz mal. Cá em Aveiro também gostamos de telenovelas.","Ничего страшного. Здесь, в Авейру, мы тоже любим сериалы."],
+ ["fe","Pronto, fita nova. Experimente agora.","Всё, лента новая. Попробуйте теперь."],
+ ["ki","Sobe… e desce! Perfeito!","Поднимаются… и опускаются! Идеально!"],
+ ["fe","Um conselho: puxe a fita devagar, sem dar esticões.","Совет: тяните ленту медленно, без рывков."],
+ ["ki","Sem dar quê?","Без чего?"],
+ ["fe","Esticões. Puxões fortes, assim, de repente.","Рывков. Сильно дёргать, вот так, резко."],
+ ["ki","Ah, percebi. Devagarinho, então.","А, поняла. Значит, потихонечку."],
+ ["fe","Isso. E se houver mais alguma avaria, não hesite. Ligue-me.","Да. И если ещё что-то сломается, не стесняйтесь. Звоните мне."],
+ ["ki","Está prometido. Quer um café antes de ir?","Обещаю. Хотите кофе перед уходом?"],
+ ["fe","Aceito. Uma bica, se faz favor. Bem curtinha!","Не откажусь. Бику, пожалуйста. Совсем коротенькую!"],
+ ["ki","Uma bica bem curtinha, a sair!","Совсем коротенькая бика — уже готовлю!"]
+ ],
+ voc:[["o tal","тот самый"],["o estore","рулонные жалюзи, ставни (Португалия)"],["Obrigada por ter vindo.","Спасибо, что пришли."],["depressa","быстро"],["O que é que se passa?","Что случилось? Что такое?"],["puxar","тянуть"],["a fita","лента"],["encravado","застрявший, заевший"],["a meio","посередине"],["subir / descer","подниматься / опускаться"],["às escuras","в темноте"],["partir-se","порваться, сломаться"],["com força","сильно"],["a culpa","вина"],["gastar-se","износиться"],["difícil","сложный"],["o faz-tudo","мастер на все руки"],["reformado","на пенсии (Португалия)"],["a chave de fendas","отвёртка"],["amarelo","жёлтый"],["a caixa","короб, коробка"],["o pó","пыль"],["desfeito","разлохмаченный, развалившийся"],["quer dizer","то есть"],["à brasileira","по-бразильски"],["de vez em quando","иногда"],["a série","сериал"],["Não faz mal.","Ничего страшного."],["experimentar","попробовать"],["o esticão","рывок"],["o puxão","рывок, дёрганье"],["perceber","понять (Португалия)"],["devagarinho","потихонечку"],["a avaria","поломка"],["hesitar","колебаться, стесняться"],["a bica","эспрессо (Лиссабон, Португалия)"]],
+ con:[["Obrigada por ter vindo tão depressa.","Спасибо, что пришли так быстро.","Bom dia! Obrigada por ter vindo tão depressa.","Доброе утро! Спасибо, что пришли так быстро."],
+ ["O que é que se passa com …?","Что такое с …?","Então, o que é que se passa com ele?","Ну, что с ними такое?"],
+ ["Não sobe nem desce.","Ни вверх, ни вниз.","Deixe-me ver… Pois é. Não sobe nem desce.","Дайте посмотреть… Да уж. Ни вверх, ни вниз."],
+ ["Não foi culpa sua.","Вы не виноваты.","Não foi culpa sua. Esta fita tem uns quinze anos.","Вы не виноваты. Этой ленте лет пятнадцать."],
+ ["Passe-me …","Подайте мне …","Passe-me ali a chave de fendas.","Подайте-ка мне вон ту отвёртку."],
+ ["Percebi.","Поняла.","Ah, percebi. Devagarinho, então.","А, поняла. Значит, потихонечку."],
+ ["Não hesite. Ligue-me.","Не стесняйтесь. Звоните мне.","Se houver mais alguma avaria, não hesite. Ligue-me.","Если ещё что-то сломается, не стесняйтесь. Звоните мне."]]
+},
+{t:"Bolor na casa de banho",ru:"Плесень: покупаем осушитель",e:"🍄",
+ lines:[
+ ["gr","Menina, já reparou nas manchas pretas na casa de banho?","Девушка, вы уже заметили чёрные пятна в ванной?"],
+ ["ki","Reparei, sim. Aparecem no teto, ao pé do chuveiro. O que é aquilo?","Заметила. Они появляются на потолке, возле душа. Что это такое?"],
+ ["gr","É bolor. Com esta humidade de Aveiro, é normal no inverno.","Это плесень. С такой влажностью, как в Авейру, зимой это нормально."],
+ ["ki","Normal? Mas no meu país nunca vi isso!","Нормально? Но у меня на родине я такого никогда не видела!"],
+ ["gr","Lá as casas têm aquecimento. Cá, as casas são frias e húmidas.","Там в домах есть отопление. А здесь дома холодные и сырые."],
+ ["ki","E o que é que se faz?","И что делать?"],
+ ["gr","Abrir a janela depois do banho, todos os dias. E comprar um desumidificador.","Открывать окно после душа, каждый день. И купить осушитель воздуха."],
+ ["ki","Um desumidificador? Vem à loja comigo?","Осушитель? Пойдёте со мной в магазин?"],
+ ["gr","Vamos! Eu conheço o Sr. Mário, da loja da avenida.","Пойдём! Я знаю сеньора Мариу из магазина на проспекте."],
+ ["mr","Bom dia, D. Graça! Que bons ventos a trazem?","Доброе утро, дона Граса! Каким ветром вас занесло?"],
+ ["gr","Bom dia, Sr. Mário. A minha vizinha precisa de um desumidificador.","Доброе утро, сеньор Мариу. Моей соседке нужен осушитель."],
+ ["ki","Bom dia. O meu apartamento tem bolor na casa de banho.","Доброе утро. У меня в квартире плесень в ванной."],
+ ["mr","É o mal de Aveiro! Qual é o tamanho da casa?","Это беда Авейру! Какого размера квартира?"],
+ ["ki","É um T1. Uns cinquenta metros quadrados.","Однушка. Метров пятьдесят."],
+ ["mr","Então este chega. Tira até doze litros de água por dia.","Тогда этого хватит. Он забирает до двенадцати литров воды в день."],
+ ["ki","Doze litros? Do ar?","Двенадцать литров? Из воздуха?"],
+ ["mr","Do ar! Vai ficar espantada quando vir o depósito cheio.","Из воздуха! Удивитесь, когда увидите полный бачок."],
+ ["ki","E gasta muita luz?","А много электричества тратит?"],
+ ["mr","Não muito. É classe A. Ligado umas horas por dia, nota-se pouco na conta.","Немного. Класс А. Если включать на несколько часов в день, по счёту почти не заметно."],
+ ["ki","Quanto custa?","Сколько стоит?"],
+ ["mr","Está em promoção: cento e cinquenta e nove euros.","Он по акции: сто пятьдесят девять евро."],
+ ["gr","Ó Sr. Mário, faça um descontinho à menina. É estrangeira!","Ой, сеньор Мариу, сделайте девушке скидочку. Она иностранка!"],
+ ["mr","Para a vizinha da D. Graça… cento e cinquenta. Último preço.","Для соседки доны Грасы… сто пятьдесят. Последняя цена."],
+ ["ki","Fechado! E para limpar o bolor que já existe?","Договорились! А чем чистить ту плесень, что уже есть?"],
+ ["mr","Lixívia com água, metade e metade. E luvas, sempre.","Хлорка с водой, пополам. И обязательно перчатки."],
+ ["ki","Lixívia? Que palavra é essa?","Лишивия? Что это за слово?"],
+ ["gr","É o que os brasileiros chamam água sanitária.","Это то, что бразильцы называют «агуа санитария»."],
+ ["ki","Ah! Agora percebi. Levo também uma lixívia e umas luvas.","А! Теперь поняла. Возьму ещё хлорку и перчатки."],
+ ["mr","Fica tudo em cento e cinquenta e seis. Quer fatura com contribuinte?","Всего сто пятьдесят шесть. Чек с налоговым номером нужен?"],
+ ["ki","Ainda não tenho NIF… Estou a tratar disso.","У меня ещё нет NIF… Я этим занимаюсь."],
+ ["mr","Sem problema. Obrigado, e as melhoras para a casa de banho!","Без проблем. Спасибо, и пусть ванная поправляется!"]
+ ],
+ voc:[["reparar em","заметить"],["preto","чёрный"],["a casa de banho","ванная (Португалия)"],["aparecer","появляться"],["o teto","потолок"],["o bolor","плесень"],["a humidade","влажность"],["o país","страна"],["o aquecimento","отопление"],["húmido","сырой, влажный"],["a janela","окно"],["o desumidificador","осушитель воздуха"],["a avenida","проспект"],["Que bons ventos a trazem?","Каким ветром вас занесло?"],["o mal","беда, зло"],["o tamanho","размер"],["um T1","однокомнатная квартира (Португалия)"],["os metros quadrados","квадратные метры"],["chegar","хватать; приходить"],["tirar","забирать, вынимать"],["espantado","удивлённый"],["o depósito","бачок, резервуар"],["gastar","тратить"],["a luz","свет; электричество"],["notar-se","быть заметным"],["a conta","счёт"],["em promoção","по акции"],["o descontinho","скидочка"],["estrangeiro","иностранец, иностранный"],["Fechado!","Договорились!"],["a lixívia","хлорка, отбеливатель (Португалия)"],["as luvas","перчатки"],["a água sanitária","хлорка (Бразилия)"],["a fatura","чек, счёт-фактура"],["o contribuinte","налогоплательщик; налоговый номер"],["o NIF","налоговый номер (Португалия)"],["tratar de","заниматься (делом)"],["As melhoras!","Выздоравливайте!"]],
+ con:[["Já reparou em …?","Вы уже заметили …?","Menina, já reparou nas manchas pretas na casa de banho?","Девушка, вы уже заметили чёрные пятна в ванной?"],
+ ["E o que é que se faz?","И что делать?","É bolor. — E o que é que se faz?","Это плесень. — И что делать?"],
+ ["Que bons ventos a trazem?","Каким ветром вас занесло?","Bom dia, D. Graça! Que bons ventos a trazem?","Доброе утро, дона Граса! Каким ветром вас занесло?"],
+ ["E gasta muita luz?","А много электричества тратит?","E gasta muita luz? — Não muito. É classe A.","А много электричества тратит? — Немного. Класс А."],
+ ["Faça um descontinho.","Сделайте скидочку.","Ó Sr. Mário, faça um descontinho à menina.","Ой, сеньор Мариу, сделайте девушке скидочку."],
+ ["Fechado!","Договорились!","Último preço. — Fechado!","Последняя цена. — Договорились!"],
+ ["Estou a tratar disso.","Я этим занимаюсь.","Ainda não tenho NIF… Estou a tratar disso.","У меня ещё нет NIF… Я этим занимаюсь."]]
+},
+{t:"Contas feitas",ru:"Расчёт с хозяином и сладости Авейру",e:"🧾",
+ lines:[
+ ["fe","Boa tarde, Kira! Trouxe uma coisa de Aveiro para si: ovos moles.","Добрый день, Кира! Принёс вам кое-что из Авейру: ову-молеш."],
+ ["ki","Ovos moles? Já ouvi falar, mas nunca provei!","Ову-молеш? Слышала, но никогда не пробовала!"],
+ ["fe","Então prove. É doce de gema de ovo, dentro de uma massa fininha em forma de peixe.","Тогда попробуйте. Это сладость из яичного желтка внутри тонкого теста в форме рыбки."],
+ ["ki","Em forma de peixe! Que giro. Hum… que bom! Muito doce.","В форме рыбки! Как мило. Ммм… как вкусно! Очень сладко."],
+ ["fe","Muito doce, sim. Um basta! Então, como está a casa?","Очень сладко, да. Одного хватит! Ну, как квартира?"],
+ ["ki","Agora está ótima. Água quente, lava-loiça a funcionar, estore novo…","Теперь отлично. Горячая вода, мойка работает, жалюзи новые…"],
+ ["fe","E a máquina de lavar?","А стиральная машина?"],
+ ["ki","O técnico veio na quinta. Era um defeito, por isso não paguei nada.","Мастер приходил в четверг. Это был дефект, так что я ничего не заплатила."],
+ ["fe","Excelente. Garantia é garantia. E o bolor?","Превосходно. Гарантия есть гарантия. А плесень?"],
+ ["ki","Comprei um desumidificador. Tira litros de água por dia!","Купила осушитель. Он вытягивает литры воды в день!"],
+ ["fe","Faz muito bem. Quanto pagou por ele?","Правильно сделали. Сколько вы за него заплатили?"],
+ ["ki","Cento e cinquenta. A D. Graça negociou por mim.","Сто пятьдесят. Дона Граса торговалась за меня."],
+ ["fe","A D. Graça é uma negociadora de primeira! Olhe, metade é por minha conta.","Дона Граса — торговец первого класса! Слушайте, половина за мой счёт."],
+ ["ki","A sério? Não é preciso.","Правда? Не нужно."],
+ ["fe","É, sim. A humidade é problema da casa, não seu. Desconto setenta e cinco na renda.","Нужно. Сырость — проблема квартиры, а не ваша. Вычту семьдесят пять из аренды."],
+ ["ki","Muito obrigada! E o canalizador? Esse paguei eu.","Большое спасибо! А сантехник? Его оплатила я."],
+ ["fe","Esse fica consigo. Afinal, a colher era sua!","Это остаётся на вас. В конце концов, ложка была ваша!"],
+ ["ki","Justo! Já não deito nada no lava-loiça.","Справедливо! Я больше ничего не сливаю в мойку."],
+ ["fe","Então fazemos as contas: renda de dezembro, oitocentos menos setenta e cinco.","Тогда считаем: аренда за декабрь — восемьсот минус семьдесят пять."],
+ ["ki","Setecentos e vinte e cinco. Faço a transferência amanhã.","Семьсот двадцать пять. Переведу завтра."],
+ ["fe","Perfeito. E mando-lhe o recibo por email, como sempre.","Отлично. И пришлю вам квитанцию по почте, как всегда."],
+ ["ki","Obrigada. Sr. Fernando, posso fazer uma pergunta?","Спасибо. Сеньор Фернанду, можно задать вопрос?"],
+ ["fe","Claro, diga.","Конечно, спрашивайте."],
+ ["ki","Porque é que em Portugal as casas são tão frias?","Почему в Португалии дома такие холодные?"],
+ ["fe","Ah! Porque achamos que somos um país quente. Só nos lembramos do frio em janeiro!","А! Потому что мы считаем себя тёплой страной. О холоде вспоминаем только в январе!"],
+ ["ki","Ah, ah! No meu país é ao contrário: muito frio fora, muito quente dentro.","Ха-ха! У меня на родине наоборот: на улице очень холодно, а внутри очень тепло."],
+ ["fe","Então, para o ano, faça como os aveirenses: camisola, manta e chá.","Тогда в следующем году делайте, как жители Авейру: свитер, плед и чай."],
+ ["ki","E ovos moles!","И ову-молеш!"],
+ ["fe","E ovos moles! Bem-vinda a Aveiro, Kira.","И ову-молеш! Добро пожаловать в Авейру, Кира."],
+ ["ki","Obrigada! Agora sinto-me mesmo em casa.","Спасибо! Теперь я правда чувствую себя как дома."],
+ ["fe","Era isso que eu queria ouvir. Até à próxima!","Именно это я и хотел услышать. До следующего раза!"]
+ ],
+ voc:[["para si","для вас (Португалия)"],["os ovos moles","ову-молеш (сладость Авейру)"],["ouvir falar","слышать (о чём-то)"],["provar","пробовать (еду)"],["a gema de ovo","яичный желток"],["a massa","тесто"],["fininho","тоненький"],["em forma de","в форме"],["o peixe","рыба"],["Que giro!","Как мило! (Португалия)"],["doce","сладкий"],["Um basta!","Одного хватит!"],["por isso","поэтому"],["Excelente.","Превосходно."],["Faz muito bem.","Правильно делаете."],["negociar","торговаться, договариваться"],["de primeira","первоклассный"],["Não é preciso.","Не нужно."],["a renda","аренда, квартплата (Португалия)"],["ficar consigo","остаться на вас"],["afinal","в конце концов"],["fazer as contas","посчитать"],["menos","минус, меньше"],["a transferência","перевод (банковский)"],["o recibo","квитанция"],["Porque é que …?","Почему …?"],["achar","считать, думать"],["lembrar-se de","вспоминать"],["fora / dentro","снаружи / внутри"],["para o ano","в следующем году"],["os aveirenses","жители Авейру"],["a camisola","свитер (Португалия)"],["a manta","плед"],["sentir-se em casa","чувствовать себя как дома"],["Até à próxima!","До следующего раза!"]],
+ con:[["Já ouvi falar, mas nunca provei.","Слышала, но никогда не пробовала.","Ovos moles? Já ouvi falar, mas nunca provei!","Ову-молеш? Слышала, но никогда не пробовала!"],
+ ["Que giro!","Как мило!","Em forma de peixe! Que giro.","В форме рыбки! Как мило."],
+ ["… é por minha conta.","… за мой счёт.","Olhe, metade é por minha conta.","Слушайте, половина за мой счёт."],
+ ["Não é preciso.","Не нужно.","A sério? Não é preciso.","Правда? Не нужно."],
+ ["Posso fazer uma pergunta?","Можно задать вопрос?","Sr. Fernando, posso fazer uma pergunta?","Сеньор Фернанду, можно задать вопрос?"],
+ ["Porque é que …?","Почему …?","Porque é que em Portugal as casas são tão frias?","Почему в Португалии дома такие холодные?"],
+ ["Sinto-me em casa.","Чувствую себя как дома.","Agora sinto-me mesmo em casa.","Теперь я правда чувствую себя как дома."]]
+}
+];
+
+const GRAM=[
+{t:"Надо: ter de + начальная форма",when:"В Португалии «мне нужно позвонить», «надо поменять» — это ter de + глагол. Меняется только ter, второй глагол остаётся в начальной форме.",
+ verbs:[["ter","иметь"],["ter de + ligar","надо позвонить"],["ter de + trocar","надо поменять"]],
+ rows:[["eu",[["ten","ho"],["tenho de lig","ar"],["tenho de troc","ar"]]],["tu",[["ten","s"],["tens de lig","ar"],["tens de troc","ar"]]],["você,<br>ele, ela",[["te","m"],["tem de lig","ar"],["tem de troc","ar"]]],["nós",[["te","mos"],["temos de lig","ar"],["temos de troc","ar"]]],["vocês,<br>eles",[["tê","m"],["têm de lig","ar"],["têm de troc","ar"]]]],
+ tip:"tem — «он», têm (с крышечкой) — «они». На слух почти одинаково, в письме различаются.",
+ ex:[["<b>Tenho de comprar</b> outra?","Мне нужно покупать другой?"],["<b>Tem de assinar</b> aqui.","Вам нужно расписаться здесь."],["<b>Tem de trocar</b> a bilha.","Нужно поменять баллон."]],
+ diff:["🇵🇹 tenho de ligar","🇧🇷 tenho que ligar"],
+ tips:[["de — мостик","Между ter и глаголом стоит de: tenho — de — ligar. В Бразилии чаще que: tenho que ligar."],["Вежливо мастеру","Tem de … = «Вам нужно …» — так мастер или хозяин объяснит, что делать."],["Как тренировать","Утром составьте список дел вслух: Tenho de ligar ao senhorio. Tenho de comprar pão."]]},
+{t:"Что случилось: прошлое",when:"Рассказать, что произошло дома: acabar (закончиться), ligar (позвонить; включить), partir (сломать, разбить).",
+ verbs:[["acabar","кончиться"],["ligar","позвонить"],["partir","сломать"]],
+ rows:[["eu",[["acab","ei"],["lig","uei"],["part","i"]]],["tu",[["acab","aste"],["lig","aste"],["part","iste"]]],["você,<br>ele, ela",[["acab","ou"],["lig","ou"],["part","iu"]]],["nós",[["acab","ámos"],["lig","ámos"],["part","imos"]]],["vocês,<br>eles",[["acab","aram"],["lig","aram"],["part","iram"]]]],
+ tip:"В Португалии «мы» в прошлом пишут с ударением: acabámos, ligámos. Так отличают «мы сделали» от «мы делаем» (acabamos).",
+ ex:[["<b>Acabou</b> o gás.","Закончился газ."],["Foi a menina que <b>ligou</b>?","Это вы звонили?"],["A fita <b>partiu</b>-se lá dentro.","Лента порвалась внутри."]],
+ diff:["🇵🇹 ligámos","🇧🇷 ligamos"],
+ tips:[["liguei с буквой u","В «я» у ligar появляется u: liguei. Иначе g читалось бы как «ж»."],["-aste — это «ты»","В Португалии «ты» в прошлом с хвостиком -aste / -iste: ligaste, partiste."],["partiu-se","Если вещь сломалась сама, добавьте -se: O estore partiu-se. A fita partiu-se."]]}
+];
+
+const PAIRS=[
+ {a:['part<span class="acc">e</span>','parte','часть; уезжает'],b:['part<span class="acc">i</span>','parti','я сломала; я уехала'],why:'Слушайте конец и ударение. parte — ударение на первый слог, конечное e почти не слышно: «па́рт». parti — ударение на конец: «парти́».'},
+ {a:['ch<span class="acc">ão</span>','chão','пол'],b:['ch<span class="acc">á</span>','chá','чай'],why:'ão — носовой звук, воздух идёт через нос: «шау̃». á — открытое «а» без носа: «ша».'},
+ {a:['c<span class="acc">ai</span>xa','caixa','коробка, короб'],b:['qu<span class="acc">ei</span>xa','queixa','жалоба'],why:'caixa — с открытым «ай»: «ка́йша». queixa — в Португалии ei звучит почти как «эй» с глухим началом: «кэ́йша».'}
+];
+
+const EX = [
+{ // 1 água quente
+exp:[
+ [["água quente","горячей воды","quenta"],["não havia água quente","не было горячей воды","haviam"],["hoje de manhã não havia água quente","сегодня утром не было горячей воды","manha"]],
+ [["outra","другой","outro"],["comprar outra","купить другой","compro"],["tenho de comprar outra","мне нужно купить другой","tens"]],
+ [["por minha conta","за мой счёт","meu"],["a primeira bilha é por minha conta","первый баллон за мой счёт","primeiro"],["mas a primeira bilha é por minha conta","но первый баллон за мой счёт","mais"]],
+ [["cuidado","осторожна","cuidada"],["ter cuidado","быть осторожной","tenho"],["vou ter cuidado","буду осторожна","vai"]]
+],
+sub:[
+ ["Não havia água quente.","Не было горячей воды.","не было света (luz)","Não havia luz.","Não haviam luz.","Não havia a luzes.","havia не меняется: não havia luz."],
+ ["Tenho de comprar outra.","Мне нужно купить другой.","мне нужно позвонить хозяину (ligar ao senhorio)","Tenho de ligar ao senhorio.","Tenho de ligo ao senhorio.","Tenho ligar de ao senhorio.","ter de + начальная форма: tenho de ligar."],
+ ["Pensava que era decoração.","Я думала, что это для украшения.","я думала, что он пустой (vazia)","Pensava que era vazia.","Pensava que é vazia era.","Pensei que era vazio a.","pensava que … era — «я думала, что это …»."],
+ ["Acabou o gás.","Закончился газ.","закончилась вода (a água)","Acabou a água.","Acabou o água.","Acabaram a água.","água — женского рода → a água; один предмет → acabou."],
+ ["A primeira bilha é por minha conta.","Первый баллон за мой счёт.","кофе за мой счёт (o café)","O café é por minha conta.","O café é por meu conta.","A café é por minha conta.","conta — женского рода → minha conta, всегда."]
+],
+ant:[
+ ["Алло? (Португалия)","Estou?","Estás?","Está-se?","Португальцы берут трубку словом Estou?"],
+ ["Это Кира (по телефону).","Fala a Kira.","Falo a Kira.","É falando a Kira.","По телефону в Португалии: Fala a …"],
+ ["Всё понятно.","Está explicado.","É explicado.","Está explicada.","Готовая фраза: Está explicado."],
+ ["Да что вы! Не за что.","Ora essa.","Ora esse.","Hora essa.","Португальское «да что вы!» — Ora essa."],
+ ["Буду осторожна.","Vou ter cuidado.","Vou tenho cuidado.","Vou ter cuidada.","ir + начальная форма: vou ter cuidado."]
+]},
+{ // 2 gás
+exp:[
+ [["a cheia","полный","o"],["buscar a cheia","сходить за полным","busco"],["vou buscar a cheia","схожу за полным","vai"]],
+ [["que tinha uma bilha","что у меня есть баллон","tenho"],["sabia que tinha uma bilha","знала, что у меня есть баллон","sabe"],["eu nem sabia que tinha uma bilha","я даже не знала, что у меня есть баллон","nenhum"]],
+ [["do normal","как обычно","da"],["ao contrário do normal","наоборот, не как обычно","aos"],["é ao contrário do normal","это наоборот, не как обычно","está"]],
+ [["água quente","горячей воды","quenta"],["não havia água quente","не было горячей воды","haviam"],["hoje não havia água quente","сегодня не было горячей воды","hoja"]]
+],
+sub:[
+ ["Onde é que está a vazia?","Где пустой?","где ключ? (a chave)","Onde é que está a chave?","Onde é que estão a chave?","Onde é que está o chave?","chave — женского рода → a chave; одна вещь → está."],
+ ["Vou buscar a cheia à carrinha.","Схожу за полным в фургон.","схожу за полотенцем (a toalha)","Vou buscar a toalha.","Vou busco a toalha.","Vou buscar o toalha.","ir + начальная форма; toalha — женского рода."],
+ ["Está a aquecer!","Нагревается!","остывает! (arrefecer)","Está a arrefecer!","Está arrefecendo-se!","Está a arrefece!","В Португалии: estar a + начальная форма."],
+ ["Com muito gosto.","С удовольствием.","с большим удовольствием, спасибо (obrigada)","Com muito gosto, obrigada.","Com muita gosto, obrigada.","Com muito gostos, obrigada.","gosto — мужского рода → muito gosto."],
+ ["Tenho de ligar ao senhorio.","Мне нужно позвонить хозяину.","мне нужно позвонить Рубену (ao Rúben)","Tenho de ligar ao Rúben.","Tenho de ligar o Rúben a.","Tenho de liga ao Rúben.","ligar a … — звонить кому-то: ligar ao Rúben."]
+],
+ant:[
+ ["Проходите, пожалуйста.","Entre, se faz favor.","Entra, se faz favores.","Entre, se fazem favor.","Вежливо, на «вы»: Entre, se faz favor."],
+ ["Понятия не имею.","Não faço ideia.","Não fazo ideia.","Não faço a ideia.","Готовая фраза: Não faço ideia."],
+ ["Все на этом попадаются!","Isso engana toda a gente!","Isso engana todo a gente!","Isso enganam toda a gente!","«Все» в Португалии — toda a gente (как «она»)."],
+ ["До скорого!","Até já!","Até já está!","Até jás!","Готовая фраза: Até já!"],
+ ["Закончился газ.","Acabou o gás.","Acabou a gás.","Acabei o gás.","gás — мужского рода → o gás; «он закончился» — acabou."]
+]},
+{ // 3 canalizador
+exp:[
+ [["não resultou","не помогло","resulto"],["mas não resultou","но не помогло","mais"],["já tentei mas não resultou","я уже пробовала, но не помогло","tentou"]],
+ [["era aí","было там","ai"],["era aí que estava","вот где она была","estive"],["então era aí que estava","так вот где она была","entao"]],
+ [["no lixo","в мусор","na"],["deite no lixo","выбрасывайте в мусор","deito"],["não deite gordura deite no lixo","не сливайте жир, выбрасывайте в мусор","deitas"]],
+ [["à carrinha","в фургон","ao"],["buscar a cheia à carrinha","сходить за полным в фургон","o"],["vou buscar a cheia à carrinha","схожу за полным в фургон","vai"]]
+],
+sub:[
+ ["O lava-loiça entupiu.","Мойка засорилась.","унитаз засорился (a sanita)","A sanita entupiu.","O sanita entupiu.","A sanita entupi.","sanita — женского рода; «он засорился» — entupiu."],
+ ["Já tentei, mas não resultou.","Я уже пробовала, но не помогло.","я уже звонила, но не помогло (liguei)","Já liguei, mas não resultou.","Já ligou, mas não resultei.","Já liguei, mas não resultaram.","«Я звонила» — liguei; «не помогло» — não resultou."],
+ ["Pensava que a tinha deitado fora.","Я думала, что выбросила её.","я думала, что потеряла её (perdido)","Pensava que a tinha perdido.","Pensava que a tinha perdida.","Pensava que tinha a perdido.","Форма после tinha не меняется: tinha perdido."],
+ ["Pago eu ou o senhorio?","Плачу я или хозяин?","плачу я или ты? (tu)","Pago eu ou tu?","Pago eu o tu?","Pagas eu ou tu?","«Или» — ou; «я плачу» — pago eu."],
+ ["Onde é que está a vazia?","Где пустой?","где таз? (a bacia)","Onde é que está a bacia?","Onde é que está o bacia?","Onde é que é a bacia está?","bacia — женского рода → a bacia."]
+],
+ant:[
+ ["Что-что? (не расслышала слово)","Um quê?","Uma quê?","Um qual?","Когда не поняли слово, переспрашивают: Um quê?"],
+ ["Ну и запах!","Que cheiro!","Qual cheiro!","Que cheira!","Восклицание: Que cheiro!"],
+ ["Обещаю.","Fica prometido.","Fica prometida.","Está prometendo.","Готовая фраза: Fica prometido."],
+ ["Справедливо.","Justo.","Justa.","Justiça.","Короткое согласие: Justo."],
+ ["Я даже не знала, что у меня есть баллон!","Eu nem sabia que tinha uma bilha!","Eu nem sabia que tenho um bilha!","Eu nem sabi que tinha uma bilha!","bilha — женского рода → uma; «я не знала» — não sabia."]
+]},
+{ // 4 máquina
+exp:[
+ [["a minha máquina","моя машина","meu"],["a minha máquina de lavar","моя стиральная машина","lava"],["a minha máquina de lavar avariou","у меня сломалась стиральная машина","avariei"]],
+ [["amanhã","завтра","amanha"],["pode ser amanhã","можно завтра?","podes"],["a visita pode ser amanhã","визит можно завтра?","o"]],
+ [["uma hora certa","точное время","um"],["dizer uma hora certa","назвать точное время","digo"],["não pode dizer uma hora certa","нельзя назвать точное время?","podem"]],
+ [["no lixo","в мусор","na"],["deite no lixo","выбрасывайте в мусор","deito"],["a gordura deite no lixo","жир выбрасывайте в мусор","o"]]
+],
+sub:[
+ ["A minha máquina de lavar avariou.","У меня сломалась стиральная машина.","у меня сломался холодильник (o frigorífico)","O meu frigorífico avariou.","A meu frigorífico avariou.","O meu frigorífico avariei.","frigorífico — мужского рода → o meu."],
+ ["Se for um defeito, não paga nada.","Если это дефект — ничего не платите.","если это мелочь, ничего не платите (uma coisa pequena)","Se for uma coisa pequena, não paga nada.","Se é for uma coisa pequena, não paga nada.","Se for um coisa pequena, não paga nada.","coisa — женского рода → uma coisa pequena."],
+ ["Pode ser amanhã?","Можно завтра?","можно в пятницу? (sexta-feira)","Pode ser sexta-feira?","Podes ser sexta-feira?","Pode é sexta-feira?","Готовый вопрос: Pode ser …?"],
+ ["Já anotei.","Записала.","уже позвонила (liguei)","Já liguei.","Já ligou eu.","Já ligo.","«Я позвонила» — liguei."],
+ ["Pago eu ou o senhorio?","Плачу я или хозяин?","плачу я или магазин? (a loja)","Pago eu ou a loja?","Pago eu ou o loja?","Paga eu ou a loja?","loja — женского рода → a loja."]
+],
+ant:[
+ ["Чем могу помочь?","Em que posso ajudar?","Em que pode ajudo?","Que posso em ajudar?","Готовая фраза: Em que posso ajudar?"],
+ ["Это просто правило.","É só a regra.","É só o regra.","Está só a regra.","regra — женского рода → a regra."],
+ ["Бедняжка.","Coitada.","Coitado-se.","Coitadas-a.","О женщине: coitada, о мужчине: coitado."],
+ ["Это вам спасибо.","Obrigada eu.","Obrigada tu.","Obrigado-me.","Ответ на «спасибо»: Obrigada eu."],
+ ["Так вот где она была!","Então era aí que estava!","Então era aí que estive!","Então foi aí que esteve-se!","«Она была (находилась)» — estava."]
+]},
+{ // 5 estore
+exp:[
+ [["tão depressa","так быстро","tanto"],["por ter vindo tão depressa","что пришли так быстро","vim"],["obrigada por ter vindo tão depressa","спасибо, что пришли так быстро","obrigado"]],
+ [["nem desce","ни вниз","desço"],["não sobe nem desce","ни вверх, ни вниз","subo"],["o estore não sobe nem desce","жалюзи ни вверх, ни вниз","a"]],
+ [["culpa sua","ваша вина","seu"],["não foi culpa sua","вы не виноваты","fui"],["não foi culpa sua a fita gastou-se","вы не виноваты, лента износилась","gastei-me"]],
+ [["dizer uma hora certa","назвать точное время","digo"],["pode dizer uma hora certa","можете назвать точное время?","podes"],["não pode dizer uma hora certa","нельзя назвать точное время?","nenhuma"]]
+],
+sub:[
+ ["Obrigada por ter vindo.","Спасибо, что пришли.","спасибо, что позвонили (ligado)","Obrigada por ter ligado.","Obrigada por ter ligar.","Obrigada para ter ligado.","obrigada por ter + форма на -ado: ter ligado."],
+ ["O que é que se passa com ele?","Что с ним такое?","что с ней такое? (ela)","O que é que se passa com ela?","O que é que se passa com elas a?","O que é que passa-se com ela?","В вопросе с «o que é que» se стоит перед глаголом."],
+ ["Passe-me a chave de fendas.","Подайте мне отвёртку.","подайте мне полотенце (a toalha)","Passe-me a toalha.","Passe-me o toalha.","Passo-me a toalha.","Просьба на «вы»: passe-me."],
+ ["Puxe a fita devagar.","Тяните ленту медленно.","откройте окно медленно (abra a janela)","Abra a janela devagar.","Abre-se a janela devagar.","Abra o janela devagar.","Просьба на «вы»: abra; janela — женского рода."],
+ ["Se for um defeito, não paga nada.","Если это дефект — ничего не платите.","если это дефект, я ничего не плачу (pago)","Se for um defeito, não pago nada.","Se for um defeito, não pagas nada eu.","Se for um defeito, não pague nada.","«Я не плачу» — não pago."]
+],
+ant:[
+ ["Вы не виноваты.","Não foi culpa sua.","Não fui culpa sua.","Não foi culpa seu.","culpa — женского рода → culpa sua."],
+ ["Да вы мастер на все руки!","O senhor é um faz-tudo!","O senhor é um faz-todo!","O senhor está um faz-tudo!","Готовое слово: um faz-tudo."],
+ ["Поняла.","Percebi.","Percebo-me.","Percebei.","«Я поняла» — percebi."],
+ ["Ничего страшного.","Não faz mal.","Não fez mal.","Não faz mau.","Устойчивое выражение: Não faz mal."],
+ ["Можно завтра?","Pode ser amanhã?","Pode é amanhã?","Podes ser amanhã?","Готовый вопрос: Pode ser amanhã?"]
+]},
+{ // 6 bolor
+exp:[
+ [["nas manchas","пятна","nos"],["já reparou nas manchas","вы уже заметили пятна?","reparei"],["já reparou nas manchas pretas","вы уже заметили чёрные пятна?","pretos"]],
+ [["à menina","девушке","ao"],["um descontinho à menina","скидочку девушке","uma"],["faça um descontinho à menina","сделайте девушке скидочку","faz"]],
+ [["disso","этим","disto"],["a tratar disso","заниматься этим","de"],["estou a tratar disso","я этим занимаюсь","está"]],
+ [["devagar","медленно","devagara"],["puxe a fita devagar","тяните ленту медленно","puxo"],["por favor puxe a fita devagar","пожалуйста, тяните ленту медленно","puxa"]]
+],
+sub:[
+ ["Já reparou nas manchas?","Вы уже заметили пятна?","вы уже заметили запах? (no cheiro)","Já reparou no cheiro?","Já reparou na cheiro?","Já reparei no cheiro você?","cheiro — мужского рода → em + o = no."],
+ ["E gasta muita luz?","А много электричества тратит?","а много воды тратит? (água)","E gasta muita água?","E gasta muito água?","E gastam muita água?","água — женского рода → muita água."],
+ ["Faça um descontinho à menina.","Сделайте девушке скидочку.","сделайте мне скидочку (me)","Faça-me um descontinho.","Faz-me uma descontinho.","Faça-me um descontinha.","Просьба на «вы»: faça-me."],
+ ["Estou a tratar disso.","Я этим занимаюсь.","мы этим занимаемся (nós)","Estamos a tratar disso.","Estamos a tratamos disso.","Estamos tratar a disso.","estar a + начальная форма: estamos a tratar."],
+ ["Não sobe nem desce.","Ни вверх, ни вниз.","ни открывается, ни закрывается (abre, fecha)","Não abre nem fecha.","Não abre nem não fecha.","Não abro nem fecho ele.","«Ни … ни …» — não … nem …"]
+],
+ant:[
+ ["Каким ветром вас занесло?","Que bons ventos a trazem?","Que bom vento a trazem?","Que bons ventos o traz?","Готовая фраза: Que bons ventos a trazem?"],
+ ["И что делать?","E o que é que se faz?","E o que é que se fazem?","E que se faz o?","Готовый вопрос: O que é que se faz?"],
+ ["Договорились!","Fechado!","Fechada!","Fechei-se!","Короткое «по рукам!» — Fechado!"],
+ ["Сколько стоит?","Quanto custa?","Quanta custa?","Quanto custam-se?","Готовый вопрос: Quanto custa?"],
+ ["Подайте мне отвёртку.","Passe-me a chave de fendas.","Passe-me o chave de fendas.","Passo-me a chave de fendas.","chave — женского рода; просьба на «вы»: passe-me."]
+]},
+{ // 7 contas
+exp:[
+ [["nunca provei","никогда не пробовала","provou"],["mas nunca provei","но никогда не пробовала","mais"],["já ouvi falar mas nunca provei","слышала, но никогда не пробовала","ouviu"]],
+ [["por minha conta","за мой счёт","meu"],["metade é por minha conta","половина за мой счёт","metada"],["olhe metade é por minha conta","слушайте, половина за мой счёт","olha"]],
+ [["em casa","дома","no"],["sinto-me em casa","чувствую себя как дома","sente-me"],["agora sinto-me em casa","теперь я чувствую себя как дома","agore"]],
+ [["à menina","девушке","ao"],["faça um descontinho à menina","сделайте девушке скидочку","faz"],["sr mário faça um descontinho à menina","сеньор Мариу, сделайте девушке скидочку","marío"]]
+],
+sub:[
+ ["Já ouvi falar, mas nunca provei.","Слышала, но никогда не пробовала.","слышала, но никогда не была (estive)","Já ouvi falar, mas nunca estive lá.","Já ouvi falar, mas nunca estou lá.","Já ouvi falar, mas nunca esteve-me lá.","«Я была» в прошлом — estive."],
+ ["Posso fazer uma pergunta?","Можно задать вопрос?","можно открыть окно? (abrir a janela)","Posso abrir a janela?","Posso abro a janela?","Posso abrir o janela?","poder + начальная форма."],
+ ["Porque é que as casas são tão frias?","Почему дома такие холодные?","почему квартира такая тёмная? (o apartamento, escuro)","Porque é que o apartamento é tão escuro?","Porque é que o apartamento está tão escura?","Porque é o apartamento é tão escuro que?","apartamento — мужского рода → escuro."],
+ ["Faço a transferência amanhã.","Переведу завтра.","заплачу завтра (pago)","Pago amanhã.","Pagar amanhã eu.","Pagas amanhã.","«Я заплачу» — pago (настоящее время вместо будущего)."],
+ ["E gasta muita luz?","А много электричества тратит?","а много газа тратит? (gás)","E gasta muito gás?","E gasta muita gás?","E gastam muito gás?","gás — мужского рода → muito gás."]
+],
+ant:[
+ ["Как мило! (Португалия)","Que giro!","Que gira!","Qual giro!","Португальское «как мило» — Que giro!"],
+ ["Одного хватит!","Um basta!","Uma basta!","Um bastam!","Готовая фраза: Um basta!"],
+ ["Не нужно.","Não é preciso.","Não é precisa.","Não está preciso.","Готовая фраза: Não é preciso."],
+ ["До следующего раза!","Até à próxima!","Até a próximo!","Até à próximo!","В Португалии: Até à próxima!"],
+ ["Я этим занимаюсь.","Estou a tratar disso.","Estou a trato disso.","Estou tratar a disso.","estar a + начальная форма."]
+]}
+];
+
+const DICT={"a": "артикль ж.р. / к, в / её", "abane-a": "покачайте его/её", "abra": "откройте", "abrir": "открыть", "acabar": "закончиться", "acabou": "закончил(ся); acabou de — только что", "aceito": "принимаю", "acenda": "зажгите", "acende": "зажигается", "achamos": "мы считаем, думаем", "acho": "думаю, считаю", "acontece": "случается", "afinal": "в итоге; оказывается", "agora": "сейчас, теперь", "ah": "ах, а", "ai": "ой! ай!", "ainda": "ещё; пока", "ajuda": "помощь", "ajudar": "помочь", "alguidar": "таз (Португалия)", "alguma": "какая-нибудь", "ali": "там, вон там", "amanhã": "завтра", "amarela": "жёлтая", "ano": "год", "anos": "годы, лет", "anotei": "записала (anotar)", "antes": "раньше; antes de — перед", "antigos": "старые, старинные", "ao": "к, в (a + o)", "apanhar": "собрать, поймать", "aparece": "появляется", "aparecem": "появляются", "apartamento": "квартира", "aprendi": "я выучила", "aquecer": "нагреваться", "aquecimento": "отопление", "aqui": "здесь", "aquilo": "то, вон то", "ar": "воздух", "armando": "Арманду (имя)", "as": "артикль ж.р. мн.ч.", "assim": "так", "assinado": "подписано", "assinar": "подписывать", "assistência": "помощь, обслуживание", "atrás": "сзади, на обратной стороне", "até": "до; даже", "avaria": "поломка", "avariou": "сломался (о технике)", "aveirenses": "жители Авейру", "aveiro": "Авейру (город в Португалии)", "avenida": "проспект", "azul": "синий", "aí": "тут, там; ну", "bacia": "таз, миска", "banho": "купание; fato de banho — купальник; casa de banho — ванная", "barulhinho": "шумок, щелчок", "barulho": "шум", "basta": "достаточно", "bem": "хорошо; очень", "bem-vinda": "добро пожаловать (женщине)", "bica": "маленький кофе (Лиссабон)", "bilha": "газовый баллон", "boa": "хорошая", "bocadinho": "немножко", "bolor": "плесень", "bom": "хороший; ну, так", "bomba": "бомба; эклер «бомба»", "bons": "хорошие", "brasileira": "бразильская", "brasileiras": "бразильские", "brasileiros": "бразильцы", "buscar": "забрать, взять", "butano": "бутан", "café": "кофе; кафе; завтрак", "caixa": "касса", "camisola": "свитер", "canalizador": "сантехник (Португалия)", "caramba": "ничего себе!", "carrinha": "фургон (Португалия)", "carro": "машина", "casa": "дом; casa de câmbio — обменник", "casas": "дома", "cedo": "рано", "cento": "сто (cento e…)", "certa": "правильная; na hora certa — как раз вовремя", "chama": "называет; зовёт", "chamam": "зовут; называют", "chave": "ключ", "chaves": "ключи", "chazinho": "чаёк", "chega": "приезжает, прилетит", "cheia": "полная", "cheio": "полный", "cheirar": "пахнуть", "cheiro": "запах", "chuveiro": "душ", "chá": "чай", "chão": "пол, земля", "cinco": "пять", "cinquenta": "пятьдесят", "claro": "конечно; светлый", "classe": "класс", "clique": "щелчок", "coisa": "вещь, что-то", "coitada": "бедняжка", "colher": "ложка", "com": "с", "comemorar": "отметить, отпраздновать", "comida": "еда", "comigo": "со мной; у меня", "como": "как", "comprar": "купить", "comprei": "я купила", "confirma": "подтверждаете", "confirmo": "подтверждаю", "conheço": "знаю (места, людей)", "conselho": "совет", "consigo": "могу (получается)", "conta": "счёт", "contacto": "контакт (Португалия)", "contas": "счета", "contentor": "мусорный контейнер", "contribuinte": "налогоплательщик; número de contribuinte — ИНН", "contrário": "наоборот", "corrente": "электросеть, ток", "cozinha": "кухня; готовит", "cuidado": "осторожно!", "culpa": "вина", "curtinha": "коротенькая", "custa": "стоит", "cá": "здесь; de cá — местный; cá fora — снаружи", "d": "Д. — дона (обращение к женщине)", "da": "из, от (de + a)", "dar": "дать", "de": "из, от; (принадлежность)", "debaixo": "debaixo de — под", "decoração": "украшение", "defeito": "дефект, брак", "deitado": "выброшенный (deitado fora)", "deitar": "выбрасывать; наливать", "deite": "выбросьте; налейте", "deito": "выбрасываю, сливаю", "deixe": "оставьте", "deixe-me": "дайте мне; deixe-me ver — дайте-ка посмотреть", "dele": "его (принадлежащий ему)", "dentro": "внутри", "depois": "потом, после", "depressa": "быстро", "depósito": "кладовка", "desce": "уходит (о воде); опускается", "descer": "спуститься", "descontinho": "скидочка", "desconto": "скидка", "desfeita": "разлохмаченная, развалившаяся", "desligou": "выключили, отключили", "deslocação": "выезд (мастера)", "desmontar": "разобрать", "desumidificador": "осушитель воздуха", "devagar": "медленно", "devagarinho": "потихоньку", "deve": "должен", "dezembro": "декабрь", "dia": "день", "dias": "дни", "difícil": "трудно", "diga": "говорит, написано (subj.)", "direita": "право; à direita — направо", "disse": "сказал(а)", "disso": "этого", "dizer": "сказать", "do": "из, от (de + o)", "doce": "сладкий", "dois": "два", "domicílio": "дом (ao domicílio — на дом)", "doze": "двенадцать", "drogaria": "хозяйственный магазин", "duche": "душ (Португалия)", "e": "и", "ele": "он", "em": "в, на", "email": "электронная почта", "encravado": "застрявший, заевший", "engana": "обманывает, сбивает с толку", "entre": "между", "entrega": "доставка; доставляет", "entreguei": "я отдал, вручил", "entupi": "я засорила", "entupimento": "засор", "entupiu": "засорился", "então": "тогда, значит", "era": "был(а)", "escada": "лестница", "escuras": "às escuras — в темноте", "espantada": "удивлённая", "espero": "надеюсь", "esqueci-me": "я забыл(а)", "esquentador": "газовая колонка", "esquerda": "лево; à esquerda — налево", "esquerdo": "левый; terceiro esquerdo — третий этаж, слева", "esquina": "угол", "essa": "эта", "esse": "этот", "esta": "эта", "estava": "было", "este": "этот", "esticões": "рывки", "estore": "рулонные жалюзи (Португалия)", "estou": "я (сейчас)", "estrangeira": "иностранка", "está": "находится; есть", "etiqueta": "этикетка, бирка", "eu": "я", "euros": "евро (мн. ч.)", "excelente": "превосходно", "existe": "существует; você não existe — ты чудо", "experimente": "примерьте", "explicado": "объяснено (está explicado — всё понятно)", "fala": "говорит; вы говорите", "falar": "говорить", "fatura": "счёт-фактура, чек", "favor": "одолжение; por favor — пожалуйста", "faz": "делает; já faz — уже прошло", "faz-tudo": "мастер на все руки", "fazemos": "делаем", "fazer": "делать", "faça": "сделайте", "faço": "делаю", "fechado": "закрыто; договорились!", "fechar": "закрыть; загородить", "fechei": "я закрыл(а), перекрыл(а)", "fendas": "chave de fendas — отвёртка", "fernando": "Фернанду (имя)", "ferver": "кипеть (a ferver — кипящий)", "fica": "находится; становится; остаётся", "ficar": "остаться; пробыть", "ficou": "остался", "fim": "конец", "fininha": "тоненькая", "fita": "ленточка", "fitas": "ленты", "foge": "убегает", "foi": "был(а); пошёл", "for": "когда уедешь (quando for embora)", "fora": "снаружи", "forma": "форма", "fortes": "сильные", "força": "сила; com força — сильно", "fria": "холодная", "frias": "холодные", "frigideira": "сковородка", "frio": "холодный; холодно", "fui": "я была; fui eu — это я", "funciona": "работает, действует", "funcionar": "работать, функционировать", "fundo": "дно; ao fundo — в конце", "garantia": "гарантия", "garrafa": "бутылка", "gasolina": "бензин (bomba de gasolina — заправка)", "gasta": "тратит", "gastou-se": "износилась", "gema": "желток", "gente": "люди; a gente — мы", "ginásio": "спортзал", "giro": "милый, симпатичный (Португалия)", "gordura": "жир", "gostamos": "любим, нравится", "gosto": "люблю, нравится", "grave": "серьёзный", "graça": "Граса (район); Graça — имя", "guarde-a": "берегите её", "gás": "газ; com/sem gás — с газом / без газа", "havia": "было, имелось", "hesite": "не стесняйтесь (não hesite)", "hoje": "сегодня", "hora": "час; время", "horas": "часы, часов", "houver": "будет (если будет)", "hum": "хм", "humidade": "влажность", "há": "есть, имеется", "húmidas": "сырые, влажные", "ideia": "идея", "infelizmente": "к сожалению", "inquilina": "жилица, арендатор", "inquilino": "жилец, арендатор", "inverno": "зима", "ir": "идти, ехать", "isso": "это; да, точно!", "isto": "это", "janeiro": "январь", "janela": "окно", "justo": "справедливый", "já": "уже", "kira": "Кира (имя)", "lamento": "сожалею", "laranja": "апельсин; cor de laranja — оранжевый", "lava-loiça": "кухонная мойка (Португалия)", "lavandarias": "прачечные (Португалия)", "lavar": "стирать, мыть", "lavei": "я стирала, мыла", "lavo": "стираю, мою", "lembramos": "вспоминаем", "leva-se": "сдают, относят", "leve": "лёгкий", "levo": "беру", "levíssima": "очень лёгкая", "lhe": "вам; ему, ей", "licença": "разрешение; com licença — извините", "liga": "обращает внимание; ninguém liga — никому нет дела", "liga-me": "позвони мне", "ligado": "включённый", "ligar": "позвонить", "ligo": "позвоню", "ligou": "позвонил(а)", "ligue": "позвоните", "ligue-me": "позвоните мне", "limpar": "чистить", "limpo": "почищу", "litros": "литры", "lixo": "мусор", "lixívia": "хлорка, отбеливатель (Португалия)", "logo": "скорее, сразу", "loja": "магазин", "luvas": "перчатки", "luz": "свет", "lá": "там", "mais": "ещё, больше", "mal": "плохо", "manchas": "пятна", "mando-lhe": "пришлю вам", "manhã": "утро; de manhã — утром", "manta": "плед", "maravilha": "чудо; que maravilha — прелесть", "marcar": "назначить; marcar férias — запланировать отпуск", "março": "март", "mas": "но", "massa": "тесто", "mau": "плохой", "mb": "MB Way (оплата телефоном)", "meia": "половина (… e meia — с половиной)", "meio": "немного, слегка; половина", "melhor": "лучше, лучший", "melhoras": "поправляйтесь!", "menina": "девушка", "menos": "меньше", "meses": "месяцы", "mesma": "та же самая", "mesmo": "действительно; именно", "metade": "половина", "metros": "метры", "meu": "мой", "mim": "мне, меня", "minha": "моя", "moldura": "рамка", "moles": "мягкие (ovos moles — сладость из Авейру)", "momento": "момент", "morada": "адрес (Португалия)", "muita": "много, многая", "muito": "очень; много", "máquina": "автомат; машина", "mário": "Мариу (имя)", "mão": "рука", "na": "в, на (em + a)", "nada": "ничего", "nas": "в, на (em + as)", "negociadora": "переговорщица, торговец", "negociou": "торговалась, договорилась", "nem": "даже не; nem pensar — и не думай", "nenhuma": "ни одной", "nesta": "на этой", "nif": "NIF (налоговый номер)", "no": "в, на (em + o)", "noite": "ночь; вечер", "normal": "обычный", "nos": "в, на (em + os)", "nossa": "наша; ого! ничего себе!", "nota-se": "заметно", "nova": "новая", "nove": "девять", "novo": "новый; de novo — снова", "numa": "в одной (em + uma)", "nunca": "никогда", "não": "нет; не", "número": "номер", "o": "артикль м.р. / его", "obrigada": "спасибо (говорит женщина)", "obrigado": "спасибо (говорит мужчина)", "oitenta": "восемьдесят", "oito": "восемь", "oitocentos": "восемьсот", "oleão": "контейнер для использованного масла", "olhe": "посмотрите", "onde": "где", "ontem": "вчера", "ora": "так вот (Португалия)", "os": "артикль м.р. мн.ч.", "ou": "или", "outra": "другая", "ouvi": "я слышал(а)", "ouvir": "слышать, слушать", "ovo": "яйцо", "ovos": "яйца", "paga": "платит", "paga-se": "платят, оплачивается", "pago": "оплачено; плачу", "pagou": "заплатил(а)", "paguei": "я заплатила", "palavra": "слово", "para": "для; в, к; para mim — мне", "parada": "стоячая", "parece": "кажется, похоже", "parte-se": "рвётся, ломается", "partiu-se": "порвалась, сломалась", "passa": "проходит", "passe-me": "подайте мне", "país": "страна", "pede-se": "заказывают", "peixe": "рыба", "pelo": "за; через (por + o)", "pensava": "думал(а)", "percebi": "я поняла", "perfeito": "идеально, отлично", "pergunta": "вопрос", "pesada": "тяжёлая", "peça": "вещь, предмет", "pode": "можно; можешь", "pois": "pois é — вот именно", "ponha": "положите, поставьте", "por": "за, через; por favor — пожалуйста", "porque": "потому что", "porta": "дверь", "portugal": "Португалия", "português": "португальский", "posso": "могу", "pouco": "мало, немного", "poucos": "немного (trinta e poucos — тридцать с чем-то)", "precisa": "нужно", "preciso": "мне нужно", "preta": "чёрная", "pretas": "чёрные", "preço": "цена", "primeira": "первая", "primeiro": "первый", "problema": "проблема", "procurou-a": "искали её", "prometido": "обещаю! обещано", "prometo": "обещаю", "promoção": "акция, скидка", "pronto": "готов; всё, готово", "propano": "пропан", "prove": "попробуйте", "provei": "я пробовала", "práticas": "удобные", "prédios": "дома", "próprio": "собственный", "próxima": "следующая", "puxe": "тяните", "puxei": "я дёрнула", "puxões": "рывки", "pé": "нога; a pé — пешком", "pó": "пыль; açúcar em pó — сахарная пудра", "pô-la": "поставить её", "quadrados": "квадратные", "qual": "какой", "quando": "когда", "quanto": "сколько", "quarenta": "сорок", "quarto": "номер, комната", "quatro": "четыре", "que": "что; который; какой!", "quente": "горячий, жаркий", "quer": "хочешь", "queria": "хотела", "quinta": "усадьба", "quinta-feira": "четверг", "quinze": "пятнадцать", "quê": "что", "recibo": "квитанция", "recordação": "память, сувенир", "redutor": "редуктор", "referência": "номер, ссылка", "reformado": "на пенсии (Португалия)", "regra": "правило", "renda": "доход", "reparação": "ремонт (Португалия)", "reparei": "я заметила", "reparou": "заметили", "repente": "de repente — вдруг", "resolvido": "решено", "restos": "остатки", "resultou": "помогло, получилось", "roda-se": "поворачивается", "roupa": "одежда, бельё", "rua": "улица", "rúben": "Рубен (имя)", "sabe": "знает", "sabia": "знала", "sair": "выходить", "sanitária": "água sanitária — хлорка (Бразилия)", "se": "себя (возвр.); если", "segundo": "второй", "seis": "шесть", "seja": "будь(те)", "self-service": "самообслуживание", "sem": "без", "semana": "неделя", "sempre": "всегда", "senhor": "сеньор, вы (вежливо)", "senhorio": "хозяин, арендодатель", "ser": "быть", "sete": "семь", "setecentos": "семьсот", "setenta": "семьдесят", "seu": "ваш, твой; Seu — сеньор (обращение)", "si": "(исп.) если", "sifão": "сифон", "sim": "да", "sinto-me": "я чувствую себя", "sobe": "поднимается", "somos": "мы (есть)", "sou": "я (есть)", "sr": "сеньор (Sr. — обращение)", "sua": "ваша, твоя", "são": "(они) есть; итого", "série": "серия (número de série — серийный номер)", "séries": "сериалы", "sério": "серьёзно?", "só": "только", "t": "T: T1 — квартира с одной спальней, T0 — студия", "tal": "que tal — как насчёт", "tamanho": "размер", "também": "тоже", "tarde": "день, после обеда; поздно", "telemóvel": "мобильный телефон (Португалия)", "telenovelas": "сериалы, теленовеллы", "tem": "есть, имеется", "temos": "у нас есть", "tempo": "время", "tenha": "имейте (tenha um bom dia — хорошего дня)", "tenho": "у меня есть", "tentei": "я пыталась", "ter": "иметь", "teste": "тест, проверка", "teto": "потолок", "tinha": "имел(а); tinha razão — был прав", "tira": "сними, сделай (фото)", "toalhas": "полотенца", "toda": "вся", "todos": "все", "tomar": "выпить; tomar café — завтракать", "torneira": "кран", "trabalho": "работа", "transferência": "перевод", "tratar": "заниматься (делом)", "trazem": "привозят", "trinta": "тридцать", "troca": "меняет, меняем", "trocar": "поменять", "troco": "сдача; меняю", "troquei": "я поменял", "trouxe": "я взяла, принесла", "três": "три", "tubo": "шланг, трубка", "tudo": "всё", "tão": "(разг. estão) — находятся", "técnica": "техническая", "técnico": "мастер, техник", "têm": "имеете", "um": "один, какой-то", "uma": "одна, какая-то", "umas": "около, примерно", "uns": "около, примерно", "usado": "использованный", "uso": "использую", "vagas": "свободные места", "vai": "пойдёт; будет", "vamos": "пойдём; давай(те)", "vanessa": "Ванесса (имя)", "vazia": "пустая", "veio": "пришёл; a gente veio — мы приехали", "velha": "старая", "vem": "приходит", "ventos": "ветры (Que bons ventos a trazem? — каким ветром?)", "ver": "видеть, посмотреть", "vez": "раз", "vezes": "раза, раз; платежа", "vi": "я видела", "viana": "Виана (Rua de Viana — улица)", "vida": "жизнь", "vim": "я приехал", "vindo": "пришедший; por terem vindo — что пришли", "vinte": "двадцать", "vir": "прийти", "visita": "визит", "viu": "видишь? (видел?)", "vizinha": "соседка", "voltar": "вернуться", "vou": "я пойду; я буду", "vá": "иди (форма «вы»)", "way": "MB Way (оплата телефоном)", "à": "к, в (a + a)", "às": "в (… часов)", "água": "вода", "é": "есть, является; да", "ó": "эй (обращение)", "óleo": "масло (растительное)", "ótima": "отличная", "ótimo": "отлично", "último": "последний"};
+</script>
+<script>
+(function(){
+const app=document.getElementById('app');
+const LSK=META.lsk;
+const DV=META.dv||'f';
+function lsGet(k,d){try{const v=localStorage.getItem(LSK+k);return v===null?d:JSON.parse(v)}catch(e){return d}}
+function lsSet(k,v){try{localStorage.setItem(LSK+k,JSON.stringify(v))}catch(e){}}
+let opt={auto:lsGet('auto',true),sound:lsGet('sound',true),subs:lsGet('subs',false)};
+let done=lsGet('done',[]);
+let CUR={i:-1,k:'home'};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const WRE=/[A-Za-zÀ-ÿ]+(?:-[A-Za-zÀ-ÿ]+)*/g;
+function wordsHTML(t){let out='',last=0;t.replace(WRE,(m,i)=>{out+=esc(t.slice(last,i))+'<span class="w" data-w="'+esc(m)+'">'+esc(m)+'</span>';last=i+m.length;return m});return out+esc(t.slice(last))}
+
+/* ---------- SPEECH ---------- */
+const S=window.speechSynthesis;let voices=[];
+function loadV(){try{const all=S.getVoices();const re=META.tts==='pt-PT'?/^pt[-_]PT/i:/^pt[-_]BR/i;voices=all.filter(v=>re.test(v.lang));if(!voices.length)voices=all.filter(v=>/^pt/i.test(v.lang))}catch(e){}}
+if(S){loadV();S.onvoiceschanged=loadV}
+const FEM=/luciana|francisca|fernanda|vit[oó]ria|maria|thalita|leila|raquel|joana|catarina|in[eê]s|google portugu|female|feminin/i;
+const MAL=/felipe|daniel|ant[oô]nio|ricardo|donato|f[aá]bio|humberto|j[uú]lio|duarte|cristiano|male|masculin/i;
+function pickVoice(g){const f=voices.filter(v=>FEM.test(v.name)&&!MAL.test(v.name)),m=voices.filter(v=>MAL.test(v.name)&&!/female/i.test(v.name));
+ if(g==='m'&&m.length)return{v:m[0],p:1};if(g==='f'&&f.length)return{v:f[0],p:1};
+ return{v:voices[0]||null,p:g==='m'?0.8:1.15}}
+function clean(t){return t.replace(/[^\p{L}\p{N}\s.,!?;:'\-]/gu,' ').replace(/\s+/g,' ').trim()}
+let tok=0,safety=null;
+function stopSpeech(){tok++;clearTimeout(safety);try{S&&S.cancel()}catch(e){}}
+function say(text,g,cb){const my=++tok;clearTimeout(safety);
+ const fin=()=>{if(my!==tok)return;clearTimeout(safety);cb&&cb()};
+ const txt=clean(text);
+ if(!opt.sound||!S||!txt){safety=setTimeout(fin,Math.max(1400,txt.split(' ').length*430));return}
+ try{S.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang=META.tts;const pv=pickVoice(g);if(pv.v)u.voice=pv.v;u.pitch=pv.p;u.rate=0.88;
+  u.onend=fin;u.onerror=fin;S.speak(u)}catch(e){}
+ safety=setTimeout(fin,txt.length*110+4000)}
+
+/* ---------- PLAYER (generic over items on page) ---------- */
+let P={items:[],cur:0,playing:false,onEnd:null};
+function setCur(i,scroll){P.items.forEach((it,k)=>{it.el.classList.toggle('cur',k===i);const t=it.el.querySelector('.tr');if(t&&!t.dataset.man)t.hidden=!(opt.subs&&k===i)});P.cur=i;
+ if(scroll&&P.items[i])P.items[i].el.scrollIntoView({block:'center',behavior:'smooth'});updBar()}
+function playFrom(i){if(i>=P.items.length){P.playing=false;setCur(-1);updBar();P.onEnd&&P.onEnd();return}
+ P.playing=true;setCur(i,true);const it=P.items[i];
+ say(it.say,it.g,()=>{if(!P.playing)return;if(opt.auto)setTimeout(()=>{if(P.playing&&P.cur===i)playFrom(i+1)},650);else{P.playing=false;P.cur=Math.min(i+1,P.items.length-1);setCur(P.cur);updBar()}})}
+function pause(){P.playing=false;stopSpeech();updBar()}
+function toggle(){if(P.playing)pause();else playFrom(Math.max(0,P.cur))}
+function playOne(i){P.playing=false;setCur(i,false);say(P.items[i].say,P.items[i].g,()=>{})}
+function updBar(){const pb=document.getElementById('pp');if(pb)pb.textContent=P.playing?'⏸':'▶';
+ const c=document.getElementById('cnt');if(c)c.textContent=(P.cur>=0?P.cur+1:0)+'/'+P.items.length;
+ const a=document.getElementById('autoB');if(a){a.classList.toggle('on',opt.auto);a.setAttribute('aria-pressed',opt.auto)}
+ const sb=document.getElementById('subB');if(sb){sb.classList.toggle('on',opt.subs);sb.setAttribute('aria-pressed',opt.subs)}
+ const s=document.getElementById('sndB');if(s){s.textContent=opt.sound?'🔊 Звук':'🔇 Без звука';s.classList.toggle('on',opt.sound);s.setAttribute('aria-pressed',opt.sound)}}
+
+function barHTML(title,backLabel){return `<div class="bar gut"><div class="col">
+ <div class="r1"><button class="ib" id="backB">${backLabel}</button><button class="ttl navB" aria-label="Навигация: все диалоги и упражнения"><span class="tt">${title}</span><span class="car">▾</span></button><button class="ib" id="vocB" aria-label="Слова и конструкции">📚</button></div>
+ <div class="r2"><button class="ib" id="prevB" aria-label="Предыдущая фраза">⏮</button><button class="ib play" id="pp" aria-label="Пауза / слушать">▶</button><button class="ib" id="nextB" aria-label="Следующая фраза">⏭</button><button class="ib" id="rptB" aria-label="Сначала">🔁</button><span class="cnt" id="cnt"></span></div>
+ <div class="r3"><button class="ib" id="autoB" aria-pressed="true">▶▶ Авто</button><button class="ib" id="sndB" aria-pressed="true">🔊 Звук</button><button class="ib" id="subB" aria-pressed="false">💬 Субтитры</button></div>
+</div></div>`}
+function bindBar(onBack,onVoc){
+ document.getElementById('backB').onclick=()=>{pause();onBack()};
+ document.getElementById('vocB').onclick=()=>{pause();onVoc()};
+ document.getElementById('pp').onclick=toggle;
+ document.getElementById('prevB').onclick=()=>{const i=Math.max(0,P.cur-1);if(P.playing)playFrom(i);else playOne(i)};
+ document.getElementById('nextB').onclick=()=>{const i=Math.min(P.items.length-1,P.cur+1);if(P.playing)playFrom(i);else playOne(i)};
+ document.getElementById('rptB').onclick=()=>{playFrom(0)};
+ document.getElementById('autoB').onclick=()=>{opt.auto=!opt.auto;lsSet('auto',opt.auto);updBar()};
+ document.getElementById('sndB').onclick=()=>{opt.sound=!opt.sound;lsSet('sound',opt.sound);if(!opt.sound)try{S&&S.cancel()}catch(e){};if(P.playing)playFrom(P.cur);updBar()};
+ document.getElementById('subB').onclick=()=>{opt.subs=!opt.subs;lsSet('subs',opt.subs);setCur(P.cur)};
+ updBar()}
+
+/* ---------- WORD POPUP ---------- */
+let popEl=null,selW=null;
+function closePop(){if(popEl){popEl.remove();popEl=null}if(selW){selW.classList.remove('sel');selW=null}}
+function showWord(span){closePop();const w=span.dataset.w,k=w.toLowerCase();const tr=DICT[k]||'—';
+ selW=span;span.classList.add('sel');
+ popEl=document.createElement('div');popEl.className='pop';popEl.setAttribute('role','dialog');
+ popEl.innerHTML=`<button class="sb" aria-label="Послушать слово">🔊</button><div style="flex:1;min-width:0"><div class="pw">${esc(w)}</div><div class="pr">${esc(tr)}</div></div><button class="x" aria-label="Закрыть">✕</button>`;
+ document.body.appendChild(popEl);
+ const r=span.getBoundingClientRect(),pw=popEl.offsetWidth,ph=popEl.offsetHeight,vw=innerWidth;
+ let left=Math.min(Math.max(16,r.left+r.width/2-pw/2),vw-16-pw);let top=r.bottom+8;if(top+ph>innerHeight-10)top=r.top-ph-8;
+ popEl.style.left=left+'px';popEl.style.top=top+'px';
+ popEl.querySelector('.sb').onclick=e=>{e.stopPropagation();const was=P.playing;if(was)pause();say(w,DV,()=>{})};
+ popEl.querySelector('.x').onclick=e=>{e.stopPropagation();closePop()};
+ if(opt.sound){if(P.playing)pause();say(w,DV,()=>{})}}
+document.addEventListener('click',e=>{const w=e.target.closest('.w');if(w){e.stopPropagation();showWord(w);return}
+ if(popEl&&!e.target.closest('.pop'))closePop()},true);
+addEventListener('scroll',()=>{if(popEl)closePop()},{passive:true});
+
+/* ---------- HOME ---------- */
+function home(){CUR={i:-1,k:'home'};pause();closePop();P={items:[],cur:0,playing:false,onEnd:null};
+ app.innerHTML=`<div class="gut"><div class="col home">
+ <div class="brandrow"><div class="brand"><span class="logo">DB</span>Daria Botina</div><button class="pill" id="a2h">📲 Добавить на экран</button></div>
+ <button class="skip" id="skipH">⏭ Пропустить эту страницу</button>
+ <div class="hero"><div class="eyebrow">${META.eyebrow}</div><h1>${META.h1}</h1><p class="sub">${META.sub}</p></div>
+ <div class="hint">👆 Нажми на любое слово — увидишь перевод. 🌐 под фразой — перевод всей фразы. Вверху: ▶▶ Авто — диалог читается сам, 🔊 — звук вкл/выкл, 💬 Субтитры — перевод фразы появляется, пока её читают. После каждого диалога — 🏋️ упражнения на его слова.</div>
+ <button class="big sec navB" id="navH"><span style="font-size:22px">🧭</span><span>Перейти: любой диалог или упражнение</span></button>
+ <button class="big" id="prepB"><span style="font-size:22px">📚</span><span>Подготовиться: слова и конструкции</span></button>
+ ${typeof GRAM!=='undefined'&&GRAM.length?'<button class="big sec" id="gramB"><span style="font-size:22px">📐</span><span>Грамматика урока: таблицы</span></button>':''}
+ ${typeof PAIRS!=='undefined'&&PAIRS.length?'<button class="big sec" id="pairB"><span style="font-size:22px">👂</span><span>Похожие слова: слышите разницу?</span></button>':''}
+ <div class="list">${DLG.map((d,i)=>`<button class="dcard" data-i="${i}"><span class="em">${d.e}</span><span class="tx"><b>${i+1}. ${esc(d.t)}</b><span>${esc(d.ru)} · ${d.lines.length} реплик · 🏋️ 3 упражнения</span></span>${done.includes(i)?'<span class="ok">✓</span>':''}</button>`).join('')}</div>
+ <button class="big sec" id="revB"><span style="font-size:22px">🏁</span><span>В конце: повторить слова и конструкции</span></button>
+ <button class="big sec" id="myA"><span style="font-size:22px">📋</span><span>Мои ответы</span></button>
+ <div class="own">© Daria Botina</div>
+ </div></div>`;
+ scrollTo(0,0);
+ app.querySelectorAll('.dcard').forEach(b=>b.onclick=()=>openDlg(+b.dataset.i));
+ document.getElementById('prepB').onclick=()=>vocab(-1,home);
+ document.getElementById('revB').onclick=()=>vocab(-1,home);
+ document.getElementById('skipH').onclick=()=>openDlg(0);
+ document.getElementById('a2h').onclick=a2h;
+ document.getElementById('myA').onclick=()=>myAnswers(home);
+ const gb=document.getElementById('gramB');if(gb)gb.onclick=()=>gramPage(home);
+ const pb=document.getElementById('pairB');if(pb)pb.onclick=()=>pairsPage(home);}
+
+function a2h(){const ov=document.createElement('div');ov.className='ov';
+ ov.innerHTML=`<div class="mbox" role="dialog" aria-modal="true"><button class="x" aria-label="Закрыть">✕</button><h3>📲 Добавить на экран</h3>
+ <p style="margin:0;font-size:14.5px">Урок будет открываться одним касанием, как приложение.</p>
+ <b>iPhone (Safari)</b><ol><li>Нажми «Поделиться» ⬆️ внизу экрана.</li><li>Выбери «На экран „Домой“».</li><li>Нажми «Добавить».</li></ol>
+ <b>Android (Chrome)</b><ol><li>Нажми ⋮ вверху справа.</li><li>Выбери «Добавить на главный экран».</li></ol>
+ <button class="big" id="okA">Понятно</button></div>`;
+ document.body.appendChild(ov);const c=()=>ov.remove();ov.querySelector('.x').onclick=c;ov.querySelector('#okA').onclick=c;ov.onclick=e=>{if(e.target===ov)c()}}
+
+/* ---------- DIALOGUE ---------- */
+function openDlg(i){CUR={i,k:'dlg'};closePop();const d=DLG[i];
+ app.innerHTML=barHTML(`${i+1}/${DLG.length} · ${esc(d.t)}`,'← Меню')+`<div class="gut"><div class="col page">
+ <div class="prep"><button class="skip" id="skipD">⏭ Пропустить эту страницу</button><span style="display:flex;gap:6px"><button class="pill" id="prepD">📚 Слова</button><button class="pill" id="exD">🏋️ Упражнения</button></span></div>
+ <div class="chat">${d.lines.map((l,k)=>{const s=SPK[l[0]];return `<div class="ln${s.me?' me':''}" data-k="${k}"><div class="av" aria-hidden="true">${s.e}</div><div class="bb"><div class="nm">${esc(s.n)}</div><div class="pt">${wordsHTML(l[1])}</div><div class="tr" hidden>${esc(l[2])}</div><div class="acts"><button class="sb say" aria-label="Послушать">🔊</button><button class="sb glob" aria-label="Перевод фразы">🌐</button></div></div></div>`}).join('')}</div>
+ <div class="end" id="endB"><h2>🎉 Диалог пройден!</h2>
+  <button class="big" id="endEx"><span>🏋️</span><span>Упражнения к диалогу (3)</span></button>
+  <button class="big sec" id="endVoc"><span>📚</span><span>Слова и конструкции этого диалога</span></button>
+  <button class="big sec" id="endRe"><span>🔁</span><span>Послушать ещё раз</span></button>
+  ${i<DLG.length-1?`<button class="big sec" id="endNext"><span>${DLG[i+1].e}</span><span>Дальше: ${i+2}. ${esc(DLG[i+1].t)} →</span></button>`:`<button class="big" id="endAll"><span>🏁</span><span>Повторить все слова и конструкции</span></button><button class="big sec" id="endMenu"><span>🏠</span><span>В меню</span></button>`}
+ </div></div></div>`;
+ scrollTo(0,0);
+ const lines=[...app.querySelectorAll('.ln')];
+ P={items:lines.map((el,k)=>({el,say:d.lines[k][1],g:SPK[d.lines[k][0]].g})),cur:0,playing:false,onEnd:()=>finish(i)};
+ lines.forEach((el,k)=>{el.querySelector('.say').onclick=()=>playOne(k);
+  el.querySelector('.glob').onclick=()=>{const t=el.querySelector('.tr');t.hidden=!t.hidden;if(t.hidden)delete t.dataset.man;else t.dataset.man='1'}});
+ bindBar(home,()=>vocab(i,()=>openDlg(i)));
+ document.getElementById('skipD').onclick=()=>{pause();i<DLG.length-1?openDlg(i+1):home()};
+ document.getElementById('prepD').onclick=()=>{pause();vocab(i,()=>openDlg(i))};
+ document.getElementById('endVoc').onclick=()=>{pause();vocab(i,()=>openDlg(i))};
+ document.getElementById('endRe').onclick=()=>playFrom(0);
+ document.getElementById('endEx').onclick=()=>{pause();exMenu(i)};
+ document.getElementById('exD').onclick=()=>{pause();exMenu(i)};
+ const n=document.getElementById('endNext');if(n)n.onclick=()=>{pause();openDlg(i+1)};
+ const a=document.getElementById('endAll');if(a)a.onclick=()=>{pause();vocab(-1,home)};
+ const m=document.getElementById('endMenu');if(m)m.onclick=home;
+ setCur(0);
+ if(opt.auto)playFrom(0);}
+function finish(i){if(!done.includes(i)){done.push(i);lsSet('done',done)}
+ const e=document.getElementById('endB');if(e)e.scrollIntoView({block:'end',behavior:'smooth'});
+ if(i===DLG.length-1&&!evDone){evDone=true;sendEvent('lessonDone',document.title,'Все 7 диалогов прослушаны')}}
+
+/* ---------- VOCAB ---------- */
+function vocBlock(d,i){return `<div class="sec-h">Слова</div><div class="vgrid">${d.voc.map(v=>`<div class="vrow" data-say="${esc(v[0])}"><button class="sb say" aria-label="Послушать">🔊</button><span class="pt2">${esc(v[0])}</span><span class="ru2">${esc(v[1])}</span></div>`).join('')}</div>
+ <div class="sec-h">Конструкции</div>${d.con.map(c=>`<div class="ccard" data-say="${esc(c[2])}"><div class="pat">${esc(c[0])}</div><div class="mean">${esc(c[1])}</div><div class="ex"><div class="pt">${wordsHTML(c[2])}</div><button class="sb say" aria-label="Послушать">🔊</button><button class="sb glob" aria-label="Перевод фразы">🌐</button></div><div class="tr" hidden>${esc(c[3])}</div></div>`).join('')}`}
+function vocab(i,back){CUR={i,k:'voc'};closePop();
+ const title=i<0?'📚 Все слова и конструкции':`📚 ${i+1}. ${esc(DLG[i].t)}: слова`;
+ const body=i<0?DLG.map((d,k)=>`<details class="vd"${k===0?' open':''}><summary><span>${d.e}</span><span>${k+1}. ${esc(d.t)}</span></summary><div class="vbody">${vocBlock(d,k)}</div></details>`).join(''):vocBlock(DLG[i],i);
+ app.innerHTML=barHTML(title,'← Назад')+`<div class="gut"><div class="col page">
+ <button class="skip" id="skipV">⏭ Пропустить эту страницу</button>
+ ${i<0?'<div class="hint">Открой нужный диалог. ▶ читает вслух слова и примеры по порядку.</div>':''}
+ ${body}
+ <div class="end" id="endV"><h2>✅ Готово!</h2>${i<0?'<button class="big" id="vGo"><span>✈️</span><span>К диалогам</span></button>':`<button class="big" id="vGo"><span>${DLG[i].e}</span><span>К диалогу ${i+1}. ${esc(DLG[i].t)}</span></button>`}</div>
+ </div></div>`;
+ scrollTo(0,0);
+ const collect=()=>{const els=[...app.querySelectorAll('.vrow,.ccard')].filter(el=>!el.closest('details:not([open])'));return els.map(el=>({el,say:el.dataset.say,g:DV}))};
+ P={items:collect(),cur:0,playing:false,onEnd:()=>{const e=document.getElementById('endV');e&&e.scrollIntoView({block:'end',behavior:'smooth'})}};
+ app.querySelectorAll('details').forEach(dt=>dt.addEventListener('toggle',()=>{pause();P.items=collect();P.cur=0;setCur(-1);updBar()}));
+ app.querySelector('.page').addEventListener('click',e=>{const b=e.target.closest('.say');if(b&&b.closest('.page')){const el=b.closest('.vrow,.ccard');const k=P.items.findIndex(it=>it.el===el);if(k>=0)playOne(k)}
+  const g=e.target.closest('.glob');if(g){const t=g.closest('.ccard').querySelector('.tr');t.hidden=!t.hidden;if(t.hidden)delete t.dataset.man;else t.dataset.man='1'}});
+ bindBar(back,()=>{});document.getElementById('vocB').hidden=true;
+ document.getElementById('skipV').onclick=()=>{pause();back()};
+ document.getElementById('vGo').onclick=()=>{pause();i<0?openDlg(0):openDlg(i)};
+ setCur(0);
+ if(opt.auto)playFrom(0);}
+
+/* ---------- EXERCISES ---------- */
+const XT=[
+ {k:'exp',n:'➕ Расширяем фразу',d:'Фраза растёт кусочек за кусочком — собери её из слов'},
+ {k:'sub',n:'🔄 Замени слово',d:'Берём фразу-образец, меняем одну часть — выбери верный вариант'},
+ {k:'ant',n:'🎯 Скажи раньше, чем услышишь',d:'Скажи фразу вслух сама, потом выбери и сверь'}];
+let ans=lsGet('ans',{}),xs=lsGet('xs',{});
+let X=null,cdT=null;
+const norm=t=>t.toLowerCase().replace(/[.,!?;:«»"]/g,'').replace(/\s+/g,' ').trim();
+const toks=t=>norm(t).split(' ');
+function shuf(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+function cap(t){return t.charAt(0).toUpperCase()+t.slice(1)}
+function sayList(list,i,done){if(i>=list.length){done&&done();return}const it=list[i];
+ document.querySelectorAll('.rd').forEach(e=>e.classList.remove('rd'));if(it.el)it.el.classList.add('rd');
+ say(it.t,DV,()=>setTimeout(()=>sayList(list,i+1,done),350))}
+function clearRd(){document.querySelectorAll('.rd').forEach(e=>e.classList.remove('rd'))}
+
+function simpleBar(title,back){return `<div class="bar gut"><div class="col"><div class="r1"><button class="ib" id="backB">${back}</button><button class="ttl navB" aria-label="Навигация: все диалоги и упражнения"><span class="tt">${title}</span><span class="car">▾</span></button></div></div></div>`}
+
+function exMenu(i){CUR={i,k:'menu'};closePop();stopSpeech();clearTimeout(cdT);
+ app.innerHTML=simpleBar(`🏋️ ${i+1}. ${esc(DLG[i].t)}: упражнения`,'← К диалогу')+`<div class="gut"><div class="col page">
+ <button class="skip" id="skipM">⏭ Пропустить эту страницу</button>
+ <div class="list">${XT.map((t,k)=>{const n=t.k==='exp'?EX[i].exp.length:EX[i][t.k].length;const sc=xs[i+'-'+t.k];
+  return `<button class="xcard" data-k="${t.k}"><span class="tx"><b>${t.n}</b><span>${t.d} · ${n} заданий</span></span>${sc?`<span class="sc">✓ ${sc}</span>`:''}</button>`}).join('')}</div>
+ <button class="big sec" id="myM"><span>📋</span><span>Мои ответы</span></button>
+ ${i<DLG.length-1?`<button class="big" id="nxM"><span>${DLG[i+1].e}</span><span>Дальше: ${i+2}. ${esc(DLG[i+1].t)} →</span></button>`:`<button class="big" id="nxM"><span>🏁</span><span>Повторить все слова и конструкции</span></button>`}
+ </div></div>`;
+ scrollTo(0,0);
+ document.getElementById('backB').onclick=()=>openDlgQuiet(i);
+ app.querySelectorAll('.xcard').forEach(b=>b.onclick=()=>runEx(i,b.dataset.k));
+ document.getElementById('myM').onclick=()=>myAnswers(()=>exMenu(i));
+ document.getElementById('skipM').onclick=()=>{i<DLG.length-1?openDlg(i+1):vocab(-1,home)};
+ document.getElementById('nxM').onclick=()=>{i<DLG.length-1?openDlg(i+1):vocab(-1,home)};}
+function openDlgQuiet(i){const a=opt.auto;opt.auto=false;openDlg(i);opt.auto=a;updBar()}
+
+function runEx(i,k,list,mode){const all=EX[i][k].map((_,n)=>n);
+ X={i,k,list:list||all,pos:0,stage:0,first:{},wrong:[],mode:mode||'main'};renderTask()}
+
+function exBar(){const t=XT.find(t=>t.k===X.k);return `<div class="bar gut"><div class="col">
+ <div class="r1"><button class="ib" id="backB">← Назад</button><button class="ttl navB" aria-label="Навигация: все диалоги и упражнения"><span class="tt">${t.n}${X.mode==='fix'?' · ошибки':''}</span><span class="car">▾</span></button><button class="ib" id="myB" aria-label="Мои ответы">📋</button></div>
+ <div class="r2"><button class="ib" id="prevB" aria-label="Предыдущее задание">⏮</button><button class="ib play" id="sayB" aria-label="Послушать снова">🔊</button><button class="ib" id="nextB" aria-label="Следующее задание">⏭</button><button class="ib" id="rptB" aria-label="Начать упражнение заново">🔁</button><span class="cnt">${X.pos+1}/${X.list.length}</span></div>
+ <div class="r3"><button class="ib" id="autoB">▶▶ Авто</button><button class="ib" id="sndB">🔊 Звук</button></div>
+</div></div>`}
+function bindExBar(speakFn){
+ document.getElementById('backB').onclick=()=>{stopSpeech();clearTimeout(cdT);exMenu(X.i)};
+ document.getElementById('myB').onclick=()=>{stopSpeech();clearTimeout(cdT);const s={...X};myAnswers(()=>{X=s;renderTask()})};
+ document.getElementById('prevB').onclick=()=>{if(X.pos>0){X.pos--;X.stage=0;renderTask()}};
+ document.getElementById('nextB').onclick=()=>{X.pos++;X.stage=0;renderTask()};
+ document.getElementById('rptB').onclick=()=>runEx(X.i,X.k,null,'main');
+ document.getElementById('sayB').onclick=()=>speakFn&&speakFn();
+ document.getElementById('autoB').onclick=()=>{opt.auto=!opt.auto;lsSet('auto',opt.auto);updBar()};
+ document.getElementById('sndB').onclick=()=>{opt.sound=!opt.sound;lsSet('sound',opt.sound);if(!opt.sound)stopSpeech();updBar()};
+ updBar()}
+function record(idx,ok,q,a,c){if(!(idx in X.first)){X.first[idx]=ok;if(!ok)X.wrong.push(idx)}
+ ans[X.i+'-'+X.k+'-'+idx]={q,a,ok,c};lsSet('ans',ans)}
+
+function renderTask(){CUR={i:X.i,k:X.k};closePop();stopSpeech();clearTimeout(cdT);
+ if(X.pos>=X.list.length)return exEnd();
+ const idx=X.list[X.pos],it=EX[X.i][X.k][idx];
+ app.innerHTML=exBar()+`<div class="gut"><div class="col page"><button class="skip" id="skipT">⏭ Пропустить эту страницу</button><div class="task" id="task"></div></div></div>`;
+ scrollTo(0,0);
+ document.getElementById('skipT').onclick=()=>{X.pos++;X.stage=0;renderTask()};
+ const box=document.getElementById('task');
+ if(X.k==='exp')taskExp(box,idx,it);else if(X.k==='sub')taskSub(box,idx,it);else taskAnt(box,idx,it)}
+
+function wrongBox(box,html,retry,next,speakOk){const fb=box.querySelector('.fb');
+ fb.innerHTML=`<div class="fbm bad">${html}</div><div class="btnrow"><button class="big sec" id="again">🔁 Ещё раз</button><button class="big" id="goOn">Дальше →</button></div>`;
+ fb.scrollIntoView({block:'end',behavior:'smooth'});
+ document.getElementById('again').onclick=retry;document.getElementById('goOn').onclick=next;
+ setTimeout(()=>speakOk&&speakOk(),900)}
+function okBox(box,txt,next){const fb=box.querySelector('.fb');fb.innerHTML=`<div class="fbm ok">✅ ${txt}</div>`;fb.scrollIntoView({block:'end',behavior:'smooth'});next()}
+
+/* exp: build the growing phrase */
+function taskExp(box,idx,chain){const st=chain[X.stage],prev=X.stage>0?chain[X.stage-1]:null;
+ const tgt=st[0].split(' ').filter(Boolean);const tl=tgt.map(w=>w.replace(/[.,!?]/g,''));
+ let tiles;const pv=prev?prev[0].split(' '):null;let pos=-1;
+ if(pv){for(let a=0;a+pv.length<=tl.length;a++){if(pv.every((w,j)=>tl[a+j]===w)){pos=a;break}}}
+ if(pos>=0)tiles=[...tl.slice(0,pos),pv.join(' '),...tl.slice(pos+pv.length)];else tiles=tl.slice();
+ const chunkTxt=pos>=0?pv.join(' '):null;
+ tiles.push(st[2]);
+ let order=shuf(tiles.map((t,n)=>n));let tries=0;while(tries++<8&&order.slice(0,tiles.length-1).every((v,n)=>v===n))order=shuf(order);
+ box.innerHTML=`<div class="steps">${chain.map((_,n)=>`<span class="dot${n<=X.stage?' on':''}"></span>`).join('')}<span>Шаг ${X.stage+1} из ${chain.length} · задание ${X.pos+1} из ${X.list.length}</span></div>
+ ${prev?`<div class="model"><div class="q">Было:</div><div class="row"><div class="pt">${wordsHTML(prev[0])}</div><button class="sb" id="pvS" aria-label="Послушать">🔊</button><button class="sb" id="pvG" aria-label="Перевод фразы">🌐</button></div><div class="tr" hidden>${esc(prev[1])}</div></div>`:''}
+ <div class="q">Собери по-португальски:<br><b>«${esc(st[1])}»</b></div>
+ <div class="ansbox" id="ab" aria-live="polite"></div>
+ <div class="tiles" id="tl">${order.map(n=>`<button class="tile${tiles[n]===chunkTxt?' chunk':''}" data-n="${n}">${esc(tiles[n])}</button>`).join('')}</div>
+ <div class="fb"></div>`;
+ const ab=box.querySelector('#ab'),tlb=box.querySelector('#tl');let placed=[];
+ const need=tl.length;
+ const count=()=>placed.reduce((s,n)=>s+tiles[n].split(' ').length,0);
+ const speakPrev=()=>{if(prev)say(prev[0],DV,()=>{})};
+ bindExBar(speakPrev);
+ if(prev){box.querySelector('#pvS').onclick=speakPrev;box.querySelector('#pvG').onclick=()=>{const t=box.querySelector('.model .tr');t.hidden=!t.hidden}}
+ const nextStage=()=>{if(X.stage<chain.length-1){X.stage++;renderTask()}else{X.stage=0;X.pos++;renderTask()}};
+ const check=()=>{const a=placed.map(n=>tiles[n]).join(' ');const okList=[st[0],...(st[3]||[])].map(norm);const ok=okList.includes(norm(a));
+  tlb.querySelectorAll('.tile').forEach(b=>b.disabled=true);ab.querySelectorAll('.tile').forEach(b=>b.disabled=true);
+  if(X.stage===chain.length-1||!ok)record(idx,ok&&!(idx in X.first&&!X.first[idx]),`${chain[chain.length-1][1]}`,ok?st[0]:a,st[0]);
+  if(ok){ab.classList.add('ok');okBox(box,'Верно: '+esc(cap(st[0])),()=>say(st[0],DV,()=>setTimeout(nextStage,700)))}
+  else{ab.classList.add('bad');const extra=placed.map(n=>tiles[n]).includes(st[2])?`<br>Лишнее слово: <b>${esc(st[2])}</b>`:'';
+   wrongBox(box,`Правильно: <b>${esc(cap(st[0]))}</b>${extra}`,()=>renderTask(),nextStage,()=>say(st[0],DV,()=>{}))}};
+ const draw=()=>{ab.innerHTML=placed.map(n=>`<button class="tile${tiles[n]===chunkTxt?' chunk':''}" data-n="${n}">${esc(tiles[n])}</button>`).join('');
+  tlb.querySelectorAll('.tile').forEach(b=>b.hidden=placed.includes(+b.dataset.n));if(count()>=need)check()};
+ tlb.onclick=e=>{const b=e.target.closest('.tile');if(!b||b.disabled)return;placed.push(+b.dataset.n);say(tiles[+b.dataset.n],DV,()=>{});draw()};
+ ab.onclick=e=>{const b=e.target.closest('.tile');if(!b||b.disabled)return;placed=placed.filter(n=>n!==+b.dataset.n);draw()};
+ if(opt.auto&&prev)setTimeout(speakPrev,300)}
+
+/* options shared by sub & ant */
+function buildOpts(okT,bads){const opts=[okT,...bads];let ord=shuf([0,1,2]);if(ord[0]===0)ord=[ord[1],ord[0],ord[2]];return ord.map(n=>({t:opts[n],ok:n===0}))}
+function optsHTML(o){return `<div class="opts">${o.map((x,n)=>`<div class="orow"><button class="opt" data-n="${n}">${esc(x.t)}</button><button class="sb osay" data-n="${n}" aria-label="Послушать вариант">🔊</button></div>`).join('')}</div>`}
+function bindOpts(box,o,idx,q,okT,why,readFirst){const els=[...box.querySelectorAll('.opt')];
+ const readAll=()=>{const l=(readFirst?[{t:readFirst.t,el:readFirst.el}]:[]).concat(els.map((el,n)=>({t:o[n].t,el})));sayList(l,0,()=>{clearRd();box.querySelector('.opts').scrollIntoView({block:'nearest',behavior:'smooth'})})};
+ box.querySelectorAll('.osay').forEach(b=>b.onclick=()=>{stopSpeech();clearRd();say(o[+b.dataset.n].t,DV,()=>{})});
+ els.forEach((b,n)=>b.onclick=()=>{stopSpeech();clearRd();els.forEach(e=>e.disabled=true);const ok=o[n].ok;
+  record(idx,ok,q,o[n].t,okT);
+  if(ok){b.classList.add('ok');okBox(box,'Верно!',()=>say(okT,DV,()=>setTimeout(()=>{X.pos++;renderTask()},700)))}
+  else{b.classList.add('bad');els[o.findIndex(x=>x.ok)].classList.add('ok');
+   wrongBox(box,`Правильно: <b>${esc(okT)}</b><br>💡 ${esc(why)}`,()=>renderTask(),()=>{X.pos++;renderTask()},()=>say(okT,DV,()=>{}))}});
+ return readAll}
+
+/* sub: substitution drill */
+function taskSub(box,idx,it){const [m,mru,cue,okT,b1,b2,why]=it;const o=buildOpts(okT,[b1,b2]);
+ box.innerHTML=`<div class="model"><div class="q">Образец:</div><div class="row"><div class="pt" id="mT">${wordsHTML(m)}</div><button class="sb" id="mS" aria-label="Послушать">🔊</button><button class="sb" id="mG" aria-label="Перевод фразы">🌐</button></div><div class="tr" hidden>${esc(mru)}</div></div>
+ <div class="q">Замени на: <b>${esc(cue)}</b></div>${optsHTML(o)}<div class="fb"></div>`;
+ const readAll=bindOpts(box,o,idx,`${m} → ${cue}`,okT,why,{t:m,el:box.querySelector('.model')});
+ box.querySelector('#mS').onclick=()=>say(m,DV,()=>{});
+ box.querySelector('#mG').onclick=()=>{const t=box.querySelector('.model .tr');t.hidden=!t.hidden};
+ bindExBar(readAll);if(opt.auto)setTimeout(readAll,300)}
+
+/* ant: anticipation — say it first, then check */
+function taskAnt(box,idx,it){const [ru,okT,b1,b2,why]=it;const o=buildOpts(okT,[b1,b2]);
+ box.innerHTML=`<div class="q">${META.antQ||'Как сказать по-португальски?'}</div><div class="rucard">${esc(ru)}</div>
+ <div class="cd" id="cd"><b id="cdn">4</b><span>🗣 Скажи вслух сама…</span><button class="pill" id="cdSkip">Показать варианты</button></div>
+ <div id="ow" hidden>${optsHTML(o)}</div><div class="fb"></div>`;
+ const readAll=bindOpts(box,o,idx,ru,okT,why,null);
+ let n=4;const show=()=>{clearTimeout(cdT);box.querySelector('#cd').hidden=true;box.querySelector('#ow').hidden=false;if(opt.auto)readAll()};
+ const tick=()=>{n--;const c=box.querySelector('#cdn');if(!c)return;if(n<=0)return show();c.textContent=n;cdT=setTimeout(tick,1000)};
+ cdT=setTimeout(tick,1000);box.querySelector('#cdSkip').onclick=show;
+ bindExBar(()=>{if(!box.querySelector('#ow').hidden)readAll()})}
+
+function exEnd(){const tot=X.list.length,good=X.list.filter(i=>X.first[i]===true).length;
+ if(X.mode==='main'){xs[X.i+'-'+X.k]=good+'/'+tot;lsSet('xs',xs)}
+ const t=XT.find(t=>t.k===X.k);const ki=XT.findIndex(t=>t.k===X.k);
+ app.innerHTML=simpleBar(t.n,'← Назад')+`<div class="gut"><div class="col page">
+ <button class="skip" id="skipE">⏭ Пропустить эту страницу</button>
+ <div class="end"><h2>${good===tot?'🎉 Всё верно!':'💪 Готово!'}</h2><div style="font-size:17px">Верно с первого раза: <b>${good} из ${tot}</b></div>
+ ${X.wrong.length?`<div class="fbm bad">Работа над ошибками? Повторим ${X.wrong.length} ${X.wrong.length===1?'задание':'задания'} с ошибкой.</div><div class="btnrow"><button class="big" id="fixY">Да</button><button class="big sec" id="fixN">Нет</button></div>`:''}
+ <div id="after" ${X.wrong.length?'hidden':''} style="display:flex;flex-direction:column;gap:8px">
+ ${ki<XT.length-1?`<button class="big" id="nxE"><span>➡️</span><span>Следующее: ${XT[ki+1].n}</span></button>`:''}
+ <button class="big ${ki<XT.length-1?'sec':''}" id="mnE"><span>🏋️</span><span>К упражнениям диалога</span></button></div>
+ </div></div></div>`;
+ scrollTo(0,0);const i=X.i,w=X.wrong.slice(),k=X.k;
+ const after=()=>{const a=document.getElementById('after');a.hidden=false;const y=document.getElementById('fixY');if(y)y.closest('.btnrow').remove();a.scrollIntoView({block:'end',behavior:'smooth'})};
+ document.getElementById('backB').onclick=()=>exMenu(i);
+ document.getElementById('skipE').onclick=()=>exMenu(i);
+ const y=document.getElementById('fixY');if(y){y.onclick=()=>runEx(i,k,w,'fix');document.getElementById('fixN').onclick=after}
+ const nx=document.getElementById('nxE');if(nx)nx.onclick=()=>runEx(i,XT[ki+1].k);
+ document.getElementById('mnE').onclick=()=>exMenu(i)}
+
+function myAnswers(back){closePop();stopSpeech();
+ const keys=Object.keys(ans);
+ const body=DLG.map((d,i)=>{const parts=XT.map(t=>{const ks=keys.filter(k=>k.startsWith(i+'-'+t.k+'-')).sort((a,b)=>+a.split('-')[2]-+b.split('-')[2]);if(!ks.length)return'';
+   return `<div class="q"><b>${t.n}</b></div>`+ks.map(k=>{const a=ans[k];return `<div class="mya">${a.ok?'✅':'❌'} ${esc(a.q)}<br>Мой ответ: ${esc(a.a)}${a.ok?'':`<br><span class="c">Правильно: ${esc(a.c)}</span>`}</div>`}).join('')}).join('');
+  return parts?`<div class="sec-h">${d.e} ${i+1}. ${esc(d.t)}</div><div class="myl">${parts}</div>`:''}).join('');
+ app.innerHTML=simpleBar('📋 Мои ответы','← Назад')+`<div class="gut"><div class="col page">
+ <button class="skip" id="skipA">⏭ Пропустить эту страницу</button>
+ ${body||'<div class="hint">Здесь появятся твои ответы из упражнений: что верно, где ошибка и правильный вариант. При повторном прохождении ответ перезаписывается.</div>'}
+ </div></div>`;
+ scrollTo(0,0);document.getElementById('backB').onclick=back;document.getElementById('skipA').onclick=back}
+
+/* ---------- GRAMMAR TABLES ---------- */
+function gramPage(back){CUR={i:-1,k:'gram'};closePop();stopSpeech();pause();
+ const G=(typeof GRAM!=='undefined'?GRAM:[]);
+ app.innerHTML=simpleBar('📐 Грамматика урока','← Назад')+`<div class="gut"><div class="col page">
+ <button class="skip" id="skipG">⏭ Пропустить эту страницу</button>
+ <div class="hint">Нажмите на любую форму или пример — услышите произношение.</div>
+ ${G.map((g,gi)=>`<div class="gcard"><h2>${esc(g.t)}</h2>${g.when?`<p class="gwhen">${esc(g.when)}</p>`:''}
+  <div class="gtw"><table class="gt"><thead><tr><th></th>${g.verbs.map(v=>`<th><b>${esc(v[0])}</b>${esc(v[1])}</th>`).join('')}</tr></thead><tbody>
+  ${g.rows.map(r=>`<tr><td class="gp">${r[0]}</td>${r[1].map(f=>`<td class="gf" data-s="${esc(f[0]+f[1])}">${esc(f[0])}${f[1]?`<span class="ge">${esc(f[1])}</span>`:''}</td>`).join('')}</tr>`).join('')}
+  </tbody></table></div>
+  ${g.tip?`<p class="gtip">${esc(g.tip)}</p>`:''}
+  ${g.ex&&g.ex.length?`<div class="gex">${g.ex.map(x=>`<div class="gexl" data-s="${esc(x[0].replace(/<[^>]+>/g,''))}">${x[0]}<span class="ru">${esc(x[1])}</span></div>`).join('')}</div>`:''}
+  ${g.diff&&g.diff.length?`<div class="gflag">${g.diff.map(d=>`<span>${esc(d)}</span>`).join('')}</div>`:''}
+  ${g.tips&&g.tips.length?`<button class="gtipb" data-g="${gi}">💡 Как запомнить</button><div class="gtips" id="gtips${gi}" hidden>${g.tips.map(t=>`<div class="glh"><b>${esc(t[0])}</b><span>${esc(t[1])}</span></div>`).join('')}</div>`:''}
+ </div>`).join('')}
+ <div class="end"><h2>✅ Готово!</h2><button class="big" id="gGo"><span>${DLG[0].e}</span><span>К диалогам</span></button></div>
+ </div></div>`;
+ scrollTo(0,0);
+ document.getElementById('backB').onclick=()=>{stopSpeech();back()};
+ document.getElementById('skipG').onclick=()=>{stopSpeech();back()};
+ document.getElementById('gGo').onclick=()=>{stopSpeech();openDlg(0)};
+ app.querySelectorAll('[data-s]').forEach(el=>el.addEventListener('click',()=>{app.querySelectorAll('.rd').forEach(e=>e.classList.remove('rd'));el.classList.add('rd');sayF(el.dataset.s,()=>el.classList.remove('rd'))}));
+ app.querySelectorAll('.gtipb').forEach(b=>b.onclick=()=>{const x=document.getElementById('gtips'+b.dataset.g);x.hidden=!x.hidden;b.textContent=x.hidden?'💡 Как запомнить':'💡 Скрыть подсказки'});}
+/* speech that ignores the 🔊 toggle: used where the sound IS the task (tables, similar words) */
+function sayF(t,cb,rate){const s=opt.sound;opt.sound=true;say(t,DV,cb);opt.sound=s}
+
+/* ---------- SIMILAR WORDS ---------- */
+function pairsPage(back){CUR={i:-1,k:'pairs'};closePop();stopSpeech();pause();
+ const PR=(typeof PAIRS!=='undefined'?PAIRS:[]),ROUNDS=3;
+ let started=false,fromTap=false,pi=0,mode='intro',q=[],qi=0,target=0,busy=false,runId=0;
+ app.innerHTML=simpleBar('👂 Похожие слова','← Назад')+`<div class="gut"><div class="col page pz">
+ <button class="skip" id="skipP">⏭ Пропустить эту страницу</button>
+ <div class="pstart" id="pst"><p>Слова из этого урока, которые звучат почти одинаково. Сначала слушаем оба, потом угадываем. На iPhone звук включается только после касания — нажмите, и слова зазвучат сами.</p><button class="big" id="pgo"><span>▶</span><span>Начать</span></button></div>
+ <div id="pmain" hidden>
+  <div class="pprog"><span id="pN"></span><span class="pdots" id="pD"></span></div>
+  <div class="pstage" id="pS"></div><p class="phint" id="pH"></p>
+  <div class="pspk" id="pK" hidden>👂</div>
+  <div class="ppair"><button class="pw" id="w0"><span class="pt"></span><span class="ru"></span><span class="snd">нажмите — послушать</span></button><button class="pw" id="w1"><span class="pt"></span><span class="ru"></span><span class="snd">нажмите — послушать</span></button></div>
+  <p class="pfb" id="pF"></p><div class="pwhy" id="pY" hidden></div>
+  <div class="btnrow" id="pI"><button class="big sec" id="pA">🔁 Ещё раз</button><button class="big" id="pR">Готова? Угадываем</button></div>
+  <div class="btnrow" id="pQ" hidden><button class="big sec" id="pP">🔁 Повторить слово</button><button class="big" id="pX" hidden>Дальше</button></div>
+  <div class="end" id="pE" hidden><h2>✅ Готово!</h2><button class="big" id="pBk"><span>🏠</span><span>В меню урока</span></button></div>
+ </div></div></div>`;
+ scrollTo(0,0);
+ const $=id=>document.getElementById(id),W=[$('w0'),$('w1')];
+ const word=i=>i===0?PR[pi].a[1]:PR[pi].b[1];
+ const clr=()=>W.forEach(w=>w.classList.remove('speak','ok','bad'));
+ const leave=()=>{runId++;stopSpeech();back()};
+ $('backB').onclick=leave;$('skipP').onclick=leave;$('pBk').onclick=leave;
+ function intro(now){busy=true;const my=++runId,seq=[0,1,0,1];let k=0;
+  const step=()=>{if(my!==runId)return;clr();if(k>=seq.length||mode!=='intro'){busy=false;return}const i=seq[k++];W[i].classList.add('speak');sayF(word(i),()=>setTimeout(step,450))};
+  if(now)step();else setTimeout(step,500)}
+ function render(){const p=PR[pi];
+  $('pN').textContent='Пара '+(pi+1)+' из '+PR.length;$('pD').innerHTML=PR.map((_,i)=>'<i class="'+(i<=pi?'on':'')+'"></i>').join('');
+  [p.a,p.b].forEach((x,i)=>{W[i].querySelector('.pt').innerHTML=x[0];W[i].querySelector('.ru').textContent=x[2]});
+  clr();$('pF').textContent='';$('pF').className='pfb';$('pY').hidden=true;
+  if(mode==='intro'){$('pS').textContent='① Знакомство';$('pH').textContent='Сначала слушаем оба слова. Оранжевым подсвечено то, что звучит сейчас.';
+   $('pI').hidden=false;$('pQ').hidden=true;$('pK').hidden=true;W.forEach(w=>{w.disabled=false;w.querySelector('.snd').hidden=false});intro(fromTap);fromTap=false}
+  else{$('pS').textContent='② Угадай: задание '+(qi+1)+' из '+ROUNDS;$('pH').textContent='Послушайте и нажмите на слово, которое прозвучало.';
+   $('pI').hidden=true;$('pQ').hidden=false;$('pX').hidden=true;$('pK').hidden=false;W.forEach(w=>{w.disabled=false;w.querySelector('.snd').hidden=true});
+   target=q[qi];busy=true;runId++;const go=()=>sayF(word(target),()=>{busy=false});if(fromTap){fromTap=false;go()}else setTimeout(go,400)}}
+ W.forEach((w,i)=>w.addEventListener('click',()=>{
+  if(mode==='intro'){if(busy)return;clr();w.classList.add('speak');sayF(word(i),()=>w.classList.remove('speak'));return}
+  if(busy||!$('pX').hidden)return;const p=PR[pi];
+  if(i===target){w.classList.add('ok');$('pF').textContent='Верно! ✅';$('pF').className='pfb ok';W.forEach(x=>x.disabled=true);setTimeout(()=>{fromTap=false;next()},1100)}
+  else{w.classList.add('bad');W[target].classList.add('ok');$('pF').textContent='Прозвучало: «'+word(target)+'» — '+(target===0?p.a[2]:p.b[2]);$('pF').className='pfb bad';
+   $('pY').innerHTML='<b>Почему:</b> '+esc(p.why);$('pY').hidden=false;W.forEach(x=>x.disabled=true);
+   setTimeout(()=>{W[target].classList.add('speak');sayF(word(target),()=>W[target].classList.remove('speak'))},500);$('pX').hidden=false;
+   setTimeout(()=>$('pX').scrollIntoView({block:'nearest',behavior:'smooth'}),60)}}));
+ function next(){qi++;if(qi<ROUNDS){render();return}
+  pi++;if(pi<PR.length){mode='intro';render();return}
+  $('pS').textContent='Все пары пройдены 🎉';$('pH').textContent='';$('pQ').hidden=true;$('pK').hidden=true;$('pE').hidden=false;$('pE').scrollIntoView({block:'nearest',behavior:'smooth'})}
+ $('pX').onclick=()=>{fromTap=true;next()};
+ $('pA').onclick=()=>{if(!busy)intro(true)};
+ $('pR').onclick=()=>{fromTap=true;mode='quiz';qi=0;q=shuf([0,1,Math.random()<.5?0:1]);render()};
+ $('pP').onclick=()=>{if(busy)return;busy=true;sayF(word(target),()=>{busy=false})};
+ $('pgo').onclick=()=>{started=true;fromTap=true;$('pst').hidden=true;$('pmain').hidden=false;render()};}
+
+/* ---------- NAVIGATION (from any page to any dialogue / exercise) ---------- */
+function navPop(){closePop();stopSpeech();if(typeof pause==='function')pause();clearTimeout(cdT);
+ const old=document.querySelector('.ov');if(old)old.remove();
+ const ov=document.createElement('div');ov.className='ov';
+ const cell=(i,k,ic,lbl)=>{const here=CUR.i===i&&CUR.k===k;const dn=k==='dlg'?done.includes(i):!!xs[i+'-'+k];
+  return `<button class="nb ex${here?' here':''}${dn?' dn':''}" data-i="${i}" data-k="${k}" aria-label="${lbl} ${i+1}">${ic}</button>`};
+ ov.innerHTML=`<div class="mbox" role="dialog" aria-modal="true"><button class="x" aria-label="Закрыть">✕</button><h3>🧭 Куда перейти?</h3>
+ <div class="navtop"><button class="big sec" data-go="home">🏠 Меню</button><button class="big sec" data-go="all">📚 Все слова</button><button class="big sec" data-go="my">📋 Ответы</button></div>${(typeof GRAM!=='undefined'&&GRAM.length)||(typeof PAIRS!=='undefined'&&PAIRS.length)?`<div class="navtop">${typeof GRAM!=='undefined'&&GRAM.length?'<button class="big sec" data-go="gram">📐 Грамматика</button>':''}${typeof PAIRS!=='undefined'&&PAIRS.length?'<button class="big sec" data-go="pairs">👂 Похожие слова</button>':''}</div>`:''}
+ <div class="nav"><span class="hd l">Диалог</span><span class="hd">➕</span><span class="hd">🔄</span><span class="hd">🎯</span><span class="hd">📚</span>
+ ${DLG.map((d,i)=>`<button class="nb dl${CUR.i===i&&CUR.k==='dlg'?' here':''}${done.includes(i)?' dn':''}" data-i="${i}" data-k="dlg"><span>${d.e}</span><span class="nt">${i+1}. ${esc(d.t)}</span></button>${cell(i,'exp','➕','Расширяем фразу')}${cell(i,'sub','🔄','Замени слово')}${cell(i,'ant','🎯','Скажи раньше')}${cell(i,'voc','📚','Слова')}`).join('')}
+ </div>
+ <div class="legend">➕ Расширяем фразу · 🔄 Замени слово · 🎯 Скажи раньше, чем услышишь · 📚 Слова и конструкции · ✓ пройдено</div></div>`;
+ document.body.appendChild(ov);
+ const c=()=>ov.remove();ov.querySelector('.x').onclick=c;ov.onclick=e=>{if(e.target===ov)c()};
+ ov.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{c();const g=b.dataset.go;if(g==='home')home();else if(g==='all')vocab(-1,home);else if(g==='gram')gramPage(home);else if(g==='pairs')pairsPage(home);else myAnswers(home)});
+ ov.querySelectorAll('.nb').forEach(b=>b.onclick=()=>{c();const i=+b.dataset.i,k=b.dataset.k;
+  if(k==='dlg')openDlg(i);else if(k==='voc')vocab(i,()=>openDlg(i));else runEx(i,k)});}
+document.addEventListener('click',e=>{if(e.target.closest('.navB')){e.preventDefault();navPop()}});
+
+function normCode(v){let t=String(v||'').toLowerCase().replace(/[\s.\-_]/g,'');
+ t=t.replace(/^(дарья|дария|дариа|даря|дарjа|дарjа)/,'daria').replace(/^(darja|darya|darija|dariya|daria)/,'daria');
+ t=t.replace(/[бвbв]2$/,'b2').replace(/[вb]$/,'b');return t}
+const TEACHER='dariab2';
+const CODES=[TEACHER].concat((META.codes||[]).map(normCode));
+function gateOk(){return CODES.includes(normCode(lsGet('code','')))}
+function showGate(){const g=document.createElement('div');g.className='gate';
+ g.innerHTML=`<form class="gb" id="gf" autocomplete="off"><div class="gi">🔒</div><h2>${META.h1}</h2><p>Введи, пожалуйста, свой код, чтобы открыть урок.</p>
+ <input id="gc" type="text" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Код" placeholder="Код">
+ <p class="err" id="ge" aria-live="polite"></p><button class="big" type="submit">Открыть урок</button><div class="own">© Daria Botina</div></form>`;
+ document.body.appendChild(g);
+ g.querySelector('#gf').addEventListener('submit',e=>{e.preventDefault();const v=g.querySelector('#gc').value.trim();
+  if(CODES.includes(normCode(v))){lsSet('code',v);g.remove();home();startVisit()}
+  else{g.querySelector('#ge').textContent=v?'Код не подходит. Проверь, пожалуйста, и попробуй ещё раз.':'Введи, пожалуйста, код.'}})}
+function setWho(){const c=normCode(lsGet('code',''));EV_WHO=(!c||c===TEACHER)?'Дарья (тест)':(META.who||'Ученик')}
+function startVisit(){setWho();setTimeout(()=>sendEvent('visit',document.title),800)}
+if(META.gate&&!gateOk())showGate();else{home();startVisit()}
+})();
+</script>
+
+</body>
+</html>
+</html>
