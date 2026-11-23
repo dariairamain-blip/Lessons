@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daria Botina – İhracat Satış</title>
+<meta name="description" content="Daria Botina – Ankutsan İhracat Satış Uzmanı adayı. 20 yıla yakın uluslararası satış, ileri İngilizce ve İspanyolca, SAP, yapay zekâ ve süreç otomasyonu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: confident, warm, businesslike — a candidate who already speaks the company's language
+   IDEA: an export shipment — the page behaves like a corrugated box with its shipping label and packing list
+   PICTURE: a kraft box in SVG with a label "Gönderen: Daria Botina → Alıcı: Ankutsan", flute edge and ink stamps
+   COLOUR and TYPE: Ankutsan colours: near-black and white with their signal red, kraft box as the product; Archivo wide for titles, Archivo for text
+   LAYOUT: hero band in kraft, then paper bands: match table, timeline, skills, AI, education, contact */
+:root{color-scheme:light dark;
+--bg:light-dark(#f7f7f7,#121212);--paper:light-dark(#ffffff,#1c1c1c);
+--kraft:light-dark(#c9955c,#7a5733);--kraft2:light-dark(#b07c45,#5e4227);--kraftlt:light-dark(#e2b985,#9a7144);
+--ink:light-dark(#151515,#f2f2f2);--soft:light-dark(#555,#b5b5b5);--line:light-dark(#e3e3e3,#333);
+--blue:light-dark(#e4002b,#ff5a70);--red:#e4002b;--onk:#151515}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 "Archivo",system-ui,sans-serif;overflow-x:clip}
+a{color:var(--blue)}
+h1,h2,h3{font-stretch:112%;line-height:1.05;text-wrap:balance;margin:0}
+h2{font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:18px}
+h3{font-size:19px;font-weight:700}
+p{margin:0 0 12px;max-width:68ch}
+.band{padding:clamp(32px,5vw,72px) max(5vw,16px)}
+.wrap{max-width:1180px;margin:0 auto}
+nav{position:sticky;top:0;z-index:5;background:#fff;color:#151515;border-bottom:1px solid #e5e5e5}
+nav .wrap{display:flex;gap:6px 20px;align-items:center;flex-wrap:wrap;padding:10px max(5vw,16px)}
+nav b{font-stretch:120%;margin-right:auto;color:var(--red)}
+nav a{color:#151515;text-decoration:none;font-size:15px;padding:6px 0}
+nav a:hover,nav a:focus-visible{text-decoration:underline}
+@media(max-width:900px){nav{position:static}}
+/* hero */
+.hero{background:#151515;color:#fff;position:relative;border-bottom:10px solid var(--red)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:center}
+.kicker{font-weight:700;font-size:15px;margin-bottom:10px;color:#ff5a70}
+.hero h1{font-size:clamp(40px,6.4vw,72px);font-weight:800;font-stretch:120%}
+.lead{font-size:clamp(17px,1.8vw,20px);margin:18px 0 22px;max-width:36ch}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;padding:0;list-style:none}
+.facts li{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.3);border-radius:6px;padding:5px 10px;font-size:14.5px;font-weight:600}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;border-radius:8px;font-weight:700;text-decoration:none;font-size:16px}
+.btn.dark{background:var(--red);color:#fff}.btn.line{border:2px solid #fff;color:#fff}
+button.btn{font:inherit;font-weight:700;cursor:pointer;background:none}button.btn.dark{background:#151515}
+.cinfo a{color:#fff}
+.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.fig{position:relative;aspect-ratio:1.08}
+.fig svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+@media(max-width:760px){.hero .wrap{grid-template-columns:1fr}.fig{max-width:460px;width:100%;margin:0 auto}}
+/* match table */
+table{border-collapse:collapse;width:100%;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{text-align:left;vertical-align:top;padding:14px 16px;border-bottom:1px solid var(--line)}
+th{font-size:14px;color:var(--soft);font-weight:600;background:light-dark(#f4f4f4,#262626)}
+td:first-child{font-weight:700;width:34%}
+tr:last-child td{border-bottom:0}
+.ok{color:var(--blue);font-weight:800;margin-right:6px}
+.note{font-size:14px;color:var(--soft);margin-top:10px}
+/* timeline */
+.paper{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.tl li{display:grid;grid-template-columns:9.5em minmax(0,1fr);gap:18px;padding:18px 0;border-top:1px dashed var(--line)}
+.tl li:first-child{border-top:0}
+.yr{font-weight:700;font-stretch:110%;white-space:nowrap;color:var(--soft)}
+.tl .main .yr{color:var(--blue)}
+.co{font-size:15px;color:var(--soft);margin:2px 0 6px}
+.tl ul{margin:6px 0 0;padding-left:18px;list-style:square}.tl ul li::marker{color:var(--red)}.tl ul li{display:list-item;padding:2px 0;border:0}
+.main{background:light-dark(#fff5f6,#2a1a1c);border-radius:10px;padding:18px!important;border:2px solid var(--red)!important;margin-bottom:8px}
+@media(max-width:600px){.tl li{grid-template-columns:1fr;gap:4px}}
+/* skills */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:22px}
+.lang{display:grid;grid-template-columns:7.5em minmax(0,1fr) 4.2em;gap:10px;align-items:center;margin:10px 0;font-size:15.5px}
+.bar{height:10px;border-radius:5px;background:light-dark(#eee,#333);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--red);border-radius:5px;width:0;transition:width 1s ease}
+.lang span:last-child{text-align:right;font-weight:700;white-space:nowrap;font-size:14px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:8px 0 0;list-style:none}
+.tags li{border:1.5px solid var(--line);border-radius:6px;padding:4px 10px;font-size:14.5px}
+.tags li.k{border-color:var(--blue);color:var(--blue);font-weight:700}
+/* AI band */
+.ai{background:#151515;color:#f3f3f3}
+.ai h2{color:#fff}.ai p{color:#ddd3c4}
+.ai .grid .card{background:#222;border-color:#333;color:#f3ece2}
+.ai .card p{color:#cfc4b4}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px;font-size:14.5px;font-weight:600}
+.flow span{background:#333;border-radius:6px;padding:5px 10px}.flow b{color:#ff5a70}
+/* edu + contact */
+.edu{display:grid;gap:14px}
+.edu div{border-left:4px solid var(--red);padding:4px 0 4px 16px}
+.contact{background:var(--red);color:#fff;text-align:center}
+.contact h2{font-size:clamp(30px,4.6vw,48px)}
+.contact p{margin:0 auto 20px;max-width:52ch}
+.contact .btns{justify-content:center}
+.cinfo{margin-top:18px;font-weight:700;font-size:17px}
+footer{background:#151515;color:#bbb;text-align:center;font-size:14px;padding:18px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar i{transition:none}}
+@media(max-width:600px){table{font-size:14.5px}.stack thead{display:none}.stack tr{display:grid;padding:10px 0;border-bottom:1px solid var(--line)}.stack td{display:block;border:0;padding:3px 14px;width:auto!important}.stack td::before{content:attr(data-l);display:block;font-size:13px;color:var(--soft);font-weight:600}.stack td:empty{display:none}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <b>Daria Botina</b>
+  <a href="#neden">Neden ben?</a>
+  <a href="#deneyim">Deneyim</a>
+  <a href="#yetkinlik">Yetkinlikler</a>
+  <a href="#yz">Yapay zekâ</a>
+  <a href="#iletisim">İletişim</a>
+</div></nav>
+
+<header class="band hero"><div class="wrap">
+  <div>
+    <div class="kicker">Ankutsan İhracat Satış Uzmanı adayı</div>
+    <h1>Daria Botina</h1>
+    <p class="lead">Yaklaşık 20 yıllık uluslararası satış deneyimimle Ankutsan kutularını dünyanın dört bir yanına taşımaya hazırım.</p>
+    <ul class="facts">
+      <li>İhracat Satış Müdürü (2023–2025)</li>
+      <li>İngilizce C1–C2</li>
+      <li>İspanyolca C1</li>
+      <li>Yapay zekâ ve otomasyon</li>
+      <li>Antalya'da yaşıyorum</li>
+    </ul>
+    <div class="btns">
+      <a class="btn dark" href="#iletisim">Benimle iletişime geçin</a>
+      <a class="btn line" href="#neden">İlanla uyumum</a>
+    </div>
+  </div>
+  <div class="fig" aria-hidden="true">
+    <svg viewBox="0 0 440 410">
+      <defs>
+        <pattern id="flute" width="12" height="12" patternUnits="userSpaceOnUse">
+          <path d="M0 6 Q3 0 6 6 T12 6" fill="none" stroke="#7a5430" stroke-width="1.4"/>
+        </pattern>
+        <linearGradient id="top" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8c08c"/><stop offset="1" stop-color="#d2a066"/></linearGradient>
+        <linearGradient id="front" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8a86d"/><stop offset="1" stop-color="#bf8a4f"/></linearGradient>
+        <linearGradient id="side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a87440"/><stop offset="1" stop-color="#8f5f32"/></linearGradient>
+      </defs>
+      <ellipse cx="215" cy="385" rx="190" ry="18" fill="#1b1712" opacity=".18"/>
+      <!-- box -->
+      <polygon points="40,120 290,120 290,375 40,375" fill="url(#front)" stroke="#6e4a28" stroke-width="2"/>
+      <polygon points="290,120 400,70 400,320 290,375" fill="url(#side)" stroke="#6e4a28" stroke-width="2"/>
+      <polygon points="40,120 150,70 400,70 290,120" fill="url(#top)" stroke="#6e4a28" stroke-width="2"/>
+      <!-- flaps seam + tape -->
+      <polygon points="150,95 260,95 345,70 235,70" fill="#c9a27a" opacity=".9"/>
+      <line x1="95" y1="95" x2="345" y2="95" stroke="#6e4a28" stroke-width="1.5" opacity=".6"/>
+      <rect x="140" y="120" width="50" height="70" fill="#c9a27a" opacity=".85"/>
+      <!-- flute edge on side -->
+      <polygon points="290,120 300,115 300,370 290,375" fill="url(#flute)" opacity=".7"/>
+      <!-- recycling mark -->
+      <g transform="translate(345 230)" fill="none" stroke="#5e3f22" stroke-width="3" opacity=".75">
+        <path d="M-14 6 L0 -18 L14 6 Z" stroke-linejoin="round"/>
+        <path d="M-6 -6 l6 -4 M8 2 l2 6 M-10 10 h8"/>
+      </g>
+      <!-- this side up arrows -->
+      <g fill="#5e3f22" opacity=".7" transform="translate(62 140)">
+        <path d="M8 0 L16 10 H11 V20 H5 V10 H0 Z"/><path d="M30 0 L38 10 H33 V20 H27 V10 H22 Z"/>
+      </g>
+      <!-- shipping label -->
+      <g transform="translate(70 205) rotate(-2)">
+        <rect width="190" height="140" rx="6" fill="#fffdf8" stroke="#1b1712" stroke-width="2"/>
+        <rect width="190" height="26" rx="6" fill="#1b1712"/>
+        <text x="12" y="18" fill="#fffdf8" font-family="Archivo" font-weight="800" font-size="12" letter-spacing=".5">İHRACAT · EXPORT</text>
+        <text x="12" y="46" fill="#5b5248" font-family="Archivo" font-size="10">GÖNDEREN</text>
+        <text x="12" y="62" fill="#1b1712" font-family="Archivo" font-weight="800" font-size="15">Daria Botina</text>
+        <text x="12" y="84" fill="#5b5248" font-family="Archivo" font-size="10">ALICI</text>
+        <text x="12" y="100" fill="#1b1712" font-family="Archivo" font-weight="800" font-size="15">Ankutsan · Antalya</text>
+        <g fill="#1b1712">
+          <rect x="12" y="112" width="2" height="18"/><rect x="16" y="112" width="4" height="18"/><rect x="23" y="112" width="1.5" height="18"/>
+          <rect x="27" y="112" width="3" height="18"/><rect x="33" y="112" width="1.5" height="18"/><rect x="37" y="112" width="5" height="18"/>
+          <rect x="45" y="112" width="2" height="18"/><rect x="50" y="112" width="3" height="18"/><rect x="56" y="112" width="1.5" height="18"/>
+          <rect x="60" y="112" width="4" height="18"/><rect x="67" y="112" width="2" height="18"/><rect x="72" y="112" width="3" height="18"/>
+        </g>
+        <text x="182" y="128" text-anchor="end" fill="#1b1712" font-family="Archivo" font-weight="700" font-size="11">70+ ülke</text>
+      </g>
+      <!-- ink stamps -->
+      <g transform="translate(205 175) rotate(12)" fill="none" stroke="#e4002b" stroke-width="2.5" opacity=".85">
+        <circle r="34"/><circle r="27" stroke-width="1.2"/>
+        <text y="-4" text-anchor="middle" fill="#e4002b" stroke="none" font-family="Archivo" font-weight="800" font-size="12">EN · ES</text>
+        <text y="12" text-anchor="middle" fill="#e4002b" stroke="none" font-family="Archivo" font-weight="700" font-size="9">DE · FR · TR · RU</text>
+      </g>
+      <g transform="translate(350 120) rotate(-8)" opacity=".9">
+        <rect x="-38" y="-14" width="76" height="28" rx="4" fill="none" stroke="#e4002b" stroke-width="2.5"/>
+        <text y="5" text-anchor="middle" fill="#e4002b" font-family="Archivo" font-weight="800" font-size="13">HAZIR ✓</text>
+      </g>
+    </svg>
+  </div>
+</div></header>
+
+<section class="band" id="neden"><div class="wrap">
+  <h2>İlanınız ve benim deneyimim</h2>
+  <p>İlandaki her maddeyi tek tek okudum. Karşılığında neler getirdiğimi kısaca gösteriyorum.</p>
+  <table class="stack">
+    <thead><tr><th>Aradığınız</th><th>Bende olan</th></tr></thead>
+    <tbody id="match"></tbody>
+  </table>
+</div></section>
+
+<section class="band paper" id="deneyim"><div class="wrap">
+  <h2>İş deneyimi</h2>
+  <ol class="tl" id="tl"></ol>
+</div></section>
+
+<section class="band" id="yetkinlik"><div class="wrap">
+  <h2>Yetkinlikler</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Yabancı diller</h3>
+      <div id="langs"></div>
+    </div>
+    <div class="card">
+      <h3>Programlar ve sistemler</h3>
+      <ul class="tags">
+        <li>MS Excel</li><li>Word</li><li>PowerPoint</li><li>Outlook</li>
+        <li>1C:Enterprise</li><li>HubSpot CRM</li><li>Bitrix24</li><li>amoCRM</li><li>Accpac</li>
+        <li class="k">ChatGPT</li><li class="k">Claude</li><li>Make.com</li><li>Temel Python bilgisi</li>
+      </ul>
+      <p class="note">ERP ve CRM sistemleriyle çalıştım. SAP'yi öğrenmeye hazırım, yeni programları çok hızlı öğrenirim.</p>
+    </div>
+    <div class="card">
+      <h3>Güçlü yanlarım</h3>
+      <ul class="tags">
+        <li>Müzakere ve sözleşme</li><li>Sipariş takibi</li><li>Lojistik koordinasyonu</li>
+        <li>Raporlama ve bütçe</li><li>Satış sonrası destek</li><li>Uluslararası fuarlar</li>
+        <li>Yeni pazar araştırması</li><li>Ekip yönetimi</li><li>Hızlı öğrenme</li>
+      </ul>
+      <p class="note">Hedef odaklı, sorumluluk sahibi, iletişimi güçlü ve titiz biriyim.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="band ai" id="yz"><div class="wrap">
+  <h2>Yapay zekâ ve süreç otomasyonu</h2>
+  <p>İlanda "tercihen yapay zekâ kullanabilen" yazıyor. Benim için bu günlük bir alışkanlık.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>Her gün kullanıyorum</h3>
+      <p>ChatGPT ve Claude'u günlük işlerimde aktif olarak kullanıyorum: teklif ve yazışma hazırlığı, çeviri, rapor ve analiz.</p>
+    </div>
+    <div class="card">
+      <h3>Kendi dil kurslarımı yapıyorum</h3>
+      <p>Claude ile kendi interaktif yabancı dil kurslarımı hazırlıyorum ve bu kurslarla kendim de yeni diller öğreniyorum (şu anda Portekizce). İngilizce ve İspanyolca öğrettiğim öğrencilerim de bu kurslarla çalışıyor ve çok olumlu geri bildirimler veriyorlar.</p>
+    </div>
+    <div class="card">
+      <h3>Tekrar eden işleri otomatikleştiriyorum</h3>
+      <p>Süreçleri otomatikleştirmeyi çok seviyorum. Aynı tip işleri yapay zekâ ve Make.com gibi araçlarla otomatik hale getiriyorum, mesela raporların düzenli gönderilmesini kuruyorum.</p>
+      <div class="flow"><span>Sipariş verisi</span><b>→</b><span>Yapay zekâ</span><b>→</b><span>Haftalık rapor</span><b>→</b><span>E-posta</span></div>
+    </div>
+  </div>
+  <p style="margin-top:20px">Görüşmede örneklerini göstermekten memnuniyet duyarım.</p>
+</div></section>
+
+<section class="band paper" id="egitim"><div class="wrap">
+  <h2>Eğitim</h2>
+  <div class="edu">
+    <div><h3>Altay Devlet Politeknik Üniversitesi</h3><p>Bölge Çalışmaları / Uluslararası İlişkiler, lisans · 2000–2005 · dereceyle mezun</p></div>
+    <div><h3>Barnaul Devlet Pedagoji Üniversitesi</h3><p>İngilizce Tercümanlık programı, sertifika · 2003–2006</p></div>
+    <div><h3>SkillFactory</h3><p>Veri Bilimi (Data Science) online eğitimi · 2024'ten beri</p></div>
+  </div>
+</div></section>
+
+<section class="band contact" id="iletisim"><div class="wrap">
+  <h2>"Dünyayı Kutuluyoruz" hedefinize katkı sağlamak isterim</h2>
+  <p>Antalya'da yaşıyorum, yurt içi ve yurt dışı seyahatlere hazırım. Bir görüşme fırsatı için çok mutlu olurum.</p>
+  <div class="btns">
+    <button class="btn dark" id="showTel" type="button">Telefonu göster</button>
+    <button class="btn line" id="showMail" type="button">E-postayı göster</button>
+  </div>
+  <div class="cinfo" id="cinfo" aria-live="polite">WhatsApp / Telegram</div>
+</div></section>
+
+<footer>© Daria Botina</footer>
+
+<script>
+{
+const match=[
+ ["Üniversite lisans mezunu","Uluslararası İlişkiler / Bölge Çalışmaları, dereceyle mezun"],
+ ["İhracat operasyonlarında deneyim","Istanbul Sera Plastik'te İhracat Satış Müdürü (2023–2025): yeni müşteriler, sipariş takibi, nakliye görüşmeleri, satış sonrası destek"],
+ ["İletişim, analitik düşünme, evrak takibi, raporlama","Satış ve sipariş raporları, aylık ve yıllık bütçe, 5 kişilik ekip yönetimi; düzenli ve titiz çalışırım, ihracat evrak süreçlerini hızla öğrenmeye hazırım"],
+ ["İleri İngilizce","C1–C2, profesyonel seviye; tercüman olarak da çalıştım"],
+ ["Tercihen İspanyolca","C1; Meksika'da çalıştım, Latin Amerika pazarından sorumluydum"],
+ ["MS Office","Excel, Word, PowerPoint, Outlook; ayrıca CRM sistemleri"],
+ ["Tercihen SAP","1C ve CRM sistemleri (HubSpot, Bitrix24, amoCRM) deneyimim var; SAP'yi hızla öğrenmeye hazırım"],
+ ["Tercihen yapay zekâ, ChatGPT vb.","ChatGPT ve Claude'u her gün kullanıyorum, süreçleri otomatikleştiriyorum"],
+ ["Yurt içi / yurt dışı seyahat","Hazırım; uluslararası fuarlara katıldım, müşterileri yurt dışında ziyaret ettim"],
+ ["Antalya'da ikamet","Antalya'da yaşıyorum"]
+];
+document.getElementById('match').innerHTML=match.map(r=>`<tr><td>${r[0]}</td><td><span class="ok">✓</span>${r[1]}</td></tr>`).join('');
+
+const tl=[
+ {y:"2023 – 2025",t:"İhracat Satış Müdürü",c:"Istanbul Sera Plastik · Döşemealtı, Antalya",m:1,d:[
+  "Rusya ve Latin Amerika pazarlarının araştırılması, satış hedeflerinin gerçekleştirilmesi",
+  "E-posta ve telefonla yeni müşteri bulma, online toplantılar",
+  "Satış şartlarının müzakeresi ve satış sözleşmeleri",
+  "Siparişlerin takibi",
+  "Nakliye firmalarıyla sevkiyat görüşmeleri",
+  "İhracat ve satış sonrası sorunların çözümü",
+  "Aylık ve yıllık bütçe hazırlığı",
+  "Uluslararası fuarlar, müşteri ziyaretleri (fabrikada ve yurt dışında)",
+  "Web sitesi, teknik föyler ve pazarlama materyallerinin çevirisinin koordinasyonu"]},
+ {y:"2023",t:"Resepsiyonist, Misafir İlişkileri",c:"Sailor's Beach Club Hotel · Kemer",d:["Misafir karşılama, şikâyet çözümü, acente temsilcilerine raporlar"]},
+ {y:"2019 – 2020",t:"Müşteri Başarısı Departmanı Müdürü",c:"DeskAlerts Ltd. (IT şirketi) · Novosibirsk",d:["Müşteri sadakati programları, satış sonrası müzakereler, ek satış ve upselling, müşterilerin kendi dillerinde online demolar"]},
+ {y:"2017 – 2019",t:"Uluslararası İş Geliştirme Direktörü",c:"Russian Flowers Ltd. · Novosibirsk",d:["5 kişilik ekip yönetimi, partner ağı geliştirme","Net gelir, sipariş ve çalışan performansı raporları ve analizi"]},
+ {y:"2014 – 2015",t:"Pazarlama Müdürü",c:"Hirove S.A. de C.V. · Meksika City",d:["Pazar araştırması, yeni projeler, tedarikçilerle müzakere"]},
+ {y:"2011 – 2014",t:"Kendi yabancı dil okulum",c:"Inovzlet · Girişimci",d:["Okulun kurulması ve yönetimi"]},
+ {y:"2011",t:"Satış Müdürü (online reklam)",c:"Games Banner Network Inc.",d:["Dünya genelinde reklam veren ve yayıncı bulma, fiyat müzakereleri"]},
+ {y:"2010 – 2011",t:"Serbest Tercüman (İngilizce)",c:"Aum Translation Services, Novosibirsk Expocentre",d:["Simultane ve ardıl çeviri, uluslararası fuarlar, Bayer eğitimleri"]},
+ {y:"2008 – 2010",t:"Uluslararası Satış Müdürü",c:"SUN LLC · Berdsk",d:["Latin Amerika ve Güneybatı Avrupa'da bayi ve son kullanıcı bulma","Bayilik ve satış sözleşmeleri, sevkiyat takibi, uluslararası fuarlar"]},
+ {y:"2006 – 2007",t:"Teknik Servis Yöneticisi, Tercüman Danışman",c:"Nissa Tsentrum Sibir, SUMTEK · Novosibirsk",d:["Teknik doküman çevirisi, tedarikçi yazışmaları, ticari teklifler, sipariş durumu bilgilendirmesi"]}
+];
+document.getElementById('tl').innerHTML=tl.map(e=>`<li class="${e.m?'main':''}"><div class="yr">${e.y}</div><div><h3>${e.t}</h3><div class="co">${e.c}</div><ul>${e.d.map(x=>`<li>${x}</li>`).join('')}</ul></div></li>`).join('');
+
+const langs=[["İngilizce",92,"C1–C2"],["İspanyolca",85,"C1"],["Rusça",100,"Ana dil"],["Almanca",68,"B2"],["Türkçe",68,"B2"],["Fransızca",55,"B1–B2"],["Portekizce",55,"B1"],["Çince",15,"A1"]];
+const L=document.getElementById('langs');
+L.innerHTML=langs.map(l=>`<div class="lang"><span>${l[0]}</span><div class="bar"><i data-w="${l[1]}"></i></div><span>${l[2]}</span></div>`).join('');
+const fill=()=>L.querySelectorAll('i').forEach(i=>i.style.width=i.dataset.w+'%');
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){fill();io.disconnect()}});io.observe(L)}else fill();
+
+const dec=a=>a.map(c=>String.fromCharCode(c-3)).join('');
+const T=[46,60,51,35,56,55,55,35,60,55,54,35,58,55,35,54,55],M=[103,100,117,108,100,101,114,119,108,113,100,67,124,100,113,103,104,123,49,117,120];
+const ci=document.getElementById('cinfo'),out={};
+const show=()=>{ci.innerHTML=[out.t?`<a href="tel:${out.t.replace(/\s/g,'')}">${out.t}</a>`:'',out.m?`<a href="mailto:${out.m}">${out.m}</a>`:'','WhatsApp / Telegram'].filter(Boolean).join(' · ')};
+document.getElementById('showTel').addEventListener('click',e=>{out.t=dec(T);e.currentTarget.textContent=out.t;show()});
+document.getElementById('showMail').addEventListener('click',e=>{out.m=dec(M);e.currentTarget.textContent=out.m;show()});
+new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true});
+for(const c of document.querySelectorAll('.stack td')){let i=0,p=c;while(p=p.previousElementSibling)i++;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}
+}
+</script>
+</body>
+</html>
