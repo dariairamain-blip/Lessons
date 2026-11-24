@@ -61,6 +61,7 @@ h1{font:800 26px/1.15 var(--display);margin:4px 0 0;text-wrap:balance}
 .note{font-size:13.5px;color:var(--muted);font-weight:600;margin:0}
 .w{cursor:pointer;border-radius:6px;padding:0 1px;border-bottom:1.5px dotted rgba(108,59,255,.45)}
 .w.on{background:var(--sel);color:var(--sea)}
+.msg.me .w{border-bottom-color:rgba(255,255,255,.6)}.msg.me .w.on{background:rgba(255,255,255,.28);color:var(--meink)}.msg.me .gl{background:var(--card);color:var(--ink);margin-top:6px}
 .gl{background:var(--sel);border-radius:12px;padding:8px 10px;font-size:14.5px;display:grid;gap:6px}
 .gl .hd{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .gl .hd b{font-size:16px}
@@ -292,7 +293,7 @@ function pick(){ try{ micAllStop(); }catch(e){}
   a.append(h("h1", "", "С кем хочешь поговорить сейчас?"), h("p", "sub", "Выбери героя: 🇧🇷 — бразильский португальский, 🇵🇹 — европейский. Отвечай по-португальски — герой поддержит разговор и мягко исправит ошибки. Если не знаешь, что сказать, — нажми «💡 Подсказка»."));
   const g = h("div", "grid");
   HEROES.forEach(x => { const b = h("button", "hero"); b.type = "button"; b.append(h("span", "e", x.e), h("b", "", x.n), h("small", "", x.d)); b.onclick = () => start(x); g.append(b); });
-  a.append(g, h("p", "note", "Говори голосом (🎤) или пиши. Нажми на любое слово героя — увидишь перевод."));
+  a.append(g, h("p", "note", "Говори голосом (🎤) или пиши. Нажми на любое слово — своё или героя — увидишь перевод."));
   const pb = h("button", "prog", "📊 Мой прогресс"); pb.type = "button"; pb.onclick = () => REP.progress(); a.append(pb); PERS.decorate(a, g, pb);
 }
 function wordTap(el, word, ctx, words, gl, p){
@@ -320,6 +321,7 @@ function wordTap(el, word, ctx, words, gl, p){
   };
   show(gl);
 }
+function tapWords(p, txt, gl, ctx){ String(txt || "").split(/([\p{L}\-']+)/u).forEach(part => { if(/^[\p{L}\-']+$/u.test(part)){ const w = h("span", "w", part); w.onclick = () => wordTap(w, part, ctx, {}, gl, p); p.append(w); } else if(part) p.append(document.createTextNode(part)); }); }
 function bubble(who, pt, ru, fix, words){
   const m = h("div", "msg" + (who === "me" ? " me" : ""));
   const b = h("div", "bub");
@@ -333,7 +335,7 @@ function bubble(who, pt, ru, fix, words){
     t.append(s, sl, g); b.append(p);
     if(fix){ b.prepend(h("div", "fix", "✏️ " + fix)); }
     b.append(gl, t, r);
-  } else b.append(h("div", "pt", pt));
+  } else { const p = h("div", "pt"); const gl = h("div", "gl"); gl.hidden = true; tapWords(p, pt, gl, pt); b.append(p, gl); }
   m.append(b); $("#chat").append(m); show(m); return b;
 }
 function start(x){ sendEvent("visit", "Герои: " + (x && x.n ? x.n : "")); const own0 = document.querySelector(".own"); if(own0) own0.hidden = true;
@@ -413,7 +415,7 @@ async function send(){
   if(newW.length){ const ptd = mb.querySelector(".pt"); ptd.textContent = "";
     let rest = msg; const marks = newW.map(x => x[1]);
     const re = new RegExp("(" + marks.map(m => m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")");
-    rest.split(re).forEach(part => { if(marks.includes(part)) ptd.append(h("span", "new", part)); else if(part) ptd.append(document.createTextNode(part)); });
+    rest.split(re).forEach(part => { if(marks.includes(part)) ptd.append(h("span", "new", part)); else if(part) tapWords(ptd, part, mb.querySelector(".gl"), msg); });
     ptd.append(h("small", "", "")); const lst = h("div", "fix", newW.map(x => "🇷🇺 " + x[0].replace(/\*/g, "") + " → " + x[1]).join(" · ")); mb.append(lst);
     say(newW.map(x => x[1]).join(", "), lang());
   }
@@ -503,7 +505,7 @@ function howTo(){
    "Хочешь узнать слово сразу? Нажми на русское слово над полем ввода.",
    "Нажми ➤. Остальные русские слова я переведу сам и озвучу."]).forEach(t => ol.append(h("li", "", t)));
   b.append(ol, h("p", "", REC ? "Первый раз Safari спросит разрешение на микрофон — нажми «Разрешить»." : "Совет: открой эту страницу в Safari — там работает кнопка микрофона."),
-    h("p", "", "Нажми на любое слово героя — увидишь перевод."));
+    h("p", "", "Нажми на любое слово — своё или героя — увидишь перевод."));
   const mh = h("button", "ok", "🎤 Как включить микрофон"); mh.type = "button"; mh.style.marginBottom = "8px"; mh.onclick = () => { m.remove(); micHelp(); }; b.append(mh);
   const ok = h("button", "ok", "Понятно 👍"); ok.type = "button"; ok.onclick = () => m.remove(); b.append(ok);
   m.append(b); m.onclick = e => { if(e.target === m) m.remove(); }; document.body.append(m); ok.focus({preventScroll:true}); b.scrollTop = 0;
