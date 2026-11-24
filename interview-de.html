@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vorstellungsgespräch · Deutsch B2</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f6f3ef;color:#2a2a33}
+header{position:sticky;top:0;z-index:5;background:#2a2f45;color:#fff;padding:10px 12px 8px}
+h1{font-size:17px;margin:0 0 6px}.sub{font-size:12px;opacity:.8;margin-bottom:8px}
+.ctl{display:flex;flex-wrap:wrap;gap:6px}.ctl button,.ctl select{border:0;border-radius:18px;padding:7px 11px;font-size:13px;background:#ffffff22;color:#fff}
+.ctl button.on{background:#e0a458;color:#222}.ctl select{background:#fff;color:#222;max-width:100%}
+main{padding:12px;max-width:720px;margin:0 auto 90px}
+.sec{font-weight:700;font-size:16px;margin:18px 0 8px}
+.row{display:flex;margin:8px 0}.row.me{justify-content:flex-end}
+.b{max-width:88%;padding:10px 12px;border-radius:14px;background:#fff;box-shadow:0 1px 2px #0001;font-size:15.5px;line-height:1.45}
+.me .b{background:#e6efe9}.who{font-size:11px;font-weight:700;color:#8a6d3b;margin-bottom:3px}.me .who{color:#2f7a5a}
+.b.playing{outline:2px solid #e0a458}
+.tools{margin-top:6px;display:flex;gap:6px}.tools button{border:1px solid #ccc;background:#fff;border-radius:14px;padding:3px 9px;font-size:13px}
+.ru{display:none;margin-top:6px;font-size:13.5px;color:#555;border-top:1px dashed #ccc;padding-top:6px}.ru.show{display:block}
+.hid .txt{display:none}.reveal{display:none;border:0;background:#2f7a5a;color:#fff;border-radius:14px;padding:6px 12px;font-size:13px}.hid .reveal{display:inline-block}
+.hint{font-size:12.5px;color:#666;font-style:italic}
+details{background:#fff;border-radius:12px;padding:10px 12px;margin-bottom:10px}summary{font-weight:700}
+.v{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid #eee;font-size:14px}.v span:last-child{color:#666;text-align:right}
+.v button{border:0;background:none;font-size:15px}
+.player{position:fixed;bottom:0;left:0;right:0;background:#2a2f45;display:flex;justify-content:center;gap:14px;padding:8px}
+.player button{border:0;background:#ffffff22;color:#fff;font-size:18px;border-radius:20px;width:46px;height:38px}
+footer{text-align:center;font-size:12px;color:#888;margin:20px 0}
+</style></head><body>
+<header><h1>🇩🇪 Vorstellungsgespräch · Deutsch B2</h1>
+<div class="sub">Собеседование: работодатель спрашивает — вы отвечаете о себе</div>
+<div class="ctl"><select id="nav"></select>
+<button id="bSound" class="on">🔊 Звук</button><button id="bAuto">▶ Авто</button>
+<button id="bTrain">🎤 Тренировка</button><button id="bSlow">🐢 Медленно</button></div></header>
+<main>
+<details><summary>📌 Ключевые фразы (повторить до и после)</summary><div id="vocab"></div></details>
+<p class="hint">🎤 Режим «Тренировка»: ваши ответы скрыты. Послушайте вопрос, ответьте вслух сами, потом нажмите «Показать ответ» и сравните.</p>
+<div id="dlg"></div><footer>© Daria Botina</footer></main>
+<div class="player"><button id="pPrev">⏮</button><button id="pPlay">⏯</button><button id="pNext">⏭</button></div>
+<script>
+const SECTIONS=[
+{t:"👋 Знакомство",items:[
+["Guten Tag, Frau Botina! Schön, dass Sie da sind. Wie geht es Ihnen?","Добрый день, госпожа Ботина! Хорошо, что вы пришли. Как у вас дела?",
+"Guten Tag! Danke, mir geht es gut. Ich freue mich sehr über die Einladung zu diesem Gespräch.","Добрый день! Спасибо, всё хорошо. Я очень рада приглашению на это собеседование."],
+["Erzählen Sie uns bitte etwas über sich.","Расскажите, пожалуйста, немного о себе.",
+"Gern. Mein Name ist Daria Botina. Ich lebe seit sechs Jahren in der Türkei, jetzt in Antalya. Ich habe fast zwanzig Jahre Erfahrung im internationalen Vertrieb und in der Kundenbetreuung. Zuletzt habe ich als Patient Managerin in einer Zahnklinik in Antalya gearbeitet. Dort habe ich ausländische Patienten vom ersten Kontakt bis zur Entscheidung für die Behandlung begleitet. Ich spreche sechs Sprachen. Ich arbeite gern mit Menschen – genau das verbindet meine Erfahrung im Vertrieb mit der Arbeit mit Patienten.",
+"С удовольствием. Меня зовут Дарья Ботина. Я шесть лет живу в Турции, сейчас в Анталье. У меня почти двадцать лет опыта в международных продажах и работе с клиентами. Последнее место — менеджер по пациентам в стоматологической клинике в Анталье. Там я вела иностранных пациентов от первого контакта до решения о лечении. Я говорю на шести языках. Я люблю работать с людьми — именно это объединяет мой опыт в продажах и работу с пациентами."],
+["Was haben Sie studiert?","Что вы изучали?",
+"Ich habe an der Staatlichen Technischen Universität des Altai Regionalwissenschaften studiert und mit Auszeichnung abgeschlossen. Außerdem habe ich ein Zertifikat als Übersetzerin für Englisch. Seit 2024 lerne ich online Data Science und habe Grundkenntnisse in Python.",
+"Я окончила Алтайский государственный технический университет по специальности «регионоведение» с красным дипломом. Кроме того, у меня сертификат переводчика английского языка. С 2024 года я онлайн изучаю Data Science, у меня базовые знания Python."]
+]},
+{t:"💼 Опыт работы",items:[
+["Was genau waren Ihre Aufgaben in der Zahnklinik?","Какие именно у вас были задачи в стоматологической клинике?",
+"Ich habe Behandlungspläne auf Englisch, Russisch, Deutsch, Französisch und Spanisch erstellt. Die meisten Patienten kamen aus Großbritannien. Ich habe ihre Fragen beantwortet, die Pläne am Telefon auf Englisch und Russisch erklärt und regelmäßig nachgefasst. Mein Ziel war, dass sich der Patient sicher fühlt und eine gute Entscheidung trifft.",
+"Я составляла планы лечения на английском, русском, немецком, французском и испанском. Большинство пациентов были из Великобритании. Я отвечала на их вопросы, объясняла планы по телефону на английском и русском и регулярно связывалась с ними повторно. Моя цель была, чтобы пациент чувствовал себя уверенно и принял хорошее решение."],
+["Warum haben Sie die Klinik verlassen?","Почему вы ушли из клиники?",
+"Die Klinik hat aus wirtschaftlichen Gründen Personal abgebaut, und meine Stelle wurde gestrichen. Das hatte nichts mit meiner Leistung zu tun. Mein ehemaliger Arbeitgeber gibt mir gern eine Referenz.",
+"Клиника по экономическим причинам сокращала персонал, и мою должность убрали. Это никак не связано с моей работой. Бывший работодатель с удовольствием даст мне рекомендацию."],
+["Sie waren nur fünf Monate dort. Ist das nicht sehr kurz?","Вы проработали там всего пять месяцев. Не слишком ли это мало?",
+"Ja, das ist kurz, aber es war nicht meine Entscheidung. In diesen fünf Monaten habe ich sehr viel gelernt: medizinische Begriffe, die Abläufe in einer Klinik und wie man mit unsicheren Patienten spricht. Diese Erfahrung möchte ich jetzt bei Ihnen einsetzen.",
+"Да, это немного, но это было не моё решение. За эти пять месяцев я очень многому научилась: медицинским терминам, процессам в клинике и тому, как говорить с неуверенными пациентами. Этот опыт я хочу теперь применить у вас."],
+["Erzählen Sie bitte von Ihrer Arbeit im Export.","Расскажите, пожалуйста, о вашей работе в экспорте.",
+"Von 2023 bis 2025 war ich im Exportvertrieb bei Istanbul Sera Plastik in Antalya. Ich war für Russland und Lateinamerika zuständig. Ich habe neue Kunden und Händler per E-Mail, Telefon und Online-Meetings gewonnen, Preise und Bedingungen verhandelt und Verträge abgeschlossen. Ich war auf internationalen Messen und habe Kunden im Werk empfangen. Nach dem Verkauf habe ich die Bestellungen verfolgt und Probleme gelöst.",
+"С 2023 по 2025 год я работала в экспортных продажах в Istanbul Sera Plastik в Анталье. Отвечала за Россию и Латинскую Америку. Находила новых клиентов и дилеров через e-mail, звонки и онлайн-встречи, обсуждала цены и условия, заключала договоры. Ездила на международные выставки и принимала клиентов на заводе. После продажи отслеживала заказы и решала проблемы."],
+["Sie haben auch in einem Hotel gearbeitet?","Вы также работали в отеле?",
+"Ja, in der Saison 2023 war ich im Bereich Guest Relations in einem Beach Club in Kemer. Ich habe ausländische Gäste betreut, Beschwerden gelöst und bei Unfällen mit den Versicherungen kommuniziert. Das war eine gute Schule für Geduld und Service – das ist dem Medizintourismus sehr ähnlich.",
+"Да, в сезон 2023 года я работала в отделе Guest Relations в бич-клубе в Кемере. Я занималась иностранными гостями, решала жалобы и при несчастных случаях общалась со страховыми компаниями. Это была хорошая школа терпения и сервиса — это очень похоже на медицинский туризм."],
+["Was haben Sie vorher in Russland gemacht?","Чем вы занимались раньше в России?",
+"In Russland habe ich die Abteilung Customer Success in einer IT-Firma geleitet. Ich war für die Zufriedenheit und die Bindung der Kunden verantwortlich und habe Online-Präsentationen in der Sprache der Kunden gehalten. Davor war ich Direktorin für internationale Geschäftsentwicklung und habe ein Team von fünf Personen geleitet. Noch früher war ich im internationalen Vertrieb und bin oft nach Mexiko gereist.",
+"В России я руководила отделом Customer Success в IT-компании. Отвечала за удовлетворённость и удержание клиентов и проводила онлайн-презентации на языке клиента. До этого была директором по международному развитию бизнеса и руководила командой из пяти человек. Ещё раньше работала в международных продажах и часто ездила в Мексику."],
+["Was haben Sie zwischen 2020 und 2023 gemacht?","Чем вы занимались с 2020 по 2023 год?",
+"In dieser Zeit bin ich in die Türkei gezogen und habe Englisch und Spanisch für Erwachsene und Jugendliche unterrichtet, außerdem Russisch für Ausländer. Beim Unterrichten habe ich gelernt, komplizierte Dinge einfach zu erklären. Das ist auch für Patienten sehr wichtig.",
+"В это время я переехала в Турцию и преподавала английский и испанский взрослым и подросткам, а также русский иностранцам. Преподавая, я научилась просто объяснять сложные вещи. Для пациентов это тоже очень важно."]
+]},
+{t:"🗣 Языки",items:[
+["Wie gut ist Ihr Deutsch?","Насколько хорошо вы говорите по-немецки?",
+"Mein Deutsch ist auf dem Niveau B2. Schriftlich fühle ich mich sicher: In der Klinik habe ich Behandlungspläne auf Deutsch geschrieben. Beim Sprechen brauche ich manchmal noch etwas Zeit, aber ich übe jeden Tag und werde schnell besser. Einen Sprachtest mache ich gern.",
+"Мой немецкий на уровне B2. В письменной речи я уверена: в клинике я писала планы лечения на немецком. В устной речи мне иногда ещё нужно немного времени, но я практикуюсь каждый день и быстро прогрессирую. Языковой тест я с удовольствием пройду."],
+["Welche Sprachen sprechen Sie noch?","Какие ещё языки вы знаете?",
+"Russisch ist meine Muttersprache. Englisch spreche ich auf dem Niveau C1 bis C2, Spanisch auf C1, Türkisch auf B2 und Französisch auf B1 bis B2. Im Moment lerne ich Portugiesisch, ungefähr auf B1.",
+"Русский — мой родной язык. Английский — уровень C1–C2, испанский — C1, турецкий — B2, французский — B1–B2. Сейчас я учу португальский, примерно на уровне B1."]
+]},
+{t:"💪 Сильные и слабые стороны",items:[
+["Was sind Ihre Stärken?","Каковы ваши сильные стороны?",
+"Erstens kann ich gut zuhören und Vertrauen aufbauen. Patienten merken, dass ich sie ernst nehme. Zweitens habe ich viel Erfahrung im Vertrieb: Ich weiß, wie man aus einer Anfrage einen Patienten macht – ohne Druck. Drittens bin ich zuverlässig beim Follow-up, kein Kontakt geht verloren. Und ich lerne sehr schnell: neue Programme, neue Abläufe, neue Begriffe.",
+"Во-первых, я умею слушать и вызывать доверие. Пациенты чувствуют, что я отношусь к ним серьёзно. Во-вторых, у меня большой опыт продаж: я знаю, как превратить запрос в пациента — без давления. В-третьих, я надёжна в повторных контактах, ни один контакт не теряется. И я очень быстро учусь: новые программы, процессы, термины."],
+["Und was sind Ihre Schwächen?","А каковы ваши слабые стороны?",
+"Mein gesprochenes Deutsch ist noch nicht so flüssig wie mein Englisch. Deshalb übe ich jeden Tag. Außerdem bin ich keine Ärztin. Am Anfang kannte ich nicht alle medizinischen Begriffe, deshalb habe ich mir eine eigene Liste gemacht und frage die Ärzte, wenn ich etwas nicht genau weiß. Ich erkläre einem Patienten nie etwas, wenn ich mir nicht sicher bin.",
+"Мой разговорный немецкий пока не такой беглый, как английский. Поэтому я занимаюсь каждый день. Кроме того, я не врач. Сначала я знала не все медицинские термины, поэтому составила свой список и спрашиваю врачей, если что-то не знаю точно. Я никогда не объясняю пациенту то, в чём не уверена."],
+["Wie gehen Sie mit Stress um?","Как вы справляетесь со стрессом?",
+"Ich bleibe ruhig und mache mir eine Liste mit Prioritäten. Im Export hatte ich oft viele Kunden gleichzeitig in verschiedenen Zeitzonen. Ich habe gelernt: zuerst das Dringende, dann der Rest – und immer freundlich bleiben.",
+"Я сохраняю спокойствие и составляю список приоритетов. В экспорте у меня часто было много клиентов одновременно в разных часовых поясах. Я научилась: сначала срочное, потом остальное — и всегда оставаться дружелюбной."]
+]},
+{t:"🩺 Рабочие ситуации",items:[
+["Ein Patient schreibt: „Das ist mir zu teuer.“ Was machen Sie?","Пациент пишет: «Это для меня слишком дорого». Что вы делаете?",
+"Zuerst frage ich, womit er vergleicht und was ihm am wichtigsten ist. Dann erkläre ich, was im Paket enthalten ist, zum Beispiel die Behandlung, der Transfer, das Hotel und die Betreuung. Oft ist nicht der Preis das Problem, sondern die Unsicherheit. Wenn der Patient Vertrauen hat, entscheidet er sich leichter. Über einen Rabatt spreche ich natürlich nur nach Absprache mit der Klinik.",
+"Сначала я спрашиваю, с чем он сравнивает и что для него важнее всего. Потом объясняю, что входит в пакет, например лечение, трансфер, отель и сопровождение. Часто проблема не в цене, а в неуверенности. Когда у пациента есть доверие, ему легче решиться. О скидке я, конечно, говорю только по согласованию с клиникой."],
+["Ein Patient antwortet nicht mehr. Was tun Sie?","Пациент перестал отвечать. Что вы делаете?",
+"Nach zwei, drei Tagen schreibe ich ihm freundlich noch einmal – per WhatsApp oder E-Mail, je nachdem, was er bevorzugt. Ich schicke nützliche Informationen, zum Beispiel Bewertungen anderer Patienten. Ich setze niemanden unter Druck. Wenn er noch nicht bereit ist, melde ich mich später noch einmal.",
+"Через два-три дня я дружелюбно пишу ему ещё раз — в WhatsApp или по e-mail, как ему удобнее. Отправляю полезную информацию, например отзывы других пациентов. Я никого не давлю. Если он ещё не готов, я свяжусь с ним позже."],
+["Ein Patient ist nach der Behandlung unzufrieden und beschwert sich. Wie reagieren Sie?","Пациент после лечения недоволен и жалуется. Как вы реагируете?",
+"Zuerst höre ich ruhig zu und zeige Verständnis. Dann kläre ich mit dem Arzt, was medizinisch normal ist und was nicht, und gebe dem Patienten schnell eine klare Antwort. Gerade bei ästhetischen Behandlungen sind Patienten oft sehr emotional, deshalb ist Empathie das Wichtigste. Aus dem Hotel weiß ich: Ein gut gelöstes Problem macht aus einem unzufriedenen Gast oft einen treuen Kunden.",
+"Сначала я спокойно выслушиваю и проявляю понимание. Потом выясняю у врача, что с медицинской точки зрения нормально, а что нет, и быстро даю пациенту чёткий ответ. Особенно при эстетических процедурах пациенты часто очень эмоциональны, поэтому главное — эмпатия. По опыту в отеле я знаю: хорошо решённая проблема часто превращает недовольного гостя в постоянного клиента."],
+["Haben Sie mit einem CRM-System gearbeitet?","Вы работали с CRM-системой?",
+"Ja, mit HubSpot, Bitrix24 und amoCRM. Ich trage jeden Kontakt ein, notiere den Stand und plane den nächsten Schritt. So geht kein Patient verloren. Außerdem nutze ich jeden Tag KI-Tools wie ChatGPT und Claude, zum Beispiel für Übersetzungen und Textentwürfe.",
+"Да, с HubSpot, Bitrix24 и amoCRM. Я вношу каждый контакт, отмечаю статус и планирую следующий шаг. Так ни один пациент не теряется. Кроме того, я каждый день пользуюсь ИИ-инструментами, такими как ChatGPT и Claude, например для переводов и черновиков текстов."]
+]},
+{t:"🎯 Мотивация и условия",items:[
+["Warum möchten Sie bei uns arbeiten?","Почему вы хотите работать у нас?",
+"Im Medizintourismus kann ich meine Sprachen, meine Erfahrung im Vertrieb und meine Arbeit mit Patienten verbinden. Ihre Klinik betreut Patienten aus vielen Ländern und legt großen Wert auf Qualität und Service – das passt zu mir. Ich möchte langfristig in diesem Bereich bleiben und mit dem Team wachsen.",
+"В медицинском туризме я могу объединить свои языки, опыт продаж и работу с пациентами. Ваша клиника работает с пациентами из многих стран и большое значение придаёт качеству и сервису — это мне близко. Я хочу надолго остаться в этой сфере и расти вместе с командой."],
+["Wo sehen Sie sich in fünf Jahren?","Где вы видите себя через пять лет?",
+"Ich sehe mich weiter im Medizintourismus, mit mehr Verantwortung – vielleicht als Teamleiterin für einen Markt, zum Beispiel den deutschsprachigen. Ich habe schon Teams geleitet und würde diese Erfahrung gern wieder einsetzen.",
+"Я вижу себя по-прежнему в медицинском туризме, с большей ответственностью — возможно, как руководитель команды по какому-то рынку, например немецкоязычному. Я уже руководила командами и с удовольствием снова применила бы этот опыт."],
+["Was sind Ihre Gehaltsvorstellungen?","Каковы ваши ожидания по зарплате?",
+"Ich orientiere mich am Marktniveau für diese Position. Wichtig sind mir auch das Bonussystem und die Möglichkeiten, mich weiterzuentwickeln. Welchen Rahmen haben Sie für diese Stelle vorgesehen?",
+"Я ориентируюсь на рыночный уровень для этой должности. Для меня также важны система бонусов и возможности развития. Какую вилку вы предусмотрели для этой позиции?"],
+["Möchten Sie remote arbeiten oder im Büro?","Вы хотите работать удалённо или в офисе?",
+"Ich lebe in Antalya und arbeite gern remote. Wenn es nötig ist, komme ich auch zu Schulungen oder Meetings ins Büro.",
+"Я живу в Анталье и с удовольствием работаю удалённо. Если нужно, я приеду в офис на обучение или встречи."],
+["Wann können Sie anfangen?","Когда вы можете приступить?",
+"Ich kann sofort anfangen.","Я могу начать сразу."]
+]},
+{t:"❓ Мои вопросы и прощание",items:[
+["Haben Sie noch Fragen an uns?","У вас есть к нам вопросы?",
+"Ja, gern. Wie sieht ein typischer Arbeitstag in dieser Position aus? Aus welchen Ländern kommen die meisten Ihrer Patienten? Und wie läuft die Einarbeitung am Anfang?",
+"Да, с удовольствием. Как выглядит обычный рабочий день на этой позиции? Из каких стран приезжает больше всего ваших пациентов? И как проходит адаптация и обучение в начале?"],
+["Vielen Dank, Frau Botina. Wir melden uns bis Ende der Woche.","Большое спасибо, госпожа Ботина. Мы свяжемся с вами до конца недели.",
+"Ich danke Ihnen für das angenehme Gespräch und für Ihre Zeit. Ich freue mich auf Ihre Rückmeldung. Auf Wiedersehen!",
+"Благодарю вас за приятную беседу и уделённое время. Буду ждать вашего ответа. До свидания!"]
+]}
+];
+const VOCAB=[
+["der Medizintourismus","медицинский туризм"],["die Behandlung / der Behandlungsplan","лечение / план лечения"],
+["Patienten begleiten / betreuen","сопровождать / вести пациентов"],["nachfassen / das Follow-up","повторно связаться / follow-up"],
+["Vertrauen aufbauen","выстраивать доверие"],["ohne Druck","без давления"],
+["Personal abbauen – die Stelle wurde gestrichen","сокращать персонал — должность сократили"],["eine Referenz geben","дать рекомендацию"],
+["für … zuständig sein","отвечать за …"],["Preise und Bedingungen verhandeln","обсуждать цены и условия"],
+["Kunden gewinnen","привлекать клиентов"],["Beschwerden lösen","решать жалобы"],
+["Ich bin mir nicht sicher.","Я не уверена."],["nach Absprache mit …","по согласованию с …"],
+["die Einarbeitung","введение в должность, обучение"],["Gehaltsvorstellungen","ожидания по зарплате"],
+["Ich kann sofort anfangen.","Я могу начать сразу."],["Ich freue mich auf Ihre Rückmeldung.","Жду вашего ответа."]
+];
+let sound=true,auto=false,train=false,slow=false,cur=-1,lines=[],voices=[];
+function loadV(){const v=speechSynthesis.getVoices().filter(x=>x.lang&&x.lang.toLowerCase().startsWith('de'));voices=v;}
+speechSynthesis.onvoiceschanged=loadV;loadV();
+const dlg=document.getElementById('dlg'),nav=document.getElementById('nav');
+SECTIONS.forEach((s,si)=>{const h=document.createElement('div');h.className='sec';h.id='s'+si;h.textContent=s.t;dlg.appendChild(h);
+ const o=document.createElement('option');o.value=si;o.textContent=s.t;nav.appendChild(o);
+ s.items.forEach(it=>{[[it[0],it[1],0],[it[2],it[3],1]].forEach(([de,ru,me])=>{
+  const r=document.createElement('div');r.className='row'+(me?' me':'');const b=document.createElement('div');b.className='b';
+  b.innerHTML=`<div class="who">${me?'Ich':'Arbeitgeber'}</div><div class="txt"></div>${me?'<button class="reveal">👁 Показать ответ</button>':''}<div class="tools"><button class="p">🔊</button><button class="t">🌐</button></div><div class="ru"></div>`;
+  b.querySelector('.txt').textContent=de;b.querySelector('.ru').textContent=ru;r.appendChild(b);dlg.appendChild(r);
+  const idx=lines.length;lines.push({b,de,me,row:r});
+  b.querySelector('.p').onclick=()=>{auto=false;upd();play(idx)};
+  b.querySelector('.t').onclick=()=>b.querySelector('.ru').classList.toggle('show');
+  if(me)b.querySelector('.reveal').onclick=()=>{r.classList.remove('hid');play(idx)};
+ });});});
+const vd=document.getElementById('vocab');VOCAB.forEach(([d,r])=>{const e=document.createElement('div');e.className='v';e.innerHTML='<span><button>🔊</button> </span><span></span>';e.children[0].append(d);e.children[1].textContent=r;e.querySelector('button').onclick=()=>say(d);vd.appendChild(e);});
+nav.onchange=()=>document.getElementById('s'+nav.value).scrollIntoView({behavior:'smooth',block:'start'});
+function say(t,me,done){speechSynthesis.cancel();if(!sound){done&&setTimeout(done,600);return}
+ const u=new SpeechSynthesisUtterance(t);u.lang='de-DE';u.rate=slow?0.75:0.95;
+ if(voices.length){u.voice=voices[me&&voices.length>1?1:0]}u.onend=()=>done&&done();speechSynthesis.speak(u);}
+function play(i){if(i<0||i>=lines.length)return;cur=i;lines.forEach(l=>l.b.classList.remove('playing'));const L=lines[i];
+ L.b.classList.add('playing');L.b.scrollIntoView({behavior:'smooth',block:'center'});
+ if(train&&L.me&&L.row.classList.contains('hid')){auto=false;upd();return}
+ say(L.de,L.me,()=>{L.b.classList.remove('playing');if(auto)play(i+1)});}
+function upd(){bA.classList.toggle('on',auto);bA.textContent=auto?'⏸ Авто':'▶ Авто'}
+const bA=document.getElementById('bAuto');
+bA.onclick=()=>{auto=!auto;upd();if(auto)play(cur<0?0:cur);else speechSynthesis.cancel()};
+document.getElementById('bSound').onclick=e=>{sound=!sound;e.target.classList.toggle('on',sound);e.target.textContent=sound?'🔊 Звук':'🔇 Звук';if(!sound)speechSynthesis.cancel()};
+document.getElementById('bSlow').onclick=e=>{slow=!slow;e.target.classList.toggle('on',slow)};
+document.getElementById('bTrain').onclick=e=>{train=!train;e.target.classList.toggle('on',train);lines.forEach(l=>{if(l.me)l.row.classList.toggle('hid',train)})};
+document.getElementById('pPrev').onclick=()=>{auto=false;upd();play(Math.max(0,cur-1))};
+document.getElementById('pNext').onclick=()=>{auto=false;upd();play(cur+1)};
+document.getElementById('pPlay').onclick=()=>{if(speechSynthesis.speaking){speechSynthesis.cancel()}else play(cur<0?0:cur)};
+</script></body></html>
