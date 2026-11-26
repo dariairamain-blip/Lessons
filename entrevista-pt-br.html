@@ -1,0 +1,316 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Entrevista de emprego · Português 🇧🇷</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f6f3ef;color:#2a2a33}
+header{position:sticky;top:0;z-index:5;background:#2a2f45;color:#fff;padding:10px 12px 8px}
+h1{font-size:17px;margin:0 0 6px}.sub{font-size:12px;opacity:.8;margin-bottom:8px}
+.ctl{display:flex;flex-wrap:wrap;gap:6px}.ctl button,.ctl select{border:0;border-radius:18px;padding:7px 11px;font-size:13px;background:#ffffff22;color:#fff}
+.ctl button.on{background:#e0a458;color:#222}.ctl select{background:#fff;color:#222;max-width:100%}
+main{padding:12px;max-width:720px;margin:0 auto 90px}
+.sec{scroll-margin-top:230px;font-weight:700;font-size:16px;margin:18px 0 8px}
+.row{display:flex;margin:8px 0}.row.me{justify-content:flex-end}
+.b{max-width:88%;padding:10px 12px;border-radius:14px;background:#fff;box-shadow:0 1px 2px #0001;font-size:15.5px;line-height:1.45}
+.me .b{background:#e6efe9}.who{font-size:11px;font-weight:700;color:#8a6d3b;margin-bottom:3px}.me .who{color:#2f7a5a}
+.b.playing{outline:2px solid #e0a458}
+.tools{margin-top:6px;display:flex;gap:6px}.tools button{border:1px solid #ccc;background:#fff;border-radius:14px;padding:3px 9px;font-size:13px}
+.ru{display:none;margin-top:6px;font-size:13.5px;color:#555;border-top:1px dashed #ccc;padding-top:6px}.ru.show{display:block}
+.hid .txt{display:none}.reveal{display:none;border:0;background:#2f7a5a;color:#fff;border-radius:14px;padding:6px 12px;font-size:13px}.hid .reveal{display:inline-block}
+.hint{font-size:12.5px;color:#666;font-style:italic}
+details{background:#fff;border-radius:12px;padding:10px 12px;margin-bottom:10px}summary{font-weight:700}
+.v{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid #eee;font-size:14px}.v span:last-child{color:#666;text-align:right}
+.v button{border:0;background:none;font-size:15px}
+.player{position:fixed;bottom:0;left:0;right:0;background:#2a2f45;display:flex;justify-content:center;gap:14px;padding:8px}
+.player button{border:0;background:#ffffff22;color:#fff;font-size:18px;border-radius:20px;width:46px;height:38px}
+
+.w{cursor:pointer;border-radius:3px}.w.sel{background:#f3d9a8}
+.tip{display:none;position:fixed;z-index:20;max-width:260px;background:#2a2f45;color:#fff;padding:8px 10px;border-radius:10px;font-size:14px;box-shadow:0 4px 12px #0004}
+.tip button{border:0;background:#ffffff22;color:#fff;border-radius:10px;padding:1px 6px;margin-left:4px}.tip div{margin-top:3px;color:#f3d9a8}
+
+.sbox{margin-top:8px}.sbox input{width:100%;border:0;border-radius:18px;padding:9px 14px;font-size:16px}
+#res{display:none;max-height:55vh;overflow:auto;background:#fff;color:#222;border-radius:12px;margin-top:6px;padding:4px 10px}
+#res .h{font-size:12px;font-weight:700;color:#8a6d3b;margin:8px 0 2px}
+#res .r{padding:7px 0;border-bottom:1px solid #eee;font-size:14px;cursor:pointer}#res .r small{display:block;color:#777}
+#res .r button{border:0;background:none;font-size:15px}#res .none{padding:10px 0;color:#777;font-size:14px}
+mark{background:#f3d9a8;border-radius:3px;padding:0 1px}.flash{animation:fl 2s}@keyframes fl{0%,60%{background:#f3d9a8}}
+
+#gate{position:fixed;inset:0;z-index:50;background:#f6f3ef;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+#gate h2{font-size:20px;margin:0 0 6px}#gate p{font-size:14px;color:#555;margin:0 0 14px}
+#gate input{font-size:17px;padding:10px 14px;border-radius:12px;border:1px solid #bbb;width:100%;max-width:280px}
+#gate button{margin-top:10px;font-size:16px;padding:10px 22px;border:0;border-radius:20px;background:#2a2f45;color:#fff}
+#gate .err{color:#c0392b;font-size:14px;min-height:20px;margin-top:8px}#gate .own{position:absolute;bottom:14px;font-size:12px;color:#888}
+.tip{padding-right:30px!important}.tip .x{position:absolute;top:4px;right:6px;background:none;border:0;color:#fff;font-size:14px}
+@media (prefers-color-scheme:dark){
+body{background:#15171f;color:#e8e8ee}.b{background:#242838;box-shadow:none}.me .b{background:#1f3a30}
+.who{color:#e0b066}.me .who{color:#7fd3a8}.ru{color:#b8bcc8;border-color:#444}.hint{color:#aab}
+details{background:#242838;color:#e8e8ee}.v{border-color:#333}.v span:last-child{color:#b8bcc8}
+.tools button{background:#2e3346;color:#e8e8ee;border-color:#555}
+#res{background:#242838;color:#e8e8ee}#res .r{border-color:#333}#res .r small{color:#aab}
+.sbox input{background:#2e3346;color:#fff}mark{background:#8a6d2a;color:#fff}
+#gate{background:#15171f}#gate p{color:#aab}#gate input{background:#242838;color:#fff;border-color:#555}
+.ctl select{background:#2e3346;color:#fff}
+}
+footer{text-align:center;font-size:12px;color:#888;margin:20px 0}
+.row.cont{margin-top:-3px}.hidx{display:none!important}body.fullv .vsrow,body:not(.fullv) .vfrow{display:none!important}
+</style></head><body>
+<div id="gate"><h2>🇧🇷 Entrevista de emprego</h2><p>Введите, пожалуйста, ваш код</p>
+<input id="code" type="text" autocomplete="off" autocapitalize="off" placeholder="Код"><button id="go">Войти</button><div class="err" id="err"></div>
+<div class="own">© Daria Botina</div></div>
+<header><h1>🇧🇷 Entrevista de emprego · Português</h1>
+<div class="sub">Собеседование на португальском: рекрутер спрашивает — вы отвечаете о себе</div>
+<div class="ctl"><select id="nav"></select>
+<button id="bSound" class="on">🔊 Звук</button><button id="bAuto">▶ Авто</button>
+<button id="bTrain">🎤 Тренировка</button><button id="bSlow">🐢 Медленно</button></div>
+<div class="sbox"><input id="q" type="search" placeholder="🔍 Поиск по-португальски или по-русски" autocomplete="off"><div id="res"></div></div></header>
+<main>
+<details><summary>📌 Ключевые фразы (повторить до и после)</summary><div id="vocab"></div></details>
+<p class="hint">👆 Нажмите на любое слово — появится перевод. 🌐 — перевод всей фразы.<br>🎤 Режим «Тренировка»: ваши ответы скрыты. Послушайте вопрос, ответьте вслух сами, потом нажмите «Показать ответ» и сравните.</p>
+<div id="dlg"></div></main>
+<div class="player"><button id="pPrev">⏮</button><button id="pPlay">⏯</button><button id="pNext">⏭</button></div>
+<script>
+const DICT={"a": "(артикль ж. р.); к, в", "aberta": "открыта", "abertamente": "открыто", "abri": "я открыла", "academia": "спортзал", "acho": "думаю", "acidente": "несчастный случай", "acompanhamento": "сопровождение, повторный контакт", "acompanhar": "сопровождать", "acompanhava": "сопровождала", "adapto": "(me adapto) привыкаю", "adolescentes": "подростки", "adoro": "обожаю", "adultos": "взрослые", "agora": "сейчас", "agradece": "благодарит", "agradeço": "благодарю", "agradável": "приятный", "aguardo": "ожидание (fico no aguardo — жду)", "ainda": "ещё, пока", "ajuda": "помощь; помогает", "ajudar": "помогать", "ajudo": "помогаю", "alemão": "немецкий", "algum": "какой-нибудь", "alguma": "какая-нибудь", "altai": "Алтай", "alugar": "снимать (жильё)", "aluguéis": "арендная плата", "alunos": "ученики", "além": "кроме (além disso — кроме того)", "amocrm": "amoCRM", "américa": "Америка", "anos": "лет, годы", "anoto": "записываю", "antes": "раньше, до", "antália": "Анталья", "ao": "к, в (a + o)", "aos": "к, у (a + os)", "apartamento": "квартира", "aprendendo": "изучая, учу (estou aprendendo)", "aprender": "учить, учиться", "aprendi": "научилась, узнала", "aprendo": "учу, учусь", "aqui": "здесь", "artificial": "искусственный", "as": "(артикль ж. р. мн. ч.)", "assim": "так, таким образом", "atende": "обслуживает, принимает", "atendem": "обслуживаете, принимаете", "atender": "обслуживать, вести", "atendia": "обслуживала", "atendimento": "обслуживание, сервис", "ativos": "активные", "até": "до; даже", "aulas": "уроки", "autorização": "разрешение", "avaliações": "отзывы", "b1": "уровень B1", "b2": "уровень B2", "barnaul": "Барнаул", "baseio": "(me baseio) ориентируюсь", "bastante": "довольно много", "beach": "пляжный (beach club)", "bem": "хорошо", "bitrix24": "Bitrix24", "boa": "хорошая (boa tarde — добрый день)", "bom": "хороший", "botina": "Ботина", "brasil": "Бразилия", "bruto": "до вычета налогов, брутто", "básicos": "базовые", "bônus": "бонусы", "c1": "уровень C1", "c2": "уровень C2", "cada": "каждый", "calma": "спокойная; спокойствие", "cargo": "должность", "caro": "дорогой", "caros": "дорогие", "carta": "письмо", "casa": "дом", "casada": "замужем", "caso": "случай (em caso de — в случае)", "cazaquistão": "Казахстан", "celular": "мобильный телефон", "cem": "сто", "certeza": "уверенность (ter certeza — быть уверенной)", "certificado": "сертификат", "chatgpt": "ChatGPT", "chefiava": "руководила", "cinco": "пять", "ciência": "наука", "clara": "ясная, чёткая", "claras": "ясные, чёткие", "claro": "конечно; ясно", "claude": "Claude", "cliente": "клиент", "clientes": "клиенты", "club": "клуб", "clínica": "клиника", "coisa": "вещь, дело", "coisas": "вещи", "colaboração": "сотрудничество", "colegas": "коллеги", "com": "с", "combina": "подходит (combina comigo — мне подходит)", "comecei": "начала", "cometo": "совершаю (cometo erros — делаю ошибки)", "começando": "начиная", "começar": "начать", "começava": "начинала", "começo": "начало", "comigo": "со мной", "como": "как", "comparando": "сравнивая", "compartilho": "делюсь", "completos": "полные", "complicadas": "сложные", "compreensão": "понимание", "concentrar": "(me concentrar) сосредоточиться", "concentro": "(me concentro) концентрируюсь", "condições": "условия", "confia": "доверяет", "confiança": "доверие", "conhecia": "знала", "conhecimentos": "знания", "conquistar": "привлекать, завоёвывать", "conquistei": "привлекла", "consulta": "консультация", "contato": "контакт", "contatos": "контакты", "conseguimos": "мы получили, нам удалось", "continuei": "продолжила", "contratos": "договоры", "conversa": "разговор", "conversar": "поговорить, обсудить", "convite": "приглашение", "coordenadores": "координаторы", "cortado": "сокращён", "costumam": "обычно (бывают)", "crescer": "расти", "crescimento": "рост", "criar": "создавать", "crio": "создаю", "crm": "CRM", "cuidava": "заботилась, отвечала за", "curiosidade": "любопытство", "custa": "стоит", "customer": "клиентский (Customer Success)", "da": "(de + a)", "dados": "данные", "dando": "давая (dando aulas — преподавая)", "daqui": "отсюда (daqui a — через)", "daria": "Дарья", "das": "(de + as)", "dava": "давала (dava aulas — преподавала)", "de": "из, от, о; (родительный)", "decidir": "решить", "decidiu": "решила", "decisão": "решение", "defino": "определяю", "deles": "их", "demais": "слишком много", "dentista": "стоматолог", "departamento": "отдел", "depois": "потом, после", "desconto": "скидка", "desde": "с (времени)", "desempenho": "результаты работы", "desenvolver": "развивать", "desenvolvimento": "развитие", "deskalerts": "DeskAlerts", "deu": "дала", "deveríamos": "должны были бы", "dezenove": "девятнадцать", "dia": "день", "dias": "дни", "diferentes": "разные", "diretora": "директор (ж.)", "disposta": "готова", "disso": "этого (de + isso)", "distinção": "отличие (com distinção — с отличием)", "distribuidores": "дистрибьюторы", "divorciada": "разведена", "do": "(de + o)", "dois": "два", "dos": "(de + os)", "dou": "даю", "dá": "даёт", "dão": "даёте (dar importância — придавать значение)", "e": "и", "e-mail": "e-mail", "econômicos": "экономические", "ela": "она", "ele": "он", "eles": "они", "em": "в, на", "emocionados": "взволнованные, эмоциональные", "empatia": "эмпатия", "empresa": "компания", "energia": "энергия", "entendo": "понимаю", "entrar": "войти (entrar em contato — связаться)", "entre": "между", "entrevista": "собеседование", "entro": "вхожу (entro em contato — связываюсь)", "então": "поэтому, тогда", "equipe": "команда, штат", "equipes": "команды", "era": "была", "eram": "были", "erros": "ошибки", "escola": "школа", "escolher": "выбрать", "escreve": "пишет", "escreveu": "написал", "escrevo": "пишу", "escrito": "письменный (por escrito — письменно)", "escritório": "офис", "escuto": "слушаю", "espanha": "Испания", "espanhol": "испанский", "espera": "ожидает", "espero": "ожидаю", "esporte": "спорт", "essa": "эта", "esse": "этот", "esses": "эти", "esta": "эта", "estadual": "государственный", "estaria": "была бы", "estava": "была", "estou": "я (сейчас) есть; нахожусь", "estrangeiros": "иностранные", "estresse": "стресс", "estuda": "учится", "estudei": "изучала, училась", "estudo": "изучаю", "estudos": "исследования (Estudos Regionais — регионоведение)", "estudou": "изучали", "está": "есть, находится; как (como está)", "estéticos": "эстетические", "eu": "я", "executive": "Executive (Patient Executive)", "exemplo": "пример (por exemplo — например)", "experiência": "опыт", "explica": "объясняете", "explicar": "объяснять", "explicava": "объясняла", "explico": "объясняю", "exportação": "экспорт", "exterior": "заграница (do exterior — из-за рубежа)", "faixa": "диапазон, вилка", "fala": "говорите", "falados": "разговорные", "falar": "говорить", "falava": "говорила", "fale": "расскажите, говорите", "falo": "говорю", "favor": "одолжение (por favor — пожалуйста)", "faz": "делаете", "fazer": "делать", "fazia": "делала", "faço": "делаю", "fechei": "заключила", "feiras": "выставки", "feito": "сделано", "feliz": "счастлива, рада", "ferramentas": "инструменты", "fez": "делали", "fica": "становится; остаётся", "ficar": "оставаться", "fico": "остаюсь; становлюсь", "ficou": "остались; стало", "fidelização": "удержание (клиентов)", "fiel": "постоянный, верный", "filha": "дочь", "filhos": "дети", "fim": "конец", "final": "конец", "fixo": "фиксированный", "fiz": "сделала", "fluentes": "беглые", "foi": "был(а)", "for": "будет (se for — если будет)", "forma": "форма, способ (de forma remota — удалённо)", "formei": "(me formei) окончила (вуз)", "fortes": "сильные", "fotos": "фото", "fraco": "слабый", "fracos": "слабые (pontos fracos — слабые стороны)", "francês": "французский", "fui": "была; ездила", "funciona": "работает", "funcionárias": "сотрудницы", "função": "должность, роль", "fusos": "пояса (fusos horários — часовые пояса)", "fábrica": "завод", "fácil": "легко", "gente": "люди (a gente — мы, нас)", "gosta": "любите, нравится", "gostaria": "хотела бы", "gosto": "люблю, нравится", "hora": "час (na hora — сразу)", "horários": "часовые (fusos horários)", "hotel": "отель", "houver": "будет (se houver — если будет)", "hubspot": "HubSpot", "há": "есть; (há seis anos — уже шесть лет)", "hóspede": "гость", "hóspedes": "гости", "idiomas": "языки", "imediatamente": "сразу, немедленно", "importante": "важный", "importantes": "важные", "importância": "значение", "incluído": "включено", "informações": "информация", "inglês": "английский", "iniciativa": "инициатива", "insatisfeito": "недоволен", "insegurança": "неуверенность", "inseguros": "неуверенные", "inteligência": "интеллект", "interativas": "интерактивные", "interesso": "(me interesso) интересуюсь", "internacionais": "международные", "isso": "это", "istambul": "Стамбул", "istanbul": "Istanbul (название)", "jeito": "способ, манера", "já": "уже", "kemer": "Кемер", "latina": "Латинская (América Latina)", "ler": "читать", "leva": "занимает (время)", "levo": "(levo a sério) отношусь серьёзно", "lida": "справляетесь (lidar com — справляться с)", "liderei": "руководила", "liras": "лиры", "lista": "список", "livre": "свободный", "logo": "скоро (até logo — до свидания)", "lugar": "место", "lá": "там", "líder": "руководитель", "língua": "язык", "líquidas": "чистыми (о зарплате)", "líquido": "чистыми, нетто", "maior": "самый большой", "maioria": "большинство", "mais": "больше, ещё", "mando": "отправляю", "mas": "но", "materna": "родной (língua materna)", "me": "меня, мне, себя", "medo": "страх (estar com medo — бояться)", "meio": "половина (meio período — неполный день)", "melhor": "лучше", "melhores": "лучшие", "menos": "меньше (mais ou menos — примерно)", "mercado": "рынок", "mercados": "рынки", "meses": "месяцы", "mesmo": "тот же (ao mesmo tempo — одновременно)", "metas": "цели", "meu": "мой", "meus": "мои", "mil": "тысяча", "mim": "меня, мне (para mim — для меня)", "minha": "моя", "minhas": "мои", "mora": "живёт; живёте", "moradia": "жильё", "morei": "жила", "moro": "живу", "mostro": "показываю", "motiva": "мотивирует", "motivo": "причина", "motivos": "причины", "mudar": "(se mudar) переехать", "mudei": "(me mudei) переехала", "muita": "много", "muitas": "многие (muitas vezes — часто)", "muito": "очень; много", "muitos": "многие", "médicas": "медицинские", "médico": "врач; медицинский", "médicos": "врачи; медицинские", "mês": "месяц", "na": "в (em + a)", "nada": "ничего", "nasci": "родилась", "necessário": "необходимо", "negociar": "договариваться, обсуждать", "negociei": "обсуждала (условия)", "negócios": "бизнес", "nenhum": "ни один", "nessa": "в этой", "nesses": "в эти", "ninguém": "никто, никого", "no": "в (em + o)", "nome": "имя", "normal": "обычный", "nos": "в (em + os)", "nossa": "наша", "novo": "новый", "novos": "новые", "novosibirsk": "Новосибирск", "nunca": "никогда", "não": "не, нет", "nível": "уровень", "o": "(артикль м. р.); его", "objetivo": "цель", "obrigada": "спасибо (говорит женщина)", "odontológica": "стоматологическая", "oferecem": "предлагаете", "onde": "где", "online": "онлайн", "oportunidades": "возможности", "organizada": "организованная", "orgulho": "гордость (tenho orgulho — горжусь)", "os": "(артикль м. р. мн. ч.); их", "ou": "или", "outros": "другие", "outubro": "октябрь", "ouvir": "слушать", "paciente": "пациент", "pacientes": "пациенты", "paciência": "терпение", "pacote": "пакет", "pacotes": "пакеты", "palavra": "слово", "palavras": "слова", "para": "для, в, чтобы", "parar": "(ir parar) оказаться", "parceiros": "партнёры", "parecida": "похожая", "parou": "перестал", "participei": "участвовала", "passo": "шаг; передаю", "patient": "Patient (Patient Executive)", "pavlodar": "Павлодар", "países": "страны", "pela": "по, через (por + a)", "pelo": "по, через (por + o)", "percebe": "замечает", "percebi": "поняла", "perde": "теряется", "pergunta": "вопрос", "perguntas": "вопросы", "pergunto": "спрашиваю", "período": "период (meio período — неполный день)", "pesquisei": "изучила, поискала", "pessoas": "люди", "peço": "прошу", "pilates": "пилатес", "planejo": "планирую", "plano": "план", "planos": "планы", "plastik": "Plastik (название)", "pode": "может; можете", "podemos": "можем", "poder": "мочь", "ponto": "пункт, сторона", "pontos": "стороны (pontos fortes — сильные стороны)", "por": "по, за, через; почему (por que)", "porque": "потому что", "portugal": "Португалия", "português": "португальский", "posso": "могу", "pouco": "немного; мало", "pratico": "практикую, занимаюсь", "precisa": "нужно", "preciso": "мне нужно", "prefere": "предпочитаете", "preferir": "предпочитать", "prefiro": "предпочитаю", "preocupar": "(se preocupar) беспокоиться", "pressiono": "давлю (на кого-то)", "pressão": "давление", "pretensão": "ожидание, притязание (pretensão salarial)", "preveem": "предусматриваете", "preço": "цена", "preços": "цены", "primeiro": "во-первых; сначала", "prioridades": "приоритеты", "problema": "проблема", "processos": "процессы", "procurar": "искать", "produtos": "товары", "profissional": "профессиональный", "programas": "программы", "projeto": "проект", "projetos": "проекты", "pronta": "готова", "pronto": "готов", "própria": "собственная", "próprias": "собственные", "próxima": "следующая", "próximo": "следующий", "python": "Python", "quais": "какие", "qual": "какой", "qualidade": "качество", "quando": "когда", "quantas": "сколько (раз)", "quanto": "сколько", "quantos": "сколько", "quase": "почти", "que": "что; который", "quer": "хотите", "quero": "хочу", "rascunhos": "черновики", "reage": "реагируете", "recebi": "принимала", "reclama": "жалуется", "reclamações": "жалобы", "recomendação": "рекомендация", "reduziu": "сократила", "reformer": "реформер (тренажёр)", "regionais": "региональные", "registro": "вношу, регистрирую", "região": "регион, край", "regularmente": "регулярно", "reino": "королевство (Reino Unido — Великобритания)", "relacionamento": "отношения (relacionamento com hóspedes — работа с гостями)", "remota": "удалённая", "remoto": "удалённо", "resolver": "решать", "resolvia": "решала", "resolvido": "решённая", "responder": "отвечать", "respondia": "отвечала", "responsabilidade": "ответственность", "responsável": "ответственная", "resposta": "ответ", "resto": "остальное", "resultados": "результаты", "retorno": "ответ, обратная связь", "reuniões": "встречи", "rotina": "распорядок, рутина", "russo": "русский", "rápida": "быстрая", "rápido": "быстро", "rússia": "Россия", "sabe": "знаете", "sai": "уходит", "saiu": "ушли", "salarial": "зарплатный", "salário": "зарплата", "satisfação": "удовлетворённость", "satisfeitas": "довольные", "satisfeito": "доволен", "se": "если; себя (-ся)", "segundo": "во-вторых", "seguradoras": "страховые компании", "segurança": "уверенность (com segurança — уверенно)", "seguro": "уверенный", "sei": "знаю, умею", "seis": "шесть", "sem": "без", "semana": "неделя", "sempre": "всегда", "sentem": "чувствуют", "sentisse": "чувствовал (бы)", "ser": "быть", "sera": "Sera (название)", "seu": "ваш, его", "seus": "ваши", "sim": "да", "simpatia": "доброжелательность", "simples": "простой", "sistema": "система", "site": "сайт", "situação": "ситуация, статус", "sobre": "о, про", "sorrindo": "улыбаясь", "sou": "я есть, являюсь", "sua": "ваша", "suas": "ваши", "success": "Success (Customer Success)", "sucesso": "успех", "superei": "превзошла, перевыполнила", "são": "являются", "sério": "серьёзно (levar a sério)", "só": "только", "talvez": "возможно", "também": "тоже, также", "tanta": "такое (много)", "tanto": "так много", "tarde": "день, вечер; поздно", "tarefas": "задачи", "te": "тебя, вас", "telefone": "телефон", "tem": "есть; у вас есть", "temas": "темы", "tempo": "время", "temporada": "сезон", "tempos": "времена (nos últimos tempos — в последнее время)", "tenho": "у меня есть", "terceiro": "в-третьих", "teria": "пришлось бы (teria que)", "termino": "заканчиваю", "termos": "термины", "teve": "было (não teve nada a ver — не имело отношения)", "textos": "тексты", "ti": "ИТ (TI — informática)", "tinha": "было (у меня)", "tirar": "делать (tirar fotos — фотографировать)", "tivemos": "у нас было, мы получили", "todos": "все (todos os dias — каждый день)", "tomasse": "принял (бы)", "totalmente": "полностью", "trabalha": "работаете", "trabalhando": "работая", "trabalhar": "работать", "trabalhei": "работала", "trabalho": "работа; работаю", "trabalhou": "работали", "tradutora": "переводчица", "tradução": "перевод", "traduções": "переводы", "transfer": "трансфер", "transforma": "превращает", "transformar": "превращать", "tratamento": "лечение", "tratamentos": "процедуры, лечение", "treinamento": "обучение", "treinamentos": "обучения, тренинги", "treino": "тренировка", "três": "три", "tudo": "всё", "turco": "турецкий", "turismo": "туризм", "turquia": "Турция", "tão": "так, настолько", "técnica": "техническая", "têm": "есть, имеют", "um": "один; (неопр. артикль)", "uma": "одна; (неопр. артикль)", "une": "объединяет", "unido": "объединённое (Reino Unido)", "unir": "объединять", "universidade": "университет", "uno": "объединяю", "urgente": "срочное", "usar": "использовать", "uso": "использую", "vaga": "вакансия", "vai": "будет (vai ser feito — будет сделано)", "valor": "стоимость, значение", "valoriza": "ценит", "vamos": "мы будем (vamos entrar em contato)", "veio": "пришли", "vejo": "вижу", "vem": "приходит; остаётся со мной (vem comigo)", "vendas": "продажи", "vendia": "продавала", "ver": "видеть", "verifico": "проверяю, уточняю", "vez": "раз", "vezes": "раз(а) (muitas vezes — часто)", "vice-presidente": "вице-президент", "vida": "жизнь", "vinha": "приезжал(а)", "vinte": "двадцать", "vir": "приехать", "viraram": "стали, превратились", "viver": "жить", "você": "вы (неформально), ты", "vocês": "вы (мн. ч.)", "vou": "иду; хожу", "várias": "несколько", "vários": "несколько", "vê": "видите", "whatsapp": "WhatsApp", "zero": "ноль (do zero — с нуля)", "à": "к, в (a + a)", "às": "(a + as) иногда (às vezes)", "área": "сфера, область", "é": "есть, является", "ótima": "отличная", "ótimo": "отлично", "ótimos": "отличные", "última": "последнее", "último": "последний", "últimos": "последние", "úteis": "полезные", "útil": "полезный"};
+const SECTIONS=[
+{t:"👋 Знакомство",items:[
+["Boa tarde, Daria! Que bom que você veio. Tudo bem?","Добрый день, Дарья! Хорошо, что вы пришли. Как дела?",
+"Boa tarde! Tudo ótimo, obrigada. Estou muito feliz com o convite para esta entrevista.","Добрый день! Всё отлично, спасибо. Я очень рада приглашению на это собеседование."],
+["Fale um pouco sobre você, por favor.","Расскажите, пожалуйста, немного о себе.",
+"Claro. Meu nome é Daria Botina. Moro na Turquia há seis anos, agora em Antália. Tenho quase vinte anos de experiência em vendas internacionais e atendimento ao cliente. No meu último trabalho, fui Patient Executive em uma clínica odontológica em Antália. Lá eu acompanhava pacientes estrangeiros desde o primeiro contato até a decisão pelo tratamento. Falo seis idiomas e adoro trabalhar com pessoas. É isso que une a minha experiência em vendas e o trabalho com pacientes.",
+"Конечно. Меня зовут Дарья Ботина. Я шесть лет живу в Турции, сейчас в Анталье. У меня почти двадцать лет опыта в международных продажах и работе с клиентами. На последнем месте работы я была Patient Executive в стоматологической клинике в Анталье. Там я сопровождала иностранных пациентов от первого контакта до решения о лечении. Я говорю на шести языках и обожаю работать с людьми. Именно это объединяет мой опыт в продажах и работу с пациентами."],
+["O que você estudou?","Что вы изучали?",
+"Estudei Estudos Regionais na Universidade Técnica Estadual de Altai e me formei com distinção. Também tenho um certificado de tradutora de inglês. Desde 2024 estudo Ciência de Dados online e tenho conhecimentos básicos de Python.",
+"Я изучала регионоведение в Алтайском государственном техническом университете и окончила его с отличием. Ещё у меня есть сертификат переводчика английского языка. С 2024 года я онлайн изучаю науку о данных, у меня базовые знания Python."]
+]},
+{t:"🙂 Простые вопросы о себе (A2–B1)",items:[
+["De onde você é?","Откуда вы?",
+"Eu sou do Cazaquistão. Nasci em Pavlodar.","Я из Казахстана. Я родилась в Павлодаре."],
+["E como você foi parar na Rússia?","А как вы оказались в России?",
+"Depois da escola, me mudei para a Rússia, para a região de Altai. Estudei em Barnaul. Depois da universidade, com vinte e dois anos, fui para Novosibirsk. Lá eu morei e trabalhei por muitos anos.",
+"После школы я переехала в Россию, в Алтайский край. Я училась в Барнауле. После университета, в двадцать два года, я переехала в Новосибирск. Там я много лет жила и работала."],
+["Há quanto tempo você mora na Turquia?","Как долго вы живёте в Турции?",
+"Moro na Turquia há seis anos, agora em Antália. Antália já é a minha casa.",
+"Я живу в Турции шесть лет, сейчас в Анталье. Анталья уже стала моим домом."],
+["Você fala turco no dia a dia?","Вы говорите по-турецки в повседневной жизни?",
+"Sim, claro. Meu turco é nível B2. Falo turco no dia a dia, no mercado, no médico e no trabalho.",
+"Да, конечно. Мой турецкий на уровне B2. Я говорю по-турецки в быту, в магазине, у врача и на работе."],
+["Você é casada? Tem filhos?","Вы замужем? У вас есть дети?",
+"Não, sou divorciada. Tenho uma filha de dezenove anos. Ela estuda e trabalha meio período. Ela também mora em Antália.",
+"Нет, я разведена. У меня есть дочь, ей девятнадцать лет. Она учится и подрабатывает. Она тоже живёт в Анталье."],
+["O que você gosta de fazer no seu tempo livre?","Что вы любите делать в свободное время?",
+"No meu tempo livre, eu adoro aprender idiomas. Agora estou aprendendo português. Também gosto de tirar fotos com o celular. Além disso, crio as minhas próprias aulas interativas online para os meus alunos. E pratico esporte: vou à academia e faço pilates no reformer.",
+"В свободное время я обожаю учить языки. Сейчас я учу португальский. Ещё я люблю фотографировать на телефон. Кроме того, я создаю свои интерактивные онлайн-уроки для своих учеников. И я занимаюсь спортом: хожу в спортзал и занимаюсь пилатесом на реформере."],
+["Por que você faz tanto esporte?","Почему вы так много занимаетесь спортом?",
+"O esporte me dá energia e me ajuda a ficar calma. Depois do treino, eu me concentro melhor.",
+"Спорт даёт мне энергию и помогает оставаться спокойной. После тренировки я лучше концентрируюсь."]
+]},
+{t:"💼 Опыт работы",items:[
+["Quais eram as suas tarefas na clínica odontológica?","Какие были ваши задачи в стоматологической клинике?",
+"Eu fazia planos de tratamento em inglês, russo, alemão, francês e espanhol. A maioria dos pacientes vinha do Reino Unido. Eu respondia às perguntas deles, explicava os planos por telefone em inglês e russo e fazia o acompanhamento regularmente. Meu objetivo era que o paciente se sentisse seguro e tomasse uma boa decisão.",
+"Я составляла планы лечения на английском, русском, немецком, французском и испанском. Большинство пациентов приезжали из Великобритании. Я отвечала на их вопросы, объясняла планы по телефону на английском и русском и регулярно поддерживала с ними связь. Моя цель была, чтобы пациент чувствовал себя уверенно и принял хорошее решение."],
+["Por que você saiu da clínica?","Почему вы ушли из клиники?",
+"A clínica reduziu a equipe por motivos econômicos, e o meu cargo foi cortado. Não teve nada a ver com o meu desempenho. A clínica me deu uma carta de recomendação.",
+"Клиника сократила штат по экономическим причинам, и мою должность убрали. Это никак не связано с моей работой. Клиника дала мне рекомендательное письмо."],
+["Você ficou só cinco meses lá. Não é pouco tempo?","Вы проработали там всего пять месяцев. Не слишком ли это мало?",
+"Sim, é pouco, mas não foi decisão minha. Nesses cinco meses aprendi muito: termos médicos, a rotina de uma clínica e como falar com pacientes inseguros. Agora quero usar essa experiência aqui com vocês.",
+"Да, это мало, но это было не моё решение. За эти пять месяцев я многому научилась: медицинским терминам, распорядку работы клиники и тому, как говорить с неуверенными пациентами. Теперь я хочу применить этот опыт здесь, у вас."],
+["Fale sobre o seu trabalho com exportação.","Расскажите о вашей работе в экспорте.",
+"De 2023 a 2025, trabalhei com vendas de exportação na Istanbul Sera Plastik, em Antália. Eu era responsável pela Rússia e pela América Latina. Abri esses mercados do zero, começando pela tradução do site. Conquistei novos clientes e distribuidores por e-mail, telefone e reuniões online, negociei preços e condições e fechei contratos. Participei de feiras internacionais e recebi clientes na fábrica.",
+"С 2023 по 2025 год я работала в экспортных продажах в Istanbul Sera Plastik в Анталье. Я отвечала за Россию и Латинскую Америку. Я открыла эти рынки с нуля, начиная с перевода сайта. Я привлекала новых клиентов и дистрибьюторов через e-mail, телефон и онлайн-встречи, обсуждала цены и условия и заключала договоры. Я участвовала в международных выставках и принимала клиентов на заводе."],
+["Você também trabalhou em um hotel?","Вы также работали в отеле?",
+"Sim, na temporada de 2023, trabalhei com relacionamento com hóspedes em um beach club em Kemer. Eu atendia hóspedes estrangeiros, resolvia reclamações e, em caso de acidente, falava com as seguradoras. Foi uma ótima escola de paciência e atendimento, muito parecida com o turismo médico.",
+"Да, в сезон 2023 года я работала с гостями в бич-клубе в Кемере. Я обслуживала иностранных гостей, решала жалобы и при несчастных случаях общалась со страховыми компаниями. Это была отличная школа терпения и сервиса, очень похожая на медицинский туризм."],
+["O que você fazia antes, na Rússia?","Чем вы занимались раньше, в России?",
+"Na Rússia, eu chefiava o departamento de Customer Success de uma empresa de TI, a DeskAlerts. Cuidava da satisfação e da fidelização dos clientes. Por iniciativa própria, abri as vendas por parceiros na América Latina e na Espanha, porque falo espanhol. Em pouco tempo conseguimos muitos parceiros e clientes ativos, e superei os planos de vendas do meu departamento. Antes disso, fui diretora de desenvolvimento de negócios internacionais e liderei uma equipe de cinco pessoas.",
+"В России я руководила отделом Customer Success в IT-компании DeskAlerts. Я отвечала за удовлетворённость и удержание клиентов. По собственной инициативе я запустила партнёрские продажи в Латинской Америке и Испании, потому что говорю по-испански. За короткое время мы получили много активных партнёров и клиентов, и я перевыполнила планы продаж своего отдела. До этого я была директором по развитию международного бизнеса и руководила командой из пяти человек."],
+["E o que você fez entre 2020 e 2023?","А чем вы занимались с 2020 по 2023 год?",
+"Em 2020 me mudei para a Turquia. Até 2022, continuei trabalhando para a DeskAlerts de forma remota. Ao mesmo tempo, dava aulas de inglês e espanhol para adultos e adolescentes. Dando aulas, aprendi a explicar coisas complicadas de um jeito simples, e isso também é muito importante com os pacientes.",
+"В 2020 году я переехала в Турцию. До 2022 года я продолжала работать на DeskAlerts удалённо. Одновременно я преподавала английский и испанский взрослым и подросткам. Преподавая, я научилась просто объяснять сложные вещи, а это очень важно и с пациентами."]
+]},
+{t:"🗣 Языки",items:[
+["E o seu português? Como está?","А ваш португальский? Как он?",
+"Estou aprendendo português desde outubro de 2026, e acho que já estou mais ou menos no nível B1. Aprendo o português do Brasil e o de Portugal. Ainda cometo erros, mas aprendo rápido e pratico todos os dias.",
+"Я учу португальский с октября 2026 года и думаю, что уже примерно на уровне B1. Я учу бразильский и европейский португальский. Я ещё делаю ошибки, но быстро учусь и практикуюсь каждый день."],
+["Que outros idiomas você fala?","На каких ещё языках вы говорите?",
+"Russo é a minha língua materna. Falo inglês no nível C1 a C2, espanhol C1, alemão e turco B2 e francês B1 a B2. Em alemão, escrevo com segurança, mas para falar às vezes ainda preciso de um pouco mais de tempo.",
+"Русский — мой родной язык. Английский у меня на уровне C1–C2, испанский — C1, немецкий и турецкий — B2, французский — B1–B2. По-немецки я уверенно пишу, но в разговоре мне иногда ещё нужно чуть больше времени."]
+]},
+{t:"💪 Сильные и слабые стороны",items:[
+["Quais são os seus pontos fortes?","Каковы ваши сильные стороны?",
+"Primeiro, sei ouvir e criar confiança. Os pacientes sentem que eu os levo a sério. Segundo, tenho muita experiência em vendas: sei transformar um contato em paciente, sem pressão. Terceiro, sou muito organizada no acompanhamento, nenhum contato se perde. E aprendo muito rápido: novos programas, novos processos, novos termos.",
+"Во-первых, я умею слушать и вызывать доверие. Пациенты чувствуют, что я отношусь к ним серьёзно. Во-вторых, у меня большой опыт продаж: я умею превращать контакт в пациента без давления. В-третьих, я очень организованна в повторных контактах, ни один контакт не теряется. И я очень быстро учусь: новые программы, процессы, термины."],
+["E quais são os seus pontos fracos?","А каковы ваши слабые стороны?",
+"O meu português e o meu alemão falados ainda não são tão fluentes quanto o meu inglês. Por isso, pratico todos os dias. Além disso, não sou dentista. No começo, eu não conhecia todos os termos médicos, então fiz a minha própria lista e pergunto aos médicos quando não tenho certeza. Nunca explico nada a um paciente se não tenho certeza.",
+"Мой разговорный португальский и немецкий пока не такие беглые, как английский. Поэтому я практикуюсь каждый день. Кроме того, я не стоматолог. Вначале я знала не все медицинские термины, поэтому составила свой список и спрашиваю врачей, если не уверена. Я никогда ничего не объясняю пациенту, если не уверена."],
+["Você tem mais algum ponto fraco?","Есть ли у вас ещё какая-то слабая сторона?",
+"Tenho. Eu me interesso por muitas coisas ao mesmo tempo. Por exemplo, muitas vezes aprendo vários idiomas de uma vez, e ainda Ciência de Dados. Antes, às vezes eu começava projetos demais. Nos últimos tempos, aprendi a me concentrar: defino prioridades e termino uma coisa antes de começar a próxima. No trabalho, a minha curiosidade até me ajuda: aprendo temas novos muito rápido.",
+"Да. Меня интересует очень много вещей одновременно. Например, я часто учу несколько языков сразу, плюс ещё науку о данных. Раньше я иногда начинала слишком много проектов. В последнее время я научилась фокусироваться: расставляю приоритеты и довожу одно дело до конца, прежде чем начать следующее. В работе моё любопытство мне даже помогает: я очень быстро осваиваю новые темы."],
+["Como você lida com o estresse?","Как вы справляетесь со стрессом?",
+"Fico calma e faço uma lista de prioridades. Na exportação, muitas vezes eu tinha muitos clientes ao mesmo tempo, em fusos horários diferentes. Aprendi: primeiro o urgente, depois o resto, e sempre com simpatia.",
+"Я сохраняю спокойствие и составляю список приоритетов. В экспорте у меня часто было много клиентов одновременно в разных часовых поясах. Я усвоила: сначала срочное, потом остальное, и всегда доброжелательно."]
+]},
+{t:"🩺 Рабочие ситуации",items:[
+["Um paciente escreve: \"Está muito caro para mim.\" O que você faz?","Пациент пишет: «Это для меня слишком дорого». Что вы делаете?",
+"Primeiro, pergunto com o que ele está comparando e o que é mais importante para ele. Depois, explico o que está incluído no pacote, por exemplo o tratamento, o transfer, o hotel e o acompanhamento. Muitas vezes o problema não é o preço, mas a insegurança. Quando o paciente confia, fica mais fácil decidir. Desconto, claro, só com a autorização da clínica.",
+"Сначала я спрашиваю, с чем он сравнивает и что для него важнее всего. Потом объясняю, что входит в пакет, например лечение, трансфер, отель и сопровождение. Часто проблема не в цене, а в неуверенности. Когда пациент доверяет, ему легче решиться. Скидка, конечно, только с разрешения клиники."],
+["Um paciente parou de responder. O que você faz?","Пациент перестал отвечать. Что вы делаете?",
+"Depois de dois ou três dias, escrevo de novo com simpatia, pelo WhatsApp ou por e-mail, como ele preferir. Mando informações úteis, por exemplo avaliações de outros pacientes. Não pressiono ninguém. Se ele ainda não está pronto, entro em contato mais tarde.",
+"Через два-три дня я снова доброжелательно пишу ему в WhatsApp или по e-mail, как ему удобнее. Отправляю полезную информацию, например отзывы других пациентов. Я никого не давлю. Если он ещё не готов, я свяжусь с ним позже."],
+["Um paciente está insatisfeito depois do tratamento e reclama. Como você reage?","Пациент недоволен после лечения и жалуется. Как вы реагируете?",
+"Primeiro, escuto com calma e mostro compreensão. Depois, verifico com o médico o que é normal e o que não é, e dou ao paciente uma resposta clara e rápida. Em tratamentos estéticos, os pacientes costumam ficar muito emocionados, por isso a empatia é o mais importante. No hotel aprendi: um problema bem resolvido muitas vezes transforma um hóspede insatisfeito em um cliente fiel.",
+"Сначала я спокойно выслушиваю и проявляю понимание. Потом уточняю у врача, что нормально, а что нет, и быстро даю пациенту чёткий ответ. При эстетических процедурах пациенты часто очень эмоциональны, поэтому важнее всего эмпатия. В отеле я поняла: хорошо решённая проблема часто превращает недовольного гостя в постоянного клиента."],
+["Como você explica um plano de tratamento para um paciente?","Как вы объясняете пациенту план лечения?",
+"Explico o plano passo a passo, com palavras simples: o que vai ser feito, quanto tempo leva, quantas vezes o paciente precisa vir e quanto custa. Depois, pergunto se ficou tudo claro. Perguntas médicas eu passo para o médico. Depois da conversa, mando tudo por escrito, para o paciente ler com calma.",
+"Я объясняю план шаг за шагом, простыми словами: что будет сделано, сколько это займёт, сколько раз пациенту нужно приехать и сколько это стоит. Потом спрашиваю, всё ли понятно. Медицинские вопросы передаю врачу. После разговора отправляю всё письменно, чтобы пациент спокойно прочитал."],
+["Como você trabalha em equipe?","Как вы работаете в команде?",
+"Gosto muito de trabalhar em equipe. Compartilho informações abertamente, ajudo os colegas quando eles têm muito trabalho e peço ajuda quando preciso. Na clínica, a boa colaboração com os médicos e os coordenadores era muito importante, porque o paciente percebe na hora se a equipe funciona bem.",
+"Я очень люблю работать в команде. Я открыто делюсь информацией, помогаю коллегам, когда у них много работы, и прошу помощи, когда она мне нужна. В клинике особенно важно было хорошее взаимодействие с врачами и координаторами, потому что пациент сразу замечает, хорошо ли работает команда."],
+["Qual foi o seu maior sucesso profissional?","Каков ваш самый большой профессиональный успех?",
+"Na DeskAlerts, por iniciativa própria, comecei a procurar parceiros e clientes na América Latina e na Espanha. Em pouco tempo tivemos ótimos resultados, e a empresa decidiu desenvolver esse projeto. O vice-presidente de vendas escreveu na minha carta de recomendação que eu fui uma das melhores funcionárias da empresa. Tenho muito orgulho disso.",
+"В DeskAlerts я по собственной инициативе начала искать партнёров и клиентов в Латинской Америке и Испании. За короткое время мы получили отличные результаты, и компания решила развивать этот проект. Вице-президент по продажам написал в моём рекомендательном письме, что я была одной из лучших сотрудниц компании. Я этим очень горжусь."],
+["Você já trabalhou com algum sistema de CRM?","Вы работали с какой-нибудь CRM-системой?",
+"Sim, com HubSpot, Bitrix24 e amoCRM. Registro cada contato, anoto a situação e planejo o próximo passo. Assim nenhum paciente se perde. Também uso ferramentas de inteligência artificial todos os dias, como ChatGPT e Claude, por exemplo para traduções e rascunhos de textos.",
+"Да, с HubSpot, Bitrix24 и amoCRM. Я вношу каждый контакт, отмечаю статус и планирую следующий шаг. Так ни один пациент не теряется. Ещё я каждый день пользуюсь инструментами искусственного интеллекта, такими как ChatGPT и Claude, например для переводов и черновиков текстов."]
+]},
+{t:"🎯 Мотивация, зарплата и условия",items:[
+["Por que você quer trabalhar com a gente?","Почему вы хотите работать у нас?",
+"No turismo médico eu posso unir os meus idiomas, a minha experiência em vendas e o trabalho com pacientes. A clínica de vocês atende pacientes de muitos países e valoriza a qualidade e o atendimento. Isso combina comigo. Quero ficar nessa área por muito tempo e crescer com a equipe.",
+"В медицинском туризме я могу объединить свои языки, опыт продаж и работу с пациентами. Ваша клиника принимает пациентов из многих стран и ценит качество и сервис. Это мне подходит. Я хочу надолго остаться в этой сфере и расти вместе с командой."],
+["Por que você não quer mais trabalhar com exportação?","Почему вы больше не хотите работать в экспорте?",
+"Na exportação, eu vendia produtos. Na clínica, percebi que prefiro ajudar pessoas. Quando um paciente fica satisfeito depois do tratamento e agradece, isso me motiva muito mais. Mas a minha experiência em vendas vem comigo, porque ela é muito útil no turismo médico.",
+"В экспорте я продавала товары. В клинике я поняла, что мне больше нравится помогать людям. Когда пациент доволен после лечения и благодарит, это мотивирует меня гораздо больше. Но опыт продаж остаётся со мной, потому что в медицинском туризме он очень полезен."],
+["O que você sabe sobre a nossa clínica?","Что вы знаете о нашей клинике?",
+"Pesquisei no site de vocês. Vocês atendem muitos pacientes do exterior e oferecem pacotes completos, da consulta ao acompanhamento depois do tratamento. Gosto muito de ver que vocês dão tanta importância à experiência do paciente.",
+"Я изучила ваш сайт. Вы принимаете много пациентов из-за рубежа и предлагаете полные пакеты, от консультации до сопровождения после лечения. Мне очень нравится, что вы придаёте такое значение впечатлениям пациента."],
+["Por que deveríamos escolher você?","Почему мы должны выбрать именно вас?",
+"Porque eu uno três coisas: experiência com pacientes estrangeiros, quase vinte anos de vendas e seis idiomas. Posso atender pacientes de vários países na língua deles, sei criar confiança e aprendo rápido. Posso começar imediatamente e estou pronta para aprender muito.",
+"Потому что я объединяю три вещи: опыт работы с иностранными пациентами, почти двадцать лет продаж и шесть языков. Я могу вести пациентов из разных стран на их языке, умею вызывать доверие и быстро учусь. Я могу начать сразу и готова многому учиться."],
+["O que te motiva no trabalho?","Что мотивирует вас в работе?",
+"Pessoas satisfeitas e metas claras. Fico feliz quando um paciente que estava com medo no começo sai sorrindo no final. E gosto de ver os meus resultados, por exemplo quantos contatos viraram pacientes.",
+"Довольные люди и чёткие цели. Мне радостно, когда пациент, который вначале боялся, в конце уходит с улыбкой. И мне нравится видеть свои результаты, например сколько контактов стали пациентами."],
+["Onde você se vê daqui a cinco anos?","Где вы видите себя через пять лет?",
+"Me vejo no turismo médico, com mais responsabilidade, talvez como líder de equipe para algum mercado. Já liderei equipes e gostaria de usar essa experiência de novo.",
+"Я вижу себя в медицинском туризме, с большей ответственностью, возможно, руководителем команды по какому-нибудь рынку. Я уже руководила командами и хотела бы снова применить этот опыт."],
+["Qual é a sua pretensão salarial?","Каковы ваши ожидания по зарплате?",
+"Eu me baseio no valor de mercado para esse cargo. Também são importantes para mim o sistema de bônus e as oportunidades de crescimento. Qual é a faixa salarial que vocês preveem para essa vaga?",
+"Я ориентируюсь на рыночный уровень для этой должности. Для меня также важны система бонусов и возможности роста. Какую вилку зарплаты вы предусматриваете для этой вакансии?"],
+["Você estaria disposta a se mudar para Istambul?","Вы были бы готовы переехать в Стамбул?",
+"Sim, por uma boa vaga, estou disposta. Já me mudei várias vezes na vida: do Cazaquistão para a Rússia e da Rússia para a Turquia. Eu me adapto rápido a um lugar novo.",
+"Да, ради хорошей вакансии я готова. Я уже несколько раз переезжала в жизни: из Казахстана в Россию и из России в Турцию. Я быстро привыкаю к новому месту."],
+["E qual salário você espera se a vaga for em Istambul?","А какую зарплату вы ожидаете, если работа будет в Стамбуле?",
+"Em Istambul, espero cem mil liras líquidas por mês. O motivo é simples: em Antália eu já moro, mas em Istambul eu teria que alugar um apartamento, e os aluguéis lá são muito caros. Com esse salário, posso me concentrar totalmente no trabalho, sem me preocupar com a moradia.",
+"В Стамбуле я ожидаю сто тысяч лир чистыми в месяц. Причина простая: в Анталье я уже живу, а в Стамбуле мне пришлось бы снимать квартиру, а аренда там очень дорогая. С такой зарплатой я смогу полностью сосредоточиться на работе и не беспокоиться о жилье."],
+["Isso é bastante. É a sua última palavra?","Это довольно много. Это ваше последнее слово?",
+"Entendo. Estou aberta a conversar. Se a empresa ajudar com a moradia, por exemplo, ou se houver um bom sistema de bônus, podemos conversar sobre o salário fixo. Para mim, o importante é poder viver bem e trabalhar bem em Istambul.",
+"Понимаю. Я открыта к разговору. Если, например, компания поможет с жильём или будет хорошая система бонусов, мы можем обсудить фиксированную зарплату. Для меня важно иметь возможность нормально жить и хорошо работать в Стамбуле."],
+["Você prefere trabalhar remoto ou no escritório?","Вы предпочитаете работать удалённо или в офисе?",
+"Moro em Antália e gosto de trabalhar remoto. Já trabalhei remoto para a DeskAlerts por dois anos. Se for necessário, também vou ao escritório para treinamentos ou reuniões.",
+"Я живу в Анталье и люблю работать удалённо. Я уже два года удалённо работала на DeskAlerts. Если нужно, я приеду в офис на обучение или встречи."],
+["Quando você pode começar?","Когда вы можете приступить?",
+"Posso começar imediatamente.","Я могу начать сразу."]
+]},
+{t:"❓ Мои вопросы и прощание",items:[
+["Você tem alguma pergunta para a gente?","У вас есть к нам вопросы?",
+"Tenho, sim. Como é um dia de trabalho normal nessa função? De quais países vem a maioria dos seus pacientes? E como funciona o treinamento no começo?",
+"Да, есть. Как выглядит обычный рабочий день на этой должности? Из каких стран приезжает большинство ваших пациентов? И как проходит обучение вначале?"],
+["Muito obrigada, Daria. Vamos entrar em contato até o fim da semana.","Большое спасибо, Дарья. Мы свяжемся с вами до конца недели.",
+"Eu que agradeço pela conversa agradável e pelo seu tempo. Fico no aguardo do seu retorno. Até logo!",
+"Это я благодарю вас за приятную беседу и уделённое время. Буду ждать вашего ответа. До свидания!"]
+]}
+];
+const VOCAB=[
+["o turismo médico","медицинский туризм"],["o plano de tratamento","план лечения"],
+["acompanhar pacientes","сопровождать пациентов"],["fazer o acompanhamento","поддерживать связь, делать follow-up"],
+["criar confiança","вызывать доверие"],["sem pressão","без давления"],
+["o cargo foi cortado","должность сократили"],["a carta de recomendação","рекомендательное письмо"],
+["ser responsável por …","отвечать за …"],["negociar preços e condições","обсуждать цены и условия"],
+["conquistar clientes","привлекать клиентов"],["resolver reclamações","решать жалобы"],
+["não tenho certeza","я не уверена"],["com a autorização de …","с разрешения …"],
+["a pretensão salarial","ожидания по зарплате"],["a faixa salarial","вилка зарплаты"],
+["líquido / bruto","чистыми / до вычета налогов"],["trabalhar remoto","работать удалённо"],
+["Posso começar imediatamente.","Я могу начать сразу."],["Fico no aguardo do seu retorno.","Буду ждать вашего ответа."]
+];
+const SPL=/(?<=[.!?…][“»"]?)\s+(?=[A-ZÄÖÜÇŞİÁÉÍÓÚÂÊÔÃÕА-ЯЁ„«¿¡"0-9])/;
+function sentences(t){return t.split(SPL)}
+function wordify(el,text){text.split(/([A-Za-zÀ-ÿ0-9]+(?:-[A-Za-zÀ-ÿ0-9]+)*)/).forEach((p,i)=>{if(i%2){const s=document.createElement('span');s.className='w';s.textContent=p;s.onclick=ev=>{ev.stopPropagation();showTip(s,p)};el.appendChild(s)}else el.appendChild(document.createTextNode(p))})}
+const tip=document.createElement('div');tip.className='tip';document.body.appendChild(tip);
+function showTip(s,w){document.querySelectorAll('.w.sel').forEach(x=>x.classList.remove('sel'));s.classList.add('sel');
+ const tr=DICT[w.toLowerCase()]||'—';tip.innerHTML='<button class="x">✕</button><b></b> <button>🔊</button><div></div>';tip.querySelector('.x').onclick=e=>{e.stopPropagation();tip.style.display='none'};tip.querySelector('b').textContent=w;tip.querySelector('div').textContent=tr;
+ tip.querySelectorAll('button')[1].onclick=e=>{e.stopPropagation();say(w)};
+ const r=s.getBoundingClientRect();tip.style.display='block';tip.style.left=Math.max(8,Math.min(innerWidth-tip.offsetWidth-8,r.left))+'px';tip.style.top=(r.bottom+6)+'px';}
+document.addEventListener('click',()=>{tip.style.display='none';document.querySelectorAll('.w.sel').forEach(x=>x.classList.remove('sel'))});
+addEventListener('scroll',()=>{tip.style.display='none'},{passive:true});
+let sound=true,auto=false,train=false,slow=false,cur=-1,lines=[],voices=[];
+const FEM=/luciana|francisca|vit[oó]ria|fernanda|maria|thalita|leila|helo[ií]sa|camila|female|mulher|feminin/i,MALE=/daniel|ant[oô]nio|felipe|ricardo|male|homem|masculin/i;
+function loadV(){const all=speechSynthesis.getVoices();let br=all.filter(x=>x.lang&&x.lang.replace('_','-').toLowerCase()==='pt-br');if(!br.length)br=all.filter(x=>x.lang&&x.lang.toLowerCase().startsWith('pt'));
+ const f=br.filter(x=>FEM.test(x.name)),n=br.filter(x=>!MALE.test(x.name)&&!FEM.test(x.name));voices=f.concat(n);if(!voices.length)voices=br;}
+speechSynthesis.onvoiceschanged=loadV;loadV();
+const dlg=document.getElementById('dlg'),nav=document.getElementById('nav');
+SECTIONS.forEach((s,si)=>{const h=document.createElement('div');h.className='sec';h.id='s'+si;h.textContent=s.t;dlg.appendChild(h);
+ const o=document.createElement('option');o.value=si;o.textContent=s.t;nav.appendChild(o);
+ s.items.forEach(it=>{[[it[0],it[1],0,''],[it[2],it[3],1,'']].forEach(([de,ru,me,ver])=>{
+  let a=sentences(de),rr=sentences(ru);if(a.length!==rr.length){a=[de];rr=[ru]}
+  const grp=[];
+  a.forEach((sd,k)=>{const r=document.createElement('div');r.className='row'+(me?' me':'')+(k?' cont':'')+(ver?' v'+ver+'row':'');const b=document.createElement('div');b.className='b';
+   const tag=ver==='f'?' <span class="tag">🗣 Фатих</span>':(ver==='s'?' <span class="tag">📝 просто</span>':'');
+   b.innerHTML=(k?'':`<div class="who">${me?'Eu':'Recrutadora'}${tag}</div>`)+`<div class="txt"></div>${me&&!k?'<button class="reveal">👁 Показать ответ</button>':''}<div class="tools"><button class="p">🔊</button><button class="t">🌐</button></div><div class="ru"></div>`;
+   wordify(b.querySelector('.txt'),sd);b.querySelector('.ru').textContent=rr[k];r.appendChild(b);dlg.appendChild(r);
+   const idx=lines.length;const L={b,de:sd,ru:rr[k],me,row:r,grp,first:!k,ver};lines.push(L);grp.push(idx);
+   b.querySelector('.p').onclick=()=>{auto=false;upd();play(idx)};
+   b.querySelector('.t').onclick=()=>b.querySelector('.ru').classList.toggle('show');
+   if(me&&!k)b.querySelector('.reveal').onclick=()=>{unhide(L);play(idx)};
+  });
+ });});});
+function unhide(L){L.grp.forEach(j=>lines[j].row.classList.remove('hid','hidx'))}
+function VER(){return document.body.classList.contains('fullv')?'f':'s'}
+const vd=document.getElementById('vocab');VOCAB.forEach(([d,r])=>{const e=document.createElement('div');e.className='v';e.innerHTML='<span><button>🔊</button> </span><span></span>';const sp=document.createElement('span');wordify(sp,d);e.children[0].append(sp);e.children[1].textContent=r;e.querySelector('button').onclick=()=>say(d);vd.appendChild(e);});
+nav.onchange=()=>document.getElementById('s'+nav.value).scrollIntoView({behavior:'smooth',block:'start'});
+function say(t,me,done){speechSynthesis.cancel();if(!sound){done&&setTimeout(done,600);return}
+ const u=new SpeechSynthesisUtterance(t);u.lang='pt-BR';u.rate=slow?0.75:0.95;
+ if(voices.length){u.voice=voices[me&&voices.length>1?1:0]}u.onend=()=>done&&done();speechSynthesis.speak(u);}
+function play(i){if(i<0||i>=lines.length)return;if(lines[i].ver&&lines[i].ver!==VER()){return play(i<cur?i-1:i+1)}cur=i;lines.forEach(l=>l.b.classList.remove('playing'));const L=lines[i];
+ L.b.classList.add('playing');L.b.scrollIntoView({behavior:'smooth',block:'center'});
+ if(train&&L.me&&(L.row.classList.contains('hid')||L.row.classList.contains('hidx'))){auto=false;upd();return}
+ say(L.de,L.me,()=>{L.b.classList.remove('playing');if(auto)play(i+1)});}
+function upd(){bA.classList.toggle('on',auto);bA.textContent=auto?'⏸ Авто':'▶ Авто'}
+const bA=document.getElementById('bAuto');
+bA.onclick=()=>{auto=!auto;upd();if(auto)play(cur<0?0:cur);else speechSynthesis.cancel()};
+document.getElementById('bSound').onclick=e=>{sound=!sound;e.target.classList.toggle('on',sound);e.target.textContent=sound?'🔊 Звук':'🔇 Звук';if(!sound)speechSynthesis.cancel()};
+document.getElementById('bSlow').onclick=e=>{slow=!slow;e.target.classList.toggle('on',slow)};
+document.getElementById('bTrain').onclick=e=>{train=!train;e.target.classList.toggle('on',train);lines.forEach(l=>{if(l.me){l.row.classList.toggle(l.first?'hid':'hidx',train)}})};
+document.getElementById('pPrev').onclick=()=>{auto=false;upd();play(Math.max(0,cur-1))};
+document.getElementById('pNext').onclick=()=>{auto=false;upd();play(cur+1)};
+document.getElementById('pPlay').onclick=()=>{if(speechSynthesis.speaking){speechSynthesis.cancel()}else play(cur<0?0:cur)};
+
+const norm=s=>s.toLowerCase().replace(/ё/g,'е').normalize('NFD').replace(/[\u0300-\u036f]/g,'').normalize('NFC');
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function hl(text,q){const n=norm(text),i=n.indexOf(q);if(i<0)return esc(text);return esc(text.slice(0,i))+'<mark>'+esc(text.slice(i,i+q.length))+'</mark>'+esc(text.slice(i+q.length))}
+function snip(text,q){const i=norm(text).indexOf(q);if(text.length<120)return text;if(i<0)return text.slice(0,100)+' …';const s=Math.max(0,i-50);return (s?'… ':'')+text.slice(s,s+120)+' …'}
+const qi=document.getElementById('q'),res=document.getElementById('res');
+qi.addEventListener('input',()=>{const q=norm(qi.value.trim());res.innerHTML='';if(q.length<2){res.style.display='none';return}
+ res.style.display='block';
+ const dw=Object.keys(DICT).filter(k=>norm(k).includes(q)||norm(DICT[k]).includes(q)).slice(0,20);
+ if(dw.length){res.insertAdjacentHTML('beforeend','<div class="h">📖 Слова</div>');
+  dw.forEach(k=>{const d=document.createElement('div');d.className='r';d.innerHTML='<button>🔊</button> <b>'+hl(k,q)+'</b> — '+hl(DICT[k],q);
+   d.querySelector('button').onclick=e=>{e.stopPropagation();say(k)};
+   d.onclick=()=>{const L=lines.findIndex(l=>norm(l.de).split(/[^a-z0-9\-]+/).includes(norm(k)));if(L>=0)go(L,false)};res.appendChild(d)})}
+ const ph=[];lines.forEach((l,i)=>{const inDe=norm(l.de).includes(q),inRu=norm(l.ru).includes(q);if(inDe||inRu)ph.push([i,inDe,inRu])});
+ if(ph.length){res.insertAdjacentHTML('beforeend','<div class="h">💬 Фразы ('+ph.length+')</div>');
+  ph.slice(0,40).forEach(([i,inDe,inRu])=>{const l=lines[i];const d=document.createElement('div');d.className='r';
+   d.innerHTML=(l.me?'🟢 ':'⚪ ')+(inDe?hl(snip(l.de,q),q):esc(snip(l.de,q)))+(inRu?'<small>'+hl(snip(l.ru,q),q)+'</small>':'');
+   d.onclick=()=>go(i,inRu);res.appendChild(d)})}
+ if(!dw.length&&!ph.length)res.innerHTML='<div class="none">Ничего не найдено. Попробуйте часть слова, например «tratam» или «лечен».</div>';
+});
+function go(i,showRu){res.style.display='none';const l=lines[i];unhide(l);
+ if(showRu)l.b.querySelector('.ru').classList.add('show');
+ l.b.scrollIntoView({behavior:'smooth',block:'center'});l.b.classList.remove('flash');void l.b.offsetWidth;l.b.classList.add('flash');cur=i}
+qi.addEventListener('focus',()=>{if(qi.value.trim().length>1)res.style.display='block'});
+res.addEventListener('click',e=>e.stopPropagation());qi.addEventListener('click',e=>e.stopPropagation());
+
+const WHO_T='Дарья (тест)',FILE='entrevista-pt-br';let WHO=null,doneSent=false;
+function sendEvent(type,extra){try{if(!/dariairamain-blip\.github\.io/.test(location.hostname))return;
+ fetch('https://daria-talk.daria-iramain.workers.dev/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({type:type,who:WHO,lesson:FILE,file:FILE+'.html',time:new Date().toISOString()},extra||{}))}).catch(()=>{})}catch(e){}}
+function okCode(v){v=(v||'').toLowerCase().replace(/[\s\-_.]/g,'');const m={'д':'d','а':'a','р':'r','ь':'','ъ':'','я':'ia','и':'i','й':'i','ы':'i','в':'b','б':'b','ж':'j','е':'e','э':'e'};v=v.split('').map(c=>m[c]!==undefined?m[c]:c).join('');v=v.replace(/ja|ya/g,'ia').replace(/i+a/g,'ia').replace(/i+/g,'i');return v==='dariab2'}
+function enter(){WHO=WHO_T;document.getElementById('gate').style.display='none';try{localStorage.setItem('entPtCode','1')}catch(e){};sendEvent('visit')}
+document.getElementById('go').onclick=()=>{const v=document.getElementById('code').value;if(okCode(v))enter();else document.getElementById('err').textContent='Код не подошёл. Проверьте, пожалуйста, и попробуйте ещё раз.'};
+document.getElementById('code').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('go').click()});
+try{if(localStorage.getItem('entPtCode')==='1')enter()}catch(e){}
+const _play=play;play=function(i){_play(i);if(!doneSent&&i===lines.length-1){doneSent=true;sendEvent('lessonDone')}};
+</script></body></html>
